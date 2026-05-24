@@ -496,6 +496,170 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
   letter-spacing: 0.04em;
 }
 
+/* ============================================================ */
+/* CATEGORIES (6 implementation cards) */
+.categories {
+  display: grid; grid-template-columns: 1fr; gap: 20px;
+}
+@media (min-width: 700px) { .categories { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .categories { grid-template-columns: repeat(3, 1fr); } }
+.cat {
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: 6px; padding: 28px;
+  display: flex; flex-direction: column; gap: 18px;
+  transition: border-color 0.18s, transform 0.18s;
+  position: relative;
+}
+.cat:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.cat-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  flex-wrap: wrap;
+}
+.cat-tag {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-high);
+}
+.cat-freq {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+  border: 1px solid var(--border-strong); padding: 4px 8px; border-radius: 3px;
+  background: rgba(0,255,148,0.04);
+}
+.cat ul {
+  display: flex; flex-direction: column; gap: 10px; flex: 1;
+}
+.cat ul li {
+  font-family: var(--sans); font-size: 14px; color: var(--text-mid); line-height: 1.5;
+  padding-left: 18px; position: relative;
+}
+.cat ul li::before {
+  content: '▸'; position: absolute; left: 0; color: var(--accent); font-family: var(--mono);
+}
+.cat-result {
+  font-family: var(--mono); font-size: 12px; color: var(--accent);
+  padding-top: 14px; border-top: 1px solid var(--border);
+  line-height: 1.5; letter-spacing: 0.02em;
+}
+
+/* ============================================================ */
+/* 90-DAY ROADMAP */
+.roadmap { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 900px) { .roadmap { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+.month {
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: 6px; padding: 32px;
+  display: flex; flex-direction: column; gap: 18px;
+  position: relative;
+  transition: border-color 0.18s, transform 0.18s;
+}
+.month:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.month-tag {
+  font-family: var(--mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+}
+.month-outcome {
+  font-family: var(--mono); font-size: 16px; font-weight: 700;
+  color: var(--text-high); line-height: 1.35;
+}
+.month-body {
+  color: var(--text-mid); font-size: 15px; line-height: 1.6;
+}
+.month-num {
+  position: absolute; top: 24px; right: 28px;
+  font-family: var(--mono); font-size: 56px; font-weight: 700;
+  color: var(--accent); opacity: 0.08; letter-spacing: -0.04em; line-height: 1;
+}
+
+/* ============================================================ */
+/* FILTER MATRIX (For you if / Not for you if) */
+.filter-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 880px) { .filter-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
+.filter-col {
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 36px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+.filter-col.in { border-color: var(--border-strong); background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-surface-2) 100%); }
+.filter-col-head {
+  display: flex; align-items: center; gap: 12px;
+  padding-bottom: 18px; border-bottom: 1px solid var(--border);
+}
+.filter-col-glyph {
+  width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 16px; font-weight: 700;
+  border-radius: 4px; flex-shrink: 0;
+}
+.filter-col.in .filter-col-glyph {
+  color: var(--bg-canvas); background: var(--accent);
+}
+.filter-col.out .filter-col-glyph {
+  color: var(--text-low); background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+}
+.filter-col h3 {
+  font-family: var(--mono); font-size: 18px; font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.filter-col.in h3 { color: var(--accent); }
+.filter-col.out h3 { color: var(--text-low); }
+.filter-list {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.filter-list li {
+  display: grid; grid-template-columns: 20px 1fr; gap: 12px;
+  font-size: 15px; line-height: 1.55; color: var(--text-high);
+}
+.filter-col.out .filter-list li { color: var(--text-mid); }
+.filter-list li .glyph {
+  font-family: var(--mono); font-weight: 700; line-height: 1.55;
+}
+.filter-col.in .filter-list li .glyph { color: var(--accent); }
+.filter-col.out .filter-list li .glyph { color: var(--text-low); }
+
+/* ============================================================ */
+/* FOUNDING-30 SCARCITY BLOCK */
+.scarcity {
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 14px 16px;
+  background: rgba(0,255,148,0.05);
+  display: flex; flex-direction: column; gap: 4px;
+  margin-bottom: 16px;
+}
+.scarcity-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent);
+}
+.scarcity-count {
+  font-family: var(--mono); font-size: 15px; font-weight: 700;
+  color: var(--text-high); letter-spacing: 0.02em;
+}
+.scarcity-note {
+  font-family: var(--mono); font-size: 11px; color: var(--text-mid);
+  line-height: 1.5; letter-spacing: 0.02em;
+}
+
+/* ============================================================ */
+/* SECONDARY CTA LINK (apply directly) */
+.secondary-cta {
+  font-family: var(--mono); font-size: 13px; color: var(--text-mid);
+  letter-spacing: 0.02em;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: color 0.18s;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+}
+.secondary-cta:hover { color: var(--accent); border-color: var(--accent); }
+.secondary-cta .arrow { transition: transform 0.18s ease; }
+.secondary-cta:hover .arrow { transform: translateX(3px); }
+.hero-secondary { margin-bottom: 56px; margin-top: -32px; }
+.final-secondary { margin-top: 20px; }
+.form-note {
+  font-family: var(--mono); font-size: 11px; color: var(--text-low);
+  letter-spacing: 0.04em; line-height: 1.5;
+  padding: 10px 12px; border: 1px dashed var(--border-strong); border-radius: 4px;
+  margin-bottom: 20px; text-align: left;
+}
+
 /* Reveal animation */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .reveal.in { opacity: 1; transform: translateY(0); }
@@ -523,6 +687,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
       <li><a href="#community">Community</a></li>
       <li><a href="#inner-circle">Inner Circle</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#apply">Apply</a></li>
     </ul>
     <a class="btn btn-primary btn-sm nav-cta" href="#webinar-form">Join next webinar <span class="arrow">→</span></a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
@@ -545,10 +710,13 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
       <a class="btn btn-primary" href="#webinar-form">Reserve a webinar seat <span class="arrow">→</span></a>
       <a class="btn btn-ghost" href="#community">See what's inside The Lab</a>
     </div>
+    <div class="hero-secondary">
+      <a class="secondary-cta" href="#apply">Or skip the webinar, apply directly <span class="arrow">→</span></a>
+    </div>
     <div class="hero-meta">
       <span><i class="dot" aria-hidden="true"></i> Live cohort active</span>
       <span>Next webinar: Wed, Jun 11 / 8pm IST</span>
-      <span>200 seats, Tier 1 / 30 seats, Inner Circle</span>
+      <span>200 seats, Tier 1 / Founding 30, Inner Circle</span>
     </div>
 
     <!-- Terminal panel -->
@@ -581,48 +749,93 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 </section>
 
 <!-- ============================================================
-     04. WHAT YOU WALK AWAY WITH
+     04. SIX CATEGORIES (real agents, inside your business)
      ============================================================ -->
 <section class="section" id="community">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">02 / Inside the Lab</span>
-      <h2 class="h2">What you walk away with.</h2>
-      <p class="lead">Three engines, one promise. Within 30 days of joining, you deploy your first agent inside your business with a measurable number attached. Within 90 days, three. Within a year, a stack you could not have built without the Lab.</p>
+      <span class="eyebrow">03 / Real agents, inside your business</span>
+      <h2 class="h2">Six categories. Every agent wired to a measurable outcome.</h2>
+      <p class="lead">We do not ship "AI tips." We ship agents that go inside your business and earn their keep against a number you can read in a dashboard.</p>
     </div>
 
-    <div class="cards-3">
-      <article class="card reveal">
-        <span class="card-num">01 / Live builds</span>
-        <h3 class="h3">Weekly live agent builds with Sandy.</h3>
-        <p>Every Monday, 60 to 90 minutes. We pick an agent, build it on screen, wire it to a measurable outcome, and ship it. Recordings stay in the library. Members ask questions live and walk out with the .json, the prompt, and the measurement plan.</p>
+    <div class="categories">
+      <article class="cat reveal">
+        <div class="cat-head">
+          <span class="cat-tag">01 / Revenue</span>
+          <span class="cat-freq">Live weekly</span>
+        </div>
         <ul>
-          <li>Live build session, every Monday</li>
-          <li>Full recording, prompt, and workflow file in the library</li>
-          <li>Open Q and A during the session</li>
+          <li>Lead scoring and qualification agents</li>
+          <li>Multi-touch attribution dashboards</li>
+          <li>Pipeline forecasting and alert agents</li>
         </ul>
+        <div class="cat-result">→ measured against pipeline value + close rate</div>
       </article>
 
-      <article class="card reveal">
-        <span class="card-num">02 / Ship-with-me cohort</span>
-        <h3 class="h3">Monthly cohort where you leave with a deployed agent.</h3>
-        <p>Once a month, two hours, members bring a problem. We build the agent live alongside you. You leave the session with the agent in production inside your business, the measurement wired, and a deploy review on the calendar 30 days out.</p>
+      <article class="cat reveal">
+        <div class="cat-head">
+          <span class="cat-tag">02 / Content</span>
+          <span class="cat-freq">Always-on</span>
+        </div>
         <ul>
-          <li>Two-hour cohort, once a month</li>
-          <li>Deploy review at day 30, public on the call</li>
-          <li>I handle the install live, you walk out with the metric wired</li>
+          <li>Brief to post agents for X, LinkedIn, IG, blog</li>
+          <li>Video script and thumbnail generators</li>
+          <li>Distribution and repurpose agents</li>
         </ul>
+        <div class="cat-result">→ measured against reach + lead conversion</div>
       </article>
 
-      <article class="card reveal">
-        <span class="card-num">03 / Template library</span>
-        <h3 class="h3">Agent template library + Inside the Stack walkthroughs.</h3>
-        <p>One to two new templates a month, every one wired to attribution before it ships. Plus a monthly tour of Hermes, the 9-agent fleet running ZippyScale. What changed, what broke, what shipped, what it cost, what it saved.</p>
+      <article class="cat reveal">
+        <div class="cat-head">
+          <span class="cat-tag">03 / Delivery</span>
+          <span class="cat-freq">Per client</span>
+        </div>
         <ul>
-          <li>New agent template every two weeks</li>
-          <li>Measurement plan baked into every template</li>
-          <li>Monthly Inside the Stack tour of Hermes</li>
+          <li>Client onboarding agents</li>
+          <li>Weekly status report builders</li>
+          <li>Scope guardian and change-order agents</li>
         </ul>
+        <div class="cat-result">→ measured against retention + NPS</div>
+      </article>
+
+      <article class="cat reveal">
+        <div class="cat-head">
+          <span class="cat-tag">04 / Visibility</span>
+          <span class="cat-freq">Weekly</span>
+        </div>
+        <ul>
+          <li>Campaign monitoring and anomaly alerts</li>
+          <li>Weekly P and L digests</li>
+          <li>Cross-channel attribution reconciliation</li>
+        </ul>
+        <div class="cat-result">→ measured against time-to-detect + spend efficiency</div>
+      </article>
+
+      <article class="cat reveal">
+        <div class="cat-head">
+          <span class="cat-tag">05 / Intelligence</span>
+          <span class="cat-freq">On demand</span>
+        </div>
+        <ul>
+          <li>Competitor ad scraping</li>
+          <li>Viral content research agents</li>
+          <li>Market and ICP scan agents</li>
+        </ul>
+        <div class="cat-result">→ measured against new opportunities surfaced</div>
+      </article>
+
+      <article class="cat reveal">
+        <div class="cat-head">
+          <span class="cat-tag">06 / Operations</span>
+          <span class="cat-freq">Always-on</span>
+        </div>
+        <ul>
+          <li>Invoice and GST generation</li>
+          <li>Team capacity dashboards</li>
+          <li>Internal SOP and runbook agents</li>
+        </ul>
+        <div class="cat-result">→ measured against hours saved + error rate</div>
       </article>
     </div>
   </div>
@@ -657,52 +870,37 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <div class="wrap"><div class="section-divider"></div></div>
 
 <!-- ============================================================
-     06. WEEK IN THE LIFE
+     06. 90-DAY MEMBER JOURNEY
      ============================================================ -->
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">04 / Member experience</span>
-      <h2 class="h2">A week in the Lab.</h2>
-      <p class="lead">Six to eight hours of "on stage" work a week, all of it recorded, all of it pinned to the library. You can show up live or rip the recap on Sunday morning.</p>
+      <span class="eyebrow">04 / What 90 days looks like</span>
+      <h2 class="h2">From first agent shipped to full stack running. In 90 days.</h2>
+      <p class="lead">The Lab is built around progression. Each month locks in one layer. By Day 90 your business runs on agents you built, not tutorials you watched.</p>
     </div>
 
-    <div class="timeline">
-      <div class="timeline-row">
-        <div class="timeline-day">Mon / 8pm IST</div>
-        <div class="timeline-body">
-          <h3>Weekly live agent build</h3>
-          <p>Sandy picks an agent, builds it on screen, wires the measurement, ships it. 60 to 90 minutes. You leave with the workflow file and the prompt in your inbox.</p>
-        </div>
-      </div>
-      <div class="timeline-row">
-        <div class="timeline-day">Wed / async</div>
-        <div class="timeline-body">
-          <h3>Template library drop</h3>
-          <p>Every other Wednesday, a new agent lands in the library. Workflow + prompt + measurement plan + 5-minute walkthrough video. Plug it into your stack, change the variables, ship.</p>
-        </div>
-      </div>
-      <div class="timeline-row">
-        <div class="timeline-day">Fri / 6pm IST</div>
-        <div class="timeline-body">
-          <h3>Skool digest + community Q and A</h3>
-          <p>Weekly digest pinned to the community. What shipped, what broke, what members built. Live Q and A thread open all weekend, I'm in it on Saturday morning.</p>
-        </div>
-      </div>
-      <div class="timeline-row">
-        <div class="timeline-day">Monthly</div>
-        <div class="timeline-body">
-          <h3>Ship-with-me cohort + Inside the Stack</h3>
-          <p>One cohort session where you leave with a deployed agent. One Hermes walkthrough: what changed in the 9-agent fleet, what broke, what we are testing next. Members-only, both recorded.</p>
-        </div>
-      </div>
-      <div class="timeline-row">
-        <div class="timeline-day">Quarterly</div>
-        <div class="timeline-body">
-          <h3>Inner Circle 1:1s</h3>
-          <p>Inner Circle only. 30-minute review with Sandy. We look at your stack against your P and L. Every agent either earns its keep or it gets killed.</p>
-        </div>
-      </div>
+    <div class="roadmap">
+      <article class="month reveal">
+        <span class="month-num" aria-hidden="true">01</span>
+        <span class="month-tag">Month 01 / Ship the first agent</span>
+        <div class="month-outcome">1 agent live in your business. Measurement wired. Public commit.</div>
+        <p class="month-body">Pick from the template library. Watch the Monday live build. Install during the week. By Day 14 you have one revenue-tracked agent running. By Day 30 you have a deploy review on the calendar in front of the whole room.</p>
+      </article>
+
+      <article class="month reveal">
+        <span class="month-num" aria-hidden="true">02</span>
+        <span class="month-tag">Month 02 / Stack three more</span>
+        <div class="month-outcome">3 to 4 agents running. First measurable saving in your P and L.</div>
+        <p class="month-body">Join your first ship-with-me cohort, bring your specific problem, leave the session with the agent deployed. Repeat. By Day 60 the room knows your stack, you know the room's stacks, the templates start writing themselves around your business shape.</p>
+      </article>
+
+      <article class="month reveal">
+        <span class="month-num" aria-hidden="true">03</span>
+        <span class="month-tag">Month 03 / Run the operator stack</span>
+        <div class="month-outcome">Cross-system workflows running. Inside the Stack tours unlocked. Members watching you ship.</div>
+        <p class="month-body">Combine the agents you have. Automate the seams between them. Use Inside the Stack tours of Hermes for the advanced patterns Sandy is running in production. By Day 90 the Lab is watching your build, not the other way around.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -746,8 +944,13 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
         <span class="tier-tag">Tier 2 / Inner Circle</span>
         <h3>Inner Circle</h3>
         <div>
+          <div class="scarcity" role="status" aria-live="polite">
+            <span class="scarcity-label">Founding 30</span>
+            <span class="scarcity-count">30 of 30 seats remaining</span>
+            <span class="scarcity-note">Founding members lock the ₹1,00,000 rate. Price rises after seat 30 sells.</span>
+          </div>
           <div class="price">+₹1,00,000<span style="font-size:0.45em;color:var(--text-low);font-weight:500;">/yr</span></div>
-          <div class="price-sub">add-on to The Lab  ·  hard cap, 30 seats</div>
+          <div class="price-sub">add-on to The Lab  ·  Founding 30 hard cap</div>
           <div class="price-alt">Sandy on your stack, every quarter.</div>
         </div>
         <div class="tier-body">
@@ -758,11 +961,58 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
             <li>Private Telegram, direct line to founders</li>
             <li>One agent co-build per quarter with founders</li>
             <li>Priority routing on community questions</li>
-            <li>Hard cap 30 seats, announced now, countdown begins later</li>
+            <li>Founding 30 / 30 of 30 remaining. Price locks at ₹1,00,000 for life.</li>
           </ul>
         </div>
         <a class="btn btn-primary" href="#webinar-form">Start with the webinar <span class="arrow">→</span></a>
         <div class="cap-note">// Inner Circle opens to Tier 1 members after 30 days inside The Lab.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="section-divider"></div></div>
+
+<!-- ============================================================
+     07.5 HONEST FILTER (NOT for everyone matrix)
+     ============================================================ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">06.5 / Honest filter</span>
+      <h2 class="h2">This is not for everyone. By design.</h2>
+      <p class="lead">The Lab is small on purpose. The wrong members slow the room. Read the lists. If you nod through one column, we want you in. If you nod through the other, save your ₹2,499 and skip.</p>
+    </div>
+
+    <div class="filter-grid">
+      <article class="filter-col in reveal">
+        <div class="filter-col-head">
+          <span class="filter-col-glyph" aria-hidden="true">✓</span>
+          <h3>For you if</h3>
+        </div>
+        <ul class="filter-list">
+          <li><span class="glyph" aria-hidden="true">▶</span><span>You run an agency, founder-led marketing team, or revenue-side ops with people depending on you to ship measurable AI work</span></li>
+          <li><span class="glyph" aria-hidden="true">▶</span><span>You have a P and L, a pipeline, and stakeholders who expect you to be the AI person on the team</span></li>
+          <li><span class="glyph" aria-hidden="true">▶</span><span>You already use Claude or ChatGPT but most of your "AI work" never makes it to production</span></li>
+          <li><span class="glyph" aria-hidden="true">▶</span><span>You believe every agent should earn its keep against a measurable outcome</span></li>
+          <li><span class="glyph" aria-hidden="true">▶</span><span>You would rather watch one operator ship 50 agents than read 50 tutorials</span></li>
+          <li><span class="glyph" aria-hidden="true">▶</span><span>You can commit 90 minutes a week to a live build and the work that follows</span></li>
+        </ul>
+      </article>
+
+      <article class="filter-col out reveal">
+        <div class="filter-col-head">
+          <span class="filter-col-glyph" aria-hidden="true">×</span>
+          <h3>Not for you if</h3>
+        </div>
+        <ul class="filter-list">
+          <li><span class="glyph" aria-hidden="true">×</span><span>You want done-for-you AI. The Lab is a community where you build, not a consulting retainer</span></li>
+          <li><span class="glyph" aria-hidden="true">×</span><span>You want passive watch-and-learn content. The Lab is application-grade, not edutainment</span></li>
+          <li><span class="glyph" aria-hidden="true">×</span><span>You believe AI marketing means posting AI-generated content. The Lab is about agents inside revenue workflows</span></li>
+          <li><span class="glyph" aria-hidden="true">×</span><span>You are a developer hunting for deep technical architecture. The Lab is for operators, not engineers</span></li>
+          <li><span class="glyph" aria-hidden="true">×</span><span>You have no revenue you can attribute against. The Lab is for operators with skin in the game</span></li>
+          <li><span class="glyph" aria-hidden="true">×</span><span>You want a community that ranks itself against others. The Lab does not position by comparison</span></li>
+        </ul>
       </article>
     </div>
   </div>
@@ -890,7 +1140,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
       </details>
       <details>
         <summary>How do I join Inner Circle?</summary>
-        <p>Join Tier 1 first. After 30 days inside the Lab, Inner Circle opens up. Hard cap is 30 seats. Add-on price is ₹1,00,000 per year on top of Tier 1. You get a quarterly 1:1 with Sandy directly, private Telegram, and one Sandy-led agent co-build per quarter.</p>
+        <p>Join Tier 1 first. After 30 days inside the Lab, Inner Circle opens up. The Founding 30 cohort caps at 30 seats and locks the ₹1,00,000 rate for life. Add-on price is ₹1,00,000 per year on top of Tier 1. You get a quarterly 1:1 with Sandy directly, private Telegram, and one Sandy-led agent co-build per quarter.</p>
       </details>
       <details>
         <summary>I am outside India. Is the Lab for me?</summary>
@@ -912,10 +1162,15 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
       <a class="btn btn-primary" href="#webinar-form">Reserve a seat <span class="arrow">→</span></a>
       <a class="btn btn-ghost" href="https://skool.com/aimarketinglab" target="_blank" rel="noopener">Or join the Skool community directly <span class="arrow">↗</span></a>
     </div>
+    <div class="final-secondary">
+      <a class="secondary-cta" href="#apply">Already convinced? Skip the webinar, apply for Tier 1 directly <span class="arrow">→</span></a>
+    </div>
 
     <form class="webinar-form" id="webinar-form" onsubmit="return submitWebinar(event)">
+      <a id="apply" aria-hidden="true" style="position:relative;top:-80px;display:block;"></a>
       <h3>Reserve your seat</h3>
       <p>We will email and WhatsApp you the link, plus a calendar invite for Wed, Jun 11 / 8pm IST.</p>
+      <div class="form-note">// Webinar registration + direct application use the same form for now. We will split them once GHL workflows are wired.</div>
 
       <div class="field">
         <label for="wf-name">Full name</label>
