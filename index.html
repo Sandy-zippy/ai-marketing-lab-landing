@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>AI Marketing Lab : The operator's playbook for AI agents in business.</title>
-<meta name="description" content="Operator AI, built to measure. Join the room of operators shipping attribution-first AI agents in their business. Weekly live builds, monthly ship-with-me cohorts, the Hermes 9-agent fleet, open." />
+<title>AI Marketing Lab : Ship AI agents that pay for themselves. Live, every week.</title>
+<meta name="description" content="How Indian operators are shipping AI agents that pay for themselves. Live builds every Wednesday. The Hermes 9-agent fleet, open. Join the next free webinar." />
 <meta name="theme-color" content="#071A14" />
 <link rel="icon" type="image/svg+xml" href="assets/aiml-symbol-favicon.svg" />
 <link rel="apple-touch-icon" href="assets/aiml-symbol-favicon.svg" />
 
 <!-- Open Graph -->
-<meta property="og:title" content="AI Marketing Lab : The operator's playbook for AI agents in business." />
-<meta property="og:description" content="Operator AI, built to measure. Live builds, monthly ship-with-me cohorts, the Hermes 9-agent fleet, open." />
+<meta property="og:title" content="AI Marketing Lab : Ship AI agents that pay for themselves. Live, every week." />
+<meta property="og:description" content="Watch me build a new AI agent live every Wednesday. Copy it into your business by Friday. 9-agent fleet in production, open to operators." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://aimarketinglab.club/" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -429,9 +429,31 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
   text-align: center;
   padding: clamp(80px, 12vw, 140px) 0;
 }
-.final h2 { max-width: 22ch; margin: 0 auto 24px; }
+.final h2 { max-width: 26ch; margin: 0 auto 24px; }
 .final p { max-width: 56ch; margin: 0 auto 36px; color: var(--text-mid); font-size: 17px; }
 .final-ctas { display: inline-flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+
+/* Urgency strip on final CTA */
+.urgency-strip {
+  display: grid; grid-template-columns: 1fr; gap: 14px;
+  max-width: 760px; margin: 0 auto 36px;
+  padding: 18px 20px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: rgba(0,255,148,0.06);
+}
+@media (min-width: 720px) { .urgency-strip { grid-template-columns: repeat(3, 1fr); gap: 8px; } }
+.urgency-item {
+  display: flex; flex-direction: column; gap: 4px; text-align: center;
+}
+.urgency-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent);
+}
+.urgency-value {
+  font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text-high);
+  letter-spacing: 0.02em; line-height: 1.4;
+}
 
 /* Webinar form */
 .webinar-form {
@@ -639,6 +661,32 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 }
 
 /* ============================================================ */
+/* PRE-OFFER OBJECTION BLOCK */
+.pre-offer-objections {
+  background: rgba(0,255,148,0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: clamp(28px, 4vw, 40px);
+  margin-bottom: clamp(40px, 6vw, 64px);
+}
+.pre-offer-objections .h3 { font-family: var(--mono); }
+.pre-objection-grid {
+  display: grid; grid-template-columns: 1fr; gap: 20px;
+}
+@media (min-width: 760px) { .pre-objection-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+.pre-objection {
+  display: flex; flex-direction: column; gap: 10px;
+  padding-top: 18px; border-top: 1px solid var(--border);
+}
+.pre-q {
+  font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--accent);
+  letter-spacing: 0.01em; line-height: 1.4;
+}
+.pre-a {
+  font-family: var(--sans); font-size: 14px; line-height: 1.6; color: var(--text-mid);
+}
+
+/* ============================================================ */
 /* SECONDARY CTA LINK (apply directly) */
 .secondary-cta {
   font-family: var(--mono); font-size: 13px; color: var(--text-mid);
@@ -689,7 +737,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
       <li><a href="#about">About</a></li>
       <li><a href="#apply">Apply</a></li>
     </ul>
-    <a class="btn btn-primary btn-sm nav-cta" href="#webinar-form">Join next webinar <span class="arrow">→</span></a>
+    <a class="btn btn-primary btn-sm nav-cta" href="#webinar-form">Save my seat <span class="arrow">→</span></a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true">
         <path d="M1 1h16M1 7h16M1 13h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
@@ -701,22 +749,36 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <!-- ============================================================
      02. HERO
      ============================================================ -->
+<!-- ============================================================
+     A/B TEST HERO VARIANTS (held for future tests)
+
+     VARIANT A (PAS / Problem-Agitate-Solution):
+     Headline: Your AI experiments never make it to production. Mine do.
+     Subhead: Watch me ship one revenue-tracked AI agent every week, live.
+              Then copy the build into your own business.
+     CTA: Save my seat — Wed, Jun 11, 8pm IST
+
+     VARIANT B (Outcome-led / Direct value prop):
+     Headline: Ship one AI agent every week. Inside your business. Wired to revenue.
+     Subhead: A live community for operators deploying AI into real revenue workflows.
+              Weekly builds. 9-agent fleet, open.
+     CTA: Save my seat — Wed, Jun 11, 8pm IST
+
+     VARIANT C (Specific + Curiosity Gap) — CURRENTLY LIVE
+     ============================================================ -->
 <section class="hero" id="top">
   <div class="wrap">
     <span class="eyebrow hero-eyebrow">01 / Operator AI, built to measure</span>
-    <h1 class="h1">The operator's playbook for AI agents in business.<span class="accent">_</span></h1>
-    <p class="lead">Operator AI, built to measure. Join the room of operators shipping attribution-first AI agents inside their business. Weekly live builds, monthly ship-with-me cohorts, the Hermes 9-agent fleet, open.</p>
+    <h1 class="h1">How Indian operators are shipping AI agents that pay for themselves.<span class="accent">_</span></h1>
+    <p class="lead">I run a 9-agent fleet in production. Every Wednesday I build a new one on camera. You copy it into your business by Friday.</p>
     <div class="hero-ctas">
-      <a class="btn btn-primary" href="#webinar-form">Reserve a webinar seat <span class="arrow">→</span></a>
-      <a class="btn btn-ghost" href="#community">See what's inside The Lab</a>
-    </div>
-    <div class="hero-secondary">
-      <a class="secondary-cta" href="#apply">Or skip the webinar, apply directly <span class="arrow">→</span></a>
+      <a class="btn btn-primary" href="#webinar-form">Save my seat &nbsp;·&nbsp; Wed, Jun 11, 8pm IST <span class="arrow">→</span></a>
+      <a class="btn btn-ghost" href="#community">See what you'll ship inside</a>
     </div>
     <div class="hero-meta">
-      <span><i class="dot" aria-hidden="true"></i> Live cohort active</span>
-      <span>Next webinar: Wed, Jun 11 / 8pm IST</span>
-      <span>200 seats, Tier 1 / Founding 30, Inner Circle</span>
+      <span><i class="dot" aria-hidden="true"></i> Free 60-min webinar</span>
+      <span>Hermes live demo on screen</span>
+      <span>200 seats &nbsp;·&nbsp; Founding 30 &nbsp;·&nbsp; closes when full</span>
     </div>
 
     <!-- Terminal panel -->
@@ -744,7 +806,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <section class="proof-bar">
   <div class="wrap proof-bar-inner">
     <span class="proof-tag"><i class="dot" style="width:6px;height:6px;background:var(--accent);border-radius:50%;display:inline-block;"></i> The Lab, in production</span>
-    <p>Built by <strong>Sandy Kadyan</strong>, founder of <strong>ZippyScale</strong>, the attribution-first growth marketing agency running paid acquisition for clients across US, Canada, and India. Powered by <span class="accent-text">Hermes</span>, my 9-agent AI fleet, in production since 2025. The Lab is where you watch me build, copy what works, and ship your own.</p>
+    <p><span class="accent-text">9 agents. 36 skills. 2 years in production.</span> Running <strong>ZippyScale</strong> day to day, serving clients across US, Canada, and India. I am <strong>Sandy Kadyan</strong>, founder. The Lab is where I open the hood, show you exactly how I build, and hand you the templates to ship your own.</p>
   </div>
 </section>
 
@@ -754,9 +816,9 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <section class="section" id="community">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">03 / Real agents, inside your business</span>
-      <h2 class="h2">Six categories. Every agent wired to a measurable outcome.</h2>
-      <p class="lead">We do not ship "AI tips." We ship agents that go inside your business and earn their keep against a number you can read in a dashboard.</p>
+      <span class="eyebrow">03 / What you'll ship inside</span>
+      <h2 class="h2">Six categories of agents. Every one wired to a number your CFO can read.</h2>
+      <p class="lead">No "AI tips." No theory. You ship agents that go inside your business and earn their keep against a metric you can defend in a dashboard.</p>
     </div>
 
     <div class="categories">
@@ -770,7 +832,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
           <li>Multi-touch attribution dashboards</li>
           <li>Pipeline forecasting and alert agents</li>
         </ul>
-        <div class="cat-result">→ measured against pipeline value + close rate</div>
+        <div class="cat-result">→ Track every lead from ad click to closed deal</div>
       </article>
 
       <article class="cat reveal">
@@ -783,7 +845,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
           <li>Video script and thumbnail generators</li>
           <li>Distribution and repurpose agents</li>
         </ul>
-        <div class="cat-result">→ measured against reach + lead conversion</div>
+        <div class="cat-result">→ Ship a week of content in one afternoon</div>
       </article>
 
       <article class="cat reveal">
@@ -796,7 +858,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
           <li>Weekly status report builders</li>
           <li>Scope guardian and change-order agents</li>
         </ul>
-        <div class="cat-result">→ measured against retention + NPS</div>
+        <div class="cat-result">→ Cut client report time from 6 hours to 20 minutes</div>
       </article>
 
       <article class="cat reveal">
@@ -809,7 +871,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
           <li>Weekly P and L digests</li>
           <li>Cross-channel attribution reconciliation</li>
         </ul>
-        <div class="cat-result">→ measured against time-to-detect + spend efficiency</div>
+        <div class="cat-result">→ Spot a broken campaign before it burns ₹50k</div>
       </article>
 
       <article class="cat reveal">
@@ -822,7 +884,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
           <li>Viral content research agents</li>
           <li>Market and ICP scan agents</li>
         </ul>
-        <div class="cat-result">→ measured against new opportunities surfaced</div>
+        <div class="cat-result">→ Know what is working in your market this week, not last quarter</div>
       </article>
 
       <article class="cat reveal">
@@ -835,7 +897,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
           <li>Team capacity dashboards</li>
           <li>Internal SOP and runbook agents</li>
         </ul>
-        <div class="cat-result">→ measured against hours saved + error rate</div>
+        <div class="cat-result">→ Get back 10+ hours a week of admin and grunt work</div>
       </article>
     </div>
   </div>
@@ -849,18 +911,18 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">03 / Why The Lab exists</span>
-      <h2 class="h2">There is a seat in the room nobody is taking.</h2>
+      <span class="eyebrow">04 / Why this exists</span>
+      <h2 class="h2">You have tried AI. None of it is in production.</h2>
     </div>
 
     <div class="manifesto">
-      <p><strong>The operator-class problem.</strong> You are not an engineer. You are not a casual ChatGPT user. You run a business, an agency, or a marketing team. You have a P and L, a pipeline, and a team that expects you to be the AI person. You have tried Claude, ChatGPT, three n8n templates from YouTube, and a half-finished automation that lives in a folder called <em>playground</em>. None of it is in production.</p>
+      <p><strong>You are the operator class.</strong> Not an engineer. Not a casual ChatGPT user. You run a business, an agency, or a marketing team. P and L, pipeline, team that expects you to be the AI person. You have tried Claude, ChatGPT, three n8n templates from YouTube. They sit in a folder called <em>playground</em>. None of it ships.</p>
 
-      <p><strong>Why existing AI communities fail operators.</strong> The big ones teach you to build a chatbot agency you do not want, or stack workflows you cannot measure, or hype tools that break the moment you wire them to a real client account. They are built for hobbyists and beginners. The operator class, the people actually deploying inside revenue workflows, gets nothing.</p>
+      <p><strong>Every other community fails you on the same gap.</strong> They teach a chatbot agency you do not want. Stack workflows you cannot measure. Hype tools that break the second you wire them to a real client account. Built for hobbyists. You need agents that survive Monday morning.</p>
 
-      <p><strong>The attribution-first wedge.</strong> Every agent we ship in the Lab is built to measure before it goes live. Event name, GA4 or GHL field, reporting cadence, the lot. No exceptions. <span class="accent-text">A template without a number attached is a toy, not a tool.</span> ZippyScale has lived in this lane for two years. The Lab is where we take it global.</p>
+      <p><strong>Here every agent is built to measure before it ships.</strong> Event name, GA4 or GHL field, reporting cadence, the lot. <span class="accent-text">A template without a number attached is a toy, not a tool.</span> ZippyScale has run this way for two years. The Lab is where you copy the playbook.</p>
 
-      <p><strong>The promise.</strong> Within 30 days you ship one agent. Within 90 days, three. Within a year, you have an operator stack you can defend in front of your CFO, your board, or your clients. Not a stack of demos. A stack that shows up in the revenue report.</p>
+      <p><strong>What you walk away with.</strong> Day 30: one agent live, saving you 5+ hours a week. Day 60: three agents, first measurable saving in your P and L. Day 90: a stack you can defend in front of your CFO, your board, or your clients. The room watching <em>you</em> ship.</p>
     </div>
 
     <div class="manifesto-pull" style="margin-top: 48px;">"Is your agent in production yet?" is the room's qualifier.</div>
@@ -875,31 +937,31 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">04 / What 90 days looks like</span>
-      <h2 class="h2">From first agent shipped to full stack running. In 90 days.</h2>
-      <p class="lead">The Lab is built around progression. Each month locks in one layer. By Day 90 your business runs on agents you built, not tutorials you watched.</p>
+      <span class="eyebrow">05 / What you'll ship in 90 days</span>
+      <h2 class="h2">One agent in 30 days. Three by 60. A full stack by 90.</h2>
+      <p class="lead">Each month locks in one layer. By Day 90 your business runs on agents you built, not tutorials you watched.</p>
     </div>
 
     <div class="roadmap">
       <article class="month reveal">
         <span class="month-num" aria-hidden="true">01</span>
         <span class="month-tag">Month 01 / Ship the first agent</span>
-        <div class="month-outcome">1 agent live in your business. Measurement wired. Public commit.</div>
-        <p class="month-body">Pick from the template library. Watch the Monday live build. Install during the week. By Day 14 you have one revenue-tracked agent running. By Day 30 you have a deploy review on the calendar in front of the whole room.</p>
+        <div class="month-outcome">By Day 30: 1 agent live, saving you 5+ hours a week.</div>
+        <p class="month-body">Pick from the template library. Watch the Monday live build. Install during the week. By Day 14 you have one revenue-tracked agent running. By Day 30 you walk into the deploy review with the metric on screen.</p>
       </article>
 
       <article class="month reveal">
         <span class="month-num" aria-hidden="true">02</span>
         <span class="month-tag">Month 02 / Stack three more</span>
-        <div class="month-outcome">3 to 4 agents running. First measurable saving in your P and L.</div>
-        <p class="month-body">Join your first ship-with-me cohort, bring your specific problem, leave the session with the agent deployed. Repeat. By Day 60 the room knows your stack, you know the room's stacks, the templates start writing themselves around your business shape.</p>
+        <div class="month-outcome">By Day 60: 3 to 4 agents running. First saving lands in your P and L.</div>
+        <p class="month-body">Join your first ship-with-me cohort, bring your specific problem, leave the session with the agent deployed. Repeat. By Day 60 the room knows your stack and the templates start writing themselves around your business.</p>
       </article>
 
       <article class="month reveal">
         <span class="month-num" aria-hidden="true">03</span>
         <span class="month-tag">Month 03 / Run the operator stack</span>
-        <div class="month-outcome">Cross-system workflows running. Inside the Stack tours unlocked. Members watching you ship.</div>
-        <p class="month-body">Combine the agents you have. Automate the seams between them. Use Inside the Stack tours of Hermes for the advanced patterns Sandy is running in production. By Day 90 the Lab is watching your build, not the other way around.</p>
+        <div class="month-outcome">By Day 90: your own operator stack. The room watches you ship.</div>
+        <p class="month-body">Combine the agents. Automate the seams. Use Inside the Stack tours for the advanced patterns I run in production. By Day 90 your build is the case study new members watch on the way in.</p>
       </article>
     </div>
   </div>
@@ -912,10 +974,30 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
      ============================================================ -->
 <section class="section" id="inner-circle">
   <div class="wrap">
+    <!-- Pre-offer objection block: surface top 3 objections BEFORE the ask -->
+    <div class="pre-offer-objections">
+      <span class="eyebrow" style="margin-bottom: 16px;">06 / Before you scroll to the price</span>
+      <h3 class="h3" style="margin-bottom: 24px;">The 3 questions every operator asks first.</h3>
+      <div class="pre-objection-grid">
+        <div class="pre-objection">
+          <div class="pre-q">"What if I am not technical?"</div>
+          <div class="pre-a">The Lab is built for operators, not engineers. If you can use Claude or ChatGPT, you can ship every template I publish. The hard part is wiring the measurement and that is exactly what the live build shows you.</div>
+        </div>
+        <div class="pre-objection">
+          <div class="pre-q">"How is this different from every other AI community?"</div>
+          <div class="pre-a">Two things. One: every agent ships with the measurement plan attached before it goes live. Two: I am an operator running a 9-agent fleet in production. You watch the build, you copy what works, you ship your own.</div>
+        </div>
+        <div class="pre-objection">
+          <div class="pre-q">"Can I cancel anytime?"</div>
+          <div class="pre-a">Yes. Tier 1 is monthly, one-click cancel inside Skool. Annual saves 17 percent. No future price hike on Tier 1, ever. The escalator is Inner Circle, not the rent on the room.</div>
+        </div>
+      </div>
+    </div>
+
     <div class="section-head">
-      <span class="eyebrow">05 / Offer ladder</span>
+      <span class="eyebrow">07 / The offer</span>
       <h2 class="h2">Two tiers. No upsell traps.</h2>
-      <p class="lead">Tier 1 is the community. Inner Circle is an add-on for operators who want our hands on their stack. No future price hike on Tier 1. The escalator is Inner Circle, not the rent on the room.</p>
+      <p class="lead">Tier 1 is the community. Inner Circle is an add-on for operators who want my hands on their stack. No future price hike on Tier 1.</p>
     </div>
 
     <div class="ladder">
@@ -937,7 +1019,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
             <li>Cancel anytime, no future price hike</li>
           </ul>
         </div>
-        <a class="btn btn-ghost" href="#webinar-form">Reserve a webinar seat <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href="#webinar-form">Save my seat for Wed, Jun 11 <span class="arrow">→</span></a>
       </article>
 
       <article class="tier featured">
@@ -964,7 +1046,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
             <li>Founding 30 / 30 of 30 remaining. Price locks at ₹1,00,000 for life.</li>
           </ul>
         </div>
-        <a class="btn btn-primary" href="#webinar-form">Start with the webinar <span class="arrow">→</span></a>
+        <a class="btn btn-primary" href="#webinar-form">Start with the free webinar <span class="arrow">→</span></a>
         <div class="cap-note">// Inner Circle opens to Tier 1 members after 30 days inside The Lab.</div>
       </article>
     </div>
@@ -979,9 +1061,9 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">06.5 / Honest filter</span>
-      <h2 class="h2">This is not for everyone. By design.</h2>
-      <p class="lead">The Lab is small on purpose. The wrong members slow the room. Read the lists. If you nod through one column, we want you in. If you nod through the other, save your ₹2,499 and skip.</p>
+      <span class="eyebrow">08 / Honest filter</span>
+      <h2 class="h2">Built for operators. Not for everyone. By design.</h2>
+      <p class="lead">The Lab is small on purpose. Read the lists. If you nod through one column, I want you in. If you nod through the other, save your ₹2,499 and skip.</p>
     </div>
 
     <div class="filter-grid">
@@ -1026,7 +1108,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <section class="section" id="about">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">06 / Meet Sandy</span>
+      <span class="eyebrow">09 / Who you are learning from</span>
       <h2 class="h2">One operator. One 9-agent fleet. Two years of attribution-first work.</h2>
     </div>
 
@@ -1059,9 +1141,9 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">07 / The proof</span>
-      <h2 class="h2">Hermes. Our 9-agent fleet, in production.</h2>
-      <p class="fleet-intro">Hermes is the agency's COO. Nine agents, 36 skills, running on a VPS, wired into ZippyScale's measurement stack. Drafts content, audits accounts, files invoices, runs outreach, briefs new clients. The reason the Lab exists: members can watch a working fleet operate live, fork the pieces they want, and ship their own.</p>
+      <span class="eyebrow">10 / The proof you can see live</span>
+      <h2 class="h2">Hermes. My 9-agent fleet, running in production.</h2>
+      <p class="fleet-intro">Hermes is the agency's COO. Nine agents, 36 skills, on a VPS, wired into ZippyScale's measurement stack. Drafts content, audits accounts, files invoices, runs outreach, briefs new clients. The reason the Lab exists: you watch a working fleet operate live, fork the pieces you want, and ship your own.</p>
     </div>
 
     <div class="fleet">
@@ -1109,7 +1191,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">08 / Common questions</span>
+      <span class="eyebrow">11 / Everything else you want to know</span>
       <h2 class="h2">Answers, before you ask.</h2>
     </div>
 
@@ -1155,22 +1237,37 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
      ============================================================ -->
 <section class="final" id="webinar">
   <div class="wrap">
-    <span class="eyebrow" style="margin-bottom: 24px;">09 / Next experiment</span>
-    <h2 class="h2">Reserve a seat. The next free webinar runs Wed, Jun 11 / 8pm IST.</h2>
-    <p>60 minutes, live demo of Hermes on screen, the operator AI stack walked through end to end. Tier 1 offer at the end, no pressure. Bring your camera off, your notebook on.</p>
+    <span class="eyebrow" style="margin-bottom: 24px;">12 / Save your seat</span>
+    <h2 class="h2">How Indian operators are shipping AI agents that pay for themselves. See it live.</h2>
+    <p>60 minutes, Wed Jun 11 / 8pm IST. Hermes on screen, the operator AI stack walked end to end, the Tier 1 offer at the close. Camera off. Notebook on.</p>
+
+    <div class="urgency-strip">
+      <div class="urgency-item">
+        <span class="urgency-label">Webinar</span>
+        <span class="urgency-value">Wed, Jun 11 / 8pm IST</span>
+      </div>
+      <div class="urgency-item">
+        <span class="urgency-label">Seats</span>
+        <span class="urgency-value">200 max &nbsp;·&nbsp; closes when full</span>
+      </div>
+      <div class="urgency-item">
+        <span class="urgency-label">Founding 30</span>
+        <span class="urgency-value">30 of 30 left &nbsp;·&nbsp; price rises after seat 30</span>
+      </div>
+    </div>
+
     <div class="final-ctas">
-      <a class="btn btn-primary" href="#webinar-form">Reserve a seat <span class="arrow">→</span></a>
-      <a class="btn btn-ghost" href="https://skool.com/aimarketinglab" target="_blank" rel="noopener">Or join the Skool community directly <span class="arrow">↗</span></a>
+      <a class="btn btn-primary" href="#webinar-form">Save my seat &nbsp;·&nbsp; Wed, Jun 11, 8pm IST <span class="arrow">→</span></a>
+      <a class="btn btn-ghost" href="https://skool.com/aimarketinglab" target="_blank" rel="noopener">Or join Skool community directly <span class="arrow">↗</span></a>
     </div>
     <div class="final-secondary">
-      <a class="secondary-cta" href="#apply">Already convinced? Skip the webinar, apply for Tier 1 directly <span class="arrow">→</span></a>
+      <a class="secondary-cta" href="#apply">Already convinced? Skip the webinar and apply for Tier 1 <span class="arrow">→</span></a>
     </div>
 
     <form class="webinar-form" id="webinar-form" onsubmit="return submitWebinar(event)">
       <a id="apply" aria-hidden="true" style="position:relative;top:-80px;display:block;"></a>
-      <h3>Reserve your seat</h3>
-      <p>We will email and WhatsApp you the link, plus a calendar invite for Wed, Jun 11 / 8pm IST.</p>
-      <div class="form-note">// Webinar registration + direct application use the same form for now. We will split them once GHL workflows are wired.</div>
+      <h3>Lock in your seat</h3>
+      <p>You will get the webinar link by email + WhatsApp, plus a calendar invite for Wed, Jun 11 / 8pm IST.</p>
 
       <div class="field">
         <label for="wf-name">Full name</label>
@@ -1178,7 +1275,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
       </div>
 
       <div class="field">
-        <label for="wf-email">Email</label>
+        <label for="wf-email">Work email</label>
         <input id="wf-email" name="email" type="email" required autocomplete="email" placeholder="you@yourbusiness.com" />
       </div>
 
@@ -1187,14 +1284,9 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
         <input id="wf-wa" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+91 98xxxxxxxx" />
       </div>
 
-      <div class="field">
-        <label for="wf-role">What do you operate?</label>
-        <input id="wf-role" name="role" type="text" required placeholder="Agency owner / founder / head of growth / etc." />
-      </div>
-
-      <button type="submit" class="btn btn-primary">Reserve my seat <span class="arrow">→</span></button>
-      <div class="form-meta">// You will be added to the AI Marketing Lab webinar list. No spam, cancel anytime.</div>
-      <div class="form-success" id="formSuccess">✓ Seat reserved. Check your email and WhatsApp in the next 5 minutes.</div>
+      <button type="submit" class="btn btn-primary">Save my seat &nbsp;·&nbsp; Wed, Jun 11 <span class="arrow">→</span></button>
+      <div class="form-meta">// 3 fields. 10 seconds. No spam, cancel anytime.</div>
+      <div class="form-success" id="formSuccess">✓ Seat saved. Check your email and WhatsApp in the next 5 minutes for the link + calendar invite.</div>
     </form>
   </div>
 </section>
@@ -1286,13 +1378,13 @@ function submitWebinar(e) {
   var form = e.target;
   var success = document.getElementById('formSuccess');
   // Wired to GHL webhook in Task 1.2.
+  // Role / business-type / AI-experience will be collected on the thank-you page (post-conversion).
   try {
     var payload = {
       name: form.name.value,
       email: form.email.value,
       whatsapp: form.whatsapp.value,
-      role: form.role.value,
-      source: 'aimarketinglab.club/lp-v1',
+      source: 'aimarketinglab.club/lp-v2-cro',
       ts: new Date().toISOString()
     };
     console.log('[webinar-form]', payload);
