@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1200" width="2400" height="1200" role="img" aria-label="Hermes 9-agent fleet diagram: Zayn orchestrator at center, 8 specialist agents in orbit">
+  <defs>
+    <!-- Subtle background grid -->
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00FF94" stroke-width="0.5" opacity="0.05"/>
+    </pattern>
+    <!-- Radial vignette behind hub -->
+    <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00FF94" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#00FF94" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#00FF94" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Arrowhead markers -->
+    <marker id="arrowOut" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#00FF94" opacity="0.85"/>
+    </marker>
+    <marker id="arrowIn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#00FF94" opacity="0.45"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas -->
+  <rect width="2400" height="1200" fill="#071A14"/>
+  <rect width="2400" height="1200" fill="url(#grid)"/>
+
+  <!-- Operator label, top-left -->
+  <g font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" fill="#00FF94">
+    <text x="60" y="64" font-size="20" letter-spacing="3" font-weight="500">HERMES :: FLEET v1</text>
+    <text x="60" y="92" font-size="14" letter-spacing="2" fill="#A8B0AB">9 AGENTS · ZAYN ORCHESTRATES · 8 SPECIALISTS IN ORBIT</text>
+  </g>
+
+  <!-- Live status top-right -->
+  <g font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" fill="#00FF94" text-anchor="end">
+    <circle cx="2240" cy="58" r="6" fill="#00FF94"/>
+    <text x="2260" y="64" font-size="18" letter-spacing="2">LIVE</text>
+    <text x="2340" y="92" font-size="14" letter-spacing="2" fill="#A8B0AB">2026-05-25 · IN PRODUCTION</text>
+  </g>
+
+  <!-- Hub glow -->
+  <circle cx="1200" cy="600" r="520" fill="url(#hubGlow)"/>
+
+  <!-- Orbit rings -->
+  <circle cx="1200" cy="600" r="420" fill="none" stroke="#00FF94" stroke-width="1" stroke-dasharray="3 6" opacity="0.22"/>
+  <circle cx="1200" cy="600" r="330" fill="none" stroke="#00FF94" stroke-width="1" stroke-dasharray="2 8" opacity="0.12"/>
+
+  <!-- Connector lines (hub to each specialist) — drawn before nodes so nodes sit on top -->
+  <g stroke="#00FF94" stroke-width="1.2" fill="none">
+    <!-- 8 spokes from center (1200,600) to each specialist position -->
+    <line x1="1200" y1="600" x2="1200" y2="180" opacity="0.55" marker-end="url(#arrowOut)"/>
+    <line x1="1200" y1="600" x2="1497" y2="303" opacity="0.55" marker-end="url(#arrowOut)"/>
+    <line x1="1200" y1="600" x2="1620" y2="600" opacity="0.55" marker-end="url(#arrowOut)"/>
+    <line x1="1200" y1="600" x2="1497" y2="897" opacity="0.55" marker-end="url(#arrowOut)"/>
+    <line x1="1200" y1="600" x2="1200" y2="1020" opacity="0.55" marker-end="url(#arrowOut)"/>
+    <line x1="1200" y1="600" x2="903" y2="897" opacity="0.55" marker-end="url(#arrowOut)"/>
+    <line x1="1200" y1="600" x2="780" y2="600" opacity="0.55" marker-end="url(#arrowOut)"/>
+    <line x1="1200" y1="600" x2="903" y2="303" opacity="0.55" marker-end="url(#arrowOut)"/>
+
+    <!-- Return arrows (offset, dimmer) — show reports flowing back to Zayn -->
+    <path d="M 1224 184 Q 1260 400 1224 596" stroke-dasharray="3 5" opacity="0.32" marker-end="url(#arrowIn)"/>
+    <path d="M 1517 327 Q 1380 460 1224 600" stroke-dasharray="3 5" opacity="0.32" marker-end="url(#arrowIn)"/>
+    <path d="M 1624 624 Q 1400 660 1224 624" stroke-dasharray="3 5" opacity="0.32" marker-end="url(#arrowIn)"/>
+    <path d="M 1517 873 Q 1380 740 1224 604" stroke-dasharray="3 5" opacity="0.32" marker-end="url(#arrowIn)"/>
+    <path d="M 1176 1016 Q 1140 800 1176 604" stroke-dasharray="3 5" opacity="0.32" marker-end="url(#arrowIn)"/>
+    <path d="M 883 873 Q 1020 740 1176 604" stroke-dasharray="3 5" opacity="0.32" marker-end="url(#arrowIn)"/>
+    <path d="M 776 576 Q 1000 540 1176 576" stroke-dasharray="3 5" opacity="0.32" marker-end="url(#arrowIn)"/>
+    <path d="M 883 327 Q 1020 460 1176 596" stroke-dasharray="3 5" opacity="0.32" marker-end="url(#arrowIn)"/>
+  </g>
+
+  <!-- Specialist nodes (8 in orbit, radius 420) -->
+  <!-- Geometry: cx=1200, cy=600, r=420; angles every 45deg starting at top -->
+  <g font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" text-anchor="middle">
+
+    <!-- N (top) — Mira -->
+    <g>
+      <circle cx="1200" cy="180" r="78" fill="#0E2A22" stroke="#00FF94" stroke-width="2"/>
+      <text x="1200" y="178" font-size="28" font-weight="700" fill="#00FF94">MIRA</text>
+      <text x="1200" y="208" font-size="13" fill="#A8B0AB" letter-spacing="1.5">MEMORY</text>
+    </g>
+
+    <!-- NE — Kai -->
+    <g>
+      <circle cx="1497" cy="303" r="78" fill="#0E2A22" stroke="#00FF94" stroke-width="2"/>
+      <text x="1497" y="301" font-size="28" font-weight="700" fill="#00FF94">KAI</text>
+      <text x="1497" y="331" font-size="13" fill="#A8B0AB" letter-spacing="1.5">OUTREACH</text>
+    </g>
+
+    <!-- E — Axel -->
+    <g>
+      <circle cx="1620" cy="600" r="78" fill="#0E2A22" stroke="#00FF94" stroke-width="2"/>
+      <text x="1620" y="598" font-size="28" font-weight="700" fill="#00FF94">AXEL</text>
+      <text x="1620" y="628" font-size="13" fill="#A8B0AB" letter-spacing="1.5">PAID MEDIA</text>
+    </g>
+
+    <!-- SE — Iris -->
+    <g>
+      <circle cx="1497" cy="897" r="78" fill="#0E2A22" stroke="#00FF94" stroke-width="2"/>
+      <text x="1497" y="895" font-size="28" font-weight="700" fill="#00FF94">IRIS</text>
+      <text x="1497" y="925" font-size="13" fill="#A8B0AB" letter-spacing="1.5">CREATIVE</text>
+    </g>
+
+    <!-- S — Otto -->
+    <g>
+      <circle cx="1200" cy="1020" r="78" fill="#0E2A22" stroke="#00FF94" stroke-width="2"/>
+      <text x="1200" y="1018" font-size="28" font-weight="700" fill="#00FF94">OTTO</text>
+      <text x="1200" y="1048" font-size="13" fill="#A8B0AB" letter-spacing="1.5">OPS ENG</text>
+    </g>
+
+    <!-- SW — Skye -->
+    <g>
+      <circle cx="903" cy="897" r="78" fill="#0E2A22" stroke="#00FF94" stroke-width="2"/>
+      <text x="903" y="895" font-size="28" font-weight="700" fill="#00FF94">SKYE</text>
+      <text x="903" y="925" font-size="13" fill="#A8B0AB" letter-spacing="1.5">RESEARCH</text>
+    </g>
+
+    <!-- W — Vera -->
+    <g>
+      <circle cx="780" cy="600" r="78" fill="#0E2A22" stroke="#00FF94" stroke-width="2"/>
+      <text x="780" y="598" font-size="28" font-weight="700" fill="#00FF94">VERA</text>
+      <text x="780" y="628" font-size="13" fill="#A8B0AB" letter-spacing="1.5">QA REVIEW</text>
+    </g>
+
+    <!-- NW — Atlas -->
+    <g>
+      <circle cx="903" cy="303" r="78" fill="#0E2A22" stroke="#00FF94" stroke-width="2"/>
+      <text x="903" y="301" font-size="28" font-weight="700" fill="#00FF94">ATLAS</text>
+      <text x="903" y="331" font-size="13" fill="#A8B0AB" letter-spacing="1.5">STRATEGY</text>
+    </g>
+
+    <!-- Center — Zayn (orchestrator, larger) -->
+    <g>
+      <circle cx="1200" cy="600" r="124" fill="#0E2A22" stroke="#00FF94" stroke-width="3"/>
+      <circle cx="1200" cy="600" r="138" fill="none" stroke="#00FF94" stroke-width="1" opacity="0.4"/>
+      <text x="1200" y="588" font-size="40" font-weight="700" fill="#00FF94" letter-spacing="1">ZAYN</text>
+      <text x="1200" y="618" font-size="13" fill="#F5F5F0" letter-spacing="3">ORCHESTRATOR</text>
+      <text x="1200" y="640" font-size="11" fill="#A8B0AB" letter-spacing="2">CHIEF OF STAFF</text>
+    </g>
+  </g>
+
+  <!-- Legend bottom-left -->
+  <g font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" letter-spacing="1.5" fill="#A8B0AB">
+    <line x1="60" y1="1080" x2="120" y2="1080" stroke="#00FF94" stroke-width="1.2" opacity="0.55" marker-end="url(#arrowOut)"/>
+    <text x="132" y="1085">DISPATCH</text>
+
+    <line x1="280" y1="1080" x2="340" y2="1080" stroke="#00FF94" stroke-width="1.2" stroke-dasharray="3 5" opacity="0.45" marker-end="url(#arrowIn)"/>
+    <text x="352" y="1085">REPORT BACK</text>
+  </g>
+
+  <!-- Stats bottom-right -->
+  <g font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" text-anchor="end">
+    <text x="2340" y="1080" font-size="13" letter-spacing="2" fill="#A8B0AB">36 SKILLS · 52 SOPs · CRON-DRIVEN · TELEGRAM INTERFACE</text>
+    <text x="2340" y="1110" font-size="13" letter-spacing="2" fill="#A8B0AB">VPS · HOSTINGER KVM2 · CODEX OAUTH + OPENROUTER FALLBACK</text>
+  </g>
+</svg>

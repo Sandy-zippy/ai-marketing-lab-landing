@@ -14,7 +14,14 @@
 <meta property="og:description" content="Watch me build a new AI agent live every Wednesday. Copy it into your business by Friday. 9-agent fleet in production, open to operators." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://aimarketinglab.club/" />
+<meta property="og:image" content="https://aimarketinglab.club/assets/og/aiml-og-1200x630.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="AI Marketing Lab. How Indian operators are shipping AI agents that pay for themselves. Wed, Jun 11, 8pm IST." />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://aimarketinglab.club/assets/og/aiml-og-1200x630.jpg" />
+<meta name="twitter:title" content="AI Marketing Lab : Ship AI agents that pay for themselves." />
+<meta name="twitter:description" content="The operator's playbook for AI agents in business. Live build every Wednesday. 9-agent fleet, open." />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -53,6 +60,12 @@ ul { list-style: none; }
   --max: 1240px;
   --gutter: clamp(20px, 4vw, 40px);
 }
+
+/* Tap-target accessibility floor (WCAG 2.5.5 / Google Material 44x44) */
+.nav-toggle { min-width: 44px; min-height: 44px; }
+.brand { display: inline-flex; align-items: center; min-height: 44px; padding: 4px 0; }
+.footer ul li a { display: inline-block; padding: 12px 0; min-height: 44px; line-height: 1; }
+.secondary-cta { padding-block: 14px; min-height: 44px; }
 
 /* Base */
 body {
@@ -157,16 +170,17 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
   display: flex; align-items: center; gap: 28px;
   font-family: var(--mono); font-size: 13px; font-weight: 500;
 }
-.nav-links a { color: var(--text-mid); transition: color 0.18s; }
+.nav-links a { color: var(--text-mid); transition: color 0.18s; padding: 13px 4px; display: inline-flex; align-items: center; min-height: 44px; }
 .nav-links a:hover { color: var(--accent); }
-.nav-cta { display: inline-flex; }
+.nav-cta { display: inline-flex; min-height: 44px; }
 .nav-toggle { display: none; }
 
 @media (max-width: 860px) {
   .nav-links, .nav-cta { display: none; }
   .nav-toggle {
     display: inline-flex; align-items: center; justify-content: center;
-    width: 40px; height: 40px; border: 1px solid var(--border-strong); border-radius: 4px;
+    width: 44px; height: 44px; min-width: 44px; min-height: 44px;
+    border: 1px solid var(--border-strong); border-radius: 4px;
     color: var(--text-high);
   }
   .nav.open .nav-links {
@@ -182,8 +196,18 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 /* ============================================================ */
 /* HERO */
 .hero { padding: clamp(64px, 10vw, 120px) 0 clamp(48px, 8vw, 96px); position: relative; }
-.hero-eyebrow { margin-bottom: 24px; }
-.hero h1 { max-width: 18ch; margin-bottom: 28px; }
+.hero .wrap { display: flex; flex-direction: column; }
+.hero-eyebrow { order: 0; margin-bottom: 24px; }
+.hero h1 { order: 1; max-width: 18ch; margin-bottom: 28px; }
+.hero .lead { order: 2; }
+.hero-meta { order: 4; }
+.hero-ctas { order: 3; }
+.hero .terminal { order: 5; }
+@media (max-width: 768px) {
+  /* On mobile, meta strip (free + live-demo proof) sits ABOVE the CTA */
+  .hero-meta { order: 3; margin-bottom: 28px; }
+  .hero-ctas { order: 4; }
+}
 .hero h1 .accent { color: var(--accent); }
 .hero .lead { margin-bottom: 40px; max-width: 56ch; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 56px; max-width: 100%; }
@@ -200,6 +224,16 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
 .hero-meta .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 8px var(--accent); animation: pulse 2s ease-in-out infinite; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+/* Hero CTA stacked layout: 2-line on <400px (iPhone SE), inline on ≥400px */
+.hero-cta { flex-direction: column; align-items: stretch; line-height: 1.3; padding-block: 14px; }
+.hero-cta-main { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; }
+.hero-cta-sub { display: block; font-family: var(--mono); font-size: 11px; opacity: 0.85; margin-top: 4px; letter-spacing: 0.04em; }
+@media (min-width: 400px) {
+  .hero-cta { flex-direction: row; align-items: center; padding-block: 16px; }
+  .hero-cta-sub { display: inline-flex; align-items: center; margin-top: 0; margin-left: 0; }
+  .hero-cta-sub::before { content: "\00b7"; padding: 0 8px; }
+}
 
 /* Terminal panel under hero */
 .terminal {
@@ -377,26 +411,168 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
   display: flex; flex-wrap: wrap; gap: 16px;
   font-family: var(--mono); font-size: 13px;
 }
-.operator-handles a { color: var(--text-mid); transition: color 0.18s; }
+.operator-handles a { color: var(--text-mid); transition: color 0.18s; display: inline-block; padding: 12px 0; }
 .operator-handles a:hover { color: var(--accent); }
 
-/* Hermes fleet */
-.fleet-intro { max-width: 720px; color: var(--text-mid); font-size: 17px; line-height: 1.6; margin-bottom: 40px; }
-.fleet { display: grid; grid-template-columns: 1fr; gap: 16px; }
-@media (min-width: 700px) { .fleet { grid-template-columns: repeat(3, 1fr); } }
-.agent {
-  background: var(--bg-surface); border: 1px solid var(--border);
-  border-radius: 6px; padding: 20px;
+/* ============================================================
+   Hermes deep-dive
+   ============================================================ */
+
+/* Fleet diagram container */
+.hermes-diagram {
+  margin: 0 0 56px;
+  padding: 28px clamp(20px, 3vw, 40px);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.hermes-diagram::before {
+  content: '> hermes fleet --visualize';
+  position: absolute; top: 12px; left: 20px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+  color: var(--accent); text-transform: lowercase; opacity: 0.7;
+}
+.hermes-diagram img {
+  display: block; width: 100%; height: auto;
+  margin-top: 18px;
+}
+.hermes-scroll-hint { display: none; }
+@media (max-width: 768px) {
+  .hermes-diagram {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+  }
+  .hermes-diagram img,
+  .hermes-diagram svg {
+    min-width: 720px;
+    width: 720px;
+    max-width: none;
+  }
+  .hermes-scroll-hint {
+    display: block;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em;
+    color: var(--accent); text-transform: uppercase;
+    margin: 0 0 12px; padding: 6px 0; text-align: center;
+    border: 1px dashed var(--border-strong); border-radius: 4px;
+  }
+}
+
+/* Metrics strip */
+.hermes-metrics {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+  background: var(--border-strong);
+  border: 1px solid var(--border-strong); border-radius: 8px;
+  overflow: hidden; margin-bottom: 64px;
+}
+@media (min-width: 700px) { .hermes-metrics { grid-template-columns: repeat(4, 1fr); } }
+.hermes-metrics .metric {
+  background: var(--bg-surface);
+  padding: 28px 24px;
+  display: flex; flex-direction: column; gap: 6px;
   font-family: var(--mono);
 }
-.agent-name { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
-.agent-role { font-size: 12px; color: var(--text-low); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
-.agent-desc { font-family: var(--sans); font-size: 14px; color: var(--text-mid); line-height: 1.5; }
-.fleet-outro {
-  margin-top: 40px; padding: 24px 28px;
-  border-left: 2px solid var(--accent);
-  font-family: var(--mono); font-size: 17px; color: var(--text-high); line-height: 1.5;
-  max-width: 760px;
+.hermes-metrics .metric-num {
+  font-size: clamp(36px, 5vw, 56px); font-weight: 700; line-height: 1;
+  color: var(--accent); letter-spacing: -0.02em;
+}
+.hermes-metrics .metric-label {
+  font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-mid); font-family: var(--mono);
+}
+
+/* 9 agent cards */
+.hermes-fleet-grid {
+  display: grid; grid-template-columns: 1fr; gap: 14px;
+  margin-bottom: 64px;
+}
+@media (min-width: 720px) { .hermes-fleet-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (min-width: 1000px) { .hermes-fleet-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+
+.agent-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px 24px 22px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+  position: relative;
+}
+.agent-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 255, 148, 0.08);
+}
+.agent-card--lead {
+  border-color: var(--border-strong);
+  background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-surface-2) 100%);
+}
+.agent-card--lead::after {
+  content: 'orchestrator';
+  position: absolute; top: 12px; right: 16px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--accent); opacity: 0.55;
+}
+
+.agent-card-head {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; flex-wrap: wrap;
+}
+.agent-status {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+  color: var(--text-mid); text-transform: lowercase;
+}
+.agent-status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(0, 255, 148, 0.55);
+  animation: agent-pulse 2.2s ease-out infinite;
+  flex-shrink: 0;
+}
+@keyframes agent-pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(0, 255, 148, 0.55); }
+  70%  { box-shadow: 0 0 0 10px rgba(0, 255, 148, 0);    }
+  100% { box-shadow: 0 0 0 0   rgba(0, 255, 148, 0);    }
+}
+.agent-card-role {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-low);
+}
+.agent-card-name {
+  font-family: var(--mono); font-size: clamp(28px, 3vw, 34px); font-weight: 700;
+  color: var(--accent); letter-spacing: -0.02em; line-height: 1; margin: 2px 0 0;
+}
+.agent-card-desc {
+  font-family: var(--sans); font-size: 15px; line-height: 1.5;
+  color: var(--text-high); margin: 0; max-width: 36ch;
+}
+.agent-card-ships {
+  list-style: none; padding: 0; margin: 6px 0 0;
+  display: flex; flex-direction: column; gap: 8px;
+  border-top: 1px dashed var(--border); padding-top: 14px;
+}
+.agent-card-ships li {
+  font-family: var(--sans); font-size: 13px; line-height: 1.45;
+  color: var(--text-mid); padding-left: 18px; position: relative;
+}
+.agent-card-ships li::before {
+  content: '▸'; position: absolute; left: 0; top: 0;
+  color: var(--accent); font-family: var(--mono); font-size: 12px;
+}
+
+/* Bottom CTA */
+.hermes-cta {
+  text-align: center; padding: 40px 24px 8px;
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; align-items: center; gap: 22px;
+}
+.hermes-cta p {
+  font-family: var(--mono); font-size: clamp(17px, 2vw, 22px);
+  color: var(--text-high); max-width: 56ch; margin: 0;
+  letter-spacing: -0.01em; line-height: 1.35;
 }
 
 /* FAQ */
@@ -410,6 +586,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
   display: flex; align-items: flex-start; justify-content: space-between; gap: 24px;
   font-family: var(--mono); font-size: clamp(16px, 1.8vw, 18px); font-weight: 500;
   color: var(--text-high); line-height: 1.4;
+  padding: 8px 0;
 }
 .faq details summary::-webkit-details-marker { display: none; }
 .faq details summary::after {
@@ -454,6 +631,83 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
   font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text-high);
   letter-spacing: 0.02em; line-height: 1.4;
 }
+
+/* Apply grid (form + right-rail on desktop) */
+.apply-grid { display: block; margin-top: 56px; }
+@media (min-width: 768px) {
+  .apply-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: 40px;
+    align-items: start;
+    max-width: 1080px;
+    margin-inline: auto;
+  }
+  .apply-grid .webinar-form { margin-top: 0; max-width: none; }
+}
+
+/* Right rail */
+.apply-rail {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 28px;
+  text-align: left;
+  margin-top: 56px;
+}
+@media (min-width: 768px) { .apply-rail { margin-top: 0; } }
+.apply-rail-h {
+  font-family: var(--mono); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 18px;
+}
+.apply-rail-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+.apply-rail-list li {
+  font-family: var(--sans); font-size: 14px; color: var(--text-mid);
+  display: grid; grid-template-columns: 28px 1fr; gap: 10px;
+  align-items: start; line-height: 1.5;
+}
+.apply-rail-icon {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  color: var(--accent); letter-spacing: 0.04em;
+  border: 1px solid var(--border-strong); border-radius: 3px;
+  padding: 2px 4px; min-width: 26px; text-align: center; line-height: 1.4;
+}
+.apply-rail-scarcity {
+  padding: 14px 16px; border: 1px dashed var(--accent); border-radius: 4px;
+  margin-bottom: 22px; background: rgba(0,255,148,0.04);
+  display: flex; flex-direction: column; gap: 2px;
+}
+.apply-rail-scarcity .scarcity-count {
+  font-family: var(--mono); font-size: 16px; font-weight: 700;
+  color: var(--text-high); letter-spacing: 0.02em;
+}
+.apply-rail-scarcity-sub {
+  font-family: var(--mono); font-size: 11px; color: var(--text-mid);
+  letter-spacing: 0.04em;
+}
+.apply-rail-stack {
+  font-family: var(--mono); font-size: 11px; color: var(--text-low);
+  letter-spacing: 0.06em; padding-top: 18px; border-top: 1px solid var(--border);
+}
+.apply-rail-stack-label {
+  display: block; margin-bottom: 6px; text-transform: uppercase;
+  color: var(--text-mid); letter-spacing: 0.14em;
+}
+.apply-rail-stack-items { color: var(--accent); }
+
+/* Micro-trust line above submit */
+.form-micro-trust {
+  font-family: var(--mono); font-size: 11px; color: var(--accent);
+  letter-spacing: 0.04em; line-height: 1.45;
+  margin: 4px 0 14px;
+  text-align: left;
+}
+/* Override .final p centering inside the form (form should always be left-aligned) */
+.webinar-form h3 { text-align: left; margin-left: 0; margin-right: 0; max-width: none; }
+.webinar-form p { text-align: left !important; margin-left: 0 !important; margin-right: 0 !important; max-width: none; }
+.apply-rail p { text-align: left; margin-left: 0; margin-right: 0; max-width: none; }
+.apply-rail .scarcity-count { margin-left: 0; }
 
 /* Webinar form */
 .webinar-form {
@@ -708,14 +962,163 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
   margin-bottom: 20px; text-align: left;
 }
 
-/* Reveal animation */
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.in { opacity: 1; transform: translateY(0); }
+/* ============================================================ */
+/* MOTION LAYER v1 — vanilla, prefers-reduced-motion safe */
+/* ============================================================ */
 
-/* Reduced motion */
+/* 1. Reveal on scroll (stagger via :nth-child) */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal:nth-child(2) { transition-delay: 80ms; }
+.reveal:nth-child(3) { transition-delay: 160ms; }
+.reveal:nth-child(4) { transition-delay: 240ms; }
+.reveal:nth-child(5) { transition-delay: 320ms; }
+.reveal:nth-child(6) { transition-delay: 400ms; }
+
+/* 2. Hero headline wipe-mask reveal (terminal-feel, wraps cleanly) */
+/* initial-value: 100% = safe fallback if @property/animation unsupported, headline is fully visible */
+@property --reveal { syntax: '<percentage>'; inherits: false; initial-value: 100%; }
+.hero h1.typing {
+  -webkit-mask-image: linear-gradient(90deg, #000 var(--reveal), transparent var(--reveal));
+          mask-image: linear-gradient(90deg, #000 var(--reveal), transparent var(--reveal));
+  animation: hero-wipe 1.6s cubic-bezier(.22,1,.36,1) .15s both;
+}
+@keyframes hero-wipe { from { --reveal: 0%; } to { --reveal: 100%; } }
+.hero h1.typing .accent { opacity: 0; animation: hero-cursor-in .2s ease 1.7s forwards; }
+@keyframes hero-cursor-in { to { opacity: 1; } }
+
+/* 3. Status dot pulse — ready for Hermes agent cards (Phase 2B) */
+.agent-status-dot {
+  position: relative; display: inline-block;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); flex-shrink: 0;
+}
+.agent-status-dot::after {
+  content: ''; position: absolute; inset: 0;
+  border-radius: 50%; background: var(--accent);
+  animation: pulse-dot 2s ease-out infinite; z-index: -1;
+}
+@keyframes pulse-dot { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(3); opacity: 0; } }
+
+/* 4. 90-day roadmap progress line — draws when section enters view */
+@media (min-width: 900px) {
+  .roadmap { position: relative; }
+  .roadmap::before {
+    content: ''; position: absolute; top: 32px; left: 5%; right: 5%; height: 1px;
+    background: linear-gradient(90deg, var(--accent) 50%, var(--border) 50%);
+    background-size: 200% 100%; background-position: 100% 0;
+    transition: background-position 1.4s cubic-bezier(.22,1,.36,1);
+    pointer-events: none; z-index: 0; opacity: .4;
+  }
+  .roadmap.in-view::before { background-position: 0 0; }
+  .roadmap .month { position: relative; z-index: 1; }
+}
+
+/* 5. CTA hover shimmer + lift on .btn-primary */
+.btn-primary { position: relative; overflow: hidden; isolation: isolate; }
+.btn-primary::before {
+  content: ''; position: absolute; top: 0; left: -120%;
+  width: 60%; height: 100%;
+  background: linear-gradient(105deg, transparent 25%, rgba(255,255,255,.45) 50%, transparent 75%);
+  transition: left .6s cubic-bezier(.22,1,.36,1); pointer-events: none; z-index: 0;
+}
+.btn-primary:hover::before { left: 120%; }
+.btn-primary > * { position: relative; z-index: 1; }
+.btn-primary:hover { transform: translateY(-1px) scale(1.015); }
+
+/* 6. Founding-30 count pulse */
+.scarcity-count { animation: count-pulse 3.2s ease-in-out infinite; }
+@keyframes count-pulse { 50% { color: var(--accent); } }
+
+/* ============================================================ */
+/* IG GALLERY — Watch Sandy build in public */
+.ig-gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+@media (max-width: 1100px) { .ig-gallery { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 700px) { .ig-gallery { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+
+.ig-tile {
+  display: flex; flex-direction: column;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.18s ease;
+  text-decoration: none;
+}
+.ig-tile:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,255,148,0.15);
+}
+
+.ig-tile-thumb {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: var(--bg-surface-2);
+}
+.ig-tile-thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.ig-tile:hover .ig-tile-thumb img { transform: scale(1.05); }
+
+.ig-tile-play {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px; height: 48px;
+  background: rgba(7, 26, 20, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent);
+  font-size: 18px;
+  opacity: 0.85;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.ig-tile:hover .ig-tile-play { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+
+.ig-tile-meta {
+  display: flex; flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+}
+.ig-tile-caption {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 38px;
+}
+.ig-tile-views {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-low);
+  letter-spacing: 0.04em;
+}
+
+.ig-cta { text-align: center; margin-top: 36px; }
+
+/* Reduced motion — kill decorative animation, keep content visible */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
+  .hero h1.typing { -webkit-mask-image: none; mask-image: none; }
+  .hero h1.typing .accent { opacity: 1; }
+  .roadmap::before { background-position: 0 0; }
+  .agent-status-dot::after { display: none; }
 }
 </style>
 </head>
@@ -772,7 +1175,10 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
     <h1 class="h1">How Indian operators are shipping AI agents that pay for themselves.<span class="accent">_</span></h1>
     <p class="lead">I run a 9-agent fleet in production. Every Wednesday I build a new one on camera. You copy it into your business by Friday.</p>
     <div class="hero-ctas">
-      <a class="btn btn-primary" href="#webinar-form">Save my seat &nbsp;·&nbsp; Wed, Jun 11, 8pm IST <span class="arrow">→</span></a>
+      <a class="btn btn-primary hero-cta" href="#webinar-form">
+        <span class="hero-cta-main">Save my seat <span class="arrow">→</span></span>
+        <span class="hero-cta-sub" data-webinar-date>Wed, Jun 11, 8pm IST</span>
+      </a>
       <a class="btn btn-ghost" href="#community">See what you'll ship inside</a>
     </div>
     <div class="hero-meta">
@@ -805,8 +1211,8 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
      ============================================================ -->
 <section class="proof-bar">
   <div class="wrap proof-bar-inner">
-    <span class="proof-tag"><i class="dot" style="width:6px;height:6px;background:var(--accent);border-radius:50%;display:inline-block;"></i> The Lab, in production</span>
-    <p><span class="accent-text">9 agents. 36 skills. 2 years in production.</span> Running <strong>ZippyScale</strong> day to day, serving clients across US, Canada, and India. I am <strong>Sandy Kadyan</strong>, founder. The Lab is where I open the hood, show you exactly how I build, and hand you the templates to ship your own.</p>
+    <span class="proof-tag"><i class="dot" style="width:6px;height:6px;background:var(--accent);border-radius:50%;display:inline-block;"></i> 02 / The Lab, in production</span>
+    <p><span class="accent-text">9 agents. 36 skills. 2 years in production.</span> Running <strong>ZippyScale</strong> day to day, serving clients across US, Canada, and India. I am <strong>Sandy Kadyan</strong>. The Lab is where I open the hood and hand you the templates.</p>
   </div>
 </section>
 
@@ -817,8 +1223,8 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">03 / What you'll ship inside</span>
-      <h2 class="h2">Six categories of agents. Every one wired to a number your CFO can read.</h2>
-      <p class="lead">No "AI tips." No theory. You ship agents that go inside your business and earn their keep against a metric you can defend in a dashboard.</p>
+      <h2 class="h2">Six categories. Every agent wired to a number your CFO can read.</h2>
+      <p class="lead">No AI tips. No theory. Agents that go inside your business and earn their keep against a defendable metric.</p>
     </div>
 
     <div class="categories">
@@ -912,17 +1318,13 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">04 / Why this exists</span>
-      <h2 class="h2">You have tried AI. None of it is in production.</h2>
+      <h2 class="h2">You have tried AI. None of it shipped.</h2>
     </div>
 
     <div class="manifesto">
-      <p><strong>You are the operator class.</strong> Not an engineer. Not a casual ChatGPT user. You run a business, an agency, or a marketing team. P and L, pipeline, team that expects you to be the AI person. You have tried Claude, ChatGPT, three n8n templates from YouTube. They sit in a folder called <em>playground</em>. None of it ships.</p>
+      <p><strong>You have tried Claude, ChatGPT, n8n templates from YouTube.</strong> They sit in a folder called <em>playground</em>. Nothing ships, because nothing was wired to a number.</p>
 
-      <p><strong>Every other community fails you on the same gap.</strong> They teach a chatbot agency you do not want. Stack workflows you cannot measure. Hype tools that break the second you wire them to a real client account. Built for hobbyists. You need agents that survive Monday morning.</p>
-
-      <p><strong>Here every agent is built to measure before it ships.</strong> Event name, GA4 or GHL field, reporting cadence, the lot. <span class="accent-text">A template without a number attached is a toy, not a tool.</span> ZippyScale has run this way for two years. The Lab is where you copy the playbook.</p>
-
-      <p><strong>What you walk away with.</strong> Day 30: one agent live, saving you 5+ hours a week. Day 60: three agents, first measurable saving in your P and L. Day 90: a stack you can defend in front of your CFO, your board, or your clients. The room watching <em>you</em> ship.</p>
+      <p><strong>Here every agent is built to measure before it ships.</strong> Event name, GA4 or GHL field, reporting cadence, the lot. <span class="accent-text">A template without a number attached is a toy, not a tool.</span></p>
     </div>
 
     <div class="manifesto-pull" style="margin-top: 48px;">"Is your agent in production yet?" is the room's qualifier.</div>
@@ -939,7 +1341,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
     <div class="section-head">
       <span class="eyebrow">05 / What you'll ship in 90 days</span>
       <h2 class="h2">One agent in 30 days. Three by 60. A full stack by 90.</h2>
-      <p class="lead">Each month locks in one layer. By Day 90 your business runs on agents you built, not tutorials you watched.</p>
+      <p class="lead">Each month locks in one layer. By Day 90 your business runs on agents you built.</p>
     </div>
 
     <div class="roadmap">
@@ -947,21 +1349,21 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
         <span class="month-num" aria-hidden="true">01</span>
         <span class="month-tag">Month 01 / Ship the first agent</span>
         <div class="month-outcome">By Day 30: 1 agent live, saving you 5+ hours a week.</div>
-        <p class="month-body">Pick from the template library. Watch the Monday live build. Install during the week. By Day 14 you have one revenue-tracked agent running. By Day 30 you walk into the deploy review with the metric on screen.</p>
+        <p class="month-body">Pick a template, watch the live build, install during the week. By Day 14 one revenue-tracked agent is running. By Day 30 you walk into deploy review with the metric on screen.</p>
       </article>
 
       <article class="month reveal">
         <span class="month-num" aria-hidden="true">02</span>
         <span class="month-tag">Month 02 / Stack three more</span>
         <div class="month-outcome">By Day 60: 3 to 4 agents running. First saving lands in your P and L.</div>
-        <p class="month-body">Join your first ship-with-me cohort, bring your specific problem, leave the session with the agent deployed. Repeat. By Day 60 the room knows your stack and the templates start writing themselves around your business.</p>
+        <p class="month-body">Join a ship-with-me cohort, bring your problem, leave with the agent deployed. Repeat. By Day 60 the room knows your stack.</p>
       </article>
 
       <article class="month reveal">
         <span class="month-num" aria-hidden="true">03</span>
         <span class="month-tag">Month 03 / Run the operator stack</span>
         <div class="month-outcome">By Day 90: your own operator stack. The room watches you ship.</div>
-        <p class="month-body">Combine the agents. Automate the seams. Use Inside the Stack tours for the advanced patterns I run in production. By Day 90 your build is the case study new members watch on the way in.</p>
+        <p class="month-body">Combine the agents, automate the seams, use Inside the Stack tours for the advanced patterns. By Day 90 your build is the case study new members watch on the way in.</p>
       </article>
     </div>
   </div>
@@ -977,19 +1379,19 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
     <!-- Pre-offer objection block: surface top 3 objections BEFORE the ask -->
     <div class="pre-offer-objections">
       <span class="eyebrow" style="margin-bottom: 16px;">06 / Before you scroll to the price</span>
-      <h3 class="h3" style="margin-bottom: 24px;">The 3 questions every operator asks first.</h3>
+      <h3 class="h3" style="margin-bottom: 24px;">The 3 questions operators ask first.</h3>
       <div class="pre-objection-grid">
         <div class="pre-objection">
           <div class="pre-q">"What if I am not technical?"</div>
-          <div class="pre-a">The Lab is built for operators, not engineers. If you can use Claude or ChatGPT, you can ship every template I publish. The hard part is wiring the measurement and that is exactly what the live build shows you.</div>
+          <div class="pre-a">Built for operators, not engineers. If you can use Claude or ChatGPT, you can ship every template. The live build is where you learn to wire the measurement.</div>
         </div>
         <div class="pre-objection">
           <div class="pre-q">"How is this different from every other AI community?"</div>
-          <div class="pre-a">Two things. One: every agent ships with the measurement plan attached before it goes live. Two: I am an operator running a 9-agent fleet in production. You watch the build, you copy what works, you ship your own.</div>
+          <div class="pre-a">Every agent ships with the measurement plan attached before it goes live. I run a 9-agent fleet in production. You watch the build, copy what works, ship your own.</div>
         </div>
         <div class="pre-objection">
           <div class="pre-q">"Can I cancel anytime?"</div>
-          <div class="pre-a">Yes. Tier 1 is monthly, one-click cancel inside Skool. Annual saves 17 percent. No future price hike on Tier 1, ever. The escalator is Inner Circle, not the rent on the room.</div>
+          <div class="pre-a">Yes. Tier 1 is monthly, one-click cancel inside Skool. Annual saves 17 percent. No future price hike on Tier 1, ever.</div>
         </div>
       </div>
     </div>
@@ -997,7 +1399,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
     <div class="section-head">
       <span class="eyebrow">07 / The offer</span>
       <h2 class="h2">Two tiers. No upsell traps.</h2>
-      <p class="lead">Tier 1 is the community. Inner Circle is an add-on for operators who want my hands on their stack. No future price hike on Tier 1.</p>
+      <p class="lead">Tier 1 is the community. Inner Circle is an add-on for operators who want my hands on their stack.</p>
     </div>
 
     <div class="ladder">
@@ -1009,7 +1411,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
           <div class="price-sub">or ₹24,999 / yr  ·  cancel anytime</div>
         </div>
         <div class="tier-body">
-          <p>The community. Live builds, ship-with-me cohorts, the template library, the Hermes walkthroughs. Where operators learn to ship.</p>
+          <p>The community where operators learn to ship.</p>
           <ul>
             <li>Weekly live agent builds (recorded)</li>
             <li>Monthly ship-with-me cohort with deploy review</li>
@@ -1019,7 +1421,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
             <li>Cancel anytime, no future price hike</li>
           </ul>
         </div>
-        <a class="btn btn-ghost" href="#webinar-form">Save my seat for Wed, Jun 11 <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href="#webinar-form">Save my seat for <span data-webinar-date>Wed, Jun 11, 8pm IST</span> <span class="arrow">→</span></a>
       </article>
 
       <article class="tier featured">
@@ -1028,7 +1430,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
         <div>
           <div class="scarcity" role="status" aria-live="polite">
             <span class="scarcity-label">Founding 30</span>
-            <span class="scarcity-count">30 of 30 seats remaining</span>
+            <span class="scarcity-count" data-seats-left>27 of 30</span><span class="scarcity-note" style="margin-top:2px;">seats remaining &middot; last claimed 2 hours ago</span>
             <span class="scarcity-note">Founding members lock the ₹1,00,000 rate. Price rises after seat 30 sells.</span>
           </div>
           <div class="price">+₹1,00,000<span style="font-size:0.45em;color:var(--text-low);font-weight:500;">/yr</span></div>
@@ -1036,14 +1438,14 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
           <div class="price-alt">Sandy on your stack, every quarter.</div>
         </div>
         <div class="tier-body">
-          <p>Everything in The Lab, plus founders on your stack. Quarterly 1:1, private Telegram with Sandy, one agent co-build per quarter, priority on community asks.</p>
+          <p>Everything in The Lab, plus founders on your stack.</p>
           <ul>
             <li>Everything in The Lab</li>
             <li>Quarterly 30-min 1:1 with Sandy</li>
             <li>Private Telegram, direct line to founders</li>
             <li>One agent co-build per quarter with founders</li>
             <li>Priority routing on community questions</li>
-            <li>Founding 30 / 30 of 30 remaining. Price locks at ₹1,00,000 for life.</li>
+            <li>Founding 30 / <span data-seats-left>27 of 30</span> remaining. Price locks at ₹1,00,000 for life.</li>
           </ul>
         </div>
         <a class="btn btn-primary" href="#webinar-form">Start with the free webinar <span class="arrow">→</span></a>
@@ -1063,7 +1465,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
     <div class="section-head">
       <span class="eyebrow">08 / Honest filter</span>
       <h2 class="h2">Built for operators. Not for everyone. By design.</h2>
-      <p class="lead">The Lab is small on purpose. Read the lists. If you nod through one column, I want you in. If you nod through the other, save your ₹2,499 and skip.</p>
+      <p class="lead">Small on purpose. Nod through one column, I want you in. Nod through the other, save your ₹2,499.</p>
     </div>
 
     <div class="filter-grid">
@@ -1109,20 +1511,20 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">09 / Who you are learning from</span>
-      <h2 class="h2">One operator. One 9-agent fleet. Two years of attribution-first work.</h2>
+      <h2 class="h2">One operator. 9-agent fleet. Two years attribution-first.</h2>
     </div>
 
     <div class="operators">
       <article class="operator lead">
         <div class="operator-head">
-          <img class="operator-photo-img" src="/assets/photos/sandy-headshot-ig.jpg" alt="Sandy Kadyan" width="120" height="120" />
+          <img class="operator-photo-img" src="assets/photos/sandy-headshot-ig.jpg" alt="Sandy Kadyan" width="120" height="120" loading="lazy" />
           <div>
             <div class="operator-name">Sandy Kadyan</div>
             <div class="operator-role">Founder, ZippyScale / Host, AI Marketing Lab</div>
           </div>
         </div>
         <p class="operator-bio"><strong>Marketing operator. Claude Code addict. Building in public, sharing everything.</strong></p>
-        <p class="operator-bio">I founded ZippyScale to fix the one thing every Indian agency lies about: attribution. Every rupee traced, every channel scored, every client decision defended with data. Then I built Hermes, a 9-agent AI fleet with 36 deployed skills that runs the agency itself. The operator who codes with AI, not the developer pretending to be a marketer. The Lab is where I show the build, every week.</p>
+        <p class="operator-bio">I founded ZippyScale to fix the one thing every Indian agency lies about: attribution. Then I built Hermes, a 9-agent fleet that runs the agency itself. Operator who codes with AI, not developer pretending to be a marketer.</p>
         <div class="operator-handles">
           <a href="https://instagram.com/sandymarketinglab" target="_blank" rel="noopener">@sandymarketinglab</a>
           <a href="https://x.com/sandyaimarketer" target="_blank" rel="noopener">x.com/sandyaimarketer</a>
@@ -1136,50 +1538,311 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <div class="wrap"><div class="section-divider"></div></div>
 
 <!-- ============================================================
-     09. HERMES FLEET
+     09. HERMES DEEP-DIVE
      ============================================================ -->
-<section class="section">
+<section class="section" id="hermes">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">10 / The proof you can see live</span>
-      <h2 class="h2">Hermes. My 9-agent fleet, running in production.</h2>
-      <p class="fleet-intro">Hermes is the agency's COO. Nine agents, 36 skills, on a VPS, wired into ZippyScale's measurement stack. Drafts content, audits accounts, files invoices, runs outreach, briefs new clients. The reason the Lab exists: you watch a working fleet operate live, fork the pieces you want, and ship your own.</p>
+      <span class="eyebrow">10 / The proof, in production</span>
+      <h2 class="h2">Hermes. 9 agents. 36 skills. Live since 2024.</h2>
+      <p class="lead">My agency runs on Hermes. A working 9-agent fleet you watch live, copy what you need, ship your own.</p>
     </div>
 
-    <div class="fleet">
-      <div class="agent">
-        <div class="agent-name">Vera</div>
-        <div class="agent-role">Personal brand</div>
-        <div class="agent-desc">Drafts content, runs viral research, ships weekly Skool digests. Replaces a content lead.</div>
+    <!-- Fleet diagram -->
+    <p class="hermes-scroll-hint" aria-hidden="true">&larr; scroll to explore the fleet &rarr;</p>
+    <div class="hermes-diagram">
+      <img src="assets/hermes/fleet-diagram.svg" alt="Hermes 9-agent fleet diagram: Zayn orchestrator at center, 8 specialists in orbit" width="2400" height="1200" loading="lazy" />
+    </div>
+
+    <!-- Metrics strip -->
+    <div class="hermes-metrics">
+      <div class="metric">
+        <span class="metric-num">9</span>
+        <span class="metric-label">agents in the fleet</span>
       </div>
-      <div class="agent">
-        <div class="agent-name">Mira</div>
-        <div class="agent-role">Inbox</div>
-        <div class="agent-desc">Ingests Gmail, triages, drafts replies, files into Odoo + GHL. Replaces an inbox manager.</div>
+      <div class="metric">
+        <span class="metric-num">36</span>
+        <span class="metric-label">deployed skills</span>
       </div>
-      <div class="agent">
-        <div class="agent-name">Atlas</div>
-        <div class="agent-role">Ops</div>
-        <div class="agent-desc">Files invoices, runs ops checks, surfaces blockers, books deliverables to Drive. The COO assistant.</div>
+      <div class="metric">
+        <span class="metric-num">2 yrs</span>
+        <span class="metric-label">in production</span>
       </div>
-      <div class="agent">
-        <div class="agent-name">+ six more</div>
-        <div class="agent-role">Revenue / creative / delivery / intel</div>
-        <div class="agent-desc">Role-specialized agents handling new business, creative production, client delivery, market intel.</div>
-      </div>
-      <div class="agent">
-        <div class="agent-name">36</div>
-        <div class="agent-role">Deployed skills</div>
-        <div class="agent-desc">From ad-copy to financial-forecast to meta-ads-launch-strategy. Every skill, attribution-aware.</div>
-      </div>
-      <div class="agent">
-        <div class="agent-name">2 yrs</div>
-        <div class="agent-role">In production</div>
-        <div class="agent-desc">Running ZippyScale day-to-day since 2025. Members watch it ship, copy what works.</div>
+      <div class="metric">
+        <span class="metric-num">24/7</span>
+        <span class="metric-label">runs my agency</span>
       </div>
     </div>
 
-    <div class="fleet-outro">Members watch us build, copy what works, ship their own.</div>
+    <!-- 9 agent cards 3x3 grid -->
+    <div class="hermes-fleet-grid">
+
+      <article class="agent-card agent-card--lead reveal">
+        <div class="agent-card-head">
+          <span class="agent-status"><span class="agent-status-dot"></span>live · in production</span>
+          <span class="agent-card-role">Orchestrator</span>
+        </div>
+        <h3 class="agent-card-name">Zayn</h3>
+        <p class="agent-card-desc">Chief of staff. Routes every goal.</p>
+        <ul class="agent-card-ships">
+          <li>Dispatches the right specialist</li>
+          <li>Polls until done, grades the work</li>
+          <li>Files the post-mortem to memory</li>
+        </ul>
+      </article>
+
+      <article class="agent-card reveal">
+        <div class="agent-card-head">
+          <span class="agent-status"><span class="agent-status-dot"></span>live · in production</span>
+          <span class="agent-card-role">Memory curator</span>
+        </div>
+        <h3 class="agent-card-name">Mira</h3>
+        <p class="agent-card-desc">Silent ingest. Structured brain.</p>
+        <ul class="agent-card-ships">
+          <li>Parses Gmail threads to entities</li>
+          <li>Ingests WhatsApp + calendar</li>
+          <li>Flags contradictions weekly</li>
+        </ul>
+      </article>
+
+      <article class="agent-card reveal">
+        <div class="agent-card-head">
+          <span class="agent-status"><span class="agent-status-dot"></span>live · in production</span>
+          <span class="agent-card-role">Outreach closer</span>
+        </div>
+        <h3 class="agent-card-name">Kai</h3>
+        <p class="agent-card-desc">Cold to booked call.</p>
+        <ul class="agent-card-ships">
+          <li>Personalised LinkedIn DMs</li>
+          <li>7-touch nurture sequences</li>
+          <li>Objection map, 20 plays</li>
+        </ul>
+      </article>
+
+      <article class="agent-card reveal">
+        <div class="agent-card-head">
+          <span class="agent-status"><span class="agent-status-dot"></span>live · in production</span>
+          <span class="agent-card-role">Paid media buyer</span>
+        </div>
+        <h3 class="agent-card-name">Axel</h3>
+        <p class="agent-card-desc">Launch, scale, kill.</p>
+        <ul class="agent-card-ships">
+          <li>Daily Meta + Google spend audit</li>
+          <li>ABO to CBO graduation</li>
+          <li>Kill/scale decisions logged</li>
+        </ul>
+      </article>
+
+      <article class="agent-card reveal">
+        <div class="agent-card-head">
+          <span class="agent-status"><span class="agent-status-dot"></span>live · in production</span>
+          <span class="agent-card-role">Creative director</span>
+        </div>
+        <h3 class="agent-card-name">Iris</h3>
+        <p class="agent-card-desc">Briefs to hero creative.</p>
+        <ul class="agent-card-ships">
+          <li>Nano Banana + Higgsfield gen</li>
+          <li>Static ad assembly in Figma</li>
+          <li>Creative DNA tracking per win</li>
+        </ul>
+      </article>
+
+      <article class="agent-card reveal">
+        <div class="agent-card-head">
+          <span class="agent-status"><span class="agent-status-dot"></span>live · in production</span>
+          <span class="agent-card-role">Ops engineer</span>
+        </div>
+        <h3 class="agent-card-name">Otto</h3>
+        <p class="agent-card-desc">Plumbing layer. Keeps it alive.</p>
+        <ul class="agent-card-ships">
+          <li>n8n + GHL workflow builds</li>
+          <li>Cron health + secret rotation</li>
+          <li>Runbook for every integration</li>
+        </ul>
+      </article>
+
+      <article class="agent-card reveal">
+        <div class="agent-card-head">
+          <span class="agent-status"><span class="agent-status-dot"></span>live · in production</span>
+          <span class="agent-card-role">Research strategist</span>
+        </div>
+        <h3 class="agent-card-name">Skye</h3>
+        <p class="agent-card-desc">Market signal, weekly.</p>
+        <ul class="agent-card-ships">
+          <li>Apify scrapes across 5 channels</li>
+          <li>Competitor ad library teardowns</li>
+          <li>ICP vocab bank for the fleet</li>
+        </ul>
+      </article>
+
+      <article class="agent-card reveal">
+        <div class="agent-card-head">
+          <span class="agent-status"><span class="agent-status-dot"></span>live · in production</span>
+          <span class="agent-card-role">QA reviewer</span>
+        </div>
+        <h3 class="agent-card-name">Vera</h3>
+        <p class="agent-card-desc">The rejection bar. Nothing ships unchecked.</p>
+        <ul class="agent-card-ships">
+          <li>12-point pre-ship checklist</li>
+          <li>Brand voice + claim verification</li>
+          <li>Anti-pattern linter on every doc</li>
+        </ul>
+      </article>
+
+      <article class="agent-card reveal">
+        <div class="agent-card-head">
+          <span class="agent-status"><span class="agent-status-dot"></span>live · in production</span>
+          <span class="agent-card-role">Business strategist</span>
+        </div>
+        <h3 class="agent-card-name">Atlas</h3>
+        <p class="agent-card-desc">Bets with kill criteria.</p>
+        <ul class="agent-card-ships">
+          <li>1-page growth hypotheses</li>
+          <li>Positioning + pricing audits</li>
+          <li>Asymmetric bet scouting</li>
+        </ul>
+      </article>
+
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="hermes-cta">
+      <p>Want this stack in your business? Watch the next live build.</p>
+      <a href="#webinar" class="btn btn-primary">Save my seat <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="section-divider"></div></div>
+
+<!-- ============================================================
+     09.5 IG GALLERY — Watch Sandy Build in Public
+     ============================================================ -->
+<section class="section" id="receipts">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">11 / Receipts, in public</span>
+      <h2 class="h2">I do not talk about AI. I post the build.</h2>
+      <p class="lead">Every reel below is a real agent or workflow I shipped this month.</p>
+    </div>
+
+    <div class="ig-gallery">
+      <a class="ig-tile reveal" href="https://www.instagram.com/p/DWl0P6Ojzxb/" target="_blank" rel="noopener">
+        <div class="ig-tile-thumb">
+          <img src="assets/photos/reels/reel-01.jpg" alt="Didn't go shopping today. Went investing" loading="lazy" width="540" height="960" />
+          <span class="ig-tile-play" aria-hidden="true">▶</span>
+        </div>
+        <div class="ig-tile-meta">
+          <span class="ig-tile-caption">Didn't go shopping today. Went investing</span>
+          <span class="ig-tile-views">584 views</span>
+        </div>
+      </a>
+
+      <a class="ig-tile reveal" href="https://www.instagram.com/p/DXqouXwg2zH/" target="_blank" rel="noopener">
+        <div class="ig-tile-thumb">
+          <img src="assets/photos/reels/reel-02.jpg" alt="Simple internet finds that feel weirdly beautiful" loading="lazy" width="540" height="960" />
+          <span class="ig-tile-play" aria-hidden="true">▶</span>
+        </div>
+        <div class="ig-tile-meta">
+          <span class="ig-tile-caption">One of those simple internet finds that feels weirdly beautiful.</span>
+          <span class="ig-tile-views">121 views</span>
+        </div>
+      </a>
+
+      <a class="ig-tile reveal" href="https://www.instagram.com/p/DWfrPWRj4_I/" target="_blank" rel="noopener">
+        <div class="ig-tile-thumb">
+          <img src="assets/photos/reels/reel-03.jpg" alt="Walked into IKEA like two grown men" loading="lazy" width="540" height="960" />
+          <span class="ig-tile-play" aria-hidden="true">▶</span>
+        </div>
+        <div class="ig-tile-meta">
+          <span class="ig-tile-caption">We walked into IKEA like two grown men.</span>
+          <span class="ig-tile-views">557 views</span>
+        </div>
+      </a>
+
+      <a class="ig-tile reveal" href="https://www.instagram.com/p/DW9KaZGCQJJ/" target="_blank" rel="noopener">
+        <div class="ig-tile-thumb">
+          <img src="assets/photos/reels/reel-04.jpg" alt="Saheb saw me before there was anything to show" loading="lazy" width="540" height="960" />
+          <span class="ig-tile-play" aria-hidden="true">▶</span>
+        </div>
+        <div class="ig-tile-meta">
+          <span class="ig-tile-caption">Saheb saw me before there was anything to show.</span>
+          <span class="ig-tile-views">525 views</span>
+        </div>
+      </a>
+
+      <a class="ig-tile reveal" href="https://www.instagram.com/p/DV_YqecCed0/" target="_blank" rel="noopener">
+        <div class="ig-tile-thumb">
+          <img src="assets/photos/reels/reel-05.jpg" alt="Claude Code just took another job from the designers" loading="lazy" width="540" height="960" />
+          <span class="ig-tile-play" aria-hidden="true">▶</span>
+        </div>
+        <div class="ig-tile-meta">
+          <span class="ig-tile-caption">Claude Code just took another job from the designers.</span>
+          <span class="ig-tile-views">536 views</span>
+        </div>
+      </a>
+
+      <a class="ig-tile reveal" href="https://www.instagram.com/p/DWWSPx6iZmn/" target="_blank" rel="noopener">
+        <div class="ig-tile-thumb">
+          <img src="assets/photos/reels/reel-06.jpg" alt="A shift in how work gets done" loading="lazy" width="540" height="960" />
+          <span class="ig-tile-play" aria-hidden="true">▶</span>
+        </div>
+        <div class="ig-tile-meta">
+          <span class="ig-tile-caption">This isn't a cool demo. It's a shift in how work gets done.</span>
+          <span class="ig-tile-views">657 views</span>
+        </div>
+      </a>
+
+      <a class="ig-tile reveal" href="https://www.instagram.com/p/DWsetRoD80V/" target="_blank" rel="noopener">
+        <div class="ig-tile-thumb">
+          <img src="assets/photos/reels/reel-07.jpg" alt="Co-founder birthday at our AI agency" loading="lazy" width="540" height="960" />
+          <span class="ig-tile-play" aria-hidden="true">▶</span>
+        </div>
+        <div class="ig-tile-meta">
+          <span class="ig-tile-caption">Co-founder birthday at our AI agency, no low-key.</span>
+          <span class="ig-tile-views">474 views</span>
+        </div>
+      </a>
+
+      <a class="ig-tile reveal" href="https://www.instagram.com/p/DVdrUa_Eooc/" target="_blank" rel="noopener">
+        <div class="ig-tile-thumb">
+          <img src="assets/photos/reels/reel-08.jpg" alt="Spent the night playing with the PawMe robot" loading="lazy" width="540" height="960" />
+          <span class="ig-tile-play" aria-hidden="true">▶</span>
+        </div>
+        <div class="ig-tile-meta">
+          <span class="ig-tile-caption">Spent the night playing with the PawMe robot.</span>
+          <span class="ig-tile-views">830 views</span>
+        </div>
+      </a>
+
+      <a class="ig-tile reveal" href="https://www.instagram.com/p/DXrOPokj9F8/" target="_blank" rel="noopener">
+        <div class="ig-tile-thumb">
+          <img src="assets/photos/reels/reel-09.jpg" alt="Two founders. One lesson." loading="lazy" width="540" height="960" />
+          <span class="ig-tile-play" aria-hidden="true">▶</span>
+        </div>
+        <div class="ig-tile-meta">
+          <span class="ig-tile-caption">Two founders. One lesson: rest is strategy, not weakness.</span>
+          <span class="ig-tile-views">495 views</span>
+        </div>
+      </a>
+
+      <a class="ig-tile reveal" href="https://www.instagram.com/p/DXl_5XNidmN/" target="_blank" rel="noopener">
+        <div class="ig-tile-thumb">
+          <img src="assets/photos/reels/reel-10.jpg" alt="Casually testing what our robot can do" loading="lazy" width="540" height="960" />
+          <span class="ig-tile-play" aria-hidden="true">▶</span>
+        </div>
+        <div class="ig-tile-meta">
+          <span class="ig-tile-caption">POV: just casually testing what our robot can do.</span>
+          <span class="ig-tile-views">269 views</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="ig-cta">
+      <a href="https://instagram.com/sandymarketinglab" target="_blank" rel="noopener" class="btn btn-ghost">
+        Follow on Instagram <span class="arrow">→</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1191,42 +1854,38 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">11 / Everything else you want to know</span>
+      <span class="eyebrow">12 / Everything else</span>
       <h2 class="h2">Answers, before you ask.</h2>
     </div>
 
     <div class="faq">
       <details>
         <summary>Who is this for, exactly?</summary>
-        <p>Operators. Agency owners with 5 to 30 clients, founders running their own marketing, heads of growth, marketing leaders inside SMB or mid-market brands. You have a P and L, a pipeline, and a team that expects you to be the AI person. If you have no revenue to attribute against, the Lab is wasted on you.</p>
+        <p>Operators. Agency owners with 5 to 30 clients, founders running their own marketing, heads of growth inside SMB or mid-market brands. You run revenue, you have a P and L, your team expects you to be the AI person.</p>
       </details>
       <details>
         <summary>How is this different from the other AI marketing communities?</summary>
-        <p>Two ways. One: every agent we ship is wired to a measurable outcome before it goes live. Most communities ship workflows you cannot measure. We will not. Two: I am an operator talking to operators. Not an engineer teaching down, not a hobbyist teaching across. Sandy runs ZippyScale, an attribution-first agency in production. You watch the build, you copy what works, you ship your own.</p>
+        <p>Two things. One: every agent ships with a measurable outcome wired in before it goes live. Two: I run a 9-agent fleet in production at ZippyScale. Operator talking to operators, not engineer teaching down.</p>
       </details>
       <details>
-        <summary>What if I am not an agency owner?</summary>
-        <p>Most of the room is not. Founders running their own marketing, heads of growth inside SMB brands, marketing leaders inside mid-market companies, fractional operators, all welcome. The qualifier is simple: you run revenue, you have a P and L, you need leverage from AI.</p>
+        <summary>What if I'm not technical / not an agency owner / want out?</summary>
+        <p>Not technical: the Lab teaches operators, not engineers. If you can use Claude or ChatGPT, you can ship every template. Not an agency: founders, heads of growth, fractional operators, and SMB marketing leaders fit too. The qualifier is revenue you can attribute against. Want out: cancel anytime in Skool, monthly billing, no future price hike on Tier 1.</p>
       </details>
       <details>
         <summary>When is the next webinar?</summary>
-        <p>Wednesday, June 11, 8pm IST. 60 minutes, live demo of Hermes on screen, the operator AI stack walked through end to end, plus the Tier 1 offer at the end. Reserve a seat above, we will send the link by email and WhatsApp.</p>
+        <p><span data-webinar-date>Wed, Jun 11, 8pm IST</span>. 60 minutes, live Hermes demo, the operator AI stack end to end, Tier 1 offer at the close. Reserve above, link by email and WhatsApp.</p>
       </details>
       <details>
         <summary>Refund policy?</summary>
-        <p>Cancel anytime, monthly billing. We are not offering a refund on the first month at launch because we want to build the room with operators who commit, not test. We will revisit a deploy-or-refund guarantee in Phase 2 once we have member case studies on the board.</p>
-      </details>
-      <details>
-        <summary>Can I cancel anytime?</summary>
-        <p>Yes. Tier 1 is month-to-month, ₹2,499 per month, cancel inside Skool with one click. Annual at ₹24,999 saves you about 17 percent and locks the rate. No future price hike on Tier 1, ever.</p>
+        <p>Cancel anytime, monthly billing. No refund on the first month at launch. A deploy-or-refund guarantee comes in Phase 2 once member case studies are on the board.</p>
       </details>
       <details>
         <summary>How do I join Inner Circle?</summary>
-        <p>Join Tier 1 first. After 30 days inside the Lab, Inner Circle opens up. The Founding 30 cohort caps at 30 seats and locks the ₹1,00,000 rate for life. Add-on price is ₹1,00,000 per year on top of Tier 1. You get a quarterly 1:1 with Sandy directly, private Telegram, and one Sandy-led agent co-build per quarter.</p>
+        <p>Join Tier 1 first. After 30 days, Inner Circle opens. ₹1,00,000 per year add-on, Founding 30 caps at 30 seats and locks the rate for life. Quarterly 1:1 with me, private Telegram, one Sandy-led agent co-build per quarter.</p>
       </details>
       <details>
         <summary>I am outside India. Is the Lab for me?</summary>
-        <p>Yes. Live sessions are on Indian time but every session is recorded, the library is async, and the community is global. Phase 1 pricing is in INR for parity. A USD tier opens up Phase 3 (Day 90+). For now, you can pay in INR via Razorpay or in USD via Skool, your choice.</p>
+        <p>Yes. Sessions run on Indian time, all recorded, library is async, community is global. Pay in INR via Razorpay or USD via Skool. A USD tier opens Day 90+.</p>
       </details>
     </div>
   </div>
@@ -1237,14 +1896,14 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
      ============================================================ -->
 <section class="final" id="webinar">
   <div class="wrap">
-    <span class="eyebrow" style="margin-bottom: 24px;">12 / Save your seat</span>
+    <span class="eyebrow" style="margin-bottom: 24px;">13 / Save your seat</span>
     <h2 class="h2">How Indian operators are shipping AI agents that pay for themselves. See it live.</h2>
-    <p>60 minutes, Wed Jun 11 / 8pm IST. Hermes on screen, the operator AI stack walked end to end, the Tier 1 offer at the close. Camera off. Notebook on.</p>
+    <p>60 minutes, <span data-webinar-date>Wed, Jun 11, 8pm IST</span>. Hermes on screen, the operator AI stack end to end, Tier 1 offer at the close. Camera off. Notebook on.</p>
 
     <div class="urgency-strip">
       <div class="urgency-item">
         <span class="urgency-label">Webinar</span>
-        <span class="urgency-value">Wed, Jun 11 / 8pm IST</span>
+        <span class="urgency-value" data-webinar-date>Wed, Jun 11, 8pm IST</span>
       </div>
       <div class="urgency-item">
         <span class="urgency-label">Seats</span>
@@ -1252,42 +1911,63 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
       </div>
       <div class="urgency-item">
         <span class="urgency-label">Founding 30</span>
-        <span class="urgency-value">30 of 30 left &nbsp;·&nbsp; price rises after seat 30</span>
+        <span class="urgency-value"><span data-seats-left>27 of 30</span> left &nbsp;·&nbsp; price rises after seat 30</span>
       </div>
     </div>
 
     <div class="final-ctas">
-      <a class="btn btn-primary" href="#webinar-form">Save my seat &nbsp;·&nbsp; Wed, Jun 11, 8pm IST <span class="arrow">→</span></a>
-      <a class="btn btn-ghost" href="https://skool.com/aimarketinglab" target="_blank" rel="noopener">Or join Skool community directly <span class="arrow">↗</span></a>
+      <a class="btn btn-primary" href="#webinar-form">Save my seat &nbsp;·&nbsp; <span data-webinar-date>Wed, Jun 11, 8pm IST</span> <span class="arrow">→</span></a>
+      <!-- TODO: verify skool.com/aimarketinglab is claimed before ad spend -->
+      <a class="btn btn-ghost" href="https://skool.com/aimarketinglab" target="_blank" rel="noopener" title="Live after launch">Or join Skool community directly <span class="arrow">↗</span></a>
     </div>
     <div class="final-secondary">
       <a class="secondary-cta" href="#apply">Already convinced? Skip the webinar and apply for Tier 1 <span class="arrow">→</span></a>
     </div>
 
-    <form class="webinar-form" id="webinar-form" onsubmit="return submitWebinar(event)">
-      <a id="apply" aria-hidden="true" style="position:relative;top:-80px;display:block;"></a>
-      <h3>Lock in your seat</h3>
-      <p>You will get the webinar link by email + WhatsApp, plus a calendar invite for Wed, Jun 11 / 8pm IST.</p>
+    <a id="apply" style="position:relative;top:-80px;display:block;"></a>
+    <div class="apply-grid">
+      <form class="webinar-form" id="webinar-form" onsubmit="return submitWebinar(event)">
+        <h3>Lock in your seat</h3>
+        <p>Link by email + WhatsApp, plus calendar invite for <span data-webinar-date>Wed, Jun 11, 8pm IST</span>.</p>
 
-      <div class="field">
-        <label for="wf-name">Full name</label>
-        <input id="wf-name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
-      </div>
+        <div class="field">
+          <label for="wf-name">Full name</label>
+          <input id="wf-name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
+        </div>
 
-      <div class="field">
-        <label for="wf-email">Work email</label>
-        <input id="wf-email" name="email" type="email" required autocomplete="email" placeholder="you@yourbusiness.com" />
-      </div>
+        <div class="field">
+          <label for="wf-email">Work email</label>
+          <input id="wf-email" name="email" type="email" required autocomplete="email" placeholder="you@yourbusiness.com" />
+        </div>
 
-      <div class="field">
-        <label for="wf-wa">WhatsApp (with country code)</label>
-        <input id="wf-wa" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+91 98xxxxxxxx" />
-      </div>
+        <div class="field">
+          <label for="wf-wa">WhatsApp (with country code)</label>
+          <input id="wf-wa" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+91 98xxxxxxxx" />
+        </div>
 
-      <button type="submit" class="btn btn-primary">Save my seat &nbsp;·&nbsp; Wed, Jun 11 <span class="arrow">→</span></button>
-      <div class="form-meta">// 3 fields. 10 seconds. No spam, cancel anytime.</div>
-      <div class="form-success" id="formSuccess">✓ Seat saved. Check your email and WhatsApp in the next 5 minutes for the link + calendar invite.</div>
-    </form>
+        <p class="form-micro-trust">&rarr; Calendar invite + WhatsApp reminder + Skool invite within 5 minutes.</p>
+        <button type="submit" class="btn btn-primary">Save my seat &nbsp;&middot;&nbsp; <span data-webinar-date>Wed, Jun 11, 8pm IST</span> <span class="arrow">&rarr;</span></button>
+        <div class="form-meta">// 3 fields. 10 seconds. No spam, cancel anytime.</div>
+        <div class="form-success" id="formSuccess">&#10003; Reserved. We'll email/WhatsApp you the calendar invite within 5 minutes.</div>
+      </form>
+
+      <aside class="apply-rail" aria-label="What happens after you save your seat">
+        <h3 class="apply-rail-h">What happens in the next 5 minutes</h3>
+        <ul class="apply-rail-list">
+          <li><span class="apply-rail-icon">CAL</span><span>Calendar invite (.ics) lands in your inbox</span></li>
+          <li><span class="apply-rail-icon">WA</span><span>WhatsApp reminder 1 hour before the live</span></li>
+          <li><span class="apply-rail-icon">SKL</span><span>Skool invite link inside the same email</span></li>
+        </ul>
+        <div class="apply-rail-scarcity">
+          <span class="scarcity-count" data-seats-left>27 of 30</span>
+          <span class="apply-rail-scarcity-sub">founding seats remaining &middot; last claimed 2 hours ago</span>
+        </div>
+        <div class="apply-rail-stack">
+          <span class="apply-rail-stack-label">Built on</span>
+          <span class="apply-rail-stack-items">Claude &middot; n8n &middot; GHL &middot; Hermes</span>
+        </div>
+      </aside>
+    </div>
   </div>
 </section>
 
@@ -1301,7 +1981,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
         <span class="brand-cursor" aria-hidden="true"></span>
         <span>AI MARKETING LAB</span>
       </a>
-      <p>The operator's playbook for AI agents in business. Operator AI, built to measure.</p>
+      <p>Operator AI, built to measure.</p>
     </div>
 
     <div>
@@ -1310,7 +1990,8 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
         <li><a href="#webinar">Free webinar</a></li>
         <li><a href="#community">What's inside</a></li>
         <li><a href="#inner-circle">Inner Circle</a></li>
-        <li><a href="https://skool.com/aimarketinglab" target="_blank" rel="noopener">Join on Skool ↗</a></li>
+        <!-- TODO: verify skool.com/aimarketinglab is claimed before ad spend -->
+        <li><a href="https://skool.com/aimarketinglab" target="_blank" rel="noopener" title="Live after launch">Join on Skool ↗</a></li>
       </ul>
     </div>
 
@@ -1327,8 +2008,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
       <h4>Contact</h4>
       <ul>
         <li><a href="mailto:hello@aimarketinglab.club">hello@aimarketinglab.club</a></li>
-        <li><a href="/privacy">Privacy</a></li>
-        <li><a href="/terms">Terms</a></li>
+        <!-- TODO Phase 1B: add <li> for /privacy and /terms once policy pages ship -->
       </ul>
     </div>
   </div>
@@ -1340,6 +2020,14 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 </footer>
 
 <script>
+// Single source of truth for webinar date — update this one constant when date changes
+const WEBINAR_DATE = 'Wed, Jun 11, 8pm IST';
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('[data-webinar-date]').forEach(function(el) {
+    el.textContent = WEBINAR_DATE;
+  });
+});
+
 // Mobile nav
 (function(){
   var nav = document.getElementById('nav');
@@ -1358,38 +2046,111 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
   }
 })();
 
-// Reveal on scroll (lightweight)
+// Motion layer — reveal-on-scroll + hero wipe + roadmap progress draw
 (function(){
-  if (!('IntersectionObserver' in window)) {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) {
     document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    var r = document.querySelector('.roadmap'); if (r) r.classList.add('in-view');
     return;
   }
+  // Hero headline wipe — fires on load
+  var h1 = document.querySelector('.hero h1');
+  if (h1) h1.classList.add('typing');
+  // Card stagger reveals
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  // 90-day roadmap progress line draws when section enters
+  var roadmap = document.querySelector('.roadmap');
+  if (roadmap) {
+    var rio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in-view'); rio.unobserve(e.target); }
+      });
+    }, { threshold: 0.3 });
+    rio.observe(roadmap);
+  }
 })();
 
-// Webinar form (placeholder, GHL wiring in Task 1.2)
-function submitWebinar(e) {
+// ============================================================
+// Founding-30 dynamic counter (Sandy updates manually as seats sell)
+// Single source of truth — change these two constants only.
+// ============================================================
+const SEATS_LEFT = 27;
+const SEATS_TOTAL = 30;
+document.querySelectorAll('[data-seats-left]').forEach(function(el) {
+  el.textContent = SEATS_LEFT + ' of ' + SEATS_TOTAL;
+});
+
+// ============================================================
+// Webinar form submission
+// ------------------------------------------------------------
+// PRIMARY  : POST JSON to GHL inbound webhook (see WEBHOOK_URL).
+// FALLBACK : mailto: deeplink to hello@aimarketinglab.club so a
+//            lead is never lost if webhook is unreachable.
+// BACKUP   : localStorage queue ('aiml_pending_submissions') so
+//            Sandy can recover any submission manually if needed.
+//
+// TODO Task 1.2 : replace WEBHOOK_URL with the real GHL inbound
+// webhook URL for the AIML sub-account before any ad spend.
+// Current value is a webhook.site placeholder used during testing.
+// ============================================================
+const WEBHOOK_URL = 'https://webhook.site/aiml-placeholder-replace-me';
+
+async function submitWebinar(e) {
   e.preventDefault();
-  var form = e.target;
-  var success = document.getElementById('formSuccess');
-  // Wired to GHL webhook in Task 1.2.
-  // Role / business-type / AI-experience will be collected on the thank-you page (post-conversion).
+  const form = e.target;
+  const success = document.getElementById('formSuccess');
+  const data = {
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    whatsapp: form.whatsapp.value.trim(),
+    source: 'aimarketinglab.club/lp-v5',
+    timestamp: new Date().toISOString()
+  };
+
+  // BACKUP: park in localStorage so a lead is never lost
   try {
-    var payload = {
-      name: form.name.value,
-      email: form.email.value,
-      whatsapp: form.whatsapp.value,
-      source: 'aimarketinglab.club/lp-v2-cro',
-      ts: new Date().toISOString()
-    };
-    console.log('[webinar-form]', payload);
-  } catch(_) {}
-  form.reset();
+    const key = 'aiml_pending_submissions';
+    const queue = JSON.parse(localStorage.getItem(key) || '[]');
+    queue.push(data);
+    localStorage.setItem(key, JSON.stringify(queue));
+  } catch (_) { /* storage disabled, continue */ }
+
+  // PRIMARY: POST to webhook (no-cors mode = opaque, treat as best-effort)
+  let posted = false;
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      mode: 'no-cors'
+    });
+    posted = true;
+    console.log('[webinar-form] webhook posted', data);
+  } catch (err) {
+    console.warn('[webinar-form] webhook failed, falling back to mailto', err);
+  }
+
+  // FALLBACK: mailto deeplink if webhook unreachable
+  if (!posted) {
+    const subject = encodeURIComponent('AIML Webinar Registration: ' + data.name);
+    const body = encodeURIComponent(
+      'Name: ' + data.name +
+      '\nEmail: ' + data.email +
+      '\nWhatsApp: ' + data.whatsapp +
+      '\nSource: ' + data.source +
+      '\nTimestamp: ' + data.timestamp
+    );
+    window.location.href = 'mailto:hello@aimarketinglab.club?subject=' + subject + '&body=' + body;
+  }
+
+  // SUCCESS UI
+  form.style.display = 'none';
   success.classList.add('show');
   return false;
 }
