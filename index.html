@@ -351,25 +351,24 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 .tier .btn { margin-top: auto; align-self: flex-start; }
 .tier .cap-note { font-family: var(--mono); font-size: 12px; color: var(--text-low); margin-top: 8px; }
 
-/* Operators (founders) */
-.operators { display: grid; grid-template-columns: 1fr; gap: 32px; }
-@media (min-width: 880px) { .operators { grid-template-columns: 1fr 1fr; gap: 40px; } }
+/* Operator (founder) — single centered card after Bhargav removed */
+.operators { display: grid; grid-template-columns: 1fr; gap: 32px; max-width: 760px; margin: 0 auto; }
 .operator {
   display: flex; flex-direction: column; gap: 20px;
   background: var(--bg-surface); border: 1px solid var(--border);
-  border-radius: 8px; padding: 32px;
+  border-radius: 8px; padding: 40px;
 }
-.operator-head { display: flex; align-items: center; gap: 20px; }
-.operator-photo {
-  width: 72px; height: 72px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--bg-surface-2), var(--accent));
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--bg-canvas);
-  flex-shrink: 0;
-  border: 1px solid var(--border-strong);
+.operator-head { display: flex; align-items: center; gap: 24px; }
+.operator-photo-img {
+  width: 120px; height: 120px; border-radius: 50%;
+  object-fit: cover; flex-shrink: 0;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 4px var(--bg-canvas), 0 0 0 5px var(--border-strong);
 }
-.operator.lead .operator-photo {
-  width: 92px; height: 92px; font-size: 28px;
+@media (max-width: 600px) {
+  .operator-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .operator-photo-img { width: 96px; height: 96px; }
+  .operator { padding: 28px; }
 }
 .operator-name { font-family: var(--mono); font-size: 20px; font-weight: 700; }
 .operator-role { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
@@ -577,7 +576,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <section class="proof-bar">
   <div class="wrap proof-bar-inner">
     <span class="proof-tag"><i class="dot" style="width:6px;height:6px;background:var(--accent);border-radius:50%;display:inline-block;"></i> The Lab, in production</span>
-    <p>Built by <strong>Sandy + Bhargav</strong> of <strong>ZippyScale</strong>, the attribution-first growth marketing agency running paid acquisition for clients across US, Canada, and India. Powered by <span class="accent-text">Hermes</span>, our 9-agent AI fleet, in production since 2025. The Lab is where members watch us build, copy what works, and ship their own.</p>
+    <p>Built by <strong>Sandy Kadyan</strong>, founder of <strong>ZippyScale</strong>, the attribution-first growth marketing agency running paid acquisition for clients across US, Canada, and India. Powered by <span class="accent-text">Hermes</span>, my 9-agent AI fleet, in production since 2025. The Lab is where you watch me build, copy what works, and ship your own.</p>
   </div>
 </section>
 
@@ -595,7 +594,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
     <div class="cards-3">
       <article class="card reveal">
         <span class="card-num">01 / Live builds</span>
-        <h3 class="h3">Weekly live agent builds with Sandy and Bhargav.</h3>
+        <h3 class="h3">Weekly live agent builds with Sandy.</h3>
         <p>Every Monday, 60 to 90 minutes. We pick an agent, build it on screen, wire it to a measurable outcome, and ship it. Recordings stay in the library. Members ask questions live and walk out with the .json, the prompt, and the measurement plan.</p>
         <ul>
           <li>Live build session, every Monday</li>
@@ -611,7 +610,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
         <ul>
           <li>Two-hour cohort, once a month</li>
           <li>Deploy review at day 30, public on the call</li>
-          <li>Bhargav handles the install, you handle the metric</li>
+          <li>I handle the install live, you walk out with the metric wired</li>
         </ul>
       </article>
 
@@ -673,7 +672,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
         <div class="timeline-day">Mon / 8pm IST</div>
         <div class="timeline-body">
           <h3>Weekly live agent build</h3>
-          <p>Sandy or Bhargav picks an agent, builds it on screen, wires the measurement, ships it. 60 to 90 minutes. You leave with the workflow file and the prompt in your inbox.</p>
+          <p>Sandy picks an agent, builds it on screen, wires the measurement, ships it. 60 to 90 minutes. You leave with the workflow file and the prompt in your inbox.</p>
         </div>
       </div>
       <div class="timeline-row">
@@ -687,7 +686,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
         <div class="timeline-day">Fri / 6pm IST</div>
         <div class="timeline-body">
           <h3>Skool digest + community Q and A</h3>
-          <p>Weekly digest pinned to the community. What shipped, what broke, what members built. Live Q and A thread open all weekend, founders in it on Saturday morning.</p>
+          <p>Weekly digest pinned to the community. What shipped, what broke, what members built. Live Q and A thread open all weekend, I'm in it on Saturday morning.</p>
         </div>
       </div>
       <div class="timeline-row">
@@ -701,7 +700,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
         <div class="timeline-day">Quarterly</div>
         <div class="timeline-body">
           <h3>Inner Circle 1:1s</h3>
-          <p>Inner Circle only. 30-minute review with Sandy or Bhargav. We look at your stack against your P and L. Every agent either earns its keep or it gets killed.</p>
+          <p>Inner Circle only. 30-minute review with Sandy. We look at your stack against your P and L. Every agent either earns its keep or it gets killed.</p>
         </div>
       </div>
     </div>
@@ -749,13 +748,13 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
         <div>
           <div class="price">+₹1,00,000<span style="font-size:0.45em;color:var(--text-low);font-weight:500;">/yr</span></div>
           <div class="price-sub">add-on to The Lab  ·  hard cap, 30 seats</div>
-          <div class="price-alt">Sandy or Bhargav on your stack, every quarter.</div>
+          <div class="price-alt">Sandy on your stack, every quarter.</div>
         </div>
         <div class="tier-body">
-          <p>Everything in The Lab, plus founders on your stack. Quarterly 1:1, private Telegram with Sandy + Bhargav, one agent co-build per quarter, priority on community asks.</p>
+          <p>Everything in The Lab, plus founders on your stack. Quarterly 1:1, private Telegram with Sandy, one agent co-build per quarter, priority on community asks.</p>
           <ul>
             <li>Everything in The Lab</li>
-            <li>Quarterly 30-min 1:1 with Sandy or Bhargav</li>
+            <li>Quarterly 30-min 1:1 with Sandy</li>
             <li>Private Telegram, direct line to founders</li>
             <li>One agent co-build per quarter with founders</li>
             <li>Priority routing on community questions</li>
@@ -772,42 +771,29 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 <div class="wrap"><div class="section-divider"></div></div>
 
 <!-- ============================================================
-     08. MEET THE OPERATORS
+     08. MEET SANDY
      ============================================================ -->
 <section class="section" id="about">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">06 / Meet the operators</span>
-      <h2 class="h2">Two operators. One 9-agent fleet. Two years of attribution-first work.</h2>
+      <span class="eyebrow">06 / Meet Sandy</span>
+      <h2 class="h2">One operator. One 9-agent fleet. Two years of attribution-first work.</h2>
     </div>
 
     <div class="operators">
       <article class="operator lead">
         <div class="operator-head">
-          <div class="operator-photo" aria-hidden="true">SD</div>
+          <img class="operator-photo-img" src="/assets/photos/sandy-headshot-ig.jpg" alt="Sandy Kadyan" width="120" height="120" />
           <div>
-            <div class="operator-name">Sandy Dhulipalla</div>
-            <div class="operator-role">Host / Builder / Founder, ZippyScale</div>
+            <div class="operator-name">Sandy Kadyan</div>
+            <div class="operator-role">Founder, ZippyScale / Host, AI Marketing Lab</div>
           </div>
         </div>
-        <p class="operator-bio">Sandy founded ZippyScale to fix the one thing every Indian agency lies about: attribution. Every rupee traced, every channel scored, every client decision defended with data. He built Hermes, a 9-agent AI fleet with 36 deployed skills that runs the agency itself. The operator who codes with AI, not the developer pretending to be a marketer. The Lab is where he shows the build.</p>
+        <p class="operator-bio"><strong>Marketing operator. Claude Code addict. Building in public, sharing everything.</strong></p>
+        <p class="operator-bio">I founded ZippyScale to fix the one thing every Indian agency lies about: attribution. Every rupee traced, every channel scored, every client decision defended with data. Then I built Hermes, a 9-agent AI fleet with 36 deployed skills that runs the agency itself. The operator who codes with AI, not the developer pretending to be a marketer. The Lab is where I show the build, every week.</p>
         <div class="operator-handles">
           <a href="https://instagram.com/sandymarketinglab" target="_blank" rel="noopener">@sandymarketinglab</a>
-          <a href="https://x.com/sandy_zippy" target="_blank" rel="noopener">x.com/sandy_zippy</a>
-          <a href="https://zippyscale.com" target="_blank" rel="noopener">zippyscale.com</a>
-        </div>
-      </article>
-
-      <article class="operator">
-        <div class="operator-head">
-          <div class="operator-photo" aria-hidden="true">BH</div>
-          <div>
-            <div class="operator-name">Bhargav</div>
-            <div class="operator-role">Co-host / Install partner / Co-founder, ZippyScale</div>
-          </div>
-        </div>
-        <p class="operator-bio">Bhargav co-founded ZippyScale and runs the client side. The voice founders want on a call when they are deciding whether to install. Hyderabad-based, deep network across Indian SMB and marketing. Inside the Lab, Bhargav co-hosts the ship-with-me cohort and takes half the Inner Circle 1:1s. Sandy designs the agent. Bhargav makes sure it ships.</p>
-        <div class="operator-handles">
+          <a href="https://x.com/sandyaimarketer" target="_blank" rel="noopener">x.com/sandyaimarketer</a>
           <a href="https://zippyscale.com" target="_blank" rel="noopener">zippyscale.com</a>
         </div>
       </article>
@@ -884,7 +870,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
       </details>
       <details>
         <summary>How is this different from the other AI marketing communities?</summary>
-        <p>Two ways. One: every agent we ship is wired to a measurable outcome before it goes live. Most communities ship workflows you cannot measure. We will not. Two: we are operators talking to operators. Not engineers teaching down, not hobbyists teaching across. Sandy and Bhargav run an agency in production. You watch them build, you copy what works, you ship your own.</p>
+        <p>Two ways. One: every agent we ship is wired to a measurable outcome before it goes live. Most communities ship workflows you cannot measure. We will not. Two: I am an operator talking to operators. Not an engineer teaching down, not a hobbyist teaching across. Sandy runs ZippyScale, an attribution-first agency in production. You watch the build, you copy what works, you ship your own.</p>
       </details>
       <details>
         <summary>What if I am not an agency owner?</summary>
@@ -904,7 +890,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
       </details>
       <details>
         <summary>How do I join Inner Circle?</summary>
-        <p>Join Tier 1 first. After 30 days inside the Lab, Inner Circle opens up. Hard cap is 30 seats. Add-on price is ₹1,00,000 per year on top of Tier 1. You get a quarterly 1:1 with a founder, private Telegram, and one founder-led agent co-build per quarter.</p>
+        <p>Join Tier 1 first. After 30 days inside the Lab, Inner Circle opens up. Hard cap is 30 seats. Add-on price is ₹1,00,000 per year on top of Tier 1. You get a quarterly 1:1 with Sandy directly, private Telegram, and one Sandy-led agent co-build per quarter.</p>
       </details>
       <details>
         <summary>I am outside India. Is the Lab for me?</summary>
@@ -933,7 +919,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
 
       <div class="field">
         <label for="wf-name">Full name</label>
-        <input id="wf-name" name="name" type="text" required autocomplete="name" placeholder="Sandy Dhulipalla" />
+        <input id="wf-name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
       </div>
 
       <div class="field">
@@ -984,7 +970,7 @@ h1, h2, h3, h4 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.
     <div>
       <h4>Operators</h4>
       <ul>
-        <li><a href="#about">Sandy + Bhargav</a></li>
+        <li><a href="#about">About Sandy</a></li>
         <li><a href="https://zippyscale.com" target="_blank" rel="noopener">ZippyScale ↗</a></li>
         <li><a href="https://instagram.com/sandymarketinglab" target="_blank" rel="noopener">Instagram ↗</a></li>
       </ul>
