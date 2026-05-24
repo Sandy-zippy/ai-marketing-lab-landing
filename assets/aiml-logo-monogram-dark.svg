@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <rect width="1024" height="1024" fill="#071A14"/>
+  <g font-family="JetBrains Mono, 'JetBrains Mono', ui-monospace, Menlo, 'SF Mono', Consolas, monospace" font-weight="700" font-size="320" letter-spacing="-4">
+    <text x="170" y="610" fill="#F5F5F0" xml:space="preserve">AIML</text>
+  </g>
+  <rect x="770" y="430" width="180" height="200" fill="#00FF94">
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+</svg>
