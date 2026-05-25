@@ -2266,6 +2266,458 @@ h1, h2, h3, h4 {
 }
 .about-meta .about-link:hover { color: var(--text-high); }
 .about-meta .about-link img { opacity: 0.85; }
+
+/* ============================================================
+   v9 Wave C — DEEP HERMES / OPENCLAW ARCHITECTURE
+   ============================================================ */
+.hermes-deep {
+  padding: clamp(80px, 12vw, 140px) 0;
+  background: var(--bg-canvas);
+  position: relative;
+}
+.hermes-deep::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 18% 12%, rgba(0, 255, 148, 0.06), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 82% 88%, rgba(0, 255, 148, 0.04), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hermes-deep > .wrap { position: relative; z-index: 1; }
+.hermes-deep .section-head { text-align: center; margin-bottom: 80px; }
+.hermes-deep .section-head .eyebrow { justify-content: center; }
+.hermes-deep .section-head .lead {
+  max-width: 640px;
+  margin: 20px auto 0;
+}
+
+.arch-block {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 80px;
+  padding-bottom: 64px;
+  border-bottom: 1px solid var(--border);
+}
+.arch-block:last-of-type {
+  border-bottom: none;
+  margin-bottom: 56px;
+  padding-bottom: 0;
+}
+
+@media (min-width: 880px) {
+  .arch-block {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 64px;
+    margin-bottom: 110px;
+    padding-bottom: 90px;
+  }
+  .arch-block.flip .arch-copy { order: 2; }
+  .arch-block.flip .arch-visual { order: 1; }
+}
+
+.arch-copy { min-width: 0; }
+.arch-visual { min-width: 0; }
+
+.arch-block-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.arch-block-label::before {
+  content: '';
+  width: 18px; height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+.arch-block-h {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: clamp(26px, 3.2vw, 40px);
+  letter-spacing: -0.022em;
+  line-height: 1.12;
+  margin-bottom: 18px;
+  color: var(--text-high);
+}
+.arch-block-body {
+  font-size: 17px;
+  color: var(--text-mid);
+  line-height: 1.55;
+  max-width: 48ch;
+}
+.arch-bullets {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.arch-bullets li {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-low);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.arch-bullets li::before {
+  content: '›';
+  color: var(--accent);
+  font-family: var(--mono);
+  font-weight: 600;
+}
+
+.cron-clock-wrap,
+.llm-router-wrap,
+.loop-wrap,
+.funnel-wrap {
+  background: linear-gradient(180deg, var(--bg-surface) 0%, #0E1316 100%);
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  padding: clamp(20px, 3vw, 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 148, 0.04),
+    0 20px 60px -20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+.cron-clock-wrap::after,
+.llm-router-wrap::after,
+.loop-wrap::after,
+.funnel-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(0, 255, 148, 0.08), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+.cron-clock-wrap > *,
+.llm-router-wrap > *,
+.loop-wrap > *,
+.funnel-wrap > * { position: relative; z-index: 1; }
+
+/* ============ MOTION #1 — CRON CLOCK ============ */
+.cron-clock {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  display: block;
+}
+.cron-clock .hour-tick { stroke: var(--text-low); stroke-opacity: 0.45; }
+.cron-clock .hour-tick-major { stroke: var(--text-mid); stroke-opacity: 0.75; }
+.cron-clock .hour-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  fill: var(--text-low);
+  letter-spacing: 0.08em;
+}
+.cron-clock .clock-face { stroke: var(--border-strong); }
+.cron-clock .clock-center { fill: var(--accent); filter: drop-shadow(0 0 6px var(--accent)); }
+
+@keyframes radar-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.cron-clock .radar-arm {
+  transform-origin: 200px 200px;
+  animation: radar-spin 12s linear infinite;
+}
+.cron-clock .radar-blade { stroke: var(--accent); stroke-width: 2; opacity: 0.7; }
+.cron-clock .radar-glow { stroke: var(--accent); stroke-width: 24; opacity: 0.10; }
+
+@keyframes dot-pulse {
+  0%, 88%, 100% {
+    transform: scale(1);
+    filter: brightness(0.7) drop-shadow(0 0 0 var(--accent));
+  }
+  46%, 54% {
+    transform: scale(1.6);
+    filter: brightness(1.6) drop-shadow(0 0 10px var(--accent));
+  }
+}
+.cron-clock .agent-dot {
+  fill: var(--accent);
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: dot-pulse 12s ease-in-out infinite;
+}
+
+.agent-times {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 22px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-mid);
+  letter-spacing: 0.04em;
+  margin-top: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+.agent-times span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.agent-times .dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--accent-glow);
+  flex-shrink: 0;
+}
+
+/* ============ MOTION #2 — LLM ROUTER ============ */
+.llm-router {
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  display: block;
+}
+.llm-router .node-rect {
+  fill: var(--bg-surface-2);
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+.llm-router .node-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  fill: var(--text-high);
+  font-weight: 600;
+}
+.llm-router .node-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  fill: var(--text-high);
+}
+.llm-router .node-desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  fill: var(--text-low);
+  letter-spacing: 0.04em;
+}
+.llm-router .router-rect {
+  fill: var(--bg-surface);
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+.llm-router .router-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  fill: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.llm-router .conn {
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-opacity: 0.22;
+  fill: none;
+}
+.llm-router .packet {
+  fill: var(--accent);
+  filter: drop-shadow(0 0 4px var(--accent));
+}
+
+/* ============ MOTION #3 — SELF-IMPROVE LOOP ============ */
+.loop-diagram {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  display: block;
+}
+.loop-diagram .memory-ring {
+  fill: var(--bg-surface-2);
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+.loop-diagram .memory-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  fill: var(--text-low);
+  letter-spacing: 0.16em;
+}
+.loop-diagram .memory-value {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  fill: var(--accent);
+  letter-spacing: -0.02em;
+}
+.loop-diagram .memory-unit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  fill: var(--text-low);
+  letter-spacing: 0.1em;
+}
+.loop-diagram .loop-path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.4;
+  stroke-opacity: 0.32;
+  stroke-dasharray: 4 3;
+}
+.loop-diagram .node-circle {
+  fill: var(--bg-surface-2);
+  stroke: var(--accent);
+  stroke-width: 1.4;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.loop-diagram .node-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  fill: var(--text-mid);
+  letter-spacing: 0.1em;
+}
+.loop-diagram .loop-token {
+  fill: var(--accent);
+  filter: drop-shadow(0 0 8px var(--accent));
+}
+
+@keyframes node-pulse {
+  0%, 100% { transform: scale(1); filter: brightness(0.9); }
+  50% { transform: scale(1.18); filter: brightness(1.5) drop-shadow(0 0 8px var(--accent)); }
+}
+.loop-diagram .loop-node { transform-origin: center; transform-box: fill-box; }
+.loop-diagram .loop-node[data-step="0"] { animation: node-pulse 6s ease-in-out infinite; }
+.loop-diagram .loop-node[data-step="1"] { animation: node-pulse 6s ease-in-out infinite 1.2s; }
+.loop-diagram .loop-node[data-step="2"] { animation: node-pulse 6s ease-in-out infinite 2.4s; }
+.loop-diagram .loop-node[data-step="3"] { animation: node-pulse 6s ease-in-out infinite 3.6s; }
+.loop-diagram .loop-node[data-step="4"] { animation: node-pulse 6s ease-in-out infinite 4.8s; }
+
+/* ============ MOTION #4 — OPENCLAW FUNNEL ============ */
+.funnel {
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  display: block;
+}
+.funnel .channel-rect {
+  fill: var(--bg-surface-2);
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.funnel .channel-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  fill: var(--text-mid);
+  letter-spacing: 0.04em;
+}
+.funnel .more-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  fill: var(--text-low);
+  letter-spacing: 0.08em;
+}
+.funnel .funnel-shape {
+  fill: var(--bg-surface);
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+.funnel .claw-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  fill: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.funnel .claw-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  fill: var(--text-mid);
+  letter-spacing: 0.16em;
+}
+.funnel .inbox-rect {
+  fill: var(--bg-surface-2);
+  stroke: var(--accent);
+  stroke-width: 1.6;
+  filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+.funnel .inbox-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  fill: var(--text-high);
+}
+.funnel .inbox-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  fill: var(--text-low);
+  letter-spacing: 0.04em;
+}
+
+@keyframes channel-pulse {
+  0%, 70%, 100% { stroke: var(--border); filter: none; }
+  10%, 60% { stroke: var(--accent); filter: drop-shadow(0 0 4px var(--accent)); }
+}
+.funnel .channel-rect { animation: channel-pulse 4.5s ease-in-out infinite; }
+
+@keyframes flow-active {
+  0%, 80%, 100% { opacity: 0; }
+  18%, 70% { opacity: 0.75; }
+}
+.funnel .flow {
+  stroke: var(--accent);
+  stroke-width: 1.2;
+  fill: none;
+  opacity: 0;
+  animation: flow-active 4.5s ease-in-out infinite;
+}
+
+@keyframes claw-breathe {
+  0%, 100% { opacity: 0.92; filter: drop-shadow(0 0 4px var(--accent-glow)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 12px var(--accent)); }
+}
+.funnel .claw-label { animation: claw-breathe 3s ease-in-out infinite; }
+
+.hermes-deep-cta {
+  text-align: center;
+  margin-top: 56px;
+}
+.hermes-deep-cta .btn { padding: 18px 30px; font-size: 15px; }
+
+@media (max-width: 720px) {
+  .hermes-deep { padding: 72px 0; }
+  .hermes-deep .section-head { margin-bottom: 56px; }
+  .arch-block { margin-bottom: 56px; padding-bottom: 40px; }
+  .agent-times { grid-template-columns: 1fr; gap: 6px 0; }
+  .cron-clock-wrap,
+  .llm-router-wrap,
+  .loop-wrap,
+  .funnel-wrap { padding: 18px; border-radius: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cron-clock .radar-arm,
+  .cron-clock .agent-dot,
+  .llm-router .packet,
+  .loop-diagram .loop-token,
+  .loop-diagram .loop-node,
+  .funnel .channel-rect,
+  .funnel .flow,
+  .funnel .claw-label { animation: none !important; }
+}
 </style>
 </head>
 <body>
@@ -2702,6 +3154,385 @@ h1, h2, h3, h4 {
   </div>
 </section>
 
+<div class="wrap"><div class="section-divider"></div></div>
+
+<!-- ============================================================
+     06. DEEP HERMES / OPENCLAW ARCHITECTURE
+     ============================================================ -->
+<section class="hermes-deep" id="hermes-arch">
+  <div class="wrap">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">06 / Inside Hermes</span>
+      <h2 class="h2">Autonomous. Self-improving. Multi-LLM. Always on.</h2>
+      <p class="lead">Hermes is the operating system behind ZippyScale. 9 agents, 3 LLMs, cron-driven, memory-anchored. Here's how every agent ships work while I'm asleep.</p>
+    </div>
+
+    <!-- 06B · CRON SCHEDULE ============================================ -->
+    <div class="arch-block reveal">
+      <div class="arch-copy">
+        <span class="arch-block-label">01 · CRON</span>
+        <h3 class="arch-block-h">Every morning, the fleet wakes up.</h3>
+        <p class="arch-block-body">Each agent gets its slot. Zayn orchestrates the rest of the day. The radar arm below sweeps a 24-hour day in 12 seconds. Watch each agent light up when its turn comes.</p>
+        <ul class="arch-bullets">
+          <li>9 cron jobs, 1 VPS, zero babysitting</li>
+          <li>Outputs delivered to Telegram by Zayn</li>
+          <li>Failure events auto-escalate to Sandy</li>
+        </ul>
+      </div>
+      <div class="arch-visual">
+        <div class="cron-clock-wrap">
+          <svg viewBox="0 0 400 400" class="cron-clock" role="img" aria-label="24-hour cron clock with 9 Hermes agents firing throughout the day">
+            <!-- Clock face -->
+            <circle cx="200" cy="200" r="180" fill="none" class="clock-face" stroke-width="1"/>
+            <circle cx="200" cy="200" r="180" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.18"/>
+
+            <!-- Hour ticks (24 of them, major every 6h) -->
+            <g class="hour-ticks">
+              <line x1="200.0" y1="20.0" x2="200.0" y2="36.0" class="hour-tick-major" stroke-width="2"/>
+              <line x1="246.6" y1="26.1" x2="244.0" y2="35.8" class="hour-tick" stroke-width="1"/>
+              <line x1="290.0" y1="44.1" x2="285.0" y2="52.8" class="hour-tick" stroke-width="1"/>
+              <line x1="327.3" y1="72.7" x2="320.2" y2="79.8" class="hour-tick" stroke-width="1"/>
+              <line x1="355.9" y1="110.0" x2="347.2" y2="115.0" class="hour-tick" stroke-width="1"/>
+              <line x1="373.9" y1="153.4" x2="364.2" y2="156.0" class="hour-tick" stroke-width="1"/>
+              <line x1="380.0" y1="200.0" x2="364.0" y2="200.0" class="hour-tick-major" stroke-width="2"/>
+              <line x1="373.9" y1="246.6" x2="364.2" y2="244.0" class="hour-tick" stroke-width="1"/>
+              <line x1="355.9" y1="290.0" x2="347.2" y2="285.0" class="hour-tick" stroke-width="1"/>
+              <line x1="327.3" y1="327.3" x2="320.2" y2="320.2" class="hour-tick" stroke-width="1"/>
+              <line x1="290.0" y1="355.9" x2="285.0" y2="347.2" class="hour-tick" stroke-width="1"/>
+              <line x1="246.6" y1="373.9" x2="244.0" y2="364.2" class="hour-tick" stroke-width="1"/>
+              <line x1="200.0" y1="380.0" x2="200.0" y2="364.0" class="hour-tick-major" stroke-width="2"/>
+              <line x1="153.4" y1="373.9" x2="156.0" y2="364.2" class="hour-tick" stroke-width="1"/>
+              <line x1="110.0" y1="355.9" x2="115.0" y2="347.2" class="hour-tick" stroke-width="1"/>
+              <line x1="72.7" y1="327.3" x2="79.8" y2="320.2" class="hour-tick" stroke-width="1"/>
+              <line x1="44.1" y1="290.0" x2="52.8" y2="285.0" class="hour-tick" stroke-width="1"/>
+              <line x1="26.1" y1="246.6" x2="35.8" y2="244.0" class="hour-tick" stroke-width="1"/>
+              <line x1="20.0" y1="200.0" x2="36.0" y2="200.0" class="hour-tick-major" stroke-width="2"/>
+              <line x1="26.1" y1="153.4" x2="35.8" y2="156.0" class="hour-tick" stroke-width="1"/>
+              <line x1="44.1" y1="110.0" x2="52.8" y2="115.0" class="hour-tick" stroke-width="1"/>
+              <line x1="72.7" y1="72.7" x2="79.8" y2="79.8" class="hour-tick" stroke-width="1"/>
+              <line x1="110.0" y1="44.1" x2="115.0" y2="52.8" class="hour-tick" stroke-width="1"/>
+              <line x1="153.4" y1="26.1" x2="156.0" y2="35.8" class="hour-tick" stroke-width="1"/>
+            </g>
+
+            <!-- Hour labels every 6h -->
+            <g class="hour-labels">
+              <text x="200" y="14" text-anchor="middle" class="hour-label">00</text>
+              <text x="394" y="204" text-anchor="end" class="hour-label">06</text>
+              <text x="200" y="396" text-anchor="middle" class="hour-label">12</text>
+              <text x="6" y="204" text-anchor="start" class="hour-label">18</text>
+            </g>
+
+            <!-- Sweeping radar arm -->
+            <g class="radar-arm">
+              <line x1="200" y1="200" x2="200" y2="22" class="radar-glow"/>
+              <line x1="200" y1="200" x2="200" y2="22" class="radar-blade"/>
+              <circle cx="200" cy="22" r="3" fill="var(--accent)" filter="drop-shadow(0 0 6px var(--accent))"/>
+            </g>
+
+            <!-- Agent dots, positioned at their cron firing times -->
+            <g class="agent-dots">
+              <circle cx="310.3" cy="310.3" r="6" class="agent-dot" style="animation-delay: 10.50s"><title>ZAYN · 09:00 IST · Daily orchestration</title></circle>
+              <circle cx="307.9" cy="312.7" r="6" class="agent-dot" style="animation-delay: 10.54s"><title>MIRA · 09:05 · Revenue sweep</title></circle>
+              <circle cx="305.4" cy="315.0" r="6" class="agent-dot" style="animation-delay: 10.58s"><title>ATLAS · 09:10 · Ad ops scan</title></circle>
+              <circle cx="295.0" cy="323.8" r="6" class="agent-dot" style="animation-delay: 10.75s"><title>VERA · 09:30 · Intelligence digest</title></circle>
+              <circle cx="240.4" cy="350.7" r="6" class="agent-dot" style="animation-delay: 11.50s"><title>IRIS · 11:00 · Content engine</title></circle>
+              <circle cx="122.0" cy="335.1" r="6" class="agent-dot" style="animation-delay: 1.00s"><title>KAI · 14:00 · Client success</title></circle>
+              <circle cx="64.9" cy="278.0" r="6" class="agent-dot" style="animation-delay: 2.00s"><title>AXEL · 16:00 · Operations</title></circle>
+              <circle cx="122.0" cy="64.9" r="6" class="agent-dot" style="animation-delay: 5.00s"><title>SKYE · 22:00 · Finance reconcile</title></circle>
+              <circle cx="159.6" cy="49.3" r="6" class="agent-dot" style="animation-delay: 5.50s"><title>OTTO · 23:00 · Market research</title></circle>
+            </g>
+
+            <!-- Center hub -->
+            <circle cx="200" cy="200" r="7" class="clock-center"/>
+            <circle cx="200" cy="200" r="14" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.4"/>
+          </svg>
+
+          <div class="agent-times">
+            <span><span class="dot"></span>ZAYN · 09:00 IST</span>
+            <span><span class="dot"></span>MIRA · 09:05</span>
+            <span><span class="dot"></span>ATLAS · 09:10</span>
+            <span><span class="dot"></span>VERA · 09:30</span>
+            <span><span class="dot"></span>IRIS · 11:00</span>
+            <span><span class="dot"></span>KAI · 14:00</span>
+            <span><span class="dot"></span>AXEL · 16:00</span>
+            <span><span class="dot"></span>SKYE · 22:00</span>
+            <span><span class="dot"></span>OTTO · 23:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06C · MULTI-LLM ROUTER ============================================ -->
+    <div class="arch-block flip reveal">
+      <div class="arch-copy">
+        <span class="arch-block-label">02 · LLM ROUTING</span>
+        <h3 class="arch-block-h">Each agent picks its driver LLM by task.</h3>
+        <p class="arch-block-body">Claude for the thinking. Codex for the throughput. Gemini for the volume. Hermes routes every request through a model picker so each agent runs on the LLM that's best at its job — and cheapest at its load.</p>
+        <ul class="arch-bullets">
+          <li>Claude Code · reasoning + orchestration</li>
+          <li>Codex (gpt-5.3) · fast code synthesis</li>
+          <li>Gemini 2.5 Flash · cheap async + summarize</li>
+        </ul>
+      </div>
+      <div class="arch-visual">
+        <div class="llm-router-wrap">
+          <svg viewBox="0 0 760 360" class="llm-router" role="img" aria-label="LLM router diagram showing 4 Hermes agents routing requests through a model picker to Claude, Codex, and Gemini">
+            <defs>
+              <marker id="arrow-head" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,0 L6,3 L0,6 z" fill="var(--accent)" opacity="0.5"/>
+              </marker>
+            </defs>
+
+            <!-- Left column: 4 agents -->
+            <g class="agents">
+              <g>
+                <rect class="node-rect" x="30" y="56" width="120" height="48" rx="8"/>
+                <text class="node-label" x="90" y="85" text-anchor="middle">VERA</text>
+              </g>
+              <g>
+                <rect class="node-rect" x="30" y="136" width="120" height="48" rx="8"/>
+                <text class="node-label" x="90" y="165" text-anchor="middle">ATLAS</text>
+              </g>
+              <g>
+                <rect class="node-rect" x="30" y="216" width="120" height="48" rx="8"/>
+                <text class="node-label" x="90" y="245" text-anchor="middle">MIRA</text>
+              </g>
+              <g>
+                <rect class="node-rect" x="30" y="296" width="120" height="48" rx="8"/>
+                <text class="node-label" x="90" y="325" text-anchor="middle">OTTO</text>
+              </g>
+            </g>
+
+            <!-- Center: router -->
+            <g transform="translate(310, 156)">
+              <rect class="router-rect" width="140" height="48" rx="24"/>
+              <text class="router-label" x="70" y="30" text-anchor="middle">ROUTER</text>
+            </g>
+
+            <!-- Right column: 3 LLMs -->
+            <g class="llms">
+              <g>
+                <rect class="node-rect" x="600" y="56" width="140" height="64" rx="10"/>
+                <text class="node-name" x="670" y="84" text-anchor="middle">Claude</text>
+                <text class="node-desc" x="670" y="104" text-anchor="middle">reasoning + orchestration</text>
+              </g>
+              <g>
+                <rect class="node-rect" x="600" y="148" width="140" height="64" rx="10"/>
+                <text class="node-name" x="670" y="176" text-anchor="middle">Codex</text>
+                <text class="node-desc" x="670" y="196" text-anchor="middle">fast code writing</text>
+              </g>
+              <g>
+                <rect class="node-rect" x="600" y="240" width="140" height="64" rx="10"/>
+                <text class="node-name" x="670" y="268" text-anchor="middle">Gemini Flash</text>
+                <text class="node-desc" x="670" y="288" text-anchor="middle">cheap async + summarize</text>
+              </g>
+            </g>
+
+            <!-- Connection lines: agents → router -->
+            <g class="connections">
+              <path id="conn-vera" class="conn" d="M 150 80 C 220 80 230 180 310 180"/>
+              <path id="conn-atlas" class="conn" d="M 150 160 C 220 160 240 180 310 180"/>
+              <path id="conn-mira" class="conn" d="M 150 240 C 220 240 240 180 310 180"/>
+              <path id="conn-otto" class="conn" d="M 150 320 C 220 320 230 180 310 180"/>
+              <!-- router → LLMs -->
+              <path id="conn-claude" class="conn" d="M 450 180 C 520 180 530 88 600 88"/>
+              <path id="conn-codex" class="conn" d="M 450 180 C 520 180 530 180 600 180"/>
+              <path id="conn-gemini" class="conn" d="M 450 180 C 520 180 530 272 600 272"/>
+            </g>
+
+            <!-- Animated packets traveling along connections -->
+            <g class="packets">
+              <!-- Inbound: agent → router -->
+              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0s"><mpath href="#conn-vera"/></animateMotion></circle>
+              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.6s"><mpath href="#conn-atlas"/></animateMotion></circle>
+              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.2s"><mpath href="#conn-mira"/></animateMotion></circle>
+              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.8s"><mpath href="#conn-otto"/></animateMotion></circle>
+              <!-- Outbound: router → LLM -->
+              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.5s"><mpath href="#conn-claude"/></animateMotion></circle>
+              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.1s"><mpath href="#conn-codex"/></animateMotion></circle>
+              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.7s"><mpath href="#conn-gemini"/></animateMotion></circle>
+              <!-- Return packets (reverse direction) -->
+              <circle r="3" class="packet" opacity="0.6"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.4s" keyPoints="1;0" keyTimes="0;1"><mpath href="#conn-claude"/></animateMotion></circle>
+              <circle r="3" class="packet" opacity="0.6"><animateMotion dur="2.4s" repeatCount="indefinite" begin="2.0s" keyPoints="1;0" keyTimes="0;1"><mpath href="#conn-codex"/></animateMotion></circle>
+              <circle r="3" class="packet" opacity="0.6"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.2s" keyPoints="1;0" keyTimes="0;1"><mpath href="#conn-gemini"/></animateMotion></circle>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06D · SELF-IMPROVEMENT LOOP ============================================ -->
+    <div class="arch-block reveal">
+      <div class="arch-copy">
+        <span class="arch-block-label">03 · SELF-IMPROVE</span>
+        <h3 class="arch-block-h">Every run leaves a fingerprint.</h3>
+        <p class="arch-block-body">Every fingerprint sharpens the next run. The system gets smarter while I sleep — memory accretes, prompts refine, edge cases get logged. The data token travels the loop continuously.</p>
+        <ul class="arch-bullets">
+          <li>5-step cycle: TRIGGER → EXECUTE → LOG → REFLECT → UPDATE</li>
+          <li>Memory store grows with every run</li>
+          <li>Two years of execution snippets, queryable</li>
+        </ul>
+      </div>
+      <div class="arch-visual">
+        <div class="loop-wrap">
+          <svg viewBox="0 0 400 400" class="loop-diagram" role="img" aria-label="Self-improvement loop showing 5-node circuit with memory store at center">
+            <!-- Loop path (pentagonal-ish curve) -->
+            <path id="loop-path" class="loop-path" d="M 200 60 C 268 60 332 92 350 152 C 366 220 308 308 232 332 C 168 352 92 308 70 240 C 50 172 92 92 168 70 C 184 64 200 60 200 60 Z"/>
+
+            <!-- Center memory ring -->
+            <circle cx="200" cy="200" r="62" class="memory-ring"/>
+            <circle cx="200" cy="200" r="62" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.18"/>
+            <text x="200" y="188" text-anchor="middle" class="memory-label">MEMORY</text>
+            <text x="200" y="216" text-anchor="middle" class="memory-value" id="memory-counter">1,247</text>
+            <text x="200" y="234" text-anchor="middle" class="memory-unit">SNIPPETS</text>
+
+            <!-- 5 nodes around the loop -->
+            <g class="loop-nodes">
+              <g class="loop-node" data-step="0">
+                <circle cx="200" cy="60" r="24" class="node-circle"/>
+                <text x="200" y="64" text-anchor="middle" class="node-text">TRIGGER</text>
+              </g>
+              <g class="loop-node" data-step="1">
+                <circle cx="350" cy="152" r="24" class="node-circle"/>
+                <text x="350" y="156" text-anchor="middle" class="node-text">EXECUTE</text>
+              </g>
+              <g class="loop-node" data-step="2">
+                <circle cx="298" cy="328" r="24" class="node-circle"/>
+                <text x="298" y="332" text-anchor="middle" class="node-text">LOG</text>
+              </g>
+              <g class="loop-node" data-step="3">
+                <circle cx="106" cy="328" r="24" class="node-circle"/>
+                <text x="106" y="332" text-anchor="middle" class="node-text">REFLECT</text>
+              </g>
+              <g class="loop-node" data-step="4">
+                <circle cx="50" cy="152" r="24" class="node-circle"/>
+                <text x="50" y="156" text-anchor="middle" class="node-text">UPDATE</text>
+              </g>
+            </g>
+
+            <!-- Traveling data token -->
+            <circle r="7" class="loop-token">
+              <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
+                <mpath href="#loop-path"/>
+              </animateMotion>
+            </circle>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06E · OPENCLAW MULTI-CHANNEL FUNNEL ============================================ -->
+    <div class="arch-block flip reveal">
+      <div class="arch-copy">
+        <span class="arch-block-label">04 · OPEN CLAW</span>
+        <h3 class="arch-block-h">Every channel I work in routes through Open Claw.</h3>
+        <p class="arch-block-body">Zayn reads first. Specialists handle what's theirs. I see only what needs me. 24+ inbound channels converge into a single inbox — humans, agents, webhooks, calendars, all triaged by the same orchestrator.</p>
+        <ul class="arch-bullets">
+          <li>12 visible · 12 more behind the scenes</li>
+          <li>Zayn triages, specialists execute</li>
+          <li>Sandy sees only escalations + approvals</li>
+        </ul>
+      </div>
+      <div class="arch-visual">
+        <div class="funnel-wrap">
+          <svg viewBox="0 0 800 500" class="funnel" role="img" aria-label="Multi-channel funnel showing 12+ inbound channels converging through Open Claw routing into one unified inbox">
+            <!-- Channels grid: row 1 + row 2 -->
+            <g class="channels">
+              <g class="channel-node">
+                <rect class="channel-rect" x="80" y="40" width="64" height="34" rx="6" style="animation-delay: 0s"/>
+                <text class="channel-text" x="112" y="61" text-anchor="middle">Telegram</text>
+              </g>
+              <g class="channel-node">
+                <rect class="channel-rect" x="180" y="40" width="64" height="34" rx="6" style="animation-delay: 0.4s"/>
+                <text class="channel-text" x="212" y="61" text-anchor="middle">Email</text>
+              </g>
+              <g class="channel-node">
+                <rect class="channel-rect" x="280" y="40" width="64" height="34" rx="6" style="animation-delay: 0.8s"/>
+                <text class="channel-text" x="312" y="61" text-anchor="middle">WhatsApp</text>
+              </g>
+              <g class="channel-node">
+                <rect class="channel-rect" x="380" y="40" width="64" height="34" rx="6" style="animation-delay: 1.2s"/>
+                <text class="channel-text" x="412" y="61" text-anchor="middle">Slack</text>
+              </g>
+              <g class="channel-node">
+                <rect class="channel-rect" x="480" y="40" width="64" height="34" rx="6" style="animation-delay: 1.6s"/>
+                <text class="channel-text" x="512" y="61" text-anchor="middle">iMessage</text>
+              </g>
+              <g class="channel-node">
+                <rect class="channel-rect" x="580" y="40" width="64" height="34" rx="6" style="animation-delay: 2.0s"/>
+                <text class="channel-text" x="612" y="61" text-anchor="middle">Discord</text>
+              </g>
+              <g class="channel-node">
+                <rect class="channel-rect" x="680" y="40" width="64" height="34" rx="6" style="animation-delay: 2.4s"/>
+                <text class="channel-text" x="712" y="61" text-anchor="middle">SMS</text>
+              </g>
+              <g class="channel-node">
+                <rect class="channel-rect" x="80" y="96" width="64" height="34" rx="6" style="animation-delay: 0.3s"/>
+                <text class="channel-text" x="112" y="117" text-anchor="middle">X DM</text>
+              </g>
+              <g class="channel-node">
+                <rect class="channel-rect" x="180" y="96" width="64" height="34" rx="6" style="animation-delay: 0.7s"/>
+                <text class="channel-text" x="212" y="117" text-anchor="middle">IG DM</text>
+              </g>
+              <g class="channel-node">
+                <rect class="channel-rect" x="280" y="96" width="64" height="34" rx="6" style="animation-delay: 1.1s"/>
+                <text class="channel-text" x="312" y="117" text-anchor="middle">LinkedIn</text>
+              </g>
+              <g class="channel-node">
+                <rect class="channel-rect" x="380" y="96" width="64" height="34" rx="6" style="animation-delay: 1.5s"/>
+                <text class="channel-text" x="412" y="117" text-anchor="middle">Notion</text>
+              </g>
+              <g class="channel-node">
+                <rect class="channel-rect" x="480" y="96" width="64" height="34" rx="6" style="animation-delay: 1.9s"/>
+                <text class="channel-text" x="512" y="117" text-anchor="middle">Calendar</text>
+              </g>
+            </g>
+
+            <text x="612" y="118" class="more-text">+ 12 more</text>
+
+            <!-- Flow lines from each channel into funnel mouth -->
+            <g class="flows">
+              <line class="flow" x1="112" y1="74" x2="400" y2="240" style="animation-delay: 0s"/>
+              <line class="flow" x1="212" y1="74" x2="400" y2="240" style="animation-delay: 0.4s"/>
+              <line class="flow" x1="312" y1="74" x2="400" y2="240" style="animation-delay: 0.8s"/>
+              <line class="flow" x1="412" y1="74" x2="400" y2="240" style="animation-delay: 1.2s"/>
+              <line class="flow" x1="512" y1="74" x2="400" y2="240" style="animation-delay: 1.6s"/>
+              <line class="flow" x1="612" y1="74" x2="400" y2="240" style="animation-delay: 2.0s"/>
+              <line class="flow" x1="712" y1="74" x2="400" y2="240" style="animation-delay: 2.4s"/>
+              <line class="flow" x1="112" y1="130" x2="400" y2="240" style="animation-delay: 0.3s"/>
+              <line class="flow" x1="212" y1="130" x2="400" y2="240" style="animation-delay: 0.7s"/>
+              <line class="flow" x1="312" y1="130" x2="400" y2="240" style="animation-delay: 1.1s"/>
+              <line class="flow" x1="412" y1="130" x2="400" y2="240" style="animation-delay: 1.5s"/>
+              <line class="flow" x1="512" y1="130" x2="400" y2="240" style="animation-delay: 1.9s"/>
+            </g>
+
+            <!-- Funnel shape -->
+            <path class="funnel-shape" d="M 100 170 L 700 170 L 480 380 L 320 380 Z"/>
+            <text x="400" y="266" text-anchor="middle" class="claw-label">[ Open Claw ]</text>
+            <text x="400" y="294" text-anchor="middle" class="claw-sub">ROUTING · TRIAGE · DELIVERY</text>
+
+            <!-- Funnel → inbox connector -->
+            <line x1="400" y1="380" x2="400" y2="410" stroke="var(--accent)" stroke-width="2" opacity="0.6"/>
+
+            <!-- Bottom inbox -->
+            <rect class="inbox-rect" x="280" y="410" width="240" height="64" rx="10"/>
+            <text x="400" y="434" text-anchor="middle" class="inbox-title">1 unified inbox</text>
+            <text x="400" y="454" text-anchor="middle" class="inbox-sub">Zayn triages · specialists handle</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="hermes-deep-cta reveal">
+      <a href="#webinar" class="btn btn-primary">See the whole fleet run live <span class="arrow">→</span></a>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap"><div class="section-divider"></div></div>
+
 <!-- ============================================================
      04. SIX CATEGORIES (real agents, inside your business)
      ============================================================ -->
@@ -3033,8 +3864,8 @@ h1, h2, h3, h4 {
 <section class="section" id="hermes">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">09 / The proof</span>
-      <h2 class="h2">Hermes. 9 agents. 36 skills. Live since 2024.</h2>
+      <span class="eyebrow">07 / The Fleet</span>
+      <h2 class="h2">Meet the 9-agent fleet.</h2>
       <p class="lead">Watch live, copy what you need, ship your own.</p>
     </div>
 
@@ -3722,6 +4553,26 @@ async function submitWebinar(e) {
     var t = relTime(el.getAttribute('data-iso'));
     if (t) el.textContent = t;
   });
+})();
+
+// v9 Wave C — Hermes memory counter increments while loop runs
+(function () {
+  var mem = document.getElementById('memory-counter');
+  if (!mem) return;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+  var v = 1247;
+  // Only tick when the section is visible to save cycles
+  var visible = false;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { visible = e.isIntersecting; });
+  }, { threshold: 0.2 });
+  io.observe(mem.closest('.loop-wrap') || mem);
+  setInterval(function () {
+    if (!visible) return;
+    v++;
+    mem.textContent = v.toLocaleString();
+  }, 6000); // one increment per loop revolution
 })();
 </script>
 
