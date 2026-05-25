@@ -954,8 +954,10 @@ h1, h2, h3, h4 {
 
 .agent-card-head {
   display: flex; justify-content: space-between; align-items: center;
-  gap: 12px; flex-wrap: wrap;
+  gap: 12px; flex-wrap: nowrap;
+  min-height: 24px;
 }
+.agent-card-role { text-align: right; white-space: nowrap; }
 .agent-status {
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
@@ -1007,8 +1009,8 @@ h1, h2, h3, h4 {
 .agent-powered-by {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: var(--mono); font-size: 10px;
-  letter-spacing: 0.08em; text-transform: lowercase;
-  color: var(--text-low);
+  letter-spacing: 0.06em;
+  color: var(--text-mid);
   padding: 4px 10px;
   background: var(--bg-canvas);
   border: 1px solid var(--border);
@@ -1016,6 +1018,10 @@ h1, h2, h3, h4 {
   align-self: flex-start;
   margin: -4px 0 4px;
   white-space: nowrap;
+}
+.agent-powered-by span {
+  color: var(--text-high);
+  font-weight: 500;
 }
 .agent-powered-by img { opacity: 0.85; display: block; }
 
@@ -1424,8 +1430,8 @@ h1, h2, h3, h4 {
   display: grid; grid-template-columns: 1fr; gap: 20px;
   align-items: stretch;
 }
-@media (min-width: 700px) { .categories { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1080px) { .categories { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 700px) { .categories { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; } }
+@media (min-width: 1080px) { .categories { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; } }
 .cat {
   background: var(--bg-surface); border: 1px solid var(--border);
   border-radius: 6px; padding: 28px;
@@ -2052,6 +2058,11 @@ h1, h2, h3, h4 {
   border: 1px solid var(--border-strong);
   border-radius: 999px;
   color: var(--text-mid);
+}
+/* v11 Wave 3 — 5-agent pills breathing room on small phones */
+@media (max-width: 480px) {
+  .ai-stack-v11 .runtime-agents { gap: 6px; }
+  .ai-stack-v11 .runtime-agents span { padding: 3px 8px; font-size: 10px; }
 }
 
 /* Tier connectors */
@@ -2937,6 +2948,13 @@ h1, h2, h3, h4 {
   fill: var(--text-low);
   letter-spacing: 0.04em;
 }
+.llm-router .node-model {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  fill: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
 .llm-router .router-rect {
   fill: var(--bg-surface);
   stroke: var(--accent);
@@ -3015,6 +3033,25 @@ h1, h2, h3, h4 {
 .loop-diagram .loop-token {
   fill: var(--accent);
   filter: drop-shadow(0 0 8px var(--accent));
+}
+
+/* ============ MOTION #5 — COMPOSIO FLOW ============ */
+.composio-flow-wrap {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+}
+.composio-flow {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  display: block;
+}
+@media (prefers-reduced-motion: reduce) {
+  .composio-packets circle { display: none; }
 }
 
 @keyframes node-pulse {
@@ -3160,7 +3197,7 @@ h1, h2, h3, h4 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 48px;
-  align-items: start;
+  align-items: stretch;
 }
 @media (min-width: 980px) {
   .openbot-split { grid-template-columns: 5fr 7fr; gap: 64px; }
@@ -3290,8 +3327,11 @@ h1, h2, h3, h4 {
   flex-direction: column;
   gap: 28px;
   align-items: stretch;
+  height: 100%;
+  justify-content: space-between;
 }
 .openbot-terminal, .openbot-meta { width: 100%; }
+.openbot-meta { margin-top: auto; }
 
 .openbot-terminal {
   background: #060A09;
@@ -4026,9 +4066,9 @@ h1, h2, h3, h4 {
         <h3 class="arch-block-h">Each agent picks its driver LLM by task.</h3>
         <p class="arch-block-body">Claude for the thinking. Codex for the throughput. Gemini for the volume. Hermes routes every request through a model picker so each agent runs on the LLM that's best at its job — and cheapest at its load.</p>
         <ul class="arch-bullets">
-          <li>Claude Code · reasoning + orchestration</li>
-          <li>Codex (gpt-5.3) · fast code synthesis</li>
-          <li>Gemini 2.5 Flash · cheap async + summarize</li>
+          <li>Claude · Opus 4.7 · reasoning + architecture</li>
+          <li>Codex / ChatGPT · GPT-5.5 · fast code + research</li>
+          <li>Gemini Flash · 2.5 · async cron volume</li>
         </ul>
       </div>
       <div class="arch-visual">
@@ -4070,22 +4110,25 @@ h1, h2, h3, h4 {
               <text class="router-label" x="70" y="30" text-anchor="middle">ROUTER</text>
             </g>
 
-            <!-- Right column: 3 LLMs -->
+            <!-- Right column: 3 LLMs — model + use case -->
             <g class="llms">
               <g>
-                <rect class="node-rect" x="600" y="56" width="140" height="64" rx="10"/>
-                <text class="node-name" x="670" y="84" text-anchor="middle">Claude</text>
-                <text class="node-desc" x="670" y="104" text-anchor="middle">reasoning + orchestration</text>
+                <rect class="node-rect" x="600" y="48" width="140" height="80" rx="10"/>
+                <text class="node-name" x="670" y="72" text-anchor="middle">Claude</text>
+                <text class="node-model" x="670" y="92" text-anchor="middle">Opus 4.7</text>
+                <text class="node-desc" x="670" y="112" text-anchor="middle">reasoning + architecture</text>
               </g>
               <g>
-                <rect class="node-rect" x="600" y="148" width="140" height="64" rx="10"/>
-                <text class="node-name" x="670" y="176" text-anchor="middle">Codex</text>
-                <text class="node-desc" x="670" y="196" text-anchor="middle">fast code writing</text>
+                <rect class="node-rect" x="600" y="140" width="140" height="80" rx="10"/>
+                <text class="node-name" x="670" y="164" text-anchor="middle">Codex / ChatGPT</text>
+                <text class="node-model" x="670" y="184" text-anchor="middle">GPT-5.5</text>
+                <text class="node-desc" x="670" y="204" text-anchor="middle">fast code + research</text>
               </g>
               <g>
-                <rect class="node-rect" x="600" y="240" width="140" height="64" rx="10"/>
-                <text class="node-name" x="670" y="268" text-anchor="middle">Gemini Flash</text>
-                <text class="node-desc" x="670" y="288" text-anchor="middle">cheap async + summarize</text>
+                <rect class="node-rect" x="600" y="232" width="140" height="80" rx="10"/>
+                <text class="node-name" x="670" y="256" text-anchor="middle">Gemini Flash</text>
+                <text class="node-model" x="670" y="276" text-anchor="middle">2.5 Flash</text>
+                <text class="node-desc" x="670" y="296" text-anchor="middle">async cron volume</text>
               </g>
             </g>
 
@@ -4129,11 +4172,11 @@ h1, h2, h3, h4 {
       <div class="arch-copy">
         <span class="arch-block-label">03 · SELF-IMPROVE</span>
         <h3 class="arch-block-h">Every run leaves a fingerprint.</h3>
-        <p class="arch-block-body">Every run leaves a fingerprint in <strong>gbrain + memo</strong>, our shared memory layer. Every fingerprint sharpens the next run. The system gets smarter while I sleep.</p>
+        <p class="arch-block-body">Every run leaves a fingerprint in <strong>Mem0 + gbrain</strong>, our memory layer. Mem0 stores the persistent context. gbrain orchestrates retrieval across the fleet. Every fingerprint sharpens the next run. The system gets smarter while I sleep.</p>
         <ul class="arch-bullets">
           <li>5-step cycle: TRIGGER → EXECUTE → LOG → REFLECT → UPDATE</li>
-          <li>gbrain + memo grow with every run · queryable across the fleet</li>
-          <li>Two years of execution snippets, anchored to context</li>
+          <li>Mem0 + gbrain grow with every run · queryable across the fleet</li>
+          <li>Execution snippets anchored to context · iterating daily</li>
         </ul>
       </div>
       <div class="arch-visual">
@@ -4147,7 +4190,7 @@ h1, h2, h3, h4 {
             <!-- Center memory ring -->
             <circle cx="200" cy="200" r="62" class="memory-ring"/>
             <circle cx="200" cy="200" r="62" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.18"/>
-            <text x="200" y="180" text-anchor="middle" class="memory-label">gbrain + memo</text>
+            <text x="200" y="180" text-anchor="middle" class="memory-label">Mem0 + gbrain</text>
             <text x="200" y="210" text-anchor="middle" class="memory-value" id="memory-counter">1,247</text>
             <text x="200" y="228" text-anchor="middle" class="memory-unit">SNIPPETS</text>
 
@@ -4288,6 +4331,92 @@ h1, h2, h3, h4 {
             <rect class="inbox-rect" x="280" y="410" width="240" height="64" rx="10"/>
             <text x="400" y="434" text-anchor="middle" class="inbox-title">1 unified inbox</text>
             <text x="400" y="454" text-anchor="middle" class="inbox-sub">D-Rose triages · specialists handle</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06F · COMPOSIO — HOW AGENTS TALK TO TOOLS ============================================ -->
+    <div class="arch-block reveal">
+      <div class="arch-copy">
+        <span class="arch-block-label">05 · TOOLS</span>
+        <h3 class="arch-block-h">Every agent gets 100+ APIs without writing integration code.</h3>
+        <p class="arch-block-body">Composio is the tool layer. One config, every API ready. Gmail, Slack, GHL, Stripe, Notion, calendars, CRMs — agents call them like they call functions.</p>
+        <ul class="arch-bullets">
+          <li>100+ tools standardised behind one auth + schema layer</li>
+          <li>Agents call Gmail / Slack / GHL / Stripe / Meta / Google Ads as functions</li>
+          <li>No bespoke API code · no broken refresh tokens · no glue scripts</li>
+        </ul>
+      </div>
+      <div class="arch-visual">
+        <div class="composio-flow-wrap">
+          <svg viewBox="0 0 800 320" class="composio-flow" role="img" aria-label="Composio integration diagram: 5 Hermes agents route tool calls through Composio to 12+ APIs">
+            <!-- Left: 5 agent boxes -->
+            <g class="composio-agents" font-family="JetBrains Mono" font-size="11" fill="var(--text-high)">
+              <g transform="translate(40, 40)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">D-Rose</text></g>
+              <g transform="translate(40, 96)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">Curry</text></g>
+              <g transform="translate(40, 152)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">Antman</text></g>
+              <g transform="translate(40, 208)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">Kyrie</text></g>
+              <g transform="translate(40, 264)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">Ironman</text></g>
+            </g>
+
+            <!-- Center: Composio hub -->
+            <g transform="translate(330, 132)">
+              <rect width="140" height="56" rx="28" fill="var(--bg-surface)" stroke="var(--accent)" stroke-width="2.5" filter="drop-shadow(0 0 12px var(--accent-glow))"/>
+              <text x="70" y="26" text-anchor="middle" font-family="Inter" font-weight="800" font-size="15" fill="var(--accent)">Composio</text>
+              <text x="70" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--text-low)" letter-spacing="0.12em">TOOL LAYER</text>
+            </g>
+
+            <!-- Right: 12 API tiles + "+88 more" -->
+            <g class="composio-tools" font-family="JetBrains Mono" font-size="10" fill="var(--text-mid)">
+              <g transform="translate(540, 30)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">Gmail</text></g>
+              <g transform="translate(620, 30)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">Slack</text></g>
+              <g transform="translate(700, 30)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">GHL</text></g>
+              <g transform="translate(540, 68)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">Stripe</text></g>
+              <g transform="translate(620, 68)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">Notion</text></g>
+              <g transform="translate(700, 68)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">Calendar</text></g>
+              <g transform="translate(540, 106)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">Meta Ads</text></g>
+              <g transform="translate(620, 106)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">G Ads</text></g>
+              <g transform="translate(700, 106)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">Apify</text></g>
+              <g transform="translate(540, 144)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">Skool</text></g>
+              <g transform="translate(620, 144)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">Razorpay</text></g>
+              <g transform="translate(700, 144)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">Twilio</text></g>
+              <text x="636" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="var(--accent)" font-style="italic">+ 88 more</text>
+            </g>
+
+            <!-- Lines: agents → Composio + Composio → tools -->
+            <g class="composio-lines" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.28" fill="none">
+              <!-- agents → Composio (center 400, 160) -->
+              <path d="M 140 58 C 230 58 280 160 330 160" id="cf-agent-1"/>
+              <path d="M 140 114 C 230 114 280 160 330 160" id="cf-agent-2"/>
+              <path d="M 140 170 L 330 160" id="cf-agent-3"/>
+              <path d="M 140 226 C 230 226 280 160 330 160" id="cf-agent-4"/>
+              <path d="M 140 282 C 230 282 280 160 330 160" id="cf-agent-5"/>
+              <!-- Composio → tools (from 470,160 outward) -->
+              <path d="M 470 160 C 510 160 510 44 540 44" id="cf-tool-1"/>
+              <path d="M 470 160 C 510 160 510 82 540 82" id="cf-tool-2"/>
+              <path d="M 470 160 C 510 160 510 120 540 120" id="cf-tool-3"/>
+              <path d="M 470 160 C 510 160 510 158 540 158" id="cf-tool-4"/>
+            </g>
+
+            <!-- Animated packets (lime dots traveling) -->
+            <g class="composio-packets">
+              <circle r="3.5" fill="var(--accent)" filter="drop-shadow(0 0 4px var(--accent))">
+                <animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#cf-agent-1"/></animateMotion>
+              </circle>
+              <circle r="3.5" fill="var(--accent)" filter="drop-shadow(0 0 4px var(--accent))">
+                <animateMotion dur="2.2s" begin="0.4s" repeatCount="indefinite"><mpath href="#cf-agent-3"/></animateMotion>
+              </circle>
+              <circle r="3.5" fill="var(--accent)" filter="drop-shadow(0 0 4px var(--accent))">
+                <animateMotion dur="2.2s" begin="0.8s" repeatCount="indefinite"><mpath href="#cf-tool-1"/></animateMotion>
+              </circle>
+              <circle r="3.5" fill="var(--accent)" filter="drop-shadow(0 0 4px var(--accent))">
+                <animateMotion dur="2.2s" begin="1.2s" repeatCount="indefinite"><mpath href="#cf-tool-3"/></animateMotion>
+              </circle>
+              <circle r="3.5" fill="var(--accent)" filter="drop-shadow(0 0 4px var(--accent))">
+                <animateMotion dur="2.2s" begin="1.6s" repeatCount="indefinite"><mpath href="#cf-agent-5"/></animateMotion>
+              </circle>
+            </g>
           </svg>
         </div>
       </div>
@@ -4874,12 +5003,12 @@ h1, h2, h3, h4 {
         <h3 class="agent-card-name">D-Rose</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
-          <span>powered by Claude Code</span>
+          <span>Claude · Opus 4.7</span>
         </div>
         <p class="agent-card-desc">MVP point guard. Runs the floor, distributes the ball.</p>
         <ul class="agent-card-ships">
           <li>Dispatches the right specialist every morning at 09:00 IST</li>
-          <li>Grades work, files post-mortem to gbrain + memo</li>
+          <li>Grades work, files post-mortem to Mem0 + gbrain</li>
         </ul>
         <div class="agent-recent-ships" aria-hidden="true">
           <div class="ship-row"><span class="ship-time">7m</span> dispatched 9 tasks across fleet</div>
@@ -4896,7 +5025,7 @@ h1, h2, h3, h4 {
         <h3 class="agent-card-name">Curry</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
-          <span>powered by Claude Code</span>
+          <span>Claude · Opus 4.7</span>
         </div>
         <p class="agent-card-desc">Sharpshooter. Hits from distance, drops into any inbox.</p>
         <ul class="agent-card-ships">
@@ -4918,7 +5047,7 @@ h1, h2, h3, h4 {
         <h3 class="agent-card-name">Antman</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/openai-light.svg" alt="" width="14" height="14" />
-          <span>powered by Codex</span>
+          <span>Codex · GPT-5.5</span>
         </div>
         <p class="agent-card-desc">High-flying. Attacks the rim, scales winners fast.</p>
         <ul class="agent-card-ships">
@@ -4935,16 +5064,16 @@ h1, h2, h3, h4 {
       <article class="agent-card reveal">
         <div class="agent-card-head">
           <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">Memory + research</span>
+          <span class="agent-card-role">Research</span>
         </div>
         <h3 class="agent-card-name">Kyrie</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/gemini-light.svg" alt="" width="14" height="14" />
-          <span>powered by Gemini Flash</span>
+          <span>Gemini Flash · 2.5</span>
         </div>
         <p class="agent-card-desc">Crossover handles. Dribbles through messy data.</p>
         <ul class="agent-card-ships">
-          <li>Indexes Gmail, WhatsApp, calendar into gbrain + memo</li>
+          <li>Indexes Gmail, WhatsApp, calendar into Mem0 + gbrain</li>
           <li>Competitor scrapes + ICP vocab bank · 09:05 + 22:00</li>
         </ul>
         <div class="agent-recent-ships" aria-hidden="true">
@@ -4962,7 +5091,7 @@ h1, h2, h3, h4 {
         <h3 class="agent-card-name">Ironman</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/openai-light.svg" alt="" width="14" height="14" />
-          <span>powered by Codex</span>
+          <span>Codex · GPT-5.5</span>
         </div>
         <p class="agent-card-desc">Durability legend. Never misses a cron, every 15 minutes.</p>
         <ul class="agent-card-ships">
@@ -5306,7 +5435,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
     var r = document.querySelector('.roadmap'); if (r) r.classList.add('in-view');
     var rtl = document.querySelector('.roadmap-timeline'); if (rtl) rtl.classList.add('in-view');
-    document.querySelectorAll('.stack-connector').forEach(function(el){ el.classList.add('in-view'); });
     document.querySelectorAll('.tier-connector').forEach(function(el){ el.classList.add('in-view'); });
     return;
   }
@@ -5347,17 +5475,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.35 });
     tlio.observe(roadmapTl);
   }
-  // AI Stack tier connectors draw on scroll (legacy .stack-connector + v11 .tier-connector)
-  var conns = document.querySelectorAll('.stack-connector');
-  if (conns.length) {
-    var cio = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting) { e.target.classList.add('in-view'); cio.unobserve(e.target); }
-      });
-    }, { threshold: 0.4 });
-    conns.forEach(function(c){ cio.observe(c); });
-  }
-  // v11 Wave 2 — new .tier-connector observer (independent per-element observer, fires once)
+  // v11 Wave 2 — .tier-connector observer (independent per-element, fires once)
   document.querySelectorAll('.tier-connector').forEach(function(el){
     var obs = new IntersectionObserver(function(entries){
       if (entries[0].isIntersecting) { el.classList.add('in-view'); obs.disconnect(); }
