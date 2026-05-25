@@ -802,13 +802,17 @@ h1, h2, h3, h4 {
   width: 8px; height: 8px; border-radius: 50%;
   background: var(--accent-on-dark);
   box-shadow: 0 0 0 0 rgba(213, 235, 75, 0.65);
-  animation: agent-pulse 2.2s ease-out infinite;
+  animation: agent-pulse 2s ease-out infinite;
+  animation-delay: 0s; /* all 9 dots beat in unison — "fleet alive as one" */
   flex-shrink: 0;
 }
 @keyframes agent-pulse {
-  0%   { box-shadow: 0 0 0 0   rgba(213, 235, 75, 0.65); }
-  70%  { box-shadow: 0 0 0 10px rgba(213, 235, 75, 0);    }
-  100% { box-shadow: 0 0 0 0   rgba(213, 235, 75, 0);    }
+  0%   { box-shadow: 0 0 0 0   rgba(213, 235, 75, 0.65); transform: scale(1); }
+  18%  { transform: scale(1.25); }
+  35%  { transform: scale(1); }
+  50%  { transform: scale(1.18); }
+  70%  { box-shadow: 0 0 0 12px rgba(213, 235, 75, 0); transform: scale(1); }
+  100% { box-shadow: 0 0 0 0   rgba(213, 235, 75, 0); transform: scale(1); }
 }
 .agent-card-role {
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em;
@@ -836,6 +840,69 @@ h1, h2, h3, h4 {
   color: var(--accent-on-dark); font-family: var(--mono); font-size: 12px;
 }
 
+/* Powered-by tag — model attribution per agent */
+.agent-powered-by {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.08em; text-transform: lowercase;
+  color: var(--text-low);
+  padding: 4px 10px;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  align-self: flex-start;
+  margin: -4px 0 4px;
+  white-space: nowrap;
+}
+.agent-powered-by img { opacity: 0.85; display: block; }
+
+/* On-hover recent shipments feed */
+.agent-recent-ships {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 1px solid transparent;
+  transition: max-height 0.45s cubic-bezier(.22,1,.36,1),
+              opacity 0.35s ease,
+              padding-top 0.35s ease,
+              margin-top 0.35s ease,
+              border-top-color 0.35s ease;
+}
+.agent-card:hover .agent-recent-ships,
+.agent-card:focus-within .agent-recent-ships {
+  max-height: 220px;
+  opacity: 1;
+  margin-top: 6px;
+  padding-top: 14px;
+  border-top-color: rgba(26, 26, 26, 0.10);
+}
+.ship-row {
+  display: flex; gap: 12px; align-items: baseline;
+  font-family: var(--sans);
+  font-size: 12.5px; line-height: 1.45;
+  color: var(--text-mid);
+  padding: 5px 0;
+}
+.ship-time {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: 0.05em;
+  color: var(--accent-on-dark);
+  min-width: 32px;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+.agent-recent-ships::before {
+  content: 'last 3 ships';
+  display: block;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-low);
+  margin-bottom: 6px;
+  opacity: 0.7;
+}
+
 /* Bottom CTA */
 .hermes-cta {
   text-align: center; padding: 40px 24px 8px;
@@ -847,6 +914,15 @@ h1, h2, h3, h4 {
   color: var(--text-high); max-width: 56ch; margin: 0;
   letter-spacing: -0.025em; line-height: 1.25;
 }
+.hermes-tour-link {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em;
+  color: var(--text-mid); text-decoration: none;
+  border-bottom: 1px dashed var(--border-strong);
+  padding-bottom: 2px; margin-top: -4px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.hermes-tour-link:hover { color: var(--text-high); border-bottom-color: var(--accent-on-dark); }
+.hermes-tour-link .arrow { margin-left: 4px; }
 .section-divider { background: rgba(42, 42, 53, 0.08); }
 
 /* FAQ */
@@ -1262,7 +1338,7 @@ h1, h2, h3, h4 {
 .hero h1.typing .accent { opacity: 0; animation: hero-cursor-in .2s ease 1.7s forwards; }
 @keyframes hero-cursor-in { to { opacity: 1; } }
 
-/* 3. Status dot pulse — ready for Hermes agent cards (Phase 2B) */
+/* 3. Status dot pulse — synced heartbeat across all agent cards (fleet alive as one) */
 .agent-status-dot {
   position: relative; display: inline-block;
   width: 8px; height: 8px; border-radius: 50%;
@@ -1271,7 +1347,9 @@ h1, h2, h3, h4 {
 .agent-status-dot::after {
   content: ''; position: absolute; inset: 0;
   border-radius: 50%; background: var(--accent);
-  animation: pulse-dot 2s ease-out infinite; z-index: -1;
+  animation: pulse-dot 2s ease-out infinite;
+  animation-delay: 0s; /* synced — all 9 dots beat together */
+  z-index: -1;
 }
 @keyframes pulse-dot { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(3); opacity: 0; } }
 
@@ -1306,43 +1384,70 @@ h1, h2, h3, h4 {
 @keyframes count-pulse { 50% { color: var(--accent-on-dark); } }
 
 /* ============================================================ */
-/* IG GALLERY — Watch Sandy build in public */
+/* IG GALLERY — Masonry layout, varied tile heights, alive thumbnails */
 .ig-gallery {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  columns: 5;
+  column-gap: 16px;
   margin-top: 40px;
 }
-@media (max-width: 1100px) { .ig-gallery { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 700px) { .ig-gallery { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+@media (max-width: 1100px) { .ig-gallery { columns: 3; } }
+@media (max-width: 700px)  { .ig-gallery { columns: 2; column-gap: 12px; } }
 
 .ig-tile {
-  display: flex; flex-direction: column;
+  display: block;
+  width: 100%;
+  margin: 0 0 16px;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
-  transition: all 0.18s ease;
+  transition: border-color 0.22s ease, transform 0.22s cubic-bezier(.22,1,.36,1), box-shadow 0.22s ease;
   text-decoration: none;
+  position: relative;
 }
+@media (max-width: 700px) { .ig-tile { margin: 0 0 12px; } }
 .ig-tile:hover {
   border-color: var(--accent-on-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(213, 235, 75, 0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px rgba(26, 26, 26, 0.10), 0 0 0 1px var(--accent-on-dark);
 }
+
+/* Varied tile aspect ratios for true masonry feel */
+.ig-tile--tall  .ig-tile-thumb { aspect-ratio: 9 / 16; }
+.ig-tile--med   .ig-tile-thumb { aspect-ratio: 3 / 4; }
+.ig-tile--short .ig-tile-thumb { aspect-ratio: 4 / 5; }
 
 .ig-tile-thumb {
   position: relative;
-  aspect-ratio: 9 / 16;
   overflow: hidden;
   background: var(--bg-surface-2);
 }
 .ig-tile-thumb img {
   width: 100%; height: 100%; object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
+  transform-origin: center center;
+  animation: ig-ken-burns 14s ease-in-out infinite alternate;
+  transition: transform 0.5s cubic-bezier(.22,1,.36,1), filter 0.3s ease;
+  will-change: transform;
 }
-.ig-tile:hover .ig-tile-thumb img { transform: scale(1.05); }
+/* Stagger the Ken Burns motion across tiles so they don't all pan in unison */
+.ig-tile:nth-child(2n)  .ig-tile-thumb img { animation-duration: 16s; animation-direction: alternate-reverse; }
+.ig-tile:nth-child(3n)  .ig-tile-thumb img { animation-duration: 18s; animation-delay: -4s; }
+.ig-tile:nth-child(5n)  .ig-tile-thumb img { animation-duration: 20s; animation-delay: -8s; }
+
+@keyframes ig-ken-burns {
+  0%   { transform: scale(1.04) translate(0%, 0%); }
+  100% { transform: scale(1.10) translate(-1.5%, 1.5%); }
+}
+
+.ig-tile:hover .ig-tile-thumb img {
+  animation-play-state: paused;
+  transform: scale(1.12);
+  filter: brightness(0.55);
+}
 
 .ig-tile-play {
   position: absolute; top: 50%; left: 50%;
@@ -1357,34 +1462,83 @@ h1, h2, h3, h4 {
   color: var(--text-high);
   font-size: 18px;
   opacity: 0.95;
-  transition: opacity 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 6px 18px rgba(213, 235, 75, 0.35);
+  transition: opacity 0.18s ease, transform 0.22s cubic-bezier(.22,1,.36,1), box-shadow 0.22s ease;
+  z-index: 2;
+  animation: ig-play-bob 3s ease-in-out infinite;
 }
-.ig-tile:hover .ig-tile-play { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+@keyframes ig-play-bob {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%      { transform: translate(-50%, -54%) scale(1.04); }
+}
+.ig-tile:hover .ig-tile-play {
+  animation-play-state: paused;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+/* Hover overlay — "View on Instagram →" */
+.ig-tile-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #FAFAF8;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  z-index: 3;
+  pointer-events: none;
+  text-align: center;
+  padding: 16px;
+}
+.ig-tile-overlay .arrow {
+  display: inline-block;
+  margin-left: 8px;
+  color: var(--accent);
+  transition: transform 0.22s ease;
+}
+.ig-tile:hover .ig-tile-overlay { opacity: 1; }
+.ig-tile:hover .ig-tile-overlay .arrow { transform: translateX(4px); }
 
 .ig-tile-meta {
   display: flex; flex-direction: column;
-  gap: 6px;
-  padding: 12px 14px;
+  gap: 8px;
+  padding: 12px 14px 14px;
 }
 .ig-tile-caption {
   font-family: var(--sans);
   font-size: 13px;
-  color: var(--text-mid);
+  color: var(--text-high);
   line-height: 1.45;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 38px;
+  font-weight: 500;
 }
-.ig-tile-views {
+.ig-tile-attribution-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10px;
+  letter-spacing: 0.06em;
   color: var(--text-low);
+}
+.ig-tile-author { font-weight: 500; }
+.ig-tile-when {
+  color: var(--accent-on-dark);
+  font-weight: 600;
   letter-spacing: 0.04em;
 }
 
 .ig-cta { text-align: center; margin-top: 36px; }
+
+/* Reduced motion: stop Ken Burns + play bob */
+@media (prefers-reduced-motion: reduce) {
+  .ig-tile-thumb img { animation: none; transform: scale(1); }
+  .ig-tile-play { animation: none; }
+}
 
 /* ============================================================ */
 /* v7-tech: HIGGSFIELD-INSPIRED ADDITIONS */
@@ -1605,19 +1759,9 @@ h1, h2, h3, h4 {
 }
 .section-divider.in-view::after { width: 100%; }
 
-/* IG tile — Higgsfield attribution badge + richer hover */
-.ig-tile { position: relative; }
-.ig-tile-thumb {
-  transition: transform 0.4s cubic-bezier(.22,1,.36,1);
-}
-.ig-tile:hover {
-  border-color: var(--accent-on-dark);
-  transform: translateY(-4px);
-  box-shadow: 0 14px 36px rgba(26, 26, 26, 0.10), 0 0 0 1px var(--accent-on-dark);
-}
-.ig-tile:hover .ig-tile-thumb img { transform: scale(1.08); }
+/* IG tile attribution badge (inside thumb) — Higgsfield-style */
 .ig-tile-attribution {
-  position: absolute; bottom: 8px; left: 8px; z-index: 2;
+  position: absolute; bottom: 10px; left: 10px; z-index: 4;
   display: inline-flex; align-items: center; gap: 6px;
   padding: 5px 10px; border-radius: 999px;
   background: rgba(26, 26, 26, 0.78);
@@ -1625,21 +1769,19 @@ h1, h2, h3, h4 {
   font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em;
   color: #FAFAF8; font-weight: 500;
   pointer-events: none;
+  transition: opacity 0.22s ease;
 }
 .ig-tile-attribution::before {
   content: ''; width: 5px; height: 5px; border-radius: 50%;
   background: var(--accent);
   box-shadow: 0 0 6px rgba(213, 235, 75, 0.65);
+  animation: ig-attrib-blink 1.4s ease-in-out infinite;
 }
-.ig-tile-play {
-  background: var(--accent);
-  box-shadow: 0 6px 18px rgba(213, 235, 75, 0.35);
+@keyframes ig-attrib-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
 }
-.ig-tile:hover .ig-tile-play {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1.1);
-  box-shadow: 0 0 0 8px rgba(213, 235, 75, 0.18), 0 8px 24px rgba(213, 235, 75, 0.4);
-}
+.ig-tile:hover .ig-tile-attribution { opacity: 0; }
 
 /* Card universal hover lift (Higgsfield-feel) */
 .card, .tier, .agent-card, .cat, .month, .filter-col {
@@ -2279,11 +2421,20 @@ h1, h2, h3, h4 {
           <span class="agent-card-role">Orchestrator</span>
         </div>
         <h3 class="agent-card-name">Zayn</h3>
+        <div class="agent-powered-by">
+          <img src="assets/logos/claude.svg" alt="" width="14" height="14" />
+          <span>powered by Claude Code</span>
+        </div>
         <p class="agent-card-desc">Chief of staff. Routes every goal.</p>
         <ul class="agent-card-ships">
           <li>Dispatches the right specialist, polls until done</li>
           <li>Grades work, files post-mortem to memory</li>
         </ul>
+        <div class="agent-recent-ships" aria-hidden="true">
+          <div class="ship-row"><span class="ship-time">14m</span> dispatched 7 tasks across fleet</div>
+          <div class="ship-row"><span class="ship-time">2h</span> synced fleet state, all green</div>
+          <div class="ship-row"><span class="ship-time">8h</span> morning briefing sent to Sandy</div>
+        </div>
       </article>
 
       <article class="agent-card reveal">
@@ -2292,11 +2443,20 @@ h1, h2, h3, h4 {
           <span class="agent-card-role">Memory curator</span>
         </div>
         <h3 class="agent-card-name">Mira</h3>
+        <div class="agent-powered-by">
+          <img src="assets/logos/claude.svg" alt="" width="14" height="14" />
+          <span>powered by Claude Code</span>
+        </div>
         <p class="agent-card-desc">Silent ingest. Structured brain.</p>
         <ul class="agent-card-ships">
           <li>Parses Gmail, WhatsApp, calendar to entities</li>
           <li>Flags contradictions weekly</li>
         </ul>
+        <div class="agent-recent-ships" aria-hidden="true">
+          <div class="ship-row"><span class="ship-time">22m</span> indexed 47 new notes</div>
+          <div class="ship-row"><span class="ship-time">4h</span> merged 3 duplicate threads</div>
+          <div class="ship-row"><span class="ship-time">11h</span> tagged 12 priority contacts</div>
+        </div>
       </article>
 
       <article class="agent-card reveal">
@@ -2305,11 +2465,20 @@ h1, h2, h3, h4 {
           <span class="agent-card-role">Outreach closer</span>
         </div>
         <h3 class="agent-card-name">Kai</h3>
+        <div class="agent-powered-by">
+          <img src="assets/logos/claude.svg" alt="" width="14" height="14" />
+          <span>powered by Claude Code</span>
+        </div>
         <p class="agent-card-desc">Cold to booked call.</p>
         <ul class="agent-card-ships">
           <li>Personalised LinkedIn DMs + 7-touch nurture</li>
           <li>Objection map, 20 plays</li>
         </ul>
+        <div class="agent-recent-ships" aria-hidden="true">
+          <div class="ship-row"><span class="ship-time">38m</span> sent 89 personalised first-lines</div>
+          <div class="ship-row"><span class="ship-time">3h</span> replied to 14 prospects</div>
+          <div class="ship-row"><span class="ship-time">9h</span> booked 6 discovery calls</div>
+        </div>
       </article>
 
       <article class="agent-card reveal">
@@ -2318,11 +2487,20 @@ h1, h2, h3, h4 {
           <span class="agent-card-role">Paid media buyer</span>
         </div>
         <h3 class="agent-card-name">Axel</h3>
+        <div class="agent-powered-by">
+          <img src="assets/logos/claude.svg" alt="" width="14" height="14" />
+          <span>powered by Claude Code</span>
+        </div>
         <p class="agent-card-desc">Launch, scale, kill.</p>
         <ul class="agent-card-ships">
           <li>Daily Meta + Google spend audit</li>
           <li>Kill/scale decisions logged, ABO→CBO graduation</li>
         </ul>
+        <div class="agent-recent-ships" aria-hidden="true">
+          <div class="ship-row"><span class="ship-time">12m</span> monitored 7 ad sets, killed 1</div>
+          <div class="ship-row"><span class="ship-time">2h</span> scaled 1 winner +20% budget</div>
+          <div class="ship-row"><span class="ship-time">6h</span> saved $182 on wasted spend</div>
+        </div>
       </article>
 
       <article class="agent-card reveal">
@@ -2331,11 +2509,20 @@ h1, h2, h3, h4 {
           <span class="agent-card-role">Creative director</span>
         </div>
         <h3 class="agent-card-name">Iris</h3>
+        <div class="agent-powered-by">
+          <img src="assets/logos/claude.svg" alt="" width="14" height="14" />
+          <span>powered by Claude Code</span>
+        </div>
         <p class="agent-card-desc">Briefs to hero creative.</p>
         <ul class="agent-card-ships">
           <li>Nano Banana + Higgsfield gen, Figma assembly</li>
           <li>Creative DNA tracking per win</li>
         </ul>
+        <div class="agent-recent-ships" aria-hidden="true">
+          <div class="ship-row"><span class="ship-time">28m</span> drafted 8 IG hooks for Sandy</div>
+          <div class="ship-row"><span class="ship-time">3h</span> generated 3 image variants</div>
+          <div class="ship-row"><span class="ship-time">10h</span> queued Friday batch in Figma</div>
+        </div>
       </article>
 
       <article class="agent-card reveal">
@@ -2344,11 +2531,20 @@ h1, h2, h3, h4 {
           <span class="agent-card-role">Ops engineer</span>
         </div>
         <h3 class="agent-card-name">Otto</h3>
+        <div class="agent-powered-by">
+          <img src="assets/logos/openai.svg" alt="" width="14" height="14" />
+          <span>powered by Codex</span>
+        </div>
         <p class="agent-card-desc">Plumbing layer. Keeps it alive.</p>
         <ul class="agent-card-ships">
           <li>n8n + GHL builds, cron health, secret rotation</li>
           <li>Runbook for every integration</li>
         </ul>
+        <div class="agent-recent-ships" aria-hidden="true">
+          <div class="ship-row"><span class="ship-time">06m</span> rotated 4 API keys</div>
+          <div class="ship-row"><span class="ship-time">1h</span> patched 1 cron failure</div>
+          <div class="ship-row"><span class="ship-time">7h</span> healthchecks: all green</div>
+        </div>
       </article>
 
       <article class="agent-card reveal">
@@ -2357,11 +2553,20 @@ h1, h2, h3, h4 {
           <span class="agent-card-role">Research strategist</span>
         </div>
         <h3 class="agent-card-name">Skye</h3>
+        <div class="agent-powered-by">
+          <img src="assets/logos/gemini.svg" alt="" width="14" height="14" />
+          <span>powered by Gemini Flash</span>
+        </div>
         <p class="agent-card-desc">Market signal, weekly.</p>
         <ul class="agent-card-ships">
           <li>Apify scrapes + competitor ad teardowns</li>
           <li>ICP vocab bank for the fleet</li>
         </ul>
+        <div class="agent-recent-ships" aria-hidden="true">
+          <div class="ship-row"><span class="ship-time">45m</span> researched 5 competitors</div>
+          <div class="ship-row"><span class="ship-time">4h</span> summarised industry shift</div>
+          <div class="ship-row"><span class="ship-time">12h</span> fed Iris a brief on hooks</div>
+        </div>
       </article>
 
       <article class="agent-card reveal">
@@ -2370,11 +2575,20 @@ h1, h2, h3, h4 {
           <span class="agent-card-role">QA reviewer</span>
         </div>
         <h3 class="agent-card-name">Vera</h3>
+        <div class="agent-powered-by">
+          <img src="assets/logos/claude.svg" alt="" width="14" height="14" />
+          <span>powered by Claude Code</span>
+        </div>
         <p class="agent-card-desc">The rejection bar. Nothing ships unchecked.</p>
         <ul class="agent-card-ships">
           <li>12-point pre-ship checklist + claim verification</li>
           <li>Anti-pattern linter on every doc</li>
         </ul>
+        <div class="agent-recent-ships" aria-hidden="true">
+          <div class="ship-row"><span class="ship-time">18m</span> QA'd 12 drafts</div>
+          <div class="ship-row"><span class="ship-time">3h</span> rejected 1 for hallucination</div>
+          <div class="ship-row"><span class="ship-time">8h</span> approved 11 for ship</div>
+        </div>
       </article>
 
       <article class="agent-card reveal">
@@ -2383,11 +2597,20 @@ h1, h2, h3, h4 {
           <span class="agent-card-role">Business strategist</span>
         </div>
         <h3 class="agent-card-name">Atlas</h3>
+        <div class="agent-powered-by">
+          <img src="assets/logos/claude.svg" alt="" width="14" height="14" />
+          <span>powered by Claude Code</span>
+        </div>
         <p class="agent-card-desc">Bets with kill criteria.</p>
         <ul class="agent-card-ships">
           <li>1-page growth hypotheses + positioning audits</li>
           <li>Asymmetric bet scouting</li>
         </ul>
+        <div class="agent-recent-ships" aria-hidden="true">
+          <div class="ship-row"><span class="ship-time">34m</span> flagged campaign drift</div>
+          <div class="ship-row"><span class="ship-time">5h</span> rebalanced 3 ad sets</div>
+          <div class="ship-row"><span class="ship-time">14h</span> scouted 2 asymmetric bets</div>
+        </div>
       </article>
 
     </div>
@@ -2396,6 +2619,7 @@ h1, h2, h3, h4 {
     <div class="hermes-cta">
       <p>Want this stack inside your business?</p>
       <a href="#webinar" class="btn btn-primary">Save my seat <span class="arrow">→</span></a>
+      <a href="#webinar" class="hermes-tour-link">Tour the fleet live in the next webinar <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -2414,123 +2638,163 @@ h1, h2, h3, h4 {
     </div>
 
     <div class="ig-gallery">
-      <a class="ig-tile reveal" href="https://www.instagram.com/p/DWl0P6Ojzxb/" target="_blank" rel="noopener">
+      <a class="ig-tile reveal ig-tile--tall" href="https://www.instagram.com/p/DWl0P6Ojzxb/" target="_blank" rel="noopener">
         <div class="ig-tile-thumb">
           <img src="assets/photos/reels/reel-01.jpg" alt="Didn't go shopping today. Went investing" loading="lazy" width="540" height="960" />
           <span class="ig-tile-play" aria-hidden="true">▶</span>
           <span class="ig-tile-attribution">by @sandymarketinglab</span>
+          <span class="ig-tile-overlay">View on Instagram <span class="arrow">→</span></span>
         </div>
         <div class="ig-tile-meta">
           <span class="ig-tile-caption">Didn't go shopping today. Went investing</span>
-          <span class="ig-tile-views">584 views</span>
+          <div class="ig-tile-attribution-row">
+            <span class="ig-tile-author">@sandymarketinglab</span>
+            <span class="ig-tile-when" data-iso="2026-05-22">3 days ago</span>
+          </div>
         </div>
       </a>
 
-      <a class="ig-tile reveal" href="https://www.instagram.com/p/DXqouXwg2zH/" target="_blank" rel="noopener">
+      <a class="ig-tile reveal ig-tile--med" href="https://www.instagram.com/p/DXqouXwg2zH/" target="_blank" rel="noopener">
         <div class="ig-tile-thumb">
-          <img src="assets/photos/reels/reel-02.jpg" alt="Simple internet finds that feel weirdly beautiful" loading="lazy" width="540" height="960" />
+          <img src="assets/photos/reels/reel-02.jpg" alt="Simple internet finds that feel weirdly beautiful" loading="lazy" width="540" height="720" />
           <span class="ig-tile-play" aria-hidden="true">▶</span>
           <span class="ig-tile-attribution">by @sandymarketinglab</span>
+          <span class="ig-tile-overlay">View on Instagram <span class="arrow">→</span></span>
         </div>
         <div class="ig-tile-meta">
           <span class="ig-tile-caption">One of those simple internet finds that feels weirdly beautiful.</span>
-          <span class="ig-tile-views">121 views</span>
+          <div class="ig-tile-attribution-row">
+            <span class="ig-tile-author">@sandymarketinglab</span>
+            <span class="ig-tile-when" data-iso="2026-05-18">7 days ago</span>
+          </div>
         </div>
       </a>
 
-      <a class="ig-tile reveal" href="https://www.instagram.com/p/DWfrPWRj4_I/" target="_blank" rel="noopener">
+      <a class="ig-tile reveal ig-tile--tall" href="https://www.instagram.com/p/DWfrPWRj4_I/" target="_blank" rel="noopener">
         <div class="ig-tile-thumb">
           <img src="assets/photos/reels/reel-03.jpg" alt="Walked into IKEA like two grown men" loading="lazy" width="540" height="960" />
           <span class="ig-tile-play" aria-hidden="true">▶</span>
           <span class="ig-tile-attribution">by @sandymarketinglab</span>
+          <span class="ig-tile-overlay">View on Instagram <span class="arrow">→</span></span>
         </div>
         <div class="ig-tile-meta">
           <span class="ig-tile-caption">We walked into IKEA like two grown men.</span>
-          <span class="ig-tile-views">557 views</span>
+          <div class="ig-tile-attribution-row">
+            <span class="ig-tile-author">@sandymarketinglab</span>
+            <span class="ig-tile-when" data-iso="2026-05-15">10 days ago</span>
+          </div>
         </div>
       </a>
 
-      <a class="ig-tile reveal" href="https://www.instagram.com/p/DW9KaZGCQJJ/" target="_blank" rel="noopener">
+      <a class="ig-tile reveal ig-tile--short" href="https://www.instagram.com/p/DW9KaZGCQJJ/" target="_blank" rel="noopener">
         <div class="ig-tile-thumb">
-          <img src="assets/photos/reels/reel-04.jpg" alt="Saheb saw me before there was anything to show" loading="lazy" width="540" height="960" />
+          <img src="assets/photos/reels/reel-04.jpg" alt="Saheb saw me before there was anything to show" loading="lazy" width="540" height="600" />
           <span class="ig-tile-play" aria-hidden="true">▶</span>
           <span class="ig-tile-attribution">by @sandymarketinglab</span>
+          <span class="ig-tile-overlay">View on Instagram <span class="arrow">→</span></span>
         </div>
         <div class="ig-tile-meta">
           <span class="ig-tile-caption">Saheb saw me before there was anything to show.</span>
-          <span class="ig-tile-views">525 views</span>
+          <div class="ig-tile-attribution-row">
+            <span class="ig-tile-author">@sandymarketinglab</span>
+            <span class="ig-tile-when" data-iso="2026-05-11">2 weeks ago</span>
+          </div>
         </div>
       </a>
 
-      <a class="ig-tile reveal" href="https://www.instagram.com/p/DV_YqecCed0/" target="_blank" rel="noopener">
+      <a class="ig-tile reveal ig-tile--tall" href="https://www.instagram.com/p/DV_YqecCed0/" target="_blank" rel="noopener">
         <div class="ig-tile-thumb">
           <img src="assets/photos/reels/reel-05.jpg" alt="Claude Code just took another job from the designers" loading="lazy" width="540" height="960" />
           <span class="ig-tile-play" aria-hidden="true">▶</span>
           <span class="ig-tile-attribution">by @sandymarketinglab</span>
+          <span class="ig-tile-overlay">View on Instagram <span class="arrow">→</span></span>
         </div>
         <div class="ig-tile-meta">
           <span class="ig-tile-caption">Claude Code just took another job from the designers.</span>
-          <span class="ig-tile-views">536 views</span>
+          <div class="ig-tile-attribution-row">
+            <span class="ig-tile-author">@sandymarketinglab</span>
+            <span class="ig-tile-when" data-iso="2026-05-08">17 days ago</span>
+          </div>
         </div>
       </a>
 
-      <a class="ig-tile reveal" href="https://www.instagram.com/p/DWWSPx6iZmn/" target="_blank" rel="noopener">
+      <a class="ig-tile reveal ig-tile--med" href="https://www.instagram.com/p/DWWSPx6iZmn/" target="_blank" rel="noopener">
         <div class="ig-tile-thumb">
-          <img src="assets/photos/reels/reel-06.jpg" alt="A shift in how work gets done" loading="lazy" width="540" height="960" />
+          <img src="assets/photos/reels/reel-06.jpg" alt="A shift in how work gets done" loading="lazy" width="540" height="720" />
           <span class="ig-tile-play" aria-hidden="true">▶</span>
           <span class="ig-tile-attribution">by @sandymarketinglab</span>
+          <span class="ig-tile-overlay">View on Instagram <span class="arrow">→</span></span>
         </div>
         <div class="ig-tile-meta">
           <span class="ig-tile-caption">This isn't a cool demo. It's a shift in how work gets done.</span>
-          <span class="ig-tile-views">657 views</span>
+          <div class="ig-tile-attribution-row">
+            <span class="ig-tile-author">@sandymarketinglab</span>
+            <span class="ig-tile-when" data-iso="2026-05-05">20 days ago</span>
+          </div>
         </div>
       </a>
 
-      <a class="ig-tile reveal" href="https://www.instagram.com/p/DWsetRoD80V/" target="_blank" rel="noopener">
+      <a class="ig-tile reveal ig-tile--tall" href="https://www.instagram.com/p/DWsetRoD80V/" target="_blank" rel="noopener">
         <div class="ig-tile-thumb">
           <img src="assets/photos/reels/reel-07.jpg" alt="Co-founder birthday at our AI agency" loading="lazy" width="540" height="960" />
           <span class="ig-tile-play" aria-hidden="true">▶</span>
           <span class="ig-tile-attribution">by @sandymarketinglab</span>
+          <span class="ig-tile-overlay">View on Instagram <span class="arrow">→</span></span>
         </div>
         <div class="ig-tile-meta">
           <span class="ig-tile-caption">Co-founder birthday at our AI agency, no low-key.</span>
-          <span class="ig-tile-views">474 views</span>
+          <div class="ig-tile-attribution-row">
+            <span class="ig-tile-author">@sandymarketinglab</span>
+            <span class="ig-tile-when" data-iso="2026-05-02">23 days ago</span>
+          </div>
         </div>
       </a>
 
-      <a class="ig-tile reveal" href="https://www.instagram.com/p/DVdrUa_Eooc/" target="_blank" rel="noopener">
+      <a class="ig-tile reveal ig-tile--short" href="https://www.instagram.com/p/DVdrUa_Eooc/" target="_blank" rel="noopener">
         <div class="ig-tile-thumb">
-          <img src="assets/photos/reels/reel-08.jpg" alt="Spent the night playing with the PawMe robot" loading="lazy" width="540" height="960" />
+          <img src="assets/photos/reels/reel-08.jpg" alt="Spent the night playing with the PawMe robot" loading="lazy" width="540" height="600" />
           <span class="ig-tile-play" aria-hidden="true">▶</span>
           <span class="ig-tile-attribution">by @sandymarketinglab</span>
+          <span class="ig-tile-overlay">View on Instagram <span class="arrow">→</span></span>
         </div>
         <div class="ig-tile-meta">
           <span class="ig-tile-caption">Spent the night playing with the PawMe robot.</span>
-          <span class="ig-tile-views">830 views</span>
+          <div class="ig-tile-attribution-row">
+            <span class="ig-tile-author">@sandymarketinglab</span>
+            <span class="ig-tile-when" data-iso="2026-04-28">27 days ago</span>
+          </div>
         </div>
       </a>
 
-      <a class="ig-tile reveal" href="https://www.instagram.com/p/DXrOPokj9F8/" target="_blank" rel="noopener">
+      <a class="ig-tile reveal ig-tile--tall" href="https://www.instagram.com/p/DXrOPokj9F8/" target="_blank" rel="noopener">
         <div class="ig-tile-thumb">
           <img src="assets/photos/reels/reel-09.jpg" alt="Two founders. One lesson." loading="lazy" width="540" height="960" />
           <span class="ig-tile-play" aria-hidden="true">▶</span>
           <span class="ig-tile-attribution">by @sandymarketinglab</span>
+          <span class="ig-tile-overlay">View on Instagram <span class="arrow">→</span></span>
         </div>
         <div class="ig-tile-meta">
           <span class="ig-tile-caption">Two founders. One lesson: rest is strategy, not weakness.</span>
-          <span class="ig-tile-views">495 views</span>
+          <div class="ig-tile-attribution-row">
+            <span class="ig-tile-author">@sandymarketinglab</span>
+            <span class="ig-tile-when" data-iso="2026-04-22">1 month ago</span>
+          </div>
         </div>
       </a>
 
-      <a class="ig-tile reveal" href="https://www.instagram.com/p/DXl_5XNidmN/" target="_blank" rel="noopener">
+      <a class="ig-tile reveal ig-tile--med" href="https://www.instagram.com/p/DXl_5XNidmN/" target="_blank" rel="noopener">
         <div class="ig-tile-thumb">
-          <img src="assets/photos/reels/reel-10.jpg" alt="Casually testing what our robot can do" loading="lazy" width="540" height="960" />
+          <img src="assets/photos/reels/reel-10.jpg" alt="Casually testing what our robot can do" loading="lazy" width="540" height="720" />
           <span class="ig-tile-play" aria-hidden="true">▶</span>
           <span class="ig-tile-attribution">by @sandymarketinglab</span>
+          <span class="ig-tile-overlay">View on Instagram <span class="arrow">→</span></span>
         </div>
         <div class="ig-tile-meta">
           <span class="ig-tile-caption">POV: just casually testing what our robot can do.</span>
-          <span class="ig-tile-views">269 views</span>
+          <div class="ig-tile-attribution-row">
+            <span class="ig-tile-author">@sandymarketinglab</span>
+            <span class="ig-tile-when" data-iso="2026-04-18">1 month ago</span>
+          </div>
         </div>
       </a>
     </div>
@@ -2937,6 +3201,30 @@ async function submitWebinar(e) {
   success.classList.add('show');
   return false;
 }
+
+/* ============================================================
+   IG GALLERY — relative timestamp updater
+   Recomputes "X days ago" client-side from data-iso so tiles
+   never go stale across builds.
+   ============================================================ */
+(function () {
+  function relTime(iso) {
+    var then = new Date(iso).getTime();
+    if (isNaN(then)) return '';
+    var days = Math.floor((Date.now() - then) / 86400000);
+    if (days <= 0) return 'today';
+    if (days === 1) return '1 day ago';
+    if (days < 14) return days + ' days ago';
+    if (days < 30) return Math.floor(days / 7) + ' weeks ago';
+    if (days < 60) return '1 month ago';
+    if (days < 365) return Math.floor(days / 30) + ' months ago';
+    return Math.floor(days / 365) + 'y ago';
+  }
+  document.querySelectorAll('.ig-tile-when[data-iso]').forEach(function (el) {
+    var t = relTime(el.getAttribute('data-iso'));
+    if (t) el.textContent = t;
+  });
+})();
 </script>
 
 </body>

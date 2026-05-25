@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1200" width="2400" height="1200" role="img" aria-label="Hermes 9-agent fleet diagram: Zayn orchestrator at center, 8 specialist agents in orbit">
   <defs>
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        .hermes-pulses { display: none; }
+        circle animate, circle animateMotion { display: none; }
+      }
+      .hermes-pulses circle { filter: drop-shadow(0 0 6px rgba(213,235,75,0.85)); }
+    </style>
     <!-- Subtle background grid -->
     <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
       <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#1A1A1A" stroke-width="0.5" opacity="0.06"/>
@@ -27,14 +34,14 @@
   <!-- Operator label, top-left -->
   <g font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" fill="#1A1A1A">
     <text x="60" y="64" font-size="20" letter-spacing="3" font-weight="700">HERMES :: FLEET v1</text>
-    <text x="60" y="92" font-size="14" letter-spacing="2" fill="#5A5A65">9 AGENTS &middot; ZAYN ORCHESTRATES &middot; 8 SPECIALISTS IN ORBIT</text>
+    <text x="60" y="92" font-size="14" letter-spacing="2" fill="#5A5A65">9 AGENTS · ZAYN ORCHESTRATES · 8 SPECIALISTS IN ORBIT</text>
   </g>
 
   <!-- Live status top-right -->
   <g font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" fill="#1A1A1A" text-anchor="end">
     <circle cx="2240" cy="58" r="6" fill="#BFDA2C"/>
     <text x="2260" y="64" font-size="18" letter-spacing="2" font-weight="700">LIVE</text>
-    <text x="2340" y="92" font-size="14" letter-spacing="2" fill="#5A5A65">2026-05-25 &middot; IN PRODUCTION</text>
+    <text x="2340" y="92" font-size="14" letter-spacing="2" fill="#5A5A65">2026-05-25 · IN PRODUCTION</text>
   </g>
 
   <!-- Hub glow -->
@@ -64,6 +71,90 @@
     <path d="M 883 873 Q 1020 740 1176 604" stroke-dasharray="3 5" opacity="0.42" marker-end="url(#arrowIn)"/>
     <path d="M 776 576 Q 1000 540 1176 576" stroke-dasharray="3 5" opacity="0.42" marker-end="url(#arrowIn)"/>
     <path d="M 883 327 Q 1020 460 1176 596" stroke-dasharray="3 5" opacity="0.42" marker-end="url(#arrowIn)"/>
+  </g>
+
+  <!-- Animated traveling pulses along each dispatch line (Zayn → specialist outward, alternating with specialist → Zayn inward) -->
+  <!-- Each orb: 2.4s cycle, staggered begin so the fleet pulses in a wave -->
+  <g class="hermes-pulses">
+    <!-- N — Mira: outward then inward -->
+    <circle r="9" fill="#D5EB4B" opacity="0">
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="0s" repeatCount="indefinite" path="M 1200 600 L 1200 180"/>
+    </circle>
+    <circle r="7" fill="#BFDA2C" opacity="0">
+      <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.2s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" path="M 1224 184 Q 1260 400 1224 596"/>
+    </circle>
+
+    <!-- NE — Kai -->
+    <circle r="9" fill="#D5EB4B" opacity="0">
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.175s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="0.175s" repeatCount="indefinite" path="M 1200 600 L 1497 303"/>
+    </circle>
+    <circle r="7" fill="#BFDA2C" opacity="0">
+      <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.375s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="1.375s" repeatCount="indefinite" path="M 1517 327 Q 1380 460 1224 600"/>
+    </circle>
+
+    <!-- E — Axel -->
+    <circle r="9" fill="#D5EB4B" opacity="0">
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.35s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="0.35s" repeatCount="indefinite" path="M 1200 600 L 1620 600"/>
+    </circle>
+    <circle r="7" fill="#BFDA2C" opacity="0">
+      <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.55s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="1.55s" repeatCount="indefinite" path="M 1624 624 Q 1400 660 1224 624"/>
+    </circle>
+
+    <!-- SE — Iris -->
+    <circle r="9" fill="#D5EB4B" opacity="0">
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.525s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="0.525s" repeatCount="indefinite" path="M 1200 600 L 1497 897"/>
+    </circle>
+    <circle r="7" fill="#BFDA2C" opacity="0">
+      <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.725s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="1.725s" repeatCount="indefinite" path="M 1517 873 Q 1380 740 1224 604"/>
+    </circle>
+
+    <!-- S — Otto -->
+    <circle r="9" fill="#D5EB4B" opacity="0">
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.7s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="0.7s" repeatCount="indefinite" path="M 1200 600 L 1200 1020"/>
+    </circle>
+    <circle r="7" fill="#BFDA2C" opacity="0">
+      <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.9s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="1.9s" repeatCount="indefinite" path="M 1176 1016 Q 1140 800 1176 604"/>
+    </circle>
+
+    <!-- SW — Skye -->
+    <circle r="9" fill="#D5EB4B" opacity="0">
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.875s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="0.875s" repeatCount="indefinite" path="M 1200 600 L 903 897"/>
+    </circle>
+    <circle r="7" fill="#BFDA2C" opacity="0">
+      <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="2.075s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="2.075s" repeatCount="indefinite" path="M 883 873 Q 1020 740 1176 604"/>
+    </circle>
+
+    <!-- W — Vera -->
+    <circle r="9" fill="#D5EB4B" opacity="0">
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.05s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="1.05s" repeatCount="indefinite" path="M 1200 600 L 780 600"/>
+    </circle>
+    <circle r="7" fill="#BFDA2C" opacity="0">
+      <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.25s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="0.25s" repeatCount="indefinite" path="M 776 576 Q 1000 540 1176 576"/>
+    </circle>
+
+    <!-- NW — Atlas -->
+    <circle r="9" fill="#D5EB4B" opacity="0">
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.225s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="1.225s" repeatCount="indefinite" path="M 1200 600 L 903 303"/>
+    </circle>
+    <circle r="7" fill="#BFDA2C" opacity="0">
+      <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.425s" repeatCount="indefinite"/>
+      <animateMotion dur="2.4s" begin="0.425s" repeatCount="indefinite" path="M 883 327 Q 1020 460 1176 596"/>
+    </circle>
   </g>
 
   <!-- Specialist nodes -->
@@ -149,7 +240,7 @@
 
   <!-- Stats bottom-right -->
   <g font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" text-anchor="end">
-    <text x="2340" y="1080" font-size="13" letter-spacing="2" fill="#5A5A65">36 SKILLS &middot; 52 SOPs &middot; CRON-DRIVEN &middot; TELEGRAM INTERFACE</text>
-    <text x="2340" y="1110" font-size="13" letter-spacing="2" fill="#5A5A65">VPS &middot; HOSTINGER KVM2 &middot; CODEX OAUTH + OPENROUTER FALLBACK</text>
+    <text x="2340" y="1080" font-size="13" letter-spacing="2" fill="#5A5A65">36 SKILLS · 52 SOPs · CRON-DRIVEN · TELEGRAM INTERFACE</text>
+    <text x="2340" y="1110" font-size="13" letter-spacing="2" fill="#5A5A65">VPS · HOSTINGER KVM2 · CODEX OAUTH + OPENROUTER FALLBACK</text>
   </g>
 </svg>
