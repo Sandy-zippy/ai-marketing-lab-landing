@@ -233,19 +233,183 @@ h1, h2, h3, h4 {
 
 /* ============================================================ */
 /* HERO */
-.hero { padding: clamp(64px, 10vw, 120px) 0 clamp(48px, 8vw, 96px); position: relative; }
-.hero .wrap { display: flex; flex-direction: column; }
+.hero { padding: clamp(64px, 10vw, 120px) 0 clamp(48px, 8vw, 96px); position: relative; overflow: hidden; }
+.hero .wrap { position: relative; z-index: 2; }
+.hero-grid { display: flex; flex-direction: column; gap: 56px; }
+.hero-left { display: flex; flex-direction: column; }
 .hero-eyebrow { order: 0; margin-bottom: 24px; }
-.hero h1 { order: 1; max-width: 18ch; margin-bottom: 28px; }
-.hero .lead { order: 2; }
-.hero-meta { order: 4; }
-.hero-ctas { order: 3; }
-.hero .terminal { order: 5; }
+.hero-left h1 { order: 1; max-width: 18ch; margin-bottom: 28px; }
+.hero-left .lead { order: 2; }
+.hero-left .hero-meta { order: 4; }
+.hero-left .hero-ctas { order: 3; }
 @media (max-width: 768px) {
   /* On mobile, meta strip (free + live-demo proof) sits ABOVE the CTA */
-  .hero-meta { order: 3; margin-bottom: 28px; }
-  .hero-ctas { order: 4; }
+  .hero-left .hero-meta { order: 3; margin-bottom: 28px; }
+  .hero-left .hero-ctas { order: 4; }
 }
+@media (min-width: 1024px) {
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 48px;
+    align-items: center;
+  }
+  .hero-left { min-width: 0; }
+  .hero-right { min-width: 0; }
+}
+@media (max-width: 1023px) {
+  .hero-right { display: none; }
+}
+
+/* ===== Hero particle field (decorative dots, lime, low opacity) ===== */
+.hero-particles {
+  position: absolute; inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+}
+.hero-particles span {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  filter: drop-shadow(0 0 6px rgba(213, 235, 75, 0.45));
+  animation: particle-drift 14s ease-in-out infinite;
+}
+.hero-particles span:nth-child(1)  { top: 8%;  left: 6%;   width: 4px; height: 4px; animation-delay: 0s;    animation-duration: 13s; }
+.hero-particles span:nth-child(2)  { top: 18%; left: 22%;  width: 5px; height: 5px; animation-delay: 1.2s;  animation-duration: 16s; }
+.hero-particles span:nth-child(3)  { top: 32%; left: 11%;  width: 3px; height: 3px; animation-delay: 2.4s;  animation-duration: 12s; }
+.hero-particles span:nth-child(4)  { top: 46%; left: 4%;   width: 6px; height: 6px; animation-delay: 0.6s;  animation-duration: 18s; }
+.hero-particles span:nth-child(5)  { top: 58%; left: 18%;  width: 4px; height: 4px; animation-delay: 3.4s;  animation-duration: 14s; }
+.hero-particles span:nth-child(6)  { top: 72%; left: 8%;   width: 5px; height: 5px; animation-delay: 4.6s;  animation-duration: 15s; }
+.hero-particles span:nth-child(7)  { top: 86%; left: 24%;  width: 3px; height: 3px; animation-delay: 5.2s;  animation-duration: 13s; }
+.hero-particles span:nth-child(8)  { top: 12%; left: 38%;  width: 4px; height: 4px; animation-delay: 6.0s;  animation-duration: 17s; }
+.hero-particles span:nth-child(9)  { top: 28%; left: 44%;  width: 6px; height: 6px; animation-delay: 1.8s;  animation-duration: 14s; }
+.hero-particles span:nth-child(10) { top: 64%; left: 36%;  width: 3px; height: 3px; animation-delay: 3.0s;  animation-duration: 12s; }
+.hero-particles span:nth-child(11) { top: 80%; left: 48%;  width: 5px; height: 5px; animation-delay: 4.0s;  animation-duration: 16s; }
+.hero-particles span:nth-child(12) { top: 16%; right: 32%; width: 4px; height: 4px; animation-delay: 2.0s;  animation-duration: 13s; }
+.hero-particles span:nth-child(13) { top: 38%; right: 24%; width: 5px; height: 5px; animation-delay: 5.6s;  animation-duration: 15s; }
+.hero-particles span:nth-child(14) { top: 54%; right: 38%; width: 3px; height: 3px; animation-delay: 0.8s;  animation-duration: 17s; }
+.hero-particles span:nth-child(15) { top: 70%; right: 28%; width: 6px; height: 6px; animation-delay: 4.4s;  animation-duration: 13s; }
+.hero-particles span:nth-child(16) { top: 88%; right: 36%; width: 4px; height: 4px; animation-delay: 3.6s;  animation-duration: 14s; }
+.hero-particles span:nth-child(17) { top: 10%; right: 10%; width: 3px; height: 3px; animation-delay: 6.4s;  animation-duration: 16s; }
+.hero-particles span:nth-child(18) { top: 24%; right: 6%;  width: 5px; height: 5px; animation-delay: 1.4s;  animation-duration: 13s; }
+.hero-particles span:nth-child(19) { top: 42%; right: 14%; width: 4px; height: 4px; animation-delay: 2.8s;  animation-duration: 15s; }
+.hero-particles span:nth-child(20) { top: 58%; right: 8%;  width: 6px; height: 6px; animation-delay: 4.8s;  animation-duration: 14s; }
+.hero-particles span:nth-child(21) { top: 74%; right: 16%; width: 3px; height: 3px; animation-delay: 0.4s;  animation-duration: 17s; }
+.hero-particles span:nth-child(22) { top: 90%; right: 6%;  width: 5px; height: 5px; animation-delay: 5.0s;  animation-duration: 13s; }
+.hero-particles span:nth-child(23) { top: 6%;  left: 56%;  width: 4px; height: 4px; animation-delay: 3.2s;  animation-duration: 15s; }
+.hero-particles span:nth-child(24) { top: 50%; left: 62%;  width: 3px; height: 3px; animation-delay: 6.8s;  animation-duration: 14s; }
+@keyframes particle-drift {
+  0%   { transform: translate(0, 0)    scale(0.6); opacity: 0; }
+  20%  { opacity: 0.28; }
+  50%  { transform: translate(10px, -18px) scale(1); opacity: 0.22; }
+  80%  { opacity: 0.25; }
+  100% { transform: translate(-6px, 8px)  scale(0.6); opacity: 0; }
+}
+
+/* ===== Word-by-word headline reveal ===== */
+.hero-left h1 .word-reveal {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.55s cubic-bezier(.22,1,.36,1), transform 0.55s cubic-bezier(.22,1,.36,1);
+  transition-delay: var(--delay, 0ms);
+  will-change: opacity, transform;
+}
+.hero-left h1.words-in .word-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Live agent terminal (right column) ===== */
+.hero-terminal {
+  background: #0E1612;
+  border: 1px solid rgba(213, 235, 75, 0.30);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px -24px rgba(14, 22, 18, 0.5), 0 0 0 1px rgba(213, 235, 75, 0.05);
+  position: relative;
+}
+.hero-terminal::after {
+  /* subtle ambient glow */
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(213, 235, 75, 0.08), transparent 70%);
+}
+.hero-terminal-bar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; background: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid rgba(213, 235, 75, 0.10);
+  font-family: var(--mono); font-size: 10.5px; color: #9CB5A6;
+  letter-spacing: 0.10em; text-transform: lowercase;
+}
+.hero-terminal-dots { display: flex; gap: 6px; }
+.hero-terminal-dots i { width: 10px; height: 10px; border-radius: 50%; display: block; }
+.hero-terminal-dots i:nth-child(1) { background: #FF5F57; }
+.hero-terminal-dots i:nth-child(2) { background: #FEBC2E; }
+.hero-terminal-dots i:nth-child(3) { background: #28C840; }
+.hero-terminal-body {
+  padding: 22px 24px 18px;
+  font-family: var(--mono); font-size: 13px; line-height: 1.7;
+  color: #C8D6CE;
+  min-height: 240px;
+  position: relative;
+  z-index: 1;
+}
+.hero-terminal-stream {
+  position: relative;
+  min-height: 200px;
+}
+.ht-session {
+  position: absolute; inset: 0;
+  opacity: 0;
+  animation: ht-session-rotate 56s linear infinite;
+}
+.ht-session.ht-s1 { animation-delay: 0s; }
+.ht-session.ht-s2 { animation-delay: 14s; }
+.ht-session.ht-s3 { animation-delay: 28s; }
+.ht-session.ht-s4 { animation-delay: 42s; }
+@keyframes ht-session-rotate {
+  0%   { opacity: 0; }
+  1%   { opacity: 0; }
+  3%   { opacity: 1; }
+  22%  { opacity: 1; }
+  25%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+.ht-line {
+  opacity: 0;
+  transform: translateY(4px);
+  animation: ht-line-in 0.35s cubic-bezier(.22,1,.36,1) forwards;
+  margin-bottom: 2px;
+  white-space: pre-wrap; word-break: break-word;
+}
+.ht-session .ht-line:nth-child(1) { animation-delay: 0.2s; }
+.ht-session .ht-line:nth-child(2) { animation-delay: 1.6s; }
+.ht-session .ht-line:nth-child(3) { animation-delay: 3.0s; }
+.ht-session .ht-line:nth-child(4) { animation-delay: 4.4s; }
+@keyframes ht-line-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+.ht-op    { color: #FFFFFF; font-weight: 500; margin-right: 6px; }
+.ht-prompt { color: #E6F0EA; }
+.ht-out   { color: #8FB8A2; }
+.ht-ok    { color: var(--accent); font-weight: 700; }
+.ht-num   { color: var(--accent); font-weight: 600; }
+
+.hero-terminal-caret {
+  margin-top: 8px;
+  color: #E6F0EA;
+  display: flex; align-items: center; gap: 6px;
+}
+.hero-terminal-caret .ht-blink {
+  display: inline-block;
+  width: 8px; height: 14px;
+  background: var(--accent);
+  vertical-align: -2px;
+  animation: ht-blink 1.2s steps(2, end) infinite;
+}
+@keyframes ht-blink { 50% { opacity: 0; } }
 .hero h1 .accent {
   color: var(--text-high);
   background: linear-gradient(180deg, transparent 70%, var(--accent) 70%);
@@ -319,25 +483,74 @@ h1, h2, h3, h4 {
 .terminal-cursor { display: inline-block; width: 8px; height: 14px; background: var(--accent); vertical-align: -2px; animation: blink 1.2s steps(2, end) infinite; }
 
 /* ============================================================ */
-/* FOUNDER PROOF BAR */
+/* FOUNDER PROOF BAR — live counters + waveform */
 .proof-bar {
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  padding: 28px 0; background: var(--bg-surface-2);
+  padding: 28px 0;
+  background: var(--bg-surface-2);
+  border-block: 1px solid rgba(26, 26, 26, 0.05);
+  position: relative;
+  overflow: hidden;
 }
-.proof-bar-inner {
-  display: grid; grid-template-columns: 1fr; gap: 16px; align-items: center;
-  font-family: var(--sans); font-size: 15px; color: var(--text-mid); line-height: 1.55; font-weight: 400;
+.proof-bar .wrap { position: relative; }
+.proof-metrics {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 4vw, 60px);
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
-.proof-bar-inner strong { color: var(--text-high); font-weight: 600; }
-.proof-bar-inner .accent-text { color: var(--text-high); font-weight: 700; background: linear-gradient(180deg, transparent 65%, var(--accent) 65%); padding: 0 4px; border-radius: 2px; }
-@media (min-width: 820px) {
-  .proof-bar-inner { grid-template-columns: auto 1fr; gap: 32px; }
+.proof-metric { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.proof-metric-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--text-low);
+  text-transform: uppercase;
 }
-.proof-tag {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 6px 10px; border: 1px solid var(--border-strong); border-radius: 4px;
-  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-high);
-  background: var(--bg-surface);
+.proof-metric-value {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-high);
+}
+.proof-metric-counter { font-family: var(--mono); font-weight: 700; }
+.proof-metric-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(26, 26, 26, 0.12);
+  flex-direction: row;
+  gap: 0;
+}
+@media (max-width: 640px) {
+  .proof-metric-divider { display: none; }
+}
+
+.proof-waveform {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 1;
+  opacity: 0.18;
+  pointer-events: none;
+}
+.proof-waveform span {
+  width: 2px;
+  background: var(--accent-on-dark);
+  border-radius: 1px;
+  height: 4px;
+  animation: wave-bar 1.2s ease-in-out infinite;
+}
+.proof-waveform span:nth-child(odd) { animation-delay: -0.4s; }
+.proof-waveform span:nth-child(3n) { animation-delay: -0.8s; }
+.proof-waveform span:nth-child(5n) { animation-delay: -1.0s; }
+@keyframes wave-bar {
+  0%, 100% { height: 4px; }
+  50% { height: 18px; }
 }
 
 /* ============================================================ */
@@ -1177,47 +1390,192 @@ h1, h2, h3, h4 {
 /* v7-tech: HIGGSFIELD-INSPIRED ADDITIONS */
 /* ============================================================ */
 
-/* Credibility strip — "Built on the stack I use every day" */
-.powered-by {
-  padding: clamp(48px, 7vw, 72px) 0;
+/* ============================================================ */
+/* AI STACK SECTION — 3-tier orbital (models / runtime / routing) */
+.ai-stack {
+  padding: clamp(80px, 12vw, 140px) 0;
+  background: var(--bg-canvas);
+  position: relative;
   border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, var(--bg-surface-2) 0%, var(--bg-canvas) 100%);
 }
-.powered-by-label {
-  font-family: var(--mono); font-size: 11px; font-weight: 500;
-  letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-mid);
-  text-align: center; margin-bottom: 22px;
-  display: flex; align-items: center; justify-content: center; gap: 14px;
+.ai-stack-head { text-align: center; margin-inline: auto; margin-bottom: 56px; }
+.ai-stack-head .eyebrow { justify-content: center; }
+.ai-stack-head .h2 { margin-top: 16px; }
+.ai-stack-head .lead { max-width: 620px; margin: 16px auto 0; }
+
+.stack-tier { margin-bottom: 0; }
+.tier-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--text-low);
+  text-align: center;
+  margin-bottom: 20px;
 }
-.powered-by-label::before,
-.powered-by-label::after {
-  content: ''; height: 1px; flex: 0 1 60px; background: var(--border-strong);
+
+/* Tier 1: model cards */
+.model-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 880px;
+  margin-inline: auto;
 }
-.powered-by-grid {
-  display: flex; flex-wrap: wrap; gap: 12px;
-  justify-content: center; align-items: center;
-}
-.tool-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 20px; border-radius: 999px;
+@media (max-width: 768px) { .model-cards { grid-template-columns: 1fr; gap: 16px; } }
+.model-card {
   background: var(--bg-surface);
-  border: 1px solid var(--border-strong);
-  font-family: var(--mono); font-size: 13px; font-weight: 500;
-  color: var(--text-high); letter-spacing: 0.02em;
-  transition: all 0.22s cubic-bezier(.22,1,.36,1);
-  cursor: default;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 12px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease, border-color 0.3s ease;
+  animation: stack-float-y 6s ease-in-out infinite;
 }
-.tool-badge::before {
-  content: ''; width: 6px; height: 6px; border-radius: 50%;
-  background: var(--accent-on-dark);
-  box-shadow: 0 0 6px rgba(213, 235, 75, 0.5);
-}
-.tool-badge:hover {
+.model-card:nth-child(2) { animation-delay: 1.5s; }
+.model-card:nth-child(3) { animation-delay: 3s; }
+.model-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(26, 26, 26, 0.08);
   border-color: var(--accent-on-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(213, 235, 75, 0.18);
+}
+.model-card img { margin: 0 auto 16px; display: block; }
+.model-name { font-family: var(--sans); font-weight: 700; font-size: 18px; color: var(--text-high); }
+.model-by { font-family: var(--mono); font-size: 11px; color: var(--text-low); letter-spacing: 0.08em; margin-top: 4px; }
+.model-role { font-size: 14px; color: var(--text-mid); margin-top: 12px; line-height: 1.45; }
+@keyframes stack-float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+/* Connectors (lime lines drawing on scroll) */
+.stack-connector { height: 60px; max-width: 360px; margin: 8px auto; }
+.stack-connector-short { height: 40px; max-width: 100px; }
+.stack-connector svg { width: 100%; height: 100%; overflow: visible; }
+.connector-line {
+  stroke: var(--accent-on-dark);
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 1.2s cubic-bezier(.22,1,.36,1);
+}
+.stack-connector.in-view .connector-line { stroke-dashoffset: 0; }
+.stack-connector .connector-line:nth-child(2) { transition-delay: 0.2s; }
+.stack-connector .connector-line:nth-child(3) { transition-delay: 0.4s; }
+
+/* Tier 2 + 3: runtime cards */
+.runtime-card {
   background: var(--bg-surface);
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 14px;
+  padding: 32px;
+  max-width: 640px;
+  margin-inline: auto;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.runtime-card-hermes {
+  border-color: var(--accent);
+  background: linear-gradient(180deg, var(--bg-surface) 0%, #FCFDF1 100%);
+  box-shadow: 0 6px 24px rgba(213, 235, 75, 0.10);
+}
+.runtime-card-hermes::before {
+  content: '';
+  position: absolute;
+  top: 24px; right: 60px;
+  width: 8px; height: 8px;
+  background: var(--accent-on-dark);
+  border-radius: 50%;
+  animation: pulse-dot-runtime 2.2s ease-in-out infinite;
+}
+.runtime-card-hermes::after {
+  content: 'LIVE';
+  position: absolute;
+  top: 22px; right: 28px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--text-high);
+  font-weight: 700;
+}
+@keyframes pulse-dot-runtime {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(213, 235, 75, 0.65); transform: scale(1); }
+  50%      { box-shadow: 0 0 0 8px rgba(213, 235, 75, 0); transform: scale(1.05); }
+}
+.runtime-card img { margin: 0 auto 16px; display: block; }
+.runtime-name {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 28px;
+  color: var(--text-high);
+  letter-spacing: -0.02em;
+}
+.runtime-name.openclaw-mark {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+}
+.runtime-tag {
+  font-family: var(--mono); font-size: 12px;
+  color: var(--text-mid); letter-spacing: 0.04em; margin-top: 8px;
+}
+.runtime-agents, .runtime-channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  justify-content: center;
+  margin-top: 20px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-mid);
+  letter-spacing: 0.04em;
+}
+.runtime-agents span, .runtime-channels span {
+  padding: 4px 10px;
+  background: var(--bg-canvas);
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 999px;
+}
+
+/* Workflow marquee strip */
+.stack-workflow-strip {
+  margin-top: 60px;
+  border-top: 1px solid rgba(26, 26, 26, 0.08);
+  border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+  padding: 24px 0;
+  overflow: hidden;
+  position: relative;
+}
+.stack-workflow-strip::before,
+.stack-workflow-strip::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+.stack-workflow-strip::before { left: 0;  background: linear-gradient(to right, var(--bg-canvas), transparent); }
+.stack-workflow-strip::after  { right: 0; background: linear-gradient(to left,  var(--bg-canvas), transparent); }
+.workflow-marquee { display: flex; overflow: hidden; }
+.workflow-track {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  animation: marquee-slide 40s linear infinite;
+  flex-shrink: 0;
+  width: max-content;
+}
+.workflow-track img { width: 24px; height: 24px; flex-shrink: 0; opacity: 0.78; }
+.workflow-track span {
+  font-family: var(--mono); font-size: 13px; color: var(--text-mid);
+  letter-spacing: 0.04em; white-space: nowrap;
+}
+@keyframes marquee-slide {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* Asymmetric stagger — Higgsfield-style staggered grid (desktop only) */
@@ -1298,15 +1656,26 @@ h1, h2, h3, h4 {
   .reveal { opacity: 1; transform: none; }
   .hero h1.typing { -webkit-mask-image: none; mask-image: none; }
   .hero h1.typing .accent { opacity: 1; }
+  .hero-left h1 .word-reveal { opacity: 1; transform: none; }
   .roadmap::before { background-position: 0 0; }
   .agent-status-dot::after { display: none; }
   .hero-floats { display: none; }
+  .hero-particles { display: none; }
   .section-divider::after { width: 100%; transition: none; }
   .categories .cat:nth-child(2),
   .categories .cat:nth-child(5),
   .hermes-fleet-grid .agent-card:nth-child(2),
   .hermes-fleet-grid .agent-card:nth-child(5),
   .hermes-fleet-grid .agent-card:nth-child(8) { transform: none; }
+  /* v8 wave 1 motion overrides */
+  .model-card { animation: none; }
+  .runtime-card-hermes::before { animation: none; }
+  .workflow-track { animation: none; }
+  .connector-line { stroke-dashoffset: 0; }
+  .ht-session { opacity: 1; animation: none; }
+  .ht-line { opacity: 1; transform: none; animation: none; }
+  .hero-terminal-caret .ht-blink { animation: none; }
+  .proof-waveform span { animation: none; height: 8px; }
 }
 </style>
 </head>
@@ -1361,37 +1730,72 @@ h1, h2, h3, h4 {
   <div class="hero-floats" aria-hidden="true">
     <span></span><span></span><span></span><span></span><span></span>
   </div>
+  <div class="hero-particles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
   <div class="wrap">
-    <span class="eyebrow hero-eyebrow">01 / Operator AI, built to measure</span>
-    <h1 class="h1">How Indian operators are shipping <span class="accent">AI agents</span> that pay for themselves<span class="pulse-dot" aria-hidden="true"></span></h1>
-    <p class="lead">9-agent fleet in production. Every Wednesday I build a new one on camera. You copy it by Friday.</p>
-    <div class="hero-ctas">
-      <a class="btn btn-primary hero-cta" href="#webinar-form">
-        <span class="hero-cta-main">Save my seat <span class="arrow">→</span></span>
-        <span class="hero-cta-sub" data-webinar-date>Wed, Jun 11, 8pm IST</span>
-      </a>
-      <a class="btn btn-ghost" href="#community">See what you ship</a>
-    </div>
-    <div class="hero-meta">
-      <span><i class="dot" aria-hidden="true"></i> Free 60-min webinar</span>
-      <span>Live Hermes demo on screen</span>
-      <span>200 seats &middot; closes when full</span>
-    </div>
-
-    <!-- Terminal panel -->
-    <div class="terminal" aria-hidden="true">
-      <div class="terminal-bar">
-        <div class="terminal-dots"><i></i><i></i><i></i></div>
-        <span>hermes@aimarketinglab :: live experiment 03</span>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <span class="eyebrow hero-eyebrow">01 / Operator AI, built to measure</span>
+        <h1 class="h1" data-word-reveal>How Indian operators are shipping <span class="accent">AI agents</span> that pay for themselves<span class="pulse-dot" aria-hidden="true"></span></h1>
+        <p class="lead">9-agent fleet in production. Every Wednesday I build a new one on camera. You copy it by Friday.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary hero-cta" href="#webinar-form">
+            <span class="hero-cta-main">Save my seat <span class="arrow">→</span></span>
+            <span class="hero-cta-sub" data-webinar-date>Wed, Jun 11, 8pm IST</span>
+          </a>
+          <a class="btn btn-ghost" href="#community">See what you ship</a>
+        </div>
+        <div class="hero-meta">
+          <span><i class="dot" aria-hidden="true"></i> Free 60-min webinar</span>
+          <span>Live Hermes demo on screen</span>
+          <span>200 seats &middot; closes when full</span>
+        </div>
       </div>
-      <div class="terminal-body" id="terminalBody">
-        <div class="terminal-line dim">// the lab :: building agents that show up in the revenue report</div>
-        <div class="terminal-line"><span class="prompt">operator $</span> deploy agent --name vera --role personal_brand</div>
-        <div class="terminal-line out">→ vera online. attribution wired. measuring against: leads_in, replies_out, ctr.</div>
-        <div class="terminal-line"><span class="prompt">operator $</span> measure --agent vera --window 30d</div>
-        <div class="terminal-line out">→ leads_in +318  /  replies_out +57  /  ctr 4.2%  /  hours saved 22.5</div>
-        <div class="terminal-line dim">// every agent in the lab is built to measure. no exceptions.</div>
-        <div class="terminal-line"><span class="prompt">operator $</span> <span class="terminal-cursor"></span></div>
+
+      <!-- Live agent terminal (right column on desktop) -->
+      <div class="hero-right" aria-hidden="true">
+        <div class="hero-terminal">
+          <div class="hero-terminal-bar">
+            <div class="hero-terminal-dots"><i></i><i></i><i></i></div>
+            <span>hermes@aimarketinglab :: live experiment 04</span>
+          </div>
+          <div class="hero-terminal-body">
+            <div class="hero-terminal-stream">
+              <!-- 4 sessions, looped via animation-delay -->
+              <div class="ht-session ht-s1">
+                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> deploy agent --name vera --role personal-brand</div>
+                <div class="ht-line ht-out">&rarr; vera online. measuring against: leads_in, ctr.</div>
+                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> vera status</div>
+                <div class="ht-line ht-out">&rarr; <span class="ht-num">14h</span> runtime &middot; <span class="ht-num">318</span> leads_in &middot; <span class="ht-num">4.2%</span> ctr &middot; <span class="ht-num">57</span> replies</div>
+              </div>
+              <div class="ht-session ht-s2">
+                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> atlas check --campaign meta-india</div>
+                <div class="ht-line ht-out">&rarr; scanning <span class="ht-num">7</span> ad sets &middot; spend <span class="ht-num">$1,247</span> &middot; cpa <span class="ht-num">$34</span></div>
+                <div class="ht-line ht-out">&rarr; flagged: ad-set-3 cpa drift +28% &middot; pausing</div>
+                <div class="ht-line ht-ok">&check; saved <span class="ht-num">$182</span> today</div>
+              </div>
+              <div class="ht-session ht-s3">
+                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> mira inbox --since "yesterday"</div>
+                <div class="ht-line ht-out">&rarr; <span class="ht-num">47</span> messages &middot; <span class="ht-num">12</span> routed to skool &middot; <span class="ht-num">8</span> client tasks</div>
+                <div class="ht-line ht-out">&rarr; <span class="ht-num">3</span> hot leads tagged &middot; ghl synced</div>
+                <div class="ht-line ht-ok">&check; inbox at zero in <span class="ht-num">4 min</span></div>
+              </div>
+              <div class="ht-session ht-s4">
+                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> kai outreach --target "agency-owners-india"</div>
+                <div class="ht-line ht-out">&rarr; enriched <span class="ht-num">89</span> prospects &middot; personalized <span class="ht-num">89</span> first-lines</div>
+                <div class="ht-line ht-out">&rarr; sent <span class="ht-num">89</span> &middot; opened <span class="ht-num">41</span> &middot; replied <span class="ht-num">14</span></div>
+                <div class="ht-line ht-ok">&check; <span class="ht-num">6 calls</span> booked this week</div>
+              </div>
+            </div>
+            <div class="hero-terminal-caret" aria-hidden="true">
+              <span class="ht-op">operator $</span><span class="ht-blink"></span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1401,26 +1805,127 @@ h1, h2, h3, h4 {
      03. FOUNDER PROOF BAR
      ============================================================ -->
 <section class="proof-bar">
-  <div class="wrap proof-bar-inner">
-    <span class="proof-tag"><i class="dot" style="width:6px;height:6px;background:var(--accent);border-radius:50%;display:inline-block;"></i> 02 / The Lab, in production</span>
-    <p><span class="accent-text">9 agents. 36 skills. 2 years in production.</span> Runs <strong>ZippyScale</strong> across India, US, and Canada. I'm <strong>Sandy Kadyan</strong>. The Lab is where I hand you the templates.</p>
+  <div class="wrap">
+    <div class="proof-metrics">
+      <div class="proof-metric">
+        <span class="proof-metric-label">Last ship</span>
+        <span class="proof-metric-value" data-counter="lastShipMins">14 min ago</span>
+      </div>
+      <div class="proof-metric proof-metric-divider"></div>
+      <div class="proof-metric">
+        <span class="proof-metric-label">Agents ran today</span>
+        <span class="proof-metric-value proof-metric-counter" data-counter="agentRuns" data-target="4392">0</span>
+      </div>
+      <div class="proof-metric proof-metric-divider"></div>
+      <div class="proof-metric">
+        <span class="proof-metric-label">In production since</span>
+        <span class="proof-metric-value">2024 &middot; 18 months &middot; 0 downtime</span>
+      </div>
+    </div>
+    <div class="proof-waveform" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
   </div>
 </section>
 
 <!-- ============================================================
-     03.5 POWERED-BY CREDIBILITY STRIP (Higgsfield-style)
+     03. THE AI STACK THAT RUNS MY AGENCY (3-tier orbital)
      ============================================================ -->
-<section class="powered-by" aria-label="Tools the Lab is built on">
+<section class="ai-stack" id="ai-stack">
   <div class="wrap">
-    <p class="powered-by-label">Built on the stack I use every day</p>
-    <div class="powered-by-grid">
-      <span class="tool-badge">Claude</span>
-      <span class="tool-badge">n8n</span>
-      <span class="tool-badge">GoHighLevel</span>
-      <span class="tool-badge">Apify</span>
-      <span class="tool-badge">Skool</span>
-      <span class="tool-badge">Meta Ads</span>
-      <span class="tool-badge">Google Ads</span>
+    <div class="section-head ai-stack-head">
+      <span class="eyebrow">02 / The Stack</span>
+      <h2 class="h2">The AI stack that runs my agency.</h2>
+      <p class="lead">Three models. One fleet. Routed through every channel I care about. This is what's behind every agent I ship in the Lab.</p>
+    </div>
+
+    <!-- Tier 1: Models -->
+    <div class="stack-tier stack-tier-models">
+      <div class="tier-label">MODELS &middot; THE INTELLIGENCE</div>
+      <div class="model-cards">
+        <article class="model-card">
+          <img src="assets/logos/claude.svg" alt="Anthropic / Claude" width="48" height="48" />
+          <div class="model-name">Claude Code</div>
+          <div class="model-by">by Anthropic</div>
+          <div class="model-role">My IDE. Where I architect every agent.</div>
+        </article>
+        <article class="model-card">
+          <img src="assets/logos/openai.svg" alt="OpenAI / Codex" width="48" height="48" />
+          <div class="model-name">Codex</div>
+          <div class="model-by">by OpenAI</div>
+          <div class="model-role">Fast vibe-coding when I need throughput.</div>
+        </article>
+        <article class="model-card">
+          <img src="assets/logos/gemini.svg" alt="Google / Gemini" width="48" height="48" />
+          <div class="model-name">Gemini Flash</div>
+          <div class="model-by">by Google</div>
+          <div class="model-role">Cheap async tasks. Cron-driven work.</div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Connector: 3 lines converging to Hermes -->
+    <div class="stack-connector" aria-hidden="true">
+      <svg viewBox="0 0 200 60" preserveAspectRatio="none">
+        <path d="M 50 0 L 100 60" class="connector-line" />
+        <path d="M 100 0 L 100 60" class="connector-line" />
+        <path d="M 150 0 L 100 60" class="connector-line" />
+      </svg>
+    </div>
+
+    <!-- Tier 2: Hermes (the runtime) -->
+    <div class="stack-tier stack-tier-runtime">
+      <div class="tier-label">RUNTIME &middot; THE FLEET</div>
+      <article class="runtime-card runtime-card-hermes">
+        <img src="assets/logos/hermes.svg" alt="Hermes" width="56" height="56" />
+        <div class="runtime-name">Hermes</div>
+        <div class="runtime-tag">9-agent fleet &middot; in production since 2024</div>
+        <div class="runtime-agents">
+          <span>Zayn</span><span>Mira</span><span>Atlas</span><span>Kai</span><span>Axel</span><span>Iris</span><span>Otto</span><span>Skye</span><span>Vera</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- Connector: single line down to OpenClaw -->
+    <div class="stack-connector stack-connector-short" aria-hidden="true">
+      <svg viewBox="0 0 200 40" preserveAspectRatio="none">
+        <path d="M 100 0 L 100 40" class="connector-line" />
+      </svg>
+    </div>
+
+    <!-- Tier 3: OpenClaw (routing) -->
+    <div class="stack-tier stack-tier-routing">
+      <div class="tier-label">ROUTING &middot; THE CHANNELS</div>
+      <article class="runtime-card runtime-card-openclaw">
+        <div class="runtime-name openclaw-mark">[ Open Claw ]</div>
+        <div class="runtime-tag">24+ channels routed to 1 inbox</div>
+        <div class="runtime-channels">
+          <span>Telegram</span><span>Email</span><span>WhatsApp</span><span>Slack</span><span>iMessage</span><span>SMS</span><span>+18</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- Workflow strip marquee -->
+    <div class="stack-workflow-strip">
+      <div class="workflow-marquee">
+        <div class="workflow-track">
+          <img src="assets/logos/n8n.svg" alt="n8n" /><span>n8n</span>
+          <img src="assets/logos/gohighlevel.svg" alt="GoHighLevel" /><span>GoHighLevel</span>
+          <img src="assets/logos/apify.svg" alt="Apify" /><span>Apify</span>
+          <img src="assets/logos/skool.svg" alt="Skool" /><span>Skool</span>
+          <img src="assets/logos/meta.svg" alt="Meta Ads" /><span>Meta Ads</span>
+          <img src="assets/logos/googleads.svg" alt="Google Ads" /><span>Google Ads</span>
+          <img src="assets/logos/instagram.svg" alt="Instagram" /><span>Instagram</span>
+          <!-- duplicate for seamless loop -->
+          <img src="assets/logos/n8n.svg" alt="" /><span>n8n</span>
+          <img src="assets/logos/gohighlevel.svg" alt="" /><span>GoHighLevel</span>
+          <img src="assets/logos/apify.svg" alt="" /><span>Apify</span>
+          <img src="assets/logos/skool.svg" alt="" /><span>Skool</span>
+          <img src="assets/logos/meta.svg" alt="" /><span>Meta Ads</span>
+          <img src="assets/logos/googleads.svg" alt="" /><span>Google Ads</span>
+          <img src="assets/logos/instagram.svg" alt="" /><span>Instagram</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -2233,20 +2738,60 @@ document.addEventListener('DOMContentLoaded', function() {
 // Motion layer — reveal-on-scroll + hero wipe + roadmap progress draw
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- Hero h1 word-by-word reveal (works without IO; needs reduce-motion bypass) ----
+  var h1WR = document.querySelector('.hero-left h1[data-word-reveal]');
+  if (h1WR) {
+    // Walk child nodes, wrap each whitespace-separated word in <span class="word-reveal">.
+    // Preserve existing nested spans (.accent, .pulse-dot) as single atomic units.
+    var idx = 0;
+    var nodes = Array.from(h1WR.childNodes);
+    var frag = document.createDocumentFragment();
+    nodes.forEach(function(node){
+      if (node.nodeType === Node.TEXT_NODE) {
+        var parts = node.textContent.split(/(\s+)/);
+        parts.forEach(function(part){
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          var w = document.createElement('span');
+          w.className = 'word-reveal';
+          w.style.setProperty('--delay', (idx * 80) + 'ms');
+          w.textContent = part;
+          frag.appendChild(w);
+          idx++;
+        });
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        // Treat .accent / .pulse-dot as atomic word units
+        var clone = node.cloneNode(true);
+        if (!clone.classList.contains('pulse-dot')) {
+          var wrap = document.createElement('span');
+          wrap.className = 'word-reveal';
+          wrap.style.setProperty('--delay', (idx * 80) + 'ms');
+          wrap.appendChild(clone);
+          frag.appendChild(wrap);
+          idx++;
+        } else {
+          // pulse-dot rides along on the same delay as the last word (no extra span)
+          frag.appendChild(clone);
+        }
+      }
+    });
+    h1WR.innerHTML = '';
+    h1WR.appendChild(frag);
+    if (reduce) {
+      h1WR.classList.add('words-in');
+    } else {
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        h1WR.classList.add('words-in');
+      }); });
+    }
+  }
+
   if (reduce || !('IntersectionObserver' in window)) {
     document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
     var r = document.querySelector('.roadmap'); if (r) r.classList.add('in-view');
+    document.querySelectorAll('.stack-connector').forEach(function(el){ el.classList.add('in-view'); });
     return;
-  }
-  // Hero headline soft fade-in (v7-tech: replaced wipe-mask with subtle fade so the highlight stays clean)
-  var h1 = document.querySelector('.hero h1');
-  if (h1) {
-    h1.style.opacity = '0';
-    h1.style.transform = 'translateY(8px)';
-    h1.style.transition = 'opacity 0.8s cubic-bezier(.22,1,.36,1), transform 0.8s cubic-bezier(.22,1,.36,1)';
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){
-      h1.style.opacity = '1'; h1.style.transform = 'translateY(0)';
-    }); });
   }
   // Section divider lime-line draw on view
   var divs = document.querySelectorAll('.section-divider');
@@ -2274,6 +2819,43 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }, { threshold: 0.3 });
     rio.observe(roadmap);
+  }
+  // AI Stack tier connectors draw on scroll
+  var conns = document.querySelectorAll('.stack-connector');
+  if (conns.length) {
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in-view'); cio.unobserve(e.target); }
+      });
+    }, { threshold: 0.4 });
+    conns.forEach(function(c){ cio.observe(c); });
+  }
+
+  // ---- Founder Proof Bar: animated counter (agentRuns) ----
+  var counterEl = document.querySelector('[data-counter="agentRuns"]');
+  if (counterEl) {
+    var target = parseInt(counterEl.dataset.target, 10) || 0;
+    var current = 0;
+    var step = Math.max(1, target / 80);
+    var tick = function(){
+      current = Math.min(target, current + step);
+      counterEl.textContent = Math.round(current).toLocaleString();
+      if (current < target) requestAnimationFrame(tick);
+    };
+    var observer = new IntersectionObserver(function(entries){
+      if (entries[0].isIntersecting) { tick(); observer.disconnect(); }
+    }, { threshold: 0.5 });
+    observer.observe(counterEl.closest('.proof-bar'));
+  }
+
+  // ---- Founder Proof Bar: 'Last ship' ticker (increments every minute) ----
+  var lastShip = document.querySelector('[data-counter="lastShipMins"]');
+  if (lastShip) {
+    var base = 14;
+    setInterval(function(){
+      var elapsed = Math.floor((Date.now() - performance.timeOrigin) / 60000);
+      lastShip.textContent = (base + elapsed) + ' min ago';
+    }, 60000);
   }
 })();
 
