@@ -4,23 +4,24 @@
 <meta charset="utf-8" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body { width:1200px; height:630px; background:#FAFAF8; overflow:hidden; }
 body {
   position:relative;
-  font-family:'JetBrains Mono', ui-monospace, Menlo, monospace;
-  color:#2A2A35;
+  font-family:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color:#1A1A1A;
   background-image:
     radial-gradient(ellipse 70% 50% at 20% -10%, rgba(213,235,75,0.28), transparent 60%),
     radial-gradient(ellipse 60% 60% at 110% 110%, rgba(213,235,75,0.20), transparent 60%),
     linear-gradient(180deg, #FAFAF8 0%, #F4F4EE 100%);
+  font-feature-settings: "ss01", "cv11";
 }
 .grid {
   position:absolute; inset:0;
   background-image:
-    radial-gradient(rgba(42,42,53,0.05) 1px, transparent 1px);
+    radial-gradient(rgba(26,26,26,0.04) 1px, transparent 1px);
   background-size: 26px 26px;
   pointer-events:none;
 }
@@ -35,37 +36,42 @@ body {
 }
 .brand {
   display:inline-flex; align-items:center; gap:12px;
-  font-weight:700; font-size:18px; letter-spacing:0.06em;
-  color:#2A2A35; text-transform:uppercase;
+  font-family:'Inter', system-ui, sans-serif;
+  font-weight:700; font-size:18px; letter-spacing:-0.01em;
+  color:#1A1A1A; text-transform:uppercase;
 }
 .brand .cursor {
-  width:12px; height:22px; background:#BFDA2C;
-  display:inline-block;
+  width:3px; height:22px; background:#BFDA2C;
+  display:inline-block; border-radius:1px;
 }
 .eyebrow {
-  font-size:13px; letter-spacing:0.22em; text-transform:uppercase;
-  color:#2A2A35; font-weight:700;
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
+  color:#1A1A1A; font-weight:500;
   display:inline-flex; align-items:center; gap:12px;
 }
 .eyebrow .line { display:inline-block; width:28px; height:2px; background:#D5EB4B; }
 .middle { flex:1; display:flex; flex-direction:column; justify-content:center; padding-top:8px; padding-bottom:8px; max-width:1056px; }
 .headline {
-  font-size: 60px;
-  line-height: 1.04;
-  letter-spacing: -0.02em;
-  font-weight: 700;
-  color: #2A2A35;
+  font-family:'Inter', system-ui, sans-serif;
+  font-size: 72px;
+  line-height: 1.0;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+  color: #1A1A1A;
   max-width: 1056px;
 }
 .headline .accent {
-  color: #2A2A35;
-  background: linear-gradient(180deg, transparent 65%, #D5EB4B 65%);
-  padding: 0 4px;
+  color: #1A1A1A;
+  background: linear-gradient(180deg, transparent 70%, #D5EB4B 70%);
+  padding: 0 8px;
+  border-radius: 2px;
 }
 .sub {
   margin-top: 28px;
-  font-size: 20px;
-  letter-spacing: 0.02em;
+  font-family:'Inter', system-ui, sans-serif;
+  font-size: 22px;
+  letter-spacing: -0.012em;
   color: #5A5A65;
   font-weight: 500;
   line-height: 1.4;
@@ -76,22 +82,23 @@ body {
 }
 .stamp {
   display:inline-flex; align-items:center; gap:14px;
-  padding: 14px 20px;
-  border: 1.5px solid #2A2A35;
-  border-radius: 6px;
+  padding: 16px 24px;
+  border-radius: 999px;
   background: #D5EB4B;
-  font-size: 16px; letter-spacing: 0.18em; text-transform:uppercase;
-  color:#2A2A35; font-weight:700;
+  font-family:'Inter', system-ui, sans-serif;
+  font-size: 15px; letter-spacing: 0.04em; text-transform:none;
+  color:#1A1A1A; font-weight:600;
 }
 .stamp .dot {
-  width:10px; height:10px; background:#2A2A35; border-radius:50%;
+  width:10px; height:10px; background:#1A1A1A; border-radius:50%;
 }
 .term {
   display:inline-flex; align-items:center; gap:10px;
-  font-size: 14px; letter-spacing: 0.14em;
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size: 13px; letter-spacing: 0.10em;
   color: #5A5A65; text-transform:lowercase;
 }
-.term .blk { width:10px; height:18px; background:#BFDA2C; display:inline-block; }
+.term .blk { width:3px; height:16px; background:#BFDA2C; display:inline-block; border-radius:1px; }
 </style>
 </head>
 <body>
@@ -106,12 +113,12 @@ body {
     </div>
 
     <div class="middle">
-      <h1 class="headline">How Indian operators are shipping <span class="accent">AI agents that pay for themselves.</span></h1>
+      <h1 class="headline">How Indian operators are shipping <span class="accent">AI agents</span> that pay for themselves.</h1>
       <p class="sub">Live builds every Wednesday. 9-agent fleet, open.</p>
     </div>
 
     <div class="bottom">
-      <span class="stamp"><span class="dot"></span>WED, JUN 11 &middot; 8PM IST</span>
+      <span class="stamp"><span class="dot"></span>Wed, Jun 11 &middot; 8pm IST</span>
       <span class="term">hermes@aimarketinglab :: live <span class="blk"></span></span>
     </div>
   </div>
