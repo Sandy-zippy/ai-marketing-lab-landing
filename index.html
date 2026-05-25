@@ -2718,6 +2718,250 @@ h1, h2, h3, h4 {
   .funnel .flow,
   .funnel .claw-label { animation: none !important; }
 }
+
+/* ============================================================
+   v9 Wave D — OpenPaw Build-in-Public section
+   ============================================================ */
+.openpaw {
+  padding: clamp(80px, 12vw, 140px) 0;
+  background: var(--bg-canvas);
+  position: relative;
+}
+
+.openpaw .section-head {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.openpaw .section-head .lead { max-width: 680px; margin-inline: auto; }
+
+.openpaw-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: start;
+}
+@media (min-width: 980px) {
+  .openpaw-split { grid-template-columns: 5fr 7fr; gap: 64px; }
+}
+
+/* Left column: visual + Kickstarter */
+.openpaw-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.openpaw-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  padding: 8px 14px;
+  background: var(--accent-soft);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  align-self: flex-start;
+  font-weight: 500;
+}
+.openpaw-badge-dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent-glow);
+  animation: openpaw-pulse 1.8s ease-in-out infinite;
+}
+@keyframes openpaw-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.openpaw-render {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  aspect-ratio: 4 / 3;
+}
+.openpaw-render img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  animation: openpaw-ken-burns 16s ease-in-out infinite alternate;
+}
+@keyframes openpaw-ken-burns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.06) translate(-1%, -1%); }
+}
+
+.openpaw-kickstarter {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  padding: 24px;
+}
+.ks-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--text-low);
+  margin-bottom: 16px;
+}
+.ks-label strong { color: var(--accent); font-weight: 700; }
+
+.ks-progress { margin-bottom: 16px; }
+.ks-bar {
+  height: 10px;
+  background: var(--bg-surface-2);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+}
+.ks-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #00CC74);
+  width: 0%;
+  border-radius: 999px;
+  transition: width 1.6s cubic-bezier(.22, 1, .36, 1);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+.ks-progress.in-view .ks-fill { width: var(--target-fill, 32%); }
+.ks-numbers {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.ks-current {
+  font-weight: 700;
+  color: var(--text-high);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+.ks-of { color: var(--text-low); }
+
+.ks-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent);
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  margin-top: 16px;
+  width: 100%;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+.ks-link .arrow { transition: transform 0.2s; display: inline-block; }
+.ks-link:hover .arrow { transform: translateX(3px); }
+
+/* Right column: terminal + meta */
+.openpaw-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.openpaw-terminal {
+  background: #060A09;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+  box-shadow: 0 0 0 1px var(--border), 0 12px 32px rgba(0,0,0,0.4);
+}
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: #0E1413;
+  border-bottom: 1px solid var(--border);
+}
+.t-dot { width: 11px; height: 11px; border-radius: 50%; }
+.t-dot-red { background: #FF5F56; }
+.t-dot-yellow { background: #FFBD2E; }
+.t-dot-green { background: #27C93F; }
+.terminal-title {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-low);
+  letter-spacing: 0.04em;
+}
+
+.terminal-body {
+  padding: 20px 18px;
+  min-height: 220px;
+  position: relative;
+}
+.terminal-session {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  animation: openpaw-session-fade 0.4s ease-out;
+}
+.terminal-session.active { display: flex; }
+@keyframes openpaw-session-fade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.t-line { color: #B0B8B4; word-break: break-word; }
+.t-prompt { color: #F5F5F0; font-weight: 500; }
+.t-output { color: #9CB5A6; }
+.t-success { color: var(--accent); font-weight: 500; }
+
+.openpaw-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.meta-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.meta-row:last-child { border-bottom: none; }
+.meta-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--text-low);
+  font-weight: 500;
+}
+.meta-value {
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.5;
+}
+
+.openpaw-cta {
+  text-align: center;
+  margin-top: 64px;
+}
+
+@media (max-width: 600px) {
+  .meta-row { grid-template-columns: 1fr; gap: 4px; }
+  .openpaw-terminal { font-size: 12px; }
+  .terminal-body { padding: 16px 14px; min-height: 200px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .openpaw-render img { animation: none; }
+  .ks-fill { transition: none; width: 32% !important; }
+  .openpaw-badge-dot { animation: none; }
+  .terminal-session { animation: none; }
+}
 </style>
 </head>
 <body>
@@ -3528,6 +3772,108 @@ h1, h2, h3, h4 {
       <a href="#webinar" class="btn btn-primary">See the whole fleet run live <span class="arrow">→</span></a>
     </div>
 
+  </div>
+</section>
+
+<div class="wrap"><div class="section-divider"></div></div>
+
+<!-- ============================================================
+     07. OPENPAW — BUILD IN PUBLIC
+     ============================================================ -->
+<section class="openpaw" id="openpaw">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">07 / Build in public</span>
+      <h2 class="h2">I'm shipping a $1M open-source robot with Claude Code. Live.</h2>
+      <p class="lead">OpenPaw is my open-source pet companion robot, launching on Kickstarter July 7. Every feature is being shipped by Claude Code on stream. The Lab teaches the exact methodology I'm using here.</p>
+    </div>
+
+    <div class="openpaw-split">
+      <!-- Left column: visual + Kickstarter -->
+      <div class="openpaw-visual reveal">
+        <div class="openpaw-badge">
+          <span class="openpaw-badge-dot"></span>
+          BUILD-IN-PUBLIC &middot; LIVE
+        </div>
+        <div class="openpaw-render">
+          <img src="assets/openpaw/openpaw-render.png" alt="OpenPaw open-source pet companion robot" loading="lazy" />
+        </div>
+        <div class="openpaw-kickstarter">
+          <div class="ks-label">KICKSTARTER LAUNCH &middot; <strong>JULY 7, 2026</strong></div>
+          <div class="ks-progress">
+            <div class="ks-bar"><div class="ks-fill" data-fill="32"></div></div>
+            <div class="ks-numbers">
+              <span class="ks-current" data-counter="ksAmount" data-target="320000">$0</span>
+              <span class="ks-of">of $1,000,000 goal</span>
+            </div>
+          </div>
+          <a href="https://kickstarter.com/openpaw" target="_blank" rel="noopener" class="ks-link">
+            Watch the campaign <span class="arrow">&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right column: live coding terminal + meta -->
+      <div class="openpaw-content reveal">
+        <div class="openpaw-terminal">
+          <div class="terminal-bar">
+            <span class="t-dot t-dot-red"></span>
+            <span class="t-dot t-dot-yellow"></span>
+            <span class="t-dot t-dot-green"></span>
+            <span class="terminal-title">openpaw :: claude code :: live</span>
+          </div>
+          <div class="terminal-body">
+            <!-- 3 looping coding sessions cycle every ~10s each, total 30s loop -->
+            <div class="terminal-session" data-session="1">
+              <span class="t-line"><span class="t-prompt">operator $</span> claude add-feature "tail-wag-recognition"</span>
+              <span class="t-line t-output">&rarr; analyzing requirements...</span>
+              <span class="t-line t-output">&rarr; drafting opencv detection module</span>
+              <span class="t-line t-output">&rarr; writing test cases</span>
+              <span class="t-line t-success">&check; feature ready &middot; 47 lines &middot; 12 tests pass</span>
+              <span class="t-line"><span class="t-prompt">operator $</span> git commit -m "feat: tail wag"</span>
+            </div>
+            <div class="terminal-session" data-session="2">
+              <span class="t-line"><span class="t-prompt">operator $</span> claude debug "ear-servo-jitter"</span>
+              <span class="t-line t-output">&rarr; reading hardware logs &middot; 3 anomalies</span>
+              <span class="t-line t-output">&rarr; root cause: PWM timing drift</span>
+              <span class="t-line t-output">&rarr; patching motor_driver.py</span>
+              <span class="t-line t-success">&check; patch deployed &middot; jitter -98%</span>
+              <span class="t-line"><span class="t-prompt">operator $</span> ./test_servo_smoothness.sh</span>
+            </div>
+            <div class="terminal-session" data-session="3">
+              <span class="t-line"><span class="t-prompt">operator $</span> claude add-feature "voice-greeting"</span>
+              <span class="t-line t-output">&rarr; checking microphone stack</span>
+              <span class="t-line t-output">&rarr; wiring up whisper-tiny offline</span>
+              <span class="t-line t-output">&rarr; writing 5 fallback responses</span>
+              <span class="t-line t-success">&check; feature ready &middot; 89 lines &middot; all tests green</span>
+              <span class="t-line"><span class="t-prompt">operator $</span> git push origin main</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="openpaw-meta">
+          <div class="meta-row">
+            <span class="meta-label">STACK</span>
+            <span class="meta-value">Claude Code &middot; Python &middot; OpenCV &middot; Whisper &middot; Raspberry Pi</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">LICENSE</span>
+            <span class="meta-value">MIT (software) + CERN-OHL-S (hardware open-source)</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">METHODOLOGY</span>
+            <span class="meta-value">Same workflow I teach in the Lab. Same agents. Same loops.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="openpaw-cta reveal">
+      <a href="#webinar" class="btn btn-primary">
+        <span class="hero-cta-main">See me ship live <span class="arrow">&rarr;</span></span>
+        <span class="hero-cta-sub">in the next webinar</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -4461,6 +4807,64 @@ const SEATS_TOTAL = 30;
 document.querySelectorAll('[data-seats-left]').forEach(function(el) {
   el.textContent = SEATS_LEFT + ' of ' + SEATS_TOTAL;
 });
+
+// ============================================================
+// v9 Wave D — OpenPaw: Kickstarter bar fill + counter + terminal cycle
+// ============================================================
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Kickstarter progress bar + synced $ counter
+  var ksProgress = document.querySelector('.openpaw .ks-progress');
+  if (ksProgress) {
+    var fillEl = ksProgress.querySelector('.ks-fill');
+    var counterEl = ksProgress.querySelector('[data-counter="ksAmount"]');
+    var targetFill = parseInt(fillEl.getAttribute('data-fill'), 10) || 32;
+    var targetAmount = parseInt(counterEl.getAttribute('data-target'), 10) || 320000;
+    ksProgress.style.setProperty('--target-fill', targetFill + '%');
+
+    if (reduce) {
+      ksProgress.classList.add('in-view');
+      counterEl.textContent = '$' + targetAmount.toLocaleString();
+    } else if ('IntersectionObserver' in window) {
+      var ksObserver = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          ksProgress.classList.add('in-view');
+          var stepCount = 60;
+          var step = targetAmount / stepCount;
+          var current = 0;
+          var i = 0;
+          var tick = function () {
+            i++;
+            current = (i >= stepCount) ? targetAmount : current + step;
+            counterEl.textContent = '$' + Math.round(current).toLocaleString();
+            if (i < stepCount) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          ksObserver.disconnect();
+        }
+      }, { threshold: 0.4 });
+      ksObserver.observe(ksProgress);
+    } else {
+      ksProgress.classList.add('in-view');
+      counterEl.textContent = '$' + targetAmount.toLocaleString();
+    }
+  }
+
+  // Cycle through 3 terminal sessions every 10s
+  var openpawSessions = document.querySelectorAll('.openpaw-terminal .terminal-session');
+  if (openpawSessions.length > 0) {
+    openpawSessions[0].classList.add('active');
+    if (!reduce && openpawSessions.length > 1) {
+      var idx = 0;
+      setInterval(function () {
+        openpawSessions[idx].classList.remove('active');
+        idx = (idx + 1) % openpawSessions.length;
+        openpawSessions[idx].classList.add('active');
+      }, 10000);
+    }
+  }
+})();
 
 // ============================================================
 // Webinar form submission
