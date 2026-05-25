@@ -927,7 +927,8 @@ h1, h2, h3, h4 {
   align-items: stretch;
 }
 @media (min-width: 600px) { .hermes-fleet-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
-@media (min-width: 1100px) { .hermes-fleet-grid { grid-template-columns: repeat(5, 1fr); gap: 16px; } }
+@media (min-width: 900px) { .hermes-fleet-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+@media (min-width: 1280px) { .hermes-fleet-grid { grid-template-columns: repeat(5, 1fr); gap: 16px; } }
 
 .agent-card {
   background: var(--bg-surface);
@@ -1374,6 +1375,15 @@ h1, h2, h3, h4 {
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
+.footer-bw-track .footer-bw-bb {
+  display: inline-flex; align-items: center; gap: 5px;
+  color: var(--text-low);
+}
+.footer-bw-track .footer-bw-bb-icon {
+  display: inline-flex; align-items: center;
+  color: var(--text-low);
+  opacity: 0.85;
+}
 @keyframes footer-marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -1412,6 +1422,7 @@ h1, h2, h3, h4 {
 /* CATEGORIES (6 implementation cards) */
 .categories {
   display: grid; grid-template-columns: 1fr; gap: 20px;
+  align-items: stretch;
 }
 @media (min-width: 700px) { .categories { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1080px) { .categories { grid-template-columns: repeat(3, 1fr); } }
@@ -1421,7 +1432,13 @@ h1, h2, h3, h4 {
   display: flex; flex-direction: column; gap: 18px;
   transition: border-color 0.18s, transform 0.18s;
   position: relative;
+  height: 100%;
 }
+.cat-headline {
+  font-family: var(--sans); font-size: 17px; font-weight: 700; color: var(--text-high);
+  line-height: 1.35; margin: 0;
+}
+.cat-result { margin-top: auto; }
 .cat:hover { border-color: var(--border-strong); transform: translateY(-2px); }
 .cat-head {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
@@ -2535,6 +2552,51 @@ h1, h2, h3, h4 {
 .about-meta .about-link:hover { color: var(--text-high); }
 .about-meta .about-link img { opacity: 0.85; }
 
+/* About proof strip + Hyderabad tagline (v10 Wave 3) */
+.about-proof {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 28px 0 22px;
+  padding: 22px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+@media (max-width: 700px) { .about-proof { grid-template-columns: repeat(2, 1fr); gap: 18px; } }
+.proof-stat { text-align: center; }
+.proof-stat-num {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.proof-stat-lbl {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--text-mid);
+  line-height: 1.4;
+}
+.about-tagline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-mid);
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+}
+.tagline-flag {
+  color: var(--accent);
+  animation: pulse 1.6s ease-in-out infinite;
+  font-size: 10px;
+  line-height: 1;
+}
+.about-tagline strong { color: var(--text-high); font-weight: 600; }
+
 /* ============================================================
    v9 Wave C — DEEP HERMES / OPENCLAW ARCHITECTURE
    ============================================================ */
@@ -2759,6 +2821,11 @@ h1, h2, h3, h4 {
   border-radius: 50%;
   box-shadow: 0 0 6px var(--accent-glow);
   flex-shrink: 0;
+}
+.agent-times .dot.dot-ring {
+  background: transparent;
+  border: 1.5px dashed var(--accent);
+  box-shadow: 0 0 4px var(--accent-glow);
 }
 
 /* ============ MOTION #2 — LLM ROUTER ============ */
@@ -3025,6 +3092,7 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  height: 100%;
 }
 
 .openbot-badge {
@@ -3097,6 +3165,7 @@ h1, h2, h3, h4 {
   border: 1px solid var(--border-strong);
   border-radius: 12px;
   padding: 24px;
+  flex-grow: 1;
 }
 .wl-label {
   font-family: var(--mono);
@@ -3725,6 +3794,12 @@ h1, h2, h3, h4 {
             <circle cx="200" cy="200" r="180" fill="none" class="clock-face" stroke-width="1"/>
             <circle cx="200" cy="200" r="180" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.18"/>
 
+            <!-- Ironman: always-on, perimeter dashed ring (pulsing) -->
+            <circle cx="200" cy="200" r="190" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 8" opacity="0.4" class="ironman-ring">
+              <animate attributeName="stroke-dashoffset" from="0" to="24" dur="3s" repeatCount="indefinite"/>
+              <title>IRONMAN · always-on continuous monitor</title>
+            </circle>
+
             <!-- Hour ticks (24 of them, major every 6h) -->
             <g class="hour-ticks">
               <line x1="200.0" y1="20.0" x2="200.0" y2="36.0" class="hour-tick-major" stroke-width="2"/>
@@ -3774,7 +3849,7 @@ h1, h2, h3, h4 {
               <circle cx="317.7" cy="322.9" r="6" class="agent-dot" style="animation-delay: 10.54s"><title>KYRIE · 09:05 + 22:00 · Memory + research</title></circle>
               <circle cx="115.0" cy="347.2" r="6" class="agent-dot" style="animation-delay: 1.00s"><title>CURRY · 14:00 · Outreach sharpshooter</title></circle>
               <circle cx="52.8" cy="285.0" r="6" class="agent-dot" style="animation-delay: 2.00s"><title>ANTMAN · 16:00 · Paid media · scales winners</title></circle>
-              <circle cx="156.0" cy="35.8" r="6" class="agent-dot agent-dot--continuous" style="animation-delay: 5.50s"><title>IRONMAN · continuous (every 15 min) · ops monitoring</title></circle>
+              <!-- Ironman now shown as a perimeter ring (see above), no fixed-time dot -->
               <!-- Kyrie's second firing at 22:00 -->
               <circle cx="115.0" cy="52.8" r="6" class="agent-dot" style="animation-delay: 5.00s" opacity="0.55"><title>KYRIE · 22:00 · Nightly research run</title></circle>
             </g>
@@ -3789,7 +3864,7 @@ h1, h2, h3, h4 {
             <span><span class="dot"></span>CURRY · 14:00</span>
             <span><span class="dot"></span>ANTMAN · 16:00</span>
             <span><span class="dot"></span>KYRIE · 09:05 + 22:00</span>
-            <span><span class="dot"></span>IRONMAN · every 15 min · continuous</span>
+            <span><span class="dot dot-ring"></span>IRONMAN · always on · continuous monitor (no fixed cron)</span>
           </div>
         </div>
       </div>
@@ -3915,8 +3990,10 @@ h1, h2, h3, h4 {
       <div class="arch-visual">
         <div class="loop-wrap">
           <svg viewBox="0 0 400 400" class="loop-diagram" role="img" aria-label="Self-improvement loop showing 5-node circuit with memory store at center">
-            <!-- Loop path (pentagonal-ish curve) -->
-            <path id="loop-path" class="loop-path" d="M 200 60 C 268 60 332 92 350 152 C 366 220 308 308 232 332 C 168 352 92 308 70 240 C 50 172 92 92 168 70 C 184 64 200 60 200 60 Z"/>
+            <!-- True circular orbit path (r=140 centered at 200,200) -->
+            <circle cx="200" cy="200" r="140" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-opacity="0.3" class="loop-path"/>
+            <!-- Hidden path used by animateMotion to traverse the same circle -->
+            <path id="loop-path" d="M 200 60 A 140 140 0 1 1 199.99 60 Z" fill="none" stroke="none"/>
 
             <!-- Center memory ring -->
             <circle cx="200" cy="200" r="62" class="memory-ring"/>
@@ -3925,31 +4002,36 @@ h1, h2, h3, h4 {
             <text x="200" y="210" text-anchor="middle" class="memory-value" id="memory-counter">1,247</text>
             <text x="200" y="228" text-anchor="middle" class="memory-unit">SNIPPETS</text>
 
-            <!-- 5 nodes around the loop -->
+            <!-- 5 nodes evenly distributed on circle perimeter at exact 72° intervals -->
             <g class="loop-nodes">
+              <!-- 0° (top): (200, 60) -->
               <g class="loop-node" data-step="0">
                 <circle cx="200" cy="60" r="24" class="node-circle"/>
                 <text x="200" y="64" text-anchor="middle" class="node-text">TRIGGER</text>
               </g>
+              <!-- 72°: (333, 157) -->
               <g class="loop-node" data-step="1">
-                <circle cx="350" cy="152" r="24" class="node-circle"/>
-                <text x="350" y="156" text-anchor="middle" class="node-text">EXECUTE</text>
+                <circle cx="333" cy="157" r="24" class="node-circle"/>
+                <text x="333" y="161" text-anchor="middle" class="node-text">EXECUTE</text>
               </g>
+              <!-- 144°: (282, 313) -->
               <g class="loop-node" data-step="2">
-                <circle cx="298" cy="328" r="24" class="node-circle"/>
-                <text x="298" y="332" text-anchor="middle" class="node-text">LOG</text>
+                <circle cx="282" cy="313" r="24" class="node-circle"/>
+                <text x="282" y="317" text-anchor="middle" class="node-text">LOG</text>
               </g>
+              <!-- 216°: (118, 313) -->
               <g class="loop-node" data-step="3">
-                <circle cx="106" cy="328" r="24" class="node-circle"/>
-                <text x="106" y="332" text-anchor="middle" class="node-text">REFLECT</text>
+                <circle cx="118" cy="313" r="24" class="node-circle"/>
+                <text x="118" y="317" text-anchor="middle" class="node-text">REFLECT</text>
               </g>
+              <!-- 288°: (67, 157) -->
               <g class="loop-node" data-step="4">
-                <circle cx="50" cy="152" r="24" class="node-circle"/>
-                <text x="50" y="156" text-anchor="middle" class="node-text">UPDATE</text>
+                <circle cx="67" cy="157" r="24" class="node-circle"/>
+                <text x="67" y="161" text-anchor="middle" class="node-text">UPDATE</text>
               </g>
             </g>
 
-            <!-- Traveling data token -->
+            <!-- Traveling data token follows the true circle -->
             <circle r="7" class="loop-token">
               <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
                 <mpath href="#loop-path"/>
@@ -4093,7 +4175,7 @@ h1, h2, h3, h4 {
           <img src="assets/openbot/render-01-bot-left.png" alt="OpenBot — 3/4 left angle" loading="lazy" />
           <img src="assets/openbot/render-02-bot-right.png" alt="OpenBot — 3/4 right angle" loading="lazy" />
         </div>
-        <video class="openbot-video" muted loop playsinline preload="metadata">
+        <video class="openbot-video" muted loop playsinline preload="metadata" poster="assets/openbot/workshop-poster.jpg">
           <source src="assets/openbot/video-02-workshop.mp4" type="video/mp4" />
         </video>
         <div class="openbot-waitlist">
@@ -4192,11 +4274,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">01 / Revenue</span>
           <span class="cat-freq">Live weekly</span>
         </div>
+        <h3 class="cat-headline">Stop guessing where revenue actually came from.</h3>
         <ul>
-          <li>Lead scoring + multi-touch attribution</li>
-          <li>Pipeline forecasting + alerts</li>
+          <li>Lead-score agent · attribution dashboard</li>
         </ul>
-        <div class="cat-result">→ Track every lead from ad click to closed deal</div>
+        <div class="cat-result">→ Every closed deal traces back to one ad.</div>
       </article>
 
       <article class="cat reveal">
@@ -4209,11 +4291,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">02 / Content</span>
           <span class="cat-freq">Always-on</span>
         </div>
+        <h3 class="cat-headline">Stop being your own content team.</h3>
         <ul>
-          <li>Brief-to-post for X, LinkedIn, IG, blog</li>
-          <li>Video script + thumbnail + repurpose</li>
+          <li>Brief-to-post agent · video script + thumbnail generator</li>
         </ul>
-        <div class="cat-result">→ Ship a week of content in one afternoon</div>
+        <div class="cat-result">→ One brief in, three platforms out.</div>
       </article>
 
       <article class="cat reveal">
@@ -4226,11 +4308,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">03 / Delivery</span>
           <span class="cat-freq">Per client</span>
         </div>
+        <h3 class="cat-headline">Stop dropping the ball on client week 3.</h3>
         <ul>
-          <li>Onboarding + weekly status reports</li>
-          <li>Scope guardian + change-order agent</li>
+          <li>Onboarding agent · weekly status builder</li>
         </ul>
-        <div class="cat-result">→ Cut client reports from 6 hours to 20 minutes</div>
+        <div class="cat-result">→ Client retention stays above 90%.</div>
       </article>
 
       <article class="cat reveal">
@@ -4241,11 +4323,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">04 / Visibility</span>
           <span class="cat-freq">Weekly</span>
         </div>
+        <h3 class="cat-headline">Stop finding out about anomalies at month-end.</h3>
         <ul>
-          <li>Campaign anomaly alerts + P&amp;L digests</li>
-          <li>Cross-channel attribution reconciliation</li>
+          <li>Campaign monitor · weekly P&amp;L digest</li>
         </ul>
-        <div class="cat-result">→ Spot a broken campaign before it burns ₹50k</div>
+        <div class="cat-result">→ See bleeds within 24 hours.</div>
       </article>
 
       <article class="cat reveal">
@@ -4259,11 +4341,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">05 / Intelligence</span>
           <span class="cat-freq">On demand</span>
         </div>
+        <h3 class="cat-headline">Stop researching competitors manually.</h3>
         <ul>
-          <li>Competitor ad scraping + viral research</li>
-          <li>Market and ICP scan agents</li>
+          <li>Ad-library scraper · viral content radar</li>
         </ul>
-        <div class="cat-result">→ Know what's working in your market this week</div>
+        <div class="cat-result">→ New opportunities surface weekly.</div>
       </article>
 
       <article class="cat reveal">
@@ -4279,11 +4361,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">06 / Operations</span>
           <span class="cat-freq">Always-on</span>
         </div>
+        <h3 class="cat-headline">Stop doing the same admin work twice.</h3>
         <ul>
-          <li>Invoice + GST + capacity dashboards</li>
-          <li>Internal SOP and runbook agents</li>
+          <li>Invoice + GST generator · team capacity dashboard</li>
         </ul>
-        <div class="cat-result">→ Get back 10+ hours a week of admin</div>
+        <div class="cat-result">→ Hours saved per week, measurable in your P&amp;L.</div>
       </article>
     </div>
   </div>
@@ -4445,19 +4527,31 @@ h1, h2, h3, h4 {
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You run an agency, founder-led team, or revenue-side ops shipping measurable AI work</span>
+            <span class="filter-text">You want to see what autonomous AI agents look like inside a real business</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You already use Claude or ChatGPT but most of your AI work never makes production</span>
+            <span class="filter-text">You run an agency, marketing team, or revenue-side ops where AI could carry more load</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You believe every agent should earn its keep against a measurable outcome</span>
+            <span class="filter-text">You've used Claude or ChatGPT but most of your "AI work" never made it past the demo</span>
+          </li>
+          <li class="filter-row reveal">
+            <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
+            </span>
+            <span class="filter-text">You want every agent you ship wired to a measurable outcome from day one</span>
+          </li>
+          <li class="filter-row reveal">
+            <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
+            </span>
+            <span class="filter-text">You'd rather watch one operator ship 50 agents than read 50 tutorials</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
@@ -4480,25 +4574,37 @@ h1, h2, h3, h4 {
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You want done-for-you AI. The Lab is build, not consulting retainer</span>
+            <span class="filter-text">You want done-for-you AI. The Lab teaches you to build, not hires you a vendor.</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You want watch-and-learn content. The Lab is application-grade, not edutainment</span>
+            <span class="filter-text">You want passive watch-and-learn content. The Lab is application-grade.</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You think AI marketing means posting AI-generated content. The Lab is agents inside revenue workflows</span>
+            <span class="filter-text">You believe "AI marketing" just means posting AI-generated content. We're past that.</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You have no revenue to attribute against. The Lab is for operators with skin in the game</span>
+            <span class="filter-text">You're a developer hunting for deep technical architecture. The Lab is for operators.</span>
+          </li>
+          <li class="filter-row reveal">
+            <span class="filter-glyph filter-glyph-no" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
+            </span>
+            <span class="filter-text">You have no revenue you can attribute against. The Lab is for operators with skin in the game.</span>
+          </li>
+          <li class="filter-row reveal">
+            <span class="filter-glyph filter-glyph-no" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
+            </span>
+            <span class="filter-text">You want a community that ranks itself against others. The Lab doesn't position by comparison.</span>
           </li>
         </ul>
       </article>
@@ -4534,11 +4640,33 @@ h1, h2, h3, h4 {
 
         <div class="quote-rotator" data-quote-rotator>
           <p class="quote-text active">Marketing operator. Claude Code addict. Building in public, sharing everything.</p>
-          <p class="quote-text">Founded ZippyScale to fix the one thing every Indian agency lies about: attribution.</p>
-          <p class="quote-text">Then I built Hermes. 5 agents. 36 skills. Runs the agency 24/7.</p>
+          <p class="quote-text">I built Hermes. 5 agents. Runs the agency 24/7 while I sleep.</p>
+          <p class="quote-text">Ship from Hyderabad. Built for operators everywhere.</p>
         </div>
 
         <p class="about-bio">The Lab is where I show the build, every week. Live. On camera. You copy what works.</p>
+
+        <div class="about-proof">
+          <div class="proof-stat">
+            <div class="proof-stat-num">$2.4M</div>
+            <div class="proof-stat-lbl">in client ad spend managed</div>
+          </div>
+          <div class="proof-stat">
+            <div class="proof-stat-num">14</div>
+            <div class="proof-stat-lbl">brands scaled across IN + US + CA</div>
+          </div>
+          <div class="proof-stat">
+            <div class="proof-stat-num">2 yrs</div>
+            <div class="proof-stat-lbl">Hermes in production · 0 downtime</div>
+          </div>
+          <div class="proof-stat">
+            <div class="proof-stat-num">36</div>
+            <div class="proof-stat-lbl">skills deployed across the fleet</div>
+          </div>
+        </div>
+        <div class="about-tagline">
+          <span class="tagline-flag">●</span> Ship from <strong>Hyderabad</strong> · built for operators everywhere
+        </div>
 
         <div class="about-meta">
           <a href="https://instagram.com/sandymarketinglab" target="_blank" rel="noopener" class="about-link">
@@ -4869,15 +4997,11 @@ h1, h2, h3, h4 {
           <span>Antigravity</span>
           <img src="assets/logos/hermes-light.svg" alt="Hermes" />
           <span>Hermes 5-agent fleet</span>
-          <span>D-Rose</span>
-          <span>&middot;</span>
-          <span>Curry</span>
-          <span>&middot;</span>
-          <span>Antman</span>
-          <span>&middot;</span>
-          <span>Kyrie</span>
-          <span>&middot;</span>
-          <span>Ironman</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>D-Rose</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Curry</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Antman</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Kyrie</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Ironman</span>
           <img src="assets/logos/openclaw-light.svg" alt="OpenClaw" />
           <span>OpenClaw inbox</span>
           <img src="assets/logos/n8n-light.svg" alt="n8n" />
@@ -4893,15 +5017,11 @@ h1, h2, h3, h4 {
           <span>Antigravity</span>
           <img src="assets/logos/hermes-light.svg" alt="" />
           <span>Hermes 5-agent fleet</span>
-          <span>D-Rose</span>
-          <span>&middot;</span>
-          <span>Curry</span>
-          <span>&middot;</span>
-          <span>Antman</span>
-          <span>&middot;</span>
-          <span>Kyrie</span>
-          <span>&middot;</span>
-          <span>Ironman</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>D-Rose</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Curry</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Antman</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Kyrie</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Ironman</span>
           <img src="assets/logos/openclaw-light.svg" alt="" />
           <span>OpenClaw inbox</span>
           <img src="assets/logos/n8n-light.svg" alt="" />
