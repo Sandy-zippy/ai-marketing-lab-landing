@@ -68,7 +68,6 @@ ul { list-style: none; }
 .nav-toggle { min-width: 44px; min-height: 44px; }
 .brand { display: inline-flex; align-items: center; min-height: 44px; padding: 4px 0; }
 .footer ul li a { display: inline-block; padding: 12px 0; min-height: 44px; line-height: 1; }
-.secondary-cta { padding-block: 14px; min-height: 44px; }
 
 /* Base */
 body {
@@ -617,20 +616,6 @@ h1, h2, h3, h4 {
 }
 .card ul li::before {
   content: '▸'; position: absolute; left: 0; color: var(--accent);
-}
-
-/* Manifesto */
-.manifesto { display: grid; grid-template-columns: 1fr; gap: 28px; max-width: 880px; }
-.manifesto p {
-  font-size: clamp(17px, 1.8vw, 20px); line-height: 1.6; color: var(--text-mid);
-}
-.manifesto p strong { color: var(--text-high); font-weight: 500; }
-.manifesto p .accent-text { color: var(--text-high); font-weight: 700; background: linear-gradient(180deg, transparent 65%, var(--accent) 65%); padding: 0 2px; }
-.manifesto-pull {
-  border-left: 3px solid var(--accent); padding-left: 24px;
-  font-family: var(--sans); font-weight: 700;
-  font-size: clamp(20px, 2.4vw, 28px);
-  color: var(--text-high); line-height: 1.25; letter-spacing: -0.022em;
 }
 
 /* Week in the life */
@@ -1600,54 +1585,6 @@ h1, h2, h3, h4 {
 .scarcity-note {
   font-family: var(--mono); font-size: 11px; color: var(--text-mid);
   line-height: 1.5; letter-spacing: 0.02em;
-}
-
-/* ============================================================ */
-/* PRE-OFFER OBJECTION BLOCK */
-.pre-offer-objections {
-  background: var(--bg-surface-2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: clamp(28px, 4vw, 40px);
-  margin-bottom: clamp(40px, 6vw, 64px);
-}
-.pre-offer-objections .h3 { font-family: var(--mono); }
-.pre-objection-grid {
-  display: grid; grid-template-columns: 1fr; gap: 20px;
-}
-@media (min-width: 760px) { .pre-objection-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
-.pre-objection {
-  display: flex; flex-direction: column; gap: 10px;
-  padding-top: 18px; border-top: 1px solid var(--border);
-}
-.pre-q {
-  font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--text-high);
-  letter-spacing: 0.01em; line-height: 1.4;
-}
-.pre-a {
-  font-family: var(--sans); font-size: 14px; line-height: 1.6; color: var(--text-mid);
-}
-
-/* ============================================================ */
-/* SECONDARY CTA LINK (apply directly) */
-.secondary-cta {
-  font-family: var(--mono); font-size: 13px; color: var(--text-mid);
-  letter-spacing: 0.02em;
-  display: inline-flex; align-items: center; gap: 6px;
-  transition: color 0.18s;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 2px;
-}
-.secondary-cta:hover { color: var(--text-high); border-color: var(--text-high); }
-.secondary-cta .arrow { transition: transform 0.18s ease; }
-.secondary-cta:hover .arrow { transform: translateX(3px); }
-.hero-secondary { margin-bottom: 56px; margin-top: -32px; }
-.final-secondary { margin-top: 20px; }
-.form-note {
-  font-family: var(--mono); font-size: 11px; color: var(--text-low);
-  letter-spacing: 0.04em; line-height: 1.5;
-  padding: 10px 12px; border: 1px dashed var(--border-strong); border-radius: 4px;
-  margin-bottom: 20px; text-align: left;
 }
 
 /* ============================================================ */
