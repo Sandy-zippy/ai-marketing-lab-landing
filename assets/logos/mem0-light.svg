@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <title>Mem0</title>
+  <!-- Memory layer concept: stacked layers with persistent-memory markers -->
+  <rect x="5" y="8" width="22" height="4" rx="1.5" stroke="#F5F5F0" stroke-width="1.5" fill="none"/>
+  <rect x="5" y="14" width="22" height="4" rx="1.5" stroke="#F5F5F0" stroke-width="1.5" fill="none"/>
+  <rect x="5" y="20" width="22" height="4" rx="1.5" stroke="#F5F5F0" stroke-width="1.5" fill="none"/>
+  <circle cx="9" cy="10" r="1" fill="#00FF94"/>
+  <circle cx="9" cy="16" r="1" fill="#00FF94"/>
+  <circle cx="9" cy="22" r="1" fill="#00FF94"/>
+</svg>
