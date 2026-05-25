@@ -43,21 +43,23 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 
-/* Tokens — v7-tech Higgsfield-inspired light operator palette */
+/* Tokens — v9 dark-Higgsfield operator palette */
 :root {
-  --bg-canvas: #FAFAF8;        /* warm cream */
-  --bg-surface: #FFFFFF;        /* clean white card */
-  --bg-surface-2: #F4F4EE;     /* subtle elevation */
-  --border: rgba(26, 26, 26, 0.08);       /* near-black at 8% */
-  --border-strong: rgba(26, 26, 26, 0.18); /* near-black at 18% */
-  --accent: #D5EB4B;            /* ZippyScale lime */
-  --accent-dim: rgba(213, 235, 75, 0.55);
-  --accent-on-dark: #BFDA2C;    /* darker lime for use on accent backgrounds */
-  --text-high: #1A1A1A;         /* near-black (Higgsfield-style) */
-  --text-mid: #5A5A65;          /* secondary text */
-  --text-low: #9A9AA5;          /* tertiary text */
-  --mono: 'JetBrains Mono', ui-monospace, Menlo, 'SF Mono', Consolas, monospace;
+  --bg-canvas: #0A0E0D;          /* deep dark green-black */
+  --bg-surface: #13191B;          /* card / surface */
+  --bg-surface-2: #1A2225;        /* elevated surface */
+  --bg-elevated: #232C2F;         /* hover/active */
+  --border: rgba(0, 255, 148, 0.08);
+  --border-strong: rgba(0, 255, 148, 0.22);
+  --accent: #00FF94;              /* neon green */
+  --accent-soft: rgba(0, 255, 148, 0.15);
+  --accent-glow: rgba(0, 255, 148, 0.4);
+  --text-high: #F5F5F0;           /* off-white */
+  --text-mid: #B0B8B4;            /* secondary text */
+  --text-low: #7A8580;            /* tertiary */
+  --warm-tint: #FFE5A3;           /* sparingly */
   --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
   --max: 1240px;
   --gutter: clamp(20px, 4vw, 40px);
 }

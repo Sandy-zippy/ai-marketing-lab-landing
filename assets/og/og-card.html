@@ -7,21 +7,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-html, body { width:1200px; height:630px; background:#FAFAF8; overflow:hidden; }
+html, body { width:1200px; height:630px; background:#0A0E0D; overflow:hidden; }
 body {
   position:relative;
   font-family:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  color:#1A1A1A;
+  color:#F5F5F0;
   background-image:
-    radial-gradient(ellipse 70% 50% at 20% -10%, rgba(213,235,75,0.28), transparent 60%),
-    radial-gradient(ellipse 60% 60% at 110% 110%, rgba(213,235,75,0.20), transparent 60%),
-    linear-gradient(180deg, #FAFAF8 0%, #F4F4EE 100%);
+    radial-gradient(ellipse 70% 50% at 20% -10%, rgba(0,255,148,0.28), transparent 60%),
+    radial-gradient(ellipse 60% 60% at 110% 110%, rgba(0,255,148,0.20), transparent 60%),
+    linear-gradient(180deg, #0A0E0D 0%, #13191B 100%);
   font-feature-settings: "ss01", "cv11";
 }
 .grid {
   position:absolute; inset:0;
   background-image:
-    radial-gradient(rgba(26,26,26,0.04) 1px, transparent 1px);
+    radial-gradient(rgba(245,245,240,0.04) 1px, transparent 1px);
   background-size: 26px 26px;
   pointer-events:none;
 }
@@ -38,19 +38,19 @@ body {
   display:inline-flex; align-items:center; gap:12px;
   font-family:'Inter', system-ui, sans-serif;
   font-weight:700; font-size:18px; letter-spacing:-0.01em;
-  color:#1A1A1A; text-transform:uppercase;
+  color:#F5F5F0; text-transform:uppercase;
 }
 .brand .cursor {
-  width:3px; height:22px; background:#BFDA2C;
+  width:3px; height:22px; background:#00FF94;
   display:inline-block; border-radius:1px;
 }
 .eyebrow {
   font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
   font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
-  color:#1A1A1A; font-weight:500;
+  color:#F5F5F0; font-weight:500;
   display:inline-flex; align-items:center; gap:12px;
 }
-.eyebrow .line { display:inline-block; width:28px; height:2px; background:#D5EB4B; }
+.eyebrow .line { display:inline-block; width:28px; height:2px; background:#00FF94; }
 .middle { flex:1; display:flex; flex-direction:column; justify-content:center; padding-top:8px; padding-bottom:8px; max-width:1056px; }
 .headline {
   font-family:'Inter', system-ui, sans-serif;
@@ -58,12 +58,12 @@ body {
   line-height: 1.0;
   letter-spacing: -0.035em;
   font-weight: 800;
-  color: #1A1A1A;
+  color: #F5F5F0;
   max-width: 1056px;
 }
 .headline .accent {
-  color: #1A1A1A;
-  background: linear-gradient(180deg, transparent 70%, #D5EB4B 70%);
+  color: #F5F5F0;
+  background: linear-gradient(180deg, transparent 70%, #00FF94 70%);
   padding: 0 8px;
   border-radius: 2px;
 }
@@ -72,7 +72,7 @@ body {
   font-family:'Inter', system-ui, sans-serif;
   font-size: 22px;
   letter-spacing: -0.012em;
-  color: #5A5A65;
+  color: #B0B8B4;
   font-weight: 500;
   line-height: 1.4;
   max-width: 880px;
@@ -84,21 +84,21 @@ body {
   display:inline-flex; align-items:center; gap:14px;
   padding: 16px 24px;
   border-radius: 999px;
-  background: #D5EB4B;
+  background: #00FF94;
   font-family:'Inter', system-ui, sans-serif;
   font-size: 15px; letter-spacing: 0.04em; text-transform:none;
-  color:#1A1A1A; font-weight:600;
+  color:#0A0E0D; font-weight:600;
 }
 .stamp .dot {
-  width:10px; height:10px; background:#1A1A1A; border-radius:50%;
+  width:10px; height:10px; background:#0A0E0D; border-radius:50%;
 }
 .term {
   display:inline-flex; align-items:center; gap:10px;
   font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
   font-size: 13px; letter-spacing: 0.10em;
-  color: #5A5A65; text-transform:lowercase;
+  color: #B0B8B4; text-transform:lowercase;
 }
-.term .blk { width:3px; height:16px; background:#BFDA2C; display:inline-block; border-radius:1px; }
+.term .blk { width:3px; height:16px; background:#00FF94; display:inline-block; border-radius:1px; }
 </style>
 </head>
 <body>
