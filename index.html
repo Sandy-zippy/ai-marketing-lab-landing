@@ -4,14 +4,14 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>AI Marketing Lab : Ship AI agents that pay for themselves. Live, every week.</title>
-<meta name="description" content="How Indian operators are shipping AI agents that pay for themselves. Live builds every Wednesday. The Hermes 9-agent fleet, open. Join the next free webinar." />
+<meta name="description" content="How Indian operators are shipping AI agents that pay for themselves. Live builds every Wednesday. The Hermes 5-agent fleet, open. Join the next free webinar." />
 <meta name="theme-color" content="#0A0E0D" />
 <link rel="icon" type="image/svg+xml" href="assets/aiml-symbol-favicon.svg" />
 <link rel="apple-touch-icon" href="assets/aiml-symbol-favicon.svg" />
 
 <!-- Open Graph -->
 <meta property="og:title" content="AI Marketing Lab : Ship AI agents that pay for themselves. Live, every week." />
-<meta property="og:description" content="Watch me build a new AI agent live every Wednesday. Copy it into your business by Friday. 9-agent fleet in production, open to operators." />
+<meta property="og:description" content="Watch me build a new AI agent live every Wednesday. Copy it into your business by Friday. 5-agent fleet in production, open to operators." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://aimarketinglab.club/" />
 <meta property="og:image" content="https://aimarketinglab.club/assets/og/aiml-og-1200x630.jpg" />
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://aimarketinglab.club/assets/og/aiml-og-1200x630.jpg" />
 <meta name="twitter:title" content="AI Marketing Lab : Ship AI agents that pay for themselves." />
-<meta name="twitter:description" content="The operator's playbook for AI agents in business. Live build every Wednesday. 9-agent fleet, open." />
+<meta name="twitter:description" content="The operator's playbook for AI agents in business. Live build every Wednesday. 5-agent fleet, open." />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -920,22 +920,24 @@ h1, h2, h3, h4 {
   color: var(--text-mid); font-family: var(--mono); font-weight: 500;
 }
 
-/* 9 agent cards */
+/* 5 agent cards: 1×5 row layout */
 .hermes-fleet-grid {
   display: grid; grid-template-columns: 1fr; gap: 14px;
   margin-bottom: 64px;
+  align-items: stretch;
 }
-@media (min-width: 720px) { .hermes-fleet-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
-@media (min-width: 1000px) { .hermes-fleet-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+@media (min-width: 600px) { .hermes-fleet-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (min-width: 1100px) { .hermes-fleet-grid { grid-template-columns: repeat(5, 1fr); gap: 16px; } }
 
 .agent-card {
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 24px 24px 22px;
+  padding: 24px 20px 22px;
   display: flex; flex-direction: column; gap: 12px;
   transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
   position: relative;
+  height: 100%;
 }
 .agent-card:hover {
   border-color: var(--accent);
@@ -946,13 +948,8 @@ h1, h2, h3, h4 {
   border-color: var(--border-strong);
   background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-surface-2) 100%);
 }
-.agent-card--lead::after {
-  content: 'orchestrator';
-  position: absolute; top: 12px; right: 16px;
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--text-high); opacity: 0.6;
-  background: var(--accent); padding: 2px 6px; border-radius: 2px;
-}
+/* Lead card emphasis — green left border, no duplicate label badge */
+.agent-card--lead { box-shadow: inset 3px 0 0 var(--accent); }
 
 .agent-card-head {
   display: flex; justify-content: space-between; align-items: center;
@@ -968,7 +965,7 @@ h1, h2, h3, h4 {
   background: var(--accent);
   box-shadow: 0 0 0 0 rgba(0, 255, 148, 0.65);
   animation: agent-pulse 2s ease-out infinite;
-  animation-delay: 0s; /* all 9 dots beat in unison — "fleet alive as one" */
+  animation-delay: 0s; /* all 5 dots beat in unison — "fleet alive as one" */
   flex-shrink: 0;
 }
 @keyframes agent-pulse {
@@ -984,8 +981,8 @@ h1, h2, h3, h4 {
   text-transform: uppercase; color: var(--text-low);
 }
 .agent-card-name {
-  font-family: var(--mono); font-size: clamp(28px, 3vw, 34px); font-weight: 700;
-  color: var(--text-high); letter-spacing: -0.02em; line-height: 1; margin: 2px 0 0;
+  font-family: var(--mono); font-size: clamp(22px, 2.2vw, 28px); font-weight: 700;
+  color: var(--text-high); letter-spacing: -0.02em; line-height: 1.05; margin: 2px 0 0;
 }
 .agent-card-desc {
   font-family: var(--sans); font-size: 15px; line-height: 1.5;
@@ -1855,23 +1852,26 @@ h1, h2, h3, h4 {
 /* Tier 1: model cards */
 .model-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 880px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  max-width: 1180px;
   margin-inline: auto;
 }
+@media (max-width: 1100px) { .model-cards { grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 880px; } }
 @media (max-width: 768px) { .model-cards { grid-template-columns: 1fr; gap: 16px; } }
 .model-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-strong);
   border-radius: 12px;
-  padding: 28px 24px;
+  padding: 26px 18px;
   text-align: center;
   transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease, border-color 0.3s ease;
   animation: stack-float-y 6s ease-in-out infinite;
 }
-.model-card:nth-child(2) { animation-delay: 1.5s; }
-.model-card:nth-child(3) { animation-delay: 3s; }
+.model-card:nth-child(2) { animation-delay: 1.2s; }
+.model-card:nth-child(3) { animation-delay: 2.4s; }
+.model-card:nth-child(4) { animation-delay: 3.6s; }
+.model-card:nth-child(5) { animation-delay: 4.8s; }
 .model-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px var(--accent);
@@ -1899,8 +1899,10 @@ h1, h2, h3, h4 {
   transition: stroke-dashoffset 1.2s cubic-bezier(.22,1,.36,1);
 }
 .stack-connector.in-view .connector-line { stroke-dashoffset: 0; }
-.stack-connector .connector-line:nth-child(2) { transition-delay: 0.2s; }
-.stack-connector .connector-line:nth-child(3) { transition-delay: 0.4s; }
+.stack-connector .connector-line:nth-child(2) { transition-delay: 0.15s; }
+.stack-connector .connector-line:nth-child(3) { transition-delay: 0.30s; }
+.stack-connector .connector-line:nth-child(4) { transition-delay: 0.45s; }
+.stack-connector .connector-line:nth-child(5) { transition-delay: 0.60s; }
 
 /* Tier 2 + 3: runtime cards */
 .runtime-card {
@@ -1943,6 +1945,13 @@ h1, h2, h3, h4 {
   50%      { box-shadow: 0 0 0 8px rgba(0, 255, 148, 0); transform: scale(1.05); }
 }
 .runtime-card img { margin: 0 auto 16px; display: block; }
+.runtime-card .runtime-brand-pic {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  box-shadow: 0 6px 18px rgba(0,255,148,0.20);
+}
 .runtime-name {
   font-family: var(--sans);
   font-weight: 800;
@@ -1960,6 +1969,7 @@ h1, h2, h3, h4 {
   font-family: var(--mono); font-size: 12px;
   color: var(--text-mid); letter-spacing: 0.04em; margin-top: 8px;
 }
+.runtime-card-hermes .runtime-tag { color: var(--text-high); opacity: 0.85; }
 .runtime-agents, .runtime-channels {
   display: flex;
   flex-wrap: wrap;
@@ -2717,6 +2727,14 @@ h1, h2, h3, h4 {
   transform-box: fill-box;
   animation: dot-pulse 12s ease-in-out infinite;
 }
+/* Ironman — continuous: rapid 1s pulse, never sleeps */
+.cron-clock .agent-dot--continuous {
+  animation: dot-pulse-continuous 1.6s ease-in-out infinite;
+}
+@keyframes dot-pulse-continuous {
+  0%, 100% { transform: scale(1); filter: brightness(1.05) drop-shadow(0 0 4px var(--accent)); }
+  50% { transform: scale(1.55); filter: brightness(1.7) drop-shadow(0 0 12px var(--accent)); }
+}
 
 .agent-times {
   display: grid;
@@ -2978,38 +2996,38 @@ h1, h2, h3, h4 {
 }
 
 /* ============================================================
-   v9 Wave D — OpenPaw Build-in-Public section
+   v9 Wave D — OpenBot Build-in-Public section
    ============================================================ */
-.openpaw {
+.openbot {
   padding: clamp(80px, 12vw, 140px) 0;
   background: var(--bg-canvas);
   position: relative;
 }
 
-.openpaw .section-head {
+.openbot .section-head {
   text-align: center;
   margin-bottom: 64px;
 }
-.openpaw .section-head .lead { max-width: 680px; margin-inline: auto; }
+.openbot .section-head .lead { max-width: 680px; margin-inline: auto; }
 
-.openpaw-split {
+.openbot-split {
   display: grid;
   grid-template-columns: 1fr;
   gap: 48px;
   align-items: start;
 }
 @media (min-width: 980px) {
-  .openpaw-split { grid-template-columns: 5fr 7fr; gap: 64px; }
+  .openbot-split { grid-template-columns: 5fr 7fr; gap: 64px; }
 }
 
-/* Left column: visual + Kickstarter */
-.openpaw-visual {
+/* Left column: visual + Waitlist */
+.openbot-visual {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.openpaw-badge {
+.openbot-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -3024,110 +3042,110 @@ h1, h2, h3, h4 {
   align-self: flex-start;
   font-weight: 500;
 }
-.openpaw-badge-dot {
+.openbot-badge-dot {
   width: 6px; height: 6px;
   background: var(--accent);
   border-radius: 50%;
   box-shadow: 0 0 8px var(--accent-glow);
-  animation: openpaw-pulse 1.8s ease-in-out infinite;
+  animation: openbot-pulse 1.8s ease-in-out infinite;
 }
-@keyframes openpaw-pulse {
+@keyframes openbot-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(0.85); }
 }
 
-.openpaw-render {
+/* OpenBot bot renders — paired bot-left + bot-right */
+.openbot-renders {
   position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
   border-radius: 14px;
   overflow: hidden;
   background: var(--bg-surface);
+  padding: 14px;
   border: 1px solid var(--border);
-  aspect-ratio: 4 / 3;
 }
-.openpaw-render img {
-  width: 100%; height: 100%;
-  object-fit: cover;
+.openbot-renders img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
   display: block;
-  animation: openpaw-ken-burns 16s ease-in-out infinite alternate;
+  border-radius: 8px;
+  animation: openbot-ken-burns 18s ease-in-out infinite alternate;
 }
-@keyframes openpaw-ken-burns {
+.openbot-renders img:nth-child(2) { animation-delay: 4s; }
+@keyframes openbot-ken-burns {
   0% { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.06) translate(-1%, -1%); }
+  100% { transform: scale(1.04) translate(-0.5%, -0.5%); }
 }
 
-.openpaw-kickstarter {
+/* Workshop video — autoplays in viewport */
+.openbot-video {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* OpenBot waitlist card */
+.openbot-waitlist {
   background: var(--bg-surface);
   border: 1px solid var(--border-strong);
   border-radius: 12px;
   padding: 24px;
 }
-.ks-label {
+.wl-label {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--text-low);
+  margin-bottom: 12px;
+}
+.wl-label strong { color: var(--accent); font-weight: 700; }
+.wl-headline {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-high);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.wl-body {
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.55;
   margin-bottom: 16px;
 }
-.ks-label strong { color: var(--accent); font-weight: 700; }
-
-.ks-progress { margin-bottom: 16px; }
-.ks-bar {
-  height: 10px;
-  background: var(--bg-surface-2);
-  border-radius: 999px;
-  overflow: hidden;
-  margin-bottom: 12px;
-  border: 1px solid var(--border);
-}
-.ks-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent), #00CC74);
-  width: 0%;
-  border-radius: 999px;
-  transition: width 1.6s cubic-bezier(.22, 1, .36, 1);
-  box-shadow: 0 0 12px var(--accent-glow);
-}
-.ks-progress.in-view .ks-fill { width: var(--target-fill, 32%); }
-.ks-numbers {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-family: var(--mono);
-  font-size: 12px;
-}
-.ks-current {
-  font-weight: 700;
-  color: var(--text-high);
-  font-size: 15px;
-  font-variant-numeric: tabular-nums;
-}
-.ks-of { color: var(--text-low); }
-
-.ks-link {
+.wl-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: var(--mono);
   font-size: 13px;
   color: var(--accent);
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-  margin-top: 16px;
-  width: 100%;
   letter-spacing: 0.02em;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  width: 100%;
   font-weight: 500;
 }
-.ks-link .arrow { transition: transform 0.2s; display: inline-block; }
-.ks-link:hover .arrow { transform: translateX(3px); }
+.wl-link .arrow { transition: transform 0.2s; display: inline-block; }
+.wl-link:hover .arrow { transform: translateX(3px); }
 
-/* Right column: terminal + meta */
-.openpaw-content {
+/* Right column: terminal + meta — stretch aligned, consistent rhythm */
+.openbot-content {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 28px;
+  align-items: stretch;
 }
+.openbot-terminal, .openbot-meta { width: 100%; }
 
-.openpaw-terminal {
+.openbot-terminal {
   background: #060A09;
   border: 1px solid var(--border-strong);
   border-radius: 12px;
@@ -3165,10 +3183,10 @@ h1, h2, h3, h4 {
   display: none;
   flex-direction: column;
   gap: 6px;
-  animation: openpaw-session-fade 0.4s ease-out;
+  animation: openbot-session-fade 0.4s ease-out;
 }
 .terminal-session.active { display: flex; }
-@keyframes openpaw-session-fade {
+@keyframes openbot-session-fade {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
@@ -3177,7 +3195,7 @@ h1, h2, h3, h4 {
 .t-output { color: #9CB5A6; }
 .t-success { color: var(--accent); font-weight: 500; }
 
-.openpaw-meta {
+.openbot-meta {
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -3203,21 +3221,20 @@ h1, h2, h3, h4 {
   line-height: 1.5;
 }
 
-.openpaw-cta {
+.openbot-cta {
   text-align: center;
   margin-top: 64px;
 }
 
 @media (max-width: 600px) {
   .meta-row { grid-template-columns: 1fr; gap: 4px; }
-  .openpaw-terminal { font-size: 12px; }
+  .openbot-terminal { font-size: 12px; }
   .terminal-body { padding: 16px 14px; min-height: 200px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .openpaw-render img { animation: none; }
-  .ks-fill { transition: none; width: 32% !important; }
-  .openpaw-badge-dot { animation: none; }
+  .openbot-renders img { animation: none; }
+  .openbot-badge-dot { animation: none; }
   .terminal-session { animation: none; }
 }
 </style>
@@ -3267,7 +3284,7 @@ h1, h2, h3, h4 {
      VARIANT B (Outcome-led / Direct value prop):
      Headline: Ship one AI agent every week. Inside your business. Wired to revenue.
      Subhead: A live community for operators deploying AI into real revenue workflows.
-              Weekly builds. 9-agent fleet, open.
+              Weekly builds. 5-agent fleet, open.
      CTA: Save my seat — Wed, Jun 11, 8pm IST
 
      VARIANT C (Specific + Curiosity Gap) — CURRENTLY LIVE
@@ -3287,7 +3304,7 @@ h1, h2, h3, h4 {
       <div class="hero-left">
         <span class="eyebrow hero-eyebrow">01 / Operator AI, built to measure</span>
         <h1 class="h1" data-word-reveal>How Indian operators are shipping <span class="accent">AI agents</span> that pay for themselves<span class="pulse-dot" aria-hidden="true"></span></h1>
-        <p class="lead">9-agent fleet in production. Every Wednesday I build a new one on camera. You copy it by Friday.</p>
+        <p class="lead">5-agent fleet running my agency 24/7. Every Wednesday I build a new one on camera. You copy it by Friday.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary hero-cta" href="#webinar">
             <span class="hero-cta-main">Save my seat <span class="arrow">→</span></span>
@@ -3364,7 +3381,7 @@ h1, h2, h3, h4 {
       <div class="proof-metric proof-metric-divider"></div>
       <div class="proof-metric">
         <span class="proof-metric-label">In production since</span>
-        <span class="proof-metric-value">2024 &middot; 18 months &middot; 0 downtime</span>
+        <span class="proof-metric-value">2024 &middot; running 24/7</span>
       </div>
     </div>
     <div class="proof-waveform" aria-hidden="true">
@@ -3566,7 +3583,7 @@ h1, h2, h3, h4 {
     <div class="section-head ai-stack-head">
       <span class="eyebrow">03 / The Stack</span>
       <h2 class="h2">The AI stack that runs my agency.</h2>
-      <p class="lead">Three models. One fleet. Routed through every channel I care about. This is what's behind every agent I ship in the Lab.</p>
+      <p class="lead">Five models. One fleet. Routed through every channel I care about. This is what's behind every agent I ship in the Lab.</p>
     </div>
 
     <!-- Tier 1: Models -->
@@ -3577,29 +3594,43 @@ h1, h2, h3, h4 {
           <img src="assets/logos/claude-light.svg" alt="Anthropic / Claude" width="48" height="48" />
           <div class="model-name">Claude Code</div>
           <div class="model-by">by Anthropic</div>
-          <div class="model-role">My IDE. Where I architect every agent.</div>
+          <div class="model-role">My IDE. Architect every agent.</div>
         </article>
         <article class="model-card">
           <img src="assets/logos/openai-light.svg" alt="OpenAI / Codex" width="48" height="48" />
           <div class="model-name">Codex</div>
           <div class="model-by">by OpenAI</div>
-          <div class="model-role">Fast vibe-coding when I need throughput.</div>
+          <div class="model-role">Fast vibe-coding throughput.</div>
+        </article>
+        <article class="model-card">
+          <img src="assets/logos/openai-light.svg" alt="OpenAI / ChatGPT" width="48" height="48" />
+          <div class="model-name">ChatGPT</div>
+          <div class="model-by">by OpenAI</div>
+          <div class="model-role">Async reasoning + research.</div>
         </article>
         <article class="model-card">
           <img src="assets/logos/gemini-light.svg" alt="Google / Gemini" width="48" height="48" />
           <div class="model-name">Gemini Flash</div>
           <div class="model-by">by Google</div>
-          <div class="model-role">Cheap async tasks. Cron-driven work.</div>
+          <div class="model-role">Cheap async cron work.</div>
+        </article>
+        <article class="model-card">
+          <img src="assets/logos/antigravity-light.svg" alt="Google / Antigravity" width="48" height="48" />
+          <div class="model-name">Antigravity</div>
+          <div class="model-by">by Google</div>
+          <div class="model-role">New agentic dev environment.</div>
         </article>
       </div>
     </div>
 
-    <!-- Connector: 3 lines converging to Hermes -->
+    <!-- Connector: 5 lines converging to Hermes -->
     <div class="stack-connector" aria-hidden="true">
       <svg viewBox="0 0 200 60" preserveAspectRatio="none">
-        <path d="M 50 0 L 100 60" class="connector-line" />
+        <path d="M 20 0 L 100 60" class="connector-line" />
+        <path d="M 60 0 L 100 60" class="connector-line" />
         <path d="M 100 0 L 100 60" class="connector-line" />
-        <path d="M 150 0 L 100 60" class="connector-line" />
+        <path d="M 140 0 L 100 60" class="connector-line" />
+        <path d="M 180 0 L 100 60" class="connector-line" />
       </svg>
     </div>
 
@@ -3607,11 +3638,11 @@ h1, h2, h3, h4 {
     <div class="stack-tier stack-tier-runtime">
       <div class="tier-label">RUNTIME &middot; THE FLEET</div>
       <article class="runtime-card runtime-card-hermes">
-        <img src="assets/logos/hermes-light.svg" alt="Hermes" width="56" height="56" />
+        <img src="assets/logos/hermes-brand.png" alt="Hermes" width="80" height="80" class="runtime-brand-pic" />
         <div class="runtime-name">Hermes</div>
-        <div class="runtime-tag">9-agent fleet &middot; in production since 2024</div>
+        <div class="runtime-tag">5-agent fleet &middot; in production since 2024</div>
         <div class="runtime-agents">
-          <span>Zayn</span><span>Mira</span><span>Atlas</span><span>Kai</span><span>Axel</span><span>Iris</span><span>Otto</span><span>Skye</span><span>Vera</span>
+          <span>D-Rose</span><span>Curry</span><span>Antman</span><span>Kyrie</span><span>Ironman</span>
         </div>
       </article>
     </div>
@@ -3627,6 +3658,7 @@ h1, h2, h3, h4 {
     <div class="stack-tier stack-tier-routing">
       <div class="tier-label">ROUTING &middot; THE CHANNELS</div>
       <article class="runtime-card runtime-card-openclaw">
+        <img src="assets/logos/openclaw-brand.png" alt="Open Claw" width="80" height="80" class="runtime-brand-pic" />
         <div class="runtime-name openclaw-mark">[ Open Claw ]</div>
         <div class="runtime-tag">24+ channels routed to 1 inbox</div>
         <div class="runtime-channels">
@@ -3671,7 +3703,7 @@ h1, h2, h3, h4 {
     <div class="section-head reveal">
       <span class="eyebrow">04 / Inside Hermes</span>
       <h2 class="h2">Autonomous. Self-improving. Multi-LLM. Always on.</h2>
-      <p class="lead">Hermes is the operating system behind ZippyScale. 9 agents, 3 LLMs, cron-driven, memory-anchored. Here's how every agent ships work while I'm asleep.</p>
+      <p class="lead">Hermes is the operating system behind ZippyScale. 5 agents, 5 models, cron-driven, memory-anchored. Here's how every agent ships work while I'm asleep.</p>
     </div>
 
     <!-- 06B · CRON SCHEDULE ============================================ -->
@@ -3679,11 +3711,11 @@ h1, h2, h3, h4 {
       <div class="arch-copy">
         <span class="arch-block-label">01 · CRON</span>
         <h3 class="arch-block-h">Every morning, the fleet wakes up.</h3>
-        <p class="arch-block-body">Each agent gets its slot. Zayn orchestrates the rest of the day. The radar arm below sweeps a 24-hour day in 12 seconds. Watch each agent light up when its turn comes.</p>
+        <p class="arch-block-body">Each agent gets its slot. D-Rose dispatches the floor at 09:00. Ironman never sleeps. The radar arm below sweeps a 24-hour day in 12 seconds. Watch each agent light up when its turn comes.</p>
         <ul class="arch-bullets">
-          <li>9 cron jobs, 1 VPS, zero babysitting</li>
-          <li>Outputs delivered to Telegram by Zayn</li>
-          <li>Failure events auto-escalate to Sandy</li>
+          <li>5 cron jobs, 1 VPS, zero babysitting</li>
+          <li>Outputs delivered to Telegram by D-Rose</li>
+          <li>Failure events auto-escalate to Sandy via Ironman</li>
         </ul>
       </div>
       <div class="arch-visual">
@@ -3738,15 +3770,13 @@ h1, h2, h3, h4 {
 
             <!-- Agent dots, positioned at their cron firing times -->
             <g class="agent-dots">
-              <circle cx="310.3" cy="310.3" r="6" class="agent-dot" style="animation-delay: 10.50s"><title>ZAYN · 09:00 IST · Daily orchestration</title></circle>
-              <circle cx="307.9" cy="312.7" r="6" class="agent-dot" style="animation-delay: 10.54s"><title>MIRA · 09:05 · Revenue sweep</title></circle>
-              <circle cx="305.4" cy="315.0" r="6" class="agent-dot" style="animation-delay: 10.58s"><title>ATLAS · 09:10 · Ad ops scan</title></circle>
-              <circle cx="295.0" cy="323.8" r="6" class="agent-dot" style="animation-delay: 10.75s"><title>VERA · 09:30 · Intelligence digest</title></circle>
-              <circle cx="240.4" cy="350.7" r="6" class="agent-dot" style="animation-delay: 11.50s"><title>IRIS · 11:00 · Content engine</title></circle>
-              <circle cx="122.0" cy="335.1" r="6" class="agent-dot" style="animation-delay: 1.00s"><title>KAI · 14:00 · Client success</title></circle>
-              <circle cx="64.9" cy="278.0" r="6" class="agent-dot" style="animation-delay: 2.00s"><title>AXEL · 16:00 · Operations</title></circle>
-              <circle cx="122.0" cy="64.9" r="6" class="agent-dot" style="animation-delay: 5.00s"><title>SKYE · 22:00 · Finance reconcile</title></circle>
-              <circle cx="159.6" cy="49.3" r="6" class="agent-dot" style="animation-delay: 5.50s"><title>OTTO · 23:00 · Market research</title></circle>
+              <circle cx="320.2" cy="320.2" r="6" class="agent-dot" style="animation-delay: 10.50s"><title>D-ROSE · 09:00 IST · Orchestrator dispatches the fleet</title></circle>
+              <circle cx="317.7" cy="322.9" r="6" class="agent-dot" style="animation-delay: 10.54s"><title>KYRIE · 09:05 + 22:00 · Memory + research</title></circle>
+              <circle cx="115.0" cy="347.2" r="6" class="agent-dot" style="animation-delay: 1.00s"><title>CURRY · 14:00 · Outreach sharpshooter</title></circle>
+              <circle cx="52.8" cy="285.0" r="6" class="agent-dot" style="animation-delay: 2.00s"><title>ANTMAN · 16:00 · Paid media · scales winners</title></circle>
+              <circle cx="156.0" cy="35.8" r="6" class="agent-dot agent-dot--continuous" style="animation-delay: 5.50s"><title>IRONMAN · continuous (every 15 min) · ops monitoring</title></circle>
+              <!-- Kyrie's second firing at 22:00 -->
+              <circle cx="115.0" cy="52.8" r="6" class="agent-dot" style="animation-delay: 5.00s" opacity="0.55"><title>KYRIE · 22:00 · Nightly research run</title></circle>
             </g>
 
             <!-- Center hub -->
@@ -3755,15 +3785,11 @@ h1, h2, h3, h4 {
           </svg>
 
           <div class="agent-times">
-            <span><span class="dot"></span>ZAYN · 09:00 IST</span>
-            <span><span class="dot"></span>MIRA · 09:05</span>
-            <span><span class="dot"></span>ATLAS · 09:10</span>
-            <span><span class="dot"></span>VERA · 09:30</span>
-            <span><span class="dot"></span>IRIS · 11:00</span>
-            <span><span class="dot"></span>KAI · 14:00</span>
-            <span><span class="dot"></span>AXEL · 16:00</span>
-            <span><span class="dot"></span>SKYE · 22:00</span>
-            <span><span class="dot"></span>OTTO · 23:00</span>
+            <span><span class="dot"></span>D-ROSE · 09:00 IST</span>
+            <span><span class="dot"></span>CURRY · 14:00</span>
+            <span><span class="dot"></span>ANTMAN · 16:00</span>
+            <span><span class="dot"></span>KYRIE · 09:05 + 22:00</span>
+            <span><span class="dot"></span>IRONMAN · every 15 min · continuous</span>
           </div>
         </div>
       </div>
@@ -3790,23 +3816,27 @@ h1, h2, h3, h4 {
               </marker>
             </defs>
 
-            <!-- Left column: 4 agents -->
+            <!-- Left column: 5 agents -->
             <g class="agents">
               <g>
-                <rect class="node-rect" x="30" y="56" width="120" height="48" rx="8"/>
-                <text class="node-label" x="90" y="85" text-anchor="middle">VERA</text>
+                <rect class="node-rect" x="30" y="16" width="120" height="44" rx="8"/>
+                <text class="node-label" x="90" y="42" text-anchor="middle">D-ROSE</text>
               </g>
               <g>
-                <rect class="node-rect" x="30" y="136" width="120" height="48" rx="8"/>
-                <text class="node-label" x="90" y="165" text-anchor="middle">ATLAS</text>
+                <rect class="node-rect" x="30" y="88" width="120" height="44" rx="8"/>
+                <text class="node-label" x="90" y="114" text-anchor="middle">CURRY</text>
               </g>
               <g>
-                <rect class="node-rect" x="30" y="216" width="120" height="48" rx="8"/>
-                <text class="node-label" x="90" y="245" text-anchor="middle">MIRA</text>
+                <rect class="node-rect" x="30" y="160" width="120" height="44" rx="8"/>
+                <text class="node-label" x="90" y="186" text-anchor="middle">ANTMAN</text>
               </g>
               <g>
-                <rect class="node-rect" x="30" y="296" width="120" height="48" rx="8"/>
-                <text class="node-label" x="90" y="325" text-anchor="middle">OTTO</text>
+                <rect class="node-rect" x="30" y="232" width="120" height="44" rx="8"/>
+                <text class="node-label" x="90" y="258" text-anchor="middle">KYRIE</text>
+              </g>
+              <g>
+                <rect class="node-rect" x="30" y="304" width="120" height="44" rx="8"/>
+                <text class="node-label" x="90" y="330" text-anchor="middle">IRONMAN</text>
               </g>
             </g>
 
@@ -3835,12 +3865,13 @@ h1, h2, h3, h4 {
               </g>
             </g>
 
-            <!-- Connection lines: agents → router -->
+            <!-- Connection lines: 5 agents → router -->
             <g class="connections">
-              <path id="conn-vera" class="conn" d="M 150 80 C 220 80 230 180 310 180"/>
-              <path id="conn-atlas" class="conn" d="M 150 160 C 220 160 240 180 310 180"/>
-              <path id="conn-mira" class="conn" d="M 150 240 C 220 240 240 180 310 180"/>
-              <path id="conn-otto" class="conn" d="M 150 320 C 220 320 230 180 310 180"/>
+              <path id="conn-drose" class="conn" d="M 150 38 C 230 38 240 180 310 180"/>
+              <path id="conn-curry" class="conn" d="M 150 110 C 230 110 240 180 310 180"/>
+              <path id="conn-antman" class="conn" d="M 150 182 C 230 182 240 180 310 180"/>
+              <path id="conn-kyrie" class="conn" d="M 150 254 C 230 254 240 180 310 180"/>
+              <path id="conn-ironman" class="conn" d="M 150 326 C 230 326 240 180 310 180"/>
               <!-- router → LLMs -->
               <path id="conn-claude" class="conn" d="M 450 180 C 520 180 530 88 600 88"/>
               <path id="conn-codex" class="conn" d="M 450 180 C 520 180 530 180 600 180"/>
@@ -3849,11 +3880,12 @@ h1, h2, h3, h4 {
 
             <!-- Animated packets traveling along connections -->
             <g class="packets">
-              <!-- Inbound: agent → router -->
-              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0s"><mpath href="#conn-vera"/></animateMotion></circle>
-              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.6s"><mpath href="#conn-atlas"/></animateMotion></circle>
-              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.2s"><mpath href="#conn-mira"/></animateMotion></circle>
-              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.8s"><mpath href="#conn-otto"/></animateMotion></circle>
+              <!-- Inbound: 5 agents → router -->
+              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0s"><mpath href="#conn-drose"/></animateMotion></circle>
+              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.5s"><mpath href="#conn-curry"/></animateMotion></circle>
+              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.0s"><mpath href="#conn-antman"/></animateMotion></circle>
+              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.5s"><mpath href="#conn-kyrie"/></animateMotion></circle>
+              <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="2.0s"><mpath href="#conn-ironman"/></animateMotion></circle>
               <!-- Outbound: router → LLM -->
               <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.5s"><mpath href="#conn-claude"/></animateMotion></circle>
               <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.1s"><mpath href="#conn-codex"/></animateMotion></circle>
@@ -3873,11 +3905,11 @@ h1, h2, h3, h4 {
       <div class="arch-copy">
         <span class="arch-block-label">03 · SELF-IMPROVE</span>
         <h3 class="arch-block-h">Every run leaves a fingerprint.</h3>
-        <p class="arch-block-body">Every fingerprint sharpens the next run. The system gets smarter while I sleep — memory accretes, prompts refine, edge cases get logged. The data token travels the loop continuously.</p>
+        <p class="arch-block-body">Every run leaves a fingerprint in <strong>gbrain + memo</strong>, our shared memory layer. Every fingerprint sharpens the next run. The system gets smarter while I sleep.</p>
         <ul class="arch-bullets">
           <li>5-step cycle: TRIGGER → EXECUTE → LOG → REFLECT → UPDATE</li>
-          <li>Memory store grows with every run</li>
-          <li>Two years of execution snippets, queryable</li>
+          <li>gbrain + memo grow with every run · queryable across the fleet</li>
+          <li>Two years of execution snippets, anchored to context</li>
         </ul>
       </div>
       <div class="arch-visual">
@@ -3889,9 +3921,9 @@ h1, h2, h3, h4 {
             <!-- Center memory ring -->
             <circle cx="200" cy="200" r="62" class="memory-ring"/>
             <circle cx="200" cy="200" r="62" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.18"/>
-            <text x="200" y="188" text-anchor="middle" class="memory-label">MEMORY</text>
-            <text x="200" y="216" text-anchor="middle" class="memory-value" id="memory-counter">1,247</text>
-            <text x="200" y="234" text-anchor="middle" class="memory-unit">SNIPPETS</text>
+            <text x="200" y="180" text-anchor="middle" class="memory-label">gbrain + memo</text>
+            <text x="200" y="210" text-anchor="middle" class="memory-value" id="memory-counter">1,247</text>
+            <text x="200" y="228" text-anchor="middle" class="memory-unit">SNIPPETS</text>
 
             <!-- 5 nodes around the loop -->
             <g class="loop-nodes">
@@ -3933,10 +3965,10 @@ h1, h2, h3, h4 {
       <div class="arch-copy">
         <span class="arch-block-label">04 · OPEN CLAW</span>
         <h3 class="arch-block-h">Every channel I work in routes through Open Claw.</h3>
-        <p class="arch-block-body">Zayn reads first. Specialists handle what's theirs. I see only what needs me. 24+ inbound channels converge into a single inbox — humans, agents, webhooks, calendars, all triaged by the same orchestrator.</p>
+        <p class="arch-block-body">D-Rose reads first. Specialists handle what's theirs. I see only what needs me. 24+ inbound channels converge into a single inbox — humans, agents, webhooks, calendars, all triaged by the same orchestrator.</p>
         <ul class="arch-bullets">
           <li>12 visible · 12 more behind the scenes</li>
-          <li>Zayn triages, specialists execute</li>
+          <li>D-Rose triages, specialists execute</li>
           <li>Sandy sees only escalations + approvals</li>
         </ul>
       </div>
@@ -4024,7 +4056,7 @@ h1, h2, h3, h4 {
             <!-- Bottom inbox -->
             <rect class="inbox-rect" x="280" y="410" width="240" height="64" rx="10"/>
             <text x="400" y="434" text-anchor="middle" class="inbox-title">1 unified inbox</text>
-            <text x="400" y="454" text-anchor="middle" class="inbox-sub">Zayn triages · specialists handle</text>
+            <text x="400" y="454" text-anchor="middle" class="inbox-sub">D-Rose triages · specialists handle</text>
           </svg>
         </div>
       </div>
@@ -4040,49 +4072,48 @@ h1, h2, h3, h4 {
 <div class="wrap"><div class="section-divider"></div></div>
 
 <!-- ============================================================
-     07. OPENPAW — BUILD IN PUBLIC
+     07. OPENBOT — BUILD IN PUBLIC (waitlist)
      ============================================================ -->
-<section class="openpaw" id="openpaw">
+<section class="openbot" id="openbot">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">05 / Build in public</span>
-      <h2 class="h2">I'm shipping a $1M open-source robot with Claude Code. Live.</h2>
-      <p class="lead">OpenPaw is my open-source pet companion robot, launching on Kickstarter July 7. Every feature is being shipped by Claude Code on stream. The Lab teaches the exact methodology I'm using here.</p>
+      <h2 class="h2">I'm shipping OpenBot in public with Claude Code, Codex, and Antigravity.</h2>
+      <p class="lead">OpenBot is an open-source AI pet companion. Same Claude Code + Codex methodology I teach in the Lab. Waitlist is live at pawmebot.com — launch date when it's launch date.</p>
     </div>
 
-    <div class="openpaw-split">
-      <!-- Left column: visual + Kickstarter -->
-      <div class="openpaw-visual reveal">
-        <div class="openpaw-badge">
-          <span class="openpaw-badge-dot"></span>
+    <div class="openbot-split">
+      <!-- Left column: visual + Waitlist -->
+      <div class="openbot-visual reveal">
+        <div class="openbot-badge">
+          <span class="openbot-badge-dot"></span>
           BUILD-IN-PUBLIC &middot; LIVE
         </div>
-        <div class="openpaw-render">
-          <img src="assets/openpaw/openpaw-render.png" alt="OpenPaw open-source pet companion robot" loading="lazy" />
+        <div class="openbot-renders">
+          <img src="assets/openbot/render-01-bot-left.png" alt="OpenBot — 3/4 left angle" loading="lazy" />
+          <img src="assets/openbot/render-02-bot-right.png" alt="OpenBot — 3/4 right angle" loading="lazy" />
         </div>
-        <div class="openpaw-kickstarter">
-          <div class="ks-label">KICKSTARTER LAUNCH &middot; <strong>JULY 7, 2026</strong></div>
-          <div class="ks-progress">
-            <div class="ks-bar"><div class="ks-fill" data-fill="32"></div></div>
-            <div class="ks-numbers">
-              <span class="ks-current" data-counter="ksAmount" data-target="320000">$0</span>
-              <span class="ks-of">of $1,000,000 goal</span>
-            </div>
-          </div>
-          <a href="https://kickstarter.com/openpaw" target="_blank" rel="noopener" class="ks-link">
-            Watch the campaign <span class="arrow">&rarr;</span>
+        <video class="openbot-video" muted loop playsinline preload="metadata">
+          <source src="assets/openbot/video-02-workshop.mp4" type="video/mp4" />
+        </video>
+        <div class="openbot-waitlist">
+          <div class="wl-label">CURRENTLY &middot; <strong>WAITLIST</strong></div>
+          <div class="wl-headline">Open hardware. Open code. Open invite.</div>
+          <p class="wl-body">OpenBot is being shipped in public with Claude Code, Codex, and Antigravity. Launch date isn't set — but the waitlist is. Get on it from pawmebot.com.</p>
+          <a href="https://pawmebot.com/" target="_blank" rel="noopener" class="wl-link">
+            Join the waitlist <span class="arrow">&rarr;</span>
           </a>
         </div>
       </div>
 
       <!-- Right column: live coding terminal + meta -->
-      <div class="openpaw-content reveal">
-        <div class="openpaw-terminal">
+      <div class="openbot-content reveal">
+        <div class="openbot-terminal">
           <div class="terminal-bar">
             <span class="t-dot t-dot-red"></span>
             <span class="t-dot t-dot-yellow"></span>
             <span class="t-dot t-dot-green"></span>
-            <span class="terminal-title">openpaw :: claude code :: live</span>
+            <span class="terminal-title">openbot :: claude + codex + antigravity :: live</span>
           </div>
           <div class="terminal-body">
             <!-- 3 looping coding sessions cycle every ~10s each, total 30s loop -->
@@ -4095,28 +4126,28 @@ h1, h2, h3, h4 {
               <span class="t-line"><span class="t-prompt">operator $</span> git commit -m "feat: tail wag"</span>
             </div>
             <div class="terminal-session" data-session="2">
-              <span class="t-line"><span class="t-prompt">operator $</span> claude debug "ear-servo-jitter"</span>
-              <span class="t-line t-output">&rarr; reading hardware logs &middot; 3 anomalies</span>
-              <span class="t-line t-output">&rarr; root cause: PWM timing drift</span>
-              <span class="t-line t-output">&rarr; patching motor_driver.py</span>
-              <span class="t-line t-success">&check; patch deployed &middot; jitter -98%</span>
-              <span class="t-line"><span class="t-prompt">operator $</span> ./test_servo_smoothness.sh</span>
+              <span class="t-line"><span class="t-prompt">operator $</span> antigravity scaffold "voice-greeting"</span>
+              <span class="t-line t-output">&rarr; generating module structure</span>
+              <span class="t-line t-output">&rarr; wiring whisper-tiny offline</span>
+              <span class="t-line t-output">&rarr; writing 5 fallback responses</span>
+              <span class="t-line t-success">&check; scaffold deployed &middot; all tests green</span>
+              <span class="t-line"><span class="t-prompt">operator $</span> git push origin main</span>
             </div>
             <div class="terminal-session" data-session="3">
-              <span class="t-line"><span class="t-prompt">operator $</span> claude add-feature "voice-greeting"</span>
-              <span class="t-line t-output">&rarr; checking microphone stack</span>
-              <span class="t-line t-output">&rarr; wiring up whisper-tiny offline</span>
-              <span class="t-line t-output">&rarr; writing 5 fallback responses</span>
-              <span class="t-line t-success">&check; feature ready &middot; 89 lines &middot; all tests green</span>
-              <span class="t-line"><span class="t-prompt">operator $</span> git push origin main</span>
+              <span class="t-line"><span class="t-prompt">operator $</span> codex optimize "ear-servo-jitter"</span>
+              <span class="t-line t-output">&rarr; reading hardware logs &middot; 3 anomalies</span>
+              <span class="t-line t-output">&rarr; patching PWM timing</span>
+              <span class="t-line t-output">&rarr; stress test 1000 cycles</span>
+              <span class="t-line t-success">&check; jitter -98% &middot; committed</span>
+              <span class="t-line"><span class="t-prompt">operator $</span> ./test_servo_smoothness.sh</span>
             </div>
           </div>
         </div>
 
-        <div class="openpaw-meta">
+        <div class="openbot-meta">
           <div class="meta-row">
             <span class="meta-label">STACK</span>
-            <span class="meta-value">Claude Code &middot; Python &middot; OpenCV &middot; Whisper &middot; Raspberry Pi</span>
+            <span class="meta-value">Claude Code &middot; Codex &middot; Antigravity &middot; Python &middot; OpenCV &middot; Whisper &middot; Raspberry Pi</span>
           </div>
           <div class="meta-row">
             <span class="meta-label">LICENSE</span>
@@ -4130,7 +4161,7 @@ h1, h2, h3, h4 {
       </div>
     </div>
 
-    <div class="openpaw-cta reveal">
+    <div class="openbot-cta reveal">
       <a href="#webinar" class="btn btn-primary">
         <span class="hero-cta-main">See me ship live <span class="arrow">&rarr;</span></span>
         <span class="hero-cta-sub">in the next webinar</span>
@@ -4344,7 +4375,7 @@ h1, h2, h3, h4 {
         <div class="tier-feed" aria-label="Recent ships in the Lab">
           <div class="tier-feed-label"><span class="tier-feed-dot" aria-hidden="true"></span>RECENT SHIPS IN THE LAB</div>
           <div class="tier-feed-rotator">
-            <div class="feed-line active">"Vera digest agent" by @arjun_b &middot; 6h ago</div>
+            <div class="feed-line active">"Curry follow-up agent" by @arjun_b &middot; 6h ago</div>
             <div class="feed-line">"Inbox triage v2" by @priyanka_o &middot; 1d ago</div>
             <div class="feed-line">"Lead scoring webhook" by @rohan_g &middot; 2d ago</div>
           </div>
@@ -4484,7 +4515,7 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">10 / Who you're learning from</span>
-      <h2 class="h2">One operator. 9-agent fleet. Two years attribution-first.</h2>
+      <h2 class="h2">One operator. 5-agent fleet. Running ZippyScale 24/7 since 2024.</h2>
     </div>
 
     <div class="about-split">
@@ -4504,7 +4535,7 @@ h1, h2, h3, h4 {
         <div class="quote-rotator" data-quote-rotator>
           <p class="quote-text active">Marketing operator. Claude Code addict. Building in public, sharing everything.</p>
           <p class="quote-text">Founded ZippyScale to fix the one thing every Indian agency lies about: attribution.</p>
-          <p class="quote-text">Then I built Hermes. 9 agents. 36 skills. Runs the agency 24/7.</p>
+          <p class="quote-text">Then I built Hermes. 5 agents. 36 skills. Runs the agency 24/7.</p>
         </div>
 
         <p class="about-bio">The Lab is where I show the build, every week. Live. On camera. You copy what works.</p>
@@ -4531,20 +4562,14 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">11 / The Fleet</span>
-      <h2 class="h2">Meet the 9-agent fleet.</h2>
-      <p class="lead">Watch live, copy what you need, ship your own.</p>
-    </div>
-
-    <!-- Fleet diagram -->
-    <p class="hermes-scroll-hint" aria-hidden="true">&larr; scroll to explore the fleet &rarr;</p>
-    <div class="hermes-diagram">
-      <img src="assets/hermes/fleet-diagram.svg" alt="Hermes 9-agent fleet diagram: Zayn orchestrator at center, 8 specialists in orbit" width="2400" height="1200" loading="lazy" />
+      <h2 class="h2">Meet the 5-agent fleet.</h2>
+      <p class="lead">Five basketball-named operators running the agency 24/7. Watch live, copy what you need, ship your own.</p>
     </div>
 
     <!-- Metrics strip -->
     <div class="hermes-metrics">
       <div class="metric">
-        <span class="metric-num">9</span>
+        <span class="metric-num">5</span>
         <span class="metric-label">agents</span>
       </div>
       <div class="metric">
@@ -4561,7 +4586,7 @@ h1, h2, h3, h4 {
       </div>
     </div>
 
-    <!-- 9 agent cards 3x3 grid -->
+    <!-- 5 agent cards: 1x5 row layout -->
     <div class="hermes-fleet-grid">
 
       <article class="agent-card agent-card--lead reveal">
@@ -4569,59 +4594,37 @@ h1, h2, h3, h4 {
           <span class="agent-status"><span class="agent-status-dot"></span>live</span>
           <span class="agent-card-role">Orchestrator</span>
         </div>
-        <h3 class="agent-card-name">Zayn</h3>
+        <h3 class="agent-card-name">D-Rose</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
           <span>powered by Claude Code</span>
         </div>
-        <p class="agent-card-desc">Chief of staff. Routes every goal.</p>
+        <p class="agent-card-desc">MVP point guard. Runs the floor, distributes the ball.</p>
         <ul class="agent-card-ships">
-          <li>Dispatches the right specialist, polls until done</li>
-          <li>Grades work, files post-mortem to memory</li>
+          <li>Dispatches the right specialist every morning at 09:00 IST</li>
+          <li>Grades work, files post-mortem to gbrain + memo</li>
         </ul>
         <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">14m</span> dispatched 7 tasks across fleet</div>
-          <div class="ship-row"><span class="ship-time">2h</span> synced fleet state, all green</div>
-          <div class="ship-row"><span class="ship-time">8h</span> morning briefing sent to Sandy</div>
+          <div class="ship-row"><span class="ship-time">7m</span> dispatched 9 tasks across fleet</div>
+          <div class="ship-row"><span class="ship-time">2h</span> synced fleet state · all green</div>
+          <div class="ship-row"><span class="ship-time">14h</span> morning briefing sent to inbox</div>
         </div>
       </article>
 
       <article class="agent-card reveal">
         <div class="agent-card-head">
           <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">Memory curator</span>
+          <span class="agent-card-role">Outreach</span>
         </div>
-        <h3 class="agent-card-name">Mira</h3>
+        <h3 class="agent-card-name">Curry</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
           <span>powered by Claude Code</span>
         </div>
-        <p class="agent-card-desc">Silent ingest. Structured brain.</p>
+        <p class="agent-card-desc">Sharpshooter. Hits from distance, drops into any inbox.</p>
         <ul class="agent-card-ships">
-          <li>Parses Gmail, WhatsApp, calendar to entities</li>
-          <li>Flags contradictions weekly</li>
-        </ul>
-        <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">22m</span> indexed 47 new notes</div>
-          <div class="ship-row"><span class="ship-time">4h</span> merged 3 duplicate threads</div>
-          <div class="ship-row"><span class="ship-time">11h</span> tagged 12 priority contacts</div>
-        </div>
-      </article>
-
-      <article class="agent-card reveal">
-        <div class="agent-card-head">
-          <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">Outreach closer</span>
-        </div>
-        <h3 class="agent-card-name">Kai</h3>
-        <div class="agent-powered-by">
-          <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
-          <span>powered by Claude Code</span>
-        </div>
-        <p class="agent-card-desc">Cold to booked call.</p>
-        <ul class="agent-card-ships">
-          <li>Personalised LinkedIn DMs + 7-touch nurture</li>
-          <li>Objection map, 20 plays</li>
+          <li>Personalised LinkedIn + email DMs · 7-touch nurture</li>
+          <li>Objection map, 20 plays · books discovery calls</li>
         </ul>
         <div class="agent-recent-ships" aria-hidden="true">
           <div class="ship-row"><span class="ship-time">38m</span> sent 89 personalised first-lines</div>
@@ -4633,20 +4636,20 @@ h1, h2, h3, h4 {
       <article class="agent-card reveal">
         <div class="agent-card-head">
           <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">Paid media buyer</span>
+          <span class="agent-card-role">Paid media</span>
         </div>
-        <h3 class="agent-card-name">Axel</h3>
+        <h3 class="agent-card-name">Antman</h3>
         <div class="agent-powered-by">
-          <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
-          <span>powered by Claude Code</span>
+          <img src="assets/logos/openai-light.svg" alt="" width="14" height="14" />
+          <span>powered by Codex</span>
         </div>
-        <p class="agent-card-desc">Launch, scale, kill.</p>
+        <p class="agent-card-desc">High-flying. Attacks the rim, scales winners fast.</p>
         <ul class="agent-card-ships">
-          <li>Daily Meta + Google spend audit</li>
-          <li>Kill/scale decisions logged, ABO→CBO graduation</li>
+          <li>Daily Meta + Google spend audit · 16:00 IST</li>
+          <li>Kill/scale decisions logged · ABO→CBO graduation</li>
         </ul>
         <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">12m</span> monitored 7 ad sets, killed 1</div>
+          <div class="ship-row"><span class="ship-time">12m</span> monitored 7 ad sets · killed 1</div>
           <div class="ship-row"><span class="ship-time">2h</span> scaled 1 winner +20% budget</div>
           <div class="ship-row"><span class="ship-time">6h</span> saved $182 on wasted spend</div>
         </div>
@@ -4655,110 +4658,44 @@ h1, h2, h3, h4 {
       <article class="agent-card reveal">
         <div class="agent-card-head">
           <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">Creative director</span>
+          <span class="agent-card-role">Memory + research</span>
         </div>
-        <h3 class="agent-card-name">Iris</h3>
-        <div class="agent-powered-by">
-          <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
-          <span>powered by Claude Code</span>
-        </div>
-        <p class="agent-card-desc">Briefs to hero creative.</p>
-        <ul class="agent-card-ships">
-          <li>Nano Banana + Higgsfield gen, Figma assembly</li>
-          <li>Creative DNA tracking per win</li>
-        </ul>
-        <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">28m</span> drafted 8 IG hooks for Sandy</div>
-          <div class="ship-row"><span class="ship-time">3h</span> generated 3 image variants</div>
-          <div class="ship-row"><span class="ship-time">10h</span> queued Friday batch in Figma</div>
-        </div>
-      </article>
-
-      <article class="agent-card reveal">
-        <div class="agent-card-head">
-          <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">Ops engineer</span>
-        </div>
-        <h3 class="agent-card-name">Otto</h3>
-        <div class="agent-powered-by">
-          <img src="assets/logos/openai-light.svg" alt="" width="14" height="14" />
-          <span>powered by Codex</span>
-        </div>
-        <p class="agent-card-desc">Plumbing layer. Keeps it alive.</p>
-        <ul class="agent-card-ships">
-          <li>n8n + GHL builds, cron health, secret rotation</li>
-          <li>Runbook for every integration</li>
-        </ul>
-        <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">06m</span> rotated 4 API keys</div>
-          <div class="ship-row"><span class="ship-time">1h</span> patched 1 cron failure</div>
-          <div class="ship-row"><span class="ship-time">7h</span> healthchecks: all green</div>
-        </div>
-      </article>
-
-      <article class="agent-card reveal">
-        <div class="agent-card-head">
-          <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">Research strategist</span>
-        </div>
-        <h3 class="agent-card-name">Skye</h3>
+        <h3 class="agent-card-name">Kyrie</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/gemini-light.svg" alt="" width="14" height="14" />
           <span>powered by Gemini Flash</span>
         </div>
-        <p class="agent-card-desc">Market signal, weekly.</p>
+        <p class="agent-card-desc">Crossover handles. Dribbles through messy data.</p>
         <ul class="agent-card-ships">
-          <li>Apify scrapes + competitor ad teardowns</li>
-          <li>ICP vocab bank for the fleet</li>
+          <li>Indexes Gmail, WhatsApp, calendar into gbrain + memo</li>
+          <li>Competitor scrapes + ICP vocab bank · 09:05 + 22:00</li>
         </ul>
         <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">45m</span> researched 5 competitors</div>
-          <div class="ship-row"><span class="ship-time">4h</span> summarised industry shift</div>
-          <div class="ship-row"><span class="ship-time">12h</span> fed Iris a brief on hooks</div>
+          <div class="ship-row"><span class="ship-time">22m</span> indexed 47 new notes</div>
+          <div class="ship-row"><span class="ship-time">4h</span> researched 5 competitors</div>
+          <div class="ship-row"><span class="ship-time">12h</span> tagged 12 priority contacts</div>
         </div>
       </article>
 
       <article class="agent-card reveal">
         <div class="agent-card-head">
           <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">QA reviewer</span>
+          <span class="agent-card-role">Ops monitoring</span>
         </div>
-        <h3 class="agent-card-name">Vera</h3>
+        <h3 class="agent-card-name">Ironman</h3>
         <div class="agent-powered-by">
-          <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
-          <span>powered by Claude Code</span>
+          <img src="assets/logos/openai-light.svg" alt="" width="14" height="14" />
+          <span>powered by Codex</span>
         </div>
-        <p class="agent-card-desc">The rejection bar. Nothing ships unchecked.</p>
+        <p class="agent-card-desc">Durability legend. Never misses a cron, every 15 minutes.</p>
         <ul class="agent-card-ships">
-          <li>12-point pre-ship checklist + claim verification</li>
-          <li>Anti-pattern linter on every doc</li>
+          <li>n8n + GHL health, cron failures, secret rotation</li>
+          <li>Auto-escalates any failure event to Sandy</li>
         </ul>
         <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">18m</span> QA'd 12 drafts</div>
-          <div class="ship-row"><span class="ship-time">3h</span> rejected 1 for hallucination</div>
-          <div class="ship-row"><span class="ship-time">8h</span> approved 11 for ship</div>
-        </div>
-      </article>
-
-      <article class="agent-card reveal">
-        <div class="agent-card-head">
-          <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">Business strategist</span>
-        </div>
-        <h3 class="agent-card-name">Atlas</h3>
-        <div class="agent-powered-by">
-          <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
-          <span>powered by Claude Code</span>
-        </div>
-        <p class="agent-card-desc">Bets with kill criteria.</p>
-        <ul class="agent-card-ships">
-          <li>1-page growth hypotheses + positioning audits</li>
-          <li>Asymmetric bet scouting</li>
-        </ul>
-        <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">34m</span> flagged campaign drift</div>
-          <div class="ship-row"><span class="ship-time">5h</span> rebalanced 3 ad sets</div>
-          <div class="ship-row"><span class="ship-time">14h</span> scouted 2 asymmetric bets</div>
+          <div class="ship-row"><span class="ship-time">06m</span> rotated 4 API keys</div>
+          <div class="ship-row"><span class="ship-time">42m</span> patched 1 cron failure</div>
+          <div class="ship-row"><span class="ship-time">2h</span> healthchecks · all green</div>
         </div>
       </article>
 
@@ -4928,8 +4865,19 @@ h1, h2, h3, h4 {
           <span>Codex</span>
           <img src="assets/logos/gemini-light.svg" alt="Gemini" />
           <span>Gemini Flash</span>
+          <img src="assets/logos/antigravity-light.svg" alt="Antigravity" />
+          <span>Antigravity</span>
           <img src="assets/logos/hermes-light.svg" alt="Hermes" />
-          <span>Hermes 9-agent fleet</span>
+          <span>Hermes 5-agent fleet</span>
+          <span>D-Rose</span>
+          <span>&middot;</span>
+          <span>Curry</span>
+          <span>&middot;</span>
+          <span>Antman</span>
+          <span>&middot;</span>
+          <span>Kyrie</span>
+          <span>&middot;</span>
+          <span>Ironman</span>
           <img src="assets/logos/openclaw-light.svg" alt="OpenClaw" />
           <span>OpenClaw inbox</span>
           <img src="assets/logos/n8n-light.svg" alt="n8n" />
@@ -4941,8 +4889,19 @@ h1, h2, h3, h4 {
           <span>Codex</span>
           <img src="assets/logos/gemini-light.svg" alt="" />
           <span>Gemini Flash</span>
+          <img src="assets/logos/antigravity-light.svg" alt="" />
+          <span>Antigravity</span>
           <img src="assets/logos/hermes-light.svg" alt="" />
-          <span>Hermes 9-agent fleet</span>
+          <span>Hermes 5-agent fleet</span>
+          <span>D-Rose</span>
+          <span>&middot;</span>
+          <span>Curry</span>
+          <span>&middot;</span>
+          <span>Antman</span>
+          <span>&middot;</span>
+          <span>Kyrie</span>
+          <span>&middot;</span>
+          <span>Ironman</span>
           <img src="assets/logos/openclaw-light.svg" alt="" />
           <span>OpenClaw inbox</span>
           <img src="assets/logos/n8n-light.svg" alt="" />
@@ -5192,60 +5151,39 @@ document.querySelectorAll('[data-seats-left]').forEach(function(el) {
 });
 
 // ============================================================
-// v9 Wave D — OpenPaw: Kickstarter bar fill + counter + terminal cycle
+// v10 Wave 2 — OpenBot: terminal cycle + workshop video autoplay on intersection
 // ============================================================
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Kickstarter progress bar + synced $ counter
-  var ksProgress = document.querySelector('.openpaw .ks-progress');
-  if (ksProgress) {
-    var fillEl = ksProgress.querySelector('.ks-fill');
-    var counterEl = ksProgress.querySelector('[data-counter="ksAmount"]');
-    var targetFill = parseInt(fillEl.getAttribute('data-fill'), 10) || 32;
-    var targetAmount = parseInt(counterEl.getAttribute('data-target'), 10) || 320000;
-    ksProgress.style.setProperty('--target-fill', targetFill + '%');
-
-    if (reduce) {
-      ksProgress.classList.add('in-view');
-      counterEl.textContent = '$' + targetAmount.toLocaleString();
-    } else if ('IntersectionObserver' in window) {
-      var ksObserver = new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) {
-          ksProgress.classList.add('in-view');
-          var stepCount = 60;
-          var step = targetAmount / stepCount;
-          var current = 0;
-          var i = 0;
-          var tick = function () {
-            i++;
-            current = (i >= stepCount) ? targetAmount : current + step;
-            counterEl.textContent = '$' + Math.round(current).toLocaleString();
-            if (i < stepCount) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-          ksObserver.disconnect();
-        }
-      }, { threshold: 0.4 });
-      ksObserver.observe(ksProgress);
-    } else {
-      ksProgress.classList.add('in-view');
-      counterEl.textContent = '$' + targetAmount.toLocaleString();
+  // Cycle through 3 terminal sessions every 10s
+  var openbotSessions = document.querySelectorAll('.openbot-terminal .terminal-session');
+  if (openbotSessions.length > 0) {
+    openbotSessions[0].classList.add('active');
+    if (!reduce && openbotSessions.length > 1) {
+      var idx = 0;
+      setInterval(function () {
+        openbotSessions[idx].classList.remove('active');
+        idx = (idx + 1) % openbotSessions.length;
+        openbotSessions[idx].classList.add('active');
+      }, 10000);
     }
   }
 
-  // Cycle through 3 terminal sessions every 10s
-  var openpawSessions = document.querySelectorAll('.openpaw-terminal .terminal-session');
-  if (openpawSessions.length > 0) {
-    openpawSessions[0].classList.add('active');
-    if (!reduce && openpawSessions.length > 1) {
-      var idx = 0;
-      setInterval(function () {
-        openpawSessions[idx].classList.remove('active');
-        idx = (idx + 1) % openpawSessions.length;
-        openpawSessions[idx].classList.add('active');
-      }, 10000);
-    }
+  // Workshop video: autoplay when 40% in viewport, pause when out
+  var video = document.querySelector('.openbot-video');
+  if (video && !reduce && 'IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          var p = video.play();
+          if (p && typeof p.catch === 'function') p.catch(function () { /* autoplay blocked */ });
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.4 });
+    vio.observe(video);
   }
 })();
 
