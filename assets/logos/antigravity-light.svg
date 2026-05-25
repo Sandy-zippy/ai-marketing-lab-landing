@@ -1,0 +1,6 @@
+<!-- antigravity-light.svg — abstract upward arrow/wing -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- Stylized "anti-gravity" upward-floating mark: triangular wedge with weightless dot above -->
+  <path d="M24 36 L14 44 L24 22 L34 44 Z" fill="none" stroke="#F5F5F0" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="24" cy="14" r="3" fill="#F5F5F0"/>
+</svg>
