@@ -1845,19 +1845,22 @@ h1, h2, h3, h4 {
 
 /* ============================================================ */
 /* AI STACK SECTION — 3-tier orbital (models / runtime / routing) */
-.ai-stack {
+/* ============================================================
+   AI Stack v11 — 5-tier hierarchy (Brands → Infra → Runtime → Routing → Workflow)
+   ============================================================ */
+.ai-stack-v11 {
   padding: clamp(80px, 12vw, 140px) 0;
   background: var(--bg-canvas);
   position: relative;
   border-top: 1px solid var(--border);
 }
-.ai-stack-head { text-align: center; margin-inline: auto; margin-bottom: 56px; }
-.ai-stack-head .eyebrow { justify-content: center; }
-.ai-stack-head .h2 { margin-top: 16px; }
-.ai-stack-head .lead { max-width: 620px; margin: 16px auto 0; }
+.ai-stack-v11 .section-head { text-align: center; margin-bottom: 64px; }
+.ai-stack-v11 .section-head .eyebrow { justify-content: center; }
+.ai-stack-v11 .section-head .h2 { margin-top: 16px; max-width: 920px; margin-inline: auto; }
+.ai-stack-v11 .section-head .lead { max-width: 720px; margin: 16px auto 0; }
 
-.stack-tier { margin-bottom: 0; }
-.tier-label {
+.ai-stack-v11 .stack-tier { margin-bottom: 0; }
+.ai-stack-v11 .tier-label {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.18em;
@@ -1866,182 +1869,249 @@ h1, h2, h3, h4 {
   margin-bottom: 20px;
 }
 
-/* Tier 1: model cards */
-.model-cards {
+/* TIER 1 · MODELS — parent brand columns */
+.ai-stack-v11 .brand-columns {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 14px;
-  max-width: 1180px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1080px;
+  margin-inline: auto;
+  align-items: stretch;
+}
+@media (max-width: 980px) { .ai-stack-v11 .brand-columns { grid-template-columns: 1fr; gap: 20px; } }
+
+.ai-stack-v11 .brand-column {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.ai-stack-v11 .brand-column:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.ai-stack-v11 .brand-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.ai-stack-v11 .brand-header img { display: block; }
+.ai-stack-v11 .brand-name {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-high);
+  letter-spacing: -0.01em;
+}
+.ai-stack-v11 .brand-products {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ai-stack-v11 .product-card {
+  padding: 14px 16px;
+  background: var(--bg-surface-2);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  transition: all 0.25s ease;
+}
+.ai-stack-v11 .product-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.ai-stack-v11 .product-name {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-high);
+  margin-bottom: 6px;
+}
+.ai-stack-v11 .product-model {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-low);
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+.ai-stack-v11 .model-tag {
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.ai-stack-v11 .product-use {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-mid);
+  letter-spacing: 0.02em;
+  line-height: 1.45;
+}
+
+/* TIER 2 · INFRASTRUCTURE row */
+.ai-stack-v11 .infra-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 880px;
   margin-inline: auto;
 }
-@media (max-width: 1100px) { .model-cards { grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 880px; } }
-@media (max-width: 768px) { .model-cards { grid-template-columns: 1fr; gap: 16px; } }
-.model-card {
+@media (max-width: 768px) { .ai-stack-v11 .infra-row { grid-template-columns: 1fr; } }
+.ai-stack-v11 .infra-card {
   background: var(--bg-surface);
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 26px 18px;
+  padding: 24px;
   text-align: center;
-  transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease, border-color 0.3s ease;
-  animation: stack-float-y 6s ease-in-out infinite;
+  transition: all 0.25s ease;
 }
-.model-card:nth-child(2) { animation-delay: 1.2s; }
-.model-card:nth-child(3) { animation-delay: 2.4s; }
-.model-card:nth-child(4) { animation-delay: 3.6s; }
-.model-card:nth-child(5) { animation-delay: 4.8s; }
-.model-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px var(--accent);
-  border-color: var(--accent);
+.ai-stack-v11 .infra-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.ai-stack-v11 .infra-card img { margin: 0 auto 14px; display: block; }
+.ai-stack-v11 .infra-name {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-high);
+  margin-bottom: 6px;
 }
-.model-card img { margin: 0 auto 16px; display: block; }
-.model-name { font-family: var(--sans); font-weight: 700; font-size: 18px; color: var(--text-high); }
-.model-by { font-family: var(--mono); font-size: 11px; color: var(--text-low); letter-spacing: 0.08em; margin-top: 4px; }
-.model-role { font-size: 14px; color: var(--text-mid); margin-top: 12px; line-height: 1.45; }
-@keyframes stack-float-y {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-4px); }
+.ai-stack-v11 .infra-role {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-mid);
+  letter-spacing: 0.02em;
 }
 
-/* Connectors (lime lines drawing on scroll) */
-.stack-connector { height: 60px; max-width: 360px; margin: 8px auto; }
-.stack-connector-short { height: 40px; max-width: 100px; }
-.stack-connector svg { width: 100%; height: 100%; overflow: visible; }
-.connector-line {
-  stroke: var(--accent);
-  stroke-width: 2;
-  fill: none;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  transition: stroke-dashoffset 1.2s cubic-bezier(.22,1,.36,1);
-}
-.stack-connector.in-view .connector-line { stroke-dashoffset: 0; }
-.stack-connector .connector-line:nth-child(2) { transition-delay: 0.15s; }
-.stack-connector .connector-line:nth-child(3) { transition-delay: 0.30s; }
-.stack-connector .connector-line:nth-child(4) { transition-delay: 0.45s; }
-.stack-connector .connector-line:nth-child(5) { transition-delay: 0.60s; }
-
-/* Tier 2 + 3: runtime cards */
-.runtime-card {
+/* TIER 3 + 4 — runtime / routing cards */
+.ai-stack-v11 .runtime-card {
   background: var(--bg-surface);
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 32px;
   max-width: 640px;
   margin-inline: auto;
   text-align: center;
   position: relative;
-  overflow: hidden;
 }
-.runtime-card-hermes {
+.ai-stack-v11 .runtime-card-hermes {
   border-color: var(--accent);
-  background: linear-gradient(180deg, var(--bg-surface) 0%, #FCFDF1 100%);
-  box-shadow: 0 6px 24px rgba(0, 255, 148, 0.10);
+  background: linear-gradient(180deg, var(--bg-surface) 0%, rgba(0, 255, 148, 0.04) 100%);
 }
-.runtime-card-hermes::before {
-  content: '';
-  position: absolute;
-  top: 24px; right: 60px;
-  width: 8px; height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse-dot-runtime 2.2s ease-in-out infinite;
-}
-.runtime-card-hermes::after {
-  content: 'LIVE';
-  position: absolute;
-  top: 22px; right: 28px;
+.ai-stack-v11 .runtime-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: var(--text-high);
-  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 16px;
 }
-@keyframes pulse-dot-runtime {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 148, 0.65); transform: scale(1); }
-  50%      { box-shadow: 0 0 0 8px rgba(0, 255, 148, 0); transform: scale(1.05); }
-}
-.runtime-card img { margin: 0 auto 16px; display: block; }
-.runtime-card .runtime-brand-pic {
-  width: 80px; height: 80px;
+.ai-stack-v11 .runtime-card-status .status-dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
   border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--accent);
-  box-shadow: 0 6px 18px rgba(0,255,148,0.20);
+  animation: pulse-dot 2.2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(0, 255, 148, 0.6);
 }
-.runtime-name {
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(0.85); }
+}
+.ai-stack-v11 .runtime-logo { margin: 0 auto 16px; display: block; }
+.ai-stack-v11 .runtime-name {
   font-family: var(--sans);
   font-weight: 800;
   font-size: 28px;
-  color: var(--text-high);
   letter-spacing: -0.02em;
+  color: var(--text-high);
+  margin-bottom: 4px;
 }
-.runtime-name.openclaw-mark {
+.ai-stack-v11 .runtime-tag {
   font-family: var(--mono);
-  font-weight: 700;
-  font-size: 22px;
-  letter-spacing: 0.04em;
-}
-.runtime-tag {
-  font-family: var(--mono); font-size: 12px;
-  color: var(--text-mid); letter-spacing: 0.04em; margin-top: 8px;
-}
-.runtime-card-hermes .runtime-tag { color: var(--text-high); opacity: 0.85; }
-.runtime-agents, .runtime-channels {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 10px;
-  justify-content: center;
-  margin-top: 20px;
-  font-family: var(--mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-mid);
   letter-spacing: 0.04em;
+  margin-bottom: 20px;
 }
-.runtime-agents span, .runtime-channels span {
+.ai-stack-v11 .runtime-agents,
+.ai-stack-v11 .runtime-channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+.ai-stack-v11 .runtime-agents span,
+.ai-stack-v11 .runtime-channels span {
   padding: 4px 10px;
   background: var(--bg-canvas);
   border: 1px solid var(--border-strong);
   border-radius: 999px;
+  color: var(--text-mid);
 }
 
-/* Workflow marquee strip */
-.stack-workflow-strip {
-  margin-top: 60px;
-  border-top: 1px solid var(--border-strong);
-  border-bottom: 1px solid var(--border-strong);
-  padding: 24px 0;
-  overflow: hidden;
+/* Tier connectors */
+.ai-stack-v11 .tier-connector {
+  height: 40px;
+  max-width: 360px;
+  margin: 32px auto;
   position: relative;
 }
-.stack-workflow-strip::before,
-.stack-workflow-strip::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 120px;
-  z-index: 2;
-  pointer-events: none;
+.ai-stack-v11 .tier-connector-single { max-width: 60px; }
+.ai-stack-v11 .tier-connector svg { width: 100%; height: 100%; overflow: visible; }
+.ai-stack-v11 .connector-line {
+  stroke: var(--accent);
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  transition: stroke-dashoffset 1s ease-out;
 }
-.stack-workflow-strip::before { left: 0;  background: linear-gradient(to right, var(--bg-canvas), transparent); }
-.stack-workflow-strip::after  { right: 0; background: linear-gradient(to left,  var(--bg-canvas), transparent); }
-.workflow-marquee { display: flex; overflow: hidden; }
-.workflow-track {
-  display: flex;
+.ai-stack-v11 .tier-connector.in-view .connector-line { stroke-dashoffset: 0; }
+.ai-stack-v11 .tier-connector .connector-line:nth-child(2) { transition-delay: 0.15s; }
+.ai-stack-v11 .tier-connector .connector-line:nth-child(3) { transition-delay: 0.3s; }
+
+/* TIER 5 · WORKFLOW marquee */
+.ai-stack-v11 .stack-workflow .workflow-marquee {
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+          mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+.ai-stack-v11 .stack-workflow .workflow-track {
+  display: inline-flex;
   align-items: center;
-  gap: 48px;
-  animation: marquee-slide 40s linear infinite;
+  gap: 40px;
+  animation: marquee-slide 35s linear infinite;
   flex-shrink: 0;
   width: max-content;
 }
-.workflow-track img { width: 24px; height: 24px; flex-shrink: 0; opacity: 0.78; }
-.workflow-track span {
-  font-family: var(--mono); font-size: 13px; color: var(--text-mid);
-  letter-spacing: 0.04em; white-space: nowrap;
+.ai-stack-v11 .stack-workflow .workflow-track img {
+  width: 22px; height: 22px; opacity: 0.65; flex-shrink: 0;
+}
+.ai-stack-v11 .stack-workflow .workflow-track span {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-mid);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 @keyframes marquee-slide {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-stack-v11 .runtime-card-status .status-dot { animation: none; }
+  .ai-stack-v11 .workflow-track { animation: none; }
+  .ai-stack-v11 .connector-line { stroke-dashoffset: 0; }
 }
 
 /* Asymmetric stagger — Higgsfield-style staggered grid (desktop only) */
@@ -3656,97 +3726,167 @@ h1, h2, h3, h4 {
 <!-- ============================================================
      05. THE AI STACK THAT RUNS MY AGENCY (3-tier orbital)
      ============================================================ -->
-<section class="ai-stack" id="ai-stack">
+<section class="ai-stack-v11" id="ai-stack">
   <div class="wrap">
-    <div class="section-head ai-stack-head">
-      <span class="eyebrow">03 / The Stack</span>
-      <h2 class="h2">The AI stack that runs my agency.</h2>
-      <p class="lead">Five models. One fleet. Routed through every channel I care about. This is what's behind every agent I ship in the Lab.</p>
+    <div class="section-head">
+      <span class="eyebrow">03 / The AI Stack Behind Hermes</span>
+      <h2 class="h2">3 parent brands &middot; 6 products &middot; 3 infrastructure tools &middot; 1 fleet &middot; 1 routing layer &middot; the workflow.</h2>
+      <p class="lead">This is the exact stack I run every agent on. Every layer is honest. Every product names its model. Every model has a job.</p>
     </div>
 
-    <!-- Tier 1: Models -->
-    <div class="stack-tier stack-tier-models">
-      <div class="tier-label">MODELS &middot; THE INTELLIGENCE</div>
-      <div class="model-cards">
-        <article class="model-card">
-          <img src="assets/logos/claude-light.svg" alt="Anthropic / Claude" width="48" height="48" />
-          <div class="model-name">Claude Code</div>
-          <div class="model-by">by Anthropic</div>
-          <div class="model-role">My IDE. Architect every agent.</div>
+    <!-- TIER 1: 3 PARENT BRANDS with stacked product cards -->
+    <div class="stack-tier stack-brands">
+      <div class="tier-label">TIER 1 &middot; MODELS</div>
+      <div class="brand-columns">
+
+        <!-- ANTHROPIC -->
+        <div class="brand-column">
+          <div class="brand-header">
+            <img src="assets/logos/anthropic-parent-light.svg" alt="Anthropic" width="28" height="28" />
+            <div class="brand-name">Anthropic</div>
+          </div>
+          <div class="brand-products">
+            <article class="product-card">
+              <div class="product-name">Claude Code</div>
+              <div class="product-model">model &middot; <span class="model-tag">Opus 4.7</span></div>
+              <div class="product-use">&rarr; IDE for agent architecture</div>
+            </article>
+          </div>
+        </div>
+
+        <!-- OPENAI -->
+        <div class="brand-column">
+          <div class="brand-header">
+            <img src="assets/logos/openai-parent-light.svg" alt="OpenAI" width="28" height="28" />
+            <div class="brand-name">OpenAI</div>
+          </div>
+          <div class="brand-products">
+            <article class="product-card">
+              <div class="product-name">Codex</div>
+              <div class="product-model">model &middot; <span class="model-tag">GPT-5.5</span></div>
+              <div class="product-use">&rarr; Fast vibe-code throughput</div>
+            </article>
+            <article class="product-card">
+              <div class="product-name">ChatGPT</div>
+              <div class="product-model">model &middot; <span class="model-tag">GPT-5.5</span></div>
+              <div class="product-use">&rarr; Async reasoning + research</div>
+            </article>
+            <article class="product-card">
+              <div class="product-name">Voice</div>
+              <div class="product-model">model &middot; <span class="model-tag">Realtime API</span></div>
+              <div class="product-use">&rarr; Voice agents (calls, demos)</div>
+            </article>
+          </div>
+        </div>
+
+        <!-- GOOGLE -->
+        <div class="brand-column">
+          <div class="brand-header">
+            <img src="assets/logos/google-parent-light.svg" alt="Google" width="28" height="28" />
+            <div class="brand-name">Google</div>
+          </div>
+          <div class="brand-products">
+            <article class="product-card">
+              <div class="product-name">Antigravity</div>
+              <div class="product-model">model &middot; <span class="model-tag">Gemini 2.5 Flash</span></div>
+              <div class="product-use">&rarr; Agentic dev environment</div>
+            </article>
+            <article class="product-card">
+              <div class="product-name">Gemini Flash</div>
+              <div class="product-model">model &middot; <span class="model-tag">2.5 Flash</span></div>
+              <div class="product-use">&rarr; Cheap cron-volume work</div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Connector down to infrastructure -->
+    <div class="tier-connector" aria-hidden="true">
+      <svg viewBox="0 0 200 40" preserveAspectRatio="none">
+        <path d="M 50 0 L 100 40" class="connector-line" />
+        <path d="M 100 0 L 100 40" class="connector-line" />
+        <path d="M 150 0 L 100 40" class="connector-line" />
+      </svg>
+    </div>
+
+    <!-- TIER 2: INFRASTRUCTURE (Composio · Mem0 · gbrain) -->
+    <div class="stack-tier stack-infra">
+      <div class="tier-label">TIER 2 &middot; INFRASTRUCTURE</div>
+      <div class="infra-row">
+        <article class="infra-card">
+          <img src="assets/logos/composio-light.svg" alt="Composio" width="36" height="36" />
+          <div class="infra-name">Composio</div>
+          <div class="infra-role">&rarr; Tool layer &middot; 100+ APIs ready</div>
         </article>
-        <article class="model-card">
-          <img src="assets/logos/openai-light.svg" alt="OpenAI / Codex" width="48" height="48" />
-          <div class="model-name">Codex</div>
-          <div class="model-by">by OpenAI</div>
-          <div class="model-role">Fast vibe-coding throughput.</div>
+        <article class="infra-card">
+          <img src="assets/logos/mem0-light.svg" alt="Mem0" width="36" height="36" />
+          <div class="infra-name">Mem0</div>
+          <div class="infra-role">&rarr; Memory layer &middot; persistent across runs</div>
         </article>
-        <article class="model-card">
-          <img src="assets/logos/openai-light.svg" alt="OpenAI / ChatGPT" width="48" height="48" />
-          <div class="model-name">ChatGPT</div>
-          <div class="model-by">by OpenAI</div>
-          <div class="model-role">Async reasoning + research.</div>
-        </article>
-        <article class="model-card">
-          <img src="assets/logos/gemini-light.svg" alt="Google / Gemini" width="48" height="48" />
-          <div class="model-name">Gemini Flash</div>
-          <div class="model-by">by Google</div>
-          <div class="model-role">Cheap async cron work.</div>
-        </article>
-        <article class="model-card">
-          <img src="assets/logos/antigravity-light.svg" alt="Google / Antigravity" width="48" height="48" />
-          <div class="model-name">Antigravity</div>
-          <div class="model-by">by Google</div>
-          <div class="model-role">New agentic dev environment.</div>
+        <article class="infra-card">
+          <img src="assets/logos/gbrain-light.svg" alt="gbrain" width="36" height="36" />
+          <div class="infra-name">gbrain</div>
+          <div class="infra-role">&rarr; Custom orchestration &middot; keeps the fleet coherent</div>
         </article>
       </div>
     </div>
 
-    <!-- Connector: 5 lines converging to Hermes -->
-    <div class="stack-connector" aria-hidden="true">
-      <svg viewBox="0 0 200 60" preserveAspectRatio="none">
-        <path d="M 20 0 L 100 60" class="connector-line" />
-        <path d="M 60 0 L 100 60" class="connector-line" />
-        <path d="M 100 0 L 100 60" class="connector-line" />
-        <path d="M 140 0 L 100 60" class="connector-line" />
-        <path d="M 180 0 L 100 60" class="connector-line" />
+    <div class="tier-connector tier-connector-single" aria-hidden="true">
+      <svg viewBox="0 0 200 40" preserveAspectRatio="none">
+        <path d="M 100 0 L 100 40" class="connector-line" />
       </svg>
     </div>
 
-    <!-- Tier 2: Hermes (the runtime) -->
-    <div class="stack-tier stack-tier-runtime">
-      <div class="tier-label">RUNTIME &middot; THE FLEET</div>
+    <!-- TIER 3: HERMES RUNTIME -->
+    <div class="stack-tier stack-runtime">
+      <div class="tier-label">TIER 3 &middot; RUNTIME</div>
       <article class="runtime-card runtime-card-hermes">
-        <img src="assets/logos/hermes-brand.png" alt="Hermes" width="80" height="80" class="runtime-brand-pic" />
+        <div class="runtime-card-status">
+          <span class="status-dot"></span>
+          LIVE &middot; built in 2026 &middot; iterating daily
+        </div>
+        <img src="assets/logos/hermes-v11-square.svg" alt="Hermes" width="80" height="80" class="runtime-logo" />
         <div class="runtime-name">Hermes</div>
-        <div class="runtime-tag">5-agent fleet &middot; in production since 2024</div>
+        <div class="runtime-tag">5-agent fleet &middot; running ZippyScale ops</div>
         <div class="runtime-agents">
           <span>D-Rose</span><span>Curry</span><span>Antman</span><span>Kyrie</span><span>Ironman</span>
         </div>
       </article>
     </div>
 
-    <!-- Connector: single line down to OpenClaw -->
-    <div class="stack-connector stack-connector-short" aria-hidden="true">
+    <div class="tier-connector tier-connector-single" aria-hidden="true">
       <svg viewBox="0 0 200 40" preserveAspectRatio="none">
         <path d="M 100 0 L 100 40" class="connector-line" />
       </svg>
     </div>
 
-    <!-- Tier 3: OpenClaw (routing) -->
-    <div class="stack-tier stack-tier-routing">
-      <div class="tier-label">ROUTING &middot; THE CHANNELS</div>
+    <!-- TIER 4: OPEN CLAW ROUTING -->
+    <div class="stack-tier stack-routing">
+      <div class="tier-label">TIER 4 &middot; ROUTING</div>
       <article class="runtime-card runtime-card-openclaw">
-        <img src="assets/logos/openclaw-brand.png" alt="Open Claw" width="80" height="80" class="runtime-brand-pic" />
-        <div class="runtime-name openclaw-mark">[ Open Claw ]</div>
+        <div class="runtime-card-status">
+          <span class="status-dot"></span>
+          LIVE &middot; integrated 2026
+        </div>
+        <img src="assets/logos/openclaw-v11-square.svg" alt="Open Claw" width="80" height="80" class="runtime-logo" />
+        <div class="runtime-name">Open Claw</div>
         <div class="runtime-tag">24+ channels routed to 1 inbox</div>
         <div class="runtime-channels">
-          <span>Telegram</span><span>Email</span><span>WhatsApp</span><span>Slack</span><span>iMessage</span><span>SMS</span><span>+18</span>
+          <span>Telegram</span><span>Email</span><span>WhatsApp</span><span>Slack</span><span>iMessage</span><span>+19</span>
         </div>
       </article>
     </div>
 
-    <!-- Workflow strip marquee -->
-    <div class="stack-workflow-strip">
+    <div class="tier-connector tier-connector-single" aria-hidden="true">
+      <svg viewBox="0 0 200 40" preserveAspectRatio="none">
+        <path d="M 100 0 L 100 40" class="connector-line" />
+      </svg>
+    </div>
+
+    <!-- TIER 5: WORKFLOW STRIP (marquee) -->
+    <div class="stack-tier stack-workflow">
+      <div class="tier-label">TIER 5 &middot; WORKFLOW</div>
       <div class="workflow-marquee">
         <div class="workflow-track">
           <img src="assets/logos/n8n-light.svg" alt="n8n" /><span>n8n</span>
@@ -5167,6 +5307,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var r = document.querySelector('.roadmap'); if (r) r.classList.add('in-view');
     var rtl = document.querySelector('.roadmap-timeline'); if (rtl) rtl.classList.add('in-view');
     document.querySelectorAll('.stack-connector').forEach(function(el){ el.classList.add('in-view'); });
+    document.querySelectorAll('.tier-connector').forEach(function(el){ el.classList.add('in-view'); });
     return;
   }
   // Section divider lime-line draw on view
@@ -5206,7 +5347,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.35 });
     tlio.observe(roadmapTl);
   }
-  // AI Stack tier connectors draw on scroll
+  // AI Stack tier connectors draw on scroll (legacy .stack-connector + v11 .tier-connector)
   var conns = document.querySelectorAll('.stack-connector');
   if (conns.length) {
     var cio = new IntersectionObserver(function(entries){
@@ -5216,6 +5357,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.4 });
     conns.forEach(function(c){ cio.observe(c); });
   }
+  // v11 Wave 2 — new .tier-connector observer (independent per-element observer, fires once)
+  document.querySelectorAll('.tier-connector').forEach(function(el){
+    var obs = new IntersectionObserver(function(entries){
+      if (entries[0].isIntersecting) { el.classList.add('in-view'); obs.disconnect(); }
+    }, { threshold: 0.3 });
+    obs.observe(el);
+  });
 
   // ---- Founder Proof Bar: animated counter (agentRuns) ----
   var counterEl = document.querySelector('[data-counter="agentRuns"]');
