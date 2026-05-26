@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>AI Marketing Lab : Ship AI agents that pay for themselves. Live, every week.</title>
-<meta name="description" content="How operators are shipping AI agents that run while they sleep. Live builds every Wednesday. The Hermes 6-agent fleet, open. Join the next free webinar." />
+<meta name="description" content="How operators are shipping AI agents that run while they sleep. Built live, every Wednesday. The Hermes 6-agent fleet, open. Join the next free webinar." />
 <meta name="theme-color" content="#0A0E0D" />
 <link rel="icon" type="image/svg+xml" href="assets/aiml-symbol-favicon.svg" />
 <link rel="apple-touch-icon" href="assets/aiml-symbol-favicon.svg" />
@@ -1326,8 +1326,9 @@ h1, h2, h3, h4 {
   margin-top: 56px;
 }
 @media (min-width: 768px) { .apply-rail { margin-top: 0; } }
+/* v14: apply-rail-h sized to match webinar-form h3 */
 .apply-rail-h {
-  font-family: var(--mono); font-size: 13px; font-weight: 700;
+  font-family: var(--mono); font-size: clamp(28px, 3vw, 38px); font-weight: 800;
   letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--text-high); margin-bottom: 18px;
 }
@@ -1386,7 +1387,7 @@ h1, h2, h3, h4 {
   border-radius: 8px; padding: 36px; margin-top: 56px;
   max-width: 560px;
 }
-.webinar-form h3 { font-family: var(--sans); font-weight: 700; font-size: 26px; margin-bottom: 8px; text-align: left; letter-spacing: -0.022em; }
+.webinar-form h3 { font-family: var(--sans); font-weight: 800; font-size: clamp(28px, 3vw, 38px); margin-bottom: 10px; text-align: left; letter-spacing: -0.025em; line-height: 1.1; }
 .webinar-form p { color: var(--text-mid); font-size: 14px; margin-bottom: 24px; text-align: left; }
 .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; text-align: left; }
 .field label {
@@ -3583,7 +3584,7 @@ h1, h2, h3, h4 {
   .month-card.month-glow .month-label { box-shadow: none; transform: none; }
 }
 
-#inner-circle .section-head, .roadmap-section .section-head, #community-roadmap .section-head, #community-locker .section-head { text-align: center; margin-left: auto; margin-right: auto; max-width: 720px; }
+#inner-circle .section-head, .roadmap-section .section-head, #community-roadmap .section-head, #community-locker .section-head, #community .section-head { text-align: center; margin-left: auto; margin-right: auto; max-width: 720px; }
 </style>
 </head>
 <body>
@@ -3650,8 +3651,8 @@ h1, h2, h3, h4 {
     <div class="hero-grid">
       <div class="hero-left">
         <span class="eyebrow hero-eyebrow">Operator AI, built to measure</span>
-        <h1 class="h1" data-word-reveal>How operators are shipping <span class="accent">AI agents</span> that run while they sleep. And pay for themselves.<span class="pulse-dot" aria-hidden="true"></span></h1>
-        <p class="lead">6 agents in production. Every Wednesday I build a new one live. You copy it Friday, even if you've never written code. The goal: AI agents earning money for you.</p>
+        <h1 class="h1" data-word-reveal>How operators are shipping <span class="accent">AI agents</span> that run while they sleep.<span class="pulse-dot" aria-hidden="true"></span></h1>
+        <p class="lead">We are 6 agents into building a fleet that runs the agency for me. Every Wednesday I build a new one, live. You watch, you copy, you ship your own. No code required.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary hero-cta" href="#webinar">
             <span class="hero-cta-main">Save my seat <span class="arrow">→</span></span>
@@ -3674,34 +3675,34 @@ h1, h2, h3, h4 {
         <div class="hero-terminal">
           <div class="hero-terminal-bar">
             <div class="hero-terminal-dots"><i></i><i></i><i></i></div>
-            <span>hermes@aimarketinglab :: live experiment 04</span>
+            <span>hermes@aimarketinglab :: building today</span>
           </div>
           <div class="hero-terminal-body">
             <div class="hero-terminal-stream">
               <!-- 4 sessions, looped via animation-delay -->
               <div class="ht-session ht-s1">
-                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> deploy agent --name vera --role personal-brand</div>
-                <div class="ht-line ht-out">&rarr; vera online. measuring against: leads_in, ctr.</div>
-                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> vera status</div>
-                <div class="ht-line ht-out">&rarr; <span class="ht-num">14h</span> runtime &middot; <span class="ht-num">318</span> leads_in &middot; <span class="ht-num">4.2%</span> ctr &middot; <span class="ht-num">57</span> replies</div>
+                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> zayn morning-dispatch</div>
+                <div class="ht-line ht-out">&rarr; routing today's work across the fleet&hellip;</div>
+                <div class="ht-line ht-out">&rarr; <span class="ht-num">d-rose</span>: lp draft &middot; <span class="ht-num">steph</span>: outreach batch</div>
+                <div class="ht-line ht-ok">&check; fleet dispatched &middot; building</div>
               </div>
               <div class="ht-session ht-s2">
-                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> atlas check --campaign meta-india</div>
-                <div class="ht-line ht-out">&rarr; scanning <span class="ht-num">7</span> ad sets &middot; spend <span class="ht-num">$1,247</span> &middot; cpa <span class="ht-num">$34</span></div>
-                <div class="ht-line ht-out">&rarr; flagged: ad-set-3 cpa drift +28% &middot; pausing</div>
-                <div class="ht-line ht-ok">&check; saved <span class="ht-num">$182</span> today</div>
+                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> d-rose ship --task "lp-aiml-v14"</div>
+                <div class="ht-line ht-out">&rarr; designing landing page in v12 pattern library</div>
+                <div class="ht-line ht-out">&rarr; iterating sections live with sandy</div>
+                <div class="ht-line ht-ok">&check; v14 in progress &middot; you're reading it</div>
               </div>
               <div class="ht-session ht-s3">
-                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> mira inbox --since "yesterday"</div>
-                <div class="ht-line ht-out">&rarr; <span class="ht-num">47</span> messages &middot; <span class="ht-num">12</span> routed to skool &middot; <span class="ht-num">8</span> client tasks</div>
-                <div class="ht-line ht-out">&rarr; <span class="ht-num">3</span> hot leads tagged &middot; ghl synced</div>
-                <div class="ht-line ht-ok">&check; inbox at zero in <span class="ht-num">4 min</span></div>
+                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> iron-man ops --status</div>
+                <div class="ht-line ht-out">&rarr; n8n + ghl pipelines healthy</div>
+                <div class="ht-line ht-out">&rarr; whatsapp + email follow-ups queued</div>
+                <div class="ht-line ht-ok">&check; automation layer live</div>
               </div>
               <div class="ht-session ht-s4">
-                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> kai outreach --target "agency-owners-global"</div>
-                <div class="ht-line ht-out">&rarr; enriched <span class="ht-num">89</span> prospects &middot; personalized <span class="ht-num">89</span> first-lines</div>
-                <div class="ht-line ht-out">&rarr; sent <span class="ht-num">89</span> &middot; opened <span class="ht-num">41</span> &middot; replied <span class="ht-num">14</span></div>
-                <div class="ht-line ht-ok">&check; <span class="ht-num">6 calls</span> booked this week</div>
+                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> steph outreach --batch "operators"</div>
+                <div class="ht-line ht-out">&rarr; first-lines drafted, ready for sandy review</div>
+                <div class="ht-line ht-out">&rarr; testing 3 hooks across linkedin + email</div>
+                <div class="ht-line ht-ok">&check; outreach batch staged</div>
               </div>
             </div>
             <div class="hero-terminal-caret" aria-hidden="true">
@@ -4067,19 +4068,19 @@ h1, h2, h3, h4 {
       </svg>
     </div>
 
-    <!-- TIER 4: OPEN CLAW ROUTING -->
+    <!-- TIER 4: ROUTING via Zayn (our orchestrator) -->
     <div class="stack-tier stack-routing">
-      <div class="tier-label">TIER 4 &middot; ROUTING</div>
+      <div class="tier-label">TIER 4 &middot; ORCHESTRATION</div>
       <article class="runtime-card runtime-card-openclaw">
         <div class="runtime-card-status">
           <span class="status-dot"></span>
-          LIVE &middot; integrated 2026
+          LIVE &middot; built in-house 2026
         </div>
-        <img src="assets/logos/openclaw-real.svg" alt="Open Claw" width="80" height="80" class="runtime-logo" />
-        <div class="runtime-name">Open Claw</div>
-        <div class="runtime-tag">24+ channels routed to 1 inbox</div>
+        <img src="assets/logos/hermes-real.svg" alt="Zayn" width="80" height="80" class="runtime-logo" />
+        <div class="runtime-name">Zayn</div>
+        <div class="runtime-tag">Chief of staff &middot; routes every channel into one inbox</div>
         <div class="runtime-channels">
-          <span>Telegram</span><span>Email</span><span>WhatsApp</span><span>Slack</span><span>iMessage</span><span>+19</span>
+          <span>Telegram</span><span>Email</span><span>WhatsApp</span><span>Slack</span><span>iMessage</span><span>more</span>
         </div>
       </article>
     </div>
@@ -5001,21 +5002,21 @@ h1, h2, h3, h4 {
         <div class="month-label">MONTH 01</div>
         <h3 class="month-headline">Ship the first agent</h3>
         <p class="month-outcome">1 agent live in your business &middot; saving you 5+ hours a week &middot; first measurable time-back.</p>
-        <p class="month-body">By Day 30: 1 agent live in your business · saving you 5+ hours a week · first measurable time-back. Pick a template, watch the live build, install in a week.</p>
+        <p class="month-body">Pick a template. Watch the live build. Install it in a week.</p>
       </article>
 
       <article class="month-card reveal" data-month="2">
         <div class="month-label">MONTH 02</div>
         <h3 class="month-headline">Stack three more</h3>
         <p class="month-outcome">3 agents stacked &middot; first measurable revenue or saving in your P&amp;L.</p>
-        <p class="month-body">By Day 60: 3 agents stacked · first measurable revenue or saving in your P&amp;L. Join the ship-with-me cohort, bring your problem, leave with the agent deployed.</p>
+        <p class="month-body">Three agents stacked. Bring a problem to a weekly build, leave with the agent deployed.</p>
       </article>
 
       <article class="month-card reveal" data-month="3">
         <div class="month-label">MONTH 03</div>
         <h3 class="month-headline">Run the operator stack</h3>
         <p class="month-outcome">Your own operator stack running 24/7 &middot; agents earning while you sleep.</p>
-        <p class="month-body">By Day 90: your own operator stack running 24/7 · cross-system workflows · members copying YOUR builds · agents earning while you sleep.</p>
+        <p class="month-body">Your own stack running 24/7. Workflows talk to each other. Members start copying your builds.</p>
       </article>
     </div>
   </div>
@@ -5575,7 +5576,7 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Honest filter</span>
-      <h2 class="h2">Built for operators. Not for everyone.</h2>
+      <h2 class="h2">Built for builders. Whether you ship code or have never written a line.</h2>
       <p class="lead">Nod through one column, you're in. The other, save your ₹2,499.</p>
     </div>
 
@@ -6140,7 +6141,7 @@ h1, h2, h3, h4 {
       </details>
       <details>
         <summary>What if I'm not technical?</summary>
-        <p>If you can use Claude or ChatGPT, you can ship every template. Built for operators, not engineers.</p>
+        <p>If you can describe what you want, you can build it. We meet you where you are.</p>
       </details>
       <details>
         <summary>Can I cancel anytime?</summary>
@@ -6166,7 +6167,7 @@ h1, h2, h3, h4 {
     <span class="eyebrow" style="margin-bottom: 24px;">13 / Save your seat</span>
     <h2 class="h2">See it live.</h2>
     <div class="final-cta-worldwide">
-      Built for operators worldwide &middot; Built from Hyderabad &middot; Built with the tech of the century
+      Built for builders worldwide &middot; Built from Hyderabad &middot; Open community, every week live
     </div>
     <p>60 min, <span data-webinar-date>Wed, Jun 11, 8pm IST</span>. Hermes on screen, full operator stack, Tier 1 offer at close. Camera off, notebook on.</p>
 
@@ -6241,7 +6242,7 @@ h1, h2, h3, h4 {
       </form>
 
       <aside class="apply-rail" aria-label="What happens after you save your seat">
-        <h3 class="apply-rail-h">Next 5 minutes</h3>
+        <h3 class="apply-rail-h">In the next 5 minutes</h3>
         <ul class="apply-rail-list">
           <li><span class="apply-rail-icon">CAL</span><span>Calendar invite (.ics) in your inbox</span></li>
           <li><span class="apply-rail-icon">WA</span><span>WhatsApp reminder 1 hour before</span></li>
@@ -6291,8 +6292,7 @@ h1, h2, h3, h4 {
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Ant Man</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Kairi</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Iron Man</span>
-          <img src="assets/logos/openclaw-real.svg" alt="OpenClaw" />
-          <span>OpenClaw inbox</span>
+          
           <img src="assets/logos/n8n-light.svg" alt="n8n" />
           <span>n8n automations</span>
           <!-- duplicate for seamless loop -->
@@ -6318,8 +6318,7 @@ h1, h2, h3, h4 {
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Ant Man</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Kairi</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Iron Man</span>
-          <img src="assets/logos/openclaw-real.svg" alt="" />
-          <span>OpenClaw inbox</span>
+          
           <img src="assets/logos/n8n-light.svg" alt="" />
           <span>n8n automations</span>
         </div>
