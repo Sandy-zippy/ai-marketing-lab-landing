@@ -6,7 +6,7 @@
         .hermes-pulses { display: none; }
         circle animate, circle animateMotion { display: none; }
       }
-      .hermes-pulses circle { filter: drop-shadow(0 0 6px rgba(0,255,148,0.85)); }
+      .hermes-pulses circle { filter: drop-shadow(0 0 6px rgba(0,161,155,0.85)); }
     </style>
     <!-- Subtle background grid -->
     <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
@@ -14,16 +14,16 @@
     </pattern>
     <!-- Radial vignette behind hub -->
     <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#00FF94" stop-opacity="0.35"/>
-      <stop offset="60%" stop-color="#00FF94" stop-opacity="0.10"/>
-      <stop offset="100%" stop-color="#00FF94" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#00A19B" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#00A19B" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00A19B" stop-opacity="0"/>
     </radialGradient>
     <!-- Arrowhead markers -->
     <marker id="arrowOut" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#00CC74" opacity="0.95"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#008580" opacity="0.95"/>
     </marker>
     <marker id="arrowIn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#00CC74" opacity="0.55"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#008580" opacity="0.55"/>
     </marker>
   </defs>
 
@@ -39,7 +39,7 @@
 
   <!-- Live status top-right -->
   <g font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" fill="#F5F5F0" text-anchor="end">
-    <circle cx="2240" cy="58" r="6" fill="#00CC74"/>
+    <circle cx="2240" cy="58" r="6" fill="#008580"/>
     <text x="2260" y="64" font-size="18" letter-spacing="2" font-weight="700">LIVE</text>
     <text x="2340" y="92" font-size="14" letter-spacing="2" fill="#B0B8B4">2026-05-25 · IN PRODUCTION</text>
   </g>
@@ -52,7 +52,7 @@
   <circle cx="1200" cy="600" r="330" fill="none" stroke="#F5F5F0" stroke-width="1" stroke-dasharray="2 8" opacity="0.10"/>
 
   <!-- Connector lines (hub to each specialist) -->
-  <g stroke="#00CC74" stroke-width="1.4" fill="none">
+  <g stroke="#008580" stroke-width="1.4" fill="none">
     <line x1="1200" y1="600" x2="1200" y2="180" opacity="0.7" marker-end="url(#arrowOut)"/>
     <line x1="1200" y1="600" x2="1497" y2="303" opacity="0.7" marker-end="url(#arrowOut)"/>
     <line x1="1200" y1="600" x2="1620" y2="600" opacity="0.7" marker-end="url(#arrowOut)"/>
@@ -77,81 +77,81 @@
   <!-- Each orb: 2.4s cycle, staggered begin so the fleet pulses in a wave -->
   <g class="hermes-pulses">
     <!-- N — Mira: outward then inward -->
-    <circle r="9" fill="#00FF94" opacity="0">
+    <circle r="9" fill="#00A19B" opacity="0">
       <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="0s" repeatCount="indefinite" path="M 1200 600 L 1200 180"/>
     </circle>
-    <circle r="7" fill="#00CC74" opacity="0">
+    <circle r="7" fill="#008580" opacity="0">
       <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.2s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" path="M 1224 184 Q 1260 400 1224 596"/>
     </circle>
 
     <!-- NE — Kai -->
-    <circle r="9" fill="#00FF94" opacity="0">
+    <circle r="9" fill="#00A19B" opacity="0">
       <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.175s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="0.175s" repeatCount="indefinite" path="M 1200 600 L 1497 303"/>
     </circle>
-    <circle r="7" fill="#00CC74" opacity="0">
+    <circle r="7" fill="#008580" opacity="0">
       <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.375s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="1.375s" repeatCount="indefinite" path="M 1517 327 Q 1380 460 1224 600"/>
     </circle>
 
     <!-- E — Axel -->
-    <circle r="9" fill="#00FF94" opacity="0">
+    <circle r="9" fill="#00A19B" opacity="0">
       <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.35s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="0.35s" repeatCount="indefinite" path="M 1200 600 L 1620 600"/>
     </circle>
-    <circle r="7" fill="#00CC74" opacity="0">
+    <circle r="7" fill="#008580" opacity="0">
       <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.55s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="1.55s" repeatCount="indefinite" path="M 1624 624 Q 1400 660 1224 624"/>
     </circle>
 
     <!-- SE — Iris -->
-    <circle r="9" fill="#00FF94" opacity="0">
+    <circle r="9" fill="#00A19B" opacity="0">
       <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.525s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="0.525s" repeatCount="indefinite" path="M 1200 600 L 1497 897"/>
     </circle>
-    <circle r="7" fill="#00CC74" opacity="0">
+    <circle r="7" fill="#008580" opacity="0">
       <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.725s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="1.725s" repeatCount="indefinite" path="M 1517 873 Q 1380 740 1224 604"/>
     </circle>
 
     <!-- S — Otto -->
-    <circle r="9" fill="#00FF94" opacity="0">
+    <circle r="9" fill="#00A19B" opacity="0">
       <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.7s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="0.7s" repeatCount="indefinite" path="M 1200 600 L 1200 1020"/>
     </circle>
-    <circle r="7" fill="#00CC74" opacity="0">
+    <circle r="7" fill="#008580" opacity="0">
       <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.9s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="1.9s" repeatCount="indefinite" path="M 1176 1016 Q 1140 800 1176 604"/>
     </circle>
 
     <!-- SW — Skye -->
-    <circle r="9" fill="#00FF94" opacity="0">
+    <circle r="9" fill="#00A19B" opacity="0">
       <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.875s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="0.875s" repeatCount="indefinite" path="M 1200 600 L 903 897"/>
     </circle>
-    <circle r="7" fill="#00CC74" opacity="0">
+    <circle r="7" fill="#008580" opacity="0">
       <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="2.075s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="2.075s" repeatCount="indefinite" path="M 883 873 Q 1020 740 1176 604"/>
     </circle>
 
     <!-- W — Vera -->
-    <circle r="9" fill="#00FF94" opacity="0">
+    <circle r="9" fill="#00A19B" opacity="0">
       <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.05s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="1.05s" repeatCount="indefinite" path="M 1200 600 L 780 600"/>
     </circle>
-    <circle r="7" fill="#00CC74" opacity="0">
+    <circle r="7" fill="#008580" opacity="0">
       <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.25s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="0.25s" repeatCount="indefinite" path="M 776 576 Q 1000 540 1176 576"/>
     </circle>
 
     <!-- NW — Atlas -->
-    <circle r="9" fill="#00FF94" opacity="0">
+    <circle r="9" fill="#00A19B" opacity="0">
       <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="1.225s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="1.225s" repeatCount="indefinite" path="M 1200 600 L 903 303"/>
     </circle>
-    <circle r="7" fill="#00CC74" opacity="0">
+    <circle r="7" fill="#008580" opacity="0">
       <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.9;1" dur="2.4s" begin="0.425s" repeatCount="indefinite"/>
       <animateMotion dur="2.4s" begin="0.425s" repeatCount="indefinite" path="M 883 327 Q 1020 460 1176 596"/>
     </circle>
@@ -218,11 +218,11 @@
 
     <!-- Center — Zayn (orchestrator, lime fill) with pulse animation -->
     <g>
-      <circle cx="1200" cy="600" r="138" fill="none" stroke="#00CC74" stroke-width="2" opacity="0.55">
+      <circle cx="1200" cy="600" r="138" fill="none" stroke="#008580" stroke-width="2" opacity="0.55">
         <animate attributeName="r" values="138;156;138" dur="3s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0.55;0.15;0.55" dur="3s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="1200" cy="600" r="124" fill="#00FF94" stroke="#F5F5F0" stroke-width="3"/>
+      <circle cx="1200" cy="600" r="124" fill="#00A19B" stroke="#F5F5F0" stroke-width="3"/>
       <text x="1200" y="588" font-size="40" font-weight="700" fill="#F5F5F0" letter-spacing="1">ZAYN</text>
       <text x="1200" y="618" font-size="13" fill="#F5F5F0" letter-spacing="3" font-weight="700">ORCHESTRATOR</text>
       <text x="1200" y="640" font-size="11" fill="#F5F5F0" letter-spacing="2" opacity="0.75">CHIEF OF STAFF</text>
@@ -231,10 +231,10 @@
 
   <!-- Legend bottom-left -->
   <g font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" letter-spacing="1.5" fill="#B0B8B4">
-    <line x1="60" y1="1080" x2="120" y2="1080" stroke="#00CC74" stroke-width="1.4" opacity="0.7" marker-end="url(#arrowOut)"/>
+    <line x1="60" y1="1080" x2="120" y2="1080" stroke="#008580" stroke-width="1.4" opacity="0.7" marker-end="url(#arrowOut)"/>
     <text x="132" y="1085">DISPATCH</text>
 
-    <line x1="280" y1="1080" x2="340" y2="1080" stroke="#00CC74" stroke-width="1.4" stroke-dasharray="3 5" opacity="0.55" marker-end="url(#arrowIn)"/>
+    <line x1="280" y1="1080" x2="340" y2="1080" stroke="#008580" stroke-width="1.4" stroke-dasharray="3 5" opacity="0.55" marker-end="url(#arrowIn)"/>
     <text x="352" y="1085">REPORT BACK</text>
   </g>
 

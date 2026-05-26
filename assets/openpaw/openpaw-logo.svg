@@ -1,9 +1,9 @@
 <!-- openpaw-logo.svg — paw print + circuit dot -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <circle cx="14" cy="14" r="4" fill="#00FF94"/>
-  <circle cx="34" cy="14" r="4" fill="#00FF94"/>
-  <circle cx="10" cy="26" r="3" fill="#00FF94"/>
-  <circle cx="38" cy="26" r="3" fill="#00FF94"/>
-  <path d="M14 32 Q24 26 34 32 Q38 38 30 42 Q24 44 18 42 Q10 38 14 32 Z" fill="#00FF94"/>
+  <circle cx="14" cy="14" r="4" fill="#00A19B"/>
+  <circle cx="34" cy="14" r="4" fill="#00A19B"/>
+  <circle cx="10" cy="26" r="3" fill="#00A19B"/>
+  <circle cx="38" cy="26" r="3" fill="#00A19B"/>
+  <path d="M14 32 Q24 26 34 32 Q38 38 30 42 Q24 44 18 42 Q10 38 14 32 Z" fill="#00A19B"/>
   <circle cx="24" cy="38" r="1.5" fill="#0A0E0D"/>
 </svg>

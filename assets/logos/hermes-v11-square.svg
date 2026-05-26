@@ -1,18 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
-  <rect width="256" height="256" fill="#0A0E0D"/>
-  <g transform="translate(128, 128)">
-    <!-- Connection lines -->
-    <line x1="0" y1="0" x2="-66" y2="-36" stroke="#00FF94" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
-    <line x1="0" y1="0" x2="-66" y2="36" stroke="#00FF94" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
-    <line x1="0" y1="0" x2="66" y2="-36" stroke="#00FF94" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
-    <line x1="0" y1="0" x2="66" y2="36" stroke="#00FF94" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
-    <!-- Outer wing nodes -->
-    <circle cx="-66" cy="-36" r="9" fill="#00FF94"/>
-    <circle cx="-66" cy="36" r="9" fill="#00FF94"/>
-    <circle cx="66" cy="-36" r="9" fill="#00FF94"/>
-    <circle cx="66" cy="36" r="9" fill="#00FF94"/>
-    <!-- Central node -->
-    <circle cx="0" cy="0" r="18" fill="#00FF94"/>
-    <circle cx="0" cy="0" r="18" fill="none" stroke="#0A0E0D" stroke-width="3.5"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none" role="img" aria-label="Hermes">
+  <!-- H verticals with subtle forward italic lean (winged-messenger motion cue) -->
+  <line x1="84" y1="56" x2="72" y2="200" stroke="#00A19B" stroke-width="14" stroke-linecap="round"/>
+  <line x1="184" y1="56" x2="172" y2="200" stroke="#00A19B" stroke-width="14" stroke-linecap="round"/>
+  <!-- 5 dots = 5-agent fleet (D-Rose, Curry, Antman, Kyrie, Ironman) -->
+  <circle cx="92" cy="128" r="10" fill="#00A19B"/>
+  <circle cx="112" cy="128" r="10" fill="#00A19B"/>
+  <circle cx="132" cy="128" r="10" fill="#00A19B"/>
+  <circle cx="152" cy="128" r="10" fill="#00A19B"/>
+  <circle cx="172" cy="128" r="10" fill="#00A19B"/>
 </svg>

@@ -6,5 +6,5 @@
   <!-- Right ring (interlocking, drawn slightly offset) -->
   <rect x="13.5" y="10" width="14" height="12" rx="6" stroke="#F5F5F0" stroke-width="2" fill="none"/>
   <!-- Center join accent in neon green to show "integration" point -->
-  <line x1="16" y1="13" x2="16" y2="19" stroke="#00FF94" stroke-width="2" stroke-linecap="round"/>
+  <line x1="16" y1="13" x2="16" y2="19" stroke="#00A19B" stroke-width="2" stroke-linecap="round"/>
 </svg>

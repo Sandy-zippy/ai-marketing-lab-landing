@@ -4,7 +4,7 @@
   <g font-family="JetBrains Mono, 'JetBrains Mono', ui-monospace, Menlo, 'SF Mono', Consolas, monospace" font-weight="700" font-size="180" letter-spacing="-2">
     <text x="200" y="370" fill="#F5F5F0" xml:space="preserve">AI MARKETING LAB</text>
   </g>
-  <rect x="2010" y="240" width="140" height="160" fill="#00FF94">
+  <rect x="2010" y="240" width="140" height="160" fill="#00A19B">
     <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.2s" repeatCount="indefinite"/>
   </rect>
 </svg>

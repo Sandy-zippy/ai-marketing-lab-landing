@@ -1,20 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" fill="none">
-  <!-- 5-node winged-messenger glyph -->
-  <g transform="translate(40, 40)">
-    <!-- Connection lines (drawn first so nodes overlay) -->
-    <line x1="0" y1="0" x2="-22" y2="-12" stroke="#00FF94" stroke-width="1" opacity="0.55" stroke-linecap="round"/>
-    <line x1="0" y1="0" x2="-22" y2="12" stroke="#00FF94" stroke-width="1" opacity="0.55" stroke-linecap="round"/>
-    <line x1="0" y1="0" x2="22" y2="-12" stroke="#00FF94" stroke-width="1" opacity="0.55" stroke-linecap="round"/>
-    <line x1="0" y1="0" x2="22" y2="12" stroke="#00FF94" stroke-width="1" opacity="0.55" stroke-linecap="round"/>
-    <!-- Outer wing nodes -->
-    <circle cx="-22" cy="-12" r="3" fill="#00FF94"/>
-    <circle cx="-22" cy="12" r="3" fill="#00FF94"/>
-    <circle cx="22" cy="-12" r="3" fill="#00FF94"/>
-    <circle cx="22" cy="12" r="3" fill="#00FF94"/>
-    <!-- Central node -->
-    <circle cx="0" cy="0" r="6" fill="#00FF94"/>
-    <circle cx="0" cy="0" r="6" fill="none" stroke="#0A0E0D" stroke-width="1.2"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" fill="none" role="img" aria-label="Hermes">
+  <!-- Glyph: H verticals with forward italic lean + 5 agent dots -->
+  <line x1="16" y1="20" x2="12" y2="60" stroke="#00A19B" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="44" y1="20" x2="40" y2="60" stroke="#00A19B" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="18" cy="40" r="2.5" fill="#00A19B"/>
+  <circle cx="23" cy="40" r="2.5" fill="#00A19B"/>
+  <circle cx="28" cy="40" r="2.5" fill="#00A19B"/>
+  <circle cx="33" cy="40" r="2.5" fill="#00A19B"/>
+  <circle cx="38" cy="40" r="2.5" fill="#00A19B"/>
   <!-- Wordmark -->
-  <text x="88" y="48" font-family="JetBrains Mono, ui-monospace, monospace" font-size="22" font-weight="500" fill="#F5F5F0" letter-spacing="0.06em">HERMES</text>
+  <text x="64" y="48" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="22" font-weight="500" fill="#F5F5F0" letter-spacing="0.06em">HERMES</text>
 </svg>
