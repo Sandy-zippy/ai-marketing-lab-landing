@@ -4,14 +4,14 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>AI Marketing Lab : Ship AI agents that pay for themselves. Live, every week.</title>
-<meta name="description" content="How operators are shipping AI agents that run while they sleep. Live builds every Wednesday. The Hermes 5-agent fleet, open. Join the next free webinar." />
+<meta name="description" content="How operators are shipping AI agents that run while they sleep. Live builds every Wednesday. The Hermes 6-agent fleet, open. Join the next free webinar." />
 <meta name="theme-color" content="#0A0E0D" />
 <link rel="icon" type="image/svg+xml" href="assets/aiml-symbol-favicon.svg" />
 <link rel="apple-touch-icon" href="assets/aiml-symbol-favicon.svg" />
 
 <!-- Open Graph -->
 <meta property="og:title" content="AI Marketing Lab : Ship AI agents that pay for themselves. Live, every week." />
-<meta property="og:description" content="Watch me build a new AI agent live every Wednesday. Copy it into your business by Friday. 5-agent fleet in production, open to operators." />
+<meta property="og:description" content="Watch me build a new AI agent live every Wednesday. Copy it into your business by Friday. 6-agent fleet in production, open to operators." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://sandy-zippy.github.io/ai-marketing-lab-landing/" />
 <meta property="og:image" content="https://sandy-zippy.github.io/ai-marketing-lab-landing/assets/og/aiml-og-1200x630.jpg" />
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://sandy-zippy.github.io/ai-marketing-lab-landing/assets/og/aiml-og-1200x630.jpg" />
 <meta name="twitter:title" content="AI Marketing Lab : Ship AI agents that pay for themselves." />
-<meta name="twitter:description" content="The operator's playbook for AI agents in business. Live build every Wednesday. 5-agent fleet, open." />
+<meta name="twitter:description" content="The operator's playbook for AI agents in business. Live build every Wednesday. 6-agent fleet, open." />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -982,7 +982,7 @@ h1, h2, h3, h4 {
   color: var(--text-mid); font-family: var(--mono); font-weight: 500;
 }
 
-/* 5 agent cards: 1×5 row layout */
+/* 6 agent cards: 2x3 grid */
 .hermes-fleet-grid {
   display: grid; grid-template-columns: 1fr; gap: 14px;
   margin-bottom: 64px;
@@ -991,7 +991,7 @@ h1, h2, h3, h4 {
 }
 @media (min-width: 600px) { .hermes-fleet-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
 @media (min-width: 900px) { .hermes-fleet-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
-@media (min-width: 1280px) { .hermes-fleet-grid { grid-template-columns: repeat(5, 1fr); gap: 16px; } }
+@media (min-width: 1280px) { .hermes-fleet-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
 
 .agent-card {
   background: var(--bg-surface);
@@ -2144,7 +2144,7 @@ h1, h2, h3, h4 {
   border-radius: 999px;
   color: var(--text-mid);
 }
-/* v11 Wave 3 — 5-agent pills breathing room on small phones */
+/* v11 Wave 3 — 6-agent pills breathing room on small phones */
 @media (max-width: 480px) {
   .ai-stack-v11 .runtime-agents { gap: 6px; }
   .ai-stack-v11 .runtime-agents span { padding: 3px 8px; font-size: 10px; }
@@ -2212,10 +2212,7 @@ h1, h2, h3, h4 {
 
 /* Asymmetric stagger — Higgsfield-style staggered grid (desktop only) */
 @media (min-width: 1080px) {
-  .categories .cat:nth-child(2) { transform: translateY(36px); }
-  .categories .cat:nth-child(5) { transform: translateY(36px); }
-  .categories .cat:hover:nth-child(2) { transform: translateY(34px); }
-  .categories .cat:hover:nth-child(5) { transform: translateY(34px); }
+  /* v14: stagger removed per Sandy 2026-05-26 directive (cards 2+5 alignment) */
 }
 @media (min-width: 1000px) {
   .hermes-fleet-grid .agent-card:nth-child(2) { transform: translateY(28px); }
@@ -2481,6 +2478,7 @@ h1, h2, h3, h4 {
 /* ============================================================ */
 /* v8 Wave 3 — 90-DAY ROADMAP REDESIGN (SVG timeline) */
 .roadmap-section { padding: clamp(56px, 8vw, 96px) 0; }
+.roadmap-section .section-head { text-align: center; margin-left: auto; margin-right: auto; max-width: 720px; }
 .roadmap-timeline {
   margin: 56px auto 0;
   max-width: 920px;
@@ -2964,7 +2962,7 @@ h1, h2, h3, h4 {
   transform-box: fill-box;
   animation: dot-pulse 12s ease-in-out infinite;
 }
-/* Ironman — continuous: rapid 1s pulse, never sleeps */
+/* Iron Man — continuous: rapid 1s pulse, never sleeps */
 .cron-clock .agent-dot--continuous {
   animation: dot-pulse-continuous 1.6s ease-in-out infinite;
 }
@@ -3555,7 +3553,7 @@ h1, h2, h3, h4 {
 @media (min-width: 1080px) {
   /* keep the existing slight offset for 2nd + 5th cards in a 3-col grid, but only after entrance */
   .categories .cat.cat-in:nth-child(2),
-  .categories .cat.cat-in:nth-child(5) { transform: translateY(36px); }
+  /* v14: .cat-in stagger removed */
 }
 
 /* 2. About proof stats — number rendered by JS via data-target, animated count-up */
@@ -3584,6 +3582,8 @@ h1, h2, h3, h4 {
   .proof-stat.stat-in .proof-stat-num { animation: none; }
   .month-card.month-glow .month-label { box-shadow: none; transform: none; }
 }
+
+#inner-circle .section-head, .roadmap-section .section-head, #community-roadmap .section-head, #community-locker .section-head { text-align: center; margin-left: auto; margin-right: auto; max-width: 720px; }
 </style>
 </head>
 <body>
@@ -3631,7 +3631,7 @@ h1, h2, h3, h4 {
      VARIANT B (Outcome-led / Direct value prop):
      Headline: Ship one AI agent every week. Inside your business. Wired to revenue.
      Subhead: A live community for operators deploying AI into real revenue workflows.
-              Weekly builds. 5-agent fleet, open.
+              Weekly builds. 6-agent fleet, open.
      CTA: Save my seat — Wed, Jun 11, 8pm IST
 
      VARIANT C (Specific + Curiosity Gap) — CURRENTLY LIVE
@@ -3651,7 +3651,7 @@ h1, h2, h3, h4 {
       <div class="hero-left">
         <span class="eyebrow hero-eyebrow">Operator AI, built to measure</span>
         <h1 class="h1" data-word-reveal>How operators are shipping <span class="accent">AI agents</span> that run while they sleep. And pay for themselves.<span class="pulse-dot" aria-hidden="true"></span></h1>
-        <p class="lead">5 agents in production. Every Wednesday I build a new one live. You copy it Friday, even if you've never written code. The goal: AI agents earning money for you.</p>
+        <p class="lead">6 agents in production. Every Wednesday I build a new one live. You copy it Friday, even if you've never written code. The goal: AI agents earning money for you.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary hero-cta" href="#webinar">
             <span class="hero-cta-main">Save my seat <span class="arrow">→</span></span>
@@ -4023,7 +4023,7 @@ h1, h2, h3, h4 {
         <article class="infra-card">
           <img src="assets/logos/composio-light.svg" alt="Composio" width="36" height="36" />
           <div class="infra-name">Composio</div>
-          <div class="infra-role">&rarr; Tool layer &middot; 100+ APIs ready</div>
+          <div class="infra-role">&rarr; Tool layer &middot; APIs ready</div>
         </article>
         <article class="infra-card">
           <img src="assets/logos/mem0-light.svg" alt="Mem0" width="36" height="36" />
@@ -4054,9 +4054,9 @@ h1, h2, h3, h4 {
         </div>
         <img src="assets/logos/hermes-real.svg" alt="Hermes Agent" width="80" height="80" class="runtime-logo" />
         <div class="runtime-name">Hermes</div>
-        <div class="runtime-tag">5-agent fleet &middot; running ZippyScale ops</div>
+        <div class="runtime-tag">6-agent fleet &middot; running ZippyScale ops</div>
         <div class="runtime-agents">
-          <span>D-Rose</span><span>Curry</span><span>Antman</span><span>Kyrie</span><span>Ironman</span>
+          <span>Zayn</span><span>D-Rose</span><span>Steph</span><span>Ant Man</span><span>Kairi</span><span>Iron Man</span>
         </div>
       </article>
     </div>
@@ -4270,7 +4270,7 @@ h1, h2, h3, h4 {
     <div class="section-head reveal">
       <span class="eyebrow">Inside Hermes</span>
       <h2 class="h2">Autonomous. Self-improving. Multi-LLM. Always on.</h2>
-      <p class="lead">Hermes is the operating system behind ZippyScale. 5 agents, 5 models, cron-driven, memory-anchored. Here's how every agent ships work while I'm asleep.</p>
+      <p class="lead">Hermes is the operating system behind ZippyScale. 6 agents, 5 models, cron-driven, memory-anchored. Here's how every agent ships work while I'm asleep.</p>
     </div>
 
     <!-- 06B · CRON SCHEDULE ============================================ -->
@@ -4278,11 +4278,11 @@ h1, h2, h3, h4 {
       <div class="arch-copy">
         <span class="arch-block-label">01 · CRON</span>
         <h3 class="arch-block-h">Every morning, the fleet wakes up.</h3>
-        <p class="arch-block-body">Each agent gets its slot. D-Rose dispatches the floor at 09:00. Ironman never sleeps. The radar arm below sweeps a 24-hour day in 12 seconds. Watch each agent light up when its turn comes.</p>
+        <p class="arch-block-body">Each agent gets its slot. Zayn dispatches the floor at 09:00. Iron Man never sleeps. The radar arm below sweeps a 24-hour day in 12 seconds. Watch each agent light up when its turn comes.</p>
         <ul class="arch-bullets">
           <li>5 cron jobs, 1 VPS, zero babysitting</li>
-          <li>Outputs delivered to Telegram by D-Rose</li>
-          <li>Failure events auto-escalate to Sandy via Ironman</li>
+          <li>Outputs delivered to Telegram by Zayn</li>
+          <li>Failure events auto-escalate to Sandy via Iron Man</li>
         </ul>
       </div>
       <div class="arch-visual">
@@ -4292,7 +4292,7 @@ h1, h2, h3, h4 {
             <circle cx="200" cy="200" r="180" fill="none" class="clock-face" stroke-width="1"/>
             <circle cx="200" cy="200" r="180" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.18"/>
 
-            <!-- Ironman: always-on, perimeter dashed ring (pulsing) -->
+            <!-- Iron Man: always-on, perimeter dashed ring (pulsing) -->
             <circle cx="200" cy="200" r="190" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 8" opacity="0.4" class="ironman-ring">
               <animate attributeName="stroke-dashoffset" from="0" to="24" dur="3s" repeatCount="indefinite"/>
               <title>IRONMAN · always-on continuous monitor</title>
@@ -4347,8 +4347,8 @@ h1, h2, h3, h4 {
               <circle cx="317.7" cy="322.9" r="6" class="agent-dot" style="animation-delay: 10.54s"><title>KYRIE · 09:05 + 22:00 · Memory + research</title></circle>
               <circle cx="115.0" cy="347.2" r="6" class="agent-dot" style="animation-delay: 1.00s"><title>CURRY · 14:00 · Outreach sharpshooter</title></circle>
               <circle cx="52.8" cy="285.0" r="6" class="agent-dot" style="animation-delay: 2.00s"><title>ANTMAN · 16:00 · Paid media · scales winners</title></circle>
-              <!-- Ironman now shown as a perimeter ring (see above), no fixed-time dot -->
-              <!-- Kyrie's second firing at 22:00 -->
+              <!-- Iron Man now shown as a perimeter ring (see above), no fixed-time dot -->
+              <!-- Kairi's second firing at 22:00 -->
               <circle cx="115.0" cy="52.8" r="6" class="agent-dot" style="animation-delay: 5.00s" opacity="0.55"><title>KYRIE · 22:00 · Nightly research run</title></circle>
             </g>
 
@@ -4389,7 +4389,7 @@ h1, h2, h3, h4 {
               </marker>
             </defs>
 
-            <!-- Left column: 5 agents -->
+            <!-- Left column: 6 agents -->
             <g class="agents">
               <g>
                 <rect class="node-rect" x="30" y="16" width="120" height="44" rx="8"/>
@@ -4441,7 +4441,7 @@ h1, h2, h3, h4 {
               </g>
             </g>
 
-            <!-- Connection lines: 5 agents → router -->
+            <!-- Connection lines: 6 agents → router -->
             <g class="connections">
               <path id="conn-drose" class="conn" d="M 150 38 C 230 38 240 180 310 180"/>
               <path id="conn-curry" class="conn" d="M 150 110 C 230 110 240 180 310 180"/>
@@ -4456,7 +4456,7 @@ h1, h2, h3, h4 {
 
             <!-- Animated packets traveling along connections -->
             <g class="packets">
-              <!-- Inbound: 5 agents → router -->
+              <!-- Inbound: 6 agents → router -->
               <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0s"><mpath href="#conn-drose"/></animateMotion></circle>
               <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.5s"><mpath href="#conn-curry"/></animateMotion></circle>
               <circle r="4" class="packet"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.0s"><mpath href="#conn-antman"/></animateMotion></circle>
@@ -4547,11 +4547,11 @@ h1, h2, h3, h4 {
     <div class="arch-block flip reveal">
       <div class="arch-copy">
         <span class="arch-block-label">04 · OPEN CLAW</span>
-        <h3 class="arch-block-h">Every channel I work in routes through Open Claw.</h3>
-        <p class="arch-block-body">D-Rose reads first. Specialists handle what's theirs. I see only what needs me. 24+ inbound channels converge into a single inbox — humans, agents, webhooks, calendars, all triaged by the same orchestrator.</p>
+        <h3 class="arch-block-h">Every channel I work in routes through Zayn the orchestrator.</h3>
+        <p class="arch-block-body">Zayn reads first. Specialists handle what's theirs. I see only what needs me. 24+ inbound channels converge into a single inbox — humans, agents, webhooks, calendars, all triaged by Zayn.</p>
         <ul class="arch-bullets">
           <li>12 visible · 12 more behind the scenes</li>
-          <li>D-Rose triages, specialists execute</li>
+          <li>Zayn triages, specialists execute</li>
           <li>Sandy sees only escalations + approvals</li>
         </ul>
       </div>
@@ -4630,7 +4630,7 @@ h1, h2, h3, h4 {
 
             <!-- Funnel shape -->
             <path class="funnel-shape" d="M 100 170 L 700 170 L 480 380 L 320 380 Z"/>
-            <text x="400" y="266" text-anchor="middle" class="claw-label">[ Open Claw ]</text>
+            <text x="400" y="266" text-anchor="middle" class="claw-label">[ Zayn ]</text>
             <text x="400" y="294" text-anchor="middle" class="claw-sub">ROUTING · TRIAGE · DELIVERY</text>
 
             <!-- Funnel → inbox connector -->
@@ -4639,7 +4639,7 @@ h1, h2, h3, h4 {
             <!-- Bottom inbox -->
             <rect class="inbox-rect" x="280" y="410" width="240" height="64" rx="10"/>
             <text x="400" y="434" text-anchor="middle" class="inbox-title">1 unified inbox</text>
-            <text x="400" y="454" text-anchor="middle" class="inbox-sub">D-Rose triages · specialists handle</text>
+            <text x="400" y="454" text-anchor="middle" class="inbox-sub">Zayn triages · specialists handle</text>
           </svg>
         </div>
       </div>
@@ -4660,13 +4660,13 @@ h1, h2, h3, h4 {
       <div class="arch-visual">
         <div class="composio-flow-wrap">
           <svg viewBox="0 0 800 320" class="composio-flow" role="img" aria-label="Composio integration diagram: 5 Hermes agents route tool calls through Composio to 12+ APIs">
-            <!-- Left: 5 agent boxes -->
+            <!-- Left: 6 agent boxes -->
             <g class="composio-agents" font-family="JetBrains Mono" font-size="11" fill="var(--text-high)">
               <g transform="translate(40, 40)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">D-Rose</text></g>
-              <g transform="translate(40, 96)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">Curry</text></g>
-              <g transform="translate(40, 152)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">Antman</text></g>
-              <g transform="translate(40, 208)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">Kyrie</text></g>
-              <g transform="translate(40, 264)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">Ironman</text></g>
+              <g transform="translate(40, 96)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">Steph</text></g>
+              <g transform="translate(40, 152)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">Ant Man</text></g>
+              <g transform="translate(40, 208)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">Kairi</text></g>
+              <g transform="translate(40, 264)"><rect width="100" height="36" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="22" text-anchor="middle">Iron Man</text></g>
             </g>
 
             <!-- Center: Composio hub -->
@@ -4676,7 +4676,7 @@ h1, h2, h3, h4 {
               <text x="70" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--text-low)" letter-spacing="0.12em">TOOL LAYER</text>
             </g>
 
-            <!-- Right: 12 API tiles + "+88 more" -->
+            <!-- Right: 12 API tiles + "+ more" -->
             <g class="composio-tools" font-family="JetBrains Mono" font-size="10" fill="var(--text-mid)">
               <g transform="translate(540, 30)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">Gmail</text></g>
               <g transform="translate(620, 30)"><rect width="64" height="28" rx="4" fill="var(--bg-surface-2)" stroke="var(--border)"/><text x="32" y="18" text-anchor="middle">Slack</text></g>
@@ -4858,9 +4858,9 @@ h1, h2, h3, h4 {
 <section class="section" id="community">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Real agents, inside your business</span>
-      <h2 class="h2">Six categories. Every agent wired to a number your CFO can read.</h2>
-      <p class="lead">No tips. No theory. Agents that earn their keep.</p>
+      <span class="eyebrow">What we actually automate</span>
+      <h2 class="h2">Six things our agents ship, every week, in production.</h2>
+      <p class="lead">Each category maps to one agent in the fleet. This is the work we no longer touch by hand.</p>
     </div>
 
     <div class="categories">
@@ -4869,14 +4869,14 @@ h1, h2, h3, h4 {
           <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
         </div>
         <div class="cat-head">
-          <span class="cat-tag">01 / Revenue</span>
-          <span class="cat-freq">Live weekly</span>
+          <span class="cat-tag">01 / Design</span>
+          <span class="cat-freq">D-Rose</span>
         </div>
-        <h3 class="cat-headline">Stop guessing where revenue actually came from.</h3>
+        <h3 class="cat-headline">Stop letting design block your shipping speed.</h3>
         <ul>
-          <li>Lead-score agent · attribution dashboard</li>
+          <li>Landing pages, ad creatives, brand systems, all in-flow.</li>
         </ul>
-        <div class="cat-result">→ Every closed deal traces back to one ad.</div>
+        <div class="cat-result">→ A new page or creative shipped before the brief gets stale.</div>
       </article>
 
       <article class="cat reveal">
@@ -4886,14 +4886,14 @@ h1, h2, h3, h4 {
           <span class="type-line"></span>
         </div>
         <div class="cat-head">
-          <span class="cat-tag">02 / Content</span>
-          <span class="cat-freq">Always-on</span>
+          <span class="cat-tag">02 / Outreach</span>
+          <span class="cat-freq">Steph</span>
         </div>
-        <h3 class="cat-headline">Stop being your own content team.</h3>
+        <h3 class="cat-headline">Stop chasing every prospect manually.</h3>
         <ul>
-          <li>Brief-to-post agent · video script + thumbnail generator</li>
+          <li>Personalised outreach across LinkedIn, email, and DMs.</li>
         </ul>
-        <div class="cat-result">→ One brief in, three platforms out.</div>
+        <div class="cat-result">→ Prospects warmed and booked while you sleep.</div>
       </article>
 
       <article class="cat reveal">
@@ -4903,14 +4903,14 @@ h1, h2, h3, h4 {
           <span class="check-row"><span class="check-box"></span><span class="check-line"></span></span>
         </div>
         <div class="cat-head">
-          <span class="cat-tag">03 / Delivery</span>
-          <span class="cat-freq">Per client</span>
+          <span class="cat-tag">03 / Performance</span>
+          <span class="cat-freq">Kairi</span>
         </div>
-        <h3 class="cat-headline">Stop dropping the ball on client week 3.</h3>
+        <h3 class="cat-headline">Stop guessing which creative actually works.</h3>
         <ul>
-          <li>Onboarding agent · weekly status builder</li>
+          <li>Paid media audits, kill or scale calls, fresh creative tests.</li>
         </ul>
-        <div class="cat-result">→ Client retention stays above 90%.</div>
+        <div class="cat-result">→ Every ad spend decision backed by yesterday's numbers.</div>
       </article>
 
       <article class="cat reveal">
@@ -4918,14 +4918,14 @@ h1, h2, h3, h4 {
           <div class="radar"><div class="radar-sweep"></div></div>
         </div>
         <div class="cat-head">
-          <span class="cat-tag">04 / Visibility</span>
-          <span class="cat-freq">Weekly</span>
+          <span class="cat-tag">04 / Automation</span>
+          <span class="cat-freq">Iron Man</span>
         </div>
-        <h3 class="cat-headline">Stop finding out about anomalies at month-end.</h3>
+        <h3 class="cat-headline">Stop copy-pasting between tools that should talk.</h3>
         <ul>
-          <li>Campaign monitor · weekly P&amp;L digest</li>
+          <li>Email + WhatsApp + CRM wired with n8n and GHL.</li>
         </ul>
-        <div class="cat-result">→ See bleeds within 24 hours.</div>
+        <div class="cat-result">→ Every lead routed, tagged, followed up, on its own.</div>
       </article>
 
       <article class="cat reveal">
@@ -4936,14 +4936,14 @@ h1, h2, h3, h4 {
           <span class="sonar-core"></span>
         </div>
         <div class="cat-head">
-          <span class="cat-tag">05 / Intelligence</span>
-          <span class="cat-freq">On demand</span>
+          <span class="cat-tag">05 / Content</span>
+          <span class="cat-freq">Ant Man</span>
         </div>
-        <h3 class="cat-headline">Stop researching competitors manually.</h3>
+        <h3 class="cat-headline">Stop being your own content team.</h3>
         <ul>
-          <li>Ad-library scraper · viral content radar</li>
+          <li>IG carousels, LinkedIn essays, YouTube scripts, X threads.</li>
         </ul>
-        <div class="cat-result">→ New opportunities surface weekly.</div>
+        <div class="cat-result">→ Three platforms shipped on a rolling weekly schedule.</div>
       </article>
 
       <article class="cat reveal">
@@ -4956,10 +4956,10 @@ h1, h2, h3, h4 {
           </svg>
         </div>
         <div class="cat-head">
-          <span class="cat-tag">06 / Operations</span>
-          <span class="cat-freq">Always-on</span>
+          <span class="cat-tag">06 / Orchestration</span>
+          <span class="cat-freq">Zayn</span>
         </div>
-        <h3 class="cat-headline">Stop doing the same admin work twice.</h3>
+        <h3 class="cat-headline">Stop being the bottleneck of your own operation.</h3>
         <ul>
           <li>Invoice + GST generator · team capacity dashboard</li>
         </ul>
@@ -5224,8 +5224,8 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Where we're going</span>
-      <h2 class="h2">The next three quarters, in plain English.</h2>
-      <p class="lead">This is the community roadmap. Honest, hit-able targets. Quarter by quarter.</p>
+      <h2 class="h2">The next three quarters.</h2>
+      <p class="lead">Recurring weekly builds. Quarter milestones honest enough to hold us accountable.</p>
     </div>
 
     <!-- SVG timeline (draws on scroll into view) -->
@@ -5339,8 +5339,8 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Inside the locker</span>
-      <h2 class="h2">Everything I use to ship, sitting in a folder you can copy.</h2>
-      <p class="lead">Templates, prompts, recordings, and the live builds. The same files I open every morning.</p>
+      <h2 class="h2">Everything we ship together, in a folder you can fork as we build it.</h2>
+      <p class="lead">Templates, prompts, recordings, and live builds. We build the library together each week.</p>
     </div>
 
     <div class="categories">
@@ -5355,9 +5355,9 @@ h1, h2, h3, h4 {
           <span class="cat-tag">01 / Template library</span>
           <span class="cat-freq">Fork-ready</span>
         </div>
-        <h3 class="cat-headline">The full source of this exact page.</h3>
+        <h3 class="cat-headline">The full source of this exact page. The first file in our shared library.</h3>
         <ul>
-          <li>Every HTML, CSS, SVG, and asset that powers this landing page. The page you're reading is the template.</li>
+          <li>Every HTML, CSS, SVG, and asset that powers this landing page. The page you're reading is exhibit A in a library we build together.</li>
         </ul>
         <div class="cat-result">→ You walk out with a high-converting LP base you can rebrand in a weekend.</div>
       </article>
@@ -5375,9 +5375,9 @@ h1, h2, h3, h4 {
           <span class="cat-tag">02 / Hermes fleet</span>
           <span class="cat-freq">VPS-ready</span>
         </div>
-        <h3 class="cat-headline">The 5-agent fleet on a Hostinger box.</h3>
+        <h3 class="cat-headline">The 6-agent fleet on a Hostinger box.</h3>
         <ul>
-          <li>D-Rose, Curry, Antman, Kyrie, Ironman. Setup docs, cron schedules, skill manifests, Codex OAuth and OpenRouter fallback.</li>
+          <li>Zayn dispatches, the five specialists ship. Setup docs, cron schedules, skill manifests.</li>
         </ul>
         <div class="cat-result">→ You walk out with a runtime that runs while you sleep.</div>
       </article>
@@ -5392,7 +5392,7 @@ h1, h2, h3, h4 {
         </div>
         <h3 class="cat-headline">The briefs behind the campaigns that actually paid.</h3>
         <ul>
-          <li>Real briefs from past client work, scrubbed clean. Hook angles, ICP callouts, the Meta launch frameworks that survived contact with ad spend.</li>
+          <li>Real briefs from past client work, scrubbed. Hook angles, ICP, frameworks that survived ad spend.</li>
         </ul>
         <div class="cat-result">→ You walk out with attribution-first creative tests you can ship Monday.</div>
       </article>
@@ -5427,7 +5427,7 @@ h1, h2, h3, h4 {
         </div>
         <h3 class="cat-headline">A prompt library that knows which tool to pick.</h3>
         <ul>
-          <li>Claude Code for architecture, Codex for fast vibe-code, Antigravity for agentic dev, Gemini Flash for high-volume cron, Composio for tools, Mem0 for memory.</li>
+          <li>Claude Code, Codex, Antigravity, Gemini Flash, Composio, Mem0. The right tool for the right job.</li>
         </ul>
         <div class="cat-result">→ You walk out knowing the right hammer for every nail.</div>
       </article>
@@ -5457,7 +5457,7 @@ h1, h2, h3, h4 {
         </div>
         <h3 class="cat-headline">Watch me ship one new agent on camera. Every week.</h3>
         <ul>
-          <li>I build a new agent live on Wednesdays. You copy it by Friday. Recordings stay in the locker so you can rewatch at 2am.</li>
+          <li>New agent live every Wednesday. You copy it by Friday. Every recording in the locker for replay.</li>
         </ul>
         <div class="cat-result">→ You walk out with a fresh agent in your stack every single week.</div>
       </article>
@@ -5474,7 +5474,7 @@ h1, h2, h3, h4 {
         </div>
         <h3 class="cat-headline">A Skool feed where I actually reply.</h3>
         <ul>
-          <li>Ask questions, post broken builds, get unblocked the same day. The community ships together or stalls together. We ship.</li>
+          <li>Ask questions. Post broken builds. Get unblocked the same day.</li>
         </ul>
         <div class="cat-result">→ You walk out unstuck, with operators behind you.</div>
       </article>
@@ -5522,7 +5522,7 @@ h1, h2, h3, h4 {
         <div class="tier-feed" aria-label="Recent ships in the Lab">
           <div class="tier-feed-label"><span class="tier-feed-dot" aria-hidden="true"></span>RECENT SHIPS IN THE LAB</div>
           <div class="tier-feed-rotator">
-            <div class="feed-line active">"Curry follow-up agent" by @arjun_b &middot; 6h ago</div>
+            <div class="feed-line active">"Steph follow-up agent" by @arjun_b &middot; 6h ago</div>
             <div class="feed-line">"Inbox triage v2" by @priyanka_o &middot; 1d ago</div>
             <div class="feed-line">"Lead scoring webhook" by @rohan_g &middot; 2d ago</div>
           </div>
@@ -5688,65 +5688,53 @@ h1, h2, h3, h4 {
 
     <div class="section-head">
       <span class="eyebrow">Why I'm building this</span>
-      <h2 class="h2">14 years on the sales floor. Then AI rewrote the job description.</h2>
-      <p class="lead">The Lab is not a content move. It's the room I needed and could not find.</p>
+      <h2 class="h2">Vancouver, Hyderabad, and an AI-native agency that grew up online.</h2>
+      <p class="lead">The Lab is the room I needed and could not find. Live every week, agents in production, no theory.</p>
     </div>
 
     <div class="founder-story">
 
       <!-- BEAT 1 -->
       <div class="founder-beat reveal">
-        <div class="founder-beat-label">2012 to 2020</div>
-        <h3 class="founder-beat-head">I learned to think in revenue, not impressions.</h3>
+        <div class="founder-beat-label">Vancouver</div>
+        <h3 class="founder-beat-head">Started in Vancouver. Marketing operator from day one.</h3>
         <p class="founder-beat-body">
-          I started in Mumbai. Cold calls, sales targets, weekly close numbers pinned to a wall. Five years running sales and marketing at a consumer brand taught me one thing: revenue is the only metric that survives a Monday review. Marketing that does not move it gets cut.
-        </p>
-        <p class="founder-beat-body">
-          Then I ran my own D2C brand for three years. My money, my product, my P&L. Meta Ads, Google Ads, supplier calls, fulfilment, customer service. Every rupee spent had to earn its way back. That stretch is where I stopped being a marketer who talks about funnels and became an operator who reads them.
+          ZippyScale began as a remote-first growth agency for Canadian brands. Performance marketing, paid media, attribution. We never sold tactics. We sold numbers our clients could read in their P&L. Those Canadian clients are still on our roster today.
         </p>
       </div>
 
       <!-- BEAT 2 -->
       <div class="founder-beat reveal">
-        <div class="founder-beat-label">2020 to 2025</div>
-        <h3 class="founder-beat-head">ZippyScale, and the moment manual broke.</h3>
+        <div class="founder-beat-label">Hyderabad</div>
+        <h3 class="founder-beat-head">Then we planted roots in Hyderabad and doubled the footprint.</h3>
         <p class="founder-beat-body">
-          I started ZippyScale to build the one thing every agency in this country lies about: real attribution. Every rupee traced, every channel scored, every client decision defended with data. That promise carried us across 25+ brands and a chunk of tracked revenue I am proud of.
-        </p>
-        <p class="founder-beat-body">
-          Then it stopped scaling cleanly. Reports took hours. Outreach took weeks. Creative briefs sat in drafts. The agency hit the wall every operator hits, when the only growth lever left is hire more people, and the math stops working. I was not going to run a body shop. I needed leverage.
+          I shifted base to Hyderabad and set up India operations. Same standard, two markets. Canadian brands kept shipping. Indian clients came in. Now we run both sides of the world from one studio, with one ops layer behind every campaign.
         </p>
       </div>
 
       <!-- PULL QUOTE -->
       <figure class="founder-pullquote reveal">
         <blockquote class="founder-pullquote-text">
-          The first time Hermes shipped a piece of work without me, I closed the laptop and walked out. When I came back, the work was done, logged, and measured. That is the moment the agency stopped being a body shop in my head.
+          I do this because I love it. And I want other operators on the forefront of the agentic wave, not just users of someone else's chat product.
         </blockquote>
-        <figcaption class="founder-pullquote-cite">Sandy · founder note, March 2026</figcaption>
+        <figcaption class="founder-pullquote-cite">Sandy &middot; founder note</figcaption>
       </figure>
 
       <!-- BEAT 3 -->
       <div class="founder-beat reveal">
-        <div class="founder-beat-label">2026, the awakening</div>
-        <h3 class="founder-beat-head">I built Hermes. Then I watched it run.</h3>
+        <div class="founder-beat-label">AI inside the work</div>
+        <h3 class="founder-beat-head">We were AI-native before it was a category.</h3>
         <p class="founder-beat-body">
-          Hermes is the five-agent fleet that runs ZippyScale. It lives on a small VPS, talks to Claude Code, Codex, ChatGPT, Gemini and Antigravity, remembers what we said last week, and ships work on a cron schedule. It is not a chatbot. It is not a GPT. It is operators stitched together from the best models on the market, pointed at real revenue jobs.
-        </p>
-        <p class="founder-beat-body">
-          The first week it ran end-to-end, my role inside the agency changed. I stopped being the bottleneck and started being the architect. That is the shift I want every operator on this page to feel. Not "AI helped me draft a tweet." "AI shipped the work while I was at dinner."
+          From the start, we put AI inside the workflow, not on top of it. Not as a chat toy. As the engine that drafted, measured, and shipped. That early bet built the operating layer Hermes runs on today. Six agents, one VPS, every workflow we used to do by hand.
         </p>
       </div>
 
       <!-- BEAT 4 -->
       <div class="founder-beat reveal">
-        <div class="founder-beat-label">Why community, why now</div>
-        <h3 class="founder-beat-head">Every operator I know is six months behind a moving target.</h3>
+        <div class="founder-beat-label">Why this community, why now</div>
+        <h3 class="founder-beat-head">The agentic wave is the next platform shift. I want operators on the forefront.</h3>
         <p class="founder-beat-body">
-          A course goes stale the day it ships. The frontier moved this morning. The operator class, heads of growth, founders running their own marketing, agency owners with 5 to 30 clients, does not need another 12-hour playlist. They need a room that builds in front of them every week, with a working fleet on the table.
-        </p>
-        <p class="founder-beat-body">
-          That is the Lab. We open the hood on Hermes. You watch the agents run, fork the pieces you want, and ship your own. Every build comes with the measurement plan attached, so the agent shows up in your revenue report or it gets killed. No theory. No tactics-of-the-week. One operator, one room, agents in production.
+          Most people will meet AI through ChatGPT, Gemini, Anthropic. They will use the chat windows. The next shift is agentic, agents that ship the work for you. I want a room of operators who build on that shift, not just consume it. That is the Lab. We open the hood, build live, ship together.
         </p>
       </div>
 
@@ -5882,12 +5870,12 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Who you're learning from</span>
-      <h2 class="h2">One operator. 5-agent fleet. Running ZippyScale 24/7, built in 2026.</h2>
+      <h2 class="h2">One operator. 6-agent fleet. Running ZippyScale 24/7, built in 2026.</h2>
     </div>
 
     <div class="about-split">
       <div class="about-photo">
-        <img src="assets/photos/sandy-headshot-ig.jpg" alt="Sandy Kadyan" loading="lazy" />
+        <img src="assets/photos/sandy-headshot-hd.jpg" alt="Sandy Kadyan" loading="lazy" />
         <div class="about-photo-frame" aria-hidden="true"></div>
         <div class="about-photo-stamp" aria-live="polite">
           <span class="stamp-dot" aria-hidden="true"></span>
@@ -5901,7 +5889,7 @@ h1, h2, h3, h4 {
 
         <div class="quote-rotator" data-quote-rotator>
           <p class="quote-text active">Marketing operator. Claude Code addict. Building in public, sharing everything.</p>
-          <p class="quote-text">I built Hermes. 5 agents. Runs the agency 24/7 while I sleep.</p>
+          <p class="quote-text">I built Hermes. 6 agents. Runs the agency 24/7 while I sleep.</p>
           <p class="quote-text">Built from Hyderabad. For operators worldwide.</p>
         </div>
 
@@ -5951,14 +5939,14 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">The Fleet</span>
-      <h2 class="h2">Meet the 5-agent fleet.</h2>
-      <p class="lead">Five basketball-named operators running the agency 24/7. Watch live, copy what you need, ship your own.</p>
+      <h2 class="h2">Meet the 6-agent fleet.</h2>
+      <p class="lead">Six operators running the agency 24/7. Zayn orchestrates, five specialists ship. Watch live, copy what you need.</p>
     </div>
 
     <!-- Metrics strip -->
     <div class="hermes-metrics">
       <div class="metric">
-        <span class="metric-num">5</span>
+        <span class="metric-num">6</span>
         <span class="metric-label">agents</span>
       </div>
       <div class="metric">
@@ -5975,28 +5963,50 @@ h1, h2, h3, h4 {
       </div>
     </div>
 
-    <!-- 5 agent cards: 1x5 row layout -->
+    <!-- 6 agent cards: 2x3 grid -->
     <div class="hermes-fleet-grid">
+
+      <article class="agent-card reveal">
+        <div class="agent-card-head">
+          <span class="agent-status"><span class="agent-status-dot"></span>live</span>
+          <span class="agent-card-role">Orchestrator</span>
+        </div>
+        <h3 class="agent-card-name">Zayn</h3>
+        <div class="agent-powered-by">
+          <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
+          <span>Claude &middot; Opus 4.7</span>
+        </div>
+        <p class="agent-card-desc">Chief of staff. Reads every inbox, routes work to the right specialist, owns the schedule.</p>
+        <ul class="agent-card-ships">
+          <li>Dispatches every cron, owns the day plan</li>
+          <li>Triages 24+ inbound channels into one inbox</li>
+        </ul>
+        <div class="agent-recent-ships" aria-hidden="true">
+          <div class="ship-row"><span class="ship-time">7m</span> dispatched 9 tasks across the fleet</div>
+          <div class="ship-row"><span class="ship-time">2h</span> synced fleet state &middot; all green</div>
+          <div class="ship-row"><span class="ship-time">14h</span> morning briefing sent to inbox</div>
+        </div>
+      </article>
 
       <article class="agent-card agent-card--lead reveal">
         <div class="agent-card-head">
           <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">Orchestrator</span>
+          <span class="agent-card-role">Design</span>
         </div>
         <h3 class="agent-card-name">D-Rose</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
           <span>Claude · Opus 4.7</span>
         </div>
-        <p class="agent-card-desc">MVP point guard. Runs the floor, distributes the ball.</p>
+        <p class="agent-card-desc">MVP point guard. Designs landing pages, ad creatives, brand systems end-to-end.</p>
         <ul class="agent-card-ships">
-          <li>Dispatches the right specialist every morning at 09:00 IST</li>
-          <li>Grades work, files post-mortem to Mem0 + gbrain</li>
+          <li>Ships LPs in the v12+ pattern library, brand-locked</li>
+          <li>Cuts ad creative briefs in the operator voice</li>
         </ul>
         <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">7m</span> dispatched 9 tasks across fleet</div>
-          <div class="ship-row"><span class="ship-time">2h</span> synced fleet state · all green</div>
-          <div class="ship-row"><span class="ship-time">14h</span> morning briefing sent to inbox</div>
+          <div class="ship-row"><span class="ship-time">38m</span> shipped 3 LP concepts</div>
+          <div class="ship-row"><span class="ship-time">3h</span> 12 ad creative variants for testing</div>
+          <div class="ship-row"><span class="ship-time">9h</span> brand audit complete</div>
         </div>
       </article>
 
@@ -6005,7 +6015,7 @@ h1, h2, h3, h4 {
           <span class="agent-status"><span class="agent-status-dot"></span>live</span>
           <span class="agent-card-role">Outreach</span>
         </div>
-        <h3 class="agent-card-name">Curry</h3>
+        <h3 class="agent-card-name">Steph</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
           <span>Claude · Opus 4.7</span>
@@ -6025,17 +6035,17 @@ h1, h2, h3, h4 {
       <article class="agent-card reveal">
         <div class="agent-card-head">
           <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">Paid media</span>
+          <span class="agent-card-role">Content</span>
         </div>
-        <h3 class="agent-card-name">Antman</h3>
+        <h3 class="agent-card-name">Ant Man</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/openai-light.svg" alt="" width="14" height="14" />
           <span>Codex · GPT-5.5</span>
         </div>
-        <p class="agent-card-desc">High-flying. Attacks the rim, scales winners fast.</p>
+        <p class="agent-card-desc">High-flying scorer. IG carousels, LinkedIn essays, YouTube scripts, X threads.</p>
         <ul class="agent-card-ships">
-          <li>Daily Meta + Google spend audit · 16:00 IST</li>
-          <li>Kill/scale decisions logged · ABO→CBO graduation</li>
+          <li>Daily content slot, 3 channels: IG / LinkedIn / YouTube</li>
+          <li>Hook bank, scripts, and visuals on a weekly cadence</li>
         </ul>
         <div class="agent-recent-ships" aria-hidden="true">
           <div class="ship-row"><span class="ship-time">12m</span> monitored 7 ad sets · killed 1</div>
@@ -6047,17 +6057,17 @@ h1, h2, h3, h4 {
       <article class="agent-card reveal">
         <div class="agent-card-head">
           <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">Research</span>
+          <span class="agent-card-role">Performance + creative</span>
         </div>
-        <h3 class="agent-card-name">Kyrie</h3>
+        <h3 class="agent-card-name">Kairi</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/gemini-light.svg" alt="" width="14" height="14" />
           <span>Gemini Flash · 2.5</span>
         </div>
-        <p class="agent-card-desc">Crossover handles, dribbles through messy data. <strong>Memory + research</strong> for the fleet. Knows what every other agent has shipped and learned.</p>
+        <p class="agent-card-desc">Crossover handler. Manages paid media, reads the data, designs the next test.</p>
         <ul class="agent-card-ships">
-          <li>Indexes Gmail, WhatsApp, calendar into Mem0 + gbrain</li>
-          <li>Competitor scrapes + ICP vocab bank · 09:05 + 22:00</li>
+          <li>Daily Meta + Google audit, kill or scale calls</li>
+          <li>Creative test backlog, hooks + angles + variants</li>
         </ul>
         <div class="agent-recent-ships" aria-hidden="true">
           <div class="ship-row"><span class="ship-time">22m</span> indexed 47 new notes</div>
@@ -6069,17 +6079,17 @@ h1, h2, h3, h4 {
       <article class="agent-card reveal">
         <div class="agent-card-head">
           <span class="agent-status"><span class="agent-status-dot"></span>live</span>
-          <span class="agent-card-role">Ops monitoring</span>
+          <span class="agent-card-role">Automation</span>
         </div>
-        <h3 class="agent-card-name">Ironman</h3>
+        <h3 class="agent-card-name">Iron Man</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/openai-light.svg" alt="" width="14" height="14" />
           <span>Codex · GPT-5.5</span>
         </div>
-        <p class="agent-card-desc">Durability legend. Never misses a cron, every 15 minutes.</p>
+        <p class="agent-card-desc">Durability legend. Email, WhatsApp, CRM, every automation that touches a contact.</p>
         <ul class="agent-card-ships">
-          <li>n8n + GHL health, cron failures, secret rotation</li>
-          <li>Auto-escalates any failure event to Sandy</li>
+          <li>GHL workflows, n8n pipelines, WhatsApp + email campaigns</li>
+          <li>Lead routing, dedup, tagging, follow-ups across systems</li>
         </ul>
         <div class="agent-recent-ships" aria-hidden="true">
           <div class="ship-row"><span class="ship-time">06m</span> rotated 4 API keys</div>
@@ -6268,18 +6278,19 @@ h1, h2, h3, h4 {
           <img src="assets/logos/antigravity-light.svg" alt="Antigravity" />
           <span>Antigravity</span>
           <img src="assets/logos/hermes-real.svg" alt="Hermes" />
-          <span>Hermes 5-agent fleet</span>
+          <span>Hermes 6-agent fleet</span>
           <img src="assets/logos/composio-light.svg" alt="Composio" />
           <span>Composio</span>
           <img src="assets/logos/mem0-light.svg" alt="Mem0" />
           <span>Mem0</span>
           <img src="assets/logos/gbrain-light.svg" alt="gbrain" />
           <span>gbrain</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Zayn</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>D-Rose</span>
-          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Curry</span>
-          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Antman</span>
-          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Kyrie</span>
-          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Ironman</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Steph</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Ant Man</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Kairi</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Iron Man</span>
           <img src="assets/logos/openclaw-real.svg" alt="OpenClaw" />
           <span>OpenClaw inbox</span>
           <img src="assets/logos/n8n-light.svg" alt="n8n" />
@@ -6294,18 +6305,19 @@ h1, h2, h3, h4 {
           <img src="assets/logos/antigravity-light.svg" alt="" />
           <span>Antigravity</span>
           <img src="assets/logos/hermes-real.svg" alt="" />
-          <span>Hermes 5-agent fleet</span>
+          <span>Hermes 6-agent fleet</span>
           <img src="assets/logos/composio-light.svg" alt="" />
           <span>Composio</span>
           <img src="assets/logos/mem0-light.svg" alt="" />
           <span>Mem0</span>
           <img src="assets/logos/gbrain-light.svg" alt="" />
           <span>gbrain</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Zayn</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>D-Rose</span>
-          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Curry</span>
-          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Antman</span>
-          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Kyrie</span>
-          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Ironman</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Steph</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Ant Man</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Kairi</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Iron Man</span>
           <img src="assets/logos/openclaw-real.svg" alt="" />
           <span>OpenClaw inbox</span>
           <img src="assets/logos/n8n-light.svg" alt="" />
