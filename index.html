@@ -3641,6 +3641,90 @@ h1, h2, h3, h4 {
   letter-spacing: -0.01em;
 }
 
+/* v18 — OpenBot build progress widget */
+.openbot-progress {
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 20px 22px;
+}
+.op-progress-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+}
+.op-progress-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+  animation: op-pulse 2s ease-in-out infinite;
+}
+@keyframes op-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.45; } }
+.op-progress-label { color: var(--text-high); font-weight: 700; }
+.op-progress-count { margin-left: auto; color: var(--accent); font-weight: 600; }
+.op-progress-track {
+  height: 4px;
+  background: var(--bg-canvas);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.op-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), rgba(0, 161, 155, 0.6));
+  border-radius: 2px;
+  transition: width 1.2s cubic-bezier(.22,1,.36,1);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+.op-progress-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.op-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.4;
+}
+.op-step-marker {
+  width: 20px; height: 20px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border);
+  color: var(--text-low);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.op-step-done .op-step-marker {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.op-step-done { color: var(--text-high); }
+.op-step-active .op-step-marker {
+  background: var(--bg-canvas);
+  border-color: var(--accent);
+  color: var(--accent);
+  animation: op-pulse 2s ease-in-out infinite;
+}
+.op-step-active { color: var(--text-high); font-weight: 600; }
+/* End v18 openbot-progress */
+
+
 </style>
 </head>
 <body>
@@ -3708,7 +3792,7 @@ h1, h2, h3, h4 {
       <div class="hero-left">
         <span class="eyebrow hero-eyebrow">Operator AI, built to measure</span>
         <h1 class="h1" data-word-reveal>How operators are shipping <span class="accent">AI agents</span> that run while they sleep.<span class="pulse-dot" aria-hidden="true"></span></h1>
-        <p class="lead">6 agents building the next 50. Live every Wednesday. You watch, copy, ship. No code needed.</p>
+        <p class="lead">6 agents building the next 50. Live every Wednesday. No code needed.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary hero-cta" href="#webinar">
             <span class="hero-cta-main">Save my seat <span class="arrow">→</span></span>
@@ -3807,8 +3891,8 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Receipts, in public</span>
-      <h2 class="h2">I post the build. Every week.</h2>
-      <p class="lead">Real agents. Real workflows. Shipped this month.</p>
+      <h2 class="h2">I post the build.</h2>
+      <p class="lead">Real agents. Real workflows.</p>
     </div>
 
     <div class="ig-gallery">
@@ -3996,7 +4080,7 @@ h1, h2, h3, h4 {
     <div class="section-head">
       <span class="eyebrow">The AI Stack Behind Hermes</span>
       <h2 class="h2">The exact stack behind every agent I ship.</h2>
-      <p class="lead">Three brands. Six products. One fleet. Each tool has a job.</p>
+      <p class="lead">Three brands. Six products. One fleet.</p>
     </div>
 
     <!-- TIER 1: 3 PARENT BRANDS with stacked product cards -->
@@ -4319,7 +4403,7 @@ h1, h2, h3, h4 {
     </div>
 
     <div class="starter-close">
-      <p>Start with <b>one tool</b>, <b>one outcome</b>. The community helps you string them together. <b>No prerequisites</b> except the willingness to build.</p>
+      <p>Start with <b>one tool</b>, <b>one outcome</b>. The community handles the rest.</p>
       <a class="btn btn-primary" href="#webinar">Save my seat <span class="arrow">&rarr;</span></a>
     </div>
   </div>
@@ -4337,7 +4421,7 @@ h1, h2, h3, h4 {
     <div class="section-head reveal">
       <span class="eyebrow">Inside Hermes</span>
       <h2 class="h2">Autonomous. Self-improving. Multi-LLM. Always on.</h2>
-      <p class="lead">Hermes runs the agency. 6 agents, 5 models, on a cron. Here is how it ships while I sleep.</p>
+      <p class="lead">Hermes runs the agency. 6 agents on a cron.</p>
     </div>
 
     <!-- 06B · CRON SCHEDULE ============================================ -->
@@ -4827,8 +4911,8 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Build in public</span>
-      <h2 class="h2">I'm shipping OpenBot in public with Claude Code, Codex, and Antigravity.</h2>
-      <p class="lead">Open-source AI pet companion. Built with the same workflow we teach in the Lab.</p>
+      <h2 class="h2">OpenBot, shipped in public with Claude Code, Codex, Antigravity.</h2>
+      <p class="lead">Open-source AI pet, built with the same workflow we teach.</p>
     </div>
 
     <div class="openbot-split">
@@ -4850,8 +4934,8 @@ h1, h2, h3, h4 {
         </figure>
         <div class="openbot-waitlist">
           <div class="wl-label">CURRENTLY &middot; <strong>WAITLIST</strong></div>
-          <div class="wl-headline">Open hardware. Open code. Open invite.</div>
-          <p class="wl-body">Shipped in public, week by week. Waitlist is live at pawmebot.com.</p>
+          <div class="wl-headline">Open hardware. Open code.</div>
+          <p class="wl-body">Shipped in public. Waitlist at pawmebot.com.</p>
           <a href="https://pawmebot.com/" target="_blank" rel="noopener" class="wl-link">
             Join the waitlist <span class="arrow">&rarr;</span>
           </a>
@@ -4904,18 +4988,37 @@ h1, h2, h3, h4 {
           </div>
         </div>
 
+        <!-- v18: Build progress widget — fills the right column visually + tracks real state -->
+        <div class="openbot-progress">
+          <div class="op-progress-head">
+            <span class="op-progress-dot"></span>
+            <span class="op-progress-label">BUILD PROGRESS</span>
+            <span class="op-progress-count">3 of 5 milestones</span>
+          </div>
+          <div class="op-progress-track">
+            <div class="op-progress-fill" style="width: 60%;"></div>
+          </div>
+          <ul class="op-progress-list">
+            <li class="op-step op-step-done"><span class="op-step-marker">&check;</span>Concept &amp; hardware spec</li>
+            <li class="op-step op-step-done"><span class="op-step-marker">&check;</span>Open-source repo public</li>
+            <li class="op-step op-step-done"><span class="op-step-marker">&check;</span>Waitlist live at pawmebot.com</li>
+            <li class="op-step op-step-active"><span class="op-step-marker">&#9679;</span>Software MVP in build</li>
+            <li class="op-step"><span class="op-step-marker">&middot;</span>Beta units &middot; launch</li>
+          </ul>
+        </div>
+
         <div class="openbot-meta">
           <div class="meta-row">
             <span class="meta-label">STACK</span>
-            <span class="meta-value">Claude Code &middot; Codex &middot; Antigravity &middot; Python &middot; OpenCV &middot; Whisper &middot; Raspberry Pi</span>
+            <span class="meta-value">Claude Code &middot; Codex &middot; Antigravity &middot; Python &middot; OpenCV</span>
           </div>
           <div class="meta-row">
             <span class="meta-label">LICENSE</span>
-            <span class="meta-value">MIT (software) + CERN-OHL-S (hardware open-source)</span>
+            <span class="meta-value">MIT (code) + CERN-OHL-S (hardware)</span>
           </div>
           <div class="meta-row">
-            <span class="meta-label">METHODOLOGY</span>
-            <span class="meta-value">Same workflow I teach in the Lab. Same agents. Same loops.</span>
+            <span class="meta-label">WORKFLOW</span>
+            <span class="meta-value">Same as the Lab. Same agents.</span>
           </div>
         </div>
       </div>
@@ -4939,8 +5042,8 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">What we actually automate</span>
-      <h2 class="h2">Six things our agents ship. Every week.</h2>
-      <p class="lead">One agent per category. Work we no longer touch by hand.</p>
+      <h2 class="h2">Six things our agents ship.</h2>
+      <p class="lead">One agent, one category. Work we no longer touch.</p>
     </div>
 
     <div class="categories">
@@ -4952,7 +5055,7 @@ h1, h2, h3, h4 {
           <span class="cat-tag">01 / Design</span>
           <span class="cat-freq">D-Rose</span>
         </div>
-        <h3 class="cat-headline">Stop letting design block your shipping speed.</h3>
+        <h3 class="cat-headline">Design that does not block shipping.</h3>
         <ul>
           <li>Landing pages, ad creatives, brand systems, all in-flow.</li>
         </ul>
@@ -4969,7 +5072,7 @@ h1, h2, h3, h4 {
           <span class="cat-tag">02 / Outreach</span>
           <span class="cat-freq">Steph</span>
         </div>
-        <h3 class="cat-headline">Stop chasing every prospect manually.</h3>
+        <h3 class="cat-headline">Outreach without chasing.</h3>
         <ul>
           <li>Personalised outreach across LinkedIn, email, and DMs.</li>
         </ul>
@@ -4986,7 +5089,7 @@ h1, h2, h3, h4 {
           <span class="cat-tag">03 / Performance</span>
           <span class="cat-freq">Kyrie</span>
         </div>
-        <h3 class="cat-headline">Stop guessing which creative actually works.</h3>
+        <h3 class="cat-headline">Performance, backed by yesterday's numbers.</h3>
         <ul>
           <li>Paid media audits, kill or scale calls, fresh creative tests.</li>
         </ul>
@@ -5001,7 +5104,7 @@ h1, h2, h3, h4 {
           <span class="cat-tag">04 / Automation</span>
           <span class="cat-freq">Iron Man</span>
         </div>
-        <h3 class="cat-headline">Stop copy-pasting between tools that should talk.</h3>
+        <h3 class="cat-headline">Tools that finally talk.</h3>
         <ul>
           <li>Email + WhatsApp + CRM wired with n8n and GHL.</li>
         </ul>
@@ -5019,7 +5122,7 @@ h1, h2, h3, h4 {
           <span class="cat-tag">05 / Content</span>
           <span class="cat-freq">Ant Man</span>
         </div>
-        <h3 class="cat-headline">Stop being your own content team.</h3>
+        <h3 class="cat-headline">Content, three platforms, weekly.</h3>
         <ul>
           <li>IG carousels, LinkedIn essays, YouTube scripts, X threads.</li>
         </ul>
@@ -5039,7 +5142,7 @@ h1, h2, h3, h4 {
           <span class="cat-tag">06 / Orchestration</span>
           <span class="cat-freq">Zayn</span>
         </div>
-        <h3 class="cat-headline">Stop being the bottleneck of your own operation.</h3>
+        <h3 class="cat-headline">You stop being the bottleneck.</h3>
         <ul>
           <li>Invoice + GST generator · team capacity dashboard</li>
         </ul>
@@ -5062,9 +5165,9 @@ h1, h2, h3, h4 {
 <section class="section roadmap-section" id="roadmap">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">What you'll ship in 90 days</span>
-      <h2 class="h2">One agent in 30 days. Three by 60. A full stack by 90.</h2>
-      <p class="lead">Each month locks in one layer.</p>
+      <span class="eyebrow">Your first 90 days in the Lab</span>
+      <h2 class="h2">What 90 days inside the Lab actually looks like.</h2>
+      <p class="lead">No promises. Just the rhythm of the room.</p>
     </div>
 
     <!-- SVG timeline draws on scroll into view -->
@@ -5084,23 +5187,23 @@ h1, h2, h3, h4 {
     <div class="roadmap-months">
       <article class="month-card reveal" data-month="1">
         <div class="month-label">MONTH 01</div>
-        <h3 class="month-headline">Ship the first agent</h3>
-        <p class="month-outcome">1 agent live in your business &middot; saving you 5+ hours a week &middot; first measurable time-back.</p>
-        <p class="month-body">Pick a template. Watch the live build. Install it in a week.</p>
+        <h3 class="month-headline">Land in the room.</h3>
+        <p class="month-outcome">Meet the room &middot; pick a starting tool &middot; try your first agent with help.</p>
+        <p class="month-body">First Wednesday, you watch me build. Second Wednesday, you try one.</p>
       </article>
 
       <article class="month-card reveal" data-month="2">
         <div class="month-label">MONTH 02</div>
-        <h3 class="month-headline">Stack three more</h3>
-        <p class="month-outcome">3 agents stacked &middot; first measurable revenue or saving in your P&amp;L.</p>
-        <p class="month-body">Three agents stacked. Bring a problem to a weekly build, leave with the agent deployed.</p>
+        <h3 class="month-headline">Build with the room.</h3>
+        <p class="month-outcome">Bring problems to the Wednesday builds &middot; ship with the community behind you.</p>
+        <p class="month-body">You stop watching and start building. Members help. So do I.</p>
       </article>
 
       <article class="month-card reveal" data-month="3">
         <div class="month-label">MONTH 03</div>
-        <h3 class="month-headline">Run the operator stack</h3>
-        <p class="month-outcome">Your own operator stack running 24/7 &middot; agents earning while you sleep.</p>
-        <p class="month-body">Your own stack running 24/7. Workflows talk to each other. Members start copying your builds.</p>
+        <h3 class="month-headline">Others copy your builds.</h3>
+        <p class="month-outcome">You're a regular in the room &middot; your builds become someone else's starting point.</p>
+        <p class="month-body">You ship. Others fork. The room compounds, week by week.</p>
       </article>
     </div>
   
@@ -5314,8 +5417,8 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Where we're going</span>
-      <h2 class="h2">The next three quarters.</h2>
-      <p class="lead">Recurring weekly builds. Quarter milestones honest enough to hold us accountable.</p>
+      <h2 class="h2">Next three quarters.</h2>
+      <p class="lead">Weekly builds. Honest quarter milestones.</p>
     </div>
 
     <!-- SVG timeline (draws on scroll into view) -->
@@ -5429,8 +5532,8 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Inside the locker</span>
-      <h2 class="h2">Everything we ship together, in a folder you can fork as we build it.</h2>
-      <p class="lead">Templates, prompts, recordings, and live builds. We build the library together each week.</p>
+      <h2 class="h2">Everything we ship, in a folder you can fork.</h2>
+      <p class="lead">Templates, prompts, recordings, live builds. Weekly.</p>
     </div>
 
     <div class="categories">
@@ -5588,12 +5691,12 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Two tiers, one door</span>
-      <h2 class="h2">Two tiers. No upsell traps.</h2>
-      <p class="lead">Tier 1: the community. Inner Circle: founders on your stack.</p>
+      <h2 class="h2">Two tiers. No traps.</h2>
+      <p class="lead">Tier 1: community. Inner Circle: founders on your stack.</p>
     </div>
 
     <div class="offer-frame">
-      <span class="offer-frame-text">Not a course. An <strong>active community of operators</strong> shipping AI agents.</span>
+      <span class="offer-frame-text">Not a course. An <strong>active community of operators</strong>.</span>
     </div>
 
     <div class="ladder">
@@ -5605,7 +5708,7 @@ h1, h2, h3, h4 {
           <div class="price-sub">or ₹24,999 / yr &middot; cancel anytime</div>
         </div>
         <div class="tier-body">
-          <p>The community where builders ship AI agents, every week.</p>
+          <p>Where builders ship AI agents, weekly.</p>
           <ul>
             <li>Weekly live agent build, on camera, every Wednesday</li>
             <li>Recordings + templates for every build, fork-ready</li>
@@ -5647,7 +5750,7 @@ h1, h2, h3, h4 {
           <div class="price-alt">Sandy on your stack, every quarter.</div>
         </div>
         <div class="tier-body">
-          <p>Everything in The Lab, plus founders on your stack.</p>
+          <p>The Lab + founders on your stack.</p>
           <ul>
             <li>Everything in The Lab</li>
             <li>Quarterly 30-min 1:1 with Sandy on your stack</li>
@@ -5678,8 +5781,8 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Honest filter</span>
-      <h2 class="h2">Built for builders. Code optional.</h2>
-      <p class="lead">Nod down one column, you're in. Webinar first.</p>
+      <h2 class="h2">Built for builders.</h2>
+      <p class="lead">Nod down a column. Webinar first.</p>
     </div>
 
     <div class="filter-grid">
@@ -5796,8 +5899,8 @@ h1, h2, h3, h4 {
 
     <div class="section-head">
       <span class="eyebrow">Why I'm building this</span>
-      <h2 class="h2">Vancouver, Hyderabad, and an AI-native agency that grew up online.</h2>
-      <p class="lead">The Lab is the room I needed and could not find.</p>
+      <h2 class="h2">Vancouver to Hyderabad. AI-native agency.</h2>
+      <p class="lead">The Lab is the room I could not find.</p>
     </div>
 
     <div class="founder-story">
@@ -5807,7 +5910,7 @@ h1, h2, h3, h4 {
         <div class="founder-beat-label">Vancouver</div>
         <h3 class="founder-beat-head">Started in Vancouver. Marketing operator from day one.</h3>
         <p class="founder-beat-body">
-          Started as a remote-first growth agency for Canadian brands. Sold numbers, not tactics. Those clients are still with us today.
+          Started in Vancouver, building for Canadian brands. Sold numbers, not tactics. Those clients are still with us.
         </p>
       </div>
 
@@ -5816,7 +5919,7 @@ h1, h2, h3, h4 {
         <div class="founder-beat-label">Hyderabad</div>
         <h3 class="founder-beat-head">Then we planted roots in Hyderabad and doubled the footprint.</h3>
         <p class="founder-beat-body">
-          Moved base to Hyderabad. Added India clients. Same standard, two markets, one studio.
+          Moved to Hyderabad. Added India clients. Two markets, one studio.
         </p>
       </div>
 
@@ -5833,7 +5936,7 @@ h1, h2, h3, h4 {
         <div class="founder-beat-label">AI inside the work</div>
         <h3 class="founder-beat-head">We were AI-native before it was a category.</h3>
         <p class="founder-beat-body">
-          We put AI inside the work from day one, not as a chat toy. That early bet became Hermes. Six agents, every workflow we used to do by hand.
+          We put AI inside the work from day one. That bet became Hermes. Six agents, every workflow we used to do by hand.
         </p>
       </div>
 
@@ -5842,7 +5945,7 @@ h1, h2, h3, h4 {
         <div class="founder-beat-label">Why this community, why now</div>
         <h3 class="founder-beat-head">The agentic wave is the next platform shift. I want operators on the forefront.</h3>
         <p class="founder-beat-body">
-          Most people will only use chat windows. The next shift is agentic. I want operators building on that wave, not just consuming it. That is the Lab.
+          Most people will only use chat. The next shift is agentic. I want operators building it, not just using it. That is the Lab.
         </p>
       </div>
 
@@ -5983,7 +6086,7 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Who you're learning from</span>
-      <h2 class="h2">One operator. 6-agent fleet. Running the agency 24/7.</h2>
+      <h2 class="h2">One operator. 6-agent fleet. 24/7.</h2>
     </div>
 
     <div class="about-split">
@@ -6058,7 +6161,7 @@ h1, h2, h3, h4 {
     <div class="section-head">
       <span class="eyebrow">The Fleet</span>
       <h2 class="h2">Meet the 6-agent fleet.</h2>
-      <p class="lead">Six operators. Zayn dispatches. Five specialists ship.</p>
+      <p class="lead">Six operators. Zayn dispatches.</p>
     </div>
 
     <!-- Metrics strip -->
@@ -6284,7 +6387,7 @@ h1, h2, h3, h4 {
     <span class="eyebrow" style="margin-bottom: 24px;">13 / Save your seat</span>
     <h2 class="h2">See it live.</h2>
     <div class="final-cta-worldwide">
-      Built for builders worldwide &middot; Built from Hyderabad &middot; Open community, every week live
+      For builders worldwide &middot; from Hyderabad &middot; weekly live
     </div>
     <p>60 min, <span data-webinar-date>Wed, Jun 11, 8pm IST</span>. Hermes on screen, full operator stack, Tier 1 offer at close. Camera off, notebook on.</p>
 
