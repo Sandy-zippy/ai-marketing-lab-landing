@@ -446,6 +446,21 @@ h1, h2, h3, h4 {
   display: inline-block;
   font-weight: 800;
 }
+/* Mobile fix — disable wipe-reveal mask interaction with lime highlight,
+   keep a clean static gradient highlight so the two motions don't overlap visually */
+@media (max-width: 600px) {
+  .hero h1 .word-reveal:has(.accent),
+  .hero h1 .word-reveal .accent {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(180deg, transparent 65%, rgba(0, 255, 148, 0.45) 65%);
+    padding: 0 4px;
+    margin-left: 1px;
+  }
+}
 .hero h1 .pulse-dot {
   display: inline-block; width: 12px; height: 12px;
   border-radius: 50%; background: var(--accent);
@@ -3310,16 +3325,41 @@ h1, h2, h3, h4 {
   100% { transform: scale(1.04) translate(-0.5%, -0.5%); }
 }
 
-/* Workshop video — autoplays in viewport */
+/* OpenBot pawmebot video — portrait (9:16) */
+.openbot-video-wrap {
+  margin: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 .openbot-video {
   width: 100%;
-  border-radius: 12px;
+  height: auto;
   display: block;
   background: var(--bg-surface);
   border: 1px solid var(--border);
-  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+}
+.openbot-video-portrait {
+  max-width: 280px;
+  aspect-ratio: 9 / 16;
   object-fit: cover;
 }
+.openbot-video-caption {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-low);
+  text-align: center;
+  text-transform: uppercase;
+}
+.openbot-video-caption a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(0, 255, 148, 0.4);
+}
+.openbot-video-caption a:hover { border-bottom-color: var(--accent); }
 
 /* OpenBot waitlist card */
 .openbot-waitlist {
@@ -3470,6 +3510,55 @@ h1, h2, h3, h4 {
   .openbot-renders img { animation: none; }
   .openbot-badge-dot { animation: none; }
   .terminal-session { animation: none; }
+}
+
+/* ============================================================
+   v11 Wave 5 — Motion polish on 3 sections
+   1. 6 Categories — staggered fade-up on scroll
+   2. About proof stats — count-up on scroll into view
+   3. 90-Day Roadmap — soft glow cycling through month cards
+   ============================================================ */
+
+/* 1. Categories stagger entrance */
+.cat {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .55s cubic-bezier(.22,1,.36,1), transform .55s cubic-bezier(.22,1,.36,1);
+  transition-delay: var(--cat-delay, 0ms);
+}
+.cat.cat-in { opacity: 1; transform: translateY(0); }
+.cat.cat-in.cat-stagger-translate { transform: translateY(0) !important; }
+@media (min-width: 1080px) {
+  /* keep the existing slight offset for 2nd + 5th cards in a 3-col grid, but only after entrance */
+  .categories .cat.cat-in:nth-child(2),
+  .categories .cat.cat-in:nth-child(5) { transform: translateY(36px); }
+}
+
+/* 2. About proof stats — number rendered by JS via data-target, animated count-up */
+.proof-stat-num { transition: color .3s ease; }
+.proof-stat.stat-in .proof-stat-num {
+  animation: stat-pop .5s cubic-bezier(.22,1,.36,1);
+}
+@keyframes stat-pop {
+  0% { transform: scale(0.92); opacity: 0; }
+  60% { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 3. Roadmap month cards — cycling glow on labels */
+.month-card .month-label {
+  position: relative;
+  transition: box-shadow .6s ease, transform .6s ease;
+}
+.month-card.month-glow .month-label {
+  box-shadow: 0 0 0 0 rgba(0, 255, 148, 0.55), 0 0 22px 4px rgba(0, 255, 148, 0.35);
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat { opacity: 1; transform: none; transition: none; }
+  .proof-stat.stat-in .proof-stat-num { animation: none; }
+  .month-card.month-glow .month-label { box-shadow: none; transform: none; }
 }
 </style>
 </head>
@@ -4503,9 +4592,12 @@ h1, h2, h3, h4 {
           <img src="assets/openbot/render-01-bot-left.png" alt="OpenBot — 3/4 left angle" loading="lazy" />
           <img src="assets/openbot/render-02-bot-right.png" alt="OpenBot — 3/4 right angle" loading="lazy" />
         </div>
-        <video class="openbot-video" muted loop playsinline preload="metadata" poster="assets/openbot/workshop-poster.jpg">
-          <source src="assets/openbot/video-02-workshop.mp4" type="video/mp4" />
-        </video>
+        <figure class="openbot-video-wrap">
+          <video class="openbot-video openbot-video-portrait" muted loop playsinline preload="metadata" poster="assets/openbot/thankyou-poster.jpg">
+            <source src="assets/openbot/thankyou-video-01.mp4" type="video/mp4" />
+          </video>
+          <figcaption class="openbot-video-caption">From <a href="https://pawmebot.com/" target="_blank" rel="noopener">pawmebot.com</a> &middot; wake up your OpenBot</figcaption>
+        </figure>
         <div class="openbot-waitlist">
           <div class="wl-label">CURRENTLY &middot; <strong>WAITLIST</strong></div>
           <div class="wl-headline">Open hardware. Open code. Open invite.</div>
@@ -4523,7 +4615,7 @@ h1, h2, h3, h4 {
             <span class="t-dot t-dot-red"></span>
             <span class="t-dot t-dot-yellow"></span>
             <span class="t-dot t-dot-green"></span>
-            <span class="terminal-title">openbot :: claude + codex + antigravity :: live</span>
+            <span class="terminal-title">openbot :: claude &middot; codex &middot; antigravity &middot; chatgpt :: live</span>
           </div>
           <div class="terminal-body">
             <!-- 3 looping coding sessions cycle every ~10s each, total 30s loop -->
@@ -4550,6 +4642,14 @@ h1, h2, h3, h4 {
               <span class="t-line t-output">&rarr; stress test 1000 cycles</span>
               <span class="t-line t-success">&check; jitter -98% &middot; committed</span>
               <span class="t-line"><span class="t-prompt">operator $</span> ./test_servo_smoothness.sh</span>
+            </div>
+            <div class="terminal-session" data-session="4">
+              <span class="t-line"><span class="t-prompt">operator $</span> chatgpt research "open-source pet robot competitors"</span>
+              <span class="t-line t-output">&rarr; scanning Sony Aibo, MarsCat, Furby Connect, Petoi Bittle</span>
+              <span class="t-line t-output">&rarr; pricing $89&ndash;$2,899 &middot; features matrix &middot; gaps identified</span>
+              <span class="t-line t-output">&rarr; summarizing into product brief...</span>
+              <span class="t-line t-success">&check; brief saved &middot; 14 competitors mapped &middot; 3 wedge opportunities</span>
+              <span class="t-line"><span class="t-prompt">operator $</span> open brief.md</span>
             </div>
           </div>
         </div>
@@ -4973,18 +5073,18 @@ h1, h2, h3, h4 {
         <div class="quote-rotator" data-quote-rotator>
           <p class="quote-text active">Marketing operator. Claude Code addict. Building in public, sharing everything.</p>
           <p class="quote-text">I built Hermes. 5 agents. Runs the agency 24/7 while I sleep.</p>
-          <p class="quote-text">Ship from Hyderabad. Built for operators everywhere.</p>
+          <p class="quote-text">Built from Hyderabad. For operators worldwide.</p>
         </div>
 
         <p class="about-bio">The Lab is where I show the build, every week. Live. On camera. You copy what works.</p>
 
-        <div class="about-proof">
+        <div class="about-proof" id="aboutProof">
           <div class="proof-stat">
-            <div class="proof-stat-num">$2M+</div>
+            <div class="proof-stat-num" data-count-prefix="$" data-count-suffix="M+" data-count-target="2">$2M+</div>
             <div class="proof-stat-lbl">in client ad spend managed</div>
           </div>
           <div class="proof-stat">
-            <div class="proof-stat-num">10+</div>
+            <div class="proof-stat-num" data-count-suffix="+" data-count-target="10">10+</div>
             <div class="proof-stat-lbl">brands scaled across IN + US + CA</div>
           </div>
           <div class="proof-stat">
@@ -4992,12 +5092,12 @@ h1, h2, h3, h4 {
             <div class="proof-stat-lbl">Hermes built · iterating daily</div>
           </div>
           <div class="proof-stat">
-            <div class="proof-stat-num">36</div>
+            <div class="proof-stat-num" data-count-target="36">36</div>
             <div class="proof-stat-lbl">skills deployed across the fleet</div>
           </div>
         </div>
         <div class="about-tagline">
-          <span class="tagline-flag">●</span> Ship from <strong>Hyderabad</strong> · built for operators everywhere
+          <span class="tagline-flag">●</span> Built from <strong>Hyderabad</strong> &middot; for operators <strong>worldwide</strong>
         </div>
 
         <div class="about-meta">
@@ -5340,6 +5440,12 @@ h1, h2, h3, h4 {
           <span>Antigravity</span>
           <img src="assets/logos/hermes-light.svg" alt="Hermes" />
           <span>Hermes 5-agent fleet</span>
+          <img src="assets/logos/composio-light.svg" alt="Composio" />
+          <span>Composio</span>
+          <img src="assets/logos/mem0-light.svg" alt="Mem0" />
+          <span>Mem0</span>
+          <img src="assets/logos/gbrain-light.svg" alt="gbrain" />
+          <span>gbrain</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>D-Rose</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Curry</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Antman</span>
@@ -5360,6 +5466,12 @@ h1, h2, h3, h4 {
           <span>Antigravity</span>
           <img src="assets/logos/hermes-light.svg" alt="" />
           <span>Hermes 5-agent fleet</span>
+          <img src="assets/logos/composio-light.svg" alt="" />
+          <span>Composio</span>
+          <img src="assets/logos/mem0-light.svg" alt="" />
+          <span>Mem0</span>
+          <img src="assets/logos/gbrain-light.svg" alt="" />
+          <span>gbrain</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>D-Rose</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Curry</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Antman</span>
@@ -5630,7 +5742,7 @@ document.querySelectorAll('[data-seats-left]').forEach(function(el) {
     }
   }
 
-  // Workshop video: autoplay when 40% in viewport, pause when out
+  // OpenBot pawmebot video: autoplay when 40% in viewport, pause when out
   var video = document.querySelector('.openbot-video');
   if (video && !reduce && 'IntersectionObserver' in window) {
     var vio = new IntersectionObserver(function (entries) {
@@ -5644,6 +5756,103 @@ document.querySelectorAll('[data-seats-left]').forEach(function(el) {
       });
     }, { threshold: 0.4 });
     vio.observe(video);
+  }
+})();
+
+// ============================================================
+// v11 Wave 5 — Motion polish (3 sections)
+// 1. Categories: stagger fade-up on scroll
+// 2. About proof stats: count-up on first view
+// 3. Roadmap month-cards: soft glow cycling 1 → 2 → 3
+// ============================================================
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 1. Categories stagger
+  var cats = document.querySelectorAll('.categories .cat');
+  if (cats.length && 'IntersectionObserver' in window && !reduce) {
+    cats.forEach(function (c, i) { c.style.setProperty('--cat-delay', (i * 80) + 'ms'); });
+    var catIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('cat-in');
+          catIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    cats.forEach(function (c) { catIO.observe(c); });
+  } else if (cats.length) {
+    cats.forEach(function (c) { c.classList.add('cat-in'); });
+  }
+
+  // 2. Proof-stat count-up
+  var proofGrid = document.getElementById('aboutProof');
+  if (proofGrid && 'IntersectionObserver' in window) {
+    var stats = proofGrid.querySelectorAll('.proof-stat');
+    var animated = false;
+    var animateStat = function (el, target, prefix, suffix) {
+      var duration = 1100;
+      var start = performance.now();
+      var step = function (now) {
+        var p = Math.min(1, (now - start) / duration);
+        var eased = 1 - Math.pow(1 - p, 3);
+        var val = Math.round(target * eased);
+        el.textContent = (prefix || '') + val + (suffix || '');
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = (prefix || '') + target + (suffix || '');
+      };
+      requestAnimationFrame(step);
+    };
+    var pio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting || animated) return;
+        animated = true;
+        stats.forEach(function (s, i) {
+          s.classList.add('stat-in');
+          var n = s.querySelector('.proof-stat-num');
+          if (!n) return;
+          var tgt = parseInt(n.getAttribute('data-count-target'), 10);
+          if (!isNaN(tgt) && !reduce) {
+            var prefix = n.getAttribute('data-count-prefix') || '';
+            var suffix = n.getAttribute('data-count-suffix') || '';
+            setTimeout(function () { animateStat(n, tgt, prefix, suffix); }, i * 120);
+          }
+        });
+        pio.disconnect();
+      });
+    }, { threshold: 0.3 });
+    pio.observe(proofGrid);
+  }
+
+  // 3. Roadmap month-card cycling glow
+  var months = document.querySelectorAll('.roadmap-months .month-card');
+  if (months.length && !reduce) {
+    var idx = 0;
+    var cycle = function () {
+      months.forEach(function (m) { m.classList.remove('month-glow'); });
+      months[idx].classList.add('month-glow');
+      idx = (idx + 1) % months.length;
+    };
+    // Only start cycling when roadmap is in view
+    if ('IntersectionObserver' in window) {
+      var roadEl = document.querySelector('.roadmap');
+      if (roadEl) {
+        var roadIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting && !roadEl._glowTimer) {
+              cycle();
+              roadEl._glowTimer = setInterval(cycle, 1800);
+            } else if (!e.isIntersecting && roadEl._glowTimer) {
+              clearInterval(roadEl._glowTimer);
+              roadEl._glowTimer = null;
+              months.forEach(function (m) { m.classList.remove('month-glow'); });
+              idx = 0;
+            }
+          });
+        }, { threshold: 0.2 });
+        roadIO.observe(roadEl);
+      }
+    }
   }
 })();
 
