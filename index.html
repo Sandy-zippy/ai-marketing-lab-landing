@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>AI Marketing Lab : Ship AI agents that pay for themselves. Live, every week.</title>
-<meta name="description" content="How Indian operators are shipping AI agents that pay for themselves. Live builds every Wednesday. The Hermes 5-agent fleet, open. Join the next free webinar." />
+<meta name="description" content="How operators are shipping AI agents that run while they sleep. Live builds every Wednesday. The Hermes 5-agent fleet, open. Join the next free webinar." />
 <meta name="theme-color" content="#0A0E0D" />
 <link rel="icon" type="image/svg+xml" href="assets/aiml-symbol-favicon.svg" />
 <link rel="apple-touch-icon" href="assets/aiml-symbol-favicon.svg" />
@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://aimarketinglab.club/assets/og/aiml-og-1200x630.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="AI Marketing Lab. How Indian operators are shipping AI agents that pay for themselves. Wed, Jun 11, 8pm IST." />
+<meta property="og:image:alt" content="AI Marketing Lab. How operators are shipping AI agents that run while they sleep. Wed, Jun 11, 8pm IST." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://aimarketinglab.club/assets/og/aiml-og-1200x630.jpg" />
 <meta name="twitter:title" content="AI Marketing Lab : Ship AI agents that pay for themselves." />
@@ -473,6 +473,32 @@ h1, h2, h3, h4 {
 .hero-meta .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 8px rgba(0, 255, 148,0.6); animation: pulse 2s ease-in-out infinite; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
 
+.hero-meta-tag-community {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--accent-soft);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+.tag-pulse {
+  width: 5px; height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse-dot 1.6s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(0, 255, 148, 0.7);
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
 /* Hero CTA stacked layout: 2-line on <400px (iPhone SE), inline on ≥400px */
 .hero-cta { flex-direction: column; align-items: stretch; line-height: 1.3; padding-block: 16px; }
 .hero-cta-main { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600; font-size: 15px; }
@@ -635,6 +661,16 @@ h1, h2, h3, h4 {
 .timeline-body p { color: var(--text-mid); font-size: 15px; }
 
 /* Offer ladder */
+.offer-frame {
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 16px;
+  color: var(--text-mid);
+  max-width: 640px;
+  margin: 0 auto 40px;
+  line-height: 1.5;
+}
+.offer-frame strong { color: var(--accent); font-weight: 600; }
 .ladder { display: grid; grid-template-columns: 1fr; gap: 24px; }
 @media (min-width: 900px) { .ladder { grid-template-columns: 1fr 1fr; gap: 28px; } }
 .tier {
@@ -1143,6 +1179,16 @@ h1, h2, h3, h4 {
   padding: clamp(80px, 12vw, 140px) 0;
 }
 .final h2 { max-width: 26ch; margin: 0 auto 24px; }
+.final-cta-worldwide {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--text-low);
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
 .final p { max-width: 56ch; margin: 0 auto 36px; color: var(--text-mid); font-size: 17px; }
 .final-ctas { display: inline-flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
 
@@ -3491,8 +3537,8 @@ h1, h2, h3, h4 {
     <div class="hero-grid">
       <div class="hero-left">
         <span class="eyebrow hero-eyebrow">01 / Operator AI, built to measure</span>
-        <h1 class="h1" data-word-reveal>How Indian operators are shipping <span class="accent">AI agents</span> that pay for themselves<span class="pulse-dot" aria-hidden="true"></span></h1>
-        <p class="lead">5-agent fleet running my agency 24/7. Every Wednesday I build a new one on camera. You copy it by Friday.</p>
+        <h1 class="h1" data-word-reveal>How operators are shipping <span class="accent">AI agents</span> that run while they sleep. And pay for themselves.<span class="pulse-dot" aria-hidden="true"></span></h1>
+        <p class="lead">5 agents in production. Every Wednesday I build a new one live. You copy it Friday, even if you've never written code. The goal: AI agents earning money for you.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary hero-cta" href="#webinar">
             <span class="hero-cta-main">Save my seat <span class="arrow">→</span></span>
@@ -3500,6 +3546,10 @@ h1, h2, h3, h4 {
           </a>
         </div>
         <div class="hero-meta">
+          <span class="hero-meta-tag hero-meta-tag-community">
+            <span class="tag-pulse"></span>
+            COMMUNITY &middot; NOT A COURSE
+          </span>
           <span><i class="dot" aria-hidden="true"></i> Free 60-min webinar</span>
           <span>Live Hermes demo on screen</span>
           <span>200 seats &middot; closes when full</span>
@@ -4680,22 +4730,22 @@ h1, h2, h3, h4 {
       <article class="month-card reveal" data-month="1">
         <div class="month-label">MONTH 01</div>
         <h3 class="month-headline">Ship the first agent</h3>
-        <p class="month-outcome">1 agent live in your business. Measurement wired. Public commit.</p>
-        <p class="month-body">By Day 30 you have one revenue-tracked agent running. Pick a template, watch the live build, install in a week.</p>
+        <p class="month-outcome">1 agent live in your business &middot; saving you 5+ hours a week &middot; first measurable time-back.</p>
+        <p class="month-body">By Day 30: 1 agent live in your business · saving you 5+ hours a week · first measurable time-back. Pick a template, watch the live build, install in a week.</p>
       </article>
 
       <article class="month-card reveal" data-month="2">
         <div class="month-label">MONTH 02</div>
         <h3 class="month-headline">Stack three more</h3>
-        <p class="month-outcome">3–4 agents running. First measurable saving in your P&amp;L.</p>
-        <p class="month-body">Join the ship-with-me cohort, bring your problem, leave with the agent deployed. Repeat.</p>
+        <p class="month-outcome">3 agents stacked &middot; first measurable revenue or saving in your P&amp;L.</p>
+        <p class="month-body">By Day 60: 3 agents stacked · first measurable revenue or saving in your P&amp;L. Join the ship-with-me cohort, bring your problem, leave with the agent deployed.</p>
       </article>
 
       <article class="month-card reveal" data-month="3">
         <div class="month-label">MONTH 03</div>
         <h3 class="month-headline">Run the operator stack</h3>
-        <p class="month-outcome">Cross-system workflows. Inside the Stack tours unlocked.</p>
-        <p class="month-body">Combine the agents you have. Automate the seams. Watch Hermes tours for advanced patterns.</p>
+        <p class="month-outcome">Your own operator stack running 24/7 &middot; agents earning while you sleep.</p>
+        <p class="month-body">By Day 90: your own operator stack running 24/7 · cross-system workflows · members copying YOUR builds · agents earning while you sleep.</p>
       </article>
     </div>
   </div>
@@ -4712,6 +4762,10 @@ h1, h2, h3, h4 {
       <span class="eyebrow">08 / Two tiers, one door</span>
       <h2 class="h2">Two tiers. No upsell traps.</h2>
       <p class="lead">Tier 1 is the community. Inner Circle is the add-on with my hands on your stack.</p>
+    </div>
+
+    <div class="offer-frame">
+      <span class="offer-frame-text">This isn't a course. It's an <strong>active community of operators</strong> shipping AI agents with the tech of the century.</span>
     </div>
 
     <div class="ladder">
@@ -4805,37 +4859,37 @@ h1, h2, h3, h4 {
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You want to see what autonomous AI agents look like inside a real business</span>
+            <span class="filter-text">You have a builder-operator mind &middot; you ship things, even if you've never coded</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You run an agency, marketing team, or revenue-side ops where AI could carry more load</span>
+            <span class="filter-text">You want AI to do the work you hate &middot; so you focus on the work that matters</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You've used Claude or ChatGPT but most of your "AI work" never made it past the demo</span>
+            <span class="filter-text">You believe AI agents earning money for you isn't sci-fi &middot; it's tooling</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You want every agent you ship wired to a measurable outcome from day one</span>
+            <span class="filter-text">You want a room of builders &middot; not another YouTube playlist</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You'd rather watch one operator ship 50 agents than read 50 tutorials</span>
+            <span class="filter-text">You can commit 90 minutes a week &middot; to watch + ship alongside us</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You can commit 90 minutes a week to a live build and the work that follows</span>
+            <span class="filter-text">You'd rather build with the tech of the century &middot; than read about it</span>
           </li>
         </ul>
       </article>
@@ -4852,37 +4906,37 @@ h1, h2, h3, h4 {
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You want done-for-you AI. The Lab teaches you to build, not hires you a vendor.</span>
+            <span class="filter-text">You want done-for-you AI &middot; The Lab is for builders, not buyers of consultants</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You want passive watch-and-learn content. The Lab is application-grade.</span>
+            <span class="filter-text">You want passive watch-and-learn &middot; The Lab is for shipping, not consuming</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You believe "AI marketing" just means posting AI-generated content. We're past that.</span>
+            <span class="filter-text">You believe AI marketing = posting AI-generated content &middot; We're past that</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You're a developer hunting for deep technical architecture. The Lab is for operators.</span>
+            <span class="filter-text">You're a developer hunting for deep technical architecture &middot; The Lab is for operators</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You have no revenue you can attribute against. The Lab is for operators with skin in the game.</span>
+            <span class="filter-text">You have no work you want AI to do &middot; The Lab is for operators with a job to ship</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You want a community that ranks itself against others. The Lab doesn't position by comparison.</span>
+            <span class="filter-text">You want a community that ranks itself against others &middot; The Lab doesn't position by comparison</span>
           </li>
         </ul>
       </article>
@@ -4899,7 +4953,7 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">10 / Who you're learning from</span>
-      <h2 class="h2">One operator. 5-agent fleet. Running ZippyScale 24/7 since 2024.</h2>
+      <h2 class="h2">One operator. 5-agent fleet. Running ZippyScale 24/7, built in 2026.</h2>
     </div>
 
     <div class="about-split">
@@ -4934,8 +4988,8 @@ h1, h2, h3, h4 {
             <div class="proof-stat-lbl">brands scaled across IN + US + CA</div>
           </div>
           <div class="proof-stat">
-            <div class="proof-stat-num">2 yrs</div>
-            <div class="proof-stat-lbl">Hermes in production · 99%+ uptime</div>
+            <div class="proof-stat-num">2026</div>
+            <div class="proof-stat-lbl">Hermes built · iterating daily</div>
           </div>
           <div class="proof-stat">
             <div class="proof-stat-num">36</div>
@@ -4983,8 +5037,8 @@ h1, h2, h3, h4 {
         <span class="metric-label">skills</span>
       </div>
       <div class="metric">
-        <span class="metric-num">2 yrs</span>
-        <span class="metric-label">in production</span>
+        <span class="metric-num">2026</span>
+        <span class="metric-label">iterating daily</span>
       </div>
       <div class="metric">
         <span class="metric-num">24/7</span>
@@ -5071,7 +5125,7 @@ h1, h2, h3, h4 {
           <img src="assets/logos/gemini-light.svg" alt="" width="14" height="14" />
           <span>Gemini Flash · 2.5</span>
         </div>
-        <p class="agent-card-desc">Crossover handles. Dribbles through messy data.</p>
+        <p class="agent-card-desc">Crossover handles, dribbles through messy data. <strong>Memory + research</strong> for the fleet. Knows what every other agent has shipped and learned.</p>
         <ul class="agent-card-ships">
           <li>Indexes Gmail, WhatsApp, calendar into Mem0 + gbrain</li>
           <li>Competitor scrapes + ICP vocab bank · 09:05 + 22:00</li>
@@ -5130,6 +5184,14 @@ h1, h2, h3, h4 {
 
     <div class="faq">
       <details>
+        <summary>I'm not technical. Can I really build an AI agent?</summary>
+        <p>Yes. The agents you'll build are mostly no-code or low-code. We use Claude Code + Composio + visual tools so the workflow is "describe what you want, ship it." If you can describe the job, you can build the agent. We have operators in the Lab who have never written a line of code.</p>
+      </details>
+      <details>
+        <summary>Is this just another AI course?</summary>
+        <p>No. There are no curriculum modules to watch. There's a live build every Wednesday where I ship an agent on camera, and a community where members ship agents alongside us all week. Course-grade content is on YouTube for free. Community-grade execution, operators shipping together, is what's rare. That's the Lab.</p>
+      </details>
+      <details>
         <summary>Who is this for, exactly?</summary>
         <p>Operators with a P&amp;L. Agency owners, founders running their own marketing, heads of growth at SMB or mid-market. You're expected to be the AI person on the team.</p>
       </details>
@@ -5164,6 +5226,9 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <span class="eyebrow" style="margin-bottom: 24px;">13 / Save your seat</span>
     <h2 class="h2">See it live.</h2>
+    <div class="final-cta-worldwide">
+      Built for operators worldwide &middot; Built from Hyderabad &middot; Built with the tech of the century
+    </div>
     <p>60 min, <span data-webinar-date>Wed, Jun 11, 8pm IST</span>. Hermes on screen, full operator stack, Tier 1 offer at close. Camera off, notebook on.</p>
 
     <div class="final-cta-extras reveal">
