@@ -2216,12 +2216,7 @@ h1, h2, h3, h4 {
   /* v14: stagger removed per Sandy 2026-05-26 directive (cards 2+5 alignment) */
 }
 @media (min-width: 1000px) {
-  .hermes-fleet-grid .agent-card:nth-child(2) { transform: translateY(28px); }
-  .hermes-fleet-grid .agent-card:nth-child(5) { transform: translateY(28px); }
-  .hermes-fleet-grid .agent-card:nth-child(8) { transform: translateY(28px); }
-  .hermes-fleet-grid .agent-card:hover:nth-child(2),
-  .hermes-fleet-grid .agent-card:hover:nth-child(5),
-  .hermes-fleet-grid .agent-card:hover:nth-child(8) { transform: translateY(26px); }
+  /* v17: stagger removed per Sandy 2026-05-26 — was shoving D-Rose below Zayn */
 }
 
 /* Section divider — animated lime draw on scroll */
@@ -2454,9 +2449,7 @@ h1, h2, h3, h4 {
   .section-divider::after { width: 100%; transition: none; }
   .categories .cat:nth-child(2),
   .categories .cat:nth-child(5),
-  .hermes-fleet-grid .agent-card:nth-child(2),
-  .hermes-fleet-grid .agent-card:nth-child(5),
-  .hermes-fleet-grid .agent-card:nth-child(8) { transform: none; }
+/* v17: stagger override no longer needed */
   /* v8 wave 1 motion overrides */
   .model-card { animation: none; }
   .runtime-card-hermes::before { animation: none; }
@@ -3273,7 +3266,10 @@ h1, h2, h3, h4 {
 
 .openbot .section-head {
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 880px;
 }
 .openbot .section-head .lead { max-width: 680px; margin-inline: auto; }
 
@@ -3284,7 +3280,7 @@ h1, h2, h3, h4 {
   align-items: stretch;
 }
 @media (min-width: 980px) {
-  .openbot-split { grid-template-columns: 5fr 7fr; gap: 64px; }
+  .openbot-split { grid-template-columns: 5fr 7fr; gap: 48px; align-items: start; }
 }
 
 /* Left column: visual + Waitlist */
@@ -3518,7 +3514,7 @@ h1, h2, h3, h4 {
 
 .openbot-cta {
   text-align: center;
-  margin-top: 64px;
+  margin-top: 40px;
 }
 
 @media (max-width: 600px) {
@@ -4122,7 +4118,7 @@ h1, h2, h3, h4 {
         <div class="runtime-name">Hermes</div>
         <div class="runtime-tag">6-agent fleet &middot; running ZippyScale ops</div>
         <div class="runtime-agents">
-          <span>Zayn</span><span>D-Rose</span><span>Steph</span><span>Ant Man</span><span>Kairi</span><span>Iron Man</span>
+          <span>Zayn</span><span>D-Rose</span><span>Steph</span><span>Ant Man</span><span>Kyrie</span><span>Iron Man</span>
         </div>
       </article>
     </div>
@@ -4419,7 +4415,7 @@ h1, h2, h3, h4 {
               <circle cx="115.0" cy="347.2" r="6" class="agent-dot" style="animation-delay: 1.00s"><title>CURRY · 14:00 · Outreach sharpshooter</title></circle>
               <circle cx="52.8" cy="285.0" r="6" class="agent-dot" style="animation-delay: 2.00s"><title>ANTMAN · 16:00 · Paid media · scales winners</title></circle>
               <!-- Iron Man now shown as a perimeter ring (see above), no fixed-time dot -->
-              <!-- Kairi's second firing at 22:00 -->
+              <!-- Kyrie's second firing at 22:00 -->
               <circle cx="115.0" cy="52.8" r="6" class="agent-dot" style="animation-delay: 5.00s" opacity="0.55"><title>KYRIE · 22:00 · Nightly research run</title></circle>
             </g>
 
@@ -4736,7 +4732,7 @@ h1, h2, h3, h4 {
               <g transform="translate(40, 30)"><rect width="100" height="32" rx="6" fill="var(--bg-surface-2)" stroke="var(--accent)" stroke-width="1.5"/><text x="50" y="20" text-anchor="middle" font-weight="600">Zayn</text></g>
               <g transform="translate(40, 80)"><rect width="100" height="32" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="20" text-anchor="middle">D-Rose</text></g>
               <g transform="translate(40, 130)"><rect width="100" height="32" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="20" text-anchor="middle">Steph</text></g>
-              <g transform="translate(40, 180)"><rect width="100" height="32" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="20" text-anchor="middle">Kairi</text></g>
+              <g transform="translate(40, 180)"><rect width="100" height="32" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="20" text-anchor="middle">Kyrie</text></g>
               <g transform="translate(40, 230)"><rect width="100" height="32" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="20" text-anchor="middle">Ant Man</text></g>
               <g transform="translate(40, 280)"><rect width="100" height="32" rx="6" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/><text x="50" y="20" text-anchor="middle">Iron Man</text></g>
             </g>
@@ -4988,7 +4984,7 @@ h1, h2, h3, h4 {
         </div>
         <div class="cat-head">
           <span class="cat-tag">03 / Performance</span>
-          <span class="cat-freq">Kairi</span>
+          <span class="cat-freq">Kyrie</span>
         </div>
         <h3 class="cat-headline">Stop guessing which creative actually works.</h3>
         <ul>
@@ -6181,7 +6177,7 @@ h1, h2, h3, h4 {
           <span class="agent-status"><span class="agent-status-dot"></span>live</span>
           <span class="agent-card-role">Performance + creative</span>
         </div>
-        <h3 class="agent-card-name">Kairi</h3>
+        <h3 class="agent-card-name">Kyrie</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/gemini-light.svg" alt="" width="14" height="14" />
           <span>Gemini Flash · 2.5</span>
@@ -6411,7 +6407,7 @@ h1, h2, h3, h4 {
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>D-Rose</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Steph</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Ant Man</span>
-          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Kairi</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Kyrie</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Iron Man</span>
           
           <img src="assets/logos/n8n-light.svg" alt="n8n" />
@@ -6437,7 +6433,7 @@ h1, h2, h3, h4 {
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>D-Rose</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Steph</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Ant Man</span>
-          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Kairi</span>
+          <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Kyrie</span>
           <span class="footer-bw-bb"><span class="footer-bw-bb-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8 Q8 4 14 8 M2 8 Q8 12 14 8 M8 1.5 V14.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></span>Iron Man</span>
           
           <img src="assets/logos/n8n-light.svg" alt="" />
