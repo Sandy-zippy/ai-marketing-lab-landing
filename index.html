@@ -3288,10 +3288,11 @@ h1, h2, h3, h4 {
 }
 
 /* Left column: visual + Waitlist */
+/* v14: tightened internal gaps */
 .openbot-visual {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
   height: 100%;
 }
 
@@ -3350,11 +3351,11 @@ h1, h2, h3, h4 {
 
 /* OpenBot pawmebot video — portrait (9:16) */
 .openbot-video-wrap {
-  margin: 16px 0 0;
+  margin: 12px 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 .openbot-video {
   width: 100%;
@@ -3434,13 +3435,10 @@ h1, h2, h3, h4 {
 .openbot-content {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 24px;
   align-items: stretch;
-  height: 100%;
-  justify-content: space-between;
 }
 .openbot-terminal, .openbot-meta { width: 100%; }
-.openbot-meta { margin-top: auto; }
 
 .openbot-terminal {
   background: #060A09;
@@ -4764,7 +4762,7 @@ h1, h2, h3, h4 {
           <img src="assets/openbot/render-02-bot-right.png" alt="OpenBot — 3/4 right angle" loading="lazy" />
         </div>
         <figure class="openbot-video-wrap">
-          <video class="openbot-video openbot-video-portrait" muted loop playsinline preload="metadata" poster="assets/openbot/thankyou-poster.jpg">
+          <video class="openbot-video openbot-video-portrait" autoplay muted loop playsinline preload="auto" poster="assets/openbot/thankyou-poster.jpg">
             <source src="assets/openbot/thankyou-video-01.mp4" type="video/mp4" />
           </video>
           <figcaption class="openbot-video-caption">From <a href="https://pawmebot.com/" target="_blank" rel="noopener">pawmebot.com</a> &middot; wake up your OpenBot</figcaption>
@@ -5511,13 +5509,15 @@ h1, h2, h3, h4 {
           <div class="price-sub">or ₹24,999 / yr &middot; cancel anytime</div>
         </div>
         <div class="tier-body">
-          <p>The community where operators learn to ship.</p>
+          <p>The community where builders ship AI agents, every week.</p>
           <ul>
-            <li>Weekly live agent builds (recorded)</li>
-            <li>Monthly ship-with-me cohort + deploy review</li>
-            <li>Monthly Inside the Stack: Hermes walkthrough</li>
-            <li>Template library, 1-2 new templates a month</li>
-            <li>Skool community + founder office hours</li>
+            <li>Weekly live agent build, on camera, every Wednesday</li>
+            <li>Recordings + templates for every build, fork-ready</li>
+            <li>Platform-specific prompts (Claude, Codex, Antigravity, Gemini, Composio, Mem0)</li>
+            <li>Beginner basics: what each tool is for, in plain English</li>
+            <li>Monthly ship-with-me cohort: bring a problem, leave with the agent</li>
+            <li>Member feed: ask, post, get unblocked the same day</li>
+            <li>Sandy in the room, founder office hours every week</li>
           </ul>
         </div>
         <div class="tier-feed" aria-label="Recent ships in the Lab">
@@ -5554,10 +5554,11 @@ h1, h2, h3, h4 {
           <p>Everything in The Lab, plus founders on your stack.</p>
           <ul>
             <li>Everything in The Lab</li>
-            <li>Quarterly 30-min 1:1 with Sandy</li>
+            <li>Quarterly 30-min 1:1 with Sandy on your stack</li>
             <li>Private Telegram, direct line to founders</li>
-            <li>One agent co-build per quarter with founders</li>
-            <li>Founding 30 locks ₹1,00,000 for life</li>
+            <li>One agent co-build per quarter, founders on your screen</li>
+            <li>Priority review on your builds in the monthly cohort</li>
+            <li>Founding 30 locks ₹1,00,000 for life, price rises after seat 30</li>
           </ul>
         </div>
         <div class="tier-cta-note">&rarr; Application opens 30 days after you join Tier 1</div>
@@ -5577,7 +5578,7 @@ h1, h2, h3, h4 {
     <div class="section-head">
       <span class="eyebrow">Honest filter</span>
       <h2 class="h2">Built for builders. Whether you ship code or have never written a line.</h2>
-      <p class="lead">Nod through one column, you're in. The other, save your ₹2,499.</p>
+      <p class="lead">Nod through one column, you're with us. Either way, hop in for the webinar first.</p>
     </div>
 
     <div class="filter-grid">
@@ -5658,13 +5659,13 @@ h1, h2, h3, h4 {
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You're a developer hunting for deep technical architecture &middot; The Lab is for operators</span>
+            <span class="filter-text">You're hunting for deep engineering theory &middot; The Lab is for shippers, not theorists</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You have no work you want AI to do &middot; The Lab is for operators with a job to ship</span>
+            <span class="filter-text">You'd rather watch than build &middot; The Lab is hands-on, every week</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
