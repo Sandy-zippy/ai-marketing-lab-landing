@@ -1203,7 +1203,7 @@ h1, h2, h3, h4 {
   background: linear-gradient(180deg, var(--bg-surface-2) 0%, var(--bg-canvas) 100%);
   border-top: 1px solid var(--border-strong);
   text-align: center;
-  padding: clamp(56px, 8vw, 96px) 0;
+  padding: clamp(48px, 7vw, 88px) 0;
 }
 .final h2 { max-width: 26ch; margin: 0 auto 24px; }
 .final-cta-worldwide {
@@ -1929,7 +1929,7 @@ h1, h2, h3, h4 {
    AI Stack v11 — 5-tier hierarchy (Brands → Infra → Runtime → Routing → Workflow)
    ============================================================ */
 .ai-stack-v11 {
-  padding: clamp(56px, 8vw, 96px) 0;
+  padding: clamp(48px, 7vw, 88px) 0;
   background: var(--bg-canvas);
   position: relative;
   border-top: 1px solid var(--border);
@@ -2471,7 +2471,7 @@ h1, h2, h3, h4 {
 
 /* ============================================================ */
 /* v8 Wave 3 — 90-DAY ROADMAP REDESIGN (SVG timeline) */
-.roadmap-section { padding: clamp(56px, 8vw, 96px) 0; }
+.roadmap-section { padding: clamp(48px, 7vw, 88px) 0; }
 .roadmap-section .section-head { text-align: center; margin-left: auto; margin-right: auto; max-width: 720px; }
 .roadmap-timeline {
   margin: 56px auto 0;
@@ -2580,7 +2580,7 @@ h1, h2, h3, h4 {
 
 /* ============================================================ */
 /* v8 Wave 3 — MEET SANDY (editorial split, quote rotation) */
-.about-section { padding: clamp(56px, 8vw, 96px) 0; }
+.about-section { padding: clamp(48px, 7vw, 88px) 0; }
 .about-section .section-head { margin-bottom: 0; }
 .about-split {
   display: grid;
@@ -2768,7 +2768,7 @@ h1, h2, h3, h4 {
    v9 Wave C — DEEP HERMES / OPENCLAW ARCHITECTURE
    ============================================================ */
 .hermes-deep {
-  padding: clamp(56px, 8vw, 96px) 0;
+  padding: clamp(48px, 7vw, 88px) 0;
   background: var(--bg-canvas);
   position: relative;
 }
@@ -3259,7 +3259,7 @@ h1, h2, h3, h4 {
    v9 Wave D — OpenBot Build-in-Public section
    ============================================================ */
 .openbot {
-  padding: clamp(56px, 8vw, 96px) 0;
+  padding: clamp(48px, 7vw, 88px) 0;
   background: var(--bg-canvas);
   position: relative;
 }
@@ -3578,7 +3578,39 @@ h1, h2, h3, h4 {
   .month-card.month-glow .month-label { box-shadow: none; transform: none; }
 }
 
-#inner-circle .section-head, .roadmap-section .section-head, #community-roadmap .section-head, #community-locker .section-head, #community .section-head { text-align: center; margin-left: auto; margin-right: auto; max-width: 720px; }
+/* v19: every section-head centered properly (text-align + margin-inline auto on the box itself) */
+#receipts .section-head,
+#ai-stack .section-head,
+.hermes-deep .section-head,
+#community .section-head,
+.roadmap-section .section-head,
+#community-roadmap .section-head,
+#community-locker .section-head,
+#inner-circle .section-head,
+#founder-story .section-head,
+#about .section-head,
+#hermes .section-head,
+.openbot .section-head {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 760px;
+}
+#receipts .section-head .lead,
+#ai-stack .section-head .lead,
+.hermes-deep .section-head .lead,
+#community .section-head .lead,
+.roadmap-section .section-head .lead,
+#community-roadmap .section-head .lead,
+#community-locker .section-head .lead,
+#inner-circle .section-head .lead,
+#founder-story .section-head .lead,
+#about .section-head .lead,
+#hermes .section-head .lead,
+.openbot .section-head .lead {
+  margin-left: auto;
+  margin-right: auto;
+}
 /* v16 — section-cta line, every section nudges toward webinar (bigger + more visible) */
 .section-cta-line {
   margin: 48px auto 0;
