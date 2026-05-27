@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>AI Marketing Lab : Ship AI agents that pay for themselves. Live, every week.</title>
-<meta name="description" content="How operators are shipping AI agents that run while they sleep. Built live, every Wednesday. The Hermes 6-agent fleet, open. Join the next free webinar." />
+<meta name="description" content="AI Marketing Lab is a live community for marketers who build agents for leads, follow-up, campaigns, and paid client work. Watch Sandy build live every Wednesday." />
 <meta name="theme-color" content="#0A0E0D" />
 <link rel="icon" type="image/svg+xml" href="assets/aiml-symbol-favicon.svg" />
 <link rel="apple-touch-icon" href="assets/aiml-symbol-favicon.svg" />
@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://sandy-zippy.github.io/ai-marketing-lab-landing/assets/og/aiml-og-1200x630.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="AI Marketing Lab. How operators are shipping AI agents that run while they sleep. Wed, Jun 11, 8pm IST." />
+<meta property="og:image:alt" content="AI Marketing Lab. Build AI agents for real marketing work. Wed, Jun 11, 8pm IST." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://sandy-zippy.github.io/ai-marketing-lab-landing/assets/og/aiml-og-1200x630.jpg" />
 <meta name="twitter:title" content="AI Marketing Lab : Ship AI agents that pay for themselves." />
@@ -3661,7 +3661,9 @@ h1, h2, h3, h4 {
 #founder-story .section-head,
 #about .section-head,
 #hermes .section-head,
-.openbot .section-head {
+.openbot .section-head,
+#fit-check .section-head,
+#faq .section-head {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -3678,7 +3680,9 @@ h1, h2, h3, h4 {
 #founder-story .section-head .lead,
 #about .section-head .lead,
 #hermes .section-head .lead,
-.openbot .section-head .lead {
+.openbot .section-head .lead,
+#fit-check .section-head .lead,
+#faq .section-head .lead {
   margin-left: auto;
   margin-right: auto;
 }
@@ -3737,11 +3741,30 @@ h1, h2, h3, h4 {
 /* End v16 section-cta */
 
 .webinar-submit-btn {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   font-size: clamp(15px, 1.4vw, 18px) !important;
   padding: 18px 24px !important;
   width: 100%;
   font-weight: 800 !important;
   letter-spacing: -0.01em;
+}
+.webinar-submit-date {
+  font-family: var(--mono);
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+@media (max-width: 520px) {
+  .webinar-submit-btn {
+    flex-direction: column;
+    gap: 6px;
+    line-height: 1.2;
+  }
+  .webinar-submit-date { font-size: 12px; }
+  .webinar-submit-btn .arrow { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); }
 }
 
 /* v18 — OpenBot build progress widget */
@@ -3893,9 +3916,9 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-left">
-        <span class="eyebrow hero-eyebrow">AI for marketers who want their agents to earn</span>
-        <h1 class="h1" data-word-reveal>How operators are shipping <span class="accent">AI agents</span> that run while they sleep.<span class="pulse-dot" aria-hidden="true"></span></h1>
-        <p class="lead">6 agents that bill our clients while we sleep. New one live every Wednesday. No code, just marketing that pays for itself.</p>
+        <span class="eyebrow hero-eyebrow">Live AI community for marketers</span>
+        <h1 class="h1" data-word-reveal>Build <span class="accent">AI agents</span> that do real marketing work.<span class="pulse-dot" aria-hidden="true"></span></h1>
+        <p class="lead">Get leads, follow up, ship campaigns, and support paid client work. Every Wednesday, watch Sandy build one agent live and get the workflow.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary hero-cta" href="#webinar">
             <span class="hero-cta-main">Save my seat <span class="arrow">→</span></span>
@@ -3905,10 +3928,10 @@ h1, h2, h3, h4 {
         <div class="hero-meta">
           <span class="hero-meta-tag hero-meta-tag-community">
             <span class="tag-pulse"></span>
-            COMMUNITY &middot; NOT A COURSE
+            LIVE COMMUNITY &middot; NOT A COURSE
           </span>
           <span><i class="dot" aria-hidden="true"></i> Free 60-min webinar</span>
-          <span>Live Hermes demo on screen</span>
+          <span>One revenue workflow built live</span>
           <span>200 seats &middot; closes when full</span>
         </div>
       </div>
@@ -3971,7 +3994,7 @@ h1, h2, h3, h4 {
       <div class="proof-metric proof-metric-divider"></div>
       <div class="proof-metric">
         <span class="proof-metric-label">Agents ran today</span>
-        <span class="proof-metric-value proof-metric-counter" data-counter="agentRuns" data-target="4392">0</span>
+        <span class="proof-metric-value proof-metric-counter" data-counter="agentRuns" data-target="4392">4,392</span>
       </div>
       <div class="proof-metric proof-metric-divider"></div>
       <div class="proof-metric">
@@ -4181,9 +4204,9 @@ h1, h2, h3, h4 {
 <section class="ai-stack-v11" id="ai-stack">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">The AI Stack Behind Hermes</span>
-      <h2 class="h2">The exact stack behind every agent I ship.</h2>
-      <p class="lead">Three brands. Six products. One fleet. The same stack that bills our clients.</p>
+      <span class="eyebrow">Tools you will actually use</span>
+      <h2 class="h2">The stack we use to build revenue agents.</h2>
+      <p class="lead">Plan the agent. Build the workflow. Connect the tools. Use it on real marketing work.</p>
     </div>
 
     <!-- TIER 1: 3 PARENT BRANDS with stacked product cards -->
@@ -4452,9 +4475,9 @@ h1, h2, h3, h4 {
 <section class="section" id="beginner-start">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Start here</span>
-      <h2 class="h2">Never coded? You're not behind. You're early.</h2>
-      <p class="lead">AI agents aren't sci-fi. They're tooling. If you can describe what you want, you can build it. Here is what each tool is actually for, in plain English. Pick one. Start at your pace. The community helps with the rest.</p>
+      <span class="eyebrow">Beginner-friendly</span>
+      <h2 class="h2">Never coded? Start with one useful workflow.</h2>
+      <p class="lead">If you can describe the marketing job, you can build the first version. The Lab gives you the tools, templates, and people to get it working.</p>
     </div>
 
     <div class="starter-grid">
@@ -4463,50 +4486,50 @@ h1, h2, h3, h4 {
       <article class="starter-card">
         <div class="starter-tag">01 / The architect</div>
         <div class="starter-name">Claude Code</div>
-        <div class="starter-role">Plans before it builds.</div>
+        <div class="starter-role">Turns messy ideas into build plans.</div>
         <p class="starter-body">
-          Use it when you have a fuzzy idea and need a real plan. <b>Claude Code</b> is good at thinking across many files, deep reasoning, and designing a system before a single line of code gets written. Talk to it like a senior engineer who actually reads the whole brief.
+          Use <b>Claude Code</b> when you know the outcome but not the system. It turns a fuzzy marketing problem into a clear agent plan.
         </p>
-        <div class="starter-outcome">Ask Claude what to build, before you build it.</div>
+        <div class="starter-outcome">Know what to build before you build.</div>
       </article>
 
       <!-- CARD 2 / Codex + ChatGPT -->
       <article class="starter-card">
         <div class="starter-tag">02 / The fast hands</div>
         <div class="starter-name">Codex &middot; ChatGPT</div>
-        <div class="starter-role">Turns a plan into a working thing.</div>
+        <div class="starter-role">Turns plans into working automations.</div>
         <p class="starter-body">
-          Once the plan exists, <b>Codex</b> and <b>ChatGPT</b> are the fast hands that ship it. Daily ops, content, quick scripts, small workflows. Type the request, get the working output, move on. This is where most of your day actually happens.
+          Use <b>Codex</b> and <b>ChatGPT</b> for scripts, pages, prompts, reports, and quick workflows. Less theory. More shipped.
         </p>
-        <div class="starter-outcome">Ship a workflow before your coffee gets cold.</div>
+        <div class="starter-outcome">Ship a useful workflow fast.</div>
       </article>
 
       <!-- CARD 3 / Antigravity + Gemini Flash -->
       <article class="starter-card">
         <div class="starter-tag">03 / The cron worker</div>
         <div class="starter-name">Antigravity &middot; Gemini Flash</div>
-        <div class="starter-role">Runs while you sleep.</div>
+        <div class="starter-role">Runs boring work in the background.</div>
         <p class="starter-body">
-          For the boring, high-volume work that should never touch your hands. <b>Antigravity</b> and <b>Gemini Flash</b> are cheap enough to run all day, schedule overnight, and chew through tasks in the background. Think: tagging, sorting, summarising, polling.
+          Use <b>Antigravity</b> and <b>Gemini Flash</b> for tagging, sorting, summarising, polling, and other high-volume tasks.
         </p>
-        <div class="starter-outcome">Your overnight assistant. Cheaper than coffee.</div>
+        <div class="starter-outcome">Your assistant for repeat work.</div>
       </article>
 
       <!-- CARD 4 / n8n + Composio -->
       <article class="starter-card">
         <div class="starter-tag">04 / The wires</div>
         <div class="starter-name">n8n &middot; Composio</div>
-        <div class="starter-role">Connects everything you already use.</div>
+        <div class="starter-role">Connects your marketing tools.</div>
         <p class="starter-body">
-          The plumbing. <b>n8n</b> and <b>Composio</b> wire your tools together so Gmail, Slack, GHL, Stripe, your CRM, and the AI models above can finally talk. No more copy-paste. No more spreadsheet babysitting. Set the wire once, let it run forever.
+          Use <b>n8n</b> and <b>Composio</b> to connect Gmail, Slack, GHL, Stripe, your CRM, and the AI models above.
         </p>
-        <div class="starter-outcome">Stop copy-pasting. Let your tools talk.</div>
+        <div class="starter-outcome">Move leads without copy-paste.</div>
       </article>
 
     </div>
 
     <div class="starter-close">
-      <p>Start with <b>one tool</b>, <b>one outcome</b>. The community helps you string them together. Then you charge for it.</p>
+      <p>Start with <b>one tool</b>, <b>one outcome</b>. Then turn it into a workflow you can use for your business or clients.</p>
       <a class="btn btn-primary" href="#webinar">Save my seat <span class="arrow">&rarr;</span></a>
     </div>
   </div>
@@ -4522,21 +4545,21 @@ h1, h2, h3, h4 {
   <div class="wrap">
 
     <div class="section-head reveal">
-      <span class="eyebrow">Inside Hermes</span>
-      <h2 class="h2">Autonomous. Self-improving. Multi-LLM. Always on.</h2>
-      <p class="lead">Hermes runs the agency that bills the clients. 6 agents on a cron.</p>
+      <span class="eyebrow">How a real agent system works</span>
+      <h2 class="h2">The daily marketing work, split across agents.</h2>
+      <p class="lead">Hermes helps us plan, ship, follow up, monitor campaigns, and keep client work moving.</p>
     </div>
 
     <!-- 06B · CRON SCHEDULE ============================================ -->
     <div class="arch-block reveal">
       <div class="arch-copy">
         <span class="arch-block-label">01 · CRON</span>
-        <h3 class="arch-block-h">Every morning, the fleet wakes up.</h3>
-        <p class="arch-block-body">Each agent gets its slot. Zayn dispatches the floor at 09:00. Iron Man never sleeps. The radar arm below sweeps a 24-hour day in 12 seconds. Watch each agent light up when its turn comes.</p>
+        <h3 class="arch-block-h">Every morning, the work gets assigned.</h3>
+        <p class="arch-block-body">Each agent gets a job: plan, research, outreach, content, performance, or ops. The point is simple: less manual chasing, more client work shipped.</p>
         <ul class="arch-bullets">
-          <li>5 cron jobs, 1 VPS, zero babysitting</li>
-          <li>Outputs delivered to Telegram by Zayn</li>
-          <li>Failure events auto-escalate to Sandy via Iron Man</li>
+          <li>Daily jobs run on schedule</li>
+          <li>Outputs land in Telegram</li>
+          <li>Failures escalate to Sandy</li>
         </ul>
       </div>
       <div class="arch-visual">
@@ -5014,8 +5037,8 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Build in public</span>
-      <h2 class="h2">OpenBot, shipped in public with Claude Code, Codex, Antigravity.</h2>
-      <p class="lead">Open-source AI pet. Same workflow we use to ship every client campaign and bring in revenue.</p>
+      <h2 class="h2">We do not teach theory. We ship in public.</h2>
+      <p class="lead">OpenBot is proof: the same build workflow we use for products, campaigns, and client revenue work.</p>
     </div>
 
     <div class="openbot-split">
@@ -5144,9 +5167,9 @@ h1, h2, h3, h4 {
 <section class="section" id="community">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">What we actually automate</span>
-      <h2 class="h2">Six things our agents ship to bring in revenue.</h2>
-      <p class="lead">One agent, one category. Work we no longer touch.</p>
+      <span class="eyebrow">What agents can do for marketing</span>
+      <h2 class="h2">Six workflows you can build, copy, and charge for.</h2>
+      <p class="lead">Lead pages, outreach, ads, automations, content, and orchestration. Real marketing work, not AI toy demos.</p>
     </div>
 
     <div class="categories">
@@ -5158,7 +5181,7 @@ h1, h2, h3, h4 {
           <span class="cat-tag">01 / Design</span>
           <span class="cat-freq">D-Rose</span>
         </div>
-        <h3 class="cat-headline">Design that does not block shipping.</h3>
+        <h3 class="cat-headline">Landing pages that help leads convert.</h3>
         <ul>
           <li>Landing pages, ad creatives, brand systems, all in-flow.</li>
         </ul>
@@ -5175,7 +5198,7 @@ h1, h2, h3, h4 {
           <span class="cat-tag">02 / Outreach</span>
           <span class="cat-freq">Steph</span>
         </div>
-        <h3 class="cat-headline">Outreach without chasing.</h3>
+        <h3 class="cat-headline">Outreach that starts real conversations.</h3>
         <ul>
           <li>Personalised outreach across LinkedIn, email, and DMs.</li>
         </ul>
@@ -5192,7 +5215,7 @@ h1, h2, h3, h4 {
           <span class="cat-tag">03 / Performance</span>
           <span class="cat-freq">Kyrie</span>
         </div>
-        <h3 class="cat-headline">Performance, backed by yesterday's numbers.</h3>
+        <h3 class="cat-headline">Ad decisions backed by fresh numbers.</h3>
         <ul>
           <li>Paid media audits, kill or scale calls, fresh creative tests.</li>
         </ul>
@@ -5207,7 +5230,7 @@ h1, h2, h3, h4 {
           <span class="cat-tag">04 / Automation</span>
           <span class="cat-freq">Iron Man</span>
         </div>
-        <h3 class="cat-headline">Tools that finally talk.</h3>
+        <h3 class="cat-headline">Follow-up that moves without you.</h3>
         <ul>
           <li>Email + WhatsApp + CRM wired with n8n and GHL.</li>
         </ul>
@@ -5225,7 +5248,7 @@ h1, h2, h3, h4 {
           <span class="cat-tag">05 / Content</span>
           <span class="cat-freq">Ant Man</span>
         </div>
-        <h3 class="cat-headline">Content, three platforms, weekly.</h3>
+        <h3 class="cat-headline">Content systems that feed the funnel.</h3>
         <ul>
           <li>IG carousels, LinkedIn essays, YouTube scripts, X threads.</li>
         </ul>
@@ -5245,7 +5268,7 @@ h1, h2, h3, h4 {
           <span class="cat-tag">06 / Orchestration</span>
           <span class="cat-freq">Zayn</span>
         </div>
-        <h3 class="cat-headline">You stop being the bottleneck.</h3>
+        <h3 class="cat-headline">One operator view across the work.</h3>
         <ul>
           <li>Routes work to the right specialist. Capacity dashboard.</li>
         </ul>
@@ -5254,7 +5277,7 @@ h1, h2, h3, h4 {
     </div>
   
     <div class="section-cta-line">
-      <a href="#webinar" class="section-cta-link">Watch us automate yours for revenue next Wednesday <span class="arrow">&rarr;</span></a>
+      <a href="#webinar" class="section-cta-link">Watch one revenue workflow get built live <span class="arrow">&rarr;</span></a>
       <span class="section-cta-sub">Wed, Jun 11, 8pm IST</span>
     </div>
 </div>
@@ -5268,9 +5291,9 @@ h1, h2, h3, h4 {
 <section class="section roadmap-section" id="roadmap">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Your first 90 days in the Lab</span>
-      <h2 class="h2">What 90 days inside the Lab actually looks like.</h2>
-      <p class="lead">No promises. Just the rhythm of the room.</p>
+      <span class="eyebrow">Your first 90 days</span>
+      <h2 class="h2">From watching builds to shipping workflows.</h2>
+      <p class="lead">No magic promise. Just a weekly path from tool fluency to useful agents for your business or clients.</p>
     </div>
 
     <!-- SVG timeline draws on scroll into view -->
@@ -5290,23 +5313,23 @@ h1, h2, h3, h4 {
     <div class="roadmap-months">
       <article class="month-card reveal" data-month="1">
         <div class="month-label">MONTH 01</div>
-        <h3 class="month-headline">Land in the room.</h3>
-        <p class="month-outcome">Meet the room &middot; pick a starting tool &middot; try your first agent with help.</p>
-        <p class="month-body">First Wednesday, you watch me build. Second Wednesday, you try one.</p>
+        <h3 class="month-headline">Understand the tools.</h3>
+        <p class="month-outcome">Watch the builds &middot; pick one use case &middot; learn the workflow.</p>
+        <p class="month-body">You leave the first month knowing what each tool is for and where to start.</p>
       </article>
 
       <article class="month-card reveal" data-month="2">
         <div class="month-label">MONTH 02</div>
-        <h3 class="month-headline">Build with the room.</h3>
-        <p class="month-outcome">Bring problems to the Wednesday builds &middot; ship with the community behind you.</p>
-        <p class="month-body">You stop watching and start building. Members help. So do I.</p>
+        <h3 class="month-headline">Ship one useful workflow.</h3>
+        <p class="month-outcome">Bring a real marketing problem &middot; use the template &middot; get unstuck.</p>
+        <p class="month-body">You stop collecting tools and start wiring a workflow you can actually use.</p>
       </article>
 
       <article class="month-card reveal" data-month="3">
         <div class="month-label">MONTH 03</div>
-        <h3 class="month-headline">Builds that earn.</h3>
-        <p class="month-outcome">You're a regular in the room &middot; your stack starts paying for itself &middot; others fork your builds.</p>
-        <p class="month-body">By Day 90, your agents are billing clients, saving hours, or both.</p>
+        <h3 class="month-headline">Turn it into leverage.</h3>
+        <p class="month-outcome">Reuse workflows &middot; improve delivery &middot; package client-ready systems.</p>
+        <p class="month-body">By Day 90, you should have workflows that save time, support revenue, or both.</p>
       </article>
     </div>
   
@@ -5634,9 +5657,9 @@ h1, h2, h3, h4 {
 <section class="section" id="community-locker">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Inside the locker</span>
-      <h2 class="h2">Everything we ship for our agency, in a folder you can fork for yours.</h2>
-      <p class="lead">Templates, prompts, recordings, live builds. Used to bill real clients. Yours weekly.</p>
+      <span class="eyebrow">What members get</span>
+      <h2 class="h2">Templates, prompts, and workflows from real builds.</h2>
+      <p class="lead">Every week, the live build becomes something you can copy, adapt, and use in marketing work.</p>
     </div>
 
     <div class="categories">
@@ -5651,11 +5674,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">01 / Template library</span>
           <span class="cat-freq">Fork-ready</span>
         </div>
-        <h3 class="cat-headline">The full source of this exact page. The first file in our shared library.</h3>
+        <h3 class="cat-headline">Landing page files you can fork.</h3>
         <ul>
           <li>Every file behind this page, in a folder you can fork.</li>
         </ul>
-        <div class="cat-result">→ You walk out with a high-converting LP base you can rebrand in a weekend.</div>
+        <div class="cat-result">→ Rebrand the base instead of starting from zero.</div>
       </article>
 
       <article class="cat reveal">
@@ -5671,11 +5694,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">02 / Hermes fleet</span>
           <span class="cat-freq">VPS-ready</span>
         </div>
-        <h3 class="cat-headline">The 6-agent fleet on a Hostinger box.</h3>
+        <h3 class="cat-headline">Agent system files and setup notes.</h3>
         <ul>
           <li>Zayn dispatches. Five specialists ship work that bills our clients.</li>
         </ul>
-        <div class="cat-result">→ You walk out with a runtime that runs while you sleep.</div>
+        <div class="cat-result">→ See how the moving parts fit together.</div>
       </article>
 
       <article class="cat reveal">
@@ -5686,11 +5709,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">03 / Ad creative briefs</span>
           <span class="cat-freq">Anonymized</span>
         </div>
-        <h3 class="cat-headline">The briefs behind the campaigns that actually paid.</h3>
+        <h3 class="cat-headline">Creative briefs from real campaigns.</h3>
         <ul>
           <li>Real briefs from past clients. Scrubbed. Frameworks that survived ad spend.</li>
         </ul>
-        <div class="cat-result">→ You walk out with attribution-first creative tests you can ship Monday.</div>
+        <div class="cat-result">→ Launch tests with clearer angles.</div>
       </article>
 
       <article class="cat reveal">
@@ -5703,11 +5726,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">04 / n8n workflows</span>
           <span class="cat-freq">Import JSON</span>
         </div>
-        <h3 class="cat-headline">The automations I run every day, exported.</h3>
+        <h3 class="cat-headline">Importable automations for lead flow.</h3>
         <ul>
           <li>Lead intake → GHL → WhatsApp → Meta. Importable JSON.</li>
         </ul>
-        <div class="cat-result">→ You walk out with a working pipeline, not a screenshot of one.</div>
+        <div class="cat-result">→ Move leads through the pipeline faster.</div>
       </article>
 
       <article class="cat reveal">
@@ -5721,11 +5744,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">05 / Platform prompts</span>
           <span class="cat-freq">Battle-tested</span>
         </div>
-        <h3 class="cat-headline">A prompt library that knows which tool to pick.</h3>
+        <h3 class="cat-headline">Prompts for the right tool and job.</h3>
         <ul>
           <li>Right tool, right job. One prompt per platform.</li>
         </ul>
-        <div class="cat-result">→ You walk out knowing the right hammer for every nail.</div>
+        <div class="cat-result">→ Stop guessing which tool to open.</div>
       </article>
 
       <article class="cat reveal">
@@ -5736,11 +5759,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">06 / Platform recordings</span>
           <span class="cat-freq">Plain English</span>
         </div>
-        <h3 class="cat-headline">What each platform is actually for, no jargon.</h3>
+        <h3 class="cat-headline">Plain-English platform recordings.</h3>
         <ul>
           <li>Beginner intros + advanced builds. Start at zero, end shipping.</li>
         </ul>
-        <div class="cat-result">→ You walk out knowing where each tool fits, before you spend a rupee.</div>
+        <div class="cat-result">→ Know what to use before you pay.</div>
       </article>
 
       <article class="cat reveal">
@@ -5751,11 +5774,11 @@ h1, h2, h3, h4 {
           <span class="cat-tag">07 / Weekly live build</span>
           <span class="cat-freq">Every Wed</span>
         </div>
-        <h3 class="cat-headline">Watch me ship one new agent on camera. Every week.</h3>
+        <h3 class="cat-headline">One new agent built live each week.</h3>
         <ul>
           <li>New agent live every Wednesday. Copy it by Friday.</li>
         </ul>
-        <div class="cat-result">→ You walk out with a fresh agent in your stack every single week.</div>
+        <div class="cat-result">→ Copy the build and adapt it.</div>
       </article>
 
       <article class="cat reveal">
@@ -5768,17 +5791,17 @@ h1, h2, h3, h4 {
           <span class="cat-tag">08 / Member feed</span>
           <span class="cat-freq">Direct line</span>
         </div>
-        <h3 class="cat-headline">A Skool feed where I actually reply.</h3>
+        <h3 class="cat-headline">A builder feed for stuck moments.</h3>
         <ul>
           <li>Ask questions. Post broken builds. Get unblocked the same day.</li>
         </ul>
-        <div class="cat-result">→ You walk out unstuck, with operators behind you.</div>
+        <div class="cat-result">→ Get unstuck with operators behind you.</div>
       </article>
 
     </div>
   
     <div class="section-cta-line">
-      <a href="#webinar" class="section-cta-link">See the locker live, on the webinar <span class="arrow">&rarr;</span></a>
+      <a href="#webinar" class="section-cta-link">See the member library on the webinar <span class="arrow">&rarr;</span></a>
       <span class="section-cta-sub">Wed, Jun 11, 8pm IST</span>
     </div>
 </div>
@@ -5793,13 +5816,13 @@ h1, h2, h3, h4 {
 <section class="section" id="inner-circle">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Two tiers, one door</span>
-      <h2 class="h2">Two tiers. No traps.</h2>
-      <p class="lead">Tier 1: community. Inner Circle: founders on your stack.</p>
+      <span class="eyebrow">Membership</span>
+      <h2 class="h2">Start with the Lab. Upgrade only if you need hands-on help.</h2>
+      <p class="lead">Tier 1 is the weekly community. Inner Circle is for founders who want Sandy on their stack.</p>
     </div>
 
     <div class="offer-frame">
-      <span class="offer-frame-text">Not a course. An <strong>active community of operators</strong> who use agents to ship paid work.</span>
+      <span class="offer-frame-text">Not a course. A <strong>live builder community</strong> for marketers using agents on real work.</span>
     </div>
 
     <div class="ladder">
@@ -5811,13 +5834,13 @@ h1, h2, h3, h4 {
           <div class="price-sub">or ₹24,999 / yr &middot; cancel anytime &middot; one client win pays it back</div>
         </div>
         <div class="tier-body">
-          <p>Where builders ship AI agents, weekly.</p>
+          <p>For marketers who want to watch, copy, and ship weekly.</p>
           <ul>
-            <li>Weekly live agent build, on camera, every Wednesday</li>
-            <li>Recordings + templates for every build, fork-ready</li>
+            <li>Weekly live agent build every Wednesday</li>
+            <li>Recordings + templates for every build</li>
             <li>Platform-specific prompts (Claude, Codex, Antigravity, Gemini, Composio, Mem0)</li>
             <li>Beginner basics: what each tool is for, in plain English</li>
-            <li>Monthly ship-with-me cohort: bring a problem, leave with the agent</li>
+            <li>Monthly ship-with-me cohort: bring a problem, leave with a workflow</li>
             <li>Member feed: ask, post, get unblocked the same day</li>
             <li>Sandy in the room, founder office hours every week</li>
           </ul>
@@ -5850,10 +5873,10 @@ h1, h2, h3, h4 {
           </div>
           <div class="price">+₹1,00,000<span style="font-size:0.45em;color:var(--text-low);font-weight:500;">/yr</span></div>
           <div class="price-sub">add-on to The Lab &middot; Founding 30 hard cap</div>
-          <div class="price-alt">Sandy on your stack, every quarter.</div>
+          <div class="price-alt">For founders who want direct stack review.</div>
         </div>
         <div class="tier-body">
-          <p>The Lab + founders on your stack.</p>
+          <p>The Lab + direct help on your stack.</p>
           <ul>
             <li>Everything in The Lab</li>
             <li>Quarterly 30-min 1:1 with Sandy on your stack</li>
@@ -5880,12 +5903,12 @@ h1, h2, h3, h4 {
 <!-- ============================================================
      07.5 HONEST FILTER (NOT for everyone matrix)
      ============================================================ -->
-<section class="section">
+<section class="section" id="fit-check">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Honest filter</span>
-      <h2 class="h2">Built for marketers who build.</h2>
-      <p class="lead">Nod down a column. Both columns assume you want to make money with this.</p>
+      <h2 class="h2">This is for operators, not spectators.</h2>
+      <p class="lead">Join if you want to build workflows you can use in marketing, delivery, or client work.</p>
     </div>
 
     <div class="filter-grid">
@@ -5901,37 +5924,37 @@ h1, h2, h3, h4 {
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You have a builder-operator mind &middot; you ship things, even if you've never coded</span>
+            <span class="filter-text">You ship marketing work, even if you've never coded</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You want AI to do the work you hate &middot; so you focus on the work that matters</span>
+            <span class="filter-text">You want agents for leads, follow-up, campaigns, and ops</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You believe AI agents earning money for you isn't sci-fi &middot; it's tooling</span>
+            <span class="filter-text">You want systems that can support revenue, not just save minutes</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You want a room of builders &middot; not another YouTube playlist</span>
+            <span class="filter-text">You want a room of builders, not another playlist</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You can commit 90 minutes a week &middot; to watch + ship alongside us</span>
+            <span class="filter-text">You can commit 90 minutes a week to watch and ship</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-yes" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5 L7 12 L13 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You'd rather build with the tech of the century &middot; than read about it</span>
+            <span class="filter-text">You would rather build than read trend threads</span>
           </li>
         </ul>
       </article>
@@ -5948,44 +5971,44 @@ h1, h2, h3, h4 {
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You want done-for-you AI &middot; The Lab is for builders, not buyers of consultants</span>
+            <span class="filter-text">You want done-for-you AI instead of learning the workflow</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You want passive watch-and-learn &middot; The Lab is for shipping, not consuming</span>
+            <span class="filter-text">You only want passive lessons</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You believe AI marketing = posting AI-generated content &middot; We're past that</span>
+            <span class="filter-text">You think AI marketing only means generated posts</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You're hunting for deep engineering theory &middot; The Lab is for shippers, not theorists</span>
+            <span class="filter-text">You want deep engineering theory before shipping anything</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You'd rather watch than build &middot; The Lab is hands-on, every week</span>
+            <span class="filter-text">You would rather watch than build</span>
           </li>
           <li class="filter-row reveal">
             <span class="filter-glyph filter-glyph-no" aria-hidden="true">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" class="filter-svg-path"/></svg>
             </span>
-            <span class="filter-text">You want a community that ranks itself against others &middot; The Lab doesn't position by comparison</span>
+            <span class="filter-text">You want hype, rankings, and comparison games</span>
           </li>
         </ul>
       </article>
     </div>
   
     <div class="section-cta-line">
-      <a href="#webinar" class="section-cta-link">Still in? See it live <span class="arrow">&rarr;</span></a>
+      <a href="#webinar" class="section-cta-link">Still in? Watch the next build <span class="arrow">&rarr;</span></a>
       <span class="section-cta-sub">Wed, Jun 11, 8pm IST</span>
     </div>
 </div>
@@ -6002,8 +6025,8 @@ h1, h2, h3, h4 {
 
     <div class="section-head">
       <span class="eyebrow">Why I'm building this</span>
-      <h2 class="h2">Vancouver to Hyderabad. AI-native agency.</h2>
-      <p class="lead">The Lab is the room I could not find.</p>
+      <h2 class="h2">An agency operator building the room I wanted.</h2>
+      <p class="lead">Real clients. Real campaigns. Real agent workflows shown live.</p>
     </div>
 
     <div class="founder-story">
@@ -6011,16 +6034,16 @@ h1, h2, h3, h4 {
       <!-- BEAT 1 -->
       <div class="founder-beat reveal">
         <div class="founder-beat-label">Vancouver</div>
-        <h3 class="founder-beat-head">Started in Vancouver. Marketing operator from day one.</h3>
+        <h3 class="founder-beat-head">Started with client marketing, not AI demos.</h3>
         <p class="founder-beat-body">
-          Started in Vancouver, building for Canadian brands. Sold numbers, not tactics. Those clients are still with us.
+          Started in Vancouver, building for Canadian brands. Sold outcomes, not tactics. Those clients are still with us.
         </p>
       </div>
 
       <!-- BEAT 2 -->
       <div class="founder-beat reveal">
         <div class="founder-beat-label">Hyderabad</div>
-        <h3 class="founder-beat-head">Then we planted roots in Hyderabad and doubled the footprint.</h3>
+        <h3 class="founder-beat-head">Then Hyderabad became the build base.</h3>
         <p class="founder-beat-body">
           Moved to Hyderabad. Added India clients. Two markets, one studio.
         </p>
@@ -6029,7 +6052,7 @@ h1, h2, h3, h4 {
       <!-- PULL QUOTE -->
       <figure class="founder-pullquote reveal">
         <blockquote class="founder-pullquote-text">
-          I do this because I love it. And I want other operators on the forefront of the agentic wave, not just users of someone else's chat product.
+          I want marketers building useful agents, not just watching AI demos from the sidelines.
         </blockquote>
         <figcaption class="founder-pullquote-cite">Sandy &middot; founder note</figcaption>
       </figure>
@@ -6037,18 +6060,18 @@ h1, h2, h3, h4 {
       <!-- BEAT 3 -->
       <div class="founder-beat reveal">
         <div class="founder-beat-label">AI inside the work</div>
-        <h3 class="founder-beat-head">We were AI-native before it was a category.</h3>
+        <h3 class="founder-beat-head">AI went inside the client work.</h3>
         <p class="founder-beat-body">
-          We put AI inside the work from day one. That bet became Hermes. Six agents, every workflow we used to do by hand.
+          We put AI into planning, follow-up, campaign ops, content, and reporting. That became Hermes.
         </p>
       </div>
 
       <!-- BEAT 4 -->
       <div class="founder-beat reveal">
         <div class="founder-beat-label">Why this community, why now</div>
-        <h3 class="founder-beat-head">The agentic wave is the next platform shift. I want operators on the forefront.</h3>
+        <h3 class="founder-beat-head">The next edge belongs to operators who build.</h3>
         <p class="founder-beat-body">
-          Most people will only use chat. The next shift is agentic. I want operators building it, not just using it. That is the Lab.
+          Most people will only use chat. The Lab is for operators who want workflows they can use, sell, and improve.
         </p>
       </div>
 
@@ -6189,7 +6212,7 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Who you're learning from</span>
-      <h2 class="h2">One operator. 6-agent fleet. 24/7.</h2>
+      <h2 class="h2">Sandy builds this inside a real agency.</h2>
     </div>
 
     <div class="about-split">
@@ -6207,12 +6230,12 @@ h1, h2, h3, h4 {
         <p class="about-role">Founder, ZippyScale · Host, AI Marketing Lab</p>
 
         <div class="quote-rotator" data-quote-rotator>
-          <p class="quote-text active">Marketing operator. Claude Code addict. Building in public, sharing everything.</p>
-          <p class="quote-text">I built Hermes. 6 agents. Runs the agency 24/7 while I sleep.</p>
-          <p class="quote-text">Built from Hyderabad. For marketers who want their agents to earn.</p>
+          <p class="quote-text active">Marketing operator. Claude Code addict. Building in public, sharing the workflows.</p>
+          <p class="quote-text">I built Hermes: 6 agents helping us ship agency work faster.</p>
+          <p class="quote-text">Built from Hyderabad, for marketers who want useful agents.</p>
         </div>
 
-        <p class="about-bio">The Lab is where I show the build, every week. Live. On camera. You copy what works.</p>
+        <p class="about-bio">The Lab is where I build one practical marketing agent every week. Live. On camera. You copy what works.</p>
 
         <div class="about-proof" id="aboutProof">
           <div class="proof-stat">
@@ -6438,7 +6461,7 @@ h1, h2, h3, h4 {
 <!-- ============================================================
      10. FAQ
      ============================================================ -->
-<section class="section">
+<section class="section" id="faq">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Everything else</span>
@@ -6448,23 +6471,19 @@ h1, h2, h3, h4 {
     <div class="faq">
       <details>
         <summary>I'm not technical. Can I really build an AI agent?</summary>
-        <p>Yes. The agents you'll build are mostly no-code or low-code. We use Claude Code + Composio + visual tools so the workflow is "describe what you want, ship it." If you can describe the job, you can build the agent. We have operators in the Lab who have never written a line of code.</p>
+        <p>Yes. Most first builds are no-code or low-code. If you can describe the marketing job, you can start with a workflow and improve it with help.</p>
       </details>
       <details>
         <summary>Is this just another AI course?</summary>
-        <p>No. There are no curriculum modules to watch. There's a live build every Wednesday where I ship an agent on camera, and a community where members ship agents alongside us all week. Course-grade content is on YouTube for free. Community-grade execution, operators shipping together, is what's rare. That's the Lab.</p>
+        <p>No. There is a live build every Wednesday, templates from that build, and a community shipping alongside you. The value is execution, not another video library.</p>
       </details>
       <details>
         <summary>Who is this for, exactly?</summary>
-        <p>Operators with a P&amp;L. Agency owners, founders running their own marketing, heads of growth at SMB or mid-market. You're expected to be the AI person on the team.</p>
+        <p>Agency owners, founders running their own marketing, growth leads, and operators expected to make AI useful for leads, follow-up, campaigns, or delivery.</p>
       </details>
       <details>
         <summary>How is this different from other AI marketing communities?</summary>
-        <p>Every agent ships with a measurable outcome wired in before it goes live. Operator talking to operators, not engineer teaching down.</p>
-      </details>
-      <details>
-        <summary>What if I'm not technical?</summary>
-        <p>If you can describe what you want, you can build it. We meet you where you are.</p>
+        <p>Every build starts from a marketing outcome. Not “look what AI can do.” More like: book calls, follow up, report, route leads, ship creative, improve delivery.</p>
       </details>
       <details>
         <summary>Can I cancel anytime?</summary>
@@ -6472,7 +6491,7 @@ h1, h2, h3, h4 {
       </details>
       <details>
         <summary>When is the next webinar?</summary>
-        <p><span data-webinar-date>Wed, Jun 11, 8pm IST</span>. 60 min, live Hermes demo, Tier 1 offer at close.</p>
+        <p><span data-webinar-date>Wed, Jun 11, 8pm IST</span>. 60 minutes. One practical marketing-agent workflow built live, plus the Tier 1 offer at close.</p>
       </details>
       <details>
         <summary>How do I join Inner Circle?</summary>
@@ -6488,11 +6507,11 @@ h1, h2, h3, h4 {
 <section class="final" id="webinar">
   <div class="wrap">
     <span class="eyebrow" style="margin-bottom: 24px;">13 / Save your seat</span>
-    <h2 class="h2">See it live.</h2>
+    <h2 class="h2">Watch one marketing agent get built live.</h2>
     <div class="final-cta-worldwide">
-      For marketers who build &middot; from Hyderabad &middot; agents that earn
+      For marketers who build &middot; from Hyderabad &middot; workflows that earn
     </div>
-    <p>60 min, <span data-webinar-date>Wed, Jun 11, 8pm IST</span>. Hermes on screen, full operator stack, Tier 1 offer at close. Camera off, notebook on.</p>
+    <p>60 min, <span data-webinar-date>Wed, Jun 11, 8pm IST</span>. We build one revenue workflow live, show the stack, and open Tier 1 at the close.</p>
 
     <div class="final-cta-extras reveal">
       <div class="webinar-countdown">
@@ -6540,8 +6559,8 @@ h1, h2, h3, h4 {
 
     <div class="apply-grid">
       <form class="webinar-form" id="webinar-form" onsubmit="return submitWebinar(event)">
-        <h3>Lock in your seat</h3>
-        <p>Email + WhatsApp + calendar invite for <span data-webinar-date>Wed, Jun 11, 8pm IST</span>.</p>
+        <h3>Save your webinar seat</h3>
+        <p>Get the calendar invite, WhatsApp reminder, and next-step link for <span data-webinar-date>Wed, Jun 11, 8pm IST</span>.</p>
 
         <div class="field">
           <label for="wf-name">Full name</label>
@@ -6558,8 +6577,12 @@ h1, h2, h3, h4 {
           <input id="wf-wa" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+91 98xxxxxxxx" />
         </div>
 
-        <p class="form-micro-trust">&rarr; Calendar invite + WhatsApp reminder + Skool invite within 5 minutes.</p>
-        <button type="submit" class="btn btn-primary webinar-submit-btn">Save my seat &nbsp;&middot;&nbsp; <span data-webinar-date>Wed, Jun 11, 8pm IST</span> <span class="arrow">&rarr;</span></button>
+        <p class="form-micro-trust">&rarr; Calendar invite + WhatsApp reminder within 5 minutes.</p>
+        <button type="submit" class="btn btn-primary webinar-submit-btn">
+          <span>Save my seat</span>
+          <span class="webinar-submit-date" data-webinar-date>Wed, Jun 11, 8pm IST</span>
+          <span class="arrow">&rarr;</span>
+        </button>
         <div class="form-meta">// 3 fields. 10 seconds. No spam.</div>
         <div class="form-success" id="formSuccess">&#10003; Reserved. Calendar invite within 5 minutes.</div>
       </form>
