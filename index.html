@@ -1759,7 +1759,9 @@ h1, h2, h3, h4 {
   margin-top: 40px;
 }
 @media (max-width: 1100px) { .ig-gallery { columns: 3; } }
-@media (max-width: 700px)  { .ig-gallery { columns: 2; column-gap: 12px; } }
+@media (max-width: 700px)  {
+  .ig-gallery { columns: 2; column-gap: 12px; }
+}
 
 .ig-tile {
   display: block;
@@ -1898,6 +1900,33 @@ h1, h2, h3, h4 {
   color: var(--accent);
   font-weight: 600;
   letter-spacing: 0.04em;
+}
+
+@media (max-width: 700px) {
+  /* v22: mobile switches from masonry to an even IG-style grid. */
+  .ig-gallery {
+    columns: unset;
+    column-gap: unset;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px;
+    align-items: stretch;
+  }
+  .ig-tile {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    margin: 0;
+  }
+  .ig-tile--tall .ig-tile-thumb,
+  .ig-tile--med .ig-tile-thumb,
+  .ig-tile--short .ig-tile-thumb {
+    aspect-ratio: 4 / 5;
+  }
+  .ig-tile-meta { flex: 1; }
+  .ig-tile-attribution-row { justify-content: flex-end; }
+  .ig-tile-author { display: none; }
+  .ig-tile-when { white-space: nowrap; }
 }
 
 .ig-cta { text-align: center; margin-top: 36px; }
