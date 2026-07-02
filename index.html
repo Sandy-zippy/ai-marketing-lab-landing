@@ -7026,16 +7026,17 @@ document.querySelectorAll('[data-seats-left]').forEach(function(el) {
 })();
 
 // ============================================================
-// Webinar form submission -> Google Sheet (Apps Script web app)
+// Webinar form submission -> Google Form (responses feed a Google Sheet)
 // ------------------------------------------------------------
-// Endpoint is the deployed Apps Script /exec URL (doPost appends a
-// row to "AI Marketing Lab — Webinar Registrations").
-// Sent as text/plain so the request stays a CORS "simple request"
-// (no preflight) and we get a real, checkable response back.
-// A localStorage queue is kept as a client-side safety net.
+// Posts to the AI Marketing Lab registration Google Form's public
+// formResponse endpoint (always accepts anonymous submissions, unlike
+// a Workspace Apps Script web app). Responses land in the form and its
+// linked response Sheet. no-cors is required (Forms returns no CORS
+// headers); a localStorage queue is kept as a client-side safety net.
 // Works for BOTH the hero form and the final-CTA form.
 // ============================================================
-const SHEET_ENDPOINT = 'https://script.google.com/macros/s/REPLACE_WITH_DEPLOYMENT_ID/exec';
+const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdwdlchjrxt8_eEJRsxV_0EmWswFCJQdIm61OmjJ6nEtfYulw/formResponse';
+const FORM_FIELDS = { name: 'entry.711112049', email: 'entry.89039492', whatsapp: 'entry.606366000' };
 
 async function submitWebinar(e) {
   e.preventDefault();
@@ -7068,18 +7069,20 @@ async function submitWebinar(e) {
   } catch (_) { /* storage disabled, continue */ }
 
   let posted = false;
-  if (SHEET_ENDPOINT.indexOf('REPLACE_WITH') === -1) {
-    try {
-      const res = await fetch(SHEET_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(data),
-        redirect: 'follow'
-      });
-      posted = res.ok;
-    } catch (err) {
-      console.warn('[webinar-form] submit failed', err);
-    }
+  try {
+    const params = new URLSearchParams();
+    params.append(FORM_FIELDS.name, data.name);
+    params.append(FORM_FIELDS.email, data.email);
+    params.append(FORM_FIELDS.whatsapp, data.whatsapp);
+    await fetch(FORM_ACTION, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString()
+    });
+    posted = true; // no-cors is opaque; the Forms endpoint is reliable
+  } catch (err) {
+    console.warn('[webinar-form] submit failed', err);
   }
 
   if (btn) { btn.disabled = false; btn.classList.remove('is-loading'); }
