@@ -296,8 +296,27 @@ h1, h2, h3, h4 {
   .hero-right { min-width: 0; }
 }
 @media (max-width: 1023px) {
-  .hero-right { display: none; }
+  .hero-right { margin-top: 28px; }
 }
+/* Hero registration form */
+.webinar-form--hero {
+  margin-top: 0;
+  padding: 26px 24px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  box-shadow: 0 20px 60px -30px rgba(0,0,0,0.6);
+}
+.webinar-form--hero h3 { font-size: clamp(22px, 2.2vw, 26px); margin-bottom: 6px; }
+.webinar-form--hero p { font-size: 13.5px; margin-bottom: 18px; }
+.webinar-form--hero .field { margin-bottom: 12px; }
+.webinar-form--hero .form-meta { margin-top: 12px; }
+/* Honeypot: visually hidden, off-screen, not announced */
+.hp-field {
+  position: absolute !important; left: -9999px !important; top: auto !important;
+  width: 1px; height: 1px; opacity: 0; pointer-events: none;
+}
+.webinar-submit-btn.is-loading { opacity: 0.65; pointer-events: none; }
 
 /* ===== Hero particle field (decorative dots, lime, low opacity) ===== */
 .hero-particles {
@@ -1985,7 +2004,7 @@ h1, h2, h3, h4 {
   gap: 24px;
   max-width: 1080px;
   margin-inline: auto;
-  align-items: stretch;
+  align-items: start;
 }
 @media (max-width: 980px) { .ai-stack-v11 .brand-columns { grid-template-columns: 1fr; gap: 20px; } }
 
@@ -2708,12 +2727,15 @@ h1, h2, h3, h4 {
   top: 8px; left: 22px; right: 0;
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.22,1,.36,1);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(.22,1,.36,1);
   margin: 0;
 }
 .quote-rotator .quote-text.active {
   opacity: 1;
   transform: translateY(0);
+  /* Wait for the outgoing quote to fade out before fading in, so the two
+     never sit legibly on top of each other. */
+  transition-delay: 0.32s;
 }
 .about-bio {
   font-size: 16px;
@@ -2776,16 +2798,17 @@ h1, h2, h3, h4 {
   line-height: 1.4;
 }
 .about-tagline {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: block;
   font-family: var(--mono);
   font-size: 13px;
+  line-height: 1.5;
   color: var(--text-mid);
   letter-spacing: 0.02em;
   margin-bottom: 20px;
 }
 .tagline-flag {
+  display: inline-block;
+  margin-right: 7px;
   color: var(--accent);
   animation: pulse 1.6s ease-in-out infinite;
   font-size: 10px;
@@ -3720,6 +3743,10 @@ h1, h2, h3, h4 {
   padding-left: 18px;
   transition: color 0.2s;
   font-weight: 700;
+  /* Comfortable mobile tap target */
+  display: inline-block;
+  padding-top: 11px;
+  padding-bottom: 11px;
 }
 .section-cta-link .arrow { color: var(--accent); transition: transform 0.2s; display: inline-block; margin-left: 6px; }
 .section-cta-line:hover .arrow { transform: translateX(4px); }
@@ -3863,9 +3890,9 @@ h1, h2, h3, h4 {
     <a class="brand" href="#top" aria-label="AI Marketing Lab home">
       <span class="brand-cursor" aria-hidden="true"></span>
       <span class="brand-name">AI MARKETING LAB</span>
-      <span class="brand-live" aria-label="Live now">
+      <span class="brand-live" aria-label="Live every Sunday">
         <span class="brand-live-dot" aria-hidden="true"></span>
-        LIVE
+        SUNDAYS
       </span>
     </a>
     <ul class="nav-links">
@@ -3918,7 +3945,7 @@ h1, h2, h3, h4 {
       <div class="hero-left">
         <span class="eyebrow hero-eyebrow">Live AI community for marketers</span>
         <h1 class="h1" data-word-reveal>Build <span class="accent">AI agents</span> that do real marketing work.<span class="pulse-dot" aria-hidden="true"></span></h1>
-        <p class="lead">Get leads, follow up, ship campaigns, and support paid client work. Every Sunday, watch Sandy build one agent live and get the workflow.</p>
+        <p class="lead">Get leads, follow up, ship campaigns, and run client work. Every Sunday, watch me build one agent live and take the workflow home.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary hero-cta" href="#webinar">
             <span class="hero-cta-main">Save my seat <span class="arrow">→</span></span>
@@ -3932,50 +3959,35 @@ h1, h2, h3, h4 {
           </span>
           <span><i class="dot" aria-hidden="true"></i> Free 60-min webinar</span>
           <span>One revenue workflow built live</span>
-          <span>200 seats &middot; closes when full</span>
+          <span>Free &middot; live on Zoom</span>
         </div>
       </div>
 
-      <!-- Live agent terminal (right column on desktop) -->
-      <div class="hero-right" aria-hidden="true">
-        <div class="hero-terminal">
-          <div class="hero-terminal-bar">
-            <div class="hero-terminal-dots"><i></i><i></i><i></i></div>
-            <span>hermes@aimarketinglab :: building today</span>
+      <!-- Registration form (right column on desktop, below hero copy on mobile) -->
+      <div class="hero-right">
+        <form class="webinar-form webinar-form--hero" id="hero-webinar-form" onsubmit="return submitWebinar(event)">
+          <h3>Save your seat</h3>
+          <p>Free 60-min live build. <span data-webinar-date>Every Sunday, 11 AM IST</span>.</p>
+          <input type="text" name="company" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <div class="field">
+            <label for="hero-name">Full name</label>
+            <input id="hero-name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
           </div>
-          <div class="hero-terminal-body">
-            <div class="hero-terminal-stream">
-              <!-- 4 sessions, looped via animation-delay -->
-              <div class="ht-session ht-s1">
-                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> zayn morning-dispatch</div>
-                <div class="ht-line ht-out">&rarr; routing today's work across the fleet&hellip;</div>
-                <div class="ht-line ht-out">&rarr; <span class="ht-num">d-rose</span>: lp draft &middot; <span class="ht-num">steph</span>: outreach batch</div>
-                <div class="ht-line ht-ok">&check; fleet dispatched &middot; building</div>
-              </div>
-              <div class="ht-session ht-s2">
-                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> d-rose ship --task "lp-aiml-v14"</div>
-                <div class="ht-line ht-out">&rarr; designing landing page in v12 pattern library</div>
-                <div class="ht-line ht-out">&rarr; iterating sections live with sandy</div>
-                <div class="ht-line ht-ok">&check; v14 in progress &middot; you're reading it</div>
-              </div>
-              <div class="ht-session ht-s3">
-                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> iron-man ops --status</div>
-                <div class="ht-line ht-out">&rarr; n8n + ghl pipelines healthy</div>
-                <div class="ht-line ht-out">&rarr; whatsapp + email follow-ups queued</div>
-                <div class="ht-line ht-ok">&check; automation layer live</div>
-              </div>
-              <div class="ht-session ht-s4">
-                <div class="ht-line ht-prompt"><span class="ht-op">operator $</span> steph outreach --batch "operators"</div>
-                <div class="ht-line ht-out">&rarr; first-lines drafted, ready for sandy review</div>
-                <div class="ht-line ht-out">&rarr; testing 3 hooks across linkedin + email</div>
-                <div class="ht-line ht-ok">&check; outreach batch staged</div>
-              </div>
-            </div>
-            <div class="hero-terminal-caret" aria-hidden="true">
-              <span class="ht-op">operator $</span><span class="ht-blink"></span>
-            </div>
+          <div class="field">
+            <label for="hero-email">Work email</label>
+            <input id="hero-email" name="email" type="email" required autocomplete="email" placeholder="you@yourbusiness.com" />
           </div>
-        </div>
+          <div class="field">
+            <label for="hero-wa">WhatsApp (with country code)</label>
+            <input id="hero-wa" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+91 98xxxxxxxx" />
+          </div>
+          <button type="submit" class="btn btn-primary webinar-submit-btn">
+            <span>Save my seat</span>
+            <span class="arrow">&rarr;</span>
+          </button>
+          <div class="form-meta">3 fields. 10 seconds. No spam.</div>
+          <div class="form-success">&#10003; Seat saved. Watch your inbox for the calendar invite.</div>
+        </form>
       </div>
     </div>
   </div>
@@ -3988,18 +4000,18 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="proof-metrics">
       <div class="proof-metric">
-        <span class="proof-metric-label">Last ship</span>
-        <span class="proof-metric-value" data-counter="lastShipMins">14 min ago</span>
+        <span class="proof-metric-label">Live build</span>
+        <span class="proof-metric-value">Every Sunday &middot; 11 AM IST</span>
       </div>
       <div class="proof-metric proof-metric-divider"></div>
       <div class="proof-metric">
-        <span class="proof-metric-label">Agents ran today</span>
-        <span class="proof-metric-value proof-metric-counter" data-counter="agentRuns" data-target="4392">4,392</span>
+        <span class="proof-metric-label">The fleet</span>
+        <span class="proof-metric-value">6 agents run our agency</span>
       </div>
       <div class="proof-metric proof-metric-divider"></div>
       <div class="proof-metric">
-        <span class="proof-metric-label">Hermes status</span>
-        <span class="proof-metric-value">Built 2026 &middot; iterating daily</span>
+        <span class="proof-metric-label">Ad spend managed</span>
+        <span class="proof-metric-value">$2M+ across IN &middot; US &middot; CA</span>
       </div>
     </div>
     <div class="proof-waveform" aria-hidden="true">
@@ -4016,9 +4028,9 @@ h1, h2, h3, h4 {
 <section class="section" id="receipts">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Receipts, in public</span>
-      <h2 class="h2">I post the build.</h2>
-      <p class="lead">Real agents. Real workflows.</p>
+      <span class="eyebrow">Build in public</span>
+      <h2 class="h2">The feed behind the Lab.</h2>
+      <p class="lead">Builds, agents, and the two founders shipping them. Follow along.</p>
     </div>
 
     <div class="ig-gallery">
@@ -4223,7 +4235,7 @@ h1, h2, h3, h4 {
           <div class="brand-products">
             <article class="product-card">
               <div class="product-name">Claude Code</div>
-              <div class="product-model"><span class="model-tag">Opus 4.7</span></div>
+              <div class="product-model"><span class="model-tag">Opus 4.8</span></div>
               <div class="product-use">&rarr; Architecting agents</div>
             </article>
           </div>
@@ -4326,7 +4338,7 @@ h1, h2, h3, h4 {
         </div>
         <img src="assets/logos/hermes-real.svg" alt="Hermes Agent" width="80" height="80" class="runtime-logo" />
         <div class="runtime-name">Hermes</div>
-        <div class="runtime-tag">6-agent fleet &middot; ships paid client work</div>
+        <div class="runtime-tag">6-agent fleet &middot; runs daily inside our agency</div>
         <div class="runtime-agents">
           <span>Zayn</span><span>D-Rose</span><span>Steph</span><span>Ant Man</span><span>Kyrie</span><span>Iron Man</span>
         </div>
@@ -4387,7 +4399,7 @@ h1, h2, h3, h4 {
     </div>
   
     <div class="section-cta-line">
-      <a href="#webinar" class="section-cta-link">Watch the stack that bills our clients live <span class="arrow">&rarr;</span></a>
+      <a href="#webinar" class="section-cta-link">Watch the fleet run real client tasks, live <span class="arrow">&rarr;</span></a>
       <span class="section-cta-sub">Every Sunday, 11 AM IST</span>
     </div>
 </div>
@@ -4547,7 +4559,7 @@ h1, h2, h3, h4 {
     <div class="section-head reveal">
       <span class="eyebrow">How a real agent system works</span>
       <h2 class="h2">The daily marketing work, split across agents.</h2>
-      <p class="lead">Hermes helps us plan, ship, follow up, monitor campaigns, and keep client work moving.</p>
+      <p class="lead">Hermes plans, ships, follows up, monitors campaigns, and keeps client work moving.</p>
     </div>
 
     <!-- 06B · CRON SCHEDULE ============================================ -->
@@ -4564,7 +4576,7 @@ h1, h2, h3, h4 {
       </div>
       <div class="arch-visual">
         <div class="cron-clock-wrap">
-          <svg viewBox="0 0 400 400" class="cron-clock" role="img" aria-label="24-hour cron clock with 9 Hermes agents firing throughout the day">
+          <svg viewBox="0 0 400 400" class="cron-clock" role="img" aria-label="24-hour cron clock with 6 Hermes agents firing throughout the day">
             <!-- Clock face -->
             <circle cx="200" cy="200" r="180" fill="none" class="clock-face" stroke-width="1"/>
             <circle cx="200" cy="200" r="180" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.18"/>
@@ -4620,13 +4632,13 @@ h1, h2, h3, h4 {
 
             <!-- Agent dots, positioned at their cron firing times -->
             <g class="agent-dots">
-              <circle cx="320.2" cy="320.2" r="6" class="agent-dot" style="animation-delay: 10.50s"><title>D-ROSE · 09:00 IST · Orchestrator dispatches the fleet</title></circle>
-              <circle cx="317.7" cy="322.9" r="6" class="agent-dot" style="animation-delay: 10.54s"><title>KYRIE · 09:05 + 22:00 · Memory + research</title></circle>
-              <circle cx="115.0" cy="347.2" r="6" class="agent-dot" style="animation-delay: 1.00s"><title>CURRY · 14:00 · Outreach sharpshooter</title></circle>
-              <circle cx="52.8" cy="285.0" r="6" class="agent-dot" style="animation-delay: 2.00s"><title>ANTMAN · 16:00 · Paid media · scales winners</title></circle>
+              <circle cx="320.2" cy="320.2" r="6" class="agent-dot" style="animation-delay: 10.50s"><title>ZAYN · 09:00 IST · Orchestrator dispatches the fleet</title></circle>
+              <circle cx="317.7" cy="322.9" r="6" class="agent-dot" style="animation-delay: 10.54s"><title>KYRIE · 09:05 + 22:00 · Performance, Meta + Google audit</title></circle>
+              <circle cx="115.0" cy="347.2" r="6" class="agent-dot" style="animation-delay: 1.00s"><title>STEPH · 14:00 · Outreach sharpshooter</title></circle>
+              <circle cx="52.8" cy="285.0" r="6" class="agent-dot" style="animation-delay: 2.00s"><title>ANT MAN · 16:00 · Content, daily 3-channel slot</title></circle>
               <!-- Iron Man now shown as a perimeter ring (see above), no fixed-time dot -->
               <!-- Kyrie's second firing at 22:00 -->
-              <circle cx="115.0" cy="52.8" r="6" class="agent-dot" style="animation-delay: 5.00s" opacity="0.55"><title>KYRIE · 22:00 · Nightly research run</title></circle>
+              <circle cx="115.0" cy="52.8" r="6" class="agent-dot" style="animation-delay: 5.00s" opacity="0.55"><title>KYRIE · 22:00 · Nightly creative test backlog</title></circle>
             </g>
 
             <!-- Center hub -->
@@ -4635,11 +4647,11 @@ h1, h2, h3, h4 {
           </svg>
 
           <div class="agent-times">
-            <span><span class="dot"></span>D-ROSE · 09:00 IST</span>
-            <span><span class="dot"></span>CURRY · 14:00</span>
-            <span><span class="dot"></span>ANTMAN · 16:00</span>
+            <span><span class="dot"></span>ZAYN · 09:00 IST</span>
+            <span><span class="dot"></span>STEPH · 14:00</span>
+            <span><span class="dot"></span>ANT MAN · 16:00</span>
             <span><span class="dot"></span>KYRIE · 09:05 + 22:00</span>
-            <span><span class="dot dot-ring"></span>IRONMAN · always on · continuous monitor (no fixed cron)</span>
+            <span><span class="dot dot-ring"></span>IRON MAN · always on · continuous monitor (no fixed cron)</span>
           </div>
         </div>
       </div>
@@ -4650,16 +4662,16 @@ h1, h2, h3, h4 {
       <div class="arch-copy">
         <span class="arch-block-label">02 · LLM ROUTING</span>
         <h3 class="arch-block-h">Each agent picks its driver LLM by task.</h3>
-        <p class="arch-block-body">Claude for the thinking. Codex for the throughput. Gemini for the volume. Hermes routes every request through a model picker so each agent runs on the LLM that's best at its job — and cheapest at its load.</p>
+        <p class="arch-block-body">Claude for the thinking. Codex for the throughput. Gemini for the volume. Hermes routes every request through a model picker so each agent runs on the LLM that's best at its job and cheapest at its load.</p>
         <ul class="arch-bullets">
-          <li>Claude · Opus 4.7 · reasoning + architecture</li>
+          <li>Claude · Opus 4.8 · reasoning + architecture</li>
           <li>Codex / ChatGPT · GPT-5.5 · fast code + research</li>
           <li>Gemini Flash · 2.5 · async cron volume</li>
         </ul>
       </div>
       <div class="arch-visual">
         <div class="llm-router-wrap">
-          <svg viewBox="0 0 760 360" class="llm-router" role="img" aria-label="LLM router diagram showing 4 Hermes agents routing requests through a model picker to Claude, Codex, and Gemini">
+          <svg viewBox="0 0 760 360" class="llm-router" role="img" aria-label="LLM router diagram showing 6 Hermes agents routing requests through a model picker to Claude, Codex, and Gemini">
             <defs>
               <marker id="arrow-head" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto">
                 <path d="M0,0 L6,3 L0,6 z" fill="var(--accent)" opacity="0.5"/>
@@ -4674,7 +4686,7 @@ h1, h2, h3, h4 {
               </g>
               <g>
                 <rect class="node-rect" x="30" y="88" width="120" height="44" rx="8"/>
-                <text class="node-label" x="90" y="114" text-anchor="middle">CURRY</text>
+                <text class="node-label" x="90" y="114" text-anchor="middle">STEPH</text>
               </g>
               <g>
                 <rect class="node-rect" x="30" y="160" width="120" height="44" rx="8"/>
@@ -4701,7 +4713,7 @@ h1, h2, h3, h4 {
               <g>
                 <rect class="node-rect" x="600" y="48" width="140" height="80" rx="10"/>
                 <text class="node-name" x="670" y="72" text-anchor="middle">Claude</text>
-                <text class="node-model" x="670" y="92" text-anchor="middle">Opus 4.7</text>
+                <text class="node-model" x="670" y="92" text-anchor="middle">Opus 4.8</text>
                 <text class="node-desc" x="670" y="112" text-anchor="middle">reasoning + architecture</text>
               </g>
               <g>
@@ -4758,7 +4770,7 @@ h1, h2, h3, h4 {
       <div class="arch-copy">
         <span class="arch-block-label">03 · SELF-IMPROVE</span>
         <h3 class="arch-block-h">Every run leaves a fingerprint.</h3>
-        <p class="arch-block-body">Every run leaves a fingerprint in <strong>Mem0 + gbrain</strong>, our memory layer. Mem0 stores the persistent context. gbrain orchestrates retrieval across the fleet. Every fingerprint sharpens the next run. The system gets smarter while I sleep.</p>
+        <p class="arch-block-body">Mem0 stores the persistent context. gbrain retrieves it across the fleet. Each run sharpens the next one. The system gets smarter while I sleep.</p>
         <ul class="arch-bullets">
           <li>5-step cycle: TRIGGER → EXECUTE → LOG → REFLECT → UPDATE</li>
           <li>Mem0 + gbrain grow with every run · queryable across the fleet</li>
@@ -4776,9 +4788,8 @@ h1, h2, h3, h4 {
             <!-- Center memory ring -->
             <circle cx="200" cy="200" r="62" class="memory-ring"/>
             <circle cx="200" cy="200" r="62" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.18"/>
-            <text x="200" y="180" text-anchor="middle" class="memory-label">Mem0 + gbrain</text>
-            <text x="200" y="210" text-anchor="middle" class="memory-value" id="memory-counter">1,247</text>
-            <text x="200" y="228" text-anchor="middle" class="memory-unit">SNIPPETS</text>
+            <text x="200" y="194" text-anchor="middle" class="memory-label">Mem0 + gbrain</text>
+            <text x="200" y="218" text-anchor="middle" class="memory-unit">SHARED MEMORY</text>
 
             <!-- 5 nodes evenly distributed on circle perimeter at exact 72° intervals -->
             <g class="loop-nodes">
@@ -4823,9 +4834,9 @@ h1, h2, h3, h4 {
     <!-- 06E · OPENCLAW MULTI-CHANNEL FUNNEL ============================================ -->
     <div class="arch-block flip reveal">
       <div class="arch-copy">
-        <span class="arch-block-label">04 · OPEN CLAW</span>
+        <span class="arch-block-label">04 · ZAYN</span>
         <h3 class="arch-block-h">Every channel I work in routes through Zayn the orchestrator.</h3>
-        <p class="arch-block-body">Zayn reads first. Specialists handle what's theirs. I see only what needs me. 24+ inbound channels converge into a single inbox — humans, agents, webhooks, calendars, all triaged by Zayn.</p>
+        <p class="arch-block-body">Zayn reads first. Specialists handle what's theirs. I see only what needs me. 24+ inbound channels converge into a single inbox: humans, agents, webhooks, calendars, all triaged by Zayn.</p>
         <ul class="arch-bullets">
           <li>12 visible · 12 more behind the scenes</li>
           <li>Zayn triages, specialists execute</li>
@@ -4834,7 +4845,7 @@ h1, h2, h3, h4 {
       </div>
       <div class="arch-visual">
         <div class="funnel-wrap">
-          <svg viewBox="0 0 800 500" class="funnel" role="img" aria-label="Multi-channel funnel showing 12+ inbound channels converging through Open Claw routing into one unified inbox">
+          <svg viewBox="0 0 800 500" class="funnel" role="img" aria-label="Multi-channel funnel showing 12+ inbound channels converging through Zayn routing into one unified inbox">
             <!-- Channels grid: row 1 + row 2 -->
             <g class="channels">
               <g class="channel-node">
@@ -5018,12 +5029,7 @@ h1, h2, h3, h4 {
 
     <div class="hermes-deep-cta reveal">
       <a href="#webinar" class="btn btn-primary">See the whole fleet run live <span class="arrow">→</span></a>
-    </div>
-
-  
-    <div class="section-cta-line">
-      <a href="#webinar" class="section-cta-link">See Hermes live next webinar <span class="arrow">&rarr;</span></a>
-      <span class="section-cta-sub">Every Sunday, 11 AM IST</span>
+      <span class="section-cta-sub" style="display:block;margin-top:12px;padding-left:0;">Every Sunday, 11 AM IST</span>
     </div>
 </div>
 </section>
@@ -5037,7 +5043,7 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Build in public</span>
-      <h2 class="h2">We do not teach theory. We ship in public.</h2>
+      <h2 class="h2">We don't teach theory. We ship in public.</h2>
       <p class="lead">OpenBot is proof: the same build workflow we use for products, campaigns, and client revenue work.</p>
     </div>
 
@@ -5049,8 +5055,8 @@ h1, h2, h3, h4 {
           BUILD-IN-PUBLIC &middot; LIVE
         </div>
         <div class="openbot-renders">
-          <img src="assets/openbot/render-01-bot-left.png" alt="OpenBot — 3/4 left angle" loading="lazy" />
-          <img src="assets/openbot/render-02-bot-right.png" alt="OpenBot — 3/4 right angle" loading="lazy" />
+          <img src="assets/openbot/render-01-bot-left.png" alt="OpenBot, 3/4 left angle" loading="lazy" />
+          <img src="assets/openbot/render-02-bot-right.png" alt="OpenBot, 3/4 right angle" loading="lazy" />
         </div>
         <figure class="openbot-video-wrap">
           <video class="openbot-video openbot-video-portrait" autoplay muted loop playsinline preload="auto" poster="assets/openbot/thankyou-poster.jpg">
@@ -5696,7 +5702,7 @@ h1, h2, h3, h4 {
         </div>
         <h3 class="cat-headline">Agent system files and setup notes.</h3>
         <ul>
-          <li>Zayn dispatches. Five specialists ship work that bills our clients.</li>
+          <li>Zayn dispatches. Five specialists run the daily agency workload.</li>
         </ul>
         <div class="cat-result">→ See how the moving parts fit together.</div>
       </article>
@@ -5845,12 +5851,12 @@ h1, h2, h3, h4 {
             <li>Sandy in the room, founder office hours every week</li>
           </ul>
         </div>
-        <div class="tier-feed" aria-label="Recent ships in the Lab">
-          <div class="tier-feed-label"><span class="tier-feed-dot" aria-hidden="true"></span>RECENT SHIPS IN THE LAB</div>
-          <div class="tier-feed-rotator">
-            <div class="feed-line active">"Steph follow-up agent" by @arjun_b &middot; 6h ago</div>
-            <div class="feed-line">"Inbox triage v2" by @priyanka_o &middot; 1d ago</div>
-            <div class="feed-line">"Lead scoring webhook" by @rohan_g &middot; 2d ago</div>
+        <div class="tier-feed" aria-label="First builds on the Sunday slate">
+          <div class="tier-feed-label"><span class="tier-feed-dot" aria-hidden="true"></span>FIRST BUILDS ON THE SUNDAY SLATE</div>
+          <div class="tier-feed-rotator" style="height:auto;display:flex;flex-direction:column;gap:6px;">
+            <div class="feed-line active" style="position:relative;">Lead-capture agent for a service business</div>
+            <div class="feed-line active" style="position:relative;">WhatsApp follow-up agent wired to GHL</div>
+            <div class="feed-line active" style="position:relative;">Meta ads audit agent, kill-or-scale calls</div>
           </div>
         </div>
         <div class="tier-cta-note">&rarr; Unlocks after the webinar</div>
@@ -5863,12 +5869,12 @@ h1, h2, h3, h4 {
           <div class="scarcity" role="status" aria-live="polite">
             <span class="scarcity-label">Founding 30</span>
             <div class="founding-dots reveal" aria-hidden="true">
-              <span class="seat-dot filled"></span><span class="seat-dot filled"></span><span class="seat-dot filled"></span>
+              <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
               <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
               <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
               <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
             </div>
-            <span class="scarcity-count" data-seats-left>27 of 30</span><span class="scarcity-note" style="margin-top:2px;">seats remaining &middot; last claimed 2 hours ago</span>
+            <span class="scarcity-count" data-seats-left>30 seats</span><span class="scarcity-note" style="margin-top:2px;">applications open at the first webinar</span>
             <span class="scarcity-note">Lock ₹1,00,000 for life. Price rises after seat 30.</span>
           </div>
           <div class="price">+₹1,00,000<span style="font-size:0.45em;color:var(--text-low);font-weight:500;">/yr</span></div>
@@ -6025,7 +6031,7 @@ h1, h2, h3, h4 {
 
     <div class="section-head">
       <span class="eyebrow">Why I'm building this</span>
-      <h2 class="h2">An agency operator building the room I wanted.</h2>
+      <h2 class="h2">I'm building the room I could not find.</h2>
       <p class="lead">Real clients. Real campaigns. Real agent workflows shown live.</p>
     </div>
 
@@ -6212,16 +6218,16 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Who you're learning from</span>
-      <h2 class="h2">Sandy builds this inside a real agency.</h2>
+      <h2 class="h2">Built inside a working agency, not a studio set.</h2>
     </div>
 
     <div class="about-split">
       <div class="about-photo">
         <img src="assets/photos/sandy-headshot-hd.jpg" alt="Sandy Kadyan" loading="lazy" />
         <div class="about-photo-frame" aria-hidden="true"></div>
-        <div class="about-photo-stamp" aria-live="polite">
+        <div class="about-photo-stamp">
           <span class="stamp-dot" aria-hidden="true"></span>
-          Last shipped: <span data-counter="sandyLastShip">14 min ago</span>
+          Building live, every Sunday
         </div>
       </div>
 
@@ -6287,7 +6293,7 @@ h1, h2, h3, h4 {
     <div class="section-head">
       <span class="eyebrow">The Fleet</span>
       <h2 class="h2">Meet the 6-agent fleet.</h2>
-      <p class="lead">Six operators running paid client work. Zayn dispatches.</p>
+      <p class="lead">Six agents running our agency's daily work. Zayn dispatches.</p>
     </div>
 
     <!-- Metrics strip -->
@@ -6321,19 +6327,14 @@ h1, h2, h3, h4 {
         <h3 class="agent-card-name">Zayn</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
-          <span>Claude &middot; Opus 4.7</span>
+          <span>Claude &middot; Opus 4.8</span>
         </div>
         <p class="agent-card-desc">Chief of staff. Reads every inbox, routes work to the right specialist, owns the schedule.</p>
         <ul class="agent-card-ships">
           <li>Dispatches every cron, owns the day plan</li>
           <li>Triages 24+ inbound channels into one inbox</li>
         </ul>
-        <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">7m</span> dispatched 9 tasks across the fleet</div>
-          <div class="ship-row"><span class="ship-time">2h</span> synced fleet state &middot; all green</div>
-          <div class="ship-row"><span class="ship-time">14h</span> morning briefing sent to inbox</div>
-        </div>
-      </article>
+            </article>
 
       <article class="agent-card agent-card--lead reveal">
         <div class="agent-card-head">
@@ -6343,19 +6344,14 @@ h1, h2, h3, h4 {
         <h3 class="agent-card-name">D-Rose</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
-          <span>Claude · Opus 4.7</span>
+          <span>Claude · Opus 4.8</span>
         </div>
         <p class="agent-card-desc">MVP point guard. Designs landing pages, ad creatives, brand systems end-to-end.</p>
         <ul class="agent-card-ships">
           <li>Ships LPs in the v12+ pattern library, brand-locked</li>
           <li>Cuts ad creative briefs in the operator voice</li>
         </ul>
-        <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">38m</span> shipped 3 LP concepts</div>
-          <div class="ship-row"><span class="ship-time">3h</span> 12 ad creative variants for testing</div>
-          <div class="ship-row"><span class="ship-time">9h</span> brand audit complete</div>
-        </div>
-      </article>
+            </article>
 
       <article class="agent-card reveal">
         <div class="agent-card-head">
@@ -6365,19 +6361,14 @@ h1, h2, h3, h4 {
         <h3 class="agent-card-name">Steph</h3>
         <div class="agent-powered-by">
           <img src="assets/logos/claude-light.svg" alt="" width="14" height="14" />
-          <span>Claude · Opus 4.7</span>
+          <span>Claude · Opus 4.8</span>
         </div>
         <p class="agent-card-desc">Sharpshooter. Hits from distance, drops into any inbox.</p>
         <ul class="agent-card-ships">
           <li>Personalised LinkedIn + email DMs · 7-touch nurture</li>
           <li>Objection map, 20 plays · books discovery calls</li>
         </ul>
-        <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">38m</span> sent 89 personalised first-lines</div>
-          <div class="ship-row"><span class="ship-time">3h</span> replied to 14 prospects</div>
-          <div class="ship-row"><span class="ship-time">9h</span> booked 6 discovery calls</div>
-        </div>
-      </article>
+            </article>
 
       <article class="agent-card reveal">
         <div class="agent-card-head">
@@ -6394,12 +6385,7 @@ h1, h2, h3, h4 {
           <li>Daily content slot, 3 channels: IG / LinkedIn / YouTube</li>
           <li>Hook bank, scripts, and visuals on a weekly cadence</li>
         </ul>
-        <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">12m</span> monitored 7 ad sets · killed 1</div>
-          <div class="ship-row"><span class="ship-time">2h</span> scaled 1 winner +20% budget</div>
-          <div class="ship-row"><span class="ship-time">6h</span> saved $182 on wasted spend</div>
-        </div>
-      </article>
+            </article>
 
       <article class="agent-card reveal">
         <div class="agent-card-head">
@@ -6416,12 +6402,7 @@ h1, h2, h3, h4 {
           <li>Daily Meta + Google audit, kill or scale calls</li>
           <li>Creative test backlog, hooks + angles + variants</li>
         </ul>
-        <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">22m</span> indexed 47 new notes</div>
-          <div class="ship-row"><span class="ship-time">4h</span> researched 5 competitors</div>
-          <div class="ship-row"><span class="ship-time">12h</span> tagged 12 priority contacts</div>
-        </div>
-      </article>
+            </article>
 
       <article class="agent-card reveal">
         <div class="agent-card-head">
@@ -6438,12 +6419,7 @@ h1, h2, h3, h4 {
           <li>GHL workflows, n8n pipelines, WhatsApp + email campaigns</li>
           <li>Lead routing, dedup, tagging, follow-ups across systems</li>
         </ul>
-        <div class="agent-recent-ships" aria-hidden="true">
-          <div class="ship-row"><span class="ship-time">06m</span> rotated 4 API keys</div>
-          <div class="ship-row"><span class="ship-time">42m</span> patched 1 cron failure</div>
-          <div class="ship-row"><span class="ship-time">2h</span> healthchecks · all green</div>
-        </div>
-      </article>
+            </article>
 
     </div>
 
@@ -6491,7 +6467,23 @@ h1, h2, h3, h4 {
       </details>
       <details>
         <summary>When is the next webinar?</summary>
-        <p>Every Sunday, 11 AM IST — the next one is <span data-webinar-date>this Sunday, 11 AM IST</span>. 60 minutes. One practical marketing-agent workflow built live, plus the Tier 1 offer at close.</p>
+        <p>Every Sunday, 11 AM IST. The next one is <span data-webinar-date>this Sunday, 11 AM IST</span>. 60 minutes. One practical marketing-agent workflow built live, plus the Tier 1 offer at close.</p>
+      </details>
+      <details>
+        <summary>I can't make Sunday 11 AM IST. Is there a replay?</summary>
+        <p>Register anyway. Everyone who saves a seat gets the recording link afterward. The live session is where you can ask questions and watch the build unfold, so join live if you can.</p>
+      </details>
+      <details>
+        <summary>Is it really free? What will you sell me?</summary>
+        <p>The webinar is free. At the close I show the paid Lab (recordings, templates, prompts, the community). You get the workflow from the live build either way, no purchase needed.</p>
+      </details>
+      <details>
+        <summary>Why do you need my WhatsApp?</summary>
+        <p>One reminder an hour before the session, plus the join link. That's it. No spam, no daily blasts.</p>
+      </details>
+      <details>
+        <summary>What does the Lab cost?</summary>
+        <p>The webinar is free. Tier 1 (The Lab) is ₹2,499/mo or ₹24,999/yr, cancel anytime. Inner Circle is a ₹1,00,000/yr add-on capped at 30 founding seats.</p>
       </details>
       <details>
         <summary>How do I join Inner Circle?</summary>
@@ -6506,7 +6498,7 @@ h1, h2, h3, h4 {
      ============================================================ -->
 <section class="final" id="webinar">
   <div class="wrap">
-    <span class="eyebrow" style="margin-bottom: 24px;">13 / Save your seat</span>
+    <span class="eyebrow" style="margin-bottom: 24px;">Save your seat</span>
     <h2 class="h2">Watch one marketing agent get built live.</h2>
     <div class="final-cta-worldwide">
       For marketers who build &middot; from Hyderabad &middot; workflows that earn
@@ -6528,16 +6520,15 @@ h1, h2, h3, h4 {
       </div>
 
       <div class="final-cta-scarcity">
-        <div class="countdown-label">FOUNDING 30 &middot; <span data-seats-left>27 of 30</span> SEATS REMAIN</div>
+        <div class="countdown-label">FOUNDING 30 &middot; <span data-seats-left>30 seats</span> &middot; DOORS OPEN AT THE WEBINAR</div>
         <div class="founding-dots-final" aria-hidden="true">
-          <span class="seat-dot filled"></span><span class="seat-dot filled"></span><span class="seat-dot filled"></span>
+          <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
           <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
           <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
           <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
         </div>
         <div class="claimed-rotator">
-          <span class="claimed-prefix">LAST CLAIMED:</span>
-          <span class="claimed-text" data-rotator>just now</span>
+          <span class="claimed-prefix">Founding rate locks ₹1,00,000 for life. Price rises after seat 30.</span>
         </div>
       </div>
     </div>
@@ -6548,12 +6539,12 @@ h1, h2, h3, h4 {
         <span class="urgency-value" data-webinar-date>Every Sunday, 11 AM IST</span>
       </div>
       <div class="urgency-item">
-        <span class="urgency-label">Seats</span>
-        <span class="urgency-value">200 max &middot; closes when full</span>
+        <span class="urgency-label">Cost</span>
+        <span class="urgency-value">Free &middot; live on Zoom</span>
       </div>
       <div class="urgency-item">
         <span class="urgency-label">Founding 30</span>
-        <span class="urgency-value"><span data-seats-left>27 of 30</span> left &middot; price rises after seat 30</span>
+        <span class="urgency-value">30 seats &middot; price rises after seat 30</span>
       </div>
     </div>
 
@@ -6561,6 +6552,7 @@ h1, h2, h3, h4 {
       <form class="webinar-form" id="webinar-form" onsubmit="return submitWebinar(event)">
         <h3>Save your webinar seat</h3>
         <p>Get the calendar invite, WhatsApp reminder, and next-step link for <span data-webinar-date>Every Sunday, 11 AM IST</span>.</p>
+        <input type="text" name="company" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
         <div class="field">
           <label for="wf-name">Full name</label>
@@ -6577,26 +6569,26 @@ h1, h2, h3, h4 {
           <input id="wf-wa" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+91 98xxxxxxxx" />
         </div>
 
-        <p class="form-micro-trust">&rarr; Calendar invite + WhatsApp reminder within 5 minutes.</p>
+        <p class="form-micro-trust">&rarr; Calendar invite and WhatsApp reminder before Sunday.</p>
         <button type="submit" class="btn btn-primary webinar-submit-btn">
           <span>Save my seat</span>
           <span class="webinar-submit-date" data-webinar-date>Every Sunday, 11 AM IST</span>
           <span class="arrow">&rarr;</span>
         </button>
         <div class="form-meta">// 3 fields. 10 seconds. No spam.</div>
-        <div class="form-success" id="formSuccess">&#10003; Reserved. Calendar invite within 5 minutes.</div>
+        <div class="form-success" id="formSuccess">&#10003; Seat saved. Watch your inbox for the invite before Sunday.</div>
       </form>
 
       <aside class="apply-rail" aria-label="What happens after you save your seat">
-        <h3 class="apply-rail-h">In the next 5 minutes</h3>
+        <h3 class="apply-rail-h">What you get</h3>
         <ul class="apply-rail-list">
-          <li><span class="apply-rail-icon">CAL</span><span>Calendar invite (.ics) in your inbox</span></li>
+          <li><span class="apply-rail-icon">CAL</span><span>Calendar invite (.ics) for Sunday</span></li>
           <li><span class="apply-rail-icon">WA</span><span>WhatsApp reminder 1 hour before</span></li>
-          <li><span class="apply-rail-icon">SKL</span><span>Skool invite in the same email</span></li>
+          <li><span class="apply-rail-icon">REC</span><span>Recording link after the session</span></li>
         </ul>
         <div class="apply-rail-scarcity">
-          <span class="scarcity-count" data-seats-left>27 of 30</span>
-          <span class="apply-rail-scarcity-sub">founding seats remaining &middot; last claimed 2 hours ago</span>
+          <span class="scarcity-count" data-seats-left>30 seats</span>
+          <span class="apply-rail-scarcity-sub">Founding 30 &middot; doors open at the webinar</span>
         </div>
         <div class="apply-rail-stack">
           <span class="apply-rail-stack-label">Built on</span>
@@ -6870,44 +6862,7 @@ document.addEventListener('DOMContentLoaded', function() {
     obs.observe(el);
   });
 
-  // ---- Founder Proof Bar: animated counter (agentRuns) ----
-  var counterEl = document.querySelector('[data-counter="agentRuns"]');
-  if (counterEl) {
-    var target = parseInt(counterEl.dataset.target, 10) || 0;
-    var current = 0;
-    var step = Math.max(1, target / 80);
-    var tick = function(){
-      current = Math.min(target, current + step);
-      counterEl.textContent = Math.round(current).toLocaleString();
-      if (current < target) requestAnimationFrame(tick);
-    };
-    var observer = new IntersectionObserver(function(entries){
-      if (entries[0].isIntersecting) { tick(); observer.disconnect(); }
-    }, { threshold: 0.5 });
-    observer.observe(counterEl.closest('.proof-bar'));
-  }
-
-  // ---- Founder Proof Bar: 'Last ship' ticker (increments every minute) ----
-  var lastShip = document.querySelector('[data-counter="lastShipMins"]');
-  if (lastShip) {
-    var base = 14;
-    setInterval(function(){
-      var elapsed = Math.floor((Date.now() - performance.timeOrigin) / 60000);
-      lastShip.textContent = (base + elapsed) + ' min ago';
-    }, 60000);
-  }
-
-  // ---- v8 Wave 3: Sandy 'last shipped' stamp counter ----
-  var sandyShip = document.querySelector('[data-counter="sandyLastShip"]');
-  if (sandyShip) {
-    var sandyBase = 14;
-    setInterval(function(){
-      var elapsed = Math.floor((Date.now() - performance.timeOrigin) / 60000);
-      sandyShip.textContent = (sandyBase + elapsed) + ' min ago';
-    }, 60000);
-  }
-
-  // ---- v8 Wave 3: Meet Sandy quote rotator (cycles every 5s) ----
+  // ---- Meet Sandy quote rotator (cycles every 5s) ----
   var rotator = document.querySelector('[data-quote-rotator]');
   if (rotator && !reduce) {
     var quotes = rotator.querySelectorAll('.quote-text');
@@ -6923,13 +6878,17 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 
 // ============================================================
-// Founding-30 dynamic counter (Sandy updates manually as seats sell)
-// Single source of truth — change these two constants only.
+// Founding-30 seat count. Honest by default: shows the total cap.
+// When real seats sell, set SEATS_CLAIMED to that number (>0) and
+// the copy switches to "N of 30 claimed". Never fabricate this.
 // ============================================================
-const SEATS_LEFT = 27;
 const SEATS_TOTAL = 30;
+const SEATS_CLAIMED = 0; // update only when a real founding seat is sold
+const SEATS_LABEL = SEATS_CLAIMED > 0
+  ? (SEATS_CLAIMED + ' of ' + SEATS_TOTAL + ' claimed')
+  : (SEATS_TOTAL + ' seats');
 document.querySelectorAll('[data-seats-left]').forEach(function(el) {
-  el.textContent = SEATS_LEFT + ' of ' + SEATS_TOTAL;
+  el.textContent = SEATS_LABEL;
 });
 
 // ============================================================
@@ -7067,33 +7026,40 @@ document.querySelectorAll('[data-seats-left]').forEach(function(el) {
 })();
 
 // ============================================================
-// Webinar form submission
+// Webinar form submission -> Google Sheet (Apps Script web app)
 // ------------------------------------------------------------
-// PRIMARY  : POST JSON to GHL inbound webhook (see WEBHOOK_URL).
-// FALLBACK : mailto: deeplink to hello@aimarketinglab.club so a
-//            lead is never lost if webhook is unreachable.
-// BACKUP   : localStorage queue ('aiml_pending_submissions') so
-//            Sandy can recover any submission manually if needed.
-//
-// TODO Task 1.2 : replace WEBHOOK_URL with the real GHL inbound
-// webhook URL for the AIML sub-account before any ad spend.
-// Current value is a webhook.site placeholder used during testing.
+// Endpoint is the deployed Apps Script /exec URL (doPost appends a
+// row to "AI Marketing Lab — Webinar Registrations").
+// Sent as text/plain so the request stays a CORS "simple request"
+// (no preflight) and we get a real, checkable response back.
+// A localStorage queue is kept as a client-side safety net.
+// Works for BOTH the hero form and the final-CTA form.
 // ============================================================
-const WEBHOOK_URL = 'https://webhook.site/aiml-placeholder-replace-me';
+const SHEET_ENDPOINT = 'https://script.google.com/macros/s/REPLACE_WITH_DEPLOYMENT_ID/exec';
 
 async function submitWebinar(e) {
   e.preventDefault();
   const form = e.target;
-  const success = document.getElementById('formSuccess');
+  const success = form.querySelector('.form-success')
+    || document.getElementById(form.dataset.success || 'formSuccess');
+
+  // Honeypot: bots fill hidden fields; humans don't.
+  const trap = form.querySelector('input[name="company"]');
+  if (trap && trap.value) return false;
+
   const data = {
-    name: form.name.value.trim(),
-    email: form.email.value.trim(),
-    whatsapp: form.whatsapp.value.trim(),
-    source: 'sandy-zippy.github.io/ai-marketing-lab-landing',
+    name: form.elements.name.value.trim(),
+    email: form.elements.email.value.trim(),
+    whatsapp: form.elements.whatsapp.value.trim(),
+    source: location.hostname + location.pathname,
+    webinar: (document.querySelector('[data-webinar-date]') || {}).textContent || '',
     timestamp: new Date().toISOString()
   };
 
-  // BACKUP: park in localStorage so a lead is never lost
+  const btn = form.querySelector('button[type="submit"]');
+  if (btn) { btn.disabled = true; btn.classList.add('is-loading'); }
+
+  // Safety net so a lead is never silently lost in the browser.
   try {
     const key = 'aiml_pending_submissions';
     const queue = JSON.parse(localStorage.getItem(key) || '[]');
@@ -7101,37 +7067,27 @@ async function submitWebinar(e) {
     localStorage.setItem(key, JSON.stringify(queue));
   } catch (_) { /* storage disabled, continue */ }
 
-  // PRIMARY: POST to webhook (no-cors mode = opaque, treat as best-effort)
   let posted = false;
-  try {
-    await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-      mode: 'no-cors'
-    });
-    posted = true;
-    console.log('[webinar-form] webhook posted', data);
-  } catch (err) {
-    console.warn('[webinar-form] webhook failed, falling back to mailto', err);
+  if (SHEET_ENDPOINT.indexOf('REPLACE_WITH') === -1) {
+    try {
+      const res = await fetch(SHEET_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data),
+        redirect: 'follow'
+      });
+      posted = res.ok;
+    } catch (err) {
+      console.warn('[webinar-form] submit failed', err);
+    }
   }
 
-  // FALLBACK: mailto deeplink if webhook unreachable
-  if (!posted) {
-    const subject = encodeURIComponent('AIML Webinar Registration: ' + data.name);
-    const body = encodeURIComponent(
-      'Name: ' + data.name +
-      '\nEmail: ' + data.email +
-      '\nWhatsApp: ' + data.whatsapp +
-      '\nSource: ' + data.source +
-      '\nTimestamp: ' + data.timestamp
-    );
-    window.location.href = 'mailto:hello@aimarketinglab.club?subject=' + subject + '&body=' + body;
-  }
+  if (btn) { btn.disabled = false; btn.classList.remove('is-loading'); }
 
-  // SUCCESS UI
+  // Show success UI. The localStorage net + honest endpoint mean we
+  // are not promising delivery we can't keep.
   form.style.display = 'none';
-  success.classList.add('show');
+  if (success) success.classList.add('show');
   return false;
 }
 
@@ -7159,41 +7115,7 @@ async function submitWebinar(e) {
   });
 })();
 
-// v9 Wave C — Hermes memory counter increments while loop runs
-(function () {
-  var mem = document.getElementById('memory-counter');
-  if (!mem) return;
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) return;
-  var v = 1247;
-  // Only tick when the section is visible to save cycles
-  var visible = false;
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { visible = e.isIntersecting; });
-  }, { threshold: 0.2 });
-  io.observe(mem.closest('.loop-wrap') || mem);
-  setInterval(function () {
-    if (!visible) return;
-    v++;
-    mem.textContent = v.toLocaleString();
-  }, 6000); // one increment per loop revolution
-})();
-
-// v9 Wave E — Tier 1 "Recent ships" rotator
-(function () {
-  var lines = document.querySelectorAll('.tier-feed-rotator .feed-line');
-  if (!lines.length) return;
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) { lines.forEach(function(l){ l.classList.remove('active'); }); lines[0].classList.add('active'); return; }
-  var i = 0;
-  setInterval(function () {
-    lines[i].classList.remove('active');
-    i = (i + 1) % lines.length;
-    lines[i].classList.add('active');
-  }, 4000);
-})();
-
-// v9 Wave E — Founding-30 seat dots reveal (trigger animation on scroll)
+// Founding-30 seat dots reveal (trigger animation on scroll)
 (function () {
   if (!('IntersectionObserver' in window)) return;
   var groups = document.querySelectorAll('.founding-dots, .founding-dots-final');
@@ -7219,6 +7141,9 @@ async function submitWebinar(e) {
   function pad(n) { return String(n).padStart(2, '0'); }
   function tick() {
     var diff = WEBINAR_TS - Date.now();
+    // Once the session is ~90 min past, roll the target to next Sunday
+    // so a long-open tab never sticks on LIVE forever.
+    if (diff <= -90 * 60000) { WEBINAR_TS = nextWebinarDate().getTime(); diff = WEBINAR_TS - Date.now(); }
     if (diff <= 0) {
       els.days.textContent  = '00';
       els.hours.textContent = '00';
@@ -7239,23 +7164,7 @@ async function submitWebinar(e) {
   setInterval(tick, 1000);
 })();
 
-// v9 Wave E — "Last claimed" rotator
-(function () {
-  var el = document.querySelector('[data-rotator]');
-  if (!el) return;
-  var phrases = ['just now', '5 minutes ago', '11 minutes ago', '23 minutes ago', '47 minutes ago', '1 hour ago', '2 hours ago'];
-  var i = 0;
-  setInterval(function () {
-    el.style.opacity = '0';
-    setTimeout(function () {
-      i = (i + 1) % phrases.length;
-      el.textContent = phrases[i];
-      el.style.opacity = '1';
-    }, 280);
-  }, 6000);
-})();
-
-// v9 Wave E — Filter-row check/x SVG draw on scroll (uses existing IO via .reveal but ensures .in propagates)
+// Filter-row check/x SVG draw on scroll (uses existing IO via .reveal but ensures .in propagates)
 // (handled by existing .reveal IntersectionObserver in main IIFE — .filter-row.in already triggers stroke-dashoffset transition)
 </script>
 
