@@ -716,12 +716,13 @@ h1, h2, h3, h4 {
   line-height: 1.5;
 }
 .offer-frame strong { color: var(--accent); font-weight: 600; }
-.ladder { display: grid; grid-template-columns: 1fr; gap: 24px; }
-@media (min-width: 900px) { .ladder { grid-template-columns: 1fr 1fr; gap: 28px; } }
+.ladder { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+@media (min-width: 900px) { .ladder { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; } }
 .tier {
   background: var(--bg-surface); border: 1px solid var(--border);
   border-radius: 8px; padding: 36px; display: flex; flex-direction: column; gap: 24px;
   position: relative;
+  min-width: 0;
 }
 .tier.featured { border-color: var(--border-strong); background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-surface-2) 100%); }
 .tier-tag {
@@ -896,7 +897,7 @@ h1, h2, h3, h4 {
   position: absolute; top: 0; left: 0; right: 0;
   opacity: 0; transform: translateY(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  white-space: normal;
 }
 .feed-line.active { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) {
@@ -5310,12 +5311,12 @@ h1, h2, h3, h4 {
     <div class="roadmap-timeline" aria-hidden="true">
       <svg viewBox="0 0 1000 60" preserveAspectRatio="none">
         <path d="M 60 30 L 940 30" class="timeline-path" pathLength="1000" />
-        <circle cx="120" cy="30" r="7" class="timeline-milestone" data-month="1" />
+        <circle cx="53" cy="30" r="7" class="timeline-milestone" data-month="1" />
         <circle cx="500" cy="30" r="7" class="timeline-milestone" data-month="2" />
-        <circle cx="880" cy="30" r="7" class="timeline-milestone" data-month="3" />
-        <text x="120" y="54" text-anchor="middle" class="timeline-tick" data-month="1">DAY 30</text>
+        <circle cx="947" cy="30" r="7" class="timeline-milestone" data-month="3" />
+        <text x="53" y="54" text-anchor="middle" class="timeline-tick" data-month="1">DAY 30</text>
         <text x="500" y="54" text-anchor="middle" class="timeline-tick" data-month="2">DAY 60</text>
-        <text x="880" y="54" text-anchor="middle" class="timeline-tick" data-month="3">DAY 90</text>
+        <text x="947" y="54" text-anchor="middle" class="timeline-tick" data-month="3">DAY 90</text>
       </svg>
     </div>
 
@@ -5565,7 +5566,10 @@ h1, h2, h3, h4 {
         <span class="tier-tag">Tier 2 / Inner Circle</span>
         <h3>Inner Circle</h3>
         <div>
-          <div class="scarcity" role="status" aria-live="polite">
+          <div class="price">+₹1,00,000<span style="font-size:0.45em;color:var(--text-low);font-weight:500;">/yr</span></div>
+          <div class="price-sub">add-on to The Lab &middot; Founding 30 hard cap</div>
+          <div class="price-alt">For founders who want direct stack review.</div>
+          <div class="scarcity" role="status" aria-live="polite" style="margin-top:18px;">
             <span class="scarcity-label">Founding 30</span>
             <div class="founding-dots reveal" aria-hidden="true">
               <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
@@ -5576,9 +5580,6 @@ h1, h2, h3, h4 {
             <span class="scarcity-count" data-seats-left>30 seats</span><span class="scarcity-note" style="margin-top:2px;">applications open at the first webinar</span>
             <span class="scarcity-note">Lock ₹1,00,000 for life. Price rises after seat 30.</span>
           </div>
-          <div class="price">+₹1,00,000<span style="font-size:0.45em;color:var(--text-low);font-weight:500;">/yr</span></div>
-          <div class="price-sub">add-on to The Lab &middot; Founding 30 hard cap</div>
-          <div class="price-alt">For founders who want direct stack review.</div>
         </div>
         <div class="tier-body">
           <p>The Lab + direct help on your stack.</p>
