@@ -6642,6 +6642,8 @@ async function submitWebinar(e) {
   // are not promising delivery we can't keep.
   form.style.display = 'none';
   if (success) success.classList.add('show');
+  track('registration_submitted', { form: form.id || 'unknown' });
+  if (window.clarity) clarity('set', 'converted', 'true');
   return false;
 }
 
@@ -6759,6 +6761,85 @@ document.addEventListener('DOMContentLoaded', function () {
   <span>Save my seat <span class="arrow">&rarr;</span></span>
   <span class="sticky-cta-sub" data-webinar-date>Every Sunday, 11 AM IST</span>
 </a>
+
+<script>
+/* ============================================================
+   ANALYTICS — Clarity + PostHog, gated on real IDs so this is a
+   no-op until Sandy fills them in.
+   ============================================================ */
+var CLARITY_ID = 'REPLACE_WITH_CLARITY_ID';
+var POSTHOG_KEY = 'REPLACE_WITH_POSTHOG_KEY';
+var POSTHOG_HOST = 'https://us.i.posthog.com';
+
+if (CLARITY_ID !== 'REPLACE_WITH_CLARITY_ID') {
+  (function (c, l, a, r, i, t, y) {
+    c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+    t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+    y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+  })(window, document, 'clarity', 'script', CLARITY_ID);
+}
+
+if (POSTHOG_KEY !== 'REPLACE_WITH_POSTHOG_KEY') {
+  !function (t, e) {
+    var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) {
+      function g(t, e) { var o = e.split('.'); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))); }; }
+      (p = t.createElement('script')).type = 'text/javascript', p.async = !0, p.src = s.api_host + '/static/array.js', (r = t.getElementsByTagName('script')[0]).parentNode.insertBefore(p, r);
+      var u = e; for (void 0 !== a ? u = e[a] = [] : a = 'posthog', u.people = u.people || [], u.toString = function (t) { var e = 'posthog'; return 'posthog' !== a && (e += '.' + a), t || (e += ' (stub)'), e; }, u.people.toString = function () { return u.toString(1) + '.people (stub)'; }, o = 'capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys'.split(' '), n = 0; n < o.length; n++) g(u, o[n]);
+      e._i.push([i, s, a]);
+    }, e.__SV = 1);
+  }(document, window.posthog || []);
+  posthog.init(POSTHOG_KEY, { api_host: POSTHOG_HOST });
+}
+
+function track(name, props) {
+  try {
+    if (window.clarity) clarity('event', name);
+    if (window.posthog) posthog.capture(name, props || {});
+  } catch (_) { /* analytics must never break the page */ }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  track('landing_view');
+
+  // CTA click tracking, delegated so it survives dynamic content.
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('a.nav-cta, a.hero-cta, a#stickyCta, a.section-cta-link, .webinar-submit-btn');
+    if (!el) return;
+    var location = el.id === 'stickyCta' ? 'sticky'
+      : el.classList.contains('nav-cta') ? 'nav'
+      : el.classList.contains('hero-cta') ? 'hero'
+      : el.classList.contains('section-cta-link') ? 'section'
+      : 'form_button';
+    var section = el.closest('section[id]');
+    track('cta_click', {
+      location: location,
+      label: (el.textContent || '').trim().replace(/\s+/g, ' '),
+      section: section ? section.id : ''
+    });
+  });
+
+  // form_start: fires once per form on first focus inside it.
+  document.querySelectorAll('#hero-webinar-form, #webinar-form').forEach(function (form) {
+    var started = false;
+    form.addEventListener('focusin', function () {
+      if (started) return;
+      started = true;
+      track('form_start', { form: form.id });
+    });
+  });
+
+  // scroll_depth: fires once each at 25/50/75/100% of max scroll reached.
+  var depths = [25, 50, 75, 100];
+  var fired = {};
+  window.addEventListener('scroll', function () {
+    var doc = document.documentElement;
+    var pct = Math.round((window.scrollY + window.innerHeight) / doc.scrollHeight * 100);
+    depths.forEach(function (d) {
+      if (pct >= d && !fired[d]) { fired[d] = true; track('scroll_depth', { depth: d }); }
+    });
+  }, { passive: true });
+});
+</script>
 
 </body>
 </html>
