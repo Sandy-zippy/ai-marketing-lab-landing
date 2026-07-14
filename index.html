@@ -718,7 +718,7 @@ h1, h2, h3, h4 {
 }
 .offer-frame strong { color: var(--accent); font-weight: 600; }
 .ladder { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
-@media (min-width: 900px) { .ladder { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; } }
+@media (min-width: 1000px) { .ladder { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; } .tier { padding: 32px 28px; } }
 .tier {
   background: var(--bg-surface); border: 1px solid var(--border);
   border-radius: 8px; padding: 36px; display: flex; flex-direction: column; gap: 24px;
@@ -751,6 +751,10 @@ h1, h2, h3, h4 {
   font-family: var(--mono); color: var(--accent); font-weight: 700;
 }
 .tier .btn { margin-top: auto; align-self: flex-start; }
+.tier-honest {
+  margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--border-strong);
+  font-size: 13px; line-height: 1.55; color: var(--text-low);
+}
 .tier .cap-note { font-family: var(--mono); font-size: 12px; color: var(--text-low); margin-top: 8px; }
 .tier .tier-cta-note {
   font-family: var(--mono);
@@ -763,113 +767,6 @@ h1, h2, h3, h4 {
   text-transform: none;
 }
 .tier.featured .tier-cta-note { color: var(--accent); border-top-color: var(--accent); }
-
-/* Founding-30 seat dots visualization (Inner Circle + Final CTA) */
-.founding-dots {
-  display: flex; flex-wrap: wrap; gap: 6px;
-  margin: 14px 0 14px;
-  max-width: 290px;
-}
-.founding-dots-final {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;
-  max-width: 290px; margin: 0 auto 14px;
-}
-.seat-dot {
-  width: 13px; height: 13px;
-  border-radius: 50%;
-  border: 1.5px solid var(--text-low);
-  background: transparent;
-  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-}
-.founding-dots.in .seat-dot.filled,
-.founding-dots-final.in .seat-dot.filled,
-.seat-dot.filled {
-  background: var(--accent);
-  border-color: var(--accent);
-  box-shadow: 0 0 6px var(--accent-glow);
-}
-.founding-dots .seat-dot,
-.founding-dots-final .seat-dot {
-  opacity: 0; transform: scale(0.6);
-  animation: dot-claim 0.45s cubic-bezier(.22,1,.36,1) forwards;
-  animation-play-state: paused;
-}
-.founding-dots.in .seat-dot,
-.founding-dots-final.in .seat-dot {
-  animation-play-state: running;
-}
-.founding-dots .seat-dot:nth-child(1)  { animation-delay: 30ms; }
-.founding-dots .seat-dot:nth-child(2)  { animation-delay: 60ms; }
-.founding-dots .seat-dot:nth-child(3)  { animation-delay: 90ms; }
-.founding-dots .seat-dot:nth-child(4)  { animation-delay: 120ms; }
-.founding-dots .seat-dot:nth-child(5)  { animation-delay: 150ms; }
-.founding-dots .seat-dot:nth-child(6)  { animation-delay: 180ms; }
-.founding-dots .seat-dot:nth-child(7)  { animation-delay: 210ms; }
-.founding-dots .seat-dot:nth-child(8)  { animation-delay: 240ms; }
-.founding-dots .seat-dot:nth-child(9)  { animation-delay: 270ms; }
-.founding-dots .seat-dot:nth-child(10) { animation-delay: 300ms; }
-.founding-dots .seat-dot:nth-child(n+11) { animation-delay: calc((n) * 25ms); }
-.founding-dots .seat-dot:nth-child(11) { animation-delay: 330ms; }
-.founding-dots .seat-dot:nth-child(12) { animation-delay: 355ms; }
-.founding-dots .seat-dot:nth-child(13) { animation-delay: 380ms; }
-.founding-dots .seat-dot:nth-child(14) { animation-delay: 405ms; }
-.founding-dots .seat-dot:nth-child(15) { animation-delay: 430ms; }
-.founding-dots .seat-dot:nth-child(16) { animation-delay: 455ms; }
-.founding-dots .seat-dot:nth-child(17) { animation-delay: 480ms; }
-.founding-dots .seat-dot:nth-child(18) { animation-delay: 505ms; }
-.founding-dots .seat-dot:nth-child(19) { animation-delay: 530ms; }
-.founding-dots .seat-dot:nth-child(20) { animation-delay: 555ms; }
-.founding-dots .seat-dot:nth-child(21) { animation-delay: 580ms; }
-.founding-dots .seat-dot:nth-child(22) { animation-delay: 605ms; }
-.founding-dots .seat-dot:nth-child(23) { animation-delay: 630ms; }
-.founding-dots .seat-dot:nth-child(24) { animation-delay: 655ms; }
-.founding-dots .seat-dot:nth-child(25) { animation-delay: 680ms; }
-.founding-dots .seat-dot:nth-child(26) { animation-delay: 705ms; }
-.founding-dots .seat-dot:nth-child(27) { animation-delay: 730ms; }
-.founding-dots .seat-dot:nth-child(28) { animation-delay: 755ms; }
-.founding-dots .seat-dot:nth-child(29) { animation-delay: 780ms; }
-.founding-dots .seat-dot:nth-child(30) { animation-delay: 805ms; }
-.founding-dots-final .seat-dot:nth-child(1)  { animation-delay: 30ms; }
-.founding-dots-final .seat-dot:nth-child(2)  { animation-delay: 55ms; }
-.founding-dots-final .seat-dot:nth-child(3)  { animation-delay: 80ms; }
-.founding-dots-final .seat-dot:nth-child(4)  { animation-delay: 105ms; }
-.founding-dots-final .seat-dot:nth-child(5)  { animation-delay: 130ms; }
-.founding-dots-final .seat-dot:nth-child(6)  { animation-delay: 155ms; }
-.founding-dots-final .seat-dot:nth-child(7)  { animation-delay: 180ms; }
-.founding-dots-final .seat-dot:nth-child(8)  { animation-delay: 205ms; }
-.founding-dots-final .seat-dot:nth-child(9)  { animation-delay: 230ms; }
-.founding-dots-final .seat-dot:nth-child(10) { animation-delay: 255ms; }
-.founding-dots-final .seat-dot:nth-child(11) { animation-delay: 280ms; }
-.founding-dots-final .seat-dot:nth-child(12) { animation-delay: 305ms; }
-.founding-dots-final .seat-dot:nth-child(13) { animation-delay: 330ms; }
-.founding-dots-final .seat-dot:nth-child(14) { animation-delay: 355ms; }
-.founding-dots-final .seat-dot:nth-child(15) { animation-delay: 380ms; }
-.founding-dots-final .seat-dot:nth-child(16) { animation-delay: 405ms; }
-.founding-dots-final .seat-dot:nth-child(17) { animation-delay: 430ms; }
-.founding-dots-final .seat-dot:nth-child(18) { animation-delay: 455ms; }
-.founding-dots-final .seat-dot:nth-child(19) { animation-delay: 480ms; }
-.founding-dots-final .seat-dot:nth-child(20) { animation-delay: 505ms; }
-.founding-dots-final .seat-dot:nth-child(21) { animation-delay: 530ms; }
-.founding-dots-final .seat-dot:nth-child(22) { animation-delay: 555ms; }
-.founding-dots-final .seat-dot:nth-child(23) { animation-delay: 580ms; }
-.founding-dots-final .seat-dot:nth-child(24) { animation-delay: 605ms; }
-.founding-dots-final .seat-dot:nth-child(25) { animation-delay: 630ms; }
-.founding-dots-final .seat-dot:nth-child(26) { animation-delay: 655ms; }
-.founding-dots-final .seat-dot:nth-child(27) { animation-delay: 680ms; }
-.founding-dots-final .seat-dot:nth-child(28) { animation-delay: 705ms; }
-.founding-dots-final .seat-dot:nth-child(29) { animation-delay: 730ms; }
-.founding-dots-final .seat-dot:nth-child(30) { animation-delay: 755ms; }
-@keyframes dot-claim {
-  0%   { opacity: 0; transform: scale(0.6); }
-  60%  { opacity: 1; transform: scale(1.15); }
-  100% { opacity: 1; transform: scale(1); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .founding-dots .seat-dot,
-  .founding-dots-final .seat-dot {
-    opacity: 1 !important; transform: none !important; animation: none !important;
-  }
-}
 
 /* Tier 1 "Recent ships in the Lab" mini-feed */
 .tier-feed {
@@ -3904,10 +3801,10 @@ h1, h2, h3, h4 {
     <ul class="nav-links">
       <li><a href="#webinar">Webinar</a></li>
       <li><a href="#community">Community</a></li>
-      <li><a href="#inner-circle">Inner Circle</a></li>
+      <li><a href="#inner-circle">Pricing</a></li>
       <li><a href="#about">About</a></li>
     </ul>
-    <a class="btn btn-primary btn-sm nav-cta" href="#webinar">Save my seat <span class="arrow">→</span></a>
+    <a class="btn btn-primary btn-sm nav-cta" href="#webinar">Save my seat &middot; &#8377;499 <span class="arrow">→</span></a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true">
         <path d="M1 1h16M1 7h16M1 13h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
@@ -3954,7 +3851,7 @@ h1, h2, h3, h4 {
         <p class="lead">Get leads, follow up, ship campaigns, and run client work. Every Sunday, watch me build one agent live and take the workflow home.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary hero-cta" href="#webinar">
-            <span class="hero-cta-main">Save my seat <span class="arrow">→</span></span>
+            <span class="hero-cta-main">Save my seat &middot; &#8377;499 <span class="arrow">→</span></span>
             <span class="hero-cta-sub" data-webinar-date>Every Sunday, 11 AM IST</span>
           </a>
         </div>
@@ -3963,17 +3860,17 @@ h1, h2, h3, h4 {
             <span class="tag-pulse"></span>
             LIVE COMMUNITY &middot; NOT A COURSE
           </span>
-          <span><i class="dot" aria-hidden="true"></i> Free 60-min webinar</span>
+          <span><i class="dot" aria-hidden="true"></i> &#8377;499 &middot; 90-min live build</span>
           <span>One revenue workflow built live</span>
-          <span>Free &middot; live on Zoom</span>
+          <span>Live on Zoom &middot; recording included</span>
         </div>
       </div>
 
       <!-- Registration form (right column on desktop, below hero copy on mobile) -->
       <div class="hero-right">
         <form class="webinar-form webinar-form--hero" id="hero-webinar-form" onsubmit="return submitWebinar(event)">
-          <h3>Save your seat</h3>
-          <p>Free 60-min live build. <span data-webinar-date>Every Sunday, 11 AM IST</span>.</p>
+          <h3>Save your seat &mdash; &#8377;499</h3>
+          <p>90-min live build. <span data-webinar-date>Every Sunday, 11 AM IST</span>. Recording is yours to keep.</p>
           <input type="text" name="company" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <div class="field">
             <label for="hero-name">Full name</label>
@@ -3988,11 +3885,11 @@ h1, h2, h3, h4 {
             <input id="hero-wa" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+91 98xxxxxxxx" />
           </div>
           <button type="submit" class="btn btn-primary webinar-submit-btn">
-            <span>Save my seat</span>
+            <span>Pay &#8377;499 and save my seat</span>
             <span class="arrow">&rarr;</span>
           </button>
-          <div class="form-meta">3 fields. 10 seconds. No spam.</div>
-          <div class="form-success">&#10003; Seat saved. Watch your inbox for the calendar invite.</div>
+          <div class="form-meta">3 fields, then payment. Secured by Razorpay.</div>
+          <div class="form-success">&#10003; Details saved. Taking you to payment&hellip;</div>
         </form>
       </div>
     </div>
@@ -4548,7 +4445,7 @@ h1, h2, h3, h4 {
 
     <div class="starter-close">
       <p>Start with <b>one tool</b>, <b>one outcome</b>. Then turn it into a workflow you can use for your business or clients.</p>
-      <a class="btn btn-primary" href="#webinar">Save my seat <span class="arrow">&rarr;</span></a>
+      <a class="btn btn-primary" href="#webinar">Save my seat &middot; &#8377;499 <span class="arrow">&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -5524,8 +5421,8 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Membership</span>
-      <h2 class="h2">Start with the Lab. Upgrade only if you need hands-on help.</h2>
-      <p class="lead">Tier 1 is the weekly community. Inner Circle is for founders who want Sandy on their stack.</p>
+      <h2 class="h2">Come for one Sunday. Stay if it earns it.</h2>
+      <p class="lead">Sunday is the build you can watch. The Lab is the room you keep. Founding is the Thursday build where I work on your business, not mine.</p>
     </div>
 
     <div class="offer-frame">
@@ -5534,72 +5431,75 @@ h1, h2, h3, h4 {
 
     <div class="ladder">
       <article class="tier">
-        <span class="tier-tag">Tier 1 / The Lab</span>
-        <h3>The Lab</h3>
+        <span class="tier-tag">Sunday / Drop in</span>
+        <h3>The Sunday Build</h3>
         <div>
-          <div class="price">₹2,499<span style="font-size:0.45em;color:var(--text-low);font-weight:500;">/mo</span></div>
-          <div class="price-sub">or ₹24,999 / yr &middot; cancel anytime &middot; one client win pays it back</div>
+          <div class="price">₹499<span style="font-size:0.45em;color:var(--text-low);font-weight:500;">/session</span></div>
+          <div class="price-sub">one seat, one Sunday, no commitment</div>
         </div>
         <div class="tier-body">
-          <p>For marketers who want to watch, copy, and ship weekly.</p>
+          <p>See what this actually is before you pay for anything bigger.</p>
           <ul>
-            <li>Weekly live agent build every Sunday</li>
-            <li>Recordings + templates for every build</li>
-            <li>Platform-specific prompts (Claude, Codex, Antigravity, Gemini, Composio, Mem0)</li>
-            <li>Beginner basics: what each tool is for, in plain English</li>
-            <li>Monthly ship-with-me cohort: bring a problem, leave with a workflow</li>
-            <li>Member feed: ask, post, get unblocked the same day</li>
-            <li>Sandy in the room, founder office hours every week</li>
+            <li>90-min live agent build on Zoom</li>
+            <li>Notes from that session</li>
+            <li>Recording of that session, yours to keep</li>
+            <li>Ask questions live</li>
+          </ul>
+          <p class="tier-honest">That is the whole list. The tools, prompts and community stay with The Lab.</p>
+        </div>
+        <div class="tier-cta-note">&rarr; Book this Sunday</div>
+      </article>
+
+      <article class="tier">
+        <span class="tier-tag">The Lab / Monthly</span>
+        <h3>The Lab</h3>
+        <div>
+          <div class="price">₹2,500<span style="font-size:0.45em;color:var(--text-low);font-weight:500;">/mo</span></div>
+          <div class="price-sub">cancel anytime &middot; one client win pays it back</div>
+        </div>
+        <div class="tier-body">
+          <p>For marketers who want to watch, copy, and ship every week.</p>
+          <ul>
+            <li>Every Sunday build, included</li>
+            <li>Notes from every session, not just the one you attended</li>
+            <li>Setup notes: how each agent is actually wired</li>
+            <li>The prompt library (Claude, Codex, Gemini, Composio, Mem0)</li>
+            <li>The tools we run, and what each one is for</li>
+            <li>Member feed: ask, post, get unblocked</li>
           </ul>
         </div>
-        <div class="tier-feed" aria-label="First builds on the Sunday slate">
-          <div class="tier-feed-label"><span class="tier-feed-dot" aria-hidden="true"></span>FIRST BUILDS ON THE SUNDAY SLATE</div>
-          <div class="tier-feed-rotator" style="height:auto;display:flex;flex-direction:column;gap:6px;">
-            <div class="feed-line active" style="position:relative;">Lead-capture agent for a service business</div>
-            <div class="feed-line active" style="position:relative;">WhatsApp follow-up agent wired to GHL</div>
-            <div class="feed-line active" style="position:relative;">Meta ads audit agent, kill-or-scale calls</div>
-          </div>
-        </div>
-        <div class="tier-cta-note">&rarr; Unlocks after the webinar</div>
+        <div class="tier-cta-note">&rarr; Opens at the Sunday build</div>
       </article>
 
       <article class="tier featured">
-        <span class="tier-tag">Tier 2 / Inner Circle</span>
-        <h3>Inner Circle</h3>
+        <span class="tier-tag">Founding / 6 months</span>
+        <h3>Founding</h3>
         <div>
-          <div class="price">+₹1,00,000<span style="font-size:0.45em;color:var(--text-low);font-weight:500;">/yr</span></div>
-          <div class="price-sub">add-on to The Lab &middot; Founding 30 hard cap</div>
-          <div class="price-alt">For founders who want direct stack review.</div>
+          <div class="price">₹1,00,000</div>
+          <div class="price-sub">for 6 months &middot; 100 seats &middot; includes The Lab</div>
+          <div class="price-alt">Thursdays, I build with you.</div>
           <div class="scarcity" role="status" aria-live="polite" style="margin-top:18px;">
-            <span class="scarcity-label">Founding 30</span>
-            <div class="founding-dots reveal" aria-hidden="true">
-              <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
-              <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
-              <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
-              <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
-            </div>
-            <span class="scarcity-count" data-seats-left>30 seats</span><span class="scarcity-note" style="margin-top:2px;">applications open at the first webinar</span>
-            <span class="scarcity-note">Lock ₹1,00,000 for life. Price rises after seat 30.</span>
+            <span class="scarcity-label">Founding 100</span>
+            <span class="scarcity-count" data-seats-left>100 seats</span><span class="scarcity-note" style="margin-top:2px;">first cohort opens at the Sunday build</span>
           </div>
         </div>
         <div class="tier-body">
-          <p>The Lab + direct help on your stack.</p>
+          <p>Sunday is me building. Thursday is us building.</p>
           <ul>
             <li>Everything in The Lab</li>
-            <li>Quarterly 30-min 1:1 with Sandy on your stack</li>
-            <li>Private Telegram, direct line to founders</li>
-            <li>One agent co-build per quarter, founders on your screen</li>
-            <li>Priority review on your builds in the monthly cohort</li>
-            <li>Founding 30 locks ₹1,00,000 for life, price rises after seat 30</li>
+            <li>Thursday live build, small room, agents built on your business</li>
+            <li>Bring your problem to the room and leave with the workflow</li>
+            <li>Hotseats rotate, so your turn on the screen comes around</li>
+            <li>Direct line to me between sessions</li>
           </ul>
+          <p class="tier-honest">Straight talk: at a full 100, Thursday is a room, not a 1:1. If you want a private consultant, this is not that, and I would rather you knew now.</p>
         </div>
-        <div class="tier-cta-note">&rarr; Application opens 30 days after you join Tier 1</div>
-        <div class="cap-note">// Opens to Tier 1 members after 30 days.</div>
+        <div class="tier-cta-note">&rarr; Applications open at the Sunday build</div>
       </article>
     </div>
-  
+
     <div class="section-cta-line">
-      <a href="#webinar" class="section-cta-link">Doors open after the webinar <span class="arrow">&rarr;</span></a>
+      <a href="#webinar" class="section-cta-link">Start with Sunday, &#8377;499 <span class="arrow">&rarr;</span></a>
       <span class="section-cta-sub">Every Sunday, 11 AM IST</span>
     </div>
 </div>
@@ -6026,8 +5926,8 @@ h1, h2, h3, h4 {
         <p>Register anyway. Everyone who saves a seat gets the recording link afterward. The live session is where you can ask questions and watch the build unfold, so join live if you can.</p>
       </details>
       <details>
-        <summary>Is it really free? What will you sell me?</summary>
-        <p>The webinar is free. At the close I show the paid Lab (recordings, templates, prompts, the community). You get the workflow from the live build either way, no purchase needed.</p>
+        <summary>What do I actually get for &#8377;499?</summary>
+        <p>A seat at the 90-minute live build, the notes from that session, and the recording to keep. That is the full list. The prompt library, the setup notes and the community come with The Lab at &#8377;2,500 a month. I would rather tell you that up front than let you find out after you have paid.</p>
       </details>
       <details>
         <summary>Why do you need my WhatsApp?</summary>
@@ -6035,11 +5935,11 @@ h1, h2, h3, h4 {
       </details>
       <details>
         <summary>What does the Lab cost?</summary>
-        <p>The webinar is free. Tier 1 (The Lab) is ₹2,499/mo or ₹24,999/yr, cancel anytime. Inner Circle is a ₹1,00,000/yr add-on capped at 30 founding seats.</p>
+        <p>&#8377;2,500 a month, cancel anytime. It includes every Sunday build, the notes from all of them, the setup notes, the prompt library and the member feed.</p>
       </details>
       <details>
-        <summary>How do I join Inner Circle?</summary>
-        <p>Join Tier 1 first. After 30 days, Inner Circle opens. ₹1,00,000/yr add-on, Founding 30 caps at 30, locks rate for life.</p>
+        <summary>What is Founding, and is it worth &#8377;1,00,000?</summary>
+        <p>&#8377;1,00,000 for six months, capped at 100 seats, and it includes The Lab. What it buys is Thursday: a live build where the agents get built on your business instead of mine, with hotseats rotating through the room. If you want a private consultant on retainer, this is not that. It is a room, and at 100 people it is a busy one.</p>
       </details>
     </div>
   </div>
@@ -6072,15 +5972,9 @@ h1, h2, h3, h4 {
       </div>
 
       <div class="final-cta-scarcity">
-        <div class="countdown-label">FOUNDING 30 &middot; <span data-seats-left>30 seats</span> &middot; DOORS OPEN AT THE WEBINAR</div>
-        <div class="founding-dots-final" aria-hidden="true">
-          <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
-          <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
-          <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
-          <span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span><span class="seat-dot"></span>
-        </div>
+        <div class="countdown-label">FOUNDING 100 &middot; <span data-seats-left>100 seats</span> &middot; OPENS AT THE SUNDAY BUILD</div>
         <div class="claimed-rotator">
-          <span class="claimed-prefix">Founding rate locks ₹1,00,000 for life. Price rises after seat 30.</span>
+          <span class="claimed-prefix">&#8377;1,00,000 for six months. Thursdays, the build runs on your business.</span>
         </div>
       </div>
     </div>
@@ -6092,11 +5986,11 @@ h1, h2, h3, h4 {
       </div>
       <div class="urgency-item">
         <span class="urgency-label">Cost</span>
-        <span class="urgency-value">Free &middot; live on Zoom</span>
+        <span class="urgency-value">&#8377;499 &middot; live on Zoom</span>
       </div>
       <div class="urgency-item">
-        <span class="urgency-label">Founding 30</span>
-        <span class="urgency-value">30 seats &middot; price rises after seat 30</span>
+        <span class="urgency-label">Founding 100</span>
+        <span class="urgency-value">100 seats &middot; &#8377;1,00,000 for 6 months</span>
       </div>
     </div>
 
@@ -6123,12 +6017,12 @@ h1, h2, h3, h4 {
 
         <p class="form-micro-trust">&rarr; Calendar invite and WhatsApp reminder before Sunday.</p>
         <button type="submit" class="btn btn-primary webinar-submit-btn">
-          <span>Save my seat</span>
+          <span>Pay &#8377;499 and save my seat</span>
           <span class="webinar-submit-date" data-webinar-date>Every Sunday, 11 AM IST</span>
           <span class="arrow">&rarr;</span>
         </button>
-        <div class="form-meta">// 3 fields. 10 seconds. No spam.</div>
-        <div class="form-success" id="formSuccess">&#10003; Seat saved. Watch your inbox for the invite before Sunday.</div>
+        <div class="form-meta">// 3 fields, then payment. Secured by Razorpay.</div>
+        <div class="form-success" id="formSuccess">&#10003; Details saved. Taking you to payment&hellip;</div>
       </form>
 
       <aside class="apply-rail" aria-label="What happens after you save your seat">
@@ -6139,8 +6033,8 @@ h1, h2, h3, h4 {
           <li><span class="apply-rail-icon">REC</span><span>Recording link after the session</span></li>
         </ul>
         <div class="apply-rail-scarcity">
-          <span class="scarcity-count" data-seats-left>30 seats</span>
-          <span class="apply-rail-scarcity-sub">Founding 30 &middot; doors open at the webinar</span>
+          <span class="scarcity-count" data-seats-left>100 seats</span>
+          <span class="apply-rail-scarcity-sub">Founding 100 &middot; opens at the Sunday build</span>
         </div>
         <div class="apply-rail-stack">
           <span class="apply-rail-stack-label">Built on</span>
@@ -6227,9 +6121,9 @@ h1, h2, h3, h4 {
     <div>
       <h4>The Lab</h4>
       <ul>
-        <li><a href="#webinar">Free webinar</a></li>
+        <li><a href="#webinar">Sunday build</a></li>
         <li><a href="#community">What's inside</a></li>
-        <li><a href="#inner-circle">Inner Circle</a></li>
+        <li><a href="#inner-circle">Pricing</a></li>
         <!-- TODO: verify skool.com/aimarketinglab is claimed before ad spend -->
         <li><a href="https://skool.com/aimarketinglab" target="_blank" rel="noopener" title="Live after launch">Join on Skool ↗</a></li>
       </ul>
@@ -6434,7 +6328,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // When real seats sell, set SEATS_CLAIMED to that number (>0) and
 // the copy switches to "N of 30 claimed". Never fabricate this.
 // ============================================================
-const SEATS_TOTAL = 30;
+const SEATS_TOTAL = 100;
 const SEATS_CLAIMED = 0; // update only when a real founding seat is sold
 const SEATS_LABEL = SEATS_CLAIMED > 0
   ? (SEATS_CLAIMED + ' of ' + SEATS_TOTAL + ' claimed')
@@ -6590,6 +6484,11 @@ document.querySelectorAll('[data-seats-left]').forEach(function(el) {
 const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdwdlchjrxt8_eEJRsxV_0EmWswFCJQdIm61OmjJ6nEtfYulw/formResponse';
 const FORM_FIELDS = { name: 'entry.711112049', email: 'entry.89039492', whatsapp: 'entry.606366000' };
 
+// Razorpay reusable payment link for the ₹499 Sunday seat. Lead is captured to
+// the Sheet first, then handed off here — so an abandoned payment is still a lead.
+// Until this is a real rzp.io link the form falls back to the old free-seat flow.
+const PAY_URL = 'PENDING_RAZORPAY';
+
 async function submitWebinar(e) {
   e.preventDefault();
   const form = e.target;
@@ -6645,6 +6544,13 @@ async function submitWebinar(e) {
   if (success) success.classList.add('show');
   track('registration_submitted', { form: form.id || 'unknown' });
   if (window.clarity) clarity('set', 'converted', 'true');
+
+  // Hand off to payment. The lead is already banked, so a drop-off here
+  // costs us the ₹499, not the contact.
+  if (PAY_URL !== 'PENDING_RAZORPAY') {
+    track('payment_redirect', { form: form.id || 'unknown' });
+    setTimeout(function () { location.href = PAY_URL; }, 900);
+  }
   return false;
 }
 
@@ -6670,19 +6576,6 @@ async function submitWebinar(e) {
     var t = relTime(el.getAttribute('data-iso'));
     if (t) el.textContent = t;
   });
-})();
-
-// Founding-30 seat dots reveal (trigger animation on scroll)
-(function () {
-  if (!('IntersectionObserver' in window)) return;
-  var groups = document.querySelectorAll('.founding-dots, .founding-dots-final');
-  if (!groups.length) return;
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.3 });
-  groups.forEach(function (g) { io.observe(g); });
 })();
 
 // Webinar countdown — targets the next recurring Sunday 11 AM IST session
@@ -6759,7 +6652,7 @@ document.addEventListener('DOMContentLoaded', function () {
 @media (max-width: 1023px) { .sticky-cta { display: flex; } }
 </style>
 <a href="#webinar" class="sticky-cta" id="stickyCta" aria-label="Save my webinar seat">
-  <span>Save my seat <span class="arrow">&rarr;</span></span>
+  <span>Save my seat &middot; &#8377;499 <span class="arrow">&rarr;</span></span>
   <span class="sticky-cta-sub" data-webinar-date>Every Sunday, 11 AM IST</span>
 </a>
 
