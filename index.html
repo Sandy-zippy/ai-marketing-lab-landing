@@ -1185,6 +1185,11 @@ h1, h2, h3, h4 {
   color: var(--text-low); opacity: 0.5;
   align-self: center; padding: 0 2px;
 }
+.countdown-date {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-mid); margin-top: 14px;
+}
 .final-cta-scarcity { text-align: center; }
 .claimed-rotator {
   display: inline-flex; align-items: center; gap: 8px;
@@ -3860,7 +3865,7 @@ h1, h2, h3, h4 {
             <span class="tag-pulse"></span>
             FOUNDING COHORT &middot; NOT A COURSE
           </span>
-          <span><i class="dot" aria-hidden="true"></i> Live build sessions</span>
+          <span><i class="dot" aria-hidden="true"></i> Begins Sun, 19 Jul &middot; 11 AM IST</span>
           <span>You own every agent you build</span>
           <span>Limited seats, first cohort</span>
         </div>
@@ -5907,7 +5912,7 @@ h1, h2, h3, h4 {
       </details>
       <details>
         <summary>When does the cohort start?</summary>
-        <p>The first cohort is forming now and it is small on purpose. The waitlist gets the start date, the schedule and the seats first, by email and WhatsApp, before anyone else.</p>
+        <p>The first live build is Sunday, 19 Jul, 11 AM IST. The cohort is small on purpose, and the waitlist gets the pricing, the schedule and the seats first, by email and WhatsApp, before anyone else.</p>
       </details>
       <details>
         <summary>Is it live, or recorded lessons?</summary>
@@ -5946,6 +5951,20 @@ h1, h2, h3, h4 {
     <p>A small first cohort, built live on your own work. The waitlist gets the pricing and the seats before anyone else.</p>
 
     <div class="final-cta-extras reveal">
+      <div class="webinar-countdown">
+        <div class="countdown-label">FOUNDING COHORT BEGINS IN</div>
+        <div class="countdown-grid">
+          <div class="cd-unit"><span class="cd-num" data-cd="days">--</span><span class="cd-lbl">DAYS</span></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit"><span class="cd-num" data-cd="hours">--</span><span class="cd-lbl">HRS</span></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit"><span class="cd-num" data-cd="mins">--</span><span class="cd-lbl">MIN</span></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit"><span class="cd-num" data-cd="secs">--</span><span class="cd-lbl">SEC</span></div>
+        </div>
+        <div class="countdown-date">First live build &middot; Sunday, 19 Jul &middot; 11 AM IST</div>
+      </div>
+
       <div class="final-cta-scarcity">
         <div class="countdown-label">FOUNDING COHORT &middot; <span data-seats-left>LIMITED SEATS</span> &middot; WAITLIST OPEN NOW</div>
         <div class="claimed-rotator">
@@ -6129,22 +6148,8 @@ h1, h2, h3, h4 {
 </footer>
 
 <script>
-// Recurring webinar: every Sunday, 11 AM IST (= 05:30 UTC). Auto-rolls to the next one.
-function nextWebinarDate() {
-  var now = new Date();
-  // Upcoming Sunday at 05:30 UTC (11:00 IST, same calendar day since IST is ahead of UTC).
-  var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 5, 30, 0));
-  d.setUTCDate(d.getUTCDate() + ((7 - d.getUTCDay()) % 7));
-  // If this Sunday's session already started >90 min ago, roll to next week.
-  if (d.getTime() <= now.getTime() - 90 * 60000) d.setUTCDate(d.getUTCDate() + 7);
-  return d;
-}
-function webinarLabel() {
-  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var d = nextWebinarDate();
-  return 'Sun, ' + MONTHS[d.getUTCMonth()] + ' ' + d.getUTCDate() + ' &middot; 11 AM IST';
-}
-// Waitlist mode: date spans carry their own inline copy; no Sunday label injection.
+// Waitlist mode: the founding cohort date is a fixed constant in the countdown
+// block below (Sun 19 Jul 2026, 11 AM IST). Date spans carry their own inline copy.
 
 // Mobile nav
 (function(){
@@ -6543,9 +6548,11 @@ async function submitWebinar(e) {
   });
 })();
 
-// Webinar countdown — targets the next recurring Sunday 11 AM IST session
+// Founding cohort countdown — fixed target: first live build, Sun 19 Jul 2026,
+// 11:00 IST (05:30 UTC). Fixed on purpose (a cohort start is a real date, not a
+// recurring session), so it does not roll. Update this when the date moves.
 (function () {
-  var WEBINAR_TS = nextWebinarDate().getTime();
+  var COHORT_TS = Date.UTC(2026, 6, 19, 5, 30, 0);
   var els = {
     days:  document.querySelector('[data-cd="days"]'),
     hours: document.querySelector('[data-cd="hours"]'),
@@ -6555,10 +6562,7 @@ async function submitWebinar(e) {
   if (!els.days) return;
   function pad(n) { return String(n).padStart(2, '0'); }
   function tick() {
-    var diff = WEBINAR_TS - Date.now();
-    // Once the session is ~90 min past, roll the target to next Sunday
-    // so a long-open tab never sticks on LIVE forever.
-    if (diff <= -90 * 60000) { WEBINAR_TS = nextWebinarDate().getTime(); diff = WEBINAR_TS - Date.now(); }
+    var diff = COHORT_TS - Date.now();
     if (diff <= 0) {
       els.days.textContent  = '00';
       els.hours.textContent = '00';
