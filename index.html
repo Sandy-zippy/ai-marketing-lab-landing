@@ -6966,10 +6966,24 @@ if (POSTHOG_KEY !== 'REPLACE_WITH_POSTHOG_KEY') {
   posthog.init(POSTHOG_KEY, { api_host: POSTHOG_HOST });
 }
 
+// Meta Pixel — paste the AIML pixel ID to activate (a ZippyScale pixel exists but AIML
+// wants its own so audiences don't mix). CAPI/server dedup can reuse the n8n pattern from
+// zippyscale-meta-capi later. Fires standard events mapped from our track() calls.
+var META_PIXEL_ID = 'REPLACE_WITH_AIML_PIXEL_ID';
+if (META_PIXEL_ID !== 'REPLACE_WITH_AIML_PIXEL_ID') {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', META_PIXEL_ID);
+  fbq('track', 'PageView');
+}
+
+// Map our funnel events to Meta standard events (for retargeting audiences + optimization).
+var PIXEL_EVENTS = { quiz_started: 'InitiateCheckout', scorecard_submitted: 'Lead', '1on1_inquiry_submitted': 'SubmitApplication' };
+
 function track(name, props) {
   try {
     if (window.clarity) clarity('event', name);
     if (window.posthog) posthog.capture(name, props || {});
+    if (window.fbq && PIXEL_EVENTS[name]) fbq('track', PIXEL_EVENTS[name], props || {});
   } catch (_) { /* analytics must never break the page */ }
 }
 

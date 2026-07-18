@@ -37,6 +37,9 @@
   .ty-plan-badge { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
   .ty-agent { font-size: clamp(28px, 3.6vw, 40px); font-weight: 800; color: var(--accent); letter-spacing: -0.02em; margin-bottom: 14px; }
   .ty-why { color: var(--text-mid); font-size: 15.5px; line-height: 1.65; max-width: 600px; margin: 0 auto 18px; }
+  .ty-firstmove { text-align: left; max-width: 600px; margin: 0 auto 18px; background: var(--bg-surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .ty-firstmove-label { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .ty-firstmove p { color: var(--text-mid); font-size: 14px; line-height: 1.6; }
   .ty-plan-note { font-family: var(--mono); font-size: 12px; color: var(--text-low); letter-spacing: 0.02em; }
 
   .ty-options-h { text-align: center; font-size: clamp(22px, 2.6vw, 30px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
@@ -94,6 +97,7 @@
       <div class="ty-plan-badge">Start with</div>
       <h2 class="ty-agent" id="ty-agent">The Follow-up Agent</h2>
       <p class="ty-why" id="ty-why"></p>
+      <div class="ty-firstmove"><span class="ty-firstmove-label">Your first move this week</span><p id="ty-move"></p></div>
       <div class="ty-plan-note">In the 6-week cohort you build all six agents. This is your week-one unlock.</div>
     </section>
 
@@ -141,18 +145,24 @@
   (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xgp3y420au");
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
   posthog.init('phc_rz66saz69eTnJxHgRJRBPyqDzNwDCdPY3mbJZkPqYLJe',{api_host:'https://us.i.posthog.com'});
-  function track(name, props){ try { if (window.clarity) clarity('event', name); if (window.posthog) posthog.capture(name, props || {}); } catch (_) {} }
+  var META_PIXEL_ID = 'REPLACE_WITH_AIML_PIXEL_ID'; // same ID as index.html
+  if (META_PIXEL_ID !== 'REPLACE_WITH_AIML_PIXEL_ID') {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID); fbq('track', 'PageView');
+  }
+  var PIXEL_EVENTS = { thankyou_view: 'CompleteRegistration', '1on1_inquiry_submitted': 'SubmitApplication' };
+  function track(name, props){ try { if (window.clarity) clarity('event', name); if (window.posthog) posthog.capture(name, props || {}); if (window.fbq && PIXEL_EVENTS[name]) fbq('track', PIXEL_EVENTS[name], props || {}); } catch (_) {} }
   window.__tyTrack = track;
 </script>
 <script>
 (function(){
   var track = window.__tyTrack || function(){};
   var RESULTS = {
-    lead:     { name: "The Lead Agent",     why: "Your leak is at the front door: leads arrive and wait on you. The Lead Agent captures and qualifies every inbound the moment it lands, so nothing sits in a queue. Build this first and everything downstream finally has fuel." },
-    followup: { name: "The Follow-up Agent", why: "You are losing deals in the gap between interested and closed. The Follow-up Agent chases every lead in your voice and never forgets. You just approve the sends. This is usually the fastest money in the building." },
-    content:  { name: "The Content Agent",  why: "Creative is your bottleneck and it is slowing everything behind it. The Content Agent turns a one-line brief into on-brand ads, posts and pages on demand, so your campaigns stop waiting on assets." },
-    campaign: { name: "The Campaign Agent", why: "You need more qualified traffic, and it has to be measurable. The Campaign Agent runs Google and Meta day to day, watches spend, and wires attribution so every lead carries its source." },
-    orch:     { name: "The Orchestrator",   why: "You have moving pieces but nothing tells you the truth. The Orchestrator ties your agents together, keeps honest run logs, and sends one weekly brief, so you finally see what is working and what needs you." }
+    lead:     { name: "The Lead Agent",     why: "Your leak is at the front door: leads arrive and wait on you. The Lead Agent captures and qualifies every inbound the moment it lands, so nothing sits in a queue. Build this first and everything downstream finally has fuel.", move: "Open Claude, paste your last 20 enquiries, and ask it to sort them into hot / warm / cold with a one-line reason each. That scoring logic is your Lead Agent's first job." },
+    followup: { name: "The Follow-up Agent", why: "You are losing deals in the gap between interested and closed. The Follow-up Agent chases every lead in your voice and never forgets. You just approve the sends. This is usually the fastest money in the building because the leads already exist.", move: "Write out your ideal 3-touch follow-up (day 0, day 2, day 5) once, in your own voice. That sequence is what the agent will run for every lead on autopilot." },
+    content:  { name: "The Content Agent",  why: "Creative is your bottleneck and it is slowing everything behind it. The Content Agent turns a one-line brief into on-brand ads, posts and pages on demand, so your campaigns stop waiting on assets.", move: "Paste your 5 best-performing posts into Claude and ask it to extract your voice and hooks into a one-page brief. That brief becomes the agent's brand memory." },
+    campaign: { name: "The Campaign Agent", why: "You need more qualified traffic, and it has to be measurable. The Campaign Agent runs Google and Meta day to day, watches spend, and wires attribution so every lead carries its source.", move: "List every place a lead can come from and whether you can currently trace it to revenue. The gaps in that list are exactly what this agent closes first." },
+    orch:     { name: "The Orchestrator",   why: "You have moving pieces but nothing tells you the truth. The Orchestrator ties your agents together, keeps honest run logs, and sends one weekly brief, so you finally see what is working and what needs you.", move: "Write the one weekly report you wish landed in your inbox every Monday: the 5 numbers that would tell you if marketing worked. That report is what the Orchestrator assembles." }
   };
 
   // --- Seat count (edit these two numbers as real seats sell) ---
@@ -172,6 +182,7 @@
   track('thankyou_view', { agent: key });
   document.getElementById('ty-agent').textContent = r.name;
   document.getElementById('ty-why').textContent = r.why;
+  document.getElementById('ty-move').textContent = r.move;
   if (stored.name) { document.getElementById('ty-name').textContent = ', ' + String(stored.name).split(' ')[0]; }
 
   // --- 1-on-1 inquiry form -> same Google Form (contact banked); message stored locally ---

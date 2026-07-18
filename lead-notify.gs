@@ -28,11 +28,11 @@ var SEND_RESULT_EMAIL = false;
 var FROM_NAME = 'Sandy, AI Marketing Labs';
 var SITE_URL = 'https://aimarketinglabs.in';
 var RESULTS = {
-  lead:     { name: 'The Lead Agent',      why: 'Your leak is at the front door: leads arrive and wait on you. The Lead Agent captures and qualifies every inbound the moment it lands, so nothing sits in a queue.' },
-  followup: { name: 'The Follow-up Agent', why: 'You are losing deals in the gap between interested and closed. The Follow-up Agent chases every lead in your voice and never forgets. You just approve the sends. Usually the fastest money in the building.' },
-  content:  { name: 'The Content Agent',   why: 'Creative is your bottleneck. The Content Agent turns a one-line brief into on-brand ads, posts and pages on demand, so campaigns stop waiting on assets.' },
-  campaign: { name: 'The Campaign Agent',  why: 'You need more qualified, measurable traffic. The Campaign Agent runs Google and Meta day to day, watches spend, and wires attribution so every lead carries its source.' },
-  orch:     { name: 'The Orchestrator',    why: 'You have moving pieces but nothing tells you the truth. The Orchestrator ties your agents together, keeps run logs, and sends one weekly brief.' }
+  lead:     { name: 'The Lead Agent',      why: 'Your leak is at the front door: leads arrive and wait on you. The Lead Agent captures and qualifies every inbound the moment it lands, so nothing sits in a queue.', move: 'Open Claude, paste your last 20 enquiries, ask it to sort them into hot / warm / cold with a one-line reason each. That scoring logic is your agent\'s first job.' },
+  followup: { name: 'The Follow-up Agent', why: 'You are losing deals in the gap between interested and closed. The Follow-up Agent chases every lead in your voice and never forgets. You just approve the sends. Usually the fastest money in the building.', move: 'Write your ideal 3-touch follow-up (day 0, 2, 5) once, in your own voice. That sequence is what the agent runs for every lead on autopilot.' },
+  content:  { name: 'The Content Agent',   why: 'Creative is your bottleneck. The Content Agent turns a one-line brief into on-brand ads, posts and pages on demand, so campaigns stop waiting on assets.', move: 'Paste your 5 best posts into Claude and ask it to extract your voice and hooks into a one-page brief. That brief becomes the agent\'s brand memory.' },
+  campaign: { name: 'The Campaign Agent',  why: 'You need more qualified, measurable traffic. The Campaign Agent runs Google and Meta day to day, watches spend, and wires attribution so every lead carries its source.', move: 'List every place a lead can come from and whether you can trace it to revenue. The gaps are exactly what this agent closes first.' },
+  orch:     { name: 'The Orchestrator',    why: 'You have moving pieces but nothing tells you the truth. The Orchestrator ties your agents together, keeps run logs, and sends one weekly brief.', move: 'Write the one weekly report you wish landed every Monday: the 5 numbers that tell you if marketing worked. That report is what the Orchestrator assembles.' }
 };
 
 function maybeEmailLead(p) {
@@ -45,6 +45,7 @@ function maybeEmailLead(p) {
   var body = 'Hi ' + first + ',\n\n' +
     'Based on your scorecard, the AI marketing agent to build first is:\n\n' +
     r.name.toUpperCase() + '\n' + r.why + '\n\n' +
+    'Your first move this week:\n' + r.move + '\n\n' +
     'In the 6-week founding cohort you build all six agents and keep every one. See the full build:\n' +
     SITE_URL + '/#roadmap\n\n' +
     'You are on the waitlist. I will send the cohort dates and the founding price before anyone else.\n\n' +
