@@ -718,7 +718,7 @@ h1, h2, h3, h4 {
 }
 .offer-frame strong { color: var(--accent); font-weight: 600; }
 .ladder { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
-@media (min-width: 1000px) { .ladder { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; } .tier { padding: 32px 28px; } }
+@media (min-width: 1000px) { .ladder { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; } .tier { padding: 32px 28px; } }
 .tier {
   background: var(--bg-surface); border: 1px solid var(--border);
   border-radius: 8px; padding: 36px; display: flex; flex-direction: column; gap: 24px;
@@ -1139,16 +1139,13 @@ h1, h2, h3, h4 {
 
 /* Final CTA: countdown + seat dots + claimed rotator */
 .final-cta-extras {
-  display: grid; grid-template-columns: 1fr; gap: 28px;
-  max-width: 880px; margin: 0 auto 36px;
-  padding: 28px 24px;
+  display: block;
+  max-width: 620px; margin: 0 auto 36px;
+  padding: 22px 28px;
   background: var(--bg-surface);
   border: 1px solid var(--border-strong);
   border-radius: 12px;
   text-align: center;
-}
-@media (min-width: 820px) {
-  .final-cta-extras { grid-template-columns: 1fr 1fr; gap: 40px; padding: 32px 36px; }
 }
 .webinar-countdown { text-align: center; }
 .countdown-label {
@@ -3633,22 +3630,14 @@ h1, h2, h3, h4 {
   left: 50%;
   transform: translateX(-50%);
 }
-.section-cta-line::before {
-  content: '\25B8';
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--accent);
-  font-size: 14px;
-}
+.section-cta-line::before { content: none; }
 .section-cta-link {
   color: var(--text-high);
   font-family: var(--sans);
   font-size: 16px;
   letter-spacing: -0.01em;
   text-decoration: none;
-  padding-left: 18px;
+  padding-left: 0;
   transition: color 0.2s;
   font-weight: 700;
   /* Comfortable mobile tap target */
@@ -4308,7 +4297,7 @@ h1, h2, h3, h4 {
     </div>
   
     <div class="section-cta-line">
-      <a href="#webinar" class="section-cta-link">Watch what I ship live this week <span class="arrow">&rarr;</span></a>
+      <a href="#webinar" class="section-cta-link">See what I ship, in public <span class="arrow">&rarr;</span></a>
       <span class="section-cta-sub">Founding cohort &middot; waitlist first</span>
     </div>
 </div>
@@ -5813,6 +5802,62 @@ h1, h2, h3, h4 {
 <div class="wrap"><div class="section-divider"></div></div>
 
 <!-- ============================================================
+     07.4 CHOOSE YOUR BUILD — cohort vs 1-on-1 (value ladder)
+     ============================================================ -->
+<section class="section" id="choose-build">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Choose your build</span>
+      <h2 class="h2">Two ways to build with me.</h2>
+      <p class="lead">Same stack, same me. Build in the room alongside a cohort, or go 1-on-1 and have it done with you on your own business.</p>
+    </div>
+
+    <div class="ladder" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:900px;margin:40px auto 0;align-items:stretch;">
+      <article class="tier" style="display:flex;flex-direction:column;">
+        <span class="tier-tag">Group &middot; 6 weeks</span>
+        <h3>The Founding Cohort</h3>
+        <div class="tier-body">
+          <p>A small live cohort. Six weeks, one agent a week, built on your own work, alongside a room of operators.</p>
+          <ul>
+            <li>6 live builds, all six agents</li>
+            <li>Recordings, setup notes and the full library</li>
+            <li>The founding room and a direct line to me</li>
+            <li>You own every agent you build</li>
+            <li>Founding price, locked</li>
+          </ul>
+          <p class="tier-honest">Best if you move fastest with momentum and a room around you.</p>
+        </div>
+        <a href="#scorecard" class="btn btn-primary" style="width:100%;justify-content:center;text-decoration:none;margin-top:auto;">Take the scorecard <span class="arrow">&rarr;</span></a>
+      </article>
+
+      <article class="tier featured" style="display:flex;flex-direction:column;">
+        <span class="tier-tag">1-on-1 &middot; Private</span>
+        <h3>The 1-on-1 Build</h3>
+        <div class="tier-body">
+          <p>Just us. I audit how you run today, then we stand up your agent stack on your business, live, at your pace. A roster built around your bottlenecks, not a curriculum.</p>
+          <ul>
+            <li>Private sessions on your schedule</li>
+            <li>A full audit of how you run today</li>
+            <li>A custom agent roster for your business</li>
+            <li>Built in your accounts, done with you</li>
+            <li>Everything the cohort includes, plus direct access</li>
+          </ul>
+          <p class="tier-honest">Best if you want it done with you, fast, on your specifics. Limited slots, by application.</p>
+        </div>
+        <a href="#scorecard" class="btn btn-primary" style="width:100%;justify-content:center;text-decoration:none;margin-top:auto;">Apply for the 1-on-1 <span class="arrow">&rarr;</span></a>
+      </article>
+    </div>
+
+    <div class="section-cta-line">
+      <a href="#scorecard" class="section-cta-link">Not sure which? Take the scorecard <span class="arrow">&rarr;</span></a>
+      <span class="section-cta-sub">It tells you exactly where to start</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="section-divider"></div></div>
+
+<!-- ============================================================
      07.5 HONEST FILTER (NOT for everyone matrix)
      ============================================================ -->
 <section class="section" id="fit-check">
@@ -5920,7 +5965,7 @@ h1, h2, h3, h4 {
     </div>
   
     <div class="section-cta-line">
-      <a href="#webinar" class="section-cta-link">Still in? Watch the next build <span class="arrow">&rarr;</span></a>
+      <a href="#scorecard" class="section-cta-link">Still in? Take the scorecard <span class="arrow">&rarr;</span></a>
       <span class="section-cta-sub">Founding cohort &middot; waitlist first</span>
     </div>
 </div>
@@ -6268,7 +6313,7 @@ h1, h2, h3, h4 {
 
     <div class="final-cta-extras reveal" style="justify-items:center;">
       <div class="final-cta-scarcity">
-        <div class="countdown-label">FOUNDING COHORT &middot; <span data-seats-left>LIMITED SEATS</span> &middot; WAITLIST OPEN NOW</div>
+        <div class="countdown-label">FOUNDING COHORT &middot; <span data-seats-left>LIMITED SEATS</span> &middot; WAITLIST OPEN</div>
         <div class="claimed-rotator">
           <span class="claimed-prefix">The first cohort is small on purpose. Waitlist first, pricing first, seats first.</span>
         </div>
@@ -6296,10 +6341,9 @@ h1, h2, h3, h4 {
         <p>Seven quick questions. Get your personalized build order, and lock your place on the founding-cohort waitlist in the same 90 seconds.</p>
         <a href="#scorecard" class="btn btn-primary webinar-submit-btn" style="text-decoration:none;">
           <span>Take the scorecard</span>
-          <span class="webinar-submit-date">7 questions &middot; ~90 seconds &middot; no payment</span>
           <span class="arrow">&rarr;</span>
         </a>
-        <div class="form-meta">// No payment. The waitlist gets pricing and seats first.</div>
+        <div class="form-meta">// 7 questions &middot; ~90 seconds &middot; no payment. The waitlist gets pricing and seats first.</div>
       </div>
 
       <aside class="apply-rail" aria-label="What happens after you save your seat">
