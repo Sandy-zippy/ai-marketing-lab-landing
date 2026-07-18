@@ -3952,43 +3952,43 @@ h1, h2, h3, h4 {
   if (!root) return;
 
   var QUESTIONS = [
-    { q: "What's the biggest bottleneck in your marketing right now?", a: [
-      { t: "Not enough leads coming in", b: { campaign: 2, lead: 1 } },
-      { t: "Leads come in but slip through the cracks", b: { lead: 2, followup: 1 } },
-      { t: "I chase people and forget to follow up", b: { followup: 3 } },
-      { t: "Making content and creative eats my time", b: { content: 3 } },
-      { t: "I can't tell what's actually working", b: { orch: 3 } } ] },
-    { q: "Where does most of your marketing time go each week?", a: [
-      { t: "Replying to and chasing leads", b: { followup: 2 } },
-      { t: "Making posts, content and creatives", b: { content: 2 } },
-      { t: "Setting up and managing ads", b: { campaign: 2 } },
-      { t: "Pulling reports and figuring out numbers", b: { orch: 2 } },
-      { t: "Capturing and sorting inbound enquiries", b: { lead: 2 } } ] },
-    { q: "When a new lead comes in, what usually happens?", a: [
-      { t: "It sits until I get to it", b: { lead: 2, followup: 1 } },
-      { t: "I qualify and reply manually", b: { lead: 2 } },
-      { t: "A form grabs it, the rest is manual", b: { followup: 2 } },
-      { t: "It's mostly automated already", b: { orch: 1 } } ] },
-    { q: "How is your follow-up game, honestly?", a: [
-      { t: "I forget half of it", b: { followup: 3 } },
-      { t: "Manual, when I remember", b: { followup: 2 } },
-      { t: "A few sequences run", b: { content: 1, orch: 1 } },
-      { t: "Solid, that's not my problem", b: { campaign: 1 } } ] },
-    { q: "Your content and creative output is...", a: [
-      { t: "Too slow, it holds up campaigns", b: { content: 3 } },
-      { t: "Outsourced, expensive and slow", b: { content: 2 } },
-      { t: "By hand, fine for now", b: { campaign: 1 } },
+    { q: "Where is AI in your marketing right now?", a: [
+      { t: "Nowhere, it is all manual", b: { lead: 2, followup: 1 } },
+      { t: "Just me prompting ChatGPT for content", b: { content: 3 } },
+      { t: "A couple of automations, no real agents", b: { followup: 2, orch: 1 } },
+      { t: "Ad tools with some AI, but I run them", b: { campaign: 2 } },
+      { t: "Dashboards, but nothing AI reads them", b: { orch: 3 } } ] },
+    { q: "If you could hand ONE job to an AI agent tomorrow, which?", a: [
+      { t: "Capturing and qualifying new leads", b: { lead: 3 } },
+      { t: "Chasing and following up leads", b: { followup: 3 } },
+      { t: "Making content and creative", b: { content: 3 } },
+      { t: "Running and optimising ads", b: { campaign: 3 } },
+      { t: "Telling me what is actually working", b: { orch: 3 } } ] },
+    { q: "Have you tried building an AI agent or automation yet?", a: [
+      { t: "No, would not know where to start", b: { lead: 1, followup: 1 } },
+      { t: "Tried, it broke or I gave up", b: { orch: 1 } },
+      { t: "One simple automation runs", b: { followup: 1 } },
+      { t: "A few, but they do not talk to each other", b: { orch: 2 } } ] },
+    { q: "When a lead comes in, what does your system do?", a: [
+      { t: "Nothing, I handle it myself", b: { lead: 2, followup: 1 } },
+      { t: "A form saves it, then it is on me", b: { followup: 2 } },
+      { t: "Auto-reply, then manual from there", b: { followup: 2 } },
+      { t: "Tags it, routes it, I just close", b: { orch: 1 } } ] },
+    { q: "Your content and creative, how does AI touch it?", a: [
+      { t: "It does not, I make it by hand", b: { content: 2, campaign: 1 } },
+      { t: "I prompt for drafts, then heavy edits", b: { content: 3 } },
+      { t: "Templates plus AI, fairly quick", b: { campaign: 1 } },
       { t: "Barely doing content right now", b: { campaign: 1, lead: 1 } } ] },
-    { q: "Your paid ads and acquisition...", a: [
-      { t: "Not running ads yet, I need to", b: { campaign: 3 } },
-      { t: "Running, but not sure they work", b: { campaign: 2, orch: 1 } },
-      { t: "An agency runs them", b: { campaign: 1, orch: 1 } },
-      { t: "Running well and tracked", b: { orch: 1 } } ] },
-    { q: "Do you know which marketing actually drives revenue?", a: [
-      { t: "No real idea", b: { orch: 3 } },
-      { t: "A rough guess", b: { orch: 2 } },
-      { t: "Tracked loosely", b: { orch: 1 } },
-      { t: "Fully attributed", b: { campaign: 1, content: 1 } } ] }
+    { q: "Your ads and traffic, where is the gap?", a: [
+      { t: "Not running ads, I need to start", b: { campaign: 3 } },
+      { t: "Running, but flying blind on results", b: { campaign: 2, orch: 1 } },
+      { t: "An agency runs them, I am hands-off", b: { campaign: 1, orch: 1 } },
+      { t: "Running and tracked well", b: { orch: 1 } } ] },
+    { q: "Can you prove which marketing made you money last month?", a: [
+      { t: "No, honestly no idea", b: { orch: 3 } },
+      { t: "A rough gut feel", b: { orch: 2 } },
+      { t: "Some tracking, gaps everywhere", b: { orch: 1 } },
+      { t: "Yes, fully attributed", b: { campaign: 1, content: 1 } } ] }
   ];
 
   var RESULTS = {
@@ -4080,9 +4080,11 @@ h1, h2, h3, h4 {
     fetch(ACTION, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: params.toString() })
       .catch(function(err){ console.warn('[scorecard] submit failed', err); })
       .finally(function(){
-        if (typeof track === 'function') track('scorecard_submitted', { agent: tally() });
+        var agent = tally();
+        if (typeof track === 'function') track('scorecard_submitted', { agent: agent });
         if (window.clarity) clarity('set', 'converted', 'true');
-        showResult();
+        try { localStorage.setItem('aiml_scorecard_result', JSON.stringify({ agent: agent, name: name })); } catch (_) {}
+        window.location.href = 'thank-you.html?agent=' + encodeURIComponent(agent);
       });
   });
 })();
