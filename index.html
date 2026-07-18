@@ -3806,10 +3806,10 @@ h1, h2, h3, h4 {
     <ul class="nav-links">
       <li><a href="#inner-circle">The cohort</a></li>
       <li><a href="#community">Community</a></li>
-      <li><a href="#webinar">Waitlist</a></li>
+      <li><a href="#scorecard">Scorecard</a></li>
       <li><a href="#about">About</a></li>
     </ul>
-    <a class="btn btn-primary btn-sm nav-cta" href="#webinar">Join the waitlist <span class="arrow">→</span></a>
+    <a class="btn btn-primary btn-sm nav-cta" href="#scorecard">Take the scorecard <span class="arrow">→</span></a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true">
         <path d="M1 1h16M1 7h16M1 13h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
@@ -3851,13 +3851,13 @@ h1, h2, h3, h4 {
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-left">
-        <span class="eyebrow hero-eyebrow">Founding cohort now forming</span>
-        <h1 class="h1" data-word-reveal>Build your own <span class="accent">AI marketing team</span>. Take your week back.<span class="pulse-dot" aria-hidden="true"></span></h1>
-        <p class="lead">Over a live founding cohort, you build the agents that get leads, follow up, ship campaigns, and run client work. Connected, running, and yours to keep.</p>
+        <span class="eyebrow hero-eyebrow">Free 2-minute scorecard</span>
+        <h1 class="h1" data-word-reveal>Which <span class="accent">AI marketing agent</span> should you build first?<span class="pulse-dot" aria-hidden="true"></span></h1>
+        <p class="lead">Answer seven quick questions. Get your personalized build order, the one agent that unlocks the most for you, and lock your place on the founding-cohort waitlist.</p>
         <div class="hero-ctas">
-          <a class="btn btn-primary hero-cta" href="#webinar">
-            <span class="hero-cta-main">Join the founding cohort waitlist <span class="arrow">→</span></span>
-            <span class="hero-cta-sub">Pricing and seats go to the waitlist first</span>
+          <a class="btn btn-primary hero-cta" href="#scorecard" data-sc-scrollstart>
+            <span class="hero-cta-main">Take the scorecard <span class="arrow">→</span></span>
+            <span class="hero-cta-sub">7 questions &middot; ~90 seconds &middot; no payment</span>
           </a>
         </div>
         <div class="hero-meta">
@@ -3865,41 +3865,239 @@ h1, h2, h3, h4 {
             <span class="tag-pulse"></span>
             FOUNDING COHORT &middot; NOT A COURSE
           </span>
-          <span><i class="dot" aria-hidden="true"></i> Begins Sun, 19 Jul &middot; 11 AM IST</span>
+          <span><i class="dot" aria-hidden="true"></i> Personalized build order</span>
           <span>You own every agent you build</span>
           <span>Limited seats, first cohort</span>
         </div>
       </div>
 
-      <!-- Registration form (right column on desktop, below hero copy on mobile) -->
+      <!-- Scorecard quiz (right column on desktop, below hero copy on mobile) -->
       <div class="hero-right">
-        <form class="webinar-form webinar-form--hero" id="hero-webinar-form" onsubmit="return submitWebinar(event)">
-          <h3>Join the founding cohort waitlist</h3>
-          <p>Seats are limited and pricing goes to the waitlist first. Add your details and you are first in line.</p>
-          <input type="text" name="company" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <div class="field">
-            <label for="hero-name">Full name</label>
-            <input id="hero-name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
+        <div class="scorecard" id="scorecard">
+          <div class="sc-progress"><span class="sc-progress-bar" data-sc-bar></span></div>
+
+          <!-- INTRO -->
+          <div class="sc-step" data-sc-step="intro">
+            <div class="sc-kicker">The build-order scorecard</div>
+            <h3 class="sc-h">Which agent should you build first?</h3>
+            <p class="sc-sub">Seven quick questions. You get your personalized build order and the one agent that unlocks the most for you.</p>
+            <button type="button" class="btn btn-primary sc-btn" data-sc-start>Start the scorecard <span class="arrow">&rarr;</span></button>
+            <div class="sc-meta">7 questions &middot; ~90 seconds &middot; no payment</div>
           </div>
-          <div class="field">
-            <label for="hero-email">Work email</label>
-            <input id="hero-email" name="email" type="email" required autocomplete="email" placeholder="you@yourbusiness.com" />
+
+          <!-- QUESTIONS (rendered by JS) -->
+          <div class="sc-step" data-sc-step="quiz" hidden>
+            <div class="sc-qnum" data-sc-qnum></div>
+            <h4 class="sc-qtext" data-sc-qtext></h4>
+            <div class="sc-options" data-sc-options></div>
+            <button type="button" class="sc-back" data-sc-back hidden>&larr; back</button>
           </div>
-          <div class="field">
-            <label for="hero-wa">WhatsApp (with country code)</label>
-            <input id="hero-wa" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+91 98xxxxxxxx" />
+
+          <!-- CAPTURE -->
+          <form class="sc-step sc-capture" data-sc-step="capture" id="scorecard-form" hidden>
+            <div class="sc-kicker">Last step</div>
+            <h3 class="sc-h">Your result is ready.</h3>
+            <p class="sc-sub">Where should we send it? This also locks your place on the founding-cohort waitlist.</p>
+            <input type="text" name="company" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <div class="field">
+              <label for="sc-name">Full name</label>
+              <input id="sc-name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
+            </div>
+            <div class="field">
+              <label for="sc-email">Work email</label>
+              <input id="sc-email" name="email" type="email" required autocomplete="email" placeholder="you@yourbusiness.com" />
+            </div>
+            <div class="field">
+              <label for="sc-wa">WhatsApp (with country code)</label>
+              <input id="sc-wa" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+1 or +91 &hellip;" />
+            </div>
+            <button type="submit" class="btn btn-primary sc-btn"><span>See my result</span> <span class="arrow">&rarr;</span></button>
+            <div class="sc-meta">No payment. The waitlist gets pricing and seats first.</div>
+          </form>
+
+          <!-- RESULT -->
+          <div class="sc-step sc-result" data-sc-step="result" hidden>
+            <div class="sc-result-badge">Start with</div>
+            <h3 class="sc-result-agent" data-sc-agent></h3>
+            <p class="sc-result-why" data-sc-why></p>
+            <div class="sc-result-note">In the 6-week cohort you build all six. This is your week-one unlock. <strong>&check; You are on the waitlist.</strong></div>
+            <a href="#roadmap" class="btn btn-primary sc-btn" data-sc-seeplan>See the 6-week build <span class="arrow">&rarr;</span></a>
           </div>
-          <button type="submit" class="btn btn-primary webinar-submit-btn">
-            <span>Join the waitlist</span>
-            <span class="arrow">&rarr;</span>
-          </button>
-          <div class="form-meta">No payment now. The waitlist gets pricing and seats first.</div>
-          <div class="form-success">&#10003; You are on the waitlist. Watch your inbox and WhatsApp.</div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .scorecard { background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: 16px; padding: 26px 24px; min-height: 440px; display: flex; flex-direction: column; }
+  .sc-progress { height: 4px; background: var(--bg-surface-2); border-radius: 2px; overflow: hidden; margin-bottom: 22px; flex-shrink: 0; }
+  .sc-progress-bar { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 2px; box-shadow: 0 0 10px var(--accent-glow); transition: width .4s cubic-bezier(.22,1,.36,1); }
+  .sc-step { display: flex; flex-direction: column; flex: 1; }
+  .sc-step[hidden] { display: none; }
+  .sc-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .sc-h { font-family: var(--sans); font-weight: 800; font-size: clamp(21px, 2.4vw, 27px); line-height: 1.14; letter-spacing: -.02em; margin-bottom: 10px; color: var(--text-high); }
+  .sc-sub { color: var(--text-mid); font-size: 14px; line-height: 1.55; margin-bottom: 22px; }
+  .sc-btn { width: 100%; justify-content: center; margin-top: auto; }
+  .sc-meta { font-family: var(--mono); font-size: 11px; color: var(--text-low); text-align: center; margin-top: 12px; letter-spacing: .03em; }
+  .sc-qnum { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--text-low); margin-bottom: 10px; }
+  .sc-qtext { font-family: var(--sans); font-weight: 700; font-size: clamp(17px, 2vw, 21px); line-height: 1.22; margin-bottom: 18px; color: var(--text-high); }
+  .sc-options { display: flex; flex-direction: column; gap: 9px; }
+  .sc-opt { text-align: left; width: 100%; padding: 13px 15px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-surface-2); color: var(--text-high); font-size: 13.5px; line-height: 1.4; cursor: pointer; transition: border-color .16s ease, transform .16s ease, background .16s ease; font-family: var(--sans); }
+  .sc-opt:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .sc-opt.is-picked { border-color: var(--accent); background: var(--accent-soft); }
+  .sc-back { align-self: flex-start; margin-top: 16px; background: none; border: none; color: var(--text-low); font-family: var(--mono); font-size: 12px; cursor: pointer; letter-spacing: .04em; padding: 4px 0; }
+  .sc-back:hover { color: var(--text-mid); }
+  .sc-back[hidden] { display: none; }
+  .sc-capture .field { margin-bottom: 12px; }
+  .sc-result-badge { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .sc-result-agent { font-family: var(--sans); font-weight: 800; font-size: clamp(25px, 3vw, 33px); line-height: 1.1; margin-bottom: 14px; color: var(--accent); }
+  .sc-result-why { color: var(--text-mid); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .sc-result-note { font-size: 12.5px; color: var(--text-mid); line-height: 1.5; background: var(--bg-surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px; margin-bottom: 18px; }
+  .sc-result-note strong { color: var(--accent); }
+  .sc-btn.is-loading { opacity: .65; pointer-events: none; }
+</style>
+<script>
+(function(){
+  var root = document.getElementById('scorecard');
+  if (!root) return;
+
+  var QUESTIONS = [
+    { q: "What's the biggest bottleneck in your marketing right now?", a: [
+      { t: "Not enough leads coming in", b: { campaign: 2, lead: 1 } },
+      { t: "Leads come in but slip through the cracks", b: { lead: 2, followup: 1 } },
+      { t: "I chase people and forget to follow up", b: { followup: 3 } },
+      { t: "Making content and creative eats my time", b: { content: 3 } },
+      { t: "I can't tell what's actually working", b: { orch: 3 } } ] },
+    { q: "Where does most of your marketing time go each week?", a: [
+      { t: "Replying to and chasing leads", b: { followup: 2 } },
+      { t: "Making posts, content and creatives", b: { content: 2 } },
+      { t: "Setting up and managing ads", b: { campaign: 2 } },
+      { t: "Pulling reports and figuring out numbers", b: { orch: 2 } },
+      { t: "Capturing and sorting inbound enquiries", b: { lead: 2 } } ] },
+    { q: "When a new lead comes in, what usually happens?", a: [
+      { t: "It sits until I get to it", b: { lead: 2, followup: 1 } },
+      { t: "I qualify and reply manually", b: { lead: 2 } },
+      { t: "A form grabs it, the rest is manual", b: { followup: 2 } },
+      { t: "It's mostly automated already", b: { orch: 1 } } ] },
+    { q: "How is your follow-up game, honestly?", a: [
+      { t: "I forget half of it", b: { followup: 3 } },
+      { t: "Manual, when I remember", b: { followup: 2 } },
+      { t: "A few sequences run", b: { content: 1, orch: 1 } },
+      { t: "Solid, that's not my problem", b: { campaign: 1 } } ] },
+    { q: "Your content and creative output is...", a: [
+      { t: "Too slow, it holds up campaigns", b: { content: 3 } },
+      { t: "Outsourced, expensive and slow", b: { content: 2 } },
+      { t: "By hand, fine for now", b: { campaign: 1 } },
+      { t: "Barely doing content right now", b: { campaign: 1, lead: 1 } } ] },
+    { q: "Your paid ads and acquisition...", a: [
+      { t: "Not running ads yet, I need to", b: { campaign: 3 } },
+      { t: "Running, but not sure they work", b: { campaign: 2, orch: 1 } },
+      { t: "An agency runs them", b: { campaign: 1, orch: 1 } },
+      { t: "Running well and tracked", b: { orch: 1 } } ] },
+    { q: "Do you know which marketing actually drives revenue?", a: [
+      { t: "No real idea", b: { orch: 3 } },
+      { t: "A rough guess", b: { orch: 2 } },
+      { t: "Tracked loosely", b: { orch: 1 } },
+      { t: "Fully attributed", b: { campaign: 1, content: 1 } } ] }
+  ];
+
+  var RESULTS = {
+    lead:     { name: "The Lead Agent",     why: "Your leak is at the front door: leads arrive and wait on you. The Lead Agent captures and qualifies every inbound the moment it lands, so nothing sits in a queue. Build this first and everything downstream finally has fuel." },
+    followup: { name: "The Follow-up Agent", why: "You are losing deals in the gap between interested and closed. The Follow-up Agent chases every lead in your voice and never forgets. You just approve the sends. This is usually the fastest money in the building." },
+    content:  { name: "The Content Agent",  why: "Creative is your bottleneck and it is slowing everything behind it. The Content Agent turns a one-line brief into on-brand ads, posts and pages on demand, so your campaigns stop waiting on assets." },
+    campaign: { name: "The Campaign Agent", why: "You need more qualified traffic, and it has to be measurable. The Campaign Agent runs Google and Meta day to day, watches spend, and wires attribution so every lead carries its source." },
+    orch:     { name: "The Orchestrator",   why: "You have moving pieces but nothing tells you the truth. The Orchestrator ties your agents together, keeps honest run logs, and sends one weekly brief, so you finally see what is working and what needs you." }
+  };
+  var PRIORITY = ['followup', 'lead', 'campaign', 'content', 'orch'];
+
+  var steps = {};
+  root.querySelectorAll('[data-sc-step]').forEach(function(el){ steps[el.getAttribute('data-sc-step')] = el; });
+  var bar = root.querySelector('[data-sc-bar]');
+  var qnum = root.querySelector('[data-sc-qnum]');
+  var qtext = root.querySelector('[data-sc-qtext]');
+  var opts = root.querySelector('[data-sc-options]');
+  var backBtn = root.querySelector('[data-sc-back]');
+  var form = document.getElementById('scorecard-form');
+  var TOTAL = QUESTIONS.length;
+  var answers = [];
+  var cur = 0;
+
+  function show(step){ Object.keys(steps).forEach(function(k){ steps[k].hidden = (k !== step); }); }
+  function setBar(frac){ if (bar) bar.style.width = Math.round(frac * 100) + '%'; }
+
+  function renderQ(){
+    var q = QUESTIONS[cur];
+    show('quiz');
+    qnum.textContent = 'Question ' + (cur + 1) + ' of ' + TOTAL;
+    qtext.textContent = q.q;
+    opts.innerHTML = '';
+    q.a.forEach(function(opt, i){
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'sc-opt' + (answers[cur] === i ? ' is-picked' : '');
+      btn.textContent = opt.t;
+      btn.addEventListener('click', function(){
+        answers[cur] = i;
+        if (cur < TOTAL - 1) { cur++; renderQ(); }
+        else { setBar(1); show('capture'); }
+      });
+      opts.appendChild(btn);
+    });
+    backBtn.hidden = (cur === 0);
+    setBar(cur / TOTAL);
+  }
+
+  function tally(){
+    var score = { lead: 0, followup: 0, content: 0, campaign: 0, orch: 0 };
+    answers.forEach(function(ai, qi){
+      if (ai == null) return;
+      var w = QUESTIONS[qi].a[ai].b;
+      Object.keys(w).forEach(function(k){ score[k] += w[k]; });
+    });
+    var best = PRIORITY[0], bestVal = -1;
+    PRIORITY.forEach(function(k){ if (score[k] > bestVal){ bestVal = score[k]; best = k; } });
+    return best;
+  }
+
+  function showResult(){
+    var r = RESULTS[tally()];
+    root.querySelector('[data-sc-agent]').textContent = r.name;
+    root.querySelector('[data-sc-why]').textContent = r.why;
+    setBar(1); show('result');
+  }
+
+  root.querySelector('[data-sc-start]').addEventListener('click', function(){ cur = 0; renderQ(); });
+  backBtn.addEventListener('click', function(){ if (cur > 0){ cur--; renderQ(); } });
+
+  // Capture submit: bank the lead to the same Google Form as the waitlist, then reveal the result.
+  var ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdwdlchjrxt8_eEJRsxV_0EmWswFCJQdIm61OmjJ6nEtfYulw/formResponse';
+  var FIELDS = { name: 'entry.711112049', email: 'entry.89039492', whatsapp: 'entry.606366000' };
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var trap = form.querySelector('input[name="company"]'); if (trap && trap.value) return;
+    var name = form.querySelector('#sc-name').value.trim();
+    var email = form.querySelector('#sc-email').value.trim();
+    var whatsapp = form.querySelector('#sc-wa').value.trim();
+    var btn = form.querySelector('button[type=submit]'); if (btn){ btn.disabled = true; btn.classList.add('is-loading'); }
+    try {
+      var key = 'aiml_pending_submissions';
+      var queue = JSON.parse(localStorage.getItem(key) || '[]');
+      queue.push({ name: name, email: email, whatsapp: whatsapp, agent: tally(), source: location.hostname + location.pathname, ts: new Date().toISOString() });
+      localStorage.setItem(key, JSON.stringify(queue));
+    } catch (_) {}
+    var params = new URLSearchParams();
+    params.append(FIELDS.name, name); params.append(FIELDS.email, email); params.append(FIELDS.whatsapp, whatsapp);
+    fetch(ACTION, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: params.toString() })
+      .catch(function(err){ console.warn('[scorecard] submit failed', err); })
+      .finally(function(){
+        if (typeof track === 'function') track('scorecard_submitted', { agent: tally() });
+        if (window.clarity) clarity('set', 'converted', 'true');
+        showResult();
+      });
+  });
+})();
+</script>
 
 <!-- ============================================================
      03. FOUNDER PROOF BAR
@@ -4450,7 +4648,7 @@ h1, h2, h3, h4 {
 
     <div class="starter-close">
       <p>Start with <b>one tool</b>, <b>one outcome</b>. Then turn it into a workflow you can use for your business or clients.</p>
-      <a class="btn btn-primary" href="#webinar">Join the founding cohort waitlist <span class="arrow">&rarr;</span></a>
+      <a class="btn btn-primary" href="#scorecard">Take the scorecard <span class="arrow">&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -5211,7 +5409,7 @@ h1, h2, h3, h4 {
     </div>
 
     <div class="offer-frame">
-      <span class="offer-frame-text">6 live builds &middot; one every Sunday &middot; <strong>11 AM IST</strong> &middot; 90 min+ each &middot; starts 19 Jul &middot; every session recorded</span>
+      <span class="offer-frame-text">6 live builds &middot; one a week &middot; <strong>90 min+ each</strong> &middot; live on Zoom &middot; every session recorded &middot; dates announced to the waitlist first</span>
     </div>
 
     <!-- 6 week cards: one agent built per week -->
@@ -5260,7 +5458,7 @@ h1, h2, h3, h4 {
     </div>
 
     <div class="section-cta-line">
-      <a href="#webinar" class="section-cta-link">Join the founding cohort waitlist <span class="arrow">&rarr;</span></a>
+      <a href="#scorecard" class="section-cta-link">Take the scorecard <span class="arrow">&rarr;</span></a>
       <span class="section-cta-sub">Founding cohort &middot; waitlist first</span>
     </div>
 </div>
@@ -5505,7 +5703,7 @@ h1, h2, h3, h4 {
     </div>
 
     <div class="section-cta-line">
-      <a href="#webinar" class="section-cta-link">Join the founding cohort waitlist <span class="arrow">&rarr;</span></a>
+      <a href="#scorecard" class="section-cta-link">Take the scorecard <span class="arrow">&rarr;</span></a>
       <span class="section-cta-sub">Pricing and seats to the waitlist first</span>
     </div>
 </div>
@@ -5587,7 +5785,7 @@ h1, h2, h3, h4 {
     </div>
 
     <div class="section-cta-line">
-      <a href="#webinar" class="section-cta-link">Join the founding cohort waitlist <span class="arrow">&rarr;</span></a>
+      <a href="#scorecard" class="section-cta-link">Take the scorecard <span class="arrow">&rarr;</span></a>
       <span class="section-cta-sub">Founding cohort &middot; waitlist first</span>
     </div>
   </div>
@@ -6026,7 +6224,7 @@ h1, h2, h3, h4 {
       </details>
       <details>
         <summary>When does it start, and how long is it?</summary>
-        <p>Six weeks, one live build every Sunday, starting Sunday, 19 Jul, 11 AM IST. Each session is 90 minutes or more and every one is recorded. You build one agent a week, so by week six the whole fleet is running. The waitlist gets the pricing, the schedule and the seats first, before anyone else.</p>
+        <p>Six weeks, one live build a week, 90 minutes or more each, every session recorded. You build one agent a week, so by week six the whole fleet is running. We are locking the cohort dates now, and the waitlist gets them first, along with the pricing and the seats, before anyone else. Take the scorecard to get on it.</p>
       </details>
       <details>
         <summary>Is it live, or recorded lessons?</summary>
@@ -6066,23 +6264,9 @@ h1, h2, h3, h4 {
     <div class="final-cta-worldwide">
       For marketers who build &middot; from Hyderabad &middot; agents that earn
     </div>
-    <p>A small first cohort, built live on your own work. The waitlist gets the pricing and the seats before anyone else.</p>
+    <p>Take the 90-second scorecard. Get the one agent to build first, and lock your place before we open the doors.</p>
 
-    <div class="final-cta-extras reveal">
-      <div class="webinar-countdown">
-        <div class="countdown-label">FOUNDING COHORT BEGINS IN</div>
-        <div class="countdown-grid">
-          <div class="cd-unit"><span class="cd-num" data-cd="days">--</span><span class="cd-lbl">DAYS</span></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-unit"><span class="cd-num" data-cd="hours">--</span><span class="cd-lbl">HRS</span></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-unit"><span class="cd-num" data-cd="mins">--</span><span class="cd-lbl">MIN</span></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-unit"><span class="cd-num" data-cd="secs">--</span><span class="cd-lbl">SEC</span></div>
-        </div>
-        <div class="countdown-date">First live build &middot; Sunday, 19 Jul &middot; 11 AM IST</div>
-      </div>
-
+    <div class="final-cta-extras reveal" style="justify-items:center;">
       <div class="final-cta-scarcity">
         <div class="countdown-label">FOUNDING COHORT &middot; <span data-seats-left>LIMITED SEATS</span> &middot; WAITLIST OPEN NOW</div>
         <div class="claimed-rotator">
@@ -6107,35 +6291,16 @@ h1, h2, h3, h4 {
     </div>
 
     <div class="apply-grid">
-      <form class="webinar-form" id="webinar-form" onsubmit="return submitWebinar(event)">
-        <h3>Join the founding cohort waitlist</h3>
-        <p>Pricing and seats go to the waitlist first. Add your details and you are first in line when enrollment opens.</p>
-        <input type="text" name="company" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
-
-        <div class="field">
-          <label for="wf-name">Full name</label>
-          <input id="wf-name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
-        </div>
-
-        <div class="field">
-          <label for="wf-email">Work email</label>
-          <input id="wf-email" name="email" type="email" required autocomplete="email" placeholder="you@yourbusiness.com" />
-        </div>
-
-        <div class="field">
-          <label for="wf-wa">WhatsApp (with country code)</label>
-          <input id="wf-wa" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+91 98xxxxxxxx" />
-        </div>
-
-        <p class="form-micro-trust">&rarr; We email and WhatsApp you the moment enrollment opens.</p>
-        <button type="submit" class="btn btn-primary webinar-submit-btn">
-          <span>Join the waitlist</span>
-          <span class="webinar-submit-date">Founding cohort &middot; seats limited</span>
+      <div class="webinar-form" id="webinar-form" style="display:flex;flex-direction:column;justify-content:center;">
+        <h3>Which agent should you build first?</h3>
+        <p>Seven quick questions. Get your personalized build order, and lock your place on the founding-cohort waitlist in the same 90 seconds.</p>
+        <a href="#scorecard" class="btn btn-primary webinar-submit-btn" style="text-decoration:none;">
+          <span>Take the scorecard</span>
+          <span class="webinar-submit-date">7 questions &middot; ~90 seconds &middot; no payment</span>
           <span class="arrow">&rarr;</span>
-        </button>
-        <div class="form-meta">// No payment now. The waitlist gets pricing and seats first.</div>
-        <div class="form-success" id="formSuccess">&#10003; You are on the waitlist. Watch your inbox and WhatsApp.</div>
-      </form>
+        </a>
+        <div class="form-meta">// No payment. The waitlist gets pricing and seats first.</div>
+      </div>
 
       <aside class="apply-rail" aria-label="What happens after you save your seat">
         <h3 class="apply-rail-h">On the waitlist you get</h3>
@@ -6233,7 +6398,7 @@ h1, h2, h3, h4 {
     <div>
       <h4>The Lab</h4>
       <ul>
-        <li><a href="#webinar">Join the waitlist</a></li>
+        <li><a href="#scorecard">Take the scorecard</a></li>
         <li><a href="#community">What's inside</a></li>
         <li><a href="#inner-circle">The cohort</a></li>
         <!-- TODO: verify skool.com/aimarketinglab is claimed before ad spend -->
@@ -6266,8 +6431,8 @@ h1, h2, h3, h4 {
 </footer>
 
 <script>
-// Waitlist mode: the founding cohort date is a fixed constant in the countdown
-// block below (Sun 19 Jul 2026, 11 AM IST). Date spans carry their own inline copy.
+// Scorecard funnel: evergreen, no dated live event. Cohort dates are announced to
+// the waitlist. The hero scorecard captures leads to the same Google Form as before.
 
 // Mobile nav
 (function(){
@@ -6666,40 +6831,7 @@ async function submitWebinar(e) {
   });
 })();
 
-// Founding cohort countdown — fixed target: first live build, Sun 19 Jul 2026,
-// 11:00 IST (05:30 UTC). Fixed on purpose (a cohort start is a real date, not a
-// recurring session), so it does not roll. Update this when the date moves.
-(function () {
-  var COHORT_TS = Date.UTC(2026, 6, 19, 5, 30, 0);
-  var els = {
-    days:  document.querySelector('[data-cd="days"]'),
-    hours: document.querySelector('[data-cd="hours"]'),
-    mins:  document.querySelector('[data-cd="mins"]'),
-    secs:  document.querySelector('[data-cd="secs"]')
-  };
-  if (!els.days) return;
-  function pad(n) { return String(n).padStart(2, '0'); }
-  function tick() {
-    var diff = COHORT_TS - Date.now();
-    if (diff <= 0) {
-      els.days.textContent  = '00';
-      els.hours.textContent = '00';
-      els.mins.textContent  = '00';
-      els.secs.textContent  = 'LIVE';
-      return;
-    }
-    var d = Math.floor(diff / 86400000);
-    var h = Math.floor((diff % 86400000) / 3600000);
-    var m = Math.floor((diff % 3600000) / 60000);
-    var s = Math.floor((diff % 60000) / 1000);
-    els.days.textContent  = pad(d);
-    els.hours.textContent = pad(h);
-    els.mins.textContent  = pad(m);
-    els.secs.textContent  = pad(s);
-  }
-  tick();
-  setInterval(tick, 1000);
-})();
+// (Countdown removed with the scorecard pivot — no dated live event; the funnel is evergreen.)
 
 // Filter-row check/x SVG draw on scroll (uses existing IO via .reveal but ensures .in propagates)
 // (handled by existing .reveal IntersectionObserver in main IIFE — .filter-row.in already triggers stroke-dashoffset transition)
@@ -6738,8 +6870,8 @@ document.addEventListener('DOMContentLoaded', function () {
 .sticky-cta-sub { font-family: var(--mono); font-weight: 600; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.82; }
 @media (max-width: 1023px) { .sticky-cta { display: flex; } }
 </style>
-<a href="#webinar" class="sticky-cta" id="stickyCta" aria-label="Join the founding cohort waitlist">
-  <span>Join the waitlist <span class="arrow">&rarr;</span></span>
+<a href="#scorecard" class="sticky-cta" id="stickyCta" aria-label="Take the scorecard">
+  <span>Take the scorecard <span class="arrow">&rarr;</span></span>
   <span class="sticky-cta-sub">Founding cohort &middot; seats limited</span>
 </a>
 
