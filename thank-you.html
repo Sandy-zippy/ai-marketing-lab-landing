@@ -136,8 +136,17 @@
     <div class="ty-foot">AI Marketing Labs &middot; <a href="index.html">back to home</a></div>
   </main>
 
+<!-- Analytics: same Clarity + PostHog as the main page, so the thank-you funnel is measurable -->
+<script>
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xgp3y420au");
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_rz66saz69eTnJxHgRJRBPyqDzNwDCdPY3mbJZkPqYLJe',{api_host:'https://us.i.posthog.com'});
+  function track(name, props){ try { if (window.clarity) clarity('event', name); if (window.posthog) posthog.capture(name, props || {}); } catch (_) {} }
+  window.__tyTrack = track;
+</script>
 <script>
 (function(){
+  var track = window.__tyTrack || function(){};
   var RESULTS = {
     lead:     { name: "The Lead Agent",     why: "Your leak is at the front door: leads arrive and wait on you. The Lead Agent captures and qualifies every inbound the moment it lands, so nothing sits in a queue. Build this first and everything downstream finally has fuel." },
     followup: { name: "The Follow-up Agent", why: "You are losing deals in the gap between interested and closed. The Follow-up Agent chases every lead in your voice and never forgets. You just approve the sends. This is usually the fastest money in the building." },
@@ -160,6 +169,7 @@
   if (!RESULTS[key]) key = stored.agent;
   if (!RESULTS[key]) key = 'followup';
   var r = RESULTS[key];
+  track('thankyou_view', { agent: key });
   document.getElementById('ty-agent').textContent = r.name;
   document.getElementById('ty-why').textContent = r.why;
   if (stored.name) { document.getElementById('ty-name').textContent = ', ' + String(stored.name).split(' ')[0]; }
@@ -170,6 +180,9 @@
   var ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdwdlchjrxt8_eEJRsxV_0EmWswFCJQdIm61OmjJ6nEtfYulw/formResponse';
   var FIELDS = { name: 'entry.711112049', email: 'entry.89039492', whatsapp: 'entry.606366000' };
   var MSG_FIELD = '', TYPE_FIELD = ''; // fill with entry IDs once added to the Form
+  // Preferred: paste the Apps Script /exec URL (see lead-notify.gs) to log the FULL 1-on-1
+  // inquiry (incl. message) to a Sheet and email Sandy instantly. See README-lead-capture.md.
+  var LEAD_WEBHOOK = '';
   var form = document.getElementById('ty-1on1');
   var success = document.getElementById('ty-1on1-success');
   form.addEventListener('submit', function(e){
@@ -186,6 +199,13 @@
       q.push({ type: '1on1', name: name, email: email, whatsapp: whatsapp, message: message, recommended: key, ts: new Date().toISOString() });
       localStorage.setItem(qk, JSON.stringify(q));
     } catch (_) {}
+    if (LEAD_WEBHOOK) {
+      var wp = new URLSearchParams();
+      wp.append('type', '1on1'); wp.append('name', name); wp.append('email', email);
+      wp.append('whatsapp', whatsapp); wp.append('message', message); wp.append('recommended', key);
+      wp.append('source', location.hostname + location.pathname);
+      fetch(LEAD_WEBHOOK, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: wp.toString() }).catch(function(){});
+    }
     var params = new URLSearchParams();
     params.append(FIELDS.name, name); params.append(FIELDS.email, email); params.append(FIELDS.whatsapp, whatsapp);
     if (MSG_FIELD) params.append(MSG_FIELD, message);
@@ -193,6 +213,7 @@
     fetch(ACTION, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: params.toString() })
       .catch(function(err){ console.warn('[1on1] submit failed', err); })
       .finally(function(){
+        track('1on1_inquiry_submitted', { recommended: key });
         form.querySelectorAll('.ty-field, .ty-btn-primary, .ty-form-meta').forEach(function(el){ el.style.display = 'none'; });
         success.hidden = false;
       });

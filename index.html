@@ -4018,6 +4018,7 @@ h1, h2, h3, h4 {
   function renderQ(){
     var q = QUESTIONS[cur];
     show('quiz');
+    if (typeof track === 'function') track('quiz_question', { question: cur + 1, total: TOTAL });
     qnum.textContent = 'Question ' + (cur + 1) + ' of ' + TOTAL;
     qtext.textContent = q.q;
     opts.innerHTML = '';
@@ -4029,7 +4030,7 @@ h1, h2, h3, h4 {
       btn.addEventListener('click', function(){
         answers[cur] = i;
         if (cur < TOTAL - 1) { cur++; renderQ(); }
-        else { setBar(1); show('capture'); }
+        else { setBar(1); show('capture'); if (typeof track === 'function') track('quiz_finished', { agent: tally() }); }
       });
       opts.appendChild(btn);
     });
@@ -4056,12 +4057,16 @@ h1, h2, h3, h4 {
     setBar(1); show('result');
   }
 
-  root.querySelector('[data-sc-start]').addEventListener('click', function(){ cur = 0; renderQ(); });
+  root.querySelector('[data-sc-start]').addEventListener('click', function(){ cur = 0; if (typeof track === 'function') track('quiz_started'); renderQ(); });
   backBtn.addEventListener('click', function(){ if (cur > 0){ cur--; renderQ(); } });
 
   // Capture submit: bank the lead to the same Google Form as the waitlist, then reveal the result.
   var ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdwdlchjrxt8_eEJRsxV_0EmWswFCJQdIm61OmjJ6nEtfYulw/formResponse';
   var FIELDS = { name: 'entry.711112049', email: 'entry.89039492', whatsapp: 'entry.606366000' };
+  // Optional richer capture + instant email alert. Paste the Apps Script /exec URL here
+  // (see lead-notify.gs) to log name/email/whatsapp/agent to a Sheet and email Sandy on
+  // every submit. Left blank = only the Google Form above runs (current behaviour). See README-lead-capture.md.
+  var LEAD_WEBHOOK = '';
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var trap = form.querySelector('input[name="company"]'); if (trap && trap.value) return;
@@ -4075,6 +4080,12 @@ h1, h2, h3, h4 {
       queue.push({ name: name, email: email, whatsapp: whatsapp, agent: tally(), source: location.hostname + location.pathname, ts: new Date().toISOString() });
       localStorage.setItem(key, JSON.stringify(queue));
     } catch (_) {}
+    if (LEAD_WEBHOOK) {
+      var wp = new URLSearchParams();
+      wp.append('type', 'waitlist'); wp.append('name', name); wp.append('email', email);
+      wp.append('whatsapp', whatsapp); wp.append('agent', tally()); wp.append('source', location.hostname + location.pathname);
+      fetch(LEAD_WEBHOOK, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: wp.toString() }).catch(function(){});
+    }
     var params = new URLSearchParams();
     params.append(FIELDS.name, name); params.append(FIELDS.email, email); params.append(FIELDS.whatsapp, whatsapp);
     fetch(ACTION, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: params.toString() })
