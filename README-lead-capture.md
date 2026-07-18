@@ -18,6 +18,10 @@ Two improvements are wired but **dormant until you set one URL**:
 
 That's it. Every lead now appends to the Sheet **and** emails you (1-on-1 inquiries are flagged 🔥). The existing Google Form keeps running in parallel as a safety net, so nothing breaks if you skip this.
 
+## Auto-responder (email the lead their build plan)
+
+`lead-notify.gs` can also email each lead their scorecard result automatically. It's **off by default** — nothing sends until you flip `SEND_RESULT_EMAIL = true` in the script and re-deploy. When on, every scorecard submit gets a friendly email with their recommended agent + a link back to the 6-week build. (Alerts to you work regardless of this toggle.)
+
 ## Alternative
 
 Prefer n8n/Zapier? Point `LEAD_WEBHOOK` at a webhook URL instead — the browser POSTs form-urlencoded fields: `type, name, email, whatsapp, agent/recommended, message, source`.
