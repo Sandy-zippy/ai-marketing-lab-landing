@@ -5514,6 +5514,107 @@ h1, h2, h3, h4 {
 <div class="wrap"><div class="section-divider"></div></div>
 
 <!-- ============================================================
+     07.3 WHAT YOU GET + THE MATHS  (audit adds vs thefounderos.com)
+     ============================================================ -->
+<style>
+  .bundle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 40px; margin-top: 40px; }
+  @media (max-width: 720px) { .bundle-grid { grid-template-columns: 1fr; } }
+  .bundle-item { display: flex; gap: 14px; align-items: flex-start; padding: 6px 0; }
+  .bundle-check { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: var(--bg-surface-2); border: 1px solid var(--accent); color: var(--accent); margin-top: 2px; }
+  .bundle-item > div { display: flex; flex-direction: column; }
+  .bundle-item strong { color: var(--text-high, #fff); font-weight: 600; font-size: 15px; }
+  .bundle-item span { color: var(--text-mid); font-size: 13.5px; line-height: 1.5; margin-top: 2px; }
+  .bundle-item--bonus .bundle-check { background: var(--accent); color: #06231f; border-color: var(--accent); }
+  .bundle-item--bonus strong { color: var(--accent); }
+  .bundle-guarantee { margin-top: 34px; text-align: center; font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.03em; color: var(--text-mid); border: 1px dashed var(--border); border-radius: 8px; padding: 16px 22px; }
+  .maths-calc { max-width: 620px; margin: 40px auto 0; text-align: center; background: var(--bg-surface-2); border: 1px solid var(--border); border-radius: 14px; padding: 34px 28px; }
+  .maths-q { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-low); margin-bottom: 16px; }
+  .maths-rates { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .maths-rate { font-family: var(--mono); font-size: 13px; font-weight: 600; padding: 10px 16px; border-radius: 8px; background: transparent; border: 1px solid var(--border); color: var(--text-mid); cursor: pointer; transition: all .18s ease; }
+  .maths-rate:hover { border-color: var(--accent); color: var(--text-high, #fff); }
+  .maths-rate.is-active { background: var(--accent); border-color: var(--accent); color: #06231f; }
+  .maths-result { margin: 28px 0 10px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .maths-value { font-family: var(--mono); font-weight: 700; font-size: clamp(38px, 6vw, 60px); color: var(--accent); line-height: 1; text-shadow: 0 0 20px var(--accent-glow); font-variant-numeric: tabular-nums; }
+  .maths-unit { font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-low); }
+  .maths-formula { color: var(--text-mid); font-size: 13.5px; line-height: 1.6; margin-top: 8px; }
+</style>
+<section class="section" id="what-you-get">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What you get</span>
+      <h2 class="h2">Everything you walk away with.</h2>
+      <p class="lead">One build, six weeks, and a stack that stays yours for good.</p>
+    </div>
+
+    <div class="bundle-grid reveal">
+      <div class="bundle-item"><span class="bundle-check">&check;</span><div><strong>Six marketing agents</strong><span>Built live on your own work, running in your own accounts.</span></div></div>
+      <div class="bundle-item"><span class="bundle-check">&check;</span><div><strong>Your marketing OS</strong><span>Memory and stack wired: Claude Code, Composio, Mem0, n8n.</span></div></div>
+      <div class="bundle-item"><span class="bundle-check">&check;</span><div><strong>Every session recorded</strong><span>Plus setup notes for how each agent is actually wired.</span></div></div>
+      <div class="bundle-item"><span class="bundle-check">&check;</span><div><strong>The prompt and tool library</strong><span>Everything we build from, yours to keep and reuse.</span></div></div>
+      <div class="bundle-item"><span class="bundle-check">&check;</span><div><strong>Commercial use</strong><span>Reuse and charge clients for the agents you build.</span></div></div>
+      <div class="bundle-item"><span class="bundle-check">&check;</span><div><strong>A direct line to me</strong><span>Between every session, not just inside the room.</span></div></div>
+      <div class="bundle-item"><span class="bundle-check">&check;</span><div><strong>Founding price, locked</strong><span>The lowest it will ever be, and it will not be offered again.</span></div></div>
+      <div class="bundle-item bundle-item--bonus"><span class="bundle-check">&#9733;</span><div><strong>Founding bonus: 3 months in the room, free</strong><span>Stay in the builder community for three months after week six, on us.</span></div></div>
+    </div>
+
+    <div class="bundle-guarantee reveal">Change your mind before week one? Full refund, no questions. Once we start, you are covered by a 14-day money-back guarantee.</div>
+  </div>
+</section>
+
+<div class="wrap"><div class="section-divider"></div></div>
+
+<section class="section" id="the-maths">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">The maths</span>
+      <h2 class="h2">You are not buying a course. You are buying your week back.</h2>
+      <p class="lead">Put a number on the hours these agents take off your plate. Even at ten hours a week.</p>
+    </div>
+
+    <div class="maths-calc reveal">
+      <div class="maths-q">Your time is worth</div>
+      <div class="maths-rates" role="group" aria-label="Pick your hourly rate">
+        <button type="button" class="maths-rate" data-rate="1000">&#8377;1,000/hr</button>
+        <button type="button" class="maths-rate is-active" data-rate="2000">&#8377;2,000/hr</button>
+        <button type="button" class="maths-rate" data-rate="3500">&#8377;3,500/hr</button>
+        <button type="button" class="maths-rate" data-rate="5000">&#8377;5,000/hr</button>
+      </div>
+      <div class="maths-result">
+        <span class="maths-value" data-maths-value>&#8377;10,40,000</span>
+        <span class="maths-unit">back a year</span>
+      </div>
+      <p class="maths-formula">Your rate &times; 10 hours a week &times; 52 weeks. That is what doing this by hand quietly costs you, every year.</p>
+    </div>
+
+    <div class="section-cta-line">
+      <a href="#webinar" class="section-cta-link">Join the founding cohort waitlist <span class="arrow">&rarr;</span></a>
+      <span class="section-cta-sub">Founding cohort &middot; waitlist first</span>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var HOURS = 10, WEEKS = 52;
+  var rates = document.querySelectorAll('.maths-rate');
+  var out = document.querySelector('[data-maths-value]');
+  if (!rates.length || !out) return;
+  function fmt(n){ return '₹' + n.toLocaleString('en-IN'); }
+  function set(rate){ out.textContent = fmt(rate * HOURS * WEEKS); }
+  rates.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      rates.forEach(function(x){ x.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      set(parseInt(btn.dataset.rate, 10));
+    });
+  });
+  var init = document.querySelector('.maths-rate.is-active') || rates[0];
+  set(parseInt(init.dataset.rate, 10));
+})();
+</script>
+
+<div class="wrap"><div class="section-divider"></div></div>
+
+<!-- ============================================================
      07.5 HONEST FILTER (NOT for everyone matrix)
      ============================================================ -->
 <section class="section" id="fit-check">
@@ -5946,6 +6047,10 @@ h1, h2, h3, h4 {
       <details>
         <summary>Is this a 1:1 consultant?</summary>
         <p>No, and I would rather you knew now. A founding cohort is a room. You get live time, hotseats and a direct line between sessions, but if you want a solo consultant on retainer, this is not that.</p>
+      </details>
+      <details>
+        <summary>What if it is not for me?</summary>
+        <p>Change your mind before week one and you get a full refund, no questions. Once we start, you are covered by a 14-day money-back guarantee. You build on your own accounts the whole way, so anything you make is yours to keep regardless.</p>
       </details>
     </div>
   </div>
