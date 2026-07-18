@@ -5574,13 +5574,13 @@ h1, h2, h3, h4 {
     <div class="maths-calc reveal">
       <div class="maths-q">Your time is worth</div>
       <div class="maths-rates" role="group" aria-label="Pick your hourly rate">
-        <button type="button" class="maths-rate" data-rate="1000">&#8377;1,000/hr</button>
-        <button type="button" class="maths-rate is-active" data-rate="2000">&#8377;2,000/hr</button>
-        <button type="button" class="maths-rate" data-rate="3500">&#8377;3,500/hr</button>
-        <button type="button" class="maths-rate" data-rate="5000">&#8377;5,000/hr</button>
+        <button type="button" class="maths-rate" data-rate="50">$50/hr</button>
+        <button type="button" class="maths-rate is-active" data-rate="100">$100/hr</button>
+        <button type="button" class="maths-rate" data-rate="200">$200/hr</button>
+        <button type="button" class="maths-rate" data-rate="500">$500/hr</button>
       </div>
       <div class="maths-result">
-        <span class="maths-value" data-maths-value>&#8377;10,40,000</span>
+        <span class="maths-value" data-maths-value>$52,000</span>
         <span class="maths-unit">back a year</span>
       </div>
       <p class="maths-formula">Your rate &times; 10 hours a week &times; 52 weeks. That is what doing this by hand quietly costs you, every year.</p>
@@ -5598,7 +5598,7 @@ h1, h2, h3, h4 {
   var rates = document.querySelectorAll('.maths-rate');
   var out = document.querySelector('[data-maths-value]');
   if (!rates.length || !out) return;
-  function fmt(n){ return '₹' + n.toLocaleString('en-IN'); }
+  function fmt(n){ return '$' + n.toLocaleString('en-US'); }
   function set(rate){ out.textContent = fmt(rate * HOURS * WEEKS); }
   rates.forEach(function(btn){
     btn.addEventListener('click', function(){
