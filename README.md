@@ -1,12 +1,12 @@
 # AI Marketing Lab / Landing Page
 
-Marketing landing page for the AI Marketing Lab community.
+Marketing and funnel site for the AI Marketing Labs six-system build.
 
-- **Domain:** [aimarketinglab.club](https://aimarketinglab.club)
+- **Domain:** [aimarketinglabs.in](https://aimarketinglabs.in)
 - **Stack:** Plain HTML + CSS + minimal JS
 - **Host:** GitHub Pages, `main` branch
-- **Brand:** Neon Green (`#00FF94`) on dark canvas (`#071A14`). JetBrains Mono + Inter.
-- **Founders:** Sandy + Bhargav (ZippyScale)
+- **Brand:** Teal (`#00A19B`) on dark canvas (`#0A0E0D`). JetBrains Mono + Inter.
+- **Operator:** ZippyScale
 
 ## Local dev
 
@@ -19,26 +19,23 @@ python3 -m http.server 8080
 
 ## Deploy
 
-Push to `main`. GitHub Pages serves from root. Custom domain configured via `CNAME`.
+Push to `main`. The Pages workflow builds a curated `_site` artifact so internal positioning, scripts and proof files are not published. The custom domain is configured via `CNAME`.
 
-## Sections
+## Public routes
 
-1. Nav
-2. Hero
-3. Founder proof bar
-4. What you walk away with
-5. Why The Lab exists (manifesto)
-6. Week in the life
-7. Offer ladder (Tier 1 + Inner Circle)
-8. Meet the operators (Sandy + Bhargav)
-9. Hermes 9-agent fleet
-10. FAQ
-11. Final CTA + webinar form
-12. Footer
+1. `/` offer and mechanism homepage
+2. `/vsl/` VSL or release-list route
+3. `/webinar/` live-session registration or interest route
+4. `/start/` persistent 50/50 VSL-versus-webinar traffic router
+5. `/privacy.html`, `/terms.html`, `/refund.html`, `/contact.html`
 
-## Webinar form
+## Current launch state
 
-Currently logs payload to console as a placeholder. GHL webhook wiring is Task 1.2.
+- Google Form capture is configured for name, email, WhatsApp, registration source, the consent statement recorded at submission, and allowed UTM or advertising click parameters.
+- PostHog and Microsoft Clarity load only after analytics consent.
+- Meta Pixel and Conversions API are not configured. Do not send paid traffic until EMQ and event deduplication are verified.
+- VSL media, webinar date, booking, checkout, and final refund terms must stay visibly unavailable until real destinations are configured.
+- `POSITIONING.md` is the current copy and claim source of truth.
 
 ## License
 

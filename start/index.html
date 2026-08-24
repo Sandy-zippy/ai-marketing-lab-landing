@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0A0E0D">
+  <title>Opening the training | AI Marketing Labs</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0A0E0D;--text:#F5F5F0;--muted:#B6BFBB;--accent:#00A19B}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif}.box{max-width:560px;text-align:center}.mark{width:34px;height:34px;margin:0 auto 24px;border:2px solid rgba(0,161,155,.25);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}h1{margin:0;font-size:clamp(30px,6vw,46px);line-height:1.08}p{color:var(--muted)}a{color:var(--accent)}@keyframes spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.mark{animation:none}}
+  </style>
+</head>
+<body>
+  <main class="box">
+    <div class="mark" aria-hidden="true"></div>
+    <h1>Opening your training.</h1>
+    <p>You will be assigned one version for the complete visit.</p>
+    <noscript><p>JavaScript is required for the comparison. Choose <a href="/vsl/">the on-demand training</a> or <a href="/webinar/">the live build</a>.</p></noscript>
+  </main>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var forced = params.get('variant');
+      var variant = localStorage.getItem('aiml_funnel_variant');
+      if (forced === 'vsl' || forced === 'webinar') variant = forced;
+      if (variant !== 'vsl' && variant !== 'webinar') {
+        var random = new Uint32Array(1);
+        crypto.getRandomValues(random);
+        variant = random[0] % 2 === 0 ? 'vsl' : 'webinar';
+      }
+      localStorage.setItem('aiml_funnel_variant', variant);
+      sessionStorage.setItem('aiml_experiment_id', 'vsl_vs_webinar_v1');
+      params.delete('variant');
+      var query = params.toString();
+      window.location.replace('/' + variant + '/' + (query ? '?' + query : ''));
+    })();
+  </script>
+</body>
+</html>

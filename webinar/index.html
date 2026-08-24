@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Live Six-System Build | AI Marketing Labs</title>
+<meta name="description" content="Join a live AI Marketing Labs working session. Watch one marketing system get built, then see how outreach, design, automation, paid media, content, and orchestration fit together." />
+<meta property="og:title" content="Live: build one AI marketing system, then map all six." />
+<meta property="og:description" content="A practical live working session for service-business owners, coaches, agencies, and freelancers." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aimarketinglabs.in/webinar/" />
+<meta property="og:image" content="https://aimarketinglabs.in/assets/og/aiml-og-1200x630.jpg" />
+<meta property="og:image:alt" content="AI Marketing Labs. Six marketing systems built in six weeks." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://aimarketinglabs.in/assets/og/aiml-og-1200x630.jpg" />
+<link rel="canonical" href="https://aimarketinglabs.in/webinar/" />
+<link rel="icon" href="../assets/favicon.svg" />
+<link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../assets/aiml-funnel.css?v=6" />
+<script src="../assets/analytics.js" defer></script>
+<style>
+body{min-height:100vh}
+.top{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line)}
+.top img{width:178px;height:auto;display:block}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--warm)}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--warm)}
+.hero{padding:clamp(54px,8vw,98px) 0 clamp(58px,8vw,96px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(340px,.72fr);grid-template-areas:"copy form" "proof form";gap:34px clamp(46px,8vw,104px);align-items:start}
+.hero-copy{grid-area:copy}
+.eyebrow{margin-bottom:22px}
+.hero h1{font-size:clamp(40px,6vw,74px);max-width:12ch;margin-bottom:24px;text-wrap:balance}
+.hero h1 span{color:var(--accent)}
+.hero .lede{max-width:660px}
+.event-time{margin:30px 0 12px;padding:18px 20px;border:1px solid var(--accent-line);border-radius:12px;background:var(--accent-soft)}
+.event-time .label{display:block;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-low);margin-bottom:7px}
+.event-time time,.event-time strong{display:block;color:var(--text-high);font-size:17px}
+.duration{font-family:var(--mono);font-size:11px;color:var(--text-low);letter-spacing:.05em}
+.credibility{grid-area:proof;display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start;max-width:610px}
+.credibility .mark{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--accent-line);border-radius:10px;color:var(--accent);font-family:var(--mono);font-weight:700}
+.credibility p{font-size:13px;color:var(--text-mid);line-height:1.65}
+.credibility strong{color:var(--text-high)}
+.form-card{grid-area:form;padding:clamp(24px,3.5vw,36px);background:var(--surface);border:1px solid var(--line);border-radius:16px;position:sticky;top:22px;box-shadow:0 30px 80px -46px rgba(0,0,0,.9)}
+.form-card h2{font-size:25px;margin-bottom:9px}
+.form-intro{font-size:14px;color:var(--text-mid);line-height:1.6;margin-bottom:24px}
+.field input{min-height:48px}
+.consent{display:grid;grid-template-columns:18px 1fr;gap:10px;margin:4px 0 18px;align-items:start}
+.consent input{width:18px;height:18px;margin-top:2px;accent-color:var(--accent)}
+.consent label{font-size:11.5px;color:var(--text-low);line-height:1.55;cursor:pointer}
+.consent a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.consent.err label{color:#E58A80}
+.privacy{font-size:10.5px;color:var(--text-low);line-height:1.55;margin-top:13px}
+.form-state{display:none;padding:20px;border:1px solid var(--accent-line);border-radius:12px;background:var(--accent-soft)}
+.form-state.show{display:block}
+.form-state h3{font-size:20px;margin-bottom:8px}
+.form-state p{font-size:13px;color:var(--text-mid);line-height:1.65}
+.form-error{min-height:20px;margin-top:12px;font-family:var(--mono);font-size:11px;color:#E58A80;line-height:1.5}
+.agenda{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.agenda-head{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:44px}
+.agenda-head h2{max-width:13ch}
+.agenda-head p{max-width:520px;color:var(--text-mid);line-height:1.65}
+.agenda-list{border-top:1px solid var(--line)}
+.agenda-item{display:grid;grid-template-columns:74px minmax(180px,.55fr) minmax(0,1fr);gap:28px;padding:25px 0;border-bottom:1px solid var(--line);align-items:start}
+.agenda-item .num{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.1em}
+.agenda-item h3{font-size:19px}
+.agenda-item p{font-size:14px;color:var(--text-mid);line-height:1.6}
+.fit{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(40px,8vw,100px);align-items:start}
+.fit h2{max-width:12ch;margin-top:17px}
+.fit-copy{font-size:clamp(18px,2vw,23px);color:var(--text-mid);line-height:1.6}
+.fit-copy strong{color:var(--text-high)}
+.offer-note{margin-top:30px;padding:20px 22px;border:1px solid var(--line);border-radius:12px;font-size:13px;color:var(--text-mid);line-height:1.65}
+.offer-note strong{color:var(--text-high)}
+.foot{color:var(--text-low)}
+.btn:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.btn[disabled]{opacity:.62;cursor:wait;transform:none;box-shadow:none}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;grid-template-areas:"copy" "form" "proof"}.fit{grid-template-columns:1fr}.form-card{position:static;max-width:560px}.hero h1{max-width:14ch}
+}
+@media(max-width:620px){
+  .top{min-height:58px}.top img{width:150px}.hero h1{font-size:clamp(36px,11vw,52px)}
+  .agenda-head{display:block}.agenda-head h2{margin-bottom:18px}.agenda-item{grid-template-columns:46px 1fr;gap:10px 16px}.agenda-item p{grid-column:2}
+  .form-card{padding:22px}.foot{display:block;text-align:center}.foot img{margin:0 auto 14px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body class="grid-bg">
+<header class="top wrap">
+  <a href="../" aria-label="AI Marketing Labs home"><img src="../assets/aiml-logo-full-dark.svg" alt="AI Marketing Labs" /></a>
+  <span class="status" id="topStatus">Date being finalized</span>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <div class="mono-row eyebrow"><span class="mono">Live working session</span></div>
+        <h1>Build one marketing system live. Then map <span>all six.</span></h1>
+        <p class="lede">Watch one plain-English instruction become a working marketing handoff. Then see how outreach, design, automation, paid media, content, and orchestration fit together without pretending they are one magic AI employee.</p>
+
+        <div class="event-time" id="eventTime" aria-live="polite">
+          <span class="label">Next live session</span>
+          <strong>Date not scheduled yet</strong>
+        </div>
+        <p class="duration" id="duration">Planned duration: 60 minutes</p>
+
+      </div>
+
+      <aside class="form-card" aria-labelledby="formTitle">
+        <div id="formWrap">
+          <h2 id="formTitle">Get the confirmed date</h2>
+          <p class="form-intro" id="formIntro">Leave your details and the AI Marketing Labs team will send the session date once it is locked. This does not reserve a paid cohort seat.</p>
+          <form id="registration" novalidate>
+            <div class="field" id="f-name">
+              <label for="name">First name</label>
+              <input id="name" type="text" autocomplete="given-name" placeholder="Your first name" aria-describedby="f-name-msg" required />
+              <span class="msg" id="f-name-msg">Add at least two characters.</span>
+            </div>
+            <div class="field" id="f-email">
+              <label for="email">Email</label>
+              <input id="email" type="email" autocomplete="email" placeholder="you@business.com" aria-describedby="f-email-msg" required />
+              <span class="msg" id="f-email-msg">Add a valid email.</span>
+            </div>
+            <div class="field" id="f-wa">
+              <label for="whatsapp">WhatsApp number</label>
+              <input id="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="Include country code" aria-describedby="f-wa-msg" required />
+              <span class="msg" id="f-wa-msg">Add a valid number with country code.</span>
+            </div>
+            <div class="consent" id="f-consent">
+              <input id="consent" type="checkbox" required />
+              <label for="consent">I agree to receive the live-session link and related AI Marketing Labs follow-up by email and WhatsApp. I can unsubscribe from follow-up messages. <a href="../privacy.html">Privacy details</a>.</label>
+            </div>
+            <button class="btn btn-accent btn-block" type="submit" id="submitBtn">Notify me when the date is set</button>
+            <p class="privacy">Your name, email, WhatsApp number, registration source, consent record, and permitted campaign parameters are sent to the AI Marketing Labs registration sheet. Registration is free. It does not enroll you in the paid program.</p>
+            <p class="form-error" id="formError" role="alert"></p>
+          </form>
+        </div>
+        <div class="form-state" id="formState" role="status" aria-live="polite">
+          <h3>Request sent.</h3>
+          <p id="stateCopy">Watch for the date announcement by email or WhatsApp. Your registration is confirmed only when that message arrives.</p>
+        </div>
+      </aside>
+      <div class="credibility">
+        <div class="mark" aria-hidden="true">Z</div>
+        <p><strong>The ZippyScale team runs marketing for paying businesses in Canada and India.</strong> One verified campaign produced 11 real project leads in its first two weeks at $70 per qualified lead. Those results came from direct client work, not from a fictional autonomous employee.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section agenda">
+    <div class="wrap">
+      <div class="agenda-head">
+        <div><span class="mono">What happens live</span><h2>Work on screen. No slide-deck theatre.</h2></div>
+        <p>The session shows the operating logic, not a list of apps. You will see what starts the work, what the system does, where a person reviews it, and what happens when something breaks.</p>
+      </div>
+      <div class="agenda-list">
+        <article class="agenda-item"><span class="num">01</span><h3>One instruction</h3><p>Start with a real marketing outcome and turn it into a specific system task.</p></article>
+        <article class="agenda-item"><span class="num">02</span><h3>One live build</h3><p>Connect the instruction, context, action, review point, and output while you watch.</p></article>
+        <article class="agenda-item"><span class="num">03</span><h3>The six-system map</h3><p>Place outreach, design, automation, paid media, content, and orchestration in the right order.</p></article>
+        <article class="agenda-item"><span class="num">04</span><h3>The honest failure case</h3><p>Break the system on purpose and show what still needs human judgement.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap fit">
+      <div><span class="mono">Who this is for</span><h2>You know what to do. You are buried in doing it.</h2></div>
+      <div>
+        <p class="fit-copy">Built for <strong>service-business owners, coaches, agencies, and freelancers</strong> who already have real marketing work to run. AI beginners are welcome. It is not for anyone looking for another tool, a course library, or done-for-you marketing forever.</p>
+        <p class="offer-note"><strong>There is an offer at the end.</strong> The Operator Sprint is $200 once. The Operator Accelerator is $1,000 once and limited to eight builds per cohort because the ZippyScale team works inside each one. The session registration itself is free and does not reserve either place.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <img src="../assets/aiml-logo-full-dark.svg" alt="AI Marketing Labs" />
+  <span class="mono">© 2026 AI Marketing Labs · Results vary by implementation</span>
+</footer>
+
+<script>
+(function(){
+  var ACTION='https://docs.google.com/forms/d/e/1FAIpQLSdwdlchjrxt8_eEJRsxV_0EmWswFCJQdIm61OmjJ6nEtfYulw/formResponse';
+  var CONSENT_VERSION='aiml-contact-consent-v1-2026-08-24-email-whatsapp';
+  function meta(name){var el=document.querySelector('meta[name="'+name+'"]');return el?(el.content||'').trim():'';}
+  var rawStart=meta('aiml-event-start');
+  var duration=60;
+  var hasZone=/(Z|[+-]\d{2}:\d{2})$/.test(rawStart);
+  var start=hasZone?new Date(rawStart):null;
+  var scheduled=Boolean(start&&!Number.isNaN(start.getTime())&&start.getTime()>Date.now());
+  var eventTime=document.getElementById('eventTime');
+  var topStatus=document.getElementById('topStatus');
+  var formTitle=document.getElementById('formTitle');
+  var formIntro=document.getElementById('formIntro');
+  var submitBtn=document.getElementById('submitBtn');
+  var stateCopy=document.getElementById('stateCopy');
+  var form=document.getElementById('registration');
+  var formError=document.getElementById('formError');
+
+  function track(name,props){if(window.aimlTrack)window.aimlTrack(name,props||{});}
+  function attribution(){
+    var allowed=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','gbraid','wbraid'];
+    var current=new URLSearchParams(location.search),saved={};
+    try{saved=JSON.parse(localStorage.getItem('aiml_attribution_v1')||'{}');}catch(_){}
+    var result=new URLSearchParams();
+    allowed.forEach(function(key){var value=current.get(key)||saved[key];if(value)result.set(key,String(value).slice(0,240));});
+    return result.toString();
+  }
+  function show(id,on){var field=document.getElementById(id);field.classList.toggle('err',on);field.querySelector('input').setAttribute('aria-invalid',on?'true':'false');}
+
+  document.getElementById('duration').textContent=(scheduled?'Duration: ':'Planned duration: ')+duration+' minutes';
+  if(scheduled){
+    var label=new Intl.DateTimeFormat(undefined,{weekday:'long',month:'long',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}).format(start);
+    eventTime.innerHTML='<span class="label">Shown in your local time</span><time datetime="'+start.toISOString()+'">'+label+'</time>';
+    topStatus.textContent='Registration open';
+    formTitle.textContent='Save your free seat';
+    formIntro.textContent='Register for the live working session. Your seat is confirmed only when the session link reaches you.';
+    submitBtn.textContent='Save my seat';
+    stateCopy.textContent='Watch for the session confirmation by email or WhatsApp. Your seat is confirmed only when that message arrives.';
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){track('webinar_view',{scheduled:scheduled,event_start:scheduled?start.toISOString():null});});
+  var formStarted=false;
+  form.addEventListener('focusin',function(){if(formStarted)return;formStarted=true;track('webinar_form_start',{scheduled:scheduled});});
+
+  function valid(){
+    var name=document.getElementById('name').value.trim();
+    var email=document.getElementById('email').value.trim();
+    var phone=document.getElementById('whatsapp').value.trim();
+    var consent=document.getElementById('consent').checked;
+    var okName=name.length>=2;
+    var okEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    var okPhone=phone.replace(/\D/g,'').length>=8;
+    show('f-name',!okName);show('f-email',!okEmail);show('f-wa',!okPhone);show('f-consent',!consent);
+    return okName&&okEmail&&okPhone&&consent;
+  }
+
+  form.addEventListener('submit',async function(event){
+    event.preventDefault();formError.textContent='';
+    if(!valid()){formError.textContent='Check the highlighted fields and consent box.';track('webinar_form_invalid');return;}
+    submitBtn.disabled=true;submitBtn.textContent='Sending request';
+    var data=new FormData();
+    data.append('entry.711112049',document.getElementById('name').value.trim());
+    data.append('entry.89039492',document.getElementById('email').value.trim());
+    data.append('entry.606366000',document.getElementById('whatsapp').value.trim());
+    data.append('entry.710508377','webinar');
+    data.append('entry.2045735371',CONSENT_VERSION);
+    var attributionData=attribution();
+    if(attributionData)data.append('entry.1360010079',attributionData);
+    track('webinar_registration_submit',{scheduled:scheduled,event_start:scheduled?start.toISOString():null});
+    try{
+      var controller=new AbortController();
+      var timeout=setTimeout(function(){controller.abort();},12000);
+      await fetch(ACTION,{method:'POST',mode:'no-cors',body:data,signal:controller.signal});
+      clearTimeout(timeout);
+      document.getElementById('formWrap').hidden=true;
+      document.getElementById('formState').classList.add('show');
+      track('webinar_registration_request_sent',{scheduled:scheduled,event_start:scheduled?start.toISOString():null});
+    }catch(_){
+      submitBtn.disabled=false;submitBtn.textContent=scheduled?'Save my seat':'Notify me when the date is set';
+      formError.textContent='We could not send your request. Check your connection and try again.';
+      track('webinar_registration_failed',{scheduled:scheduled});
+    }
+  });
+})();
+</script>
+</body>
+</html>
