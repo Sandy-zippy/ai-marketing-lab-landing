@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" data-funnel-variant="workshop">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free live build workshop, Sun 6 Sep | AI Marketing Labs</title>
+<meta name="description" content="A free two to three hour live working session on Sunday 6 September, 5:00 PM IST. Build your first working AI marketing system on the call instead of collecting another prompt list." />
+<meta property="og:title" content="Build your first working AI marketing system, live on Sunday." />
+<meta property="og:description" content="Free live session, Sun 6 Sep, 5:00 PM IST. Two to three hours. You build, you do not just watch." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aimarketinglabs.in/workshop/" />
+<meta property="og:image" content="https://aimarketinglabs.in/assets/og/aiml-og-1200x630.jpg" />
+<meta property="og:image:alt" content="AI Marketing Labs. Six marketing systems built in six weeks." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://aimarketinglabs.in/assets/og/aiml-og-1200x630.jpg" />
+<link rel="canonical" href="https://aimarketinglabs.in/workshop/" />
+<link rel="icon" href="../assets/favicon.svg" />
+<link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../assets/aiml-funnel.css?v=6" />
+<script src="../assets/analytics.js" defer></script>
+
+<!-- ==========================================================
+     META PIXEL SLOT. Another agent configures this.
+     Paste the pixel base code here. Do not invent an ID.
+     Registration event to fire on successful submit:
+       fbq('track', 'Lead', { content_name: 'workshop_registration' });
+     The submit handler below calls window.aimlPixelLead() if it exists,
+     so define that function inside the pixel block rather than editing
+     the form logic.
+     ========================================================== -->
+
+<style>
+/* Deliberately bare direct-response opt-in.
+   One column, centred, text first. No diagrams, no timers, no counters.
+   Brand tokens come from aiml-funnel.css. */
+body{min-height:100vh;display:flex;flex-direction:column}
+main{flex:1}
+.top{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line)}
+.top img{width:172px;height:auto;display:block}
+.top .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent-line);border-radius:100px;padding:5px 11px}
+
+.col{width:min(100%,720px);margin:0 auto;padding-inline:var(--gutter)}
+.lead-block{padding:clamp(40px,7vw,72px) 0 clamp(28px,4vw,40px);text-align:center}
+.qualifier{font-family:var(--mono);font-size:12px;line-height:1.7;letter-spacing:.04em;color:var(--accent);text-transform:none;margin-bottom:20px}
+h1{font-size:clamp(33px,6.4vw,58px);line-height:1.06;letter-spacing:-.03em;text-wrap:balance;margin-bottom:20px}
+h1 span{color:var(--accent)}
+.without{font-size:clamp(17px,2.4vw,21px);line-height:1.55;color:var(--text-mid);max-width:36ch;margin:0 auto}
+.without b{color:var(--text-high);font-weight:600}
+
+.when{margin:clamp(28px,4vw,38px) 0 0;padding:20px 22px;border:1px solid var(--accent-line);border-radius:12px;background:var(--accent-soft);text-align:left;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px 24px}
+.when div{min-width:0}
+.when dt,.when .label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--text-low);margin-bottom:6px}
+.when dd,.when .value{margin:0;font-size:16px;font-weight:600;color:var(--text-high);line-height:1.35}
+.when .value small,.when dd small{display:block;margin-top:4px;font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.03em;color:var(--text-mid)}
+
+section{padding:clamp(38px,6vw,62px) 0}
+.sec-label{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:block}
+h2{font-size:clamp(24px,3.6vw,34px);line-height:1.1;letter-spacing:-.025em;margin-bottom:20px}
+.build-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.build-list li{padding:20px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:34px 1fr;gap:6px 16px}
+.build-list .n{font-family:var(--mono);font-size:11px;color:var(--accent);padding-top:4px}
+.build-list h3{font-size:17px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.build-list p{grid-column:2;font-size:14.5px;color:var(--text-mid);line-height:1.6}
+.build-note{margin-top:20px;font-size:14px;color:var(--text-mid);line-height:1.65}
+.build-note b{color:var(--text-high);font-weight:600}
+
+.form-block{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
+.form-block .col{padding-block:clamp(34px,5vw,52px)}
+.form-block h2{margin-bottom:8px}
+.form-sub{font-size:15px;color:var(--text-mid);line-height:1.6;margin-bottom:26px}
+form .field label{color:var(--text-mid)}
+form .field input{min-height:50px}
+.consent{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;margin:6px 0 20px}
+.consent input{width:24px;height:24px;margin-top:1px;accent-color:var(--accent);flex:none;cursor:pointer}
+.consent label{font-size:12.5px;color:var(--text-low);line-height:1.6;cursor:pointer;padding-block:2px}
+.consent a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.consent.err label{color:#E58A80}
+.btn-accent{min-height:56px;font-size:15px}
+.btn[disabled]{opacity:.62;cursor:wait;transform:none;box-shadow:none}
+.form-error{min-height:20px;margin-top:12px;font-family:var(--mono);font-size:11.5px;color:#E58A80;line-height:1.55}
+.under-cta{margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--text-low);line-height:1.7}
+.form-state{display:none;padding:24px;border:1px solid var(--accent-line);border-radius:12px;background:var(--accent-soft)}
+.form-state.show{display:block}
+.form-state h2{font-size:24px;margin-bottom:10px}
+.form-state p{font-size:14.5px;color:var(--text-mid);line-height:1.65}
+.form-state p+p{margin-top:12px}
+
+.next{list-style:none;margin:0;padding:0;counter-reset:step}
+.next li{counter-increment:step;position:relative;padding:0 0 18px 34px;font-size:15px;color:var(--text-mid);line-height:1.65}
+.next li::before{content:counter(step);position:absolute;left:0;top:1px;width:21px;height:21px;border:1px solid var(--accent-line);border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--accent)}
+.next li b{color:var(--text-high);font-weight:600}
+.honest{margin-top:8px;padding:18px 20px;border:1px solid var(--line);border-radius:12px;font-size:14px;color:var(--text-mid);line-height:1.7}
+.honest b{color:var(--text-high);font-weight:600}
+
+.who{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid var(--line);background:var(--line);border-radius:12px;overflow:hidden}
+.who>div{padding:24px;background:var(--canvas)}
+.who h3{font-size:15px;font-weight:700;margin-bottom:14px}
+.who ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.who li{position:relative;padding-left:18px;font-size:14px;color:var(--text-mid);line-height:1.55}
+.who li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.who .no li::before{border-radius:0;background:#E5675A;transform:rotate(45deg)}
+
+.credibility{border-top:1px solid var(--line)}
+.credibility .col{padding-block:clamp(30px,4vw,44px)}
+.credibility p{font-size:14px;color:var(--text-mid);line-height:1.7;max-width:62ch}
+.credibility strong{color:var(--text-high);font-weight:600}
+.tail{padding:clamp(34px,5vw,56px) 0 clamp(44px,6vw,72px);text-align:center}
+.tail p{font-size:15px;color:var(--text-mid);line-height:1.65;margin-bottom:22px}
+
+.skip-link{position:fixed;top:10px;left:10px;z-index:999;transform:translateY(-180%);padding:10px 14px;background:var(--warm);color:var(--canvas);font-weight:700;font-size:13px;border-radius:6px}
+.skip-link:focus{transform:translateY(0)}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--warm);outline-offset:3px;border-radius:4px}
+.foot a{color:var(--text-mid);text-decoration:underline;text-underline-offset:3px;font-size:12px}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;min-height:44px}
+.foot-links a{min-height:44px;display:inline-flex;align-items:center}
+
+@media(max-width:620px){
+  .top{min-height:56px}
+  .top img{width:142px}
+  .top .tag{display:none}
+  .who{grid-template-columns:1fr}
+  .build-list li{grid-template-columns:26px 1fr;gap:6px 10px}
+  .btn{width:100%}
+  .foot{display:block;text-align:left}
+  .foot img{margin-bottom:14px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body class="grid-bg">
+<a class="skip-link" href="#register">Skip to registration</a>
+
+<header class="top col">
+  <a href="../" aria-label="AI Marketing Labs home"><img src="../assets/aiml-logo-full-dark.svg" alt="AI Marketing Labs" /></a>
+  <span class="tag">Free live session</span>
+</header>
+
+<main id="main">
+
+  <div class="col lead-block">
+    <p class="qualifier">For coaches and marketing agency owners who already have real marketing work running, and are still doing it by hand.</p>
+    <h1>Build your first working AI marketing system <span>live on Sunday.</span></h1>
+    <p class="without">Without another prompt library, without hiring a developer, and without <b>pretending one chatbot can run your marketing.</b></p>
+
+    <dl class="when">
+      <div><dt>Date</dt><dd>Sunday 6 September 2026</dd></div>
+      <div><dt>Time</dt><dd>5:00 PM IST<small>India Standard Time</small></dd></div>
+      <div><dt>Length</dt><dd>Two to three hours<small>Live, not a replay</small></dd></div>
+      <div><dt>Cost</dt><dd>Free<small>No card, no upsell to attend</small></dd></div>
+    </dl>
+  </div>
+
+  <section class="col" aria-labelledby="build-h">
+    <span class="sec-label">What you build on the call</span>
+    <h2 id="build-h">You leave with a system running, not a page of notes.</h2>
+    <ol class="build-list">
+      <li>
+        <span class="n" aria-hidden="true">01</span>
+        <h3>Your operating context file</h3>
+        <p>The written brief that stops you re-explaining your business, your offer and your customer every single time you open a chat window. We write yours on the call.</p>
+      </li>
+      <li>
+        <span class="n" aria-hidden="true">02</span>
+        <h3>One marketing task turned into a working handoff</h3>
+        <p>Pick a task you actually repeat every week. We give it an input, a standard, a review point and an output, then run it end to end while you watch your own version work.</p>
+      </li>
+      <li>
+        <span class="n" aria-hidden="true">03</span>
+        <h3>The failure path for that system</h3>
+        <p>We break it on purpose. You see where it goes wrong, where you still have to approve the work, and what to check before anything reaches a customer.</p>
+      </li>
+    </ol>
+    <p class="build-note">Bring a laptop and one real marketing task you are tired of doing by hand. <b>If you only watch, you get the least out of this.</b> The session is built so you type along.</p>
+  </section>
+
+  <section class="form-block" id="register" aria-labelledby="reg-h">
+    <div class="col">
+      <div id="formWrap">
+        <h2 id="reg-h">Register for the free session</h2>
+        <p class="form-sub">Three fields. The joining link goes to your email and your WhatsApp before Sunday.</p>
+        <form id="registration" novalidate data-track-form="workshop">
+          <div class="field" id="f-name">
+            <label for="name">First name</label>
+            <input id="name" name="name" type="text" autocomplete="given-name" placeholder="Your first name" aria-describedby="f-name-msg" required />
+            <span class="msg" id="f-name-msg">Add at least two characters.</span>
+          </div>
+          <div class="field" id="f-email">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@business.com" aria-describedby="f-email-msg" required />
+            <span class="msg" id="f-email-msg">Add a valid email address.</span>
+          </div>
+          <div class="field" id="f-wa">
+            <label for="whatsapp">WhatsApp number</label>
+            <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="Include country code, for example +91" aria-describedby="f-wa-msg" required />
+            <span class="msg" id="f-wa-msg">Add a valid number with the country code.</span>
+          </div>
+          <div class="consent" id="f-consent">
+            <input id="consent" type="checkbox" required />
+            <label for="consent">Send me the joining link and follow-up about this session by email and WhatsApp. I can ask to stop at any time. <a href="../privacy.html">Privacy details</a>.</label>
+          </div>
+          <button class="btn btn-accent btn-block" type="submit" id="submitBtn">Register for Sunday 6 September</button>
+          <p class="form-error" id="formError" role="alert"></p>
+          <p class="under-cta">Free. No card. Your name, email, WhatsApp number, consent record and campaign source go to the AI Marketing Labs registration sheet.</p>
+        </form>
+      </div>
+
+      <div class="form-state" id="formState" role="status" aria-live="polite">
+        <h2>Your details were sent.</h2>
+        <p>They are now on the AI Marketing Labs registration list for Sunday 6 September, 5:00 PM IST.</p>
+        <p>Nothing is emailed to you automatically at this moment. The joining link is sent by hand to your email and your WhatsApp before the session. Save the date now so it is in your calendar either way.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="col" aria-labelledby="next-h">
+    <span class="sec-label">What happens next</span>
+    <h2 id="next-h">Only this, and nothing more.</h2>
+    <ol class="next">
+      <li>Your three fields are <b>written to the AI Marketing Labs registration sheet.</b> That is the only thing that happens the second you press the button.</li>
+      <li>Before Sunday, the AI Marketing Labs team <b>sends the joining link to your email and your WhatsApp.</b> A person sends it. There is no automatic sequence running yet.</li>
+      <li>You <b>join live at 5:00 PM IST on 6 September</b> with a laptop and one real task, and you build.</li>
+    </ol>
+    <p class="honest">To be exact about it: <b>no seat is held for you, no automatic confirmation email is sent, and no reminder is scheduled.</b> Registration means your details are on the list to receive the link. Put 6 September, 5:00 PM IST in your own calendar today.</p>
+  </section>
+
+  <section class="col" aria-labelledby="who-h">
+    <span class="sec-label">Fit</span>
+    <h2 id="who-h">Worth your Sunday, or not.</h2>
+    <div class="who">
+      <div>
+        <h3>Come if you</h3>
+        <ul>
+          <li>Have a live offer and real client, lead or content work today</li>
+          <li>Can get into the accounts your marketing runs on</li>
+          <li>Will actually build something during the session</li>
+          <li>Are new to AI but willing to do the work. No coding needed</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Skip it if you</h3>
+        <ul class="no">
+          <li>Want another list of AI tools and tips to save</li>
+          <li>Want marketing done for you forever</li>
+          <li>Have no offer or workflow running yet</li>
+          <li>Cannot make time to test anything inside the business</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="credibility" aria-labelledby="cred-h">
+    <div class="col">
+      <span class="sec-label" id="cred-h">Who runs it</span>
+      <p><strong>The ZippyScale team runs marketing for paying businesses in India and Canada.</strong> One of those engagements, the Medico Construction and Design clinic campaign, produced 11 qualified project leads in its first two weeks at USD 70 per qualified lead. That came from hands-on client delivery, the site, the ads and the tracking built and run by hand. The systems taught in this session were developed out of that work. No AI wrote that history.</p>
+    </div>
+  </section>
+
+  <div class="col tail">
+    <p>Sunday 6 September, 5:00 PM IST. Two to three hours. Free.</p>
+    <a class="btn btn-accent" href="#register" data-track="workshop_cta_footer">Register for the free session</a>
+  </div>
+
+</main>
+
+<footer class="foot">
+  <img src="../assets/aiml-logo-full-dark.svg" alt="AI Marketing Labs" />
+  <div class="foot-links">
+    <a href="../privacy.html">Privacy</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../contact.html">Contact</a>
+    <span class="mono dim">&copy; 2026 AI Marketing Labs</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var ACTION='https://docs.google.com/forms/d/e/1FAIpQLSdwdlchjrxt8_eEJRsxV_0EmWswFCJQdIm61OmjJ6nEtfYulw/formResponse';
+  var CONSENT_VERSION='aiml-workshop-consent-v1-2026-08-26-email-whatsapp';
+  var EVENT_START='2026-09-06T17:00:00+05:30';
+
+  var form=document.getElementById('registration');
+  var submitBtn=document.getElementById('submitBtn');
+  var formError=document.getElementById('formError');
+
+  function track(name,props){if(window.aimlTrack)window.aimlTrack(name,props||{});}
+
+  function attribution(){
+    var allowed=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','gbraid','wbraid'];
+    var current=new URLSearchParams(location.search),saved={};
+    try{saved=JSON.parse(localStorage.getItem('aiml_attribution_v1')||'{}');}catch(_){}
+    var result=new URLSearchParams();
+    allowed.forEach(function(key){var value=current.get(key)||saved[key];if(value)result.set(key,String(value).slice(0,240));});
+    return result.toString();
+  }
+
+  function flag(id,bad){
+    var field=document.getElementById(id);
+    field.classList.toggle('err',bad);
+    var input=field.querySelector('input');
+    if(input)input.setAttribute('aria-invalid',bad?'true':'false');
+  }
+
+  function valid(){
+    var name=document.getElementById('name').value.trim();
+    var email=document.getElementById('email').value.trim();
+    var phone=document.getElementById('whatsapp').value.trim();
+    var consent=document.getElementById('consent').checked;
+    var okName=name.length>=2;
+    var okEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    var okPhone=phone.replace(/\D/g,'').length>=8;
+    flag('f-name',!okName);flag('f-email',!okEmail);flag('f-wa',!okPhone);flag('f-consent',!consent);
+    return okName&&okEmail&&okPhone&&consent;
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){track('workshop_view',{event_start:EVENT_START});});
+
+  form.addEventListener('submit',async function(event){
+    event.preventDefault();
+    formError.textContent='';
+    if(!valid()){
+      formError.textContent='Check the highlighted fields and the consent box.';
+      track('workshop_form_invalid');
+      return;
+    }
+    submitBtn.disabled=true;
+    submitBtn.textContent='Sending';
+    var data=new FormData();
+    data.append('entry.711112049',document.getElementById('name').value.trim());
+    data.append('entry.89039492',document.getElementById('email').value.trim());
+    data.append('entry.606366000',document.getElementById('whatsapp').value.trim());
+    data.append('entry.710508377','workshop');
+    data.append('entry.2045735371',CONSENT_VERSION);
+    var attributionData=attribution();
+    if(attributionData)data.append('entry.1360010079',attributionData);
+
+    track('workshop_registration_submit',{event_start:EVENT_START});
+    try{
+      var controller=new AbortController();
+      var timeout=setTimeout(function(){controller.abort();},12000);
+      await fetch(ACTION,{method:'POST',mode:'no-cors',body:data,signal:controller.signal});
+      clearTimeout(timeout);
+      document.getElementById('formWrap').hidden=true;
+      document.getElementById('formState').classList.add('show');
+      document.getElementById('formState').focus&&document.getElementById('formState').focus();
+      track('workshop_registration_sent',{event_start:EVENT_START});
+      if(typeof window.aimlPixelLead==='function')window.aimlPixelLead();
+    }catch(_){
+      submitBtn.disabled=false;
+      submitBtn.textContent='Register for Sunday 6 September';
+      formError.textContent='We could not send your details. Check your connection and try again.';
+      track('workshop_registration_failed');
+    }
+  });
+})();
+</script>
+</body>
+</html>
