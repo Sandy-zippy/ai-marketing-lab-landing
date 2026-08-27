@@ -114,18 +114,34 @@
     var banner = document.createElement('aside');
     banner.className = 'aiml-consent';
     banner.setAttribute('aria-label', 'Analytics choice');
-    banner.innerHTML = '<p>We use optional analytics to improve this site and compare the VSL and webinar journeys. <a href="/privacy.html">Privacy details</a>.</p><div class="aiml-consent__actions"><button class="aiml-consent__allow" type="button">Allow analytics</button><button class="aiml-consent__decline" type="button">Decline</button></div>';
+    banner.innerHTML = '<p>We use optional analytics to improve this site and see which ads bring people who actually attend. <a href="/privacy.html">Privacy details</a>.</p><div class="aiml-consent__actions"><button class="aiml-consent__allow" type="button">Allow analytics</button><button class="aiml-consent__decline" type="button">Decline</button></div>';
     document.body.appendChild(banner);
+
+    // The banner is fixed to the bottom of the viewport, so on a short page it
+    // sits on top of the primary CTA. Reserve the space it occupies and release
+    // it when the banner goes away.
+    var priorPad = document.body.style.paddingBottom;
+    function reserve() {
+      document.body.style.paddingBottom =
+        (banner.offsetHeight + 32) + 'px';
+    }
+    function release() {
+      banner.remove();
+      document.body.style.paddingBottom = priorPad;
+      window.removeEventListener('resize', reserve);
+    }
+    reserve();
+    window.addEventListener('resize', reserve);
 
     banner.querySelector('.aiml-consent__allow').addEventListener('click', function () {
       safeStorage(window.localStorage, 'set', CONSENT_KEY, 'allow');
-      banner.remove();
+      release();
       startAnalytics();
     });
     banner.querySelector('.aiml-consent__decline').addEventListener('click', function () {
       safeStorage(window.localStorage, 'set', CONSENT_KEY, 'decline');
       queue = [];
-      banner.remove();
+      release();
     });
   }
 
