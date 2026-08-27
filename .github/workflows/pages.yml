@@ -27,7 +27,7 @@ jobs:
         shell: bash
         run: |
           set -euxo pipefail
-          mkdir -p _site/assets/fonts _site/assets/og _site/vsl _site/webinar _site/start
+          mkdir -p _site/assets/fonts _site/assets/og _site/vsl _site/webinar _site/start _site/workshop _site/sprint
           cp CNAME robots.txt sitemap.xml index.html thank-you.html privacy.html terms.html refund.html contact.html _site/
           cp assets/analytics.js assets/site.css assets/aiml-funnel.css assets/aiml-logo-full-dark.svg assets/aiml-logo-full-light.svg assets/aiml-logo-full-onwhite.svg assets/favicon.svg assets/favicon-32.png assets/favicon-180.png _site/assets/
           cp assets/fonts/inter-latin.woff2 assets/fonts/jetbrains-mono-latin.woff2 assets/fonts/INTER-LICENSE.txt assets/fonts/JETBRAINS-MONO-LICENSE.txt _site/assets/fonts/
@@ -35,6 +35,8 @@ jobs:
           cp vsl/index.html vsl/watch.html _site/vsl/
           cp webinar/index.html _site/webinar/
           cp start/index.html _site/start/
+          cp workshop/index.html _site/workshop/
+          cp sprint/index.html _site/sprint/
           touch _site/.nojekyll
           node --check _site/assets/analytics.js
           ! grep -RniE 'REPLACE_WITH|aimarketinglab\.club|37 of 100|#book|This Thursday|Lorem ipsum' _site
