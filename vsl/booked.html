@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Confirm your call | AI Marketing Labs</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="../assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/aiml-funnel.css?v=5" />
+<style>
+:root{--canvas:#FBFBF9;--surface:#FFFFFF;--text-high:#0E1A16;--text-mid:#48524D;--text-low:#8B948E;
+  --accent:#00807B;--accent-line:rgba(0,128,123,.30);--accent-soft:rgba(0,128,123,.10);
+  --line:rgba(14,26,22,.13);--grid:transparent;--brick:#B4241A}
+.btn-accent{color:#FFFFFF !important}
+body{min-height:100vh;display:flex;flex-direction:column;align-items:center;background:var(--canvas);
+  padding:clamp(20px,4vw,44px) var(--gutter) clamp(40px,6vw,72px)}
+.wrap{width:min(680px,100%);display:flex;flex-direction:column;align-items:center;text-align:center}
+.mark{height:24px;margin-bottom:clamp(22px,4vw,34px);opacity:.95}
+.mark[data-fallback]{font-family:var(--mono);font-size:15px;color:var(--text-high)}
+
+.held{display:inline-flex;align-items:center;gap:9px;background:var(--accent-soft);
+  border:1px solid var(--accent-line);border-radius:999px;padding:8px 16px;
+  font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.held::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+h1{font-size:clamp(26px,4.2vw,42px);font-weight:800;line-height:1.08;letter-spacing:-.02em;
+  color:var(--text-high);max-width:18ch;margin-bottom:14px}
+h1 .a{color:var(--accent)}
+.lede{font-size:clamp(15px,1.9vw,18px);color:var(--text-mid);max-width:40ch;line-height:1.5;margin-bottom:26px}
+
+.warn{width:100%;border:1.5px solid var(--brick);border-radius:12px;padding:16px 18px;
+  background:var(--surface);text-align:left;margin-bottom:26px}
+.warn b{display:block;font-size:15px;font-weight:800;color:var(--brick);margin-bottom:4px}
+.warn p{font-size:14px;color:var(--text-mid);line-height:1.5}
+
+.player{width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;position:relative;
+  background:#0C1211;border:1px solid var(--line);margin-bottom:28px}
+.player video{width:100%;height:100%;display:block;border:0}
+.poster{position:absolute;inset:0;display:grid;place-items:center;cursor:pointer;
+  background:radial-gradient(circle at 50% 42%,#14201E,#0A1110)}
+.poster .play{width:64px;height:64px;border-radius:50%;background:var(--accent);display:grid;place-items:center}
+.poster .play::after{content:"";width:0;height:0;border-left:18px solid #fff;
+  border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:5px}
+.poster .ptag{position:absolute;bottom:16px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;color:#8B948E}
+
+.steps{list-style:none;counter-reset:s;width:100%;display:grid;gap:14px;text-align:left;margin-bottom:8px}
+.steps li{counter-increment:s;position:relative;padding-left:46px;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;padding-top:15px;padding-bottom:15px;padding-right:16px}
+.steps li::before{content:counter(s);position:absolute;left:14px;top:14px;width:26px;height:26px;
+  border-radius:7px;background:var(--accent);color:#fff;display:grid;place-content:center;
+  font-family:var(--mono);font-size:13px;font-weight:700}
+.steps b{display:block;font-size:15.5px;font-weight:700;color:var(--text-high);margin-bottom:3px}
+.steps p{color:var(--text-mid);font-size:14.5px;line-height:1.5}
+
+.act{width:100%;display:grid;gap:10px;margin:22px 0 8px}
+.btn-block{width:100%;justify-content:center;font-size:16px;padding:16px 24px}
+.ghost{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:15px 24px;
+  font:inherit;font-size:15px;font-weight:600;color:var(--text-high);text-decoration:none;
+  cursor:pointer;transition:border-color .12s ease}
+.ghost:hover{border-color:var(--accent-line)}
+.alt{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--text-low);margin-top:4px}
+
+.sect{width:100%;text-align:left;border-top:1px solid var(--line);margin-top:30px;padding-top:22px}
+.sect h2{font-size:clamp(17px,2.4vw,21px);font-weight:800;letter-spacing:-.015em;
+  color:var(--text-high);margin-bottom:10px}
+.sect p{color:var(--text-mid);font-size:15px;line-height:1.55;margin-bottom:10px}
+.sect ul{list-style:none;display:grid;gap:9px}
+.sect li{position:relative;padding-left:22px;color:var(--text-mid);font-size:15px;line-height:1.5}
+.sect li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;
+  border-radius:2px;background:var(--accent)}
+
+.legal{width:min(820px,100%);margin-top:auto;padding:26px var(--gutter) 0;text-align:center;
+  border-top:1px solid var(--line)}
+.legal .row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.legal a,.legal span.c{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--text-low)}
+.legal p{font-size:11.5px;color:var(--text-low);line-height:1.6;max-width:70ch;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img class="mark" src="../assets/aiml-logo-full-light.svg" alt="AI Marketing Labs" onerror="var s=document.createElement('strong');s.textContent='AI MARKETING LABS';s.className='mark';s.setAttribute('data-fallback','');this.replaceWith(s)"/>
+
+  <span class="held">Slot held, not confirmed</span>
+  <h1>One step left, and it takes <span class="a">ten seconds</span>.</h1>
+  <p class="lede">Watch the 40 seconds below, then do step one. That is what turns a held slot into a confirmed call.</p>
+
+  <div class="warn">
+    <b>Held slots release after 24 hours.</b>
+    <p>Ten people on this round and Sandy is on every call, so an unconfirmed slot goes to the next person in line.</p>
+  </div>
+
+  <div class="player" id="player">
+    <video id="vid" playsinline preload="none" style="display:none" controls controlslist="nodownload"></video>
+    <div class="poster" id="poster">
+      <div class="play"></div>
+      <div class="ptag">Watch this first, 40 seconds</div>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li>
+      <b>Reply YES on WhatsApp</b>
+      <p>You have a message from us. Reply with the single word YES. That confirms the call, and nothing else is needed.</p>
+    </li>
+    <li>
+      <b>RSVP yes to the calendar invite</b>
+      <p>Check the email you booked with and hit RSVP yes, so the time is blocked on both sides. The invite carries the meeting link.</p>
+    </li>
+    <li>
+      <b>Bring two numbers</b>
+      <p>Where clients come from today, and roughly what you spend to get them. The call maps both halves of your business and it goes twice as far with real numbers on the table.</p>
+    </li>
+  </ol>
+
+  <div class="act">
+    <a class="btn btn-accent btn-block" id="wa" href="#">Reply YES on WhatsApp</a>
+    <a class="ghost" id="ics" href="#" download>Add the call to my calendar</a>
+  </div>
+  <p class="alt" id="waNote">The WhatsApp message arrives within a minute or two</p>
+
+  <section class="sect">
+    <h2>What actually happens on the call</h2>
+    <ul>
+      <li>Forty five minutes with Sandy, not a team member.</li>
+      <li>Your business taken apart the way it would be in week one, both halves mapped.</li>
+      <li>You leave with the order of build, whether or not you join.</li>
+      <li>No slide deck, no recording sent to a list, no pressure to decide on the call.</li>
+    </ul>
+  </section>
+
+  <section class="sect">
+    <h2>If you need to move it</h2>
+    <p>Use the reschedule link in the calendar invite, or reply on WhatsApp and say so. Moving it is completely fine. Going quiet is the only thing that loses the seat.</p>
+  </section>
+</div>
+
+<footer class="legal">
+  <div class="row">
+    <a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/refund.html">Refunds</a>
+    <span class="c">&copy; 2026 AI Marketing Labs</span>
+  </div>
+  <p>This site is not a part of Facebook or Instagram, and is not endorsed by Meta in any way. Results vary and depend on individual effort.</p>
+</footer>
+
+<script>
+(function(){
+  /* ===== CONFIG. Fill before this page ships. ===== */
+  var WA_NUMBER='17782332996';   /* +1 778 233 2996 */
+  var RSVP_VIDEO='';       /* the 40 second confirm video */
+
+  var poster=document.getElementById('poster'),vid=document.getElementById('vid');
+  if(RSVP_VIDEO){
+    poster.addEventListener('click',function(){
+      vid.src=RSVP_VIDEO;vid.style.display='block';poster.style.display='none';vid.play();
+    });
+  }else{
+    poster.querySelector('.ptag').textContent='The steps are written below';
+    poster.style.cursor='default';
+  }
+
+  var lead={},q={};
+  try{lead=JSON.parse(sessionStorage.getItem('aiml_lead')||'{}');}catch(e){}
+  try{q=JSON.parse(sessionStorage.getItem('aiml_qualify')||'{}');}catch(e){}
+
+  var wa=document.getElementById('wa');
+  if(WA_NUMBER){
+    var msg='YES, confirming my call.'+(lead.name?' This is '+lead.name+'.':'');
+    wa.href='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg);
+    wa.target='_blank';wa.rel='noopener';
+  }else{
+    /* Never ship a dead link that pretends to work. */
+    wa.removeAttribute('href');
+    wa.textContent='Reply YES to the WhatsApp message we just sent';
+    wa.style.cursor='default';
+    document.getElementById('waNote').textContent='Booked by email only? Reply YES to the confirmation email instead';
+  }
+
+  /* Calendar file is only offered once Cal.com passes the real time through. */
+  var ics=document.getElementById('ics');
+  var start=new URLSearchParams(location.search).get('start');
+  if(!start){ics.style.display='none';}
+  else{
+    var s=new Date(start),e=new Date(s.getTime()+45*60000);
+    function z(d){return d.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';}
+    var body=['BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT',
+      'DTSTART:'+z(s),'DTEND:'+z(e),
+      'SUMMARY:AI Marketing Labs, 45 minute call with Sandy',
+      'DESCRIPTION:Bring two numbers: where clients come from today and what you spend to get them.',
+      'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    ics.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(body);
+    ics.setAttribute('download','aiml-call.ics');
+  }
+
+  if(typeof window.aimlPixelBooked==='function'){try{window.aimlPixelBooked(q);}catch(e){}}
+})();
+</script>
+</body>
+</html>
