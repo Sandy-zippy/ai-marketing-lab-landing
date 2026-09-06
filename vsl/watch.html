@@ -6,29 +6,20 @@
 <title>Watch | AI Marketing Labs</title>
 <meta name="robots" content="noindex" />
 <link rel="icon" href="../assets/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../assets/aiml-funnel.css?v=5" />
+<link rel="stylesheet" href="../assets/aiml-funnel.css?v=6" />
 <style>
-/* White repaint, same override pattern as vsl/index.html.
-   feedback_aiml_design_locked (Sandy, 28 Aug 2026): white everywhere. */
-:root{--canvas:#FBFBF9;--surface:#FFFFFF;--text-high:#0E1A16;--text-mid:#48524D;--text-low:#8B948E;
-  --accent:#00807B;--accent-line:rgba(0,128,123,.30);--accent-soft:rgba(0,128,123,.10);
-  --line:rgba(14,26,22,.13);--grid:transparent;--brick:#B4241A}
-.field input{background:#FFFFFF}
 .cta-big,.btn-accent{color:#FFFFFF !important}
 body{min-height:100vh;display:flex;flex-direction:column;align-items:center;
   padding:clamp(20px,4vw,44px) var(--gutter) clamp(40px,6vw,72px);background:var(--canvas)}
 
 .mark{height:24px;margin-bottom:clamp(22px,4vw,38px);opacity:.95}
 .mark[data-fallback]{font-family:var(--mono);font-size:15px;letter-spacing:-.02em;color:var(--text-high)}
-.line{font-size:clamp(23px,3.6vw,38px);font-weight:800;letter-spacing:-.025em;text-align:center;
+.line{font-family:var(--mono);font-size:clamp(23px,3.6vw,38px);font-weight:700;letter-spacing:-.025em;text-align:center;
   margin-bottom:clamp(18px,2.6vw,30px);max-width:20ch;line-height:1.08;color:var(--text-high)}
 .line .a{color:var(--accent)}
 
 .player{width:min(880px,100%);aspect-ratio:16/9;border-radius:16px;overflow:hidden;position:relative;
-  background:#0C1211;border:1px solid var(--line);box-shadow:0 24px 60px -30px rgba(14,26,22,.35)}
+  background:#0C1211;border:1px solid var(--line);box-shadow:0 24px 60px -30px rgba(18,18,18,.35)}
 .player video,.player iframe{width:100%;height:100%;display:block;border:0}
 .poster{position:absolute;inset:0;display:grid;place-items:center;cursor:pointer;
   background:radial-gradient(circle at 50% 42%,#14201E,#0A1110)}
@@ -38,8 +29,8 @@ body{min-height:100vh;display:flex;flex-direction:column;align-items:center;
 .poster .play::after{content:"";width:0;height:0;border-left:21px solid #FFFFFF;
   border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:6px}
 .poster .ptag{position:absolute;bottom:18px;font-family:var(--mono);font-size:11px;
-  letter-spacing:.1em;text-transform:uppercase;color:#8B948E}
-.progress{width:min(880px,100%);height:3px;background:rgba(14,26,22,.08);border-radius:3px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--text-low)}
+.progress{width:min(880px,100%);height:3px;background:rgba(18,18,18,.08);border-radius:3px;
   margin-top:14px;overflow:hidden}
 .progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s linear}
 
@@ -61,7 +52,7 @@ body{min-height:100vh;display:flex;flex-direction:column;align-items:center;
 .dot.on{background:var(--accent)}
 .q{display:none}
 .q.on{display:block;animation:rise .18s var(--ease)}
-.q h3{font-size:clamp(19px,3.2vw,25px);font-weight:800;letter-spacing:-.015em;
+.q h3{font-size:clamp(19px,3.2vw,25px);font-weight:700;letter-spacing:-.015em;
   color:var(--text-high);margin-bottom:6px}
 .q .hint{font-size:13.5px;color:var(--text-low);margin-bottom:16px;line-height:1.5}
 .opts{display:grid;gap:9px}
@@ -71,7 +62,7 @@ body{min-height:100vh;display:flex;flex-direction:column;align-items:center;
   transition:border-color .12s ease,background .12s ease}
 .opt:hover{border-color:var(--accent-line);background:var(--accent-soft)}
 .opt:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.key{flex:0 0 auto;width:24px;height:24px;border-radius:6px;background:rgba(14,26,22,.07);
+.key{flex:0 0 auto;width:24px;height:24px;border-radius:6px;background:rgba(18,18,18,.07);
   display:grid;place-content:center;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--text-mid)}
 .opt:hover .key{background:var(--accent);color:#fff}
 .back{margin-top:16px;background:none;border:0;font:inherit;font-size:13.5px;color:var(--text-low);

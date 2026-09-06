@@ -6,14 +6,8 @@
 <title>Confirm your call | AI Marketing Labs</title>
 <meta name="robots" content="noindex" />
 <link rel="icon" href="../assets/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../assets/aiml-funnel.css?v=5" />
+<link rel="stylesheet" href="../assets/aiml-funnel.css?v=6" />
 <style>
-:root{--canvas:#FBFBF9;--surface:#FFFFFF;--text-high:#0E1A16;--text-mid:#48524D;--text-low:#8B948E;
-  --accent:#00807B;--accent-line:rgba(0,128,123,.30);--accent-soft:rgba(0,128,123,.10);
-  --line:rgba(14,26,22,.13);--grid:transparent;--brick:#B4241A}
 .btn-accent{color:#FFFFFF !important}
 body{min-height:100vh;display:flex;flex-direction:column;align-items:center;background:var(--canvas);
   padding:clamp(20px,4vw,44px) var(--gutter) clamp(40px,6vw,72px)}
@@ -26,14 +20,14 @@ body{min-height:100vh;display:flex;flex-direction:column;align-items:center;back
   font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em;
   text-transform:uppercase;color:var(--accent);margin-bottom:16px}
 .held::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
-h1{font-size:clamp(26px,4.2vw,42px);font-weight:800;line-height:1.08;letter-spacing:-.02em;
+h1{font-size:clamp(26px,4.2vw,42px);font-weight:700;line-height:1.08;letter-spacing:-.02em;
   color:var(--text-high);max-width:18ch;margin-bottom:14px}
 h1 .a{color:var(--accent)}
 .lede{font-size:clamp(15px,1.9vw,18px);color:var(--text-mid);max-width:40ch;line-height:1.5;margin-bottom:26px}
 
-.warn{width:100%;border:1.5px solid var(--brick);border-radius:12px;padding:16px 18px;
+.warn{width:100%;border:1.5px solid var(--warm);border-radius:12px;padding:16px 18px;
   background:var(--surface);text-align:left;margin-bottom:26px}
-.warn b{display:block;font-size:15px;font-weight:800;color:var(--brick);margin-bottom:4px}
+.warn b{display:block;font-size:15px;font-weight:800;color:var(--warm);margin-bottom:4px}
 .warn p{font-size:14px;color:var(--text-mid);line-height:1.5}
 
 .player{width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;position:relative;
@@ -45,7 +39,7 @@ h1 .a{color:var(--accent)}
 .poster .play::after{content:"";width:0;height:0;border-left:18px solid #fff;
   border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:5px}
 .poster .ptag{position:absolute;bottom:16px;font-family:var(--mono);font-size:11px;
-  letter-spacing:.1em;text-transform:uppercase;color:#8B948E}
+  letter-spacing:.1em;text-transform:uppercase;color:var(--text-low)}
 
 .steps{list-style:none;counter-reset:s;width:100%;display:grid;gap:14px;text-align:left;margin-bottom:8px}
 .steps li{counter-increment:s;position:relative;padding-left:46px;background:var(--surface);
@@ -66,7 +60,7 @@ h1 .a{color:var(--accent)}
 .alt{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--text-low);margin-top:4px}
 
 .sect{width:100%;text-align:left;border-top:1px solid var(--line);margin-top:30px;padding-top:22px}
-.sect h2{font-size:clamp(17px,2.4vw,21px);font-weight:800;letter-spacing:-.015em;
+.sect h2{font-size:clamp(17px,2.4vw,21px);font-weight:700;letter-spacing:-.015em;
   color:var(--text-high);margin-bottom:10px}
 .sect p{color:var(--text-mid);font-size:15px;line-height:1.55;margin-bottom:10px}
 .sect ul{list-style:none;display:grid;gap:9px}
