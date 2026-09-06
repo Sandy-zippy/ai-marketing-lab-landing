@@ -130,6 +130,11 @@ body{display:flex;flex-direction:column;min-height:100vh}
     d.append('entry.606366000',document.getElementById('whatsapp').value.trim());
     d.append('entry.89039492',document.getElementById('email').value.trim());
     try{fetch(ACTION,{method:'POST',mode:'no-cors',body:d});}catch(e){}
+    /* Carry the lead to page 2 so the booking can prefill name, email and WhatsApp. */
+    try{sessionStorage.setItem('aiml_lead',JSON.stringify({
+      name:document.getElementById('name').value.trim(),
+      email:document.getElementById('email').value.trim(),
+      whatsapp:document.getElementById('whatsapp').value.trim()}));}catch(e){}
     subBtn.textContent='Taking you in…';
     setTimeout(function(){location.href='watch.html';},550);
   });
