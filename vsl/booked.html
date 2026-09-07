@@ -117,6 +117,11 @@ h1 .a{color:var(--accent)}
   </div>
   <p class="alt" id="waNote">The WhatsApp message arrives within a minute or two</p>
 
+  <section class="sect" id="caseSect" hidden>
+    <h2 id="caseTitle">One like yours</h2>
+    <p id="caseBody"></p>
+  </section>
+
   <section class="sect">
     <h2>What actually happens on the call</h2>
     <ul>
@@ -135,7 +140,7 @@ h1 .a{color:var(--accent)}
 
 <footer class="legal">
   <div class="row">
-    <a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/refund.html">Refunds</a>
+    <a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/refund.html">Refunds</a><a href="https://instagram.com/sandymarketinglab" target="_blank" rel="noopener">Instagram</a>
     <span class="c">&copy; 2026 AI Marketing Labs</span>
   </div>
   <p>This site is not a part of Facebook or Instagram, and is not endorsed by Meta in any way. Results vary and depend on individual effort.</p>
@@ -160,6 +165,23 @@ h1 .a{color:var(--accent)}
   var lead={},q={};
   try{lead=JSON.parse(sessionStorage.getItem('aiml_lead')||'{}');}catch(e){}
   try{q=JSON.parse(sessionStorage.getItem('aiml_qualify')||'{}');}catch(e){}
+
+  /* Case study matched to the role picked in the qualifier. Figures are
+     Sandy's own, stated directly, not researched or estimated. */
+  var CASE={
+    agency:{t:'One like yours: an agency',
+      b:'Rumor Avenue, a UI/UX design agency selling $10k+ projects, added over $100,000 in attributed revenue in about three months from LinkedIn and email outbound built to their exact ICP. Same outbound system, installed in week one to four.'},
+    coach:{t:'One like yours: a coach',
+      b:'Sami at Scale Your Results, high-ticket coaching out of Vancouver, had cost per qualified sales appointment at $200 to $250. Fixing the tracking and the funnel brought it to $70, and ad spend scaled from $2k to about $30k a month on the same math.'},
+    service:{t:'One like yours: a service business',
+      b:'Medico Construction ran Google, Meta and AI voice calling on their inbound. The deals sourced through it sit near $6M in attributed contracted value over two years, and it is still running two and a half years in.'}
+  };
+  var cs=CASE[q.role];
+  if(cs){
+    document.getElementById('caseTitle').textContent=cs.t;
+    document.getElementById('caseBody').textContent=cs.b;
+    document.getElementById('caseSect').hidden=false;
+  }
 
   var wa=document.getElementById('wa');
   if(WA_NUMBER){
