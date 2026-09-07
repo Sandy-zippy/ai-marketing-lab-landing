@@ -167,6 +167,22 @@ body{min-height:100vh;display:flex;flex-direction:column;align-items:center;
   var CAL_ORIGIN='https://cal.com';   /* Cal.com Cloud, free plan */
   var CAL_LINK='sandy-kadyan/ai-growth-audit';   /* 45 min AI Growth Audit */
 
+  /* Cal.com's own embed.js, not a raw iframe. A raw iframe at a fixed height
+     scrolls internally AND the page scrolls around it, two scrollbars
+     fighting each other the moment the calendar is taller than the guess.
+     embed.js resizes the iframe to match content, so there is one scrollbar. */
+  (function(C,A,L){var p=function(a,ar){a.q.push(ar);};var d=C.document;
+    C.Cal=C.Cal||function(){var cal=C.Cal;var ar=arguments;
+      if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement('script')).src=A;cal.loaded=true;}
+      if(ar[0]===L){var api=function(){p(api,arguments);};var namespace=ar[1];
+        api.q=api.q||[];
+        if(typeof namespace==='string'){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,['initNamespace',namespace]);}
+        else p(cal,ar);
+        return;}
+      p(cal,ar);};
+  })(window,'https://app.cal.com/embed/embed.js','init');
+  if(CAL_ORIGIN&&CAL_LINK)Cal('init',{origin:CAL_ORIGIN});
+
   var REVEAL_AT=0.60, PLACEHOLDER_MS=9000;
   var poster=document.getElementById('poster'),vid=document.getElementById('vid'),
       after=document.getElementById('after'),bar=document.getElementById('bar'),
@@ -247,6 +263,7 @@ body{min-height:100vh;display:flex;flex-direction:column;align-items:center;
     }catch(e){}
   }
 
+  var calMounted=false;
   function mountCal(){
     var w=document.getElementById('calwrap');
     if(!CAL_ORIGIN||!CAL_LINK){
@@ -254,28 +271,27 @@ body{min-height:100vh;display:flex;flex-direction:column;align-items:center;
         '<p style="color:var(--text-mid);font-size:15px;line-height:1.55">The calendar is being connected. Reply to the WhatsApp message you are about to get and Sandy will place the call directly.</p>';
       return;
     }
+    if(calMounted)return;calMounted=true;
     var l=lead();
     /* Cal.com prefills by booking-field slug, and select values must match the
        option labels on the event type exactly. */
     var ROLE={agency:'Marketing agency owner',coach:'High ticket coach',service:'Service business founder'};
     var REV={'u5':'Under $5k','5-20':'$5k to $20k','20-50':'$20k to $50k','50p':'$50k or more'};
     var TIME={now:'This week','30':'Within 30 days','90':'One to three months',look:'Just looking for now'};
-    var qp=new URLSearchParams({embed:'1',
-      name:l.name||'',email:l.email||'',
-      role:ROLE[answers.role]||'',
-      revenue:REV[answers.revenue]||'',
-      timing:TIME[answers.timing]||'',
-      whatsapp:l.whatsapp||''});
-    var f=document.createElement('iframe');
-    f.src=CAL_ORIGIN.replace(/\/$/,'')+'/'+CAL_LINK+'?'+qp.toString();
-    f.title='Book your call';f.loading='lazy';
-    f.style.cssText='width:100%;height:640px;border:0;border-radius:12px';
-    w.innerHTML='';w.appendChild(f);
-    window.addEventListener('message',function(e){
-      if(!e.data)return;
-      var t=typeof e.data==='string'?e.data:(e.data.type||'');
-      if(String(t).indexOf('bookingSuccessful')>-1)location.href='booked.html';
+    w.innerHTML='';
+    /* No fixed height here on purpose: embed.js measures the real content
+       and resizes the iframe to it, so the page scrolls once, not twice. */
+    Cal('inline',{
+      elementOrSelector:w,
+      calLink:CAL_LINK,
+      config:{
+        name:l.name||'',email:l.email||'',
+        role:ROLE[answers.role]||'',revenue:REV[answers.revenue]||'',
+        timing:TIME[answers.timing]||'',whatsapp:l.whatsapp||''
+      }
     });
+    Cal('ui',{styles:{branding:{brandColor:'#00A19B'}},hideEventTypeDetails:false,layout:'month_view'});
+    Cal('on',{action:'bookingSuccessful',callback:function(){location.href='booked.html';}});
   }
 })();
 </script>
