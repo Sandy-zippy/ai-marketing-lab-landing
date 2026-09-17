@@ -14,6 +14,10 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .dr{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;
     max-width:900px;margin:0 auto;padding:clamp(28px,5vw,52px) var(--gutter) clamp(56px,8vw,96px)}
 .logo{height:26px;margin-bottom:clamp(40px,7vw,80px)}
+/* DECLARED EXCEPTION to the 14px Space Mono ceiling: [data-fallback] is the wordmark
+   shown only when the logo SVG fails to load. A wordmark is a display element and Remy's
+   own is a display face (PP Neue Bit), so Inter would be wrong here. It never renders
+   when the SVG loads. Everything else obeys the ceiling. */
 .logo[data-fallback]{font-family:var(--mono);font-size:16px;letter-spacing:-.02em;color:var(--text-high)}
 .qualifier{font-family:var(--mono);font-size:clamp(12px,1.5vw,14px);letter-spacing:0.08em;
     text-transform:uppercase;color:var(--text-mid);margin-bottom:clamp(22px,3vw,32px)}
@@ -24,7 +28,7 @@ body{display:flex;flex-direction:column;min-height:100vh}
     max-width:26ch;margin-bottom:clamp(16px,2vw,22px)}
 .dr-micro{font-size:clamp(15px,1.6vw,18px);color:var(--text-mid);max-width:34ch;line-height:1.5;
     margin-bottom:clamp(30px,4vw,44px)}
-.cta-big{font-family:var(--mono);font-weight:600;font-size:clamp(15px,1.8vw,19px);letter-spacing:0.02em;
+.cta-big{font-family:var(--sans);font-weight:600;font-size:clamp(15px,1.8vw,19px);letter-spacing:0.02em;
     color:#04110F;background:var(--accent);border:none;border-radius:12px;cursor:pointer;
     padding:clamp(17px,2vw,22px) clamp(30px,4vw,52px);
     display:inline-flex;align-items:center;gap:12px;
