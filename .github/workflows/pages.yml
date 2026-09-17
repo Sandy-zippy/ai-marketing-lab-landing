@@ -51,7 +51,12 @@ jobs:
           # None of these were in the copy list, so the page would have deployed with every
           # image 404ing while the HTML looked fine.
           cp assets/photos/sandy-headshot-hd.jpg _site/assets/photos/
-          cp assets/proof/*.png _site/assets/proof/
+          # Explicit list, same reason as assets/work above. `cp assets/proof/*.png` also
+          # published crop-1..7.png, 1.1MB no deployed page references. I fixed the work
+          # glob and missed its sibling one line up; an audit agent caught it.
+          cp assets/proof/deck-1.png assets/proof/deck-2.png assets/proof/deck-3.png \
+             assets/proof/deck-4.png assets/proof/deck-5.png assets/proof/deck-6.png \
+             assets/proof/deck-7.png _site/assets/proof/
           # Explicit list, never a glob. `cp assets/work/*.jpg` published the PawMe robot
           # (pawme-build-poster.jpg) and four Riarh ad creatives (work-1,2,3,5.jpg) as
           # publicly reachable URLs. Sandy removed both by name. No page referenced them,

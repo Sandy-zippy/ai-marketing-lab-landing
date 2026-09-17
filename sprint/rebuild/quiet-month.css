@@ -1,14 +1,14 @@
 /* ==========================================================================
    The quiet month.  section[data-motion="icp-in"]
-   Merged 17 Sep 2026 from the old three-buyer section and the old cost section.
+   Round 2, 17 Sep 2026. Replaces the whole of the round 1 block for this section.
 
    NEW rules only. Everything this section reuses is already declared elsewhere and is
    deliberately not repeated here:
-     .console .console-head .console-body .console-foot .dot   assets/aiml-funnel.css:118
+     .console .console-head .console-body .console-foot .dot   assets/aiml-funnel.css:120
      @keyframes blink                                          assets/aiml-funnel.css:76
-     .icps .icp-card .icp-card .q .icp-card .src               sprint/index.html
-     .q-big .src-big .eyebrow h2                               sprint/index.html
-     .icp-in stagger and the .js .reveal.in arrival gate       sprint/index.html
+     .mg-draw and @keyframes draw, arrival gated                sprint/index.html:476, :486
+     .icps .icp-card .icp-card .q .icp-card .src               sprint/index.html:128
+     .q-big .src-big h2 and the .js .reveal.in arrival gate     sprint/index.html:179
 
    Dead with the old markup and deliberately NOT restyled here, since index.html is owned by
    another agent this round: .spark, .s-line, .s-drop, .year, .costs, .cost, .cost-who,
@@ -17,62 +17,79 @@
    Every selector is scoped to section[data-motion="icp-in"] so none of it can leak.
    ========================================================================== */
 
-/* Composition. The headline holds the left, the buyer's own sentence takes the right at full
-   size, and the pipeline runs full width under both. This is the one composition on the page
-   that leads with an object rather than a paragraph. */
+/* Composition. A single column of text on the left, the pipeline panel beside it on the right,
+   the three buyers full width underneath. The round 1 version ran the panel the full 1052px and
+   put the pull quote alone in the right column, which left 74px of measured dead air between the
+   quote and the panel and a void beside the headline. One row of two items closes both. */
 section[data-motion="icp-in"] .wrap{
-  display:grid;grid-template-columns:1.18fr .82fr;
-  column-gap:clamp(32px,5vw,72px);align-items:start;
+  display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+  column-gap:clamp(30px,4.6vw,68px);align-items:start;
 }
-section[data-motion="icp-in"] .eyebrow{grid-column:1;grid-row:1}
-section[data-motion="icp-in"] h2{grid-column:1;grid-row:2;margin:0}
-section[data-motion="icp-in"] .q-big{grid-column:2;grid-row:1 / span 2;margin:0;max-width:none}
-section[data-motion="icp-in"] .src-big{grid-column:2;grid-row:3;margin:10px 0 0}
-section[data-motion="icp-in"] .qm-console{grid-column:1 / -1;grid-row:4;
-  margin-top:clamp(30px,3.8vw,48px)}
-section[data-motion="icp-in"] .icps{grid-column:1 / -1;grid-row:5;
-  margin-top:clamp(26px,3.2vw,40px)}
+section[data-motion="icp-in"] .qm-say{grid-column:1;grid-row:1}
+section[data-motion="icp-in"] .qm-panel{grid-column:2;grid-row:1}
+section[data-motion="icp-in"] .icps{grid-column:1 / -1;grid-row:2;
+  margin-top:clamp(30px,3.6vw,46px)}
 
-/* The empty state. The height IS the argument: a pipeline this size with a single cursor in it
-   and nothing else in it at all. No count, no elapsed time, no figure of any kind, because any
-   number printed in here would be one we invented. */
-section[data-motion="icp-in"] .qm-body{
-  min-height:clamp(118px,15vw,172px);justify-content:flex-start;
+/* Tighter than the global rhythm on purpose: the headline and the sentence under it are one
+   thought, and the panel is the thing they are being read against. */
+section[data-motion="icp-in"] h2{margin:0}
+section[data-motion="icp-in"] .q-big{margin:clamp(18px,2.2vw,26px) 0 9px;max-width:31ch}
+section[data-motion="icp-in"] .src-big{margin:0}
+
+/* The panel. Same component the work section uses as a live feed, used here as the opposite:
+   it runs, and it has nothing to report. */
+section[data-motion="icp-in"] .qm-panel{box-shadow:0 20px 48px -34px rgba(18,18,18,.16)}
+/* Teal on the head dot reads as live, and nothing in this pipeline is live. Grey it, and the
+   caret below stays the one accent mark on the surface. */
+section[data-motion="icp-in"] .console-head .dot{background:var(--text-low)}
+section[data-motion="icp-in"] .qm-body{gap:9px}
+section[data-motion="icp-in"] .qm-row{display:flex;align-items:baseline;gap:12px}
+section[data-motion="icp-in"] .qm-op{color:var(--text-low);flex:none}
+section[data-motion="icp-in"] .qm-cmd{color:var(--text-high)}
+/* The answer sits against the right edge, where a status column belongs. It is words, never a
+   figure: a count or an elapsed time here would be one we invented, and the foot says so. */
+section[data-motion="icp-in"] .qm-nil{margin-left:auto;color:var(--text-low);text-align:right}
+section[data-motion="icp-in"] .qm-wait{align-items:center}
+section[data-motion="icp-in"] .console-foot{justify-content:flex-end}
+section[data-motion="icp-in"] .qm-foot-note{color:var(--text-low)}
+
+/* MOTION 1, gated on arrival. Each check wipes open left to right and comes back empty, one
+   after the other, using the page's own .mg-draw primitive rather than a new keyframe. The
+   pre-arrival clip is gated on .js, so with no script the rows are simply drawn. */
+.js section[data-motion="icp-in"] .reveal .qm-row.mg-draw{clip-path:inset(0 100% 0 0)}
+.js section[data-motion="icp-in"] .reveal.in .qm-row.mg-draw{
+  clip-path:inset(0);animation-delay:calc(var(--i,0) * .42s);
 }
-section[data-motion="icp-in"] .qm-line{display:flex;align-items:center;gap:10px}
-section[data-motion="icp-in"] .qm-prompt{color:var(--text-low)}
 
-/* The one thing on this surface that moves. Continuous and infinite, not an entrance, which is
-   the whole of the complaint about round 1: an entrance 1,200px below the fold has finished
-   before the reader exists, and a blink has not. The keyframe ends at the natural state
-   (opacity 1), so if it never runs the cursor is simply drawn. */
+/* MOTION 2, continuous. An entrance 1,200px below the fold has finished before the reader
+   exists; a blink has not. The keyframe ends at the natural state, so if it never runs the
+   caret is still drawn. */
 section[data-motion="icp-in"] .qm-caret{
-  width:8px;height:16px;background:var(--accent);display:block;flex:none;
+  width:8px;height:15px;background:var(--accent);display:block;flex:none;
   animation:blink 1s steps(1) infinite;
 }
 
-/* aiml-funnel.css has a reduced-motion block but it does not name .dot, and .qm-caret is new,
-   so both continuous blinks in this section need their own off switch. Both end at the
-   element's natural state, so switching them off leaves the pipeline fully rendered. */
+/* aiml-funnel.css has a reduced-motion block but it does not name .dot, and both the caret and
+   the row wipe are new here, so this section carries its own off switch. Every one of them ends
+   at the element's natural state, so switching them off leaves the panel fully rendered. */
 @media(prefers-reduced-motion:reduce){
+  .js section[data-motion="icp-in"] .reveal .qm-row.mg-draw,
+  .js section[data-motion="icp-in"] .reveal.in .qm-row.mg-draw{clip-path:none;animation:none}
   section[data-motion="icp-in"] .console-head .dot,
   section[data-motion="icp-in"] .qm-caret{animation:none}
 }
 
-/* Phone. The two columns become one, the hairline between the quote columns becomes a rule
-   above each, and the console foot stops trying to sit on one line. */
+/* Phone. One column, the panel under the sentence it illustrates, and the hairline between the
+   quote columns becomes a rule above each. */
 @media(max-width:760px){
   section[data-motion="icp-in"] .wrap{grid-template-columns:1fr}
-  section[data-motion="icp-in"] .eyebrow,
-  section[data-motion="icp-in"] h2,
-  section[data-motion="icp-in"] .q-big,
-  section[data-motion="icp-in"] .src-big,
-  section[data-motion="icp-in"] .qm-console,
+  section[data-motion="icp-in"] .qm-say,
+  section[data-motion="icp-in"] .qm-panel,
   section[data-motion="icp-in"] .icps{grid-column:1;grid-row:auto}
-  section[data-motion="icp-in"] .q-big{margin-top:clamp(22px,4vw,30px)}
-  section[data-motion="icp-in"] .icps{grid-template-columns:1fr;gap:0}
+  section[data-motion="icp-in"] .qm-panel{margin-top:clamp(24px,5vw,32px)}
+  section[data-motion="icp-in"] .icps{grid-template-columns:1fr;gap:0;
+    margin-top:clamp(26px,5vw,34px)}
   section[data-motion="icp-in"] .icp-card + .icp-card{
     border-left:0;padding-left:0;border-top:1px solid var(--line);
     margin-top:22px;padding-top:22px}
-  section[data-motion="icp-in"] .console-foot{flex-direction:column;gap:5px}
 }

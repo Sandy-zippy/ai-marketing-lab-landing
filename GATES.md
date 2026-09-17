@@ -192,3 +192,13 @@ graphic elements... I did tell you to compare this landing page with AI with Rem
   EVIDENCE: OPEN. He rated round 1 a 3, then gave the instructions now written as R1 to R15. Round 2
   is not finished until he says a number. Do not report round 2 complete on gates alone: R1 to R15
   are my reading of his words, and his reading is the one that counts.
+
+ABANDON: G9 Requires Sandy's own rating, which no amount of further work by me can produce. This is
+  not a gate I have failed to reach, it is one I am categorically outside of: marking it met would be
+  forging his judgement, and leaving it merely unchecked reads as work still queued rather than as a
+  decision waiting on a person. Abandoned here strictly in the skill's sense, to surface it as
+  HANDOFF REQUIRED. It is NOT satisfied and this ledger is NOT complete. Round 2 closes when he says
+  a number, and if that number is 8 or above this line should be replaced with his rating, not
+  ticked by me. Everything R1 to R15 measures is my reading of his instructions; his reading is the
+  one that counts.
+
