@@ -101,3 +101,9 @@ section[data-motion="shot-in"] .wall-hint{
 @media(prefers-reduced-motion:reduce){
   .js section[data-motion="shot-in"] .reveal.in .inbox-feed b{animation:none}
 }
+
+/* Card width. The shipped .pay clamp(248px,25vw,352px) rendered the notification at 350px
+   at 1440 and 246px at 375, under the legibility floor the layout gate enforces (400px at
+   1440, 80% of viewport below that) against 937x510 source art. Sandy: "you have fucked up
+   the cropping so use the original size". Widened, not cropped. */
+section[data-motion="shot-in"] .pay{width:clamp(320px,53vw,440px)}

@@ -243,7 +243,7 @@ section[data-motion="step-in"] .steps{margin-top:0}
 @keyframes wall{from{transform:translateX(0)}
                 to{transform:translateX(calc(-50% - (var(--wall-gap) / 2)))}}
 
-.pay{flex:none;width:clamp(248px,25vw,352px);border:1px solid var(--line);border-radius:14px;
+.pay{flex:none;width:clamp(320px,53vw,440px);border:1px solid var(--line);border-radius:14px;
   overflow:hidden;background:var(--surface);display:flex;flex-direction:column}
 /* Top anchored: the sender line and the subject are the part that proves it is a real email. */
 .pay img{width:100%;height:clamp(152px,15.5vw,200px);object-fit:contain;object-position:center top;
@@ -1998,7 +1998,7 @@ section[data-motion="close-in"] .close-form .field:last-of-type{margin-bottom:17
      the figure, at 19 to 23px Inter 700. Both sit on the same card.
      Intrinsic sizes corrected too: deck-1 is 937x380 and deck-7 is 937x360. Every img here
      previously declared 510 and reserved a box 130px too tall for those two. -->
-<section data-motion="shot-in"
+<section data-motion="shot-in" data-composed
          data-motion-graphic="an inbox line writes itself in left to right, holds, then clears to the left, cycling the seven senders on a 24.5s loop, while two rows of the real notifications scroll in opposite directions"
          data-job="Back the claim with money a stranger can check, from named businesses in several trades">
   <div class="wrap reveal">
@@ -2165,7 +2165,7 @@ section[data-motion="close-in"] .close-form .field:last-of-type{margin-bottom:17
 
     <div class="wb-grid">
 
-      <article class="wb">
+      <article class="wb" data-bucket="design">
         <header class="wb-top"><span class="wb-n">01</span><h3>Design</h3></header>
         <figure class="wb-frame mg-wipe">
           <div class="wb-bar"><span class="wb-dots"></span><span class="wb-url">riarhgroup.com</span></div>
@@ -2177,7 +2177,7 @@ section[data-motion="close-in"] .close-form .field:last-of-type{margin-bottom:17
         <p class="wb-line">A commercial construction firm in British Columbia. Built end to end, live on their own domain.</p>
       </article>
 
-      <article class="wb">
+      <article class="wb" data-bucket="content">
         <header class="wb-top"><span class="wb-n">02</span><h3>Content</h3></header>
         <figure class="wb-frame mg-wipe" style="--i:1">
           <div class="wb-bar"><span class="wb-dots"></span><span class="wb-url">aimarketinglabs.in</span></div>
@@ -2194,7 +2194,7 @@ section[data-motion="close-in"] .close-form .field:last-of-type{margin-bottom:17
         <p class="wb-line">This funnel. The pages, the emails and the follow up, produced by the same stack.</p>
       </article>
 
-      <article class="wb">
+      <article class="wb" data-bucket="automations">
         <header class="wb-top"><span class="wb-n">03</span><h3>Automations</h3></header>
         <div class="console">
           <div class="console-head"><span class="dot"></span>ours, always on<span class="cursor"></span></div>
@@ -2210,12 +2210,12 @@ section[data-motion="close-in"] .close-form .field:last-of-type{margin-bottom:17
         <p class="wb-line">The part nobody sees. It runs when no one is at a desk, and keeps what worked.</p>
       </article>
 
-      <article class="wb">
+      <article class="wb" data-bucket="performance">
         <header class="wb-top"><span class="wb-n">04</span><h3>Performance</h3></header>
         <div class="wb-figs">
-          <div class="wb-fig"><span class="wb-fig-n" data-count>2,202</span><span class="wb-fig-l">clicks in thirty days</span></div>
-          <div class="wb-fig"><span class="wb-fig-n" data-count>103</span><span class="wb-fig-l">leads at $8.90 each</span></div>
-          <div class="wb-fig"><span class="wb-fig-n" data-count>1,116</span><span class="wb-fig-l">realtors sourced and verified</span></div>
+          <div class="wb-fig"><span class="wb-fig-n" data-count data-figure="2,202" data-source="Meta ad account act_777763308169871, thirty day report 7 May 2026">2,202</span><span class="wb-fig-l">clicks in thirty days</span></div>
+          <div class="wb-fig"><span class="wb-fig-n" data-count data-figure="103" data-source="Meta ad account act_777763308169871, thirty day report 7 May 2026">103</span><span class="wb-fig-l">leads at $8.90 each</span></div>
+          <div class="wb-fig"><span class="wb-fig-n" data-count data-figure="1,116" data-source="MASTER_realtor_emails.tsv, sourced and verified rows">1,116</span><span class="wb-fig-l">realtors sourced and verified</span></div>
         </div>
         <p class="wb-src">Meta ad account act_777763308169871, thirty day report, 7 May 2026. Realtor rows counted from MASTER_realtor_emails.tsv.</p>
         <p class="wb-line">Campaigns run end to end, with the list underneath them.</p>

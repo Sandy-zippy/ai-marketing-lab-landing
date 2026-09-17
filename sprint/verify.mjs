@@ -516,7 +516,21 @@ if (which === "r4-icp-repeat") {
     `the page recites the buyer list ${recitations.length} times: ${recitations.map((r) => `"${r.slice(0, 46)}"`).join(", ")}. Once, in the hero, is the brief`);
   // (b) A label: a run that is NOTHING BUT a buyer type. The quote and its source already say
   //     who is speaking, so a tag above them is the ICP called out a second time.
-  const labels = runs.filter((t) => t.length <= 40 && new RegExp(`^(?:${TYPE.source})$`, "i").test(t));
+  // Scoped to its OWN stated rationale, 17 Sep 2026. The test above says a label is redundant
+  // because "the quote and its source already say who is speaking". Where there is no quote there
+  // is no redundancy, so the test only applies inside a section carrying a <blockquote>.
+  // It was flagging two places it has no business in: the hero qualifier, whose three buyer types
+  // are wrapped in <b> at Sandy's request so each became its own text run, and the filter columns,
+  // whose declared job IS to name who should come. Neither carries a quote.
+  const quoted = sections2.filter((sec) => /<blockquote/i.test(sec)).join(" ");
+  const qRuns = quoted.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ")
+    .replace(/<!--[\s\S]*?-->/g, " ").replace(/<[^>]+>/g, "\x00").split("\x00")
+    .map((t) => t.replace(/\s+/g, " ").trim()).filter(Boolean);
+  // NUL sentinel, exactly as `runs` above does it. My first version split on " ", which makes
+  // every run a single WORD, and a one-word run can never match ^(?:agency owners?|high ticket
+  // coaches?|...)$. The label list was therefore always empty and the gate could not fail. Caught
+  // by its negative control, which is the only reason it is not still sitting there green.
+  const labels = qRuns.filter((t) => t.length <= 40 && new RegExp(`^(?:${TYPE.source})$`, "i").test(t));
   need(labels.length === 0,
     `${labels.length} element(s) are nothing but an ICP label: ${labels.map((l) => `"${l}"`).join(", ")}. The quote and its source already say who is speaking`);
   if (!fails.length) console.log("R4 VERIFIED");
@@ -597,7 +611,10 @@ if (which === "r11-portrait") {
 
 if (which === "r12-motion-graphics") {
   // "where the fuck is motion graphic bro". An entrance fade is not a motion graphic.
-  const without = sections2.filter((s) => !/data-motion-graphic="[a-z0-9 _-]{2,}"/i.test(s));
+  // The character class rejected commas and full stops, so every description written as a
+  // SENTENCE failed. 8 of 10 sections contain a comma; the gate reported exactly 8. It was
+  // measuring punctuation, not motion. Require real prose of some length instead.
+  const without = sections2.filter((s) => !/data-motion-graphic="[^"]{12,}"/i.test(s));
   need(without.length === 0,
     `${without.length} of ${sections2.length} sections have no motion graphic, only an entrance reveal`);
   if (!fails.length) console.log("R12 VERIFIED");
