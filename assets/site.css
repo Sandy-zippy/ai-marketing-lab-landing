@@ -1,3 +1,12 @@
+/* ⚠️ SUPERSEDED 12 Sep 2026 — NOT DEPLOYED, NOT REFERENCED BY ANY PAGE.
+   Verified: zero .html files in this repo link this file; every live page uses
+   assets/aiml-funnel.css instead. This file still carries the dead dark token
+   #0A0E0D and JetBrains Mono. The locked brand is white #FFFFFF, ink #121212,
+   Inter 700 headlines, Inter body, Space Mono ONLY at 14px and below, #00A19B the only
+   accent. (Corrected 17 Sep 2026: the earlier 'Space Mono 700 headlines' claim came from
+   Remy's declared --font-display token, never from a rendered heading. Measured on his
+   site, headings are Inter 700/28px and Space Mono never exceeds 14px.)
+   Do not revive this file. Truth: HQ/Sandy/company.yaml */
 @font-face{font-family:'Inter';src:url('fonts/inter-latin.woff2') format('woff2');font-style:normal;font-weight:400 900;font-display:swap}
 @font-face{font-family:'JetBrains Mono';src:url('fonts/jetbrains-mono-latin.woff2') format('woff2');font-style:normal;font-weight:400 700;font-display:swap}
 

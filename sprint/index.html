@@ -1,14 +1,1514 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>Redirecting to the free live build</title>
-<link rel="canonical" href="https://aimarketinglabs.in/" />
-<meta name="robots" content="noindex" />
-<meta http-equiv="refresh" content="0; url=/" />
-<script>location.replace('/' + location.search);</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Free 90 minute session | AI Marketing Labs</title>
+<meta name="description" content="For agency owners, high ticket coaches and service business founders in India. A free 90 minute live session on getting clients without waiting for a referral." />
+<meta property="og:title" content="Word of mouth is everything. Until the month nobody calls." />
+<meta property="og:description" content="Free 90 minute live session. I build the thing that brings clients in, on screen, in front of you." />
+<link rel="icon" href="../assets/favicon.svg" />
+<link rel="stylesheet" href="../assets/aiml-funnel.css?v=8" />
+<script>document.documentElement.className+=' js';</script>
+<style>
+/* =========================================================================
+   Sprint registration page
+
+   MOTION BUDGET, written out because the previous version of this comment described a page
+   that no longer existed, and the gap hid a real defect for a whole build.
+
+   Two rules govern every entry below:
+     a. Motion never owns opacity. A build that defaulted .reveal{opacity:0} rendered nine
+        blank sections in a full page capture, which is what a crawler and a slow client see.
+     b. Motion below the fold MUST be gated on the .in class the observer adds when the
+        section reaches the viewport. Ungated, it plays at load, and 8,300px down that means
+        it has finished before the reader arrives. Enforced by verify.mjs motion.
+
+   Per section, one element each:
+     1  hero        hero-in     plays at LOAD on purpose, it is above the fold
+     2  three ICPs  icp-in      three cards settle in, 80ms apart
+     3  cost        cost-in     the quote lands, then three costs stagger under it
+     4  the 90 min  step-in     four steps slide in from the left, 70ms apart
+     5  proof       shot-in     four payment cards lift in, 70ms apart
+     6  six weeks   wk-in       six rows slide in, and each bar draws to its share of six
+     7  who         who-in      portrait arrives, the letter follows 100ms later
+     8  filter      fit-in      the least motion on the page, on purpose: it must read candid
+     9  faq         faq-in      the block settles, answers open and shut on click
+     10 close       close-in    the closing ask settles in
+   Always on, not per section: the live dot, the countdown digits, button hover and press,
+   input focus, card hover lift.
+   Everything obeys prefers-reduced-motion.
+   ========================================================================= */
+body{background:var(--canvas)}
+.bar{max-width:var(--max);margin:0 auto}
+/* The wordmark draws itself on, left to right, once. Sandy asked for this twice, pointing at
+   aiwithremy.com. It is the `draw` primitive below, on an img: clip-path costs no layout and the
+   keyframe ENDS at the natural state, so a failed animation leaves a visible wordmark. */
+.bar .mark{height:20px;display:block;animation:draw .9s var(--ease) .12s both}
+@media(prefers-reduced-motion:reduce){.bar .mark{animation:none}}
+.live-pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);border:1px solid var(--accent-line);border-radius:100px;padding:5px 11px;
+  display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.live-pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);
+  animation:dot-pulse 1.8s ease-in-out infinite}
+@keyframes dot-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
+
+/* Three spacing tiers, not one value. Ten sections at an identical padding is the monotony that
+   got the 16 Sep build rejected: nothing read as a beginning or an end. Hooked off each section's
+   existing data-motion so no markup has to change. */
+:root{
+  --pad-open:clamp(64px,9vw,132px);   /* a beginning and an end */
+  --pad-arg:clamp(48px,6.5vw,92px);   /* the argument sections */
+  --pad-tight:clamp(34px,4.5vw,60px); /* lists and rows that carry their own internal rhythm */
+}
+section{padding-block:var(--pad-arg);border-top:1px solid var(--line)}
+section:first-of-type{border-top:0;padding-top:clamp(20px,3vw,40px);padding-bottom:var(--pad-open)}
+section[data-motion="step-in"],
+section[data-motion="wk-in"],
+section[data-motion="faq-in"]{padding-block:var(--pad-tight)}
+section[data-motion="close-in"]{padding-block:var(--pad-open)}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:15px;display:block}
+/* Typographic risk is a brand-register permission and this page was not taking it: 44px section
+   headlines in a 700 weight monospace read as careful, and careful is invisible. The display face
+   being a monospace IS the brand, so it gets to be the loudest thing on the surface. */
+h2{font-family:var(--sans);font-size:clamp(24px,2.6vw,30px);line-height:1.22;letter-spacing:normal;max-width:24ch}
+.lede{font-size:clamp(16px,1.8vw,18.5px);color:var(--text-mid);line-height:1.6;max-width:56ch;margin-top:16px}
+
+/* ---------- hero ---------- */
+/* The headline is the hero, so it gets the width. At an even-ish split it wrapped to six lines
+   and towered over a short registration card, leaving a dead 200px of white beside it. */
+.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(28px,4vw,60px);align-items:start}
+/* The qualifier. Sandy could not read this twice: it was 10.5px uppercase mono at .13em tracking,
+   which is a legal disclaimer, not the line that tells three different buyers they are in the right
+   place. It is the FIRST thing on the page and it was the smallest. Now sentence case, bold, ink,
+   14px floor, with a teal rule that draws in above it. */
+.callout{font-family:var(--sans);font-weight:500;font-size:clamp(15px,1.6vw,17px);
+  letter-spacing:-.005em;text-transform:none;color:var(--text-high);
+  margin-bottom:clamp(14px,2vw,20px);max-width:30ch;line-height:1.35}
+.callout::before{content:"";display:block;width:38px;height:2px;background:var(--accent);
+  margin-bottom:13px;transform-origin:left center;animation:grow .7s var(--ease) both}
+@media(prefers-reduced-motion:reduce){.callout::before{animation:none}}
+h1{font-family:var(--sans);font-size:clamp(34px,5vw,64px);line-height:1.1;letter-spacing:-.02em;color:var(--text-high);
+  margin-bottom:clamp(16px,2vw,22px)}
+h1 .a{color:var(--accent)}
+.hero-sub{font-size:clamp(16.5px,1.95vw,20px);line-height:1.5;color:var(--text-mid);max-width:40ch;
+  margin-bottom:clamp(20px,2.6vw,26px)}
+.hero-sub b{color:var(--text-high);font-weight:600}
+.by{display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid var(--line)}
+.by img{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:center top;flex:none}
+.by .who{font-size:14.5px;line-height:1.4;color:var(--text-high)}
+.by .who b{font-weight:700}
+.by .who span{display:block;color:var(--text-mid);font-size:13px;margin-top:2px}
+
+/* ---------- registration card ---------- */
+.card-reg{background:var(--surface);border:1px solid var(--line);border-radius:18px;
+  padding:clamp(20px,2.6vw,28px);box-shadow:0 30px 70px -40px rgba(18,18,18,.32)}
+.next-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--text-low);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.next-label::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);
+  animation:dot-pulse 1.8s ease-in-out infinite}
+.next-date{font-family:var(--sans);font-weight:700;font-size:clamp(19px,2.2vw,23px);letter-spacing:-.02em;
+  color:var(--text-high);line-height:1.2;margin-bottom:5px}
+.next-time{font-size:14.5px;color:var(--text-mid);margin-bottom:17px}
+.next-time b{color:var(--accent);font-weight:600}
+.count{display:flex;gap:7px;margin-bottom:19px;padding-bottom:19px;border-bottom:1px solid var(--line)}
+.unit{flex:1;background:var(--elevated);border-radius:10px;padding:10px 6px;text-align:center}
+.unit .n{font-family:var(--sans);font-weight:700;font-size:19px;color:var(--text-high);display:block;line-height:1.1}
+.unit .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-low)}
+.card-reg .field{margin-bottom:11px}
+.fine{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--text-low);
+  text-align:center;margin-top:13px;line-height:1.6}
+
+/* ---------- the three buyers ---------- */
+/* FIVE rows, not four. Each card has five children (sparkline, heading, pain, quote, source) and
+   the track only declared four, so the fifth fell out of the subgrid: at 1440 the source line
+   rendered ABOVE the quote it belongs to, while mobile stacked and hid it. */
+.icps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(26px,3.2vw,48px);
+  margin-top:clamp(28px,3.5vw,40px)}
+/* The card spans all four parent rows and inherits them, so tag, heading, pain and quote
+   line up across all three cards. Per-card grids sized independently and did not. */
+/* Not boxes. Three bordered cards side by side is the lazy affordance, and this page was using it
+   in three separate sections. A single hairline between columns does the same separating work and
+   disappears, which is what a Swiss grid rule is for. */
+/* Subgrid was the wrong instrument. Sizing every row to the tallest card across three columns of
+   very uneven content opened ~100px holes between the heading and the paragraph, and again between
+   the quote and its source: the page looked broken rather than aligned. The only alignment worth
+   having here is the quoted voice sitting on a common baseline at the foot of each column, which
+   is margin-top:auto in a flex column, with no holes anywhere above it. */
+.icp-card{border:0;border-radius:0;padding:0;background:transparent;
+  display:flex;flex-direction:column}
+.icp-card + .icp-card{border-left:1px solid var(--line);padding-left:clamp(22px,2.6vw,40px)}
+/* No hover lift. These are not clickable, and a card that rises under the cursor implies it is. */
+.icp-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:14px;display:block}
+.icp-card h3{font-family:var(--sans);font-size:clamp(17px,1.9vw,19.5px);font-weight:700;letter-spacing:-.01em;
+  line-height:1.3;color:var(--text-high);margin-bottom:10px}
+.icp-pain{font-size:15px;line-height:1.55;color:var(--text-mid);margin-bottom:20px}
+/* The accent side stripe is gone: a coloured border heavier than a hairline used as decoration is
+   a banned pattern, and the paper ground already marks this as a quoted voice. */
+.icp-card .q{background:var(--paper);border-radius:10px;
+  padding:15px 17px;font-size:15px;line-height:1.5;color:var(--paper-ink);margin:auto 0 12px}
+.icp-card .q::before{content:'"';color:var(--accent);font-weight:700}
+.icp-card .q::after{content:'"';color:var(--accent);font-weight:700}
+.icp-card .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-low);align-self:start}
+/* The motion graphic this section did not have. The objection was that the argument arrived
+   entirely as sentences: three businesses DESCRIBED as having a quiet month. A revenue line that
+   runs steady and then falls SHOWS it, and it replaces the label that was reciting the buyer type.
+   Same stroke-dashoffset draw as zippyscale.com: grey holds the months that paid, teal is the
+   month the referrals stopped, and the teal draws after the grey finishes. */
+.spark{width:100%;height:auto;display:block;margin-bottom:15px}
+.spark path{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.spark .s-line{stroke:var(--text-low)}
+.spark .s-drop{stroke:var(--accent)}
+.spark .mg-tick{stroke-dasharray:var(--dash,240)}
+
+/* Each card settles in, one after the next, WHEN THE SECTION ARRIVES. Gated on the .in class
+   the observer sets on the parent .reveal: ungated this ran at load, 1,205px below the fold,
+   and was finished before anyone scrolled here. Transform only, never opacity. */
+@keyframes icpIn{from{transform:translateY(18px)}to{transform:none}}
+.js .reveal.in .icp-in{animation:icpIn .5s var(--ease) both}
+.js .reveal.in .icp-card:nth-child(2).icp-in{animation-delay:.08s}
+.js .reveal.in .icp-card:nth-child(3).icp-in{animation-delay:.16s}
+@media(prefers-reduced-motion:reduce){.js .icp-in{animation:none}}
+
+/* ---------- what it costs ---------- */
+/* Also stripe free. At this size in a 700 weight monospace the sentence does not need a rail to
+   announce that it is a quotation. */
+.q-big{font-family:var(--sans);font-size:clamp(18px,2.2vw,24px);line-height:1.35;letter-spacing:-.02em;
+  color:var(--text-high);max-width:34ch;margin:clamp(24px,3vw,34px) 0 10px}
+/* The indent here only ever existed to clear the accent stripe on .q-big, which is gone. */
+.src-big{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--text-low);
+  display:block;margin-bottom:clamp(22px,2.6vw,30px)}
+.costs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:clamp(26px,3.4vw,38px) 0}
+.cost{border-top:2px solid var(--accent);padding-top:16px}
+.cost-who{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);display:block;margin-bottom:9px}
+.cost p{font-size:15px;line-height:1.55;color:var(--text-mid)}
+
+/* the quote arrives, then the three costs stagger under it. Gated on arrival. Transform only. */
+@keyframes costIn{from{transform:translateY(16px)}to{transform:none}}
+.js .reveal.in .cost-in{animation:costIn .5s var(--ease) both}
+.js .reveal.in .cost:nth-child(2).cost-in{animation-delay:.09s}
+.js .reveal.in .cost:nth-child(3).cost-in{animation-delay:.18s}
+@media(prefers-reduced-motion:reduce){.js .cost-in{animation:none}}
+
+/* ---------- the 90 minutes ----------
+   Composition variety. This section runs as a sticky heading column beside the steps instead of
+   the same stacked eyebrow, headline, lede, block as every other section, and it fills the right
+   third of a 1440 canvas that otherwise sits empty the whole way down the page. */
+section[data-motion="step-in"] .wrap{display:grid;grid-template-columns:minmax(240px,.8fr) 1.2fr;
+  column-gap:clamp(32px,5vw,80px);align-items:start}
+.col-head{position:sticky;top:clamp(24px,5vh,56px)}
+.col-head h2{max-width:14ch}
+.col-head .lede{margin-top:14px;max-width:34ch}
+section[data-motion="step-in"] .steps{margin-top:0}
+.steps{list-style:none;margin-top:clamp(28px,3.5vw,40px);position:relative;padding-left:0}
+.step{display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start;
+  padding:clamp(18px,2.2vw,24px) 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:0}
+.step-n{font-family:var(--sans);font-weight:700;font-size:14px;color:var(--accent);
+  width:38px;height:38px;border-radius:11px;background:var(--accent-soft);border:1px solid var(--accent-line);
+  display:grid;place-items:center;transition:background .25s ease,color .25s ease}
+.step:hover .step-n{background:var(--accent);color:#FFFFFF}
+.step h3{font-family:var(--sans);font-size:clamp(17px,1.9vw,19.5px);font-weight:700;letter-spacing:-.01em;
+  color:var(--text-high);margin-bottom:6px;line-height:1.3}
+.step p{font-size:15px;line-height:1.6;color:var(--text-mid);max-width:62ch}
+
+/* steps arrive one after another, on arrival. Transform only, never opacity. */
+@keyframes stepIn{from{transform:translateX(-14px)}to{transform:none}}
+.js .reveal.in .step-in{animation:stepIn .45s var(--ease) both}
+.js .reveal.in .step:nth-child(2).step-in{animation-delay:.07s}
+.js .reveal.in .step:nth-child(3).step-in{animation-delay:.14s}
+.js .reveal.in .step:nth-child(4).step-in{animation-delay:.21s}
+@media(prefers-reduced-motion:reduce){.js .step-in{animation:none}}
+
+/* ---------- proof: the wall ---------- */
+/* Six static cards tilted a fraction of a degree is "dropping it and placing it". Remy's Wall of
+   Love is 20+ real screenshots in two counter-scrolling rows, and the movement is what says there
+   is more of this than fits on a screen. Ported to vanilla from the Magic UI marquee pattern
+   (free, MIT): duplicate the row once, translate it exactly half its width, loop linear forever.
+   Linear is correct here and nowhere else on the page: constant motion must not ease. */
+.wall{overflow:hidden;display:flex;flex-direction:column;gap:var(--wall-gap,16px);
+  --wall-gap:16px;--wall-dur:72s;
+  margin-top:clamp(28px,3.5vw,40px);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.wall-row{display:flex;gap:var(--wall-gap);width:max-content;
+  animation:wall var(--wall-dur) linear infinite;will-change:transform}
+.wall-row.rev{animation-direction:reverse}
+/* Pause on hover so a reader can actually read one. Required for any marquee. */
+.wall:hover .wall-row,.wall:focus-within .wall-row{animation-play-state:paused}
+@keyframes wall{from{transform:translateX(0)}
+                to{transform:translateX(calc(-50% - (var(--wall-gap) / 2)))}}
+
+.pay{flex:none;width:clamp(248px,25vw,352px);border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;background:var(--surface);display:flex;flex-direction:column}
+/* Top anchored: the sender line and the subject are the part that proves it is a real email. */
+.pay img{width:100%;height:clamp(152px,15.5vw,200px);object-fit:contain;object-position:center top;
+  display:block;background:#FFFFFF;border-bottom:1px solid var(--line)}
+.pay .cap{padding:11px 14px;display:flex;justify-content:space-between;align-items:baseline;
+  gap:10px;flex-wrap:wrap}
+.pay .who{font-weight:600;font-size:14px;color:var(--text-high)}
+/* The amount is set in the page's own type, because inside deck-3 to deck-6 the figure is tiny
+   against a full width logo and would be unreadable at any card size that fits on screen. */
+.pay .amt{font-family:var(--mono);font-size:12.5px;color:var(--accent);letter-spacing:.02em}
+.proof-note{font-size:13.5px;color:var(--text-low);line-height:1.6;margin-top:18px;max-width:64ch}
+
+@media(prefers-reduced-motion:reduce){
+  .wall{-webkit-mask-image:none;mask-image:none}
+  .wall-row{animation:none;width:auto;overflow-x:auto;scrollbar-width:thin}
+}
+
+/* ---------- the work ----------
+   The one section made of pictures rather than sentences. Real deliverables, shown at size, with
+   no card chrome around them: the artwork is the object, a border would only frame it. */
+/* The film leads the section. preload="none" means the page pays only the 78KB poster unless
+   somebody presses play: a 2.9MB autoload would cost more in speed than the film returns, and
+   speed is the one conversion lever with hard evidence under it. */
+.work-film{margin:clamp(28px,3.5vw,40px) 0 0}
+.work-film video{width:100%;height:auto;display:block;border-radius:14px;
+  border:1px solid var(--line);background:var(--text-high)}
+.work-film figcaption{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;
+  color:var(--text-low);margin-top:10px;line-height:1.5}
+.work-film figcaption b{color:var(--text-mid);font-weight:400;display:block}
+
+.work{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,22px);
+  margin-top:clamp(20px,2.6vw,30px)}
+.work figure{margin:0;display:flex;flex-direction:column}
+.work img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line);
+  background:var(--surface)}
+.work figcaption{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;color:var(--text-low);
+  margin-top:10px;line-height:1.5}
+.work figcaption b{color:var(--text-mid);font-weight:400;display:block}
+.work-note{font-size:13.5px;color:var(--text-low);line-height:1.6;margin-top:20px;max-width:66ch}
+
+/* each piece lifts in on arrival, in reading order. Transform only, gated on .in. */
+@keyframes workIn{from{transform:translateY(18px)}to{transform:none}}
+.js .reveal.in .work-in{animation:workIn .5s var(--ease) both}
+.js .reveal.in .work figure:nth-child(2).work-in{animation-delay:.06s}
+.js .reveal.in .work figure:nth-child(3).work-in{animation-delay:.12s}
+.js .reveal.in .work figure:nth-child(4).work-in{animation-delay:.18s}
+.js .reveal.in .work figure:nth-child(5).work-in{animation-delay:.24s}
+.js .reveal.in .work figure:nth-child(6).work-in{animation-delay:.30s}
+.work img{transition:transform .3s var(--ease)}
+.work figure:hover img{transform:translateY(-3px)}
+@media(prefers-reduced-motion:reduce){.js .work-in{animation:none}.work img{transition:none}}
+
+/* ---------- six weeks ---------- */
+/* Two phases sit side by side, each holding half the width, rather than stacking as two lonely
+   rows in a rhythm built for six. Same true content, a composition that does not read as a list
+   with four items deleted. */
+.weeks{margin-top:clamp(28px,3.5vw,40px);display:grid;
+  grid-template-columns:repeat(2,1fr);gap:clamp(26px,3.6vw,56px)}
+.weeks .wk{display:block;padding:24px 0 0;border-top:2px solid var(--accent);border-bottom:0}
+.weeks .wk .tag{display:block;margin-bottom:12px}
+.weeks .wk .tag b{display:inline;font-size:26px;margin-left:9px}
+.weeks .wk .body h3{font-size:22px;margin-bottom:9px;max-width:18ch}
+.weeks .wk .body p{font-size:15.5px;max-width:42ch}
+.weeks .wk .track{display:block;grid-column:auto;margin:22px 0 0}
+/* Two phases carry this section now, not six invented weeks, so each row has to hold the space
+   properly. At the old six-row rhythm two rows read as a section with the content deleted. */
+.wk{display:grid;grid-template-columns:92px 1fr;gap:24px;align-items:center;padding:30px 0;
+  border-bottom:1px solid var(--line)}
+.wk .body h3{font-size:21px}
+.wk .body p{font-size:15.5px;max-width:58ch}
+.wk .tag b{font-family:var(--sans);font-size:27px}
+.wk:last-child{border-bottom:0}
+.wk .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-low)}
+.wk .tag b{display:block;font-family:var(--sans);font-size:21px;letter-spacing:-.02em;color:var(--accent);margin-top:2px}
+.wk .body h3{font-family:var(--sans);font-size:17px;font-weight:700;letter-spacing:0;color:var(--text-high);margin-bottom:3px}
+.wk .body p{font-size:14.5px;color:var(--text-mid);line-height:1.5}
+.wk .track{grid-column:1 / -1;height:3px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:14px;margin-bottom:2px}
+.wk .track i{display:block;height:100%;width:0;background:var(--accent);border-radius:3px}
+.weeks.in-view .wk .track i{animation:bar-grow .8s var(--ease) forwards}
+@keyframes bar-grow{to{width:var(--w)}}
+
+/* each week slides in on arrival, and its bar draws to the week's share of the six. Transform and width only. */
+@keyframes wkIn{from{transform:translateX(-12px)}to{transform:none}}
+.js .reveal.in .wk-in{animation:wkIn .45s var(--ease) both}
+.js .reveal.in .wk:nth-child(2).wk-in{animation-delay:.06s}
+.js .reveal.in .wk:nth-child(3).wk-in{animation-delay:.12s}
+.js .reveal.in .wk:nth-child(4).wk-in{animation-delay:.18s}
+.js .reveal.in .wk:nth-child(5).wk-in{animation-delay:.24s}
+.js .reveal.in .wk:nth-child(6).wk-in{animation-delay:.30s}
+.wk{transition:border-color .2s ease}
+@media(prefers-reduced-motion:reduce){.js .wk-in{animation:none}}
+
+/* ---------- founder ---------- */
+.founder{display:grid;grid-template-columns:230px 1fr;gap:clamp(24px,3.4vw,44px);
+  align-items:start;margin-top:clamp(28px,3.5vw,40px)}
+.founder .portrait{width:100%;border-radius:18px;display:block;border:1px solid var(--line)}
+.note{background:var(--paper);border:1px solid var(--paper-edge);border-radius:16px;padding:clamp(22px,3vw,34px)}
+.note p{color:var(--paper-ink);font-size:16px;line-height:1.7;margin-bottom:14px;max-width:62ch}
+.note p:last-of-type{margin-bottom:0}
+.note .sig{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--paper-ink);margin-top:18px}
+
+/* ---------- filter ---------- */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.6vw,32px);margin-top:clamp(28px,3.5vw,40px)}
+/* De-carded for the same reason as the ICP row, and the accent-soft fill goes with it: the accent
+   is specified as sparse, one word or numeral per surface, never a field. */
+.fit{border:0;border-radius:0;padding:0;background:transparent}
+.fit + .fit{border-left:1px solid var(--line);padding-left:clamp(22px,3vw,44px)}
+.fit h3{font-family:var(--mono);font-size:12.5px;letter-spacing:.11em;text-transform:uppercase;margin-bottom:16px}
+.fit.yes h3{color:var(--accent)}
+.fit.no h3{color:var(--text-mid)}
+.fit li{list-style:none;display:flex;gap:11px;align-items:flex-start;font-size:15px;line-height:1.5;
+  color:var(--text-high);margin-bottom:12px}
+.fit li:last-child{margin-bottom:0}
+.fit li svg{width:16px;height:16px;flex:none;margin-top:3px}
+.fit.yes li svg{color:var(--accent)}
+.fit.no li{color:var(--text-mid)}
+.fit.no li svg{color:var(--text-low)}
+
+/* ---------- who is running it ---------- */
+.portrait-wrap{margin:0}
+.portrait-wrap figcaption{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-low);margin-top:11px;text-align:center}
+/* No greyscale. "I am coming here in black and white" was a complaint, not a description: the
+   portrait was desaturated by default and only regained its colour on hover, which no phone can
+   do, so on a phone he was permanently in monochrome. */
+.portrait{transition:transform .5s var(--ease)}
+.founder:hover .portrait{transform:translateY(-3px)}
+
+/* the portrait arrives, the letter follows. Gated on arrival. Transform only. */
+@keyframes whoIn{from{transform:translateY(18px)}to{transform:none}}
+.js .reveal.in .who-in{animation:whoIn .5s var(--ease) both}
+.js .reveal.in .note.who-in{animation-delay:.1s}
+@media(prefers-reduced-motion:reduce){.js .who-in{animation:none}.portrait{transition:none}}
+
+/* The filter earns the least motion on the page on purpose: this section has to read as
+   candid, and movement undercuts that. A border settle on arrival, nothing more. */
+@keyframes fitIn{from{transform:translateY(10px)}to{transform:none}}
+.js .reveal.in .fit-in{animation:fitIn .4s var(--ease) both}
+.js .reveal.in .fit.no.fit-in{animation-delay:.06s}
+.fit{transition:border-color .25s ease}
+.fit.yes:hover{border-color:var(--accent)}
+@media(prefers-reduced-motion:reduce){.js .fit-in{animation:none}}
+
+/* ---------- faq ---------- */
+.faq{margin-top:clamp(28px,3.5vw,40px);max-width:800px}
+/* Not cards. Five bordered boxes stacked is the lazy affordance for a list of questions, and this
+   section is already the third on the page reaching for it. Rules do the same job and disappear. */
+.faq details{border:0;border-top:1px solid var(--line);border-radius:0;margin-bottom:0;
+  background:transparent}
+.faq details:last-of-type{border-bottom:1px solid var(--line)}
+.faq summary{padding:19px 2px;font-weight:600;font-size:16.5px;cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--text-high)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--accent);font-size:19px;flex:none}
+.faq details[open] summary::after{content:"-"}
+.faq p{padding:0 20px 18px;color:var(--text-mid);font-size:15px;line-height:1.6;max-width:66ch}
+
+/* answers open and shut, and the closing ask settles in. Transform only. */
+.faq details{transition:border-color .2s ease}
+.faq details[open]{border-color:var(--accent-line)}
+.faq summary::after{transition:transform .2s var(--ease)}
+.faq details[open] summary::after{transform:rotate(180deg)}
+@keyframes faqIn{from{transform:translateY(12px)}to{transform:none}}
+.js .reveal.in .faq-in{animation:faqIn .45s var(--ease) both}
+@keyframes closeIn{from{transform:translateY(14px)}to{transform:none}}
+.js .reveal.in .close-in{animation:closeIn .5s var(--ease) both}
+@media(prefers-reduced-motion:reduce){.js .faq-in,.js .close-in{animation:none}}
+
+/* ---------- close ---------- */
+.close-cta{text-align:center}
+.close-cta h2{max-width:18ch;margin:0 auto 14px}
+.close-cta .lede{margin:0 auto clamp(26px,3.4vw,34px)}
+.close-form{max-width:430px;margin:0 auto;text-align:left}
+.legal{border-top:1px solid var(--line);padding:26px var(--gutter) 40px;text-align:center}
+.legal .row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.legal a,.legal span.c{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--text-low)}
+.legal a:hover{color:var(--text-mid)}
+.legal p{font-size:11.5px;color:var(--text-low);line-height:1.6;max-width:70ch;margin:0 auto}
+
+/* ---------- reveal ----------
+   Additive ONLY, and gated on the .js class set inline in the head. With JS off, with a
+   stylesheet that loads before the script, or if the observer never fires, every section
+   stays visible. The previous build defaulted to opacity:0 and rendered nine blank
+   sections in a full page capture, which is what a slow client and any crawler would see. */
+.js .reveal{transform:translateY(14px)}
+.js .reveal.in{transform:none;transition:transform .6s var(--ease)}
+.js .hero .reveal{transform:none}
+
+/* Line mask headline reveal. Rebuilt in vanilla from the 21st.dev "Horizontal Feature Reveal"
+   pattern (id 26062), whose masking is GSAP SplitText mask:"lines": an overflow:hidden wrapper per
+   line, the line translated 100% down and animated back to 0, stagger .08s, duration .7s, ease
+   power2.out. power2.out is 1-(1-t)^3, which is cubic-bezier(.33,1,.68,1) natively, so none of
+   this needs GSAP.
+   The hidden state is scoped to .lines-split, a class only JavaScript ever adds. With no JS, a
+   failed script or a crawler, the headline is simply visible text. That component ships its
+   elements at opacity 0 and switches them on from script, which is the exact failure that
+   rendered nine blank sections here earlier today. */
+/* DESCENDER ROOM. The mask is overflow:hidden and the headline ran at line-height 1.0, so the box
+   ended exactly at the baseline and every descender was sliced: the y in "everything", the g in
+   "nobody". That is the cut Sandy pointed at. Pad the mask below the baseline and pull the same
+   amount back off the margin, so the clip edge sits under the descenders instead of through them. */
+.lines-split .ln{display:block;overflow:hidden;padding-bottom:.18em;margin-bottom:-.18em}
+.lines-split .ln-i{display:block;transform:translateY(100%);
+  transition:transform .7s cubic-bezier(.33,1,.68,1);transition-delay:calc(var(--i) * .08s)}
+.reveal.in .lines-split .ln-i,
+.hero .lines-split .ln-i{transform:none}
+@media(prefers-reduced-motion:reduce){
+  .lines-split .ln-i{transform:none;transition:none}
+}
+
+/* Hero motion. Transform only, never opacity, so the hero cannot render blank. */
+@keyframes heroIn{from{transform:translateY(16px)}to{transform:none}}
+.hero-in{animation:heroIn .55s var(--ease) both}
+.card-reg.hero-in{animation-delay:.1s}
+@media(prefers-reduced-motion:reduce){.hero-in{animation:none}}
+
+/* =========================================================================
+   MOTION GRAPHIC PRIMITIVES
+   Round 1 shipped thirteen keyframes that were all the same idea: translate a
+   few pixels, settle. Measured: 24 transform declarations, 2 opacity, 1 width,
+   zero clip-path, zero stroke-dash. Sandy counted that as no motion at all and
+   he was right, because nothing on the page was HAPPENING, things were only
+   arriving. The accepted standard is zippyscale.com, whose keyframes are named
+   for what they do: draw, wipe, fill-in, grow, tick, land. Those are copied
+   here as the shared vocabulary every section below draws from.
+   Two rules every primitive obeys:
+     1. The keyframe ENDS at the element's natural rendered state, so a
+        primitive that never runs leaves the page correct rather than blank.
+        The nine blank sections earlier today came from breaking this.
+     2. Below the fold it is gated on .reveal.in, never on a timer, so the
+        motion plays when the reader arrives instead of finishing 8,000px
+        above them.
+   ========================================================================= */
+@keyframes draw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0)}}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0 round 14px)}to{clip-path:inset(0 0 0 0 round 14px)}}
+@keyframes fill-in{from{clip-path:inset(0 0 100% 0 round 14px)}to{clip-path:inset(0 0 0 0 round 14px)}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes tick{from{stroke-dashoffset:var(--dash,200)}to{stroke-dashoffset:0}}
+@keyframes land{from{transform:scale(.74)}to{transform:none}}
+
+/* Gated utilities. `.js .reveal.in` means: script is alive AND this section has
+   been reached. Without the gate these finish before the reader sees them. */
+.js .reveal.in .mg-draw{animation:draw .85s var(--ease) both}
+.js .reveal.in .mg-wipe{animation:wipe .8s var(--ease) both}
+.js .reveal.in .mg-fill{animation:fill-in .8s var(--ease) both}
+.js .reveal.in .mg-grow{animation:grow .8s var(--ease) both;transform-origin:left center}
+.js .reveal.in .mg-rise{animation:rise .75s var(--ease) both;transform-origin:bottom center}
+.js .reveal.in .mg-tick{animation:tick 1.1s var(--ease) both}
+.js .reveal.in .mg-land{animation:land .6s var(--ease) both}
+/* Stagger hook: set --i on the child and every primitive above waits its turn. */
+.js .reveal.in [class*="mg-"]{animation-delay:calc(var(--i,0) * .09s)}
+/* An unreached section must sit at its natural state, not a hidden one. */
+.mg-tick{stroke-dashoffset:0}
+@media(prefers-reduced-motion:reduce){
+  .js .reveal.in [class*="mg-"]{animation:none}
+}
+
+/* Split header. The headline holds the left, its supporting line sits to the right on the same
+   baseline, and the content below spans the full width. Two more sections that stop being a
+   narrow left column against an empty right third. */
+/* The headline column carries more width than the supporting line. At 56px a 700 weight monospace
+   fits roughly 17 characters per line, so an even split forced every headline to its maximum wrap
+   and left orphans like "it." alone on a line. */
+section[data-motion="fit-in"] .wrap{display:grid;grid-template-columns:1.3fr .7fr;
+  column-gap:clamp(32px,5vw,72px);align-items:end}
+section[data-motion="shot-in"] .wrap{display:grid;grid-template-columns:1.3fr .7fr;
+  column-gap:clamp(32px,5vw,72px);align-items:start}
+section[data-motion="shot-in"] .eyebrow,
+section[data-motion="fit-in"] .eyebrow{grid-column:1;grid-row:1}
+section[data-motion="shot-in"] h2,
+section[data-motion="fit-in"] h2{grid-column:1;grid-row:2;margin:0}
+section[data-motion="shot-in"] .lede,
+section[data-motion="fit-in"] .lede{grid-column:2;grid-row:2;margin:0 0 5px}
+section[data-motion="shot-in"] .proof-note,
+section[data-motion="fit-in"] .two-col{grid-column:1 / -1}
+/* The wall breaks the gutter. A proof wall that stops at the text margin reads as a widget. */
+section[data-motion="shot-in"] .wall{grid-column:1 / -1;width:100vw;margin-inline:calc(50% - 50vw)}
+
+/* The last section still running as a narrow left column. The headline holds the left, the buyer's
+   own sentence takes the right at full size, and the arithmetic spans underneath. Two lede
+   paragraphs here, which is why this one needed its own treatment rather than the split header. */
+section[data-motion="cost-in"] .wrap{display:grid;grid-template-columns:1.18fr .82fr;
+  column-gap:clamp(32px,5vw,72px);align-items:start}
+section[data-motion="cost-in"] .eyebrow{grid-column:1;grid-row:1}
+section[data-motion="cost-in"] h2{grid-column:1;grid-row:2;margin:0}
+section[data-motion="cost-in"] .q-big{grid-column:2;grid-row:1 / span 2;margin:0;max-width:none}
+section[data-motion="cost-in"] .src-big{grid-column:2;grid-row:3;margin:10px 0 0}
+section[data-motion="cost-in"] .lede:nth-of-type(1){grid-column:1;grid-row:3;margin:20px 0 0}
+section[data-motion="cost-in"] .costs,
+section[data-motion="cost-in"] .year,
+section[data-motion="cost-in"] .lede:nth-of-type(2){grid-column:1 / -1}
+
+/* The twelve month strip. Filled cells are months a referral arrived, empty cells are the months
+   nothing did. The cells land one after another so the reader watches the year fill up and sees
+   the run of empty ones appear, which is the argument the paragraph above only states. */
+.year{margin:clamp(26px,3.2vw,38px) 0 0}
+.year .months{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(4px,.6vw,8px)}
+.year .m{height:clamp(30px,4.2vw,56px);border-radius:5px;border:1px solid var(--line);
+  background:transparent;display:block}
+.year .m.hit{background:var(--accent);border-color:var(--accent)}
+.year figcaption{font-size:13.5px;line-height:1.55;color:var(--text-low);
+  margin-top:13px;max-width:62ch}
+
+/* The questions carry the width here, the heading just labels them. */
+section[data-motion="faq-in"] .wrap{display:grid;grid-template-columns:minmax(300px,.92fr) 1.08fr;
+  column-gap:clamp(32px,5vw,72px);align-items:start}
+section[data-motion="faq-in"] .eyebrow{grid-column:1;grid-row:1}
+section[data-motion="faq-in"] h2{grid-column:1;grid-row:2;max-width:14ch}
+section[data-motion="faq-in"] .faq{grid-column:2;grid-row:1 / span 2;margin-top:0;max-width:none}
+
+/* Two anchors in the white wall. Without them the page is nine identical white screens end to
+   end. Paper is a locked brand token, used for letters and quoted voices, so this is the system's
+   own material rather than a new colour. The two sit next to each other on purpose: together they
+   read as one middle act between the argument above and the filter below. */
+section[data-motion="wk-in"],
+section[data-motion="who-in"]{background:var(--paper);border-top-color:var(--paper-edge)}
+section[data-motion="wk-in"] .wk{border-bottom-color:var(--paper-edge)}
+section[data-motion="wk-in"] .wk .track{background:var(--paper-edge)}
+section[data-motion="wk-in"] h2,
+section[data-motion="who-in"] h2,
+section[data-motion="wk-in"] .wk .body h3{color:var(--paper-ink)}
+/* No paper card on a paper ground. Nested surfaces of the same material read as a mistake. */
+section[data-motion="who-in"] .note{background:transparent;border:0;padding:0}
+
+@media(max-width:940px){
+  .hero .wrap{grid-template-columns:1fr;gap:26px}
+  section[data-motion="step-in"] .wrap{grid-template-columns:1fr;gap:24px}
+  .col-head{position:static}
+  .col-head h2{max-width:none}
+  /* Every split header collapses to a single column. Explicit desktop placements must be
+     released too, or a child forces an implicit second column and clips, which is the bug
+     that clipped the form at 375 once already. */
+  section[data-motion="shot-in"] .wrap,
+  section[data-motion="fit-in"] .wrap,
+  section[data-motion="faq-in"] .wrap{grid-template-columns:1fr;row-gap:0}
+  section[data-motion="shot-in"] .eyebrow,section[data-motion="fit-in"] .eyebrow,
+  section[data-motion="faq-in"] .eyebrow,
+  section[data-motion="shot-in"] h2,section[data-motion="fit-in"] h2,
+  section[data-motion="faq-in"] h2,
+  section[data-motion="shot-in"] .lede,section[data-motion="fit-in"] .lede,
+  section[data-motion="shot-in"] .shots,section[data-motion="shot-in"] .proof-note,
+  section[data-motion="fit-in"] .two-col,
+  section[data-motion="faq-in"] .faq{grid-column:auto;grid-row:auto}
+  section[data-motion="shot-in"] .lede,
+  section[data-motion="fit-in"] .lede{margin:16px 0 0}
+  section[data-motion="faq-in"] h2{max-width:none}
+  section[data-motion="faq-in"] .faq{margin-top:clamp(22px,3.5vw,32px)}
+  section[data-motion="cost-in"] .wrap{grid-template-columns:1fr}
+  section[data-motion="cost-in"] .eyebrow,
+  section[data-motion="cost-in"] h2,
+  section[data-motion="cost-in"] .q-big,
+  section[data-motion="cost-in"] .src-big,
+  section[data-motion="cost-in"] .lede:nth-of-type(1),
+  section[data-motion="cost-in"] .costs,
+  section[data-motion="cost-in"] .lede:nth-of-type(2){grid-column:auto;grid-row:auto}
+  section[data-motion="cost-in"] .q-big{margin:clamp(22px,3vw,30px) 0 10px}
+  .shots,.two-col,.icps,.costs{grid-template-columns:1fr}
+  /* Squares stay two up on a tablet: one up would make each piece absurdly large. */
+  .work{grid-template-columns:repeat(2,1fr)}
+  /* Stacked, a left hairline draws down the wrong edge. The separator becomes a top rule. */
+  .icp-card + .icp-card,
+  .fit + .fit{border-left:0;padding-left:0;
+    border-top:1px solid var(--line);padding-top:clamp(20px,3vw,30px)}
+  /* Release the desktop subgrid placement. Left in, each card still claimed a four row span
+     against a four row parent: the same shape as the bug that clipped the form at 375. */
+  .icps{grid-template-rows:none}
+  .icp-card{grid-row:auto;grid-template-rows:none}
+  .founder{grid-template-columns:1fr;gap:22px}
+  .founder .portrait{max-width:190px}
+}
+@media(max-width:620px){
+  .step{grid-template-columns:40px 1fr;gap:14px}
+}
+@media(max-width:560px){
+  .wk{grid-template-columns:52px 1fr;gap:14px}
+  /* A 10.8:1 strip across a 333px phone column renders 32px tall and the amount becomes
+     unreadable, which was true on every phone all evening because the proof check only ever ran
+     at 1440. Anchor left and crop: the amount sits in the first half of the sentence, so showing
+     that half at roughly 2.1x keeps the number legible and loses only the trailing name. */
+  /* This rule forced a 5:1 box onto strips that are 10.8:1 and covered the overflow away, which
+     silently cut the right half off EVERY amount: "CA$4,000.0", "CA$1,500.0". The legibility fix
+     was the truncation. The gate never saw it because it measured the box, which was 62px, not
+     whether the figure inside survived. The sources are now cropped to end just after the amount
+     at about 5.4:1, so no box is forced and nothing is covered away. */
+  .shot--wide img{object-fit:fill}
+  /* On a phone two squares side by side are 160px wide and the ad copy inside stops being
+     readable, which defeats the point of showing the work at all. */
+  .work{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal,.reveal.in{opacity:1;transform:none;transition:none}
+  .live-pill::before,.next-label::before{animation:none}
+  .weeks.in-view .wk .track i{animation:none;width:var(--w)}
+}
+
+/* ---------- the four buckets ---------- */
+/* Divided by TYPE OF OUTPUT, which is the division Sandy gave: design, content, automations,
+   performance. The previous version was divided by client and led with a product film, which made
+   the work read as somebody else's robotics company. */
+.buckets{display:grid;gap:clamp(34px,4.5vw,62px);margin-top:clamp(30px,4vw,44px)}
+.bucket{display:grid;grid-template-columns:minmax(220px,.62fr) 1.38fr;
+  column-gap:clamp(26px,4vw,60px);row-gap:14px;align-items:start;
+  padding-top:clamp(24px,3vw,34px);border-top:1px solid var(--line)}
+.bucket:first-child{border-top:0;padding-top:0}
+.b-n{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--text-low);
+  grid-column:1;grid-row:1}
+.b-head{grid-column:1;grid-row:2;display:flex;align-items:center;gap:14px}
+.b-head h3{font-family:var(--sans);font-weight:700;font-size:clamp(20px,2.2vw,26px);
+  letter-spacing:-.025em;color:var(--text-high)}
+.b-rule{flex:1;height:2px;background:var(--accent);transform-origin:left center;display:block}
+.bucket > p{grid-column:1;grid-row:3;font-size:15.5px;line-height:1.6;color:var(--text-mid);margin:0}
+.b-shot{grid-column:2;grid-row:1 / span 4;margin:0}
+.b-shot img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line)}
+.b-shot figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.05em;
+  color:var(--text-low);margin-top:10px}
+.b-diagram svg{width:100%;height:auto;display:block;border:1px solid var(--line);
+  border-radius:12px;background:var(--paper);padding:10px 0}
+.d-link{fill:none;stroke:var(--text-low);stroke-width:2;stroke-linecap:round;
+  stroke-dasharray:var(--dash,120)}
+.d-back{stroke:var(--accent);stroke-dasharray:var(--dash,420)}
+.d-node rect{fill:none;stroke:var(--paper-ink);stroke-width:1.6}
+.d-t{font-family:var(--mono);font-size:11px;fill:var(--paper-ink);text-anchor:middle}
+.d-t2{fill:var(--accent);font-size:10.5px}
+.figs{grid-column:2;grid-row:1 / span 3;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(16px,2.4vw,30px);margin:0}
+.fig-n{font-family:var(--sans);font-weight:700;font-size:clamp(30px,4.6vw,48px);
+  letter-spacing:-.035em;color:var(--text-high);display:block;line-height:1}
+.fig-l{font-size:13px;line-height:1.5;color:var(--text-mid);display:block;margin-top:8px}
+.bucket .work-note{grid-column:2;grid-row:4;font-size:13px;line-height:1.55;
+  color:var(--text-low);margin:14px 0 0}
+@media(max-width:860px){
+  .bucket{grid-template-columns:1fr}
+  .b-shot,.figs,.bucket .work-note{grid-column:1;grid-row:auto}
+  .figs{grid-template-columns:1fr 1fr;margin-top:6px}
+}
+
+
+
+/* The agenda spine. The four steps used to slide in from the left and nothing connected them, so
+   the ninety minutes read as a list rather than as a sequence. The spine draws top to bottom as
+   the steps arrive, which is the shape of the session made visible. */
+.steps::before{content:"";position:absolute;left:18px;top:14px;bottom:14px;width:2px;
+  background:var(--accent-line);transform-origin:top center}
+.js .reveal.in .steps::before{animation:rise 1.4s var(--ease) both}
+@media(prefers-reduced-motion:reduce){.js .reveal.in .steps::before{animation:none}}
+
+/* FAQ marks. A chevron per question that draws itself on arrival, so the section carries something
+   other than paragraphs and the reader can see the rows are openable. */
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.fq-mark{width:16px;height:16px;flex:none;overflow:visible;transition:transform .25s var(--ease)}
+.fq-mark path{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;
+  stroke-linejoin:round;stroke-dasharray:var(--dash,26)}
+.faq details[open] .fq-mark{transform:rotate(180deg)}
+
+/* The closing rule. The last section was type and a form with nothing marking the turn into the
+   ask, so it read as another paragraph block rather than as the end of the page. */
+.close-rule{display:block;height:2px;background:var(--accent);width:100%;max-width:280px;
+  transform-origin:left center;margin:18px 0 4px}
+/* The filter ticks and crosses draw themselves rather than appearing whole. */
+.fit li .mg-tick{stroke-dasharray:var(--dash,34)}
+</style>
 </head>
 <body>
-<p>Redirecting to <a href="/">the free live build on Sunday 6 September</a>.</p>
+
+<header class="bar">
+  <div class="brand"><img class="mark" src="../assets/aiml-wordmark-v3.svg" alt="AI Marketing Labs" /></div>
+  <span class="live-pill">Free live session</span>
+</header>
+
+<main>
+
+<!-- 1. HERO. Six slots, in order: qualifier, headline, subhead, proof, one action, risk. -->
+<section class="hero" data-role="hero" data-motion="hero-in"
+         data-motion-graphic="wordmark draws itself on and the qualifier rule grows out"
+         data-job="Let each of the three buyer types recognise themselves in five seconds, then put the next session and one action in reach">
+  <div class="wrap">
+    <div class="hero-in">
+      <p class="callout" data-slot="qualifier">For marketing agency owners, high ticket coaches and service business owners</p>
+      <!-- Teal is ONE accent word per surface, never a field (locked brand, 12 Sep). Three of five
+           headline lines were teal, which reads as a two-colour headline and spends the accent
+           before the button needs it. The pivot of the sentence is the month nobody sends, so
+           "nobody" carries it and the rest is ink. -->
+      <h1 data-slot="headline">Word of mouth is everything. Until the month <span class="a">nobody</span> sends anyone.</h1>
+      <p class="hero-sub" data-slot="subhead">A free 90 minute session. I build the thing that brings clients in without a referral, <b>live, on screen</b>, and you copy it.</p>
+      <div class="by" data-slot="proof">
+        <img src="../assets/photos/sandy-headshot-hd.jpg" alt="Sandy Kadyan" />
+        <span class="who"><b>Sandy Kadyan</b><span>Running a marketing agency since 2017. 14 clients, 7 industries, Vancouver and India.</span></span>
+      </div>
+    </div>
+
+    <aside class="card-reg hero-in">
+      <p class="next-label">Next session</p>
+      <p class="next-date" id="nextDate">Sunday 20 September</p>
+      <p class="next-time" id="nextTime"><b>11:00am</b> to 12:30pm IST</p>
+      <div class="count">
+        <div class="unit"><span class="n" id="cd">00</span><span class="l">days</span></div>
+        <div class="unit"><span class="n" id="ch">00</span><span class="l">hrs</span></div>
+        <div class="unit"><span class="n" id="cm">00</span><span class="l">min</span></div>
+      </div>
+      <form id="regTop" data-slot="action" novalidate>
+        <div class="field" data-f="name">
+          <label for="n1">Your name</label>
+          <input id="n1" type="text" placeholder="First name" autocomplete="given-name" />
+          <span class="msg">Add your name.</span>
+        </div>
+        <div class="field" data-f="wa">
+          <label for="w1">WhatsApp number</label>
+          <input id="w1" type="tel" inputmode="tel" placeholder="+91 98765 43210" autocomplete="tel" />
+          <span class="msg">Add a valid number, the link goes there.</span>
+        </div>
+        <div class="field" data-f="email">
+          <label for="e1">Email</label>
+          <input id="e1" type="email" placeholder="you@business.com" autocomplete="email" />
+          <span class="msg">Add a valid email.</span>
+        </div>
+        <button class="btn btn-accent btn-block" type="submit">
+          Save my seat
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+      <p class="fine" data-slot="risk">Free. 90 minutes. No card, and nothing to buy on this page.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- 2. THE THREE BUYERS. Each gets their own sentence, their own quote, their own nouns. -->
+<section data-motion="icp-in"
+         data-motion-graphic="three revenue lines draw across and fall at the month the referrals stop"
+         data-job="Let an agency owner, a coach and a service owner each find their own situation in their own words, so none of the three is reading somebody else's problem">
+  <div class="wrap reveal">
+    <!-- The hero already said who this is for. Asking "which one are you" and then counting
+         "three businesses" says it twice more, and labelling every card with its buyer type says
+         it a fourth time. That roll call is what he was pointing at. The quote and its source
+         already identify the speaker, so the labels are gone and the section argues instead. -->
+    <span class="eyebrow">What the quiet month looks like</span>
+    <h2>Nothing broke. The referrals just stopped.</h2>
+    <p class="lede">Each line below is a real revenue month. Every quote under it was posted publicly this year, and none of it is written by us.</p>
+
+    <div class="icps">
+
+      <article class="icp-card icp-in" data-icp="agency">
+        <svg class="spark" viewBox="0 0 220 64" aria-hidden="true" focusable="false">
+          <path class="s-line mg-tick" style="--dash:240" d="M2,44 L28,38 L54,45 L80,34 L106,40 L132,33 L150,37" />
+          <path class="s-drop mg-tick" style="--dash:160;--i:6" d="M150,37 L172,49 L194,58 L216,60" />
+        </svg>
+        <h3>The referral pipeline pays the bills, until the month it does not.</h3>
+        <p class="icp-pain">A retainer ends, the churn lands in the same week, and the pipeline is whoever your last client happened to mention you to.</p>
+        <blockquote class="q" data-q="Q50">We're stuck in the similar reference pipeline and inconsistent monthly revenue.</blockquote>
+        <span class="src">Agency owner, r/IndiaBusiness</span>
+      </article>
+      <!-- /icp -->
+
+      <article class="icp-card icp-in" data-icp="coach">
+        <svg class="spark" viewBox="0 0 220 64" aria-hidden="true" focusable="false">
+          <path class="s-line mg-tick" style="--dash:240;--i:1" d="M2,38 L28,44 L54,36 L80,42 L106,34 L132,41 L150,35" />
+          <path class="s-drop mg-tick" style="--dash:160;--i:7" d="M150,35 L172,48 L194,57 L216,61" />
+        </svg>
+        <h3>You need booked calls this month, not more followers.</h3>
+        <p class="icp-pain">The cohort fills from DMs and a webinar that worked once. No shows eat the week, and enrolment depends on how loud you were that month.</p>
+        <blockquote class="q" data-q="Q134">I am a nutritionist, and yes, getting good clients is a major issue.</blockquote>
+        <span class="src">Coach, nutrition practice</span>
+      </article>
+      <!-- /icp -->
+
+      <article class="icp-card icp-in" data-icp="service">
+        <svg class="spark" viewBox="0 0 220 64" aria-hidden="true" focusable="false">
+          <path class="s-line mg-tick" style="--dash:240;--i:2" d="M2,48 L28,30 L54,36 L80,28 L106,42 L132,34 L150,40" />
+          <path class="s-drop mg-tick" style="--dash:160;--i:8" d="M150,40 L172,52 L194,59 L216,61" />
+        </svg>
+        <h3>One season carries the year. The other months just sit there.</h3>
+        <p class="icp-pain">Footfall is unpredictable, enquiries arrive after hours and go cold by morning, and rebooking never happens on its own, so capacity sits idle.</p>
+        <blockquote class="q" data-q="Q9">profits only show up during bridal season. Every other month is either barely breaking even or a small loss.</blockquote>
+        <span class="src">Salon owner, r/IndiaBusiness</span>
+      </article>
+      <!-- /icp -->
+
+    </div>
+  </div>
+</section>
+
+<!-- 3. THE COST -->
+<section data-motion="cost-in"
+         data-motion-graphic="twelve month strip fills cell by cell and the quiet run appears"
+         data-job="Turn the quiet month into something the owner can feel the price of, so leaving it alone stops being free">
+  <div class="wrap reveal">
+    <span class="eyebrow">What it costs</span>
+    <h2>Referrals are free. Waiting for them is not.</h2>
+
+    <blockquote class="q-big cost-in" data-q="Q129">In India, word of mouth is everything. You do good work for one person, they send three more.</blockquote>
+    <span class="src-big">Agency owner, r/IndianEntrepreneur</span>
+
+    <p class="lede">He is right, and that is the problem. Word of mouth works until the month it goes quiet, and it goes quiet in the month you were busiest delivering. You cannot forecast it, you cannot turn it up when you need the cash, and nobody tells you it stopped. You just notice.</p>
+
+    <!-- The motion graphic for this section. It invents no number: it draws the pattern of the
+         SOURCED quote directly above it, where one happy client sends three more and then the year
+         goes quiet. Twelve cells fill left to right and the gaps appear as they go, which is the
+         cost being shown rather than asserted. A rupee figure here would be fabricated, and the
+         rule is that every figure traces to a file or an ad account. -->
+    <figure class="year">
+      <div class="months" aria-hidden="true">
+        <span class="m mg-land" style="--i:0"></span>
+        <span class="m hit mg-land" style="--i:1"></span>
+        <span class="m hit mg-land" style="--i:2"></span>
+        <span class="m hit mg-land" style="--i:3"></span>
+        <span class="m mg-land" style="--i:4"></span>
+        <span class="m mg-land" style="--i:5"></span>
+        <span class="m mg-land" style="--i:6"></span>
+        <span class="m mg-land" style="--i:7"></span>
+        <span class="m hit mg-land" style="--i:8"></span>
+        <span class="m mg-land" style="--i:9"></span>
+        <span class="m mg-land" style="--i:10"></span>
+        <span class="m mg-land" style="--i:11"></span>
+      </div>
+      <figcaption>Twelve months, the way the owner above describes it. One client sends three, they land together, and then the year is quiet. Four months paid for twelve.</figcaption>
+    </figure>
+
+    <!-- The buyer types were labelled here for a third time, after the hero qualifier and the card
+         tags in the section above. Three statements of the same problem do not need naming; the
+         reader has already placed themselves. -->
+    <div class="costs">
+      <div class="cost cost-in"><p>A retainer ends and there is nothing behind it, so the month is spent chasing instead of billing.</p></div>
+      <div class="cost cost-in"><p>The cohort opens with seats empty and closes the same way, because the only push was posting more that week.</p></div>
+      <div class="cost cost-in"><p>Two flat months between seasons, staff paid, chairs empty, enquiries sitting unanswered overnight.</p></div>
+    </div>
+
+    <p class="lede">The fix is unglamorous. Two or three channels that go out every day whether you feel like it or not, and something that answers people the moment they arrive. That is what gets built on the session.</p>
+  </div>
+</section>
+
+<!-- 4. AGENDA -->
+<section data-motion="step-in"
+         data-motion-graphic="a spine draws down the list as each step arrives"
+         data-job="Remove the risk of registering by saying exactly what happens in the ninety minutes, in the order it happens">
+  <div class="wrap reveal">
+    <div class="col-head">
+      <span class="eyebrow">The 90 minutes</span>
+      <h2>What actually happens on the call.</h2>
+      <p class="lede">No slides for most of it. You watch the thing get built and you keep what I write.</p>
+    </div>
+
+    <ol class="steps">
+      <li class="step step-in">
+        <span class="step-n">1</span>
+        <div>
+          <h3>Where your clients actually came from</h3>
+          <p>Every client you closed this year goes on the screen, with what started it. Most owners find one source doing all the work and three doing nothing. Agency owners usually find it was one person who kept referring.</p>
+        </div>
+      </li>
+      <li class="step step-in">
+        <span class="step-n">2</span>
+        <div>
+          <h3>The one channel to start this week</h3>
+          <p>Not all of them at once. The single one that fills a calendar fastest for your kind of business, and the exact first message, post or ad to put out on day one.</p>
+        </div>
+      </li>
+      <li class="step step-in">
+        <span class="step-n">3</span>
+        <div>
+          <h3>A live build, start to finish</h3>
+          <p>I open Claude Code and build that channel in front of you. The outreach that keeps following up, the enquiry that gets answered at midnight, the post that goes out without you. Including the parts that go wrong.</p>
+        </div>
+      </li>
+      <li class="step step-in">
+        <span class="step-n">4</span>
+        <div>
+          <h3>The six weeks, and how to join</h3>
+          <p>What gets built week by week, and what it costs, at the end. Stay if you want it. Leave after the build if you do not, and you still keep what you saw.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 5. PROOF. A WALL, not a grid. The emails are real, unedited and still carry the agency
+     branding they arrived with, because the agency is Sandy's. Two rows moving in opposite
+     directions: the motion is the argument, that there is more of this than fits on a screen. -->
+<section data-motion="shot-in"
+         data-motion-graphic="two rows of real payment emails scroll in opposite directions, continuously"
+         data-job="Back the claim with money a stranger can check, from named businesses in several trades">
+  <div class="wrap reveal">
+    <span class="eyebrow">Proof</span>
+    <h2>Real payments. Real clients.</h2>
+    <p class="lede">Unedited payment notifications, from the inbox that received them. Hover to stop the wall and read any one of them.</p>
+
+    <div class="wall" aria-label="Payment notifications from clients">
+      <div class="wall-row">
+        <figure class="pay">
+          <img src="../assets/proof/deck-1.png" width="937" height="510" loading="lazy" alt="Wise notification: you received 10,000 CAD from Medico Construction Design LTD" />
+          <figcaption class="cap"><span class="who">Medico Construction</span><span class="amt">10,000 CAD</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-2.png" width="937" height="510" loading="lazy" alt="PayPal notification: you received a CA$5,000.00 payment for invoice 0316, paid by Dal Riarh" />
+          <figcaption class="cap"><span class="who">Riarh Group</span><span class="amt">CA$5,000.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-4.png" width="937" height="510" loading="lazy" alt="Payment received: CA$4,000.00 against Scale Your Results, invoice issued for Sami Ahmad" />
+          <figcaption class="cap"><span class="who">Scale Your Results</span><span class="amt">CA$4,000.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-5.png" width="937" height="510" loading="lazy" alt="Payment received: CA$2,500.00 against Prepare Medical January invoice, issued for Navroop Sehmi" />
+          <figcaption class="cap"><span class="who">Prepare Medical</span><span class="amt">CA$2,500.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-3.png" width="937" height="510" loading="lazy" alt="Payment received: CA$2,000.00 against Cody Sturgess, Realtor Toronto" />
+          <figcaption class="cap"><span class="who">Cody Sturgess</span><span class="amt">CA$2,000.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-6.png" width="937" height="510" loading="lazy" alt="Payment received: CA$1,500.00 against Best Home Kitchens social media, issued for Naina" />
+          <figcaption class="cap"><span class="who">Best Home Kitchens</span><span class="amt">CA$1,500.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-7.png" width="937" height="510" loading="lazy" alt="Wise notification: you received 300 CAD from Amarpreet Singh Nagra" />
+          <figcaption class="cap"><span class="who">Amarpreet Singh Nagra</span><span class="amt">300 CAD</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-1.png" width="937" height="510" loading="lazy" alt="Wise notification: you received 10,000 CAD from Medico Construction Design LTD" />
+          <figcaption class="cap"><span class="who">Medico Construction</span><span class="amt">10,000 CAD</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-2.png" width="937" height="510" loading="lazy" alt="PayPal notification: you received a CA$5,000.00 payment for invoice 0316, paid by Dal Riarh" />
+          <figcaption class="cap"><span class="who">Riarh Group</span><span class="amt">CA$5,000.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-4.png" width="937" height="510" loading="lazy" alt="Payment received: CA$4,000.00 against Scale Your Results, invoice issued for Sami Ahmad" />
+          <figcaption class="cap"><span class="who">Scale Your Results</span><span class="amt">CA$4,000.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-5.png" width="937" height="510" loading="lazy" alt="Payment received: CA$2,500.00 against Prepare Medical January invoice, issued for Navroop Sehmi" />
+          <figcaption class="cap"><span class="who">Prepare Medical</span><span class="amt">CA$2,500.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-3.png" width="937" height="510" loading="lazy" alt="Payment received: CA$2,000.00 against Cody Sturgess, Realtor Toronto" />
+          <figcaption class="cap"><span class="who">Cody Sturgess</span><span class="amt">CA$2,000.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-6.png" width="937" height="510" loading="lazy" alt="Payment received: CA$1,500.00 against Best Home Kitchens social media, issued for Naina" />
+          <figcaption class="cap"><span class="who">Best Home Kitchens</span><span class="amt">CA$1,500.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-7.png" width="937" height="510" loading="lazy" alt="Wise notification: you received 300 CAD from Amarpreet Singh Nagra" />
+          <figcaption class="cap"><span class="who">Amarpreet Singh Nagra</span><span class="amt">300 CAD</span></figcaption>
+        </figure>
+      </div>
+      <div class="wall-row rev">
+        <figure class="pay">
+          <img src="../assets/proof/deck-7.png" width="937" height="510" loading="lazy" alt="Wise notification: you received 300 CAD from Amarpreet Singh Nagra" />
+          <figcaption class="cap"><span class="who">Amarpreet Singh Nagra</span><span class="amt">300 CAD</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-6.png" width="937" height="510" loading="lazy" alt="Payment received: CA$1,500.00 against Best Home Kitchens social media, issued for Naina" />
+          <figcaption class="cap"><span class="who">Best Home Kitchens</span><span class="amt">CA$1,500.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-3.png" width="937" height="510" loading="lazy" alt="Payment received: CA$2,000.00 against Cody Sturgess, Realtor Toronto" />
+          <figcaption class="cap"><span class="who">Cody Sturgess</span><span class="amt">CA$2,000.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-5.png" width="937" height="510" loading="lazy" alt="Payment received: CA$2,500.00 against Prepare Medical January invoice, issued for Navroop Sehmi" />
+          <figcaption class="cap"><span class="who">Prepare Medical</span><span class="amt">CA$2,500.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-4.png" width="937" height="510" loading="lazy" alt="Payment received: CA$4,000.00 against Scale Your Results, invoice issued for Sami Ahmad" />
+          <figcaption class="cap"><span class="who">Scale Your Results</span><span class="amt">CA$4,000.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-2.png" width="937" height="510" loading="lazy" alt="PayPal notification: you received a CA$5,000.00 payment for invoice 0316, paid by Dal Riarh" />
+          <figcaption class="cap"><span class="who">Riarh Group</span><span class="amt">CA$5,000.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-1.png" width="937" height="510" loading="lazy" alt="Wise notification: you received 10,000 CAD from Medico Construction Design LTD" />
+          <figcaption class="cap"><span class="who">Medico Construction</span><span class="amt">10,000 CAD</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-7.png" width="937" height="510" loading="lazy" alt="Wise notification: you received 300 CAD from Amarpreet Singh Nagra" />
+          <figcaption class="cap"><span class="who">Amarpreet Singh Nagra</span><span class="amt">300 CAD</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-6.png" width="937" height="510" loading="lazy" alt="Payment received: CA$1,500.00 against Best Home Kitchens social media, issued for Naina" />
+          <figcaption class="cap"><span class="who">Best Home Kitchens</span><span class="amt">CA$1,500.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-3.png" width="937" height="510" loading="lazy" alt="Payment received: CA$2,000.00 against Cody Sturgess, Realtor Toronto" />
+          <figcaption class="cap"><span class="who">Cody Sturgess</span><span class="amt">CA$2,000.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-5.png" width="937" height="510" loading="lazy" alt="Payment received: CA$2,500.00 against Prepare Medical January invoice, issued for Navroop Sehmi" />
+          <figcaption class="cap"><span class="who">Prepare Medical</span><span class="amt">CA$2,500.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-4.png" width="937" height="510" loading="lazy" alt="Payment received: CA$4,000.00 against Scale Your Results, invoice issued for Sami Ahmad" />
+          <figcaption class="cap"><span class="who">Scale Your Results</span><span class="amt">CA$4,000.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-2.png" width="937" height="510" loading="lazy" alt="PayPal notification: you received a CA$5,000.00 payment for invoice 0316, paid by Dal Riarh" />
+          <figcaption class="cap"><span class="who">Riarh Group</span><span class="amt">CA$5,000.00</span></figcaption>
+        </figure>
+        <figure class="pay">
+          <img src="../assets/proof/deck-1.png" width="937" height="510" loading="lazy" alt="Wise notification: you received 10,000 CAD from Medico Construction Design LTD" />
+          <figcaption class="cap"><span class="who">Medico Construction</span><span class="amt">10,000 CAD</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p class="proof-note">Fourteen clients across seven industries and two countries since 2017. These are the ones where the payment email itself can be shown.</p>
+  </div>
+</section>
+
+<!-- 5b. THE WORK, divided by TYPE OF CONTENT PRODUCED, which is how Sandy divides it: design,
+     content, automations, performance. Not by client. The launch film and the six ad creatives that
+     used to sit here are gone: he never ran those creatives, and the product footage made the work
+     read as a robotics company rather than a marketing one. -->
+<section data-motion="work-in"
+         data-motion-graphic="bucket panels wipe open and the performance figures count up from zero"
+         data-job="Show the four kinds of output this produces, by type of work rather than by client, so a reader can judge the standard with their own eyes before taking a seat">
+  <div class="wrap reveal">
+    <span class="eyebrow">The work</span>
+    <h2>Four kinds of output. One system.</h2>
+    <p class="lede">Split by what actually gets produced, not by who paid for it. Everything here was built the same way I build on the session.</p>
+
+    <div class="buckets">
+
+      <article class="bucket work-in" data-bucket="design">
+        <span class="b-n">01</span>
+        <div class="b-head"><h3>Design</h3><span class="b-rule mg-grow"></span></div>
+        <p>A commercial construction firm in British Columbia. The whole site rebuilt end to end and put live on their own domain. Not a template, not a page builder, and not a theme with the colours changed.</p>
+        <figure class="b-shot mg-wipe">
+          <img src="../assets/work/design-riarh.jpg" width="1600" height="1000" loading="lazy"
+               alt="Riarh Group home page: dark editorial layout with a serif headline reading Your commercial vision, built on time, built right, over a photograph of a finished commercial interior" />
+          <figcaption>riarhgroup.com, live since June</figcaption>
+        </figure>
+      </article>
+
+      <article class="bucket work-in" data-bucket="content">
+        <span class="b-n">02</span>
+        <div class="b-head"><h3>Content</h3><span class="b-rule mg-grow" style="--i:1"></span></div>
+        <p>Our own funnel. The pages, the training, the emails and the follow up, all produced and published by the same stack. If it did not work, this page would not exist.</p>
+        <figure class="b-shot mg-wipe" style="--i:1">
+          <img src="../assets/work/content-funnel.jpg" width="1600" height="430" loading="lazy"
+               alt="The AI Marketing Lab training page: monospace headline and a registration card with name, WhatsApp and email fields" />
+          <figcaption>aimarketinglabs.in, this funnel</figcaption>
+        </figure>
+      </article>
+
+      <article class="bucket work-in" data-bucket="automations">
+        <span class="b-n">03</span>
+        <div class="b-head"><h3>Automations</h3><span class="b-rule mg-grow" style="--i:2"></span></div>
+        <p>The part nobody sees. Enquiries answered the moment they land, follow up that does not depend on anyone remembering, and a record that gets better at answering every time it runs.</p>
+        <figure class="b-shot b-diagram">
+          <svg viewBox="0 0 420 150" role="img" aria-label="A diagram: an enquiry arrives, is answered, is followed up, and the result feeds back into the system">
+            <path class="d-link mg-tick" style="--dash:120"          d="M74,42 L184,42" />
+            <path class="d-link mg-tick" style="--dash:120;--i:2"    d="M236,42 L346,42" />
+            <path class="d-link d-back mg-tick" style="--dash:420;--i:4" d="M346,66 L346,112 L74,112 L74,66" />
+            <g class="d-node mg-land"><rect x="14" y="24" width="60" height="36" rx="8"/></g>
+            <g class="d-node mg-land" style="--i:1"><rect x="180" y="24" width="60" height="36" rx="8"/></g>
+            <g class="d-node mg-land" style="--i:3"><rect x="346" y="24" width="60" height="36" rx="8"/></g>
+            <text class="d-t" x="44"  y="47">in</text>
+            <text class="d-t" x="210" y="47">answer</text>
+            <text class="d-t" x="376" y="47">book</text>
+            <text class="d-t d-t2" x="210" y="132">it learns what worked</text>
+          </svg>
+          <figcaption>Runs on its own, gets better on its own</figcaption>
+        </figure>
+      </article>
+
+      <article class="bucket work-in" data-bucket="performance">
+        <span class="b-n">04</span>
+        <div class="b-head"><h3>Performance</h3><span class="b-rule mg-grow" style="--i:3"></span></div>
+        <p>Paid campaigns run end to end: the creative, the targeting, the tracking and the list underneath it. The figures below are from live accounts, counted rather than estimated.</p>
+        <div class="figs">
+          <div class="fig">
+            <span class="fig-n" data-figure="2202" data-source="Meta ad account act_777763308169871, thirty day account report, 7 May 2026">0</span>
+            <span class="fig-l">clicks in thirty days, at forty two cents each</span>
+          </div>
+          <div class="fig">
+            <span class="fig-n" data-figure="103" data-source="Meta ad account act_777763308169871, thirty day account report, 7 May 2026">0</span>
+            <span class="fig-l">leads from one product launch, $8.90 each</span>
+          </div>
+          <div class="fig">
+            <span class="fig-n" data-figure="1116" data-source="MASTER_realtor_emails.tsv, 1,116 sourced rows, prospect pipeline">0</span>
+            <span class="fig-l">realtors sourced, verified and contacted</span>
+          </div>
+        </div>
+        <p class="work-note">Ten and a half percent click through on the launch account, against a platform norm well under two. The account and the date are recorded for every figure above.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<script>
+/* Count up, gated on the section arriving. Figures start at their FINAL value in the markup only
+   if script is dead; here they start at 0 and count, which is what "animate those figures" asked
+   for. No fabrication: every data-figure carries the account or file it was counted from. */
+(function(){
+  var figs=[].slice.call(document.querySelectorAll('.fig-n[data-figure]'));
+  if(!figs.length) return;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function fmt(n){return n.toLocaleString('en-IN');}
+  function countUp(el){
+    var target=parseInt(el.getAttribute('data-figure'),10)||0;
+    if(reduce){el.textContent=fmt(target);return;}
+    var t0=null,dur=1400;
+    function step(ts){
+      if(!t0) t0=ts;
+      var p=Math.min((ts-t0)/dur,1);
+      /* ease out cubic, same curve as the CSS primitives */
+      var e=1-Math.pow(1-p,3);
+      el.textContent=fmt(Math.round(target*e));
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if(!('IntersectionObserver' in window)){figs.forEach(function(el){countUp(el);});return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); io.unobserve(e.target); } });
+  },{threshold:.4});
+  figs.forEach(function(el){io.observe(el);});
+})();
+</script>
+
+<!-- 6. THE SIX WEEKS -->
+<section data-motion="wk-in"
+         data-motion-graphic="two phase bars draw to their share of the six weeks"
+         data-job="Show the shape of the paid six weeks in the two phases Sandy has actually decided, and say plainly that the week by week order is not settled, rather than printing a syllabus he never approved">
+  <div class="wrap reveal">
+    <span class="eyebrow">If you want it built with you</span>
+    <h2>Six sessions. You build your own.</h2>
+    <p class="lede">One session a week, as a group, and you build your own. Nothing is charged on this page. I explain it at the end of the call and you decide there.</p>
+
+    <div class="weeks" id="weeks">
+      <div class="wk wk-in"><span class="tag">Weeks<b>1-4</b></span><div class="body"><h3>People start arriving</h3><p>The first four weeks go on getting people to come to you, built and running while you watch, so somebody is arriving before the six weeks are even over.</p></div><span class="track"><i style="--w:66%"></i></span></div>
+      <div class="wk wk-in"><span class="tag">Weeks<b>5-6</b></span><div class="body"><h3>It keeps going without you</h3><p>The last two weeks go on the part that answers them, follows up and reports back, so the first four keep working on a day you do nothing at all.</p></div><span class="track"><i style="--w:100%"></i></span></div>
+    </div>
+
+    <p class="proof-note">The exact order inside those weeks gets set with the group once I know what each of you sells. I am not printing a syllabus here and then teaching something else.</p>
+  </div>
+</section>
+
+<!-- 7. WHO -->
+<section data-motion="who-in"
+         data-motion-graphic="the portrait wipes open and the letter follows"
+         data-job="Put a face and a checkable history behind the teaching, because a stranger will not take a build seriously from an unnamed voice">
+  <div class="wrap reveal">
+    <span class="eyebrow">Who is running it</span>
+    <h2>Sandy Kadyan.</h2>
+    <div class="founder">
+      <figure class="portrait-wrap who-in">
+        <img class="portrait mg-wipe" src="../assets/photos/sandy-headshot-hd.jpg" alt="Sandy Kadyan" loading="lazy" />
+        <figcaption>Vancouver, now running out of India</figcaption>
+      </figure>
+      <div class="note who-in">
+        <p>I have run a marketing agency since 2017, out of Vancouver. This year I moved the whole operation to India.</p>
+        <p>For most of those years the work was done by people. Over the last eight months I rebuilt more than half of it to run on Claude Code instead: the outreach, the content, the ad reporting, the follow up, the delivery. Same work, a fraction of the hours.</p>
+        <p>That rebuild is what I show you on the session. Not a tool list, not slides. The actual setup, on screen, doing the work, and you keep what I write in front of you.</p>
+        <p class="sig">Sandy</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FILTER -->
+<section data-motion="fit-in"
+         data-motion-graphic="each tick and cross draws itself stroke by stroke"
+         data-job="Send the wrong people away before they take a seat, so the room is owners who can act on what gets built">
+  <div class="wrap reveal">
+    <span class="eyebrow">Honest filter</span>
+    <h2>Who should not take a seat.</h2>
+    <p class="lede">Seats are limited by the room, not by a countdown. If you are in the right column, take one.</p>
+    <div class="two-col">
+      <div class="fit yes fit-in">
+        <h3>Come along</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none"><path class="mg-tick" style="--dash:34;--i:1" d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>You run an agency and the pipeline goes quiet every time you get busy delivering</li>
+          <li><svg viewBox="0 0 24 24" fill="none"><path class="mg-tick" style="--dash:34;--i:2" d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>You coach at a high ticket and you need booked calls this month, not more followers</li>
+          <li><svg viewBox="0 0 24 24" fill="none"><path class="mg-tick" style="--dash:34;--i:3" d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>You own a service business and enquiries go cold before anybody calls them back</li>
+        </ul>
+      </div>
+      <div class="fit no fit-in">
+        <h3>Skip this one</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none"><path class="mg-tick" style="--dash:34;--i:4" d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>Nobody has paid you yet. Build something that sells first, then come back</li>
+          <li><svg viewBox="0 0 24 24" fill="none"><path class="mg-tick" style="--dash:34;--i:5" d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>You want the recording and none of the work</li>
+          <li><svg viewBox="0 0 24 24" fill="none"><path class="mg-tick" style="--dash:34;--i:6" d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>You want somebody to run it all for you. That is a different conversation, and a different price</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. FAQ -->
+<section data-motion="faq-in"
+         data-motion-graphic="each question mark draws itself as the list arrives"
+         data-job="Kill the last five objections in the buyer's own words, so none of them survives to the registration form">
+  <div class="wrap reveal">
+    <span class="eyebrow">Before you register</span>
+    <h2>The questions that come up every time.</h2>
+    <div class="faq faq-in">
+      <details><summary>Is the session actually free?<svg class="fq-mark mg-tick" style="--dash:26;--i:1" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6.5l5 5 5-5" /></svg></summary><p>Yes. Ninety minutes, nothing to pay to attend, and no card asked for anywhere on this page.</p></details>
+      <details><summary>What does the six weeks cost?<svg class="fq-mark mg-tick" style="--dash:26;--i:2" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6.5l5 5 5-5" /></svg></summary><p>Two hundred dollars, as a group, one session a week. I explain the whole thing at the end of the session and you decide then. Nothing is sold on this page.</p></details>
+      <details><summary>Do I need to be technical?<svg class="fq-mark mg-tick" style="--dash:26;--i:3" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6.5l5 5 5-5" /></svg></summary><p>No. You tell Claude Code what you want in plain English. The session shows you exactly what that looks like, including the parts that go wrong.</p></details>
+      <details><summary>I cannot make Sunday.<svg class="fq-mark mg-tick" style="--dash:26;--i:4" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6.5l5 5 5-5" /></svg></summary><p>Sessions run Tuesday, Thursday and Saturday at 6:00pm IST, and Sunday at 11:00am IST. Register and take the one that fits.</p></details>
+      <details><summary>Is there a recording?<svg class="fq-mark mg-tick" style="--dash:26;--i:5" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6.5l5 5 5-5" /></svg></summary><p>Come live. I answer questions on the call and the build is the reason to be there.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 10. CLOSE -->
+<section data-motion="close-in"
+         data-motion-graphic="a rule draws under the date as the closing ask arrives"
+         data-job="Give the reader who scrolled the whole page the same single action the hero offered, with the date in front of them">
+  <div class="wrap close-cta reveal">
+   <div class="close-in">
+    <h2>The next one is <span style="color:var(--accent)" id="nextInline">Sunday</span>.</h2>
+    <span class="close-rule mg-grow"></span>
+    <p class="lede">Ninety minutes. You leave with the first piece built, whether you join the six weeks or not.</p>
+    <form class="close-form" id="regBottom" novalidate>
+      <div class="field" data-f="name">
+        <label for="n2">Your name</label>
+        <input id="n2" type="text" placeholder="First name" autocomplete="given-name" />
+        <span class="msg">Add your name.</span>
+      </div>
+      <div class="field" data-f="wa">
+        <label for="w2">WhatsApp number</label>
+        <input id="w2" type="tel" inputmode="tel" placeholder="+91 98765 43210" autocomplete="tel" />
+        <span class="msg">Add a valid number, the link goes there.</span>
+      </div>
+      <div class="field" data-f="email">
+        <label for="e2">Email</label>
+        <input id="e2" type="email" placeholder="you@business.com" autocomplete="email" />
+        <span class="msg">Add a valid email.</span>
+      </div>
+      <button class="btn btn-accent btn-block" type="submit">
+        Save my seat
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+    <p class="fine">Free. 90 minutes. No card, and nothing to buy on this page.</p>
+   </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="legal">
+  <div class="row">
+    <a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/refund.html">Refunds</a><a href="https://instagram.com/sandymarketinglab" target="_blank" rel="noopener">Instagram</a>
+    <span class="c">&copy; 2026 AI Marketing Labs</span>
+  </div>
+  <p>This site is not a part of Facebook or Instagram, and is not endorsed by Meta in any way. Results vary and depend on individual effort. This is a training and education offer, not a guarantee of income.</p>
+</footer>
+
+<script>
+(function(){
+  /* ---- next session, computed from the schedule so a passed date can never show ----
+     Sun 11:00, Tue/Thu/Sat 18:00, all IST. First session Sun 20 Sep 2026. */
+  var IST=330, SLOTS={0:11,2:18,4:18,6:18};
+  var FIRST=Date.UTC(2026,8,20,11,0)-IST*60000;
+  var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function parts(ms){var d=new Date(ms+IST*60000);
+    return {wd:d.getUTCDay(),y:d.getUTCFullYear(),m:d.getUTCMonth(),day:d.getUTCDate(),h:d.getUTCHours()};}
+  function nextSession(){
+    var now=Date.now(), start=Math.max(now,FIRST);
+    for(var i=0;i<14;i++){
+      var p=parts(start+i*86400000);
+      if(!(p.wd in SLOTS))continue;
+      var ms=Date.UTC(p.y,p.m,p.day,SLOTS[p.wd],0)-IST*60000;
+      if(ms>=now&&ms>=FIRST)return {ms:ms,p:parts(ms)};
+    }
+    return {ms:FIRST,p:parts(FIRST)};
+  }
+  function clock(h,m){var ap=h>=12?'pm':'am',hh=h%12;if(hh===0)hh=12;
+    return hh+':'+(m<10?'0'+m:m)+ap;}
+
+  var next=nextSession(), P=next.p;
+  var dateStr=DAYS[P.wd]+' '+P.day+' '+MONTHS[P.m];
+  document.getElementById('nextDate').textContent=dateStr;
+  document.getElementById('nextInline').textContent=DAYS[P.wd];
+  document.getElementById('nextTime').innerHTML='<b>'+clock(P.h,0)+'</b> to '+clock(P.h+1,30)+' IST';
+
+  var cd=document.getElementById('cd'),ch=document.getElementById('ch'),cm=document.getElementById('cm');
+  function pad(n){return n<10?'0'+n:''+n;}
+  function tick(){var left=Math.max(0,next.ms-Date.now());
+    cd.textContent=pad(Math.floor(left/86400000));
+    ch.textContent=pad(Math.floor(left/3600000)%24);
+    cm.textContent=pad(Math.floor(left/60000)%60);}
+  tick(); setInterval(tick,30000);
+
+  /* ---- reveal on scroll ----
+     The .in class is what STARTS each section's entrance animation, so it must never be handed
+     out on a clock. A 1.5s blanket revealAll() did exactly that: measured 16 Sep, all nine
+     non-hero sections read playState "finished" while sitting 1,205 to 8,300px below the fold,
+     so the page had no motion a reader could ever see. That timer was compensating for an older
+     bug where the reveal owned opacity and sections rendered blank. Motion no longer touches
+     opacity at all, so there is nothing left for a blanket timer to protect. */
+  var revealables=[].slice.call(document.querySelectorAll('.reveal'));
+  var weeks=document.getElementById('weeks');
+  function reveal(el){
+    el.classList.add('in');
+    if(weeks&&(el===weeks||el.contains(weeks)))weeks.classList.add('in-view');
+  }
+  if(!('IntersectionObserver' in window)){
+    revealables.forEach(reveal);
+    if(weeks)weeks.classList.add('in-view');
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting)return;
+        reveal(e.target);
+        io.unobserve(e.target);
+      });
+    },{rootMargin:'0px 0px -12% 0px',threshold:0.08});
+    revealables.forEach(function(el){io.observe(el);});
+    if(weeks)io.observe(weeks);
+
+    /* The observer coalesces during fast scrolling and silently skips whatever it was carried
+       past: measured 16 Sep, a 400px-step walk left 8 of 9 sections without their arrival
+       class, so their entrance never played and they sat 14px low for the rest of the visit.
+       This sweep reveals only what is ON SCREEN NOW, at load and after each scroll, so a flick
+       or a jump to the end cannot outrun it. It is not a timer: nothing off screen is ever
+       revealed early, which is the whole point of the gate. The load-time pass also covers an
+       observer that never fires at all, which once hid an above-fold CTA. */
+    var waiting=revealables.slice();
+    function sweep(){
+      for(var i=waiting.length-1;i>=0;i--){
+        var el=waiting[i],r=el.getBoundingClientRect();
+        if(el.classList.contains('in')||(r.top<window.innerHeight&&r.bottom>0)){
+          reveal(el);io.unobserve(el);waiting.splice(i,1);
+        }
+      }
+      if(!waiting.length)window.removeEventListener('scroll',onScroll);
+    }
+    /* Swept synchronously on every scroll event, NOT through requestAnimationFrame. rAF is
+       throttled hard in headless browsers and in background tabs: measured 16 Sep, an rAF
+       throttled sweep still missed 8 of 9 sections on a 400px/55ms walk, while a slower
+       300px/200ms walk missed none, which is the observer working on its own and the sweep
+       contributing nothing. The work here is at most nine getBoundingClientRect reads, the
+       list only ever shrinks, and the listener removes itself once everything is revealed. */
+    function onScroll(){sweep();}
+    window.addEventListener('scroll',onScroll,{passive:true});
+    sweep();
+  }
+
+  /* ---- line mask headline reveal ----
+     Wrap each word, read offsetTop to find where the browser actually wrapped, group the words
+     that share a line, then re-wrap each group in a clipping span. Re-run after webfonts settle
+     and on resize, because both change where lines break. Headlines containing markup are left
+     alone rather than have their elements flattened. */
+  /* Words carry the class of the inline element they came from, so the hero's teal accent span
+     survives the rebuild. Anything carrying an id is left alone: the closing headline holds
+     #nextInline, which other code writes the session day into, and a resize re-split would
+     restore the placeholder over it. */
+  function splittable(el){
+    var kids = [].slice.call(el.children);
+    return kids.every(function(k){ return !k.id && k.children.length === 0; });
+  }
+  function collectWords(el){
+    var out = [];
+    [].slice.call(el.childNodes).forEach(function(n){
+      var cls = n.nodeType === 1 ? (n.getAttribute('class') || '') : '';
+      var txt = n.nodeType === 3 ? n.nodeValue : n.textContent;
+      txt.split(/\s+/).forEach(function(w){ if(w) out.push({ w: w, c: cls }); });
+    });
+    return out;
+  }
+  function splitLines(el){
+    if(!el.classList.contains('lines-split') && !splittable(el)) return;
+    if(!el.dataset.origHtml) el.dataset.origHtml = el.innerHTML;
+    el.classList.remove('lines-split');
+    el.innerHTML = el.dataset.origHtml;
+    var words = collectWords(el), frag = document.createDocumentFragment();
+    words.forEach(function(o,i){
+      var s = document.createElement('span');
+      s.className = 'wd' + (o.c ? ' ' + o.c : '');
+      s.textContent = o.w;
+      frag.appendChild(s);
+      if(i < words.length-1) frag.appendChild(document.createTextNode(' '));
+    });
+    el.innerHTML = ''; el.appendChild(frag);
+    var spans = [].slice.call(el.querySelectorAll('.wd')), lines = [], cur = [], top = null;
+    spans.forEach(function(s){
+      var t = s.offsetTop;
+      if(top === null || Math.abs(t-top) < 3){ cur.push(s); if(top === null) top = t; }
+      else { lines.push(cur); cur = [s]; top = t; }
+    });
+    if(cur.length) lines.push(cur);
+    el.innerHTML = '';
+    lines.forEach(function(ws,i){
+      var outer = document.createElement('span'); outer.className = 'ln';
+      var inner = document.createElement('span'); inner.className = 'ln-i';
+      inner.style.setProperty('--i', i);
+      ws.forEach(function(s,j){
+        var cls = s.getAttribute('class').replace(/\bwd\b/,'').trim();
+        if(cls){
+          var e = document.createElement('span');
+          e.className = cls; e.textContent = s.textContent;
+          inner.appendChild(e);
+        } else {
+          inner.appendChild(document.createTextNode(s.textContent));
+        }
+        if(j < ws.length-1) inner.appendChild(document.createTextNode(' '));
+      });
+      outer.appendChild(inner); el.appendChild(outer);
+    });
+    el.classList.add('lines-split');
+  }
+  var headlines = [].slice.call(document.querySelectorAll('h1, section h2'));
+  function splitAll(){ headlines.forEach(splitLines); }
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(splitAll);
+  else splitAll();
+  var rt;
+  window.addEventListener('resize', function(){
+    clearTimeout(rt); rt = setTimeout(splitAll, 180);
+  });
+
+  /* ---- registration, both forms, to the existing Google Form ---- */
+  var ACTION='https://docs.google.com/forms/d/e/1FAIpQLSdwdlchjrxt8_eEJRsxV_0EmWswFCJQdIm61OmjJ6nEtfYulw/formResponse';
+  var F_NAME='entry.711112049',F_WA='entry.606366000',F_EMAIL='entry.89039492';
+  /* Two optional fields the form already declares and this page was throwing away. Without the
+     source, a Sprint registrant and an Accelerator registrant are indistinguishable rows.
+     entry.2045735371 is "Contact consent recorded" and is deliberately NEVER sent: a consent flag
+     written by script is a fabricated consent record, not a captured one. */
+  var F_SOURCE='entry.710508377', F_ATTRIB='entry.1360010079';
+  function attribution(){
+    var p=new URLSearchParams(location.search), keep=[], k;
+    ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','igshid'].forEach(function(n){
+      k=p.get(n); if(k) keep.push(n+'='+k);
+    });
+    if(document.referrer) keep.push('ref='+document.referrer);
+    return keep.join(' | ').slice(0,900);
+  }
+  function wire(formId,ids){
+    var form=document.getElementById(formId);
+    var name=document.getElementById(ids[0]),wa=document.getElementById(ids[1]),em=document.getElementById(ids[2]);
+    function mark(el,bad){el.closest('.field').classList.toggle('err',bad);}
+    form.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var n=name.value.trim(),w=wa.value.trim(),e=em.value.trim();
+      var okN=n.length>=2,okW=w.replace(/[^0-9]/g,'').length>=8,okE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+      mark(name,!okN);mark(wa,!okW);mark(em,!okE);
+      if(!(okN&&okW&&okE))return;
+      var d=new FormData();
+      d.append(F_NAME,n);d.append(F_WA,w);d.append(F_EMAIL,e);
+      d.append(F_SOURCE,'sprint webinar registration page');
+      d.append(F_ATTRIB,attribution());
+      /* Keep the lead locally BEFORE the request goes out, so a dropped connection cannot lose it. */
+      try{sessionStorage.setItem('aiml_lead',JSON.stringify({name:n,email:e,whatsapp:w,source:'sprint-webinar',session:dateStr}));}catch(err){}
+      form.querySelector('button').textContent='Saving your seat...';
+      /* The previous version fired the POST and navigated 550ms later without waiting for it. On a
+         slow phone the page left before the request finished: the registrant saw the thank you
+         page and the row never reached the sheet, silently. no-cors means the response can never
+         be read, so the strongest guarantee available is to wait for the request to SETTLE, with a
+         ceiling so nobody is ever stranded on a dead button. */
+      var sent=null;
+      try{sent=fetch(ACTION,{method:'POST',mode:'no-cors',body:d})['catch'](function(){});}catch(err){sent=null;}
+      var done=false;
+      var go=function(){ if(done)return; done=true; location.href='thanks.html'; };
+      if(sent&&sent.then){ sent.then(go); }
+      setTimeout(go,4000);
+    });
+  }
+  wire('regTop',['n1','w1','e1']);
+  wire('regBottom',['n2','w2','e2']);
+})();
+</script>
 </body>
 </html>

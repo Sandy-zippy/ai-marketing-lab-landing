@@ -2,101 +2,143 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Free Training | AI Marketing Labs</title>
-<meta name="description" content="For agency owners, high ticket coaches and service business founders. The 17 minute training on both halves of your business, and what we installed for eleven of them." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Free training | AI Marketing Labs</title>
+<meta name="description" content="For agency owners, high ticket coaches and service business founders. Both halves of your business installed in eight weeks: where clients come from, and what happens after they arrive." />
 <meta property="og:title" content="Both halves of your business, installed in eight weeks." />
 <link rel="icon" href="../assets/favicon.svg" />
-<link rel="stylesheet" href="../assets/aiml-funnel.css?v=6" />
+<link rel="stylesheet" href="../assets/aiml-funnel.css?v=7" />
 <style>
-.cta-big,.btn-accent{color:#FFFFFF !important}
-body{display:flex;flex-direction:column;min-height:100vh}
-.dr{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;
-    max-width:900px;margin:0 auto;padding:clamp(28px,5vw,52px) var(--gutter) clamp(56px,8vw,96px)}
-.logo{height:26px;margin-bottom:clamp(40px,7vw,80px)}
-.logo[data-fallback]{font-family:var(--mono);font-size:16px;letter-spacing:-.02em;color:var(--text-high)}
-.qualifier{font-family:var(--mono);font-size:clamp(12px,1.5vw,14px);letter-spacing:0.08em;
-    text-transform:uppercase;color:var(--text-mid);margin-bottom:clamp(22px,3vw,32px)}
-.dr h1{font-size:clamp(28px,4.4vw,50px);font-weight:700;line-height:1.08;letter-spacing:-0.02em;
-    color:var(--text-high);max-width:20ch;margin-bottom:clamp(20px,2.6vw,30px)}
-.dr h1 .a{color:var(--accent)}
-.dr-sub{font-size:clamp(17px,2vw,23px);font-weight:600;line-height:1.35;color:var(--accent);
-    max-width:26ch;margin-bottom:clamp(16px,2vw,22px)}
-.dr-micro{font-size:clamp(15px,1.6vw,18px);color:var(--text-mid);max-width:34ch;line-height:1.5;
-    margin-bottom:clamp(30px,4vw,44px)}
-.cta-big{font-family:var(--mono);font-weight:600;font-size:clamp(15px,1.8vw,19px);letter-spacing:0.02em;
-    color:#04110F;background:var(--accent);border:none;border-radius:12px;cursor:pointer;
-    padding:clamp(17px,2vw,22px) clamp(30px,4vw,52px);
-    display:inline-flex;align-items:center;gap:12px;
-    transition:transform .16s var(--ease),box-shadow .2s ease}
-.cta-big:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(0,161,155,0.7)}
-.cta-big:active{transform:translateY(0)}
-.cta-big svg{width:18px;height:18px}
-.cta-note{margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:0.06em;color:var(--text-low)}
+body{background:var(--canvas);display:flex;flex-direction:column;min-height:100vh}
+.bar{max-width:var(--max);margin:0 auto;width:100%}
+.bar .mark{height:20px;display:block}
+.pill-q{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-mid);border:1px solid var(--line);border-radius:100px;padding:5px 11px}
 
-/* opt-in form (revealed on CTA) */
-.optin{width:100%;max-width:420px;margin-top:clamp(30px,4vw,44px);text-align:left;
-    display:none}
-.optin.show{display:block;animation:rise .45s var(--ease)}
-@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.optin .field label{text-align:left}
+main{flex:1;max-width:var(--max);margin:0 auto;width:100%;
+  padding:clamp(24px,4vw,44px) var(--gutter) clamp(40px,6vw,64px);
+  display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,4.5vw,64px);align-items:center}
 
-/* footer / legal */
-.legal{max-width:820px;margin:0 auto;padding:26px var(--gutter) 40px;text-align:center;
-    border-top:1px solid var(--line)}
-.legal .row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
-.legal a,.legal span.c{font-family:var(--mono);font-size:11.5px;letter-spacing:0.04em;color:var(--text-low)}
+.callout{font-family:var(--mono);font-size:clamp(11px,1.3vw,12.5px);letter-spacing:.13em;
+  text-transform:uppercase;color:var(--text-mid);margin-bottom:clamp(16px,2.2vw,24px)}
+h1{font-size:clamp(32px,4.8vw,58px);line-height:1.03;letter-spacing:-.03em;color:var(--text-high);
+  margin-bottom:clamp(16px,2vw,22px);max-width:15ch}
+h1 .a{color:var(--accent)}
+.promise{font-size:clamp(17px,2vw,21px);line-height:1.45;color:var(--text-high);font-weight:600;
+  max-width:34ch;margin-bottom:14px}
+.without{font-size:clamp(15px,1.7vw,17px);line-height:1.55;color:var(--text-mid);max-width:38ch;
+  margin-bottom:clamp(22px,3vw,30px)}
+.guar{display:inline-flex;align-items:center;gap:11px;background:var(--accent-soft);
+  border:1px solid var(--accent-line);border-radius:12px;padding:13px 17px;margin-bottom:clamp(24px,3vw,32px)}
+.guar svg{width:18px;height:18px;color:var(--accent);flex:none}
+.guar span{font-size:14.5px;line-height:1.45;color:var(--text-high)}
+.guar b{font-weight:700}
+
+/* four across on one row. As a flex wrap the fourth item dropped alone and left a hole. */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding-top:clamp(20px,2.6vw,26px);
+  border-top:1px solid var(--line)}
+.strip div{min-width:0}
+.strip .n{font-family:var(--mono);font-weight:700;font-size:clamp(19px,2.4vw,25px);color:var(--text-high);
+  display:block;letter-spacing:-.02em;line-height:1.15}
+.strip .l{font-size:12.5px;color:var(--text-mid);line-height:1.4;display:block;margin-top:3px}
+
+/* the card */
+.gate{background:var(--surface);border:1px solid var(--line);border-radius:18px;
+  padding:clamp(22px,2.8vw,32px);box-shadow:0 30px 70px -40px rgba(18,18,18,.3)}
+.gate .top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.gate .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:blink 1.8s steps(1) infinite}
+.gate .label{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--text-low)}
+.gate h2{font-family:var(--mono);font-size:clamp(18px,2.1vw,22px);letter-spacing:-.02em;
+  color:var(--text-high);margin-bottom:8px;line-height:1.25}
+.gate .note{font-size:14.5px;color:var(--text-mid);line-height:1.5;margin-bottom:20px}
+.gate .field{margin-bottom:11px}
+.gate .btn{margin-top:5px}
+.fine{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--text-low);
+  text-align:center;margin-top:13px;line-height:1.6}
+
+.legal{border-top:1px solid var(--line);padding:24px var(--gutter) 36px;text-align:center}
+.legal .row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:11px}
+.legal a,.legal span.c{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--text-low)}
 .legal a:hover{color:var(--text-mid)}
 .legal p{font-size:11.5px;color:var(--text-low);line-height:1.6;max-width:70ch;margin:0 auto}
-@media(prefers-reduced-motion:reduce){.optin.show{animation:none}}
+
+/* CSS only, fill mode both, so the hero can never be left hidden by a late load event. */
+@keyframes riseIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.rise{animation:riseIn .5s var(--ease) both}
+#r2.rise{animation-delay:.09s}
+
+@media(max-width:940px){
+  main{grid-template-columns:1fr;gap:32px;align-items:start}
+  h1{max-width:none}
+  .strip{grid-template-columns:repeat(2,1fr);gap:20px}
+}
+@media(prefers-reduced-motion:reduce){
+  .rise{animation:none}
+  .gate .dot{animation:none}
+}
 </style>
 </head>
-<body class="grid-bg">
+<body>
 
-<main class="dr">
-  <img class="logo" src="../assets/aiml-logo-full-light.svg" alt="AI Marketing Labs" onerror="var s=document.createElement('strong');s.textContent='AI MARKETING LABS';s.className='logo';s.setAttribute('data-fallback','');this.replaceWith(s)"/>
+<header class="bar">
+  <div class="brand"><img class="mark" src="../assets/aiml-wordmark-v3.svg" alt="AI Marketing Labs" /></div>
+  <span class="pill-q">17 minute training</span>
+</header>
 
-  <div class="qualifier">*** For HIGH TICKET coaches, marketing agency owners &amp; service business founders ONLY ***</div>
+<main>
+  <div class="rise" id="r1">
+    <p class="callout">For agency owners, high ticket coaches and service business founders</p>
+    <h1>Every client you have came from <span class="a">someone you know</span>.</h1>
+    <p class="promise">I install both halves of your business in eight weeks: where the clients come from, and what happens after they arrive.</p>
+    <p class="without">Without hiring anyone, without renting your marketing from an agency, and without you posting every day hoping something lands.</p>
 
-  <h1>Where your clients come from, and what happens <span class="a">after they arrive</span>.</h1>
-
-  <p class="dr-sub">Both halves installed in eight weeks. Without hiring anyone, and without renting your marketing from an agency.</p>
-
-  <p class="dr-micro">Enter your details and watch the free 17 minute training that shows you exactly how.</p>
-
-  <button class="cta-big" id="startBtn">
-    Watch the free training
-    <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </button>
-  <div class="cta-note" id="ctaNote">17 minute training · no spam · plays on the next page</div>
-
-  <form class="optin" id="gate" novalidate>
-    <div class="field" id="f-name">
-      <label for="name">Your name</label>
-      <input id="name" name="entry.711112049" type="text" placeholder="First name" autocomplete="given-name" />
-      <span class="msg">Add your name.</span>
+    <div class="guar">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>10 qualified appointments or one closed deal in 8 weeks</b>, or your money back. Existing business, existing offer.</span>
     </div>
-    <div class="field" id="f-wa">
-      <label for="whatsapp">WhatsApp number</label>
-      <input id="whatsapp" name="entry.606366000" type="tel" inputmode="tel" placeholder="+91 98765 43210" autocomplete="tel" />
-      <span class="msg">Add a valid number, we send the link there.</span>
+
+    <div class="strip">
+      <div><span class="n">2017</span><span class="l">Running this since</span></div>
+      <div><span class="n">14</span><span class="l">Clients, 7 industries</span></div>
+      <div><span class="n">8</span><span class="l">Weeks, one to one</span></div>
+      <div><span class="n">10</span><span class="l">People at a time, no more</span></div>
     </div>
-    <div class="field" id="f-email">
-      <label for="email">Email</label>
-      <input id="email" name="entry.89039492" type="email" placeholder="you@business.com" autocomplete="email" />
-      <span class="msg">Add a valid email.</span>
-    </div>
-    <button class="btn btn-accent btn-block" type="submit" id="submitBtn">
-      Take me to the training
-      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-  </form>
+  </div>
+
+  <aside class="gate rise" id="r2">
+    <div class="top"><span class="dot"></span><span class="label">Watch first</span></div>
+    <h2>The 17 minute training.</h2>
+    <p class="note">Real payments on screen, then the whole system explained properly, so you could go and build it yourself if you wanted. Enter your details and it plays on the next page.</p>
+
+    <form id="gateForm" novalidate>
+      <div class="field" data-f="name">
+        <label for="n1">Your name</label>
+        <input id="n1" type="text" placeholder="First name" autocomplete="given-name" />
+        <span class="msg">Add your name.</span>
+      </div>
+      <div class="field" data-f="wa">
+        <label for="w1">WhatsApp number</label>
+        <input id="w1" type="tel" inputmode="tel" placeholder="+91 98765 43210" autocomplete="tel" />
+        <span class="msg">Add a valid number.</span>
+      </div>
+      <div class="field" data-f="email">
+        <label for="e1">Email</label>
+        <input id="e1" type="email" placeholder="you@business.com" autocomplete="email" />
+        <span class="msg">Add a valid email.</span>
+      </div>
+      <button class="btn btn-accent btn-block" type="submit">
+        Play the training
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+    <p class="fine">17 minutes. No spam. The call afterwards is free.</p>
+  </aside>
 </main>
 
 <footer class="legal">
   <div class="row">
     <a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/refund.html">Refunds</a><a href="https://instagram.com/sandymarketinglab" target="_blank" rel="noopener">Instagram</a>
-    <span class="c">© 2026 AI Marketing Labs</span>
+    <span class="c">&copy; 2026 AI Marketing Labs</span>
   </div>
   <p>This site is not a part of Facebook or Instagram, and is not endorsed by Meta in any way. Results vary and depend on individual effort. This is a training and education offer, not a guarantee of income.</p>
 </footer>
@@ -104,34 +146,31 @@ body{display:flex;flex-direction:column;min-height:100vh}
 <script>
 (function(){
   var ACTION='https://docs.google.com/forms/d/e/1FAIpQLSdwdlchjrxt8_eEJRsxV_0EmWswFCJQdIm61OmjJ6nEtfYulw/formResponse';
-  var startBtn=document.getElementById('startBtn'),note=document.getElementById('ctaNote'),
-      optin=document.getElementById('gate'),subBtn=document.getElementById('submitBtn');
-  startBtn.addEventListener('click',function(){
-    startBtn.style.display='none';note.style.display='none';
-    optin.classList.add('show');
-    document.getElementById('name').focus();
-    optin.scrollIntoView({behavior:'smooth',block:'center'});
-  });
-  function show(id,on){document.getElementById(id).classList.toggle('err',on);}
-  function valid(){
-    var n=document.getElementById('name').value.trim(),w=document.getElementById('whatsapp').value.trim(),e=document.getElementById('email').value.trim();
-    var okN=n.length>=2,okW=w.replace(/[^0-9]/g,'').length>=8,okE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
-    show('f-name',!okN);show('f-wa',!okW);show('f-email',!okE);return okN&&okW&&okE;
-  }
-  optin.addEventListener('submit',function(ev){
-    ev.preventDefault();if(!valid())return;
+  var F_NAME='entry.711112049', F_WA='entry.606366000', F_EMAIL='entry.89039492';
+  var form=document.getElementById('gateForm');
+  var name=document.getElementById('n1'), wa=document.getElementById('w1'), em=document.getElementById('e1');
+  function mark(el,bad){el.closest('.field').classList.toggle('err',bad);}
+
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var n=name.value.trim(), w=wa.value.trim(), e=em.value.trim();
+    var okN=n.length>=2, okW=w.replace(/[^0-9]/g,'').length>=8, okE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+    mark(name,!okN); mark(wa,!okW); mark(em,!okE);
+    if(!(okN&&okW&&okE))return;
     var d=new FormData();
-    d.append('entry.711112049',document.getElementById('name').value.trim());
-    d.append('entry.606366000',document.getElementById('whatsapp').value.trim());
-    d.append('entry.89039492',document.getElementById('email').value.trim());
-    try{fetch(ACTION,{method:'POST',mode:'no-cors',body:d});}catch(e){}
-    /* Carry the lead to page 2 so the booking can prefill name, email and WhatsApp. */
-    try{sessionStorage.setItem('aiml_lead',JSON.stringify({
-      name:document.getElementById('name').value.trim(),
-      email:document.getElementById('email').value.trim(),
-      whatsapp:document.getElementById('whatsapp').value.trim()}));}catch(e){}
-    subBtn.textContent='Taking you in…';
+    d.append(F_NAME,n); d.append(F_WA,w); d.append(F_EMAIL,e);
+    try{fetch(ACTION,{method:'POST',mode:'no-cors',body:d});}catch(err){}
+    /* carried to watch.html so the booking can prefill */
+    try{sessionStorage.setItem('aiml_lead',JSON.stringify({name:n,email:e,whatsapp:w,source:'vsl'}));}catch(err){}
+    form.querySelector('button').textContent='Opening the training...';
     setTimeout(function(){location.href='watch.html';},550);
+  });
+
+  window.addEventListener('load',function(){
+    ['r1','r2'].forEach(function(id,i){
+      var el=document.getElementById(id);
+      setTimeout(function(){el.classList.add('in');}, i*90);
+    });
   });
 })();
 </script>

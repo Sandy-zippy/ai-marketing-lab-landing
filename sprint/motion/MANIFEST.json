@@ -1,0 +1,15 @@
+{
+  "note": "Motion assets produced for the sprint page. Every figure animated here is counted from a named account or file, never estimated.",
+  "assets": [
+    {
+      "file": "aiml-figures.mp4",
+      "tool": "Remotion 4.x, composition AimlFigures, src/AimlFigures.tsx in System/tools/reel-factory/remotion-engine",
+      "source": "Meta ad account act_777763308169871, thirty day account report dated 7 May 2026: 2,202 clicks and 103 leads at $8.90 each. Plus MASTER_realtor_emails.tsv, 1,116 sourced and verified rows.",
+      "format": "1080x1350, 30fps, 6 seconds, h264, 401.9 kB",
+      "shows": "The three performance figures counting up from zero, each behind a teal rule that draws first.",
+      "placement": "Produced and held, not yet placed. The page already counts these figures live in the performance bucket, and adding a video element there would reintroduce the layout reflow that an undimensioned video caused earlier today. Sandy decides whether it goes on the page or becomes a social cut.",
+      "rendered": "2026-09-17"
+    }
+  ],
+  "engine_defect_found": "remotion-engine/public is 1.7GB and is copied into the bundle on every render, and public/edit_reel/mg is a dangling symlink to a missing target which aborts that copy with ENOENT. An empty --public-dir fails differently: sibling compositions load fonts at module scope and @remotion/fonts cancelRenders on a 404. Rendering works with --public-dir pointed at a directory containing only fonts/. The symlink was left in place: it is outside this ledger's OWNS."
+}

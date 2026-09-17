@@ -27,16 +27,22 @@ jobs:
         shell: bash
         run: |
           set -euxo pipefail
-          mkdir -p _site/assets/fonts _site/assets/og _site/vsl _site/webinar _site/start _site/workshop _site/sprint _site/resources
+          mkdir -p _site/assets/fonts _site/assets/og _site/vsl _site/webinar _site/start _site/workshop _site/sprint _site/resources _site/assets/photos _site/assets/proof _site/assets/work
           cp CNAME robots.txt sitemap.xml index.html thank-you.html privacy.html terms.html refund.html contact.html _site/
-          cp assets/analytics.js assets/site.css assets/aiml-funnel.css assets/aiml-logo-full-dark.svg assets/aiml-logo-full-light.svg assets/aiml-logo-full-onwhite.svg assets/favicon.svg assets/favicon-32.png assets/favicon-180.png _site/assets/
+          cp assets/analytics.js assets/site.css assets/aiml-funnel.css assets/aiml-logo-full-dark.svg assets/aiml-logo-full-light.svg assets/aiml-logo-full-onwhite.svg assets/favicon.svg assets/favicon-32.png assets/favicon-180.png _site/assets/ assets/aiml-wordmark-v3.svg
           cp assets/fonts/inter-latin.woff2 assets/fonts/jetbrains-mono-latin.woff2 assets/fonts/spacemono-400-latin.woff2 assets/fonts/spacemono-700-latin.woff2 assets/fonts/INTER-LICENSE.txt assets/fonts/JETBRAINS-MONO-LICENSE.txt assets/fonts/SPACEMONO-LICENSE.txt _site/assets/fonts/
           cp assets/og/aiml-og-1200x630.jpg _site/assets/og/
           cp vsl/index.html vsl/watch.html vsl/booked.html _site/vsl/
           cp webinar/index.html _site/webinar/
           cp start/index.html _site/start/
           cp workshop/index.html _site/workshop/
-          cp sprint/index.html _site/sprint/
+          cp sprint/index.html sprint/thanks.html _site/sprint/
+          # The sprint page carries real artefacts: payment emails, client work, the headshot.
+          # None of these were in the copy list, so the page would have deployed with every
+          # image 404ing while the HTML looked fine.
+          cp assets/photos/sandy-headshot-hd.jpg _site/assets/photos/
+          cp assets/proof/*.png _site/assets/proof/
+          cp assets/work/*.jpg _site/assets/work/
           cp resources/index.html _site/resources/
           touch _site/.nojekyll
           node --check _site/assets/analytics.js

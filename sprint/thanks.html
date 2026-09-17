@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>You are in | AI Marketing Labs</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="../assets/favicon.svg" />
+<link rel="stylesheet" href="../assets/aiml-funnel.css?v=8" />
+<style>
+body{display:flex;flex-direction:column;min-height:100vh;background:var(--canvas)}
+.bar{max-width:var(--max);margin:0 auto;width:100%}
+.bar .mark{height:20px;display:block}
+main{flex:1;max-width:900px;margin:0 auto;width:100%;padding:clamp(26px,5vw,56px) var(--gutter) clamp(48px,7vw,88px)}
+.tick{width:46px;height:46px;border-radius:50%;background:var(--accent-soft);border:1px solid var(--accent-line);
+  display:grid;place-items:center;margin-bottom:22px}
+.tick svg{width:22px;height:22px;color:var(--accent)}
+h1{font-size:clamp(28px,4.2vw,46px);line-height:1.06;letter-spacing:-.03em;margin-bottom:16px}
+h1 .a{color:var(--accent)}
+.lede{font-size:clamp(16px,1.9vw,19px);color:var(--text-mid);line-height:1.55;max-width:52ch;margin-bottom:clamp(26px,3.4vw,36px)}
+.slot{border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:14px;
+  padding:18px 20px;margin-bottom:clamp(30px,4vw,44px);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.slot .when{font-family:var(--mono);font-weight:700;font-size:clamp(16px,2vw,19px);color:var(--text-high);letter-spacing:-.02em}
+.slot .where{font-size:14.5px;color:var(--text-mid)}
+.step-label{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--text-low);margin-bottom:16px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.opt-card{border:1px solid var(--line);border-radius:16px;padding:clamp(20px,2.6vw,28px);
+  display:flex;flex-direction:column;background:var(--surface);transition:border-color .2s ease}
+.opt-card:hover{border-color:var(--accent-line)}
+.opt-card .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px}
+.opt-card h2{font-size:clamp(19px,2.3vw,24px);line-height:1.15;margin-bottom:10px}
+.opt-card p{font-size:15px;color:var(--text-mid);line-height:1.55;margin-bottom:20px;flex:1}
+.opt-card .btn{width:100%}
+.primary{border-color:var(--accent-line)}
+.legal{border-top:1px solid var(--line);padding:26px var(--gutter) 40px;text-align:center}
+.legal .row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.legal a,.legal span.c{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--text-low)}
+.legal p{font-size:11.5px;color:var(--text-low);line-height:1.6;max-width:70ch;margin:0 auto}
+@media(max-width:760px){.opts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="brand"><img class="mark" src="../assets/aiml-wordmark-v3.svg" alt="AI Marketing Labs" /></div>
+</header>
+
+<main>
+  <div class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <h1>Your seat is <span class="a">saved</span>.</h1>
+  <p class="lede">The joining link goes to your WhatsApp and your email before the session starts. Add the time to your calendar now so it does not get buried.</p>
+
+  <div class="slot">
+    <span class="when" id="slotWhen">Sunday 20 September, 11:00am IST</span>
+    <span class="where">90 minutes, live. Link sent to your WhatsApp.</span>
+  </div>
+
+  <p class="step-label">Two things worth doing right now</p>
+  <div class="opts">
+    <div class="opt-card primary">
+      <span class="tag">If you want it done with you</span>
+      <h2>Talk to me one to one.</h2>
+      <p>The Sprint is one to many and you build it yourself. If you would rather have it built with you, inside your business, with me on the calls, watch the training and book a call. The call is free.</p>
+      <a class="btn btn-accent" href="../vsl/">
+        Watch the training
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="opt-card">
+      <span class="tag">Free group</span>
+      <h2>Join the WhatsApp group.</h2>
+      <p>Every session is announced there first, along with the builds, the files and the questions other owners are asking. No pitch, and you can leave whenever you want.</p>
+      <a class="btn btn-ghost" id="waLink" href="#" target="_blank" rel="noopener">
+        Join the group
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="legal">
+  <div class="row">
+    <a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/refund.html">Refunds</a><a href="https://instagram.com/sandymarketinglab" target="_blank" rel="noopener">Instagram</a>
+    <span class="c">&copy; 2026 AI Marketing Labs</span>
+  </div>
+  <p>This site is not a part of Facebook or Instagram, and is not endorsed by Meta in any way.</p>
+</footer>
+
+<script>
+(function(){
+  /* PLACEHOLDER until Sandy creates the group: the button tells the truth rather than 404ing. */
+  var WHATSAPP_GROUP_URL='';
+  var a=document.getElementById('waLink');
+  if(WHATSAPP_GROUP_URL){a.href=WHATSAPP_GROUP_URL;}
+  else{
+    a.removeAttribute('target');
+    a.setAttribute('href','#');
+    a.addEventListener('click',function(e){e.preventDefault();});
+    a.style.opacity='.55'; a.style.cursor='default';
+    a.childNodes[0].nodeValue='Group link coming in your WhatsApp';
+  }
+  /* Carry the session they registered for, set on the registration page. */
+  try{
+    var lead=JSON.parse(sessionStorage.getItem('aiml_lead')||'{}');
+    if(lead.session){document.getElementById('slotWhen').textContent=lead.session+', 11:00am IST';}
+  }catch(e){}
+})();
+</script>
+</body>
+</html>

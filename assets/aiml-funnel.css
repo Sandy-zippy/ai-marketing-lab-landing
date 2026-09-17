@@ -26,6 +26,8 @@
   --paper:#FAF7EE;
   --paper-edge:#E5DECA;
   --paper-ink:#2A2A2A;
+  /* LABEL FACE ONLY, 14px and below: eyebrows, nav, buttons, meta, field labels.
+     Never a heading, never above 14px. Remy uses it above 14px zero times. */
   --mono:'Space Mono','Courier New',monospace;
   --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --gutter:clamp(20px,5vw,64px);
@@ -45,7 +47,11 @@ body{
   background-size:64px 64px;background-position:center top;
 }
 .wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
-h1,h2,h3{font-family:var(--mono);font-weight:700;letter-spacing:-0.01em;line-height:1.03}
+/* Headings are INTER, not monospace. Measured on aiwithremy.com 17 Sep 2026: his h2 is
+   Inter 700 / 28px / tracking normal, and Space Mono never exceeds 14px anywhere on his site.
+   This one rule was setting every heading on 12 pages in a monospace, which is why the pages
+   read as immature: a monospace at 46-66px is a novelty face, not a display face. */
+h1,h2,h3{font-family:var(--sans);font-weight:700;letter-spacing:normal;line-height:1.18}
 a{color:inherit;text-decoration:none}
 
 /* mono operator label */
@@ -107,7 +113,7 @@ a{color:inherit;text-decoration:none}
 
 /* section rhythm */
 .section{padding:clamp(56px,9vw,120px) 0}
-h2{font-size:clamp(28px,4.4vw,46px)}
+h2{font-size:clamp(24px,2.6vw,30px);letter-spacing:normal}
 .lede{font-size:clamp(16px,2vw,19px);color:var(--text-mid);line-height:1.55}
 
 /* ---------- live operator console (shared: VSL hero + webinar hero) ---------- */
