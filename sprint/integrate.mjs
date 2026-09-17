@@ -57,7 +57,23 @@ const before = { bytes: src.length, sections: (src.match(/<section\b/g) || []).l
 const log = [];
 
 /* ---- 1. swap each section, longest-offset-first so earlier edits cannot shift later indices ---- */
+/* Idempotency. This script was written to run ONCE against the pre-merge page: it deletes the
+   cost-in section outright, having merged it into icp-in. SRC is now the already-assembled page,
+   so on a second run cost-in cannot be found and findSection threw, aborting the whole assembly.
+   That was correct behaviour from the assertion (it refused to half-apply) but wrong behaviour
+   from the design. A section whose plan entry is a DELETION and which is already gone is a
+   completed step, not an error. A section that should be REPLACED and is missing is still fatal. */
 const plan = SECTIONS.map(([motion, file]) => {
+  if (!file) {
+    // MUST use the same predicate as findSection. The first version counted the bare string
+    // data-motion="cost-in" anywhere in the file, which matches the CSS selectors
+    // section[data-motion="cost-in"] .wrap{...} that earlier assembly runs appended to the
+    // stylesheet. It counted 18, concluded the section was still present, skipped this early
+    // return, and handed findSection a section that does not exist. Identical unanchored-regex
+    // error to the one my own diagnostic made one run earlier on icp-in and work-in.
+    const already = (src.match(new RegExp(`<section[^>]*data-motion="${motion}"`, 'g')) || []).length;
+    if (already === 0) { log.push(`  ${motion} already removed (merged into icp-in on a prior run)`); return null; }
+  }
   const [a, b] = findSection(src, motion);
   let markup = '';
   if (file) {
@@ -70,7 +86,7 @@ const plan = SECTIONS.map(([motion, file]) => {
       throw new Error(`${file}.html: does not carry data-motion="${motion}", it would break the reveal gate and the spacing tier`);
   }
   return { motion, file, a, b, markup };
-}).sort((x, y) => y.a - x.a);
+}).filter(Boolean).sort((x, y) => y.a - x.a);
 
 for (const s of plan) {
   src = src.slice(0, s.a) + s.markup + src.slice(s.b);
@@ -134,6 +150,26 @@ for (const f of cssFiles) {
    inside <header>, and every rebuilt section's CSS was appended INTO THAT SVG. The page assembled,
    braces balanced, and the rules were simply not in the cascade: the hero callout still computed
    15px against a rule whose own floor is 20px. Anchor to </head> and assert the target is before it. */
+/* Idempotent APPEND. The deletion step was made idempotent earlier; this one was not, and a
+   second run appended all ten section stylesheets on top of the ten a previous run had already
+   inserted: +65,205 bytes, every rule twice. Nothing caught it. Brace balance passes (duplicates
+   are balanced), the mono sweep passes, the render gate passes, and R5 reported VERIFIED on a
+   page carrying two copies of everything. Strip any previously-inserted block first, so running
+   this twice is byte-identical to running it once. */
+{
+  const MARK = '/* ==== rebuilt sections';
+  let n = 0;
+  while (true) {
+    const a = src.indexOf(MARK);
+    if (a === -1) break;
+    const b = src.indexOf('</style>', a);
+    if (b === -1) throw new Error('found a rebuilt-sections block with no closing style tag after it');
+    src = src.slice(0, a) + src.slice(b);
+    n++;
+  }
+  if (n) log.push(`  stripped ${n} previously-appended stylesheet block(s) before re-appending`);
+}
+
 const headEnd = src.indexOf('</head>');
 if (headEnd === -1) throw new Error('no </head> found');
 const styleEnd = src.lastIndexOf('</style>', headEnd);
@@ -151,6 +187,12 @@ if (o !== c) throw new Error(`brace imbalance after assembly: ${o} open vs ${c} 
 for (const id of ['regTop', 'regBottom', 'n1', 'w1', 'e1', 'n2', 'w2', 'e2', 'nextInline', 'nextDate', 'nextTime']) {
   const n = (src.match(new RegExp(`id="${id}"`, 'g')) || []).length;
   if (n !== 1) throw new Error(`id="${id}" appears ${n} times after assembly, expected exactly 1. The registration JS would break.`);
+}
+
+/* Assert the fix held: exactly one copy of each section's stylesheet. */
+for (const f of cssFiles) {
+  const n = (src.match(new RegExp(`/\\* ---- ${f} ---- \\*/`, 'g')) || []).length;
+  if (n !== 1) throw new Error(`${f} stylesheet appears ${n} times after assembly, expected 1`);
 }
 
 writeFileSync(OUT, src);
