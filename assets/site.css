@@ -242,7 +242,7 @@ p { margin: 0; }
 .faq details { border-bottom: 1px solid var(--line); }
 .faq summary { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px 0; cursor: pointer; color: var(--text); font-size: 18px; font-weight: 750; list-style: none; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: '+'; flex: none; color: var(--accent-bright); font-family: var(--mono); font-size: 22px; font-weight: 400; }
+.faq summary::after { content: '+'; flex: none; color: var(--accent-bright); font-family: var(--sans); font-size: 14px; font-weight: 400; }
 .faq details[open] summary::after { content: '−'; }
 .faq details p { max-width: 70ch; padding: 0 0 24px; color: var(--muted); }
 
