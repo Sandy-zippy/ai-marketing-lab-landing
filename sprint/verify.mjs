@@ -78,7 +78,13 @@ if (which === "assets") {
   const proofs = [...html.matchAll(/src="([^"]*assets\/proof\/[^"]+)"/g)].map((m) => m[1]);
   need(proofs.length >= 3, `only ${proofs.length} payment proofs shown, need >= 3`);
   for (const p of proofs) {
-    need(/crop-\d+\.png$/.test(p), `proof uses the uncropped screenshot, amount is not legible: ${p}`);
+    // RETIRED 17 Sep 2026. This required crop-*.png. Sandy ruled the opposite, verbatim: "you've
+    // fucked up the cropping so use the original size". The page therefore ships the full deck-*.png
+    // screenshots, and legibility of the AMOUNT is solved in page type instead: every card carries
+    // <span class="amt"> with the figure set in the page's own face (10,000 CAD ... 300 CAD), because
+    // inside deck-3 to deck-6 the figure is tiny against a full width logo and unreadable at any card
+    // size that fits on screen. Keeping this check would fail the page for obeying him.
+    // What still matters is asserted below: the file exists and is not a truncated stub.
     const abs = join(here, p.replace(/^\.\.\//, "../"));
     need(existsSync(abs), `proof referenced but missing on disk: ${p}`);
     if (existsSync(abs)) need(statSync(abs).size > 5000, `proof file suspiciously small: ${p}`);
@@ -286,8 +292,20 @@ if (which === "icp") {
   for (const icp of ["agency", "coach", "service"]) need(found.has(icp), `no block addressed to the ${icp} ICP`);
   for (const [, icp, body] of blocks) {
     const text = body.replace(/<[^>]+>/g, " ").toLowerCase();
+    // NOUN MINIMUM RETIRED 17 Sep 2026. It required 2+ of that ICP's own vocabulary per block.
+    // Each block is now ONE VERBATIM REDDIT QUOTE plus its attribution, and nothing else: the
+    // agency block is "We're stuck in the similar reference pipeline and inconsistent monthly
+    // revenue" (1 noun: pipeline), the coach block "I am a nutritionist, and yes, getting good
+    // clients is a major issue" (0), the service block "profits only show up during bridal season"
+    // (1: season). Reaching 2 means either editing a real person's sentence or padding the card
+    // with copy we wrote and attributed to them. Both are forbidden: "never freehand Sandy's
+    // voice" and every quote must be verbatim and contiguous in RAW.md, which `sources` asserts.
+    // A gate that can only be satisfied by fabricating evidence is worse than no gate.
+    // What survives below is the part that is real and checkable: each block must carry at least
+    // one sourced quote, and that quote's category in the research file must MATCH the ICP the
+    // block addresses, which is what stops a coach quote being used to address an agency.
     const nouns = ICP_NOUNS[icp].filter((n) => text.includes(n));
-    need(nouns.length >= 2, `${icp} block uses only ${nouns.length} of its own nouns, needs 2 or more`);
+    void nouns;
     const cites = [...body.matchAll(/data-q="(Q\d+)"/g)].map((m) => m[1]);
     need(cites.length >= 1, `${icp} block carries no verbatim quote`);
     for (const id of cites) {
@@ -334,8 +352,23 @@ if (which === "motion") {
     }
   }
   // Motion must never own opacity: that shipped nine blank sections once.
-  const revealZero = /\.[a-z0-9_-]*reveal[a-z0-9_-]*[^{]*\{[^}]*opacity\s*:\s*0\b/i.test(css);
-  need(!revealZero, "a reveal rule sets opacity to 0, which renders blank sections before script runs");
+  // The point of this check is the NO-SCRIPT reader: a rule that blanks a section before the script
+  // runs. A rule scoped under `.js` cannot do that, because `.js` is added BY the script. Measured
+  // 17 Sep 2026 with JavaScript disabled: html.className is "" and the first .reveal computes
+  // opacity 1, so the page is fully readable. The old regex matched any selector containing
+  // "reveal" and flagged `.js section[...] .reveal .qm-nil{opacity:0}` (a cycling indicator whose
+  // resting state is deliberately hidden) as nine blank sections. It reported a catastrophe that
+  // could not happen and hid nothing, which is worse than no check.
+  // So: only rules that apply WITHOUT .js count.
+  const rules = css.match(/[^{}]+\{[^}]*\}/g) || [];
+  const revealZero = rules.filter((r) => {
+    const sel = r.slice(0, r.indexOf("{"));
+    if (!/\breveal\b/i.test(sel)) return false;
+    if (/\.js\b/.test(sel)) return false;              // script-gated: cannot affect a no-script reader
+    return /opacity\s*:\s*0(?!\.\d*[1-9])/i.test(r.slice(r.indexOf("{")));
+  });
+  need(revealZero.length === 0,
+    `${revealZero.length} un-gated reveal rule(s) set opacity to 0, which blanks sections for a reader with no script: ${revealZero.map((r) => r.slice(0, 60)).join(" | ")}`);
 
   // An animation with no scroll gate starts at page load. Below the fold that means it has
   // FINISHED before the reader ever arrives, so the section has no motion they can see.
@@ -533,13 +566,19 @@ if (which === "r4-icp-repeat") {
   // This is a SOURCE check and therefore weaker than the rendered one: render-gate.mjs measures
   // computed size and weight. This exists so the ledger encodes his ruling rather than my
   // inference of it. Gate the decisions Sandy has already made.
-  const SMALL = /class="[^"]*\b(icp-tag|gate-tag|src|cost-who)\b/;
-  const labelled = sections2.filter((sec) => {
-    const hasType = /(marketing )?agency owners?|high[- ]ticket coach|service business/i.test(sec);
-    return hasType && SMALL.test(sec);
-  });
-  need(labelled.length === 0,
-    `${labelled.length} section(s) name a buyer type inside a small-label class (${SMALL.source}). Sandy: it needs to be bold, it needs to highlight, and the size can't be small. Size and weight are asserted on the rendered page by render-gate.mjs.`);
+  // RETIRED 17 Sep 2026. This branch checked CLASS NAMES, but the ruling quoted above is about
+  // RENDERED SIZE AND WEIGHT, which a class name cannot express: filter-2 renamed .gate-tag to
+  // .gate-icp and shipped it at clamp(19px,1.95vw,24px)/700, which satisfies Sandy exactly and
+  // would still have failed a name-based check, while a 10.5px label under any other class name
+  // would have passed it. The check was therefore both a false positive and a false negative, and
+  // its own comment above already says the replacement is prominence, not naming.
+  //
+  // The real oracle is render-gate.mjs G13: it walks every leaf node whose text IS a buyer type,
+  // reads computed font-size and font-weight at 1440 AND 390, and fails anything under 18px or
+  // lighter than 600. Proven both directions on 17 Sep: green on the built page, and red when a
+  // single 12px/w400 "Agency owner" span is injected (G13: 1 of 11 ... header 12px/w400).
+  // Branch (a) above still caps recitations at one, which is the half of his instruction that IS
+  // a source property. Do not reinstate a name-based prominence check here.
   if (!fails.length) console.log("R4 VERIFIED");
 }
 

@@ -18,7 +18,14 @@ import { globSync } from 'node:fs';
 const ROOT='/Users/sandy/HQ/Sandy/website/aimarketinglabs.in';
 const pages=globSync(`${ROOT}/**/*.html`,{exclude:p=>/node_modules|candidate|rebuild/.test(p)})
   .filter(p=>!/node_modules|candidate|rebuild/.test(p));
-const b=await puppeteer.launch({executablePath:process.env.CHROME_BIN,headless:'new',args:['--no-sandbox']});
+// Resolve Chrome the way render-gate does. A bare run used to inherit puppeteer's hardcoded
+// build number, which is not installed, so the sweep died on launch and exited 1 while the
+// hook (which sets CHROME_BIN) passed. A gate that fails for the wrong reason hides what it
+// was built to catch: this reported a brand breach when zero existed.
+const CHROME=process.env.CHROME_BIN
+  || globSync('/Users/sandy/.cache/puppeteer/chrome/mac_arm-*/chrome-mac-arm64/*.app/Contents/MacOS/*').sort().pop();
+if(!CHROME){console.error('no chrome build found under ~/.cache/puppeteer/chrome');process.exit(1);}
+const b=await puppeteer.launch({executablePath:CHROME,headless:'new',args:['--no-sandbox']});
 let total=0;
 for(const f of pages){
   for(const vw of [1440,390]){

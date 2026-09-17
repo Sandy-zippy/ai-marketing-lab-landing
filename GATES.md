@@ -186,6 +186,21 @@ graphic elements... I did tell you to compare this landing page with AI with Rem
   EXPECT: LINT OK
   EVIDENCE: automatic-evidence=v1; definition-sha256=ad115f08f26feca9cdee767a6e51e5b471cc5bcc46bce80e4ee6685961bca6fd; exit=0; EXPECT=matched; output-sha256=1ed5efaeaba9dee03edf49ac67fbc3f7779ae01343aed7e01cee6c584f99464a; output-bytes=290; shell=/bin/sh; cwd=/Users/sandy/HQ/Sandy/website/aimarketinglabs.in; path=85e1bea9108a/22 entries
 
+- [x] C8: every buyer type named on the page renders large and heavy, in every section, not only
+      the hero. Sandy 17 Sep: "all those sections everywhere, it needs to be fucking bold, it needs
+      to highlight and the size can't be fucking small. You have fixed that thing in only the
+      banner."
+  CHECK: node sprint/render-gate.mjs --file sprint/index.candidate.html
+  EXPECT: verify: clean
+  EVIDENCE: G13 walks every leaf node whose text IS a buyer type, at 1440 AND 390, and fails any
+  under 18px or lighter than weight 600. PROVEN BOTH WAYS 17 Sep: green on the built page (10 of 10
+  nodes pass, 18-28px, weight 600-700, Inter, full ink), and RED when one 12px/w400 "Agency owner"
+  span is injected into a green baseline ("G13: 1 of 11 ICP-addressing nodes render under 18px ...
+  header 12px/w400"). The source-side twin, verify.mjs r4-icp-repeat branch (b), was RETIRED the
+  same day: it checked class NAMES, which cannot express rendered size, and was both a false
+  positive (filter-2's .gate-icp at 19-24px/700 would have failed it) and a false negative (a
+  10.5px label under any other name would have passed).
+
 ## The one only he can close
 
 - [ ] G9: Sandy has reviewed the rebuilt page and rated it 8 or above
