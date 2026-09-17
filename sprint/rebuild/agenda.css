@@ -1,0 +1,131 @@
+/* ============================================================
+   4. AGENDA, "The 90 minutes". NEW RULES ONLY.
+   Every selector is scoped to section[data-motion="step-in"] or to the .ag- prefix, which
+   appears nowhere else in the page. Nothing global is restyled.
+   Paste after the existing agenda block so the two overrides below win on source order as
+   well as on specificity.
+   ============================================================ */
+
+/* ---------- 1. THE SPINE COMES OUT ----------
+   The 2px teal rule down the left of the list was ornament, not structure, on three counts:
+
+   a. It is what the brief bans by name, "drawn rules used to look busy". The sequence it
+      claimed to express is already carried twice over by the numerals 1-4 and by the
+      border-bottom between steps. A third statement of the same ordering adds no information.
+   b. It spends the accent as a FIELD. The locked brand is one accent word or numeral per
+      surface; a 2px x ~400px teal line is the largest continuous run of teal on the page.
+   c. Its `rise` animation is a one shot entrance dressed as a motion graphic, which is the
+      exact defect Sandy counted as zero motion. Nothing is happening: a line appears.
+
+   `content:none` stops the pseudo-element being generated at all, so the inherited
+   `.js .reveal.in .steps::before{animation:rise}` rule at index.html:687 has no box to act on
+   and does not need to be out-specified. Its @media reduced-motion partner is likewise moot.
+   The keyframe `rise` stays where it is: `.mg-rise` is a shared utility other sections use. */
+section[data-motion="step-in"] .steps::before{content:none}
+
+/* ---------- 2. THE NUMERALS GO TO INK ----------
+   Four teal chips, each with an accent-soft fill and an accent-line border, put five teal
+   fields in this section before the object that matters had any. The numerals are structure,
+   not the accent moment, so they become quiet ink and hand the whole teal budget to the build
+   screen. Outscopes `.step-n` (0,1,0) and `.step:hover .step-n` (0,2,0). */
+section[data-motion="step-in"] .step-n,
+section[data-motion="step-in"] .step:hover .step-n{
+  background:transparent;border:1px solid var(--line);color:var(--text-low);
+  font-family:var(--mono);font-size:12.5px;font-weight:400;
+}
+
+/* ---------- 3. THE BUILD SCREEN ----------
+   The object. Deliberately NOT the .console component from assets/aiml-funnel.css: DESIGN.md
+   assigns that to "the quiet month", which is the section immediately above this one, and two
+   terminals back to back would read as one idea used twice. Same family, different chrome:
+   a title bar with window dots rather than the console's uppercase mono LIVE strip. */
+section[data-motion="step-in"] .ag-screen{
+  margin-top:16px;max-width:400px;
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:0 18px 44px -28px rgba(18,18,18,.18);
+}
+section[data-motion="step-in"] .ag-bar{
+  display:flex;align-items:center;gap:10px;padding:9px 13px;border-bottom:1px solid var(--line);
+}
+section[data-motion="step-in"] .ag-dots{display:flex;gap:5px;flex:none}
+section[data-motion="step-in"] .ag-dots i{width:7px;height:7px;border-radius:50%;background:var(--line);display:block}
+section[data-motion="step-in"] .ag-title{
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--text-low);
+}
+section[data-motion="step-in"] .ag-rows{list-style:none;margin:0;padding:12px 13px;display:flex;flex-direction:column;gap:10px}
+section[data-motion="step-in"] .ag-row{display:flex;align-items:center;gap:10px}
+/* The box is neutral, not accent-soft on accent-line. Three filled teal squares are three small
+   FIELDS of the accent, which is the thing the locked brand forbids, and they also pre-announce a
+   completed state before the tick has drawn. Empty box, then a teal mark lands in it. */
+section[data-motion="step-in"] .ag-box{
+  width:17px;height:17px;flex:none;border-radius:5px;
+  border:1px solid var(--line);background:transparent;display:grid;place-items:center;
+}
+section[data-motion="step-in"] .ag-check{width:11px;height:11px;overflow:visible;display:block}
+/* stroke-dasharray is REQUIRED for the shared `tick` keyframe to be visible at all. It animates
+   stroke-dashoffset from var(--dash) to 0, and with dasharray:none a dashoffset paints nothing:
+   measured, the checks rendered fully drawn at every point in the animation. dasharray 22 against
+   a ~13 unit path puts offset 22 inside the pattern's off segment, so the mark starts hidden. */
+section[data-motion="step-in"] .ag-check path{
+  fill:none;stroke:var(--accent);stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:var(--dash,22);
+}
+/* 12.5px mono, under the 14px ceiling brand-guard.mjs enforces. */
+section[data-motion="step-in"] .ag-txt{font-family:var(--mono);font-size:12.5px;line-height:1.45;color:var(--text-high)}
+section[data-motion="step-in"] .ag-foot{
+  display:flex;align-items:center;gap:8px;padding:9px 13px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--text-low);
+}
+
+/* ---------- 4. MOTION ----------
+   What a reader can actually watch: three empty boxes, then a tick draws itself into each one
+   in turn over about 1.4s, and the caret keeps blinking after they have landed.
+
+   The ticks reuse the page's own gated `.mg-tick` utility (index.html:491), so they inherit the
+   `.js .reveal.in` arrival gate, the `tick` keyframe, the var(--ease) curve and the
+   prefers-reduced-motion off switch at index.html:498 for free. The only thing overridden is the
+   stagger: the shared `[class*="mg-"]` delay is .09s per step, which fires all three almost at
+   once and reads as a single event rather than a build running. .34s apart reads as sequential.
+
+   NOTE the selector order. The obvious `.js .reveal.in section[...]` is structurally impossible:
+   the section is the ANCESTOR of .reveal, not a descendant, so that selector matches nothing and
+   left all three ticks on delay 0s. The section must come first. Specificity (0,5,1) clears the
+   shared (0,3,0) rule at index.html:494. */
+.js section[data-motion="step-in"] .reveal.in .ag-check .mg-tick{animation-delay:calc(var(--i,0) * .34s)}
+
+/* Pre-arrival state, and it is gated on `.js` for a reason. The shared `.mg-tick{stroke-dashoffset:0}`
+   default at index.html:496 means "drawn", which is the correct no-JS and no-observer fallback: a
+   reader without script sees three finished ticks rather than three empty boxes forever. But with
+   script alive that default also applies in the window before `.in` lands, and measured at t=100ms
+   the ticks read [0,0,0], i.e. drawn, then snap to hidden and redraw. Scoping the hidden start to
+   `.js` removes that flash while leaving the no-JS fallback exactly as it was. */
+.js section[data-motion="step-in"] .ag-check .mg-tick{stroke-dashoffset:var(--dash,22)}
+
+/* The caret is the section's only continuous motion, so it is the one thing still moving after
+   the build finishes. Constant motion is linear and infinite, never eased. `blink` is already
+   defined in assets/aiml-funnel.css:76, which this page links, so it is not redefined here. */
+section[data-motion="step-in"] .ag-caret{
+  width:7px;height:13px;flex:none;background:var(--accent);display:block;
+  animation:blink 1s steps(1) infinite;
+}
+
+/* Teal on this surface after the rebuild: the three 11px ticks and the caret. No field, and the
+   4 accent-soft numeral chips plus the ~400px spine that were here before are gone. */
+
+@media(prefers-reduced-motion:reduce){
+  section[data-motion="step-in"] .ag-caret{animation:none}
+  /* REQUIRED, and it is the regression the `.js` hidden start above introduced. The page kills
+     every [class*="mg-"] animation under reduced motion (index.html:498), so with the ticks
+     starting hidden there is nothing left to resolve them and they stay invisible forever:
+     measured [22,22,22] after arrival, three permanently empty boxes. Reduced motion must land on
+     the FINISHED state, not the start state. Same specificity as the rule above, later in source. */
+  .js section[data-motion="step-in"] .ag-check .mg-tick{stroke-dashoffset:0}
+}
+
+/* ---------- 5. NARROW ----------
+   The page already collapses this section's .wrap to a single column and the steps keep their
+   52px 1fr grid, so the screen only needs to stop being 400px wide inside a 390px viewport. */
+@media(max-width:560px){
+  section[data-motion="step-in"] .ag-screen{max-width:100%;margin-top:14px}
+  section[data-motion="step-in"] .ag-txt{font-size:12px}
+}

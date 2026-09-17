@@ -1,0 +1,100 @@
+/* ============================================================================
+   wordmark-hero.css   Two fixes on sprint/index.html.
+   Every selector is scoped under .bar or .hero, both of which already exist.
+   ============================================================================ */
+
+
+/* ---------------------------------------------------------------------------
+   FIX 1  THE WORDMARK
+
+   SUPERSEDES sprint/index.html:45-48  (.bar .mark and its reduced-motion line)
+
+   Why the old one was never seen: a 0.9s clip-path wipe starting at 0.12s on a
+   20px tall mark finishes ~1.0s after load, and at that size the whole wipe is
+   a shimmer. The check that passed it read the `animation:none` line.
+
+   REJECTED APPROACH, written down so nobody tries it again. Inlining the SVG to
+   animate per-character &lt;-ish tspan>s looked right and broke four things at once.
+   The asset carries its own Space Mono as a ~70KB base64 woff2 in an embedded
+   &lt;-ish style>. Measured after inlining:
+     - the parser built  svg > style > style > img > text  and emitted a bare
+       &lt;-ish img> with no src into &lt;-ish header>;
+     - the caret ended up outside the &lt;-ish svg>, so .bar .wm-caret computed
+       animation-name:none and never blinked;
+     - header.bar alone pushed document scrollWidth to 961px against a 390px
+       viewport (proved by hiding each block in turn: header 390, every section
+       961);
+     - and the second &lt;-ish style> element it introduced sat LATER in the document
+       than the head stylesheet, so the assembler's lastIndexOf('the closing style tag')
+       appended every rebuilt section's CSS inside the SVG instead of the head.
+   One inline asset, four failures. It stays an &lt;-ish img>.
+
+   WHAT REPLACES IT: the page's own `draw` primitive
+   (clip-path inset(0 100% 0 0) -> inset(0)) driven with steps(16, end).
+   Sixteen discrete steps over 1.5s reads as the wordmark TYPING on, one
+   character cell at a time, instead of a smooth wipe. Sixteen because
+   "AI MARKETING LAB" is sixteen characters and the face is a monospace, so
+   every step lands exactly on a cell. The teal block already drawn inside the
+   asset arrives on the final step, which reads as the caret landing.
+
+   clip-path costs no layout, and the keyframe ENDS at the natural state, so a
+   failed animation or a stylesheet that never loads leaves the wordmark fully
+   visible. Nothing here is statically transparent.
+
+   28px on desktop, up from a flat 20px: at 20px a character cell is 9.5px and a
+   stepped reveal has nothing to show. The floor stays at 20px so narrow
+   viewports keep the clearance the bar already had. height + aspect-ratio
+   reserves the box before the file loads, so there is no layout shift.
+
+   DECLARED EXCEPTION to the 14px Space Mono ceiling, same standing as the
+   [data-fallback] wordmarks at index.html:17 and vsl/watch.html:16. This is a
+   logotype, not type: the face is drawn inside the asset at font-size 128 in
+   viewBox units and scaled into a 28px box, so no reader sees 128px monospace.
+   brand-guard.mjs greps CSS rules containing var(--mono) and cannot see a face
+   declared inside an asset, so the reason is recorded here rather than left
+   as a silent gap.
+--------------------------------------------------------------------------- */
+.bar .mark{
+  display:block;flex:none;width:auto;
+  height:clamp(20px,2.4vw,28px);
+  aspect-ratio:1520/200;
+  animation:draw 1.5s steps(16,end) .2s both;
+}
+@media(prefers-reduced-motion:reduce){
+  .bar .mark{animation:none;clip-path:none}
+}
+
+
+/* ---------------------------------------------------------------------------
+   FIX 2  THE HERO QUALIFIER
+
+   SUPERSEDES sprint/index.html:83-92  (.callout, .callout::before, and the
+   reduced-motion line under them)
+
+   Measured before: 17px at 1440 and 15px at 390, Inter 500, three lines, under
+   a 64px headline. Sandy said more than once that he could not see it.
+   Target after: 28px at 1440, 20px at 390.
+
+   It must be read FIRST and fast without becoming a second headline. Size does
+   half: 28px against the h1's 64px is a 2.3x step, so the h1 still owns the
+   surface. Weight does the other half: the line sits in --text-mid and only the
+   three buyer types carry full ink, so a scanning eye takes three ink phrases
+   and hands off to the headline.
+--------------------------------------------------------------------------- */
+.hero .callout{
+  font-family:var(--sans);font-weight:500;
+  font-size:clamp(20px,2.45vw,28px);
+  line-height:1.28;letter-spacing:-.012em;
+  color:var(--text-mid);
+  max-width:40ch;
+  margin-bottom:clamp(18px,2.6vw,30px);
+}
+/* The nouns a reader scans for. No teal: the rule above is this surface's one accent. */
+.hero .callout b{font-weight:600;color:var(--text-high)}
+
+/* One accent element, scaled to the larger type it now sits over. `grow` is the
+   page's own primitive, transform only, so it never owns opacity. */
+.hero .callout::before{content:"";display:block;width:clamp(44px,4.6vw,64px);height:3px;
+  background:var(--accent);margin-bottom:clamp(12px,1.7vw,18px);
+  transform-origin:left center;animation:grow .9s var(--ease) .1s both}
+@media(prefers-reduced-motion:reduce){.hero .callout::before{animation:none}}

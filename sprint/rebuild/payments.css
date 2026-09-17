@@ -1,0 +1,103 @@
+/* =========================================================================
+   PROOF: the payment wall.
+   New and replacement rules only. Every selector is scoped to
+   section[data-motion="shot-in"] so nothing here can reach another section.
+   Paste after the existing ".pay" block: these rules are more specific than
+   the originals they replace, so order is not load bearing, but keeping them
+   together keeps the file readable.
+
+   The problem this fixes: four of the seven notifications (deck-3 to deck-6)
+   are the Zippyscale invoice template, where a full width logo owns the top
+   two thirds and the figure sits in a 13px body line near the bottom. The
+   image is 937px wide, the card is at most 352px, so that line renders at
+   13 * (352/937) = 4.9px on desktop and 3.4px at a 390 viewport. Cropping is
+   ruled out and the branding stays, so no change to the image can fix it.
+   The composition changes instead: the screenshot is the evidence, the page's
+   own type states the figure, and both live on the same card.
+   ========================================================================= */
+
+/* The figure, in Inter 700, is now the loudest thing on the card. It was
+   12.5px Space Mono in teal, which is a hairline, and 28 teal amounts in one
+   viewport is a field of accent rather than the one accent word the system
+   allows. The section's single teal element is now the eyebrow, which is what
+   every other section on the page uses it for. Measured: 1 teal text node. */
+section[data-motion="shot-in"] .pay .cap{
+  padding:12px 14px 13px;
+  display:flex;flex-direction:column;align-items:flex-start;
+  gap:1px;flex-wrap:nowrap}
+section[data-motion="shot-in"] .pay .amt{
+  font-family:var(--sans);font-weight:700;
+  font-size:clamp(19px,1.5vw,23px);line-height:1.18;letter-spacing:-.015em;
+  color:var(--text-high);font-variant-numeric:tabular-nums}
+section[data-motion="shot-in"] .pay .who{
+  font-weight:500;font-size:13px;line-height:1.35;color:var(--text-mid)}
+
+/* Centred, not top anchored. With the intrinsic sizes corrected, deck-1 and
+   deck-7 are 380 and 360 tall against 510 for the rest, so contain leaves
+   real slack in the box for those two. Top anchoring dumped all of it under
+   the image, which is the ragged bottom edge that read as broken sizing.
+   Centring splits it and the whole notification is still visible, uncropped. */
+section[data-motion="shot-in"] .pay img{
+  object-position:center center}
+
+/* ---------- the motion graphic: the inbox line ----------
+   One line that writes itself in from the left, holds, then clears to the
+   left, and hands over to the next sender. Seven real senders, a 24.5s loop,
+   3.5s each. It is continuous rather than an entrance, so it is still running
+   when the reader arrives and keeps running while they read.
+   It sits in the header's right column, where the lede used to sit, so it is
+   nowhere near the wall and never competes with the horizontal scroll.
+   Space Mono here is a label and a meta line: 12px and 13px, both under the
+   14px cap. */
+section[data-motion="shot-in"] .inbox{
+  grid-column:2;grid-row:2;align-self:start;
+  display:flex;align-items:baseline;gap:10px;
+  margin:0 0 5px;min-width:0}
+section[data-motion="shot-in"] .inbox-label{
+  flex:none;font-family:var(--mono);font-size:12px;line-height:1.5;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--text-low)}
+section[data-motion="shot-in"] .inbox-feed{
+  display:grid;flex:1 1 auto;min-width:0}
+/* All seven stack in one grid cell, so the handover costs no layout and no
+   height change. The resting state is entry one visible and the rest cleared,
+   which is what a reader with no JavaScript, a failed observer or reduced
+   motion gets: a correct line, never a blank one and never seven at once. */
+section[data-motion="shot-in"] .inbox-feed b{
+  grid-area:1 / 1;
+  font-family:var(--mono);font-weight:400;font-size:13px;line-height:1.5;
+  color:var(--text-mid);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  clip-path:inset(0 0 0 100%)}
+section[data-motion="shot-in"] .inbox-feed b:first-child{
+  clip-path:inset(0)}
+
+@keyframes inbox-line{
+  0%     {clip-path:inset(0 100% 0 0)}
+  4%     {clip-path:inset(0)}
+  11.4%  {clip-path:inset(0)}
+  14.28% {clip-path:inset(0 0 0 100%)}
+  100%   {clip-path:inset(0 0 0 100%)}
+}
+/* Gated on .js AND on the section being reached, like every other primitive
+   on the page. Linear, because constant motion must not ease. */
+.js section[data-motion="shot-in"] .reveal.in .inbox-feed b{
+  animation:inbox-line 24.5s linear infinite;
+  animation-delay:calc(var(--n) * 3.5s)}
+
+section[data-motion="shot-in"] .wall-hint{
+  grid-column:1 / -1;
+  font-family:var(--mono);font-size:12px;line-height:1.5;letter-spacing:.02em;
+  color:var(--text-low);margin:12px 0 0}
+
+@media(max-width:940px){
+  /* Release the desktop placement with the rest of the split header, or the
+     inbox forces an implicit second column and clips. */
+  section[data-motion="shot-in"] .inbox{
+    grid-column:auto;grid-row:auto;margin:16px 0 0}
+  section[data-motion="shot-in"] .wall-hint{
+    grid-column:auto;grid-row:auto}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .js section[data-motion="shot-in"] .reveal.in .inbox-feed b{animation:none}
+}

@@ -1,0 +1,144 @@
+/* =========================================================================
+   5b. THE WORK, four buckets by type of output. NEW RULES ONLY.
+
+   Every selector is prefixed with section[data-motion="work-in"] so nothing here can reach another
+   agent's section. The classes are prefixed .wb- rather than reusing .bucket / .b-shot / .figs,
+   which means the old rules still sitting in index.html (lines 639-678) simply never match and do
+   not have to be unwound by hand.
+
+   Shared components reused, not redefined: .console and .log from assets/aiml-funnel.css, and the
+   .mg-wipe primitive from the page's own style block. Only their overrides live here.
+
+   Layout: 2x2 instead of four stacked full width rows. Same four buckets, same order, half the
+   height. Top row is two real artifacts, bottom row is two working interfaces.
+   ========================================================================= */
+
+section[data-motion="work-in"] .wb-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  column-gap:clamp(22px,3vw,44px);row-gap:clamp(32px,3.8vw,50px);
+  margin-top:clamp(28px,3.6vw,42px);
+}
+section[data-motion="work-in"] .wb{display:flex;flex-direction:column;min-width:0}
+section[data-motion="work-in"] .wb-top{
+  display:flex;align-items:baseline;gap:12px;
+  padding-bottom:11px;margin-bottom:16px;border-bottom:1px solid var(--line);
+}
+section[data-motion="work-in"] .wb-n{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--text-low);
+}
+section[data-motion="work-in"] .wb-top h3{
+  font-family:var(--sans);font-weight:700;font-size:clamp(18px,1.7vw,21px);
+  letter-spacing:-.02em;color:var(--text-high);
+}
+/* One line per bucket. If a sentence describes what the artifact above already shows, it is gone. */
+section[data-motion="work-in"] .wb-line{
+  font-size:14.5px;line-height:1.6;color:var(--text-mid);margin:16px 0 0;max-width:46ch;
+}
+
+/* ---------- 01 and 02: a real page inside browser chrome ---------- */
+/* The reference both Sandy named does this: Remy puts a video inside browser chrome, zippyscale
+   puts product UI in a frame. The chrome is what makes a screenshot read as a site that is live
+   rather than as a picture of a layout. The URL is the checkable part. */
+section[data-motion="work-in"] .wb-frame{
+  margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  background:var(--surface);box-shadow:0 24px 56px -34px rgba(18,18,18,.18);
+}
+section[data-motion="work-in"] .wb-bar{
+  display:flex;align-items:center;padding:9px 14px;
+  border-bottom:1px solid var(--line);background:var(--elevated);
+}
+/* Three window dots out of one element: the box, plus two copies cast with box-shadow. */
+section[data-motion="work-in"] .wb-dots{
+  width:8px;height:8px;border-radius:50%;flex:none;margin-right:40px;
+  background:#DEDEDE;box-shadow:13px 0 0 #DEDEDE,26px 0 0 #DEDEDE;
+}
+section[data-motion="work-in"] .wb-url{
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--text-low);
+}
+section[data-motion="work-in"] .wb-view{display:block;aspect-ratio:16/10;overflow:hidden}
+section[data-motion="work-in"] .wb-view img{
+  width:100%;height:100%;display:block;object-fit:cover;object-position:top center;
+}
+
+/* ---------- 03: the operator console ---------- */
+/* Replaces the SVG node diagram. .console, .console-head, .log and the logIn keyframe all already
+   exist in assets/aiml-funnel.css and were referenced by zero HTML files. Only overrides here. */
+section[data-motion="work-in"] .console{
+  box-shadow:0 24px 56px -34px rgba(18,18,18,.18);
+}
+section[data-motion="work-in"] .console-head{text-transform:none;letter-spacing:.08em}
+section[data-motion="work-in"] .console-body{min-height:172px;justify-content:flex-start}
+/* TEAL BUDGET. The shared console paints .op, .tick, .cursor and .dot in the accent, which on this
+   surface adds up to a field of it. The only teal left in this section is the live dot: one mark,
+   and it is a status light rather than decoration. */
+section[data-motion="work-in"] .console-head .cursor{background:var(--text-low)}
+section[data-motion="work-in"] .log .op{color:var(--text-low);min-width:66px}
+section[data-motion="work-in"] .log .txt{color:var(--text-high)}
+section[data-motion="work-in"] .log .tick{background:transparent;border-color:var(--line)}
+section[data-motion="work-in"] .log .tick::after{
+  border-left-color:var(--text-mid);border-bottom-color:var(--text-mid);
+}
+/* The shared .log rule animates at LOAD. This section sits about 6,800px down, so ungated it has
+   finished long before the reader exists: re-gate it on the .in class the observer adds. Without
+   js the rows sit at their natural state and nothing is hidden. */
+section[data-motion="work-in"] .log,
+section[data-motion="work-in"] .log .tick{animation:none;opacity:1;transform:none}
+.js section[data-motion="work-in"] .log{opacity:0;transform:translateY(7px)}
+.js section[data-motion="work-in"] .reveal.in .log{
+  animation:logIn .55s var(--ease) var(--d,0s) forwards;
+}
+/* The tick is NOT part of the entrance. It lights when that step runs: the five light in order,
+   clear, and run again for as long as the console is on screen. An earlier version rotated the
+   rows themselves, which within seconds had the console showing "Follow up set" above "Enquiry
+   from the site form". A system out of causal order reads as random rather than as working. */
+.js section[data-motion="work-in"] .log .tick{
+  opacity:0;transform:scale(.9);
+  transition:opacity .22s var(--ease),transform .22s var(--ease);
+}
+.js section[data-motion="work-in"] .log .txt{color:var(--text-mid)}
+.js section[data-motion="work-in"] .log.done .tick{opacity:1;transform:none}
+.js section[data-motion="work-in"] .log.done .txt{color:var(--text-high)}
+
+/* ---------- 04: the counted figures ---------- */
+/* Sandy: "you don't need to show the exact ad account data, you can animate those figures".
+   tabular-nums plus a reserved width stops the label shuffling sideways while the number counts. */
+section[data-motion="work-in"] .wb-figs{border-top:1px solid var(--line)}
+section[data-motion="work-in"] .wb-fig{
+  display:flex;align-items:baseline;gap:16px;
+  padding:15px 0;border-bottom:1px solid var(--line);
+}
+section[data-motion="work-in"] .wb-fig-n{
+  font-family:var(--sans);font-weight:700;font-size:clamp(28px,3.2vw,40px);
+  letter-spacing:-.035em;line-height:1;color:var(--text-high);
+  font-variant-numeric:tabular-nums;min-width:4.4ch;text-align:right;
+}
+section[data-motion="work-in"] .wb-fig-l{font-size:13.5px;line-height:1.45;color:var(--text-mid)}
+section[data-motion="work-in"] .wb-src{
+  font-family:var(--mono);font-size:11px;line-height:1.65;letter-spacing:.02em;
+  color:var(--text-low);margin:14px 0 0;
+}
+
+/* ---------- responsive ---------- */
+@media(max-width:860px){
+  section[data-motion="work-in"] .wb-grid{grid-template-columns:1fr}
+  /* the two shadow copies reach 26px, so the margin has to clear that before it is a gap at all:
+     at 26px the URL sat flush against the third dot. */
+  section[data-motion="work-in"] .wb-dots{margin-right:38px}
+}
+
+/* ---------- reduced motion ---------- */
+/* .mg-wipe is already covered by the page's own reduce block. These are the two this file adds. */
+@media(prefers-reduced-motion:reduce){
+  /* The .reveal.in variants have to be listed too. Without them these sit at (0,3,1) against the
+     (0,5,1) of the gated rule above, and a media query adds no specificity of its own, so the rows
+     went on animating under reduce. Measured before the fix: 10 logIn animations still running. */
+  .js section[data-motion="work-in"] .log,
+  .js section[data-motion="work-in"] .log .tick,
+  .js section[data-motion="work-in"] .reveal.in .log,
+  .js section[data-motion="work-in"] .reveal.in .log .tick{animation:none;opacity:1;transform:none}
+  /* the run loop never starts under reduce, so every step shows as already done */
+  .js section[data-motion="work-in"] .log .tick{opacity:1;transform:none;transition:none}
+  .js section[data-motion="work-in"] .log .txt{color:var(--text-high)}
+  section[data-motion="work-in"] .console-head .dot,
+  section[data-motion="work-in"] .console-head .cursor{animation:none}
+}

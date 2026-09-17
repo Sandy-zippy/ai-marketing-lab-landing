@@ -1,0 +1,133 @@
+<!-- 5b. THE WORK, divided by TYPE OF CONTENT PRODUCED, which is how Sandy divides it: design,
+     content, automations, performance. Not by client.
+     Two real artifacts on the top row, two working interfaces on the bottom row. The node diagram
+     that used to sit in Automations is gone: it was a drawn chart of an idea, which is the thing
+     that got round 1 rejected. The console in its place is the shared component from
+     assets/aiml-funnel.css, and it keeps writing after it arrives instead of playing once. -->
+<section data-motion="work-in"
+         data-motion-graphic="the two site frames wipe open left to right on arrival, the console keeps writing a new line every 2.4 seconds for as long as it is on screen, and the three counted figures run up from zero"
+         data-job="Show the four kinds of output this produces, split by what gets made rather than by who paid for it, so a reader can judge the standard with their own eyes before taking a seat">
+  <div class="wrap reveal">
+    <span class="eyebrow">The work</span>
+    <h2>Four kinds of output. One system.</h2>
+    <p class="lede">Split by what gets produced, not by who paid for it.</p>
+
+    <div class="wb-grid">
+
+      <article class="wb">
+        <header class="wb-top"><span class="wb-n">01</span><h3>Design</h3></header>
+        <figure class="wb-frame mg-wipe">
+          <div class="wb-bar"><span class="wb-dots"></span><span class="wb-url">riarhgroup.com</span></div>
+          <div class="wb-view">
+            <img src="../assets/work/design-riarh.jpg" width="1600" height="1000" loading="lazy"
+                 alt="Riarh Group home page: a serif headline reading Your commercial vision, built on time, built right, over a photograph of a finished commercial interior" />
+          </div>
+        </figure>
+        <p class="wb-line">A commercial construction firm in British Columbia. Built end to end, live on their own domain.</p>
+      </article>
+
+      <article class="wb">
+        <header class="wb-top"><span class="wb-n">02</span><h3>Content</h3></header>
+        <figure class="wb-frame mg-wipe" style="--i:1">
+          <div class="wb-bar"><span class="wb-dots"></span><span class="wb-url">aimarketinglabs.in</span></div>
+          <div class="wb-view">
+            <!-- Captured 17 Sep 2026 from the current live page. The previous capture
+                 (content-home.jpg) predated the same day's corrections and showed all four of the
+                 things removed that day: the "both halves" line, the asterisk qualifier line,
+                 Space Mono headlines, and a lime wordmark square. A bucket whose job is to prove
+                 our own output standard cannot show a picture of the defects we just fixed. -->
+            <img src="../assets/work/content-funnel-17sep.jpg" width="1600" height="1000" loading="lazy"
+                 alt="The AI Marketing Lab training page: an Inter headline reading Every client you have came from someone you know, with a registration card on the right taking a name, WhatsApp number and email" />
+          </div>
+        </figure>
+        <p class="wb-line">This funnel. The pages, the emails and the follow up, produced by the same stack.</p>
+      </article>
+
+      <article class="wb">
+        <header class="wb-top"><span class="wb-n">03</span><h3>Automations</h3></header>
+        <div class="console">
+          <div class="console-head"><span class="dot"></span>ours, always on<span class="cursor"></span></div>
+          <div class="console-body">
+            <div class="log" style="--d:.15s"><span class="op">in</span><span class="txt">Enquiry from the site form</span><span class="tick"></span></div>
+            <div class="log" style="--d:.45s"><span class="op">reply</span><span class="txt">Answered, not queued for morning</span><span class="tick"></span></div>
+            <div class="log" style="--d:.75s"><span class="op">record</span><span class="txt">Written into the client record</span><span class="tick"></span></div>
+            <div class="log" style="--d:1.05s"><span class="op">follow</span><span class="txt">Follow up set</span><span class="tick"></span></div>
+            <div class="log" style="--d:1.35s"><span class="op">learn</span><span class="txt">What worked is kept</span><span class="tick"></span></div>
+          </div>
+          <div class="console-foot"><span>no one at a desk</span><b>AI Marketing Lab</b></div>
+        </div>
+        <p class="wb-line">The part nobody sees. It runs when no one is at a desk, and keeps what worked.</p>
+      </article>
+
+      <article class="wb">
+        <header class="wb-top"><span class="wb-n">04</span><h3>Performance</h3></header>
+        <div class="wb-figs">
+          <div class="wb-fig"><span class="wb-fig-n" data-count>2,202</span><span class="wb-fig-l">clicks in thirty days</span></div>
+          <div class="wb-fig"><span class="wb-fig-n" data-count>103</span><span class="wb-fig-l">leads at $8.90 each</span></div>
+          <div class="wb-fig"><span class="wb-fig-n" data-count>1,116</span><span class="wb-fig-l">realtors sourced and verified</span></div>
+        </div>
+        <p class="wb-src">Meta ad account act_777763308169871, thirty day report, 7 May 2026. Realtor rows counted from MASTER_realtor_emails.tsv.</p>
+        <p class="wb-line">Campaigns run end to end, with the list underneath them.</p>
+      </article>
+
+    </div>
+  </div>
+
+<script>
+/* Count up, gated on the figure arriving. The TRUE value sits in the markup, so a dead script, a
+   crawler or a reduced-motion reader still reads the real number; the script zeroes it only once
+   it knows it can animate it back. The previous version shipped 0 in the markup, which meant no
+   script, no figures. */
+(function(){
+  var sec=document.currentScript.closest('section');
+  var figs=[].slice.call(sec.querySelectorAll('[data-count]'));
+  if(!figs.length||!('IntersectionObserver' in window)) return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  function fmt(n){return n.toLocaleString('en-IN');}
+  function run(el){
+    /* Zero it HERE, at the moment it starts counting, never at load: a reader who does not scroll
+       this far, and a figure whose observer never fires, must still be showing the real number. */
+    var final=el.textContent;
+    var target=parseInt(final.replace(/[^0-9]/g,''),10)||0;
+    var t0=null,dur=1500;
+    el.textContent=fmt(0);
+    function step(ts){
+      if(!t0) t0=ts;
+      var p=Math.min((ts-t0)/dur,1);
+      /* ease out cubic, the same curve as the CSS primitives */
+      el.textContent=fmt(Math.round(target*(1-Math.pow(1-p,3))));
+      if(p<1) requestAnimationFrame(step); else el.textContent=final;
+    }
+    requestAnimationFrame(step);
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ run(e.target); io.unobserve(e.target); } });
+  },{threshold:.3});
+  figs.forEach(function(el){io.observe(el);});
+})();
+
+/* The console keeps working while it is on screen. The rows stagger in once on arrival, then the
+   job runs down them in order, each step ticking as it completes, clears, and runs again. An
+   entrance that has already finished is the defect this avoids, and keeping the rows in place is
+   what stops the panel reading as a random feed. The loop only runs while the console is in view,
+   so it costs nothing off screen. */
+(function(){
+  var sec=document.currentScript.closest('section');
+  var body=sec.querySelector('.console-body');
+  if(!body||!('IntersectionObserver' in window)) return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var rows=[].slice.call(body.querySelectorAll('.log')),i=0,timer=null;
+  function cycle(){
+    if(i<rows.length){ rows[i].classList.add('done'); i++; }
+    else { rows.forEach(function(r){ r.classList.remove('done'); }); i=0; }
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting&&!timer){ timer=setInterval(cycle,780); }
+      else if(!e.isIntersecting&&timer){ clearInterval(timer); timer=null; }
+    });
+  },{threshold:.25});
+  io.observe(body);
+})();
+</script>
+</section>

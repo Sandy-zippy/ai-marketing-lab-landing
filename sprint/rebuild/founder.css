@@ -1,0 +1,59 @@
+/* ---------- who is running it: the letter ---------- */
+/* DESIGN.md composes this section as "paper ground, portrait left, letter right". The letter was
+   the part that never got built: four body paragraphs on the section ground and a 14px mono tag
+   reading "Sandy", which is page copy wearing a signature. A letter needs a substrate, a
+   letterhead and a signature, so it gets all three and the prose gets shorter.
+   The existing note "no paper card on a paper ground" is correct and is respected: this sheet is
+   --canvas white, NOT --paper, so it reads as a sheet lying on the desk, not paper on paper. */
+section[data-motion="who-in"] .fdr{
+  display:grid;grid-template-columns:clamp(200px,20vw,260px) minmax(0,1fr);
+  gap:clamp(26px,3.4vw,48px);align-items:start;margin-top:clamp(26px,3.2vw,40px)}
+
+section[data-motion="who-in"] .fdr-shot{margin:0}
+/* 14px, not the global .portrait 18px: @keyframes wipe clips with "round 14px", so an 18px radius
+   pops its corners the frame the wipe finishes. */
+section[data-motion="who-in"] .fdr-img{
+  width:100%;height:auto;display:block;border-radius:14px;border:1px solid var(--paper-edge)}
+
+section[data-motion="who-in"] .fdr-letter{
+  background:var(--canvas);border:1px solid var(--paper-edge);border-radius:14px;
+  padding:clamp(24px,3vw,38px);
+  box-shadow:0 1px 2px rgba(42,42,42,.05),0 18px 34px -24px rgba(42,42,42,.32)}
+
+/* Letterhead. Space Mono at 12px is label use and sits under the 14px cap. Carries the place and
+   the history so the prose no longer has to spend a paragraph on them. */
+section[data-motion="who-in"] .fdr-letter p.fdr-head{
+  font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  line-height:1.5;color:var(--text-mid);margin:0 0 clamp(18px,2.2vw,24px);padding-bottom:13px;
+  border-bottom:1px solid var(--paper-edge)}
+
+section[data-motion="who-in"] .fdr-letter p{
+  color:var(--paper-ink);font-size:16.5px;line-height:1.75;max-width:62ch;margin:0 0 15px}
+section[data-motion="who-in"] .fdr-letter p:last-child{margin-bottom:0}
+
+section[data-motion="who-in"] .fdr-letter p.fdr-sign{
+  font-family:var(--sans);font-weight:600;font-size:17px;color:var(--paper-ink);
+  margin:clamp(20px,2.4vw,26px) 0 0;padding-top:16px;border-top:1px solid var(--paper-edge);
+  display:flex;align-items:center;gap:7px}
+
+/* Continuous, not an entrance: this is still blinking long after the section has arrived, which is
+   the one thing an arrival animation can never do. He writes the setup live on the session, so a
+   cursor is the honest thing to sign with. */
+section[data-motion="who-in"] .fdr-caret{
+  width:8px;height:17px;flex:none;background:var(--paper-ink);display:inline-block;
+  animation:fdrCaret 1.1s steps(1,end) infinite}
+@keyframes fdrCaret{0%,55%{opacity:1}56%,100%{opacity:0}}
+
+/* The letter follows the portrait in. Specificity has to beat .js .reveal.in .who-in, whose
+   animation shorthand resets delay to 0. */
+.js .reveal.in section[data-motion="who-in"] .fdr-letter.who-in{animation-delay:.1s}
+
+@media(max-width:940px){
+  section[data-motion="who-in"] .fdr{grid-template-columns:1fr;gap:20px}
+  section[data-motion="who-in"] .fdr-shot{max-width:200px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  section[data-motion="who-in"] .fdr-caret{animation:none;opacity:1}
+  .js .reveal.in section[data-motion="who-in"] .fdr-img.mg-wipe{animation:none;clip-path:none}
+}

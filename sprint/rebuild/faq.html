@@ -1,0 +1,63 @@
+<!-- 9. FAQ -->
+<section data-motion="faq-in"
+         data-motion-graphic="opening a question wipes its answer open left to right, on arrival and again on every click, and the row that was open closes itself"
+         data-job="Kill the last five objections in one narrow column, so none of them survives to the registration form">
+  <div class="wrap reveal">
+    <div class="fq-col">
+      <span class="eyebrow">Before you register</span>
+      <h2>The questions that come up every time.</h2>
+
+      <!-- name="faq" is the native exclusive accordion: opening one closes the last one, no script.
+           The disclosure indicator is a word, not a drawn chevron, and it is a real element so a
+           pseudo-element marker can never creep back in. -->
+      <div class="fq-list faq-in">
+
+        <details class="fq-row" name="faq" open>
+          <summary>
+            <span class="fq-n">01</span>
+            <span class="fq-q">Is the session actually free?</span>
+            <span class="fq-state" aria-hidden="true"><i class="is-shut">Open</i><i class="is-open">Close</i></span>
+          </summary>
+          <div class="fq-a"><p>Yes. Ninety minutes, nothing to pay, no card asked for anywhere on this page.</p></div>
+        </details>
+
+        <details class="fq-row" name="faq">
+          <summary>
+            <span class="fq-n">02</span>
+            <span class="fq-q">What does the six weeks cost?</span>
+            <span class="fq-state" aria-hidden="true"><i class="is-shut">Open</i><i class="is-open">Close</i></span>
+          </summary>
+          <div class="fq-a"><p>$200, as a group, one session a week. I explain it at the end and you decide then. Nothing is sold on this page.</p></div>
+        </details>
+
+        <details class="fq-row" name="faq">
+          <summary>
+            <span class="fq-n">03</span>
+            <span class="fq-q">Do I need to be technical?</span>
+            <span class="fq-state" aria-hidden="true"><i class="is-shut">Open</i><i class="is-open">Close</i></span>
+          </summary>
+          <div class="fq-a"><p>No. You tell Claude Code what you want in plain English. The session shows what that looks like, including the parts that go wrong.</p></div>
+        </details>
+
+        <details class="fq-row" name="faq">
+          <summary>
+            <span class="fq-n">04</span>
+            <span class="fq-q">I cannot make Sunday.</span>
+            <span class="fq-state" aria-hidden="true"><i class="is-shut">Open</i><i class="is-open">Close</i></span>
+          </summary>
+          <div class="fq-a"><p>Sessions run Tuesday, Thursday and Saturday at 6:00pm IST, Sunday at 11:00am IST.</p></div>
+        </details>
+
+        <details class="fq-row" name="faq">
+          <summary>
+            <span class="fq-n">05</span>
+            <span class="fq-q">Is there a recording?</span>
+            <span class="fq-state" aria-hidden="true"><i class="is-shut">Open</i><i class="is-open">Close</i></span>
+          </summary>
+          <div class="fq-a"><p>Come live. I answer questions on the call.</p></div>
+        </details>
+
+      </div>
+    </div>
+  </div>
+</section>

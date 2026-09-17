@@ -1,0 +1,72 @@
+<!-- 10. CLOSE -->
+<!-- The floating teal rule is gone. It was not a styling accident: .close-rule is display:block at
+     width:100%/max-width:280px with margin:18px 0 4px, sitting inside .close-cta{text-align:center}.
+     text-align centres inline content and does nothing to a block box, so with both horizontal
+     margins at 0 it parked against the left edge of the 1180px wrap while the h2 above it centred
+     itself with margin:0 auto. mg-grow's transform-origin:left then grew it further leftward. It is
+     replaced rather than centred: a 2px drawn line used to mark a turn is the "abstract vector
+     decoration" the brief bans by name, and the close needs content there, not an ornament.
+
+     What sits there instead is the terms of the ask, which is the last thing a reader checks before
+     giving a phone number, and which the page was making them scroll back up to the FAQ to find. -->
+<section data-motion="close-in"
+         data-motion-graphic="the three terms of the ask wipe in left to right, one after another, when the section arrives"
+         data-job="Give the reader who scrolled the whole page the same single action the hero offered, with the price, the length and the other session times sitting next to the fields so there is nothing left to go back and check">
+  <div class="wrap close-cta reveal">
+    <div class="close-in">
+
+      <h2>The next one is <span id="nextInline">Sunday</span>.</h2>
+      <p class="lede">You leave with the first piece built.</p>
+
+      <!-- One object at the end of the page: the terms and the fields inside a single card, so the
+           close reads as a thing rather than as loose type. Ground is - -elevated, deliberately not
+           the hero card's white-plus-shadow, so the two are not the same object seen twice. -->
+      <div class="cl-card">
+
+        <!-- Every value here is a locked fact: free, 90 minutes, no card, nothing sold on the page,
+             and the four weekly slots. Nothing is computed, so nothing here can go stale.
+             mg-draw + - -i is the page's existing wipe and stagger. No new keyframes. -->
+        <dl class="cl-terms">
+          <div class="cl-term mg-draw" style="--i:1">
+            <dt>Cost</dt>
+            <dd>Free, no card, nothing to buy here</dd>
+          </div>
+          <div class="cl-term mg-draw" style="--i:2">
+            <dt>Length</dt>
+            <dd>90 minutes</dd>
+          </div>
+          <div class="cl-term mg-draw" style="--i:3">
+            <dt>Sessions</dt>
+            <dd>Tuesday, Thursday, Saturday 6:00pm IST, Sunday 11:00am IST</dd>
+          </div>
+        </dl>
+
+        <!-- UNTOUCHED from the shipped page: form id regBottom and field ids n2, w2, e2 are read by
+             wire('regBottom',['n2','w2','e2']) for validation, the Google Form POST and attribution.
+             The .field/.msg structure is load bearing too: mark() walks el.closest('.field'). -->
+        <form class="close-form" id="regBottom" novalidate>
+          <div class="field" data-f="name">
+            <label for="n2">Your name</label>
+            <input id="n2" type="text" placeholder="First name" autocomplete="given-name" />
+            <span class="msg">Add your name.</span>
+          </div>
+          <div class="field" data-f="wa">
+            <label for="w2">WhatsApp number</label>
+            <input id="w2" type="tel" inputmode="tel" placeholder="+91 98765 43210" autocomplete="tel" />
+            <span class="msg">Add a valid number, the link goes there.</span>
+          </div>
+          <div class="field" data-f="email">
+            <label for="e2">Email</label>
+            <input id="e2" type="email" placeholder="you@business.com" autocomplete="email" />
+            <span class="msg">Add a valid email.</span>
+          </div>
+          <button class="btn btn-accent btn-block" type="submit">
+            Save my seat
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>

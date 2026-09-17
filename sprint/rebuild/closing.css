@@ -1,0 +1,111 @@
+/* =========================================================================
+   CLOSE, rebuilt 17 Sep 2026. Paste after the page's own &lt;-ish style> block: a few
+   rules here deliberately override the older .close-cta rules by source order.
+
+   THE VISIBLE BUG AND ITS ROOT CAUSE
+   .close-rule rendered as a teal bar floating at the far left of a centred
+   section. Not a paint glitch. The rule was:
+       .close-rule{display:block;height:2px;width:100%;max-width:280px;
+                   transform-origin:left center;margin:18px 0 4px}
+   inside .close-cta{text-align:center}. text-align centres INLINE content and
+   has no effect on a block box, so a block with margin-left/right of 0 sits
+   flush against the left edge of the 1180px wrap, while the h2 above it
+   centred itself properly with margin:0 auto. mg-grow's transform-origin:left
+   then animated it outward from that same left edge, which is why it read as
+   a bar sliding out of the page margin.
+   margin-inline:auto would have centred it. It was deleted instead: a 2px
+   drawn line marking a turn is exactly the "abstract vector decoration" and
+   "drawn rules used to look busy" the brief bans, and the space it occupied
+   was better spent on the terms of the ask.
+   INTEGRATOR: .close-rule and its comment (index.html lines 698-701) are dead
+   once this section is pasted in. Nothing else references the class.
+
+   WHAT REPLACES IT
+   The close was a headline, a broken rule, one sentence and a bare repeat of
+   the hero form. It now resolves into ONE object: a card holding the terms of
+   the ask beside the fields. The terms are the last thing a reader checks
+   before typing a phone number, and the page was sending them back up to the
+   FAQ to find them.
+
+   MOTION
+   No new keyframes and no new gating. The three terms carry .mg-draw with
+   --i, which the page already defines as `draw` (clip-path wipe, left to
+   right) under `.js .reveal.in`, staggered 90ms by the existing
+   `[class*="mg-"]` delay rule, and already switched off by the page's
+   prefers-reduced-motion block. The wipe ends at the natural state, so a term
+   whose animation never runs is still fully readable.
+
+   ACCENT BUDGET
+   One teal word, "Sunday", plus the action button, which is the same accent
+   the hero's button carries. The card ground is --elevated, the term labels
+   are --text-low and the values are ink. No teal anywhere else on the surface.
+   ========================================================================= */
+
+/* ---- 1. the head of the close ---- */
+/* The one accent word on this surface. Was an inline style on the span; it
+   lives here so the markup carries only the id the schedule script writes to. */
+section[data-motion="close-in"] #nextInline{color:var(--accent)}
+section[data-motion="close-in"] .close-cta .lede{max-width:44ch}
+
+/* ---- 2. the object ---- */
+/* Not the hero card repeated: that one is white with a deep shadow, this one
+   is a quiet grey plane with no shadow, so the end of the page reads as a
+   different object rather than the top of the page shown twice. */
+section[data-motion="close-in"] .cl-card{
+  max-width:780px;margin-inline:auto;text-align:left;
+  background:var(--elevated);border:1px solid var(--line);border-radius:18px;
+  padding:clamp(22px,3vw,34px);
+  display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);
+  gap:clamp(24px,3.2vw,40px);align-items:stretch;
+}
+
+/* ---- 3. the terms ---- */
+/* The terms column is shorter than the fields column, which left a dead corner of grey under
+   "Sessions" at 1440. The rows distribute across the full card height instead, so the two columns
+   start and finish together and the card reads as one block rather than as a short list next to a
+   tall form. Stacked at narrow this is a no-op: there is no spare height to distribute. */
+section[data-motion="close-in"] .cl-terms{display:grid;gap:0;align-content:space-between}
+section[data-motion="close-in"] .cl-term{padding:13px 0;border-top:1px solid var(--line)}
+section[data-motion="close-in"] .cl-term:first-child{border-top:0;padding-top:0}
+section[data-motion="close-in"] .cl-term:last-child{padding-bottom:0}
+section[data-motion="close-in"] .cl-term dt{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-low);margin-bottom:6px;
+}
+section[data-motion="close-in"] .cl-term dd{
+  font-family:var(--sans);font-size:15px;line-height:1.45;color:var(--text-high);
+}
+
+/* ---- 4. the fields ---- */
+/* .close-form is 430px and auto-centred on the page; inside the card the
+   column owns the width. */
+section[data-motion="close-in"] .close-form{max-width:none;margin:0}
+section[data-motion="close-in"] .close-form .field:last-of-type{margin-bottom:17px}
+
+/* ---- 5. narrow ---- */
+/* Below 720 the card is a single column, terms first: the reader reads what
+   they are agreeing to, then fills it in. The card keeps its own gutter so it
+   never touches the section edge at 390. */
+@media(max-width:720px){
+  section[data-motion="close-in"] .cl-card{
+    grid-template-columns:1fr;gap:clamp(20px,5vw,26px);
+  }
+  section[data-motion="close-in"] .cl-terms{
+    padding-bottom:clamp(18px,4vw,22px);border-bottom:1px solid var(--line);
+  }
+  section[data-motion="close-in"] .cl-term dd{font-size:14.5px}
+}
+
+/* ---- 6. reduced motion ---- */
+/* The three term wipes are already off: the page's own
+   `.js .reveal.in [class*="mg-"]{animation:none}` covers them, confirmed by render.
+   The section settle was NOT, and this is a real defect in the shipped page rather than
+   something this rebuild introduced. The off switch is `.js .close-in{animation:none}` at
+   0-2-0; the rule that starts it, `.js .reveal.in .close-in`, is 0-3-0, so the off switch
+   loses and the entrance plays for a reader who asked for no motion. Measured with
+   prefers-reduced-motion:reduce: closeIn read playState "finished" on .close-in. Same
+   declaration, scoped to this section so it wins on specificity.
+   INTEGRATOR: the identical bug is live on .faq-in at index.html line 409. */
+@media(prefers-reduced-motion:reduce){
+  .js section[data-motion="close-in"] .reveal.in .close-in{animation:none}
+}

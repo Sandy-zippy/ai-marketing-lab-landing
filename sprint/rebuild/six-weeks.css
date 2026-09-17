@@ -1,0 +1,139 @@
+/* ---------- six weeks: rebuilt 17 Sep 2026 ----------
+   Replaces the two-text-blocks-and-a-progress-bar version. Both `.wk .track` bars are gone: a bar
+   is a chart, and the 66% in the first one was a figure nobody could source.
+
+   The object is a printed session plan sitting on the paper ground, white sheet on cream, which is
+   the artifact route from the brief rather than a diagram of an idea. The six sessions are real
+   (six is the product), the two phases are the only two Sandy has decided, and the thing he has
+   NOT decided is printed on the sheet as its own line instead of being apologised for in prose.
+
+   Composition is a split: copy left, sheet right. The old version ran full width and left roughly
+   300px of dead paper beside a lede that stopped early.
+
+   The old `.weeks`/`.wk`/`.track` rules in index.html are left alone deliberately. No element here
+   carries those classes, so they match nothing. They are not mine to delete while other agents are
+   in the same file. Same for `.js .reveal.in .wk-in{animation:wkIn...}`, which still has to exist:
+   verify.mjs motion resolves data-motion="wk-in" to a `.wk-in` rule that starts a gated animation,
+   so the class stays on the sheet and keeps that gate honest.
+   ---------------------------------------------------- */
+
+section[data-motion="wk-in"] .wrap{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,.95fr);
+  column-gap:clamp(28px,4.4vw,72px);
+  align-items:start;
+}
+section[data-motion="wk-in"] .eyebrow{grid-column:1;grid-row:1}
+section[data-motion="wk-in"] h2{grid-column:1;grid-row:2}
+section[data-motion="wk-in"] .lede{grid-column:1;grid-row:3}
+section[data-motion="wk-in"] .sixw-note{grid-column:1;grid-row:4}
+/* The sheet spans all four rows of the copy column, which is what fills the dead third. */
+section[data-motion="wk-in"] .sixw-sheet{grid-column:2;grid-row:1 / span 4}
+
+section[data-motion="wk-in"] .sixw-note{
+  font-size:15px;line-height:1.6;color:var(--paper-ink);opacity:.72;
+  max-width:46ch;margin-top:clamp(18px,2.2vw,26px);
+}
+
+/* The sheet. White on the paper ground: a printed page on a desk, not a card of the same
+   material as the surface under it, which DESIGN.md calls a mistake and it is. */
+section[data-motion="wk-in"] .sixw-sheet{
+  background:var(--surface);
+  border:1px solid var(--paper-edge);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 22px 54px -34px rgba(42,42,42,.28);
+}
+
+section[data-motion="wk-in"] .sixw-head,
+section[data-motion="wk-in"] .sixw-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-mid);
+  padding:13px 18px;
+}
+section[data-motion="wk-in"] .sixw-head{border-bottom:1px solid var(--line)}
+section[data-motion="wk-in"] .sixw-foot{border-top:1px solid var(--line)}
+/* The one accent numeral on this surface. Not a field, not a fill. */
+section[data-motion="wk-in"] .sixw-foot b{
+  font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.04em;color:var(--accent);
+}
+
+section[data-motion="wk-in"] .sixw-rows{
+  padding:clamp(20px,2.4vw,28px) 18px;
+  display:flex;flex-direction:column;gap:clamp(20px,2.4vw,28px);
+}
+section[data-motion="wk-in"] .sixw-phase{
+  display:grid;grid-template-columns:auto 10px minmax(0,1fr);
+  column-gap:14px;align-items:start;
+}
+
+section[data-motion="wk-in"] .sixw-nums{
+  list-style:none;margin:0;padding:0;
+  display:flex;flex-direction:column;gap:7px;
+}
+section[data-motion="wk-in"] .sixw-nums li{
+  font-family:var(--mono);font-size:13px;line-height:1.25;letter-spacing:.06em;
+  color:var(--text-low);
+}
+
+/* A real bracket, drawn with borders on one span. Three sides of a box, no right edge. It groups
+   the sessions, which is content: it is the only thing about the order that is actually settled. */
+section[data-motion="wk-in"] .sixw-brace{
+  display:block;align-self:stretch;min-height:22px;
+  border:1.5px solid var(--paper-ink);
+  border-right:0;
+  border-radius:4px 0 0 4px;
+  opacity:.34;
+}
+
+section[data-motion="wk-in"] .sixw-text h3{
+  font-family:var(--sans);font-size:17px;font-weight:700;line-height:1.25;
+  color:var(--paper-ink);margin-bottom:6px;
+}
+section[data-motion="wk-in"] .sixw-text p{
+  font-size:14.5px;line-height:1.55;color:var(--text-mid);max-width:40ch;
+}
+
+/* ---------- motion ----------
+   The graphic: each bracket GROWS DOWN its own sessions, then that phase's two lines wipe in left
+   to right behind it. Two things change state on arrival and the reader can watch both.
+
+   The page's own `.mg-rise` is transform-origin:bottom, which would grow the bracket upward from
+   session 04 to 01. Read off index.html:490, not off the brief's table, which says top. Same
+   keyframe, origin corrected here, scoped so nothing else moves.
+
+   Base state is never hidden: no transform and no opacity:0 sits on the brace outside the gate, so
+   a dead script or a crawler gets the finished sheet. `.in` is the class the observer adds when the
+   section reaches the viewport, so none of this plays at load 8,000px down the page. */
+.js section[data-motion="wk-in"] .reveal.in .sixw-brace{
+  animation:rise .62s var(--ease) both;
+  animation-delay:var(--d,0s);
+  transform-origin:top center;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .js section[data-motion="wk-in"] .reveal.in .sixw-brace{animation:none}
+}
+
+/* ---------- responsive ----------
+   940 is the page's own collapse point. Releasing the explicit placements matters: left in, a child
+   still claims column 2 of a one-column parent and clips, which is the bug that clipped the form
+   at 375 once already. */
+@media(max-width:940px){
+  section[data-motion="wk-in"] .wrap{grid-template-columns:1fr}
+  section[data-motion="wk-in"] .eyebrow,
+  section[data-motion="wk-in"] h2,
+  section[data-motion="wk-in"] .lede,
+  section[data-motion="wk-in"] .sixw-note,
+  section[data-motion="wk-in"] .sixw-sheet{grid-column:auto;grid-row:auto}
+  section[data-motion="wk-in"] .sixw-note{max-width:none}
+  section[data-motion="wk-in"] .sixw-sheet{margin-top:clamp(24px,4vw,34px)}
+}
+@media(max-width:560px){
+  section[data-motion="wk-in"] .sixw-rows{padding-inline:14px}
+  section[data-motion="wk-in"] .sixw-phase{column-gap:11px}
+  section[data-motion="wk-in"] .sixw-head,
+  section[data-motion="wk-in"] .sixw-foot{padding-inline:14px;letter-spacing:.08em}
+  section[data-motion="wk-in"] .sixw-text h3{font-size:16px}
+}

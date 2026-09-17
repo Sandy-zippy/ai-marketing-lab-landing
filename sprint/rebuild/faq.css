@@ -1,0 +1,86 @@
+/* =========================================================================
+   FAQ, rebuilt 17 Sep 2026. Paste after the page's own &lt;-ish style> block: every
+   rule here is scoped to section[data-motion="faq-in"] and several of them
+   deliberately override the older FAQ rules by source order, not by weight.
+
+   What was wrong and what this does about it:
+   1. The section ran as a two column grid with the eyebrow and the headline
+      alone in a 0.92fr left column. At 1440 that column was mostly white.
+      DESIGN.md's composition table asks for a narrow measure here, so the
+      grid is gone: one 760px column, centred, headline sitting on top of its
+      own questions instead of across a gap from them.
+   2. Five chevron SVGs drawn with stroke-dashoffset were ornament pretending
+      to be a motion graphic. There is no SVG in this section now. The
+      indicator is a word, Open / Close, in a real element, so a
+      pseudo-element marker cannot come back the way the 19px "+" did.
+   3. The motion is the disclosure itself: the answer wipes open left to
+      right with the page's own `draw` keyframe, gated on .reveal.in so it
+      plays when the reader arrives, and again on every click because a
+      closed <details> does not render its content, which resets the
+      animation. name="faq" makes it exclusive, so one click visibly changes
+      two rows.
+   No new keyframes. No teal: the eyebrow is this surface's one accent, so
+   the open row is marked in ink.
+   ========================================================================= */
+
+/* ---- 1. the dead column ---- */
+section[data-motion="faq-in"] .wrap{display:block}
+section[data-motion="faq-in"] .fq-col{max-width:760px;margin-inline:auto}
+section[data-motion="faq-in"] .eyebrow{margin-bottom:13px}
+section[data-motion="faq-in"] h2{max-width:20ch;margin:0}
+
+/* ---- 2. the rows ---- */
+section[data-motion="faq-in"] .fq-list{margin-top:clamp(26px,3.4vw,38px);
+  border-top:1px solid var(--line)}
+section[data-motion="faq-in"] .fq-row{border-bottom:1px solid var(--line)}
+section[data-motion="faq-in"] .fq-row summary{list-style:none;cursor:pointer;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;
+  column-gap:clamp(12px,2vw,20px);padding:18px 2px;color:var(--text-high);
+  transition:transform .16s var(--ease)}
+section[data-motion="faq-in"] .fq-row summary::-webkit-details-marker{display:none}
+section[data-motion="faq-in"] .fq-n{font-family:var(--mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-low)}
+section[data-motion="faq-in"] .fq-q{font-size:16.5px;font-weight:600;line-height:1.35;
+  text-underline-offset:4px}
+section[data-motion="faq-in"] .fq-state{font-family:var(--mono);font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--text-low);white-space:nowrap}
+section[data-motion="faq-in"] .fq-state i{font-style:normal}
+
+/* The word is the state. CSS swaps which of the two is in the flow, so no
+   script and no ::after content is involved. */
+section[data-motion="faq-in"] .fq-row[open] .is-shut{display:none}
+section[data-motion="faq-in"] .fq-row:not([open]) .is-open{display:none}
+section[data-motion="faq-in"] .fq-row[open] .fq-n,
+section[data-motion="faq-in"] .fq-row[open] .fq-state{color:var(--text-high)}
+section[data-motion="faq-in"] .fq-row[open]{border-bottom-color:var(--text-high)}
+
+/* ---- 3. pointer and keyboard ---- */
+section[data-motion="faq-in"] .fq-row summary:hover .fq-q{text-decoration:underline}
+section[data-motion="faq-in"] .fq-row summary:hover .fq-state{color:var(--text-mid)}
+section[data-motion="faq-in"] .fq-row summary:active{transform:translateY(1px)}
+section[data-motion="faq-in"] .fq-row summary:focus-visible{outline:2px solid var(--text-high);
+  outline-offset:-3px;border-radius:3px}
+
+/* ---- 4. the answer ---- */
+section[data-motion="faq-in"] .fq-a{padding:0 0 20px 32px}
+section[data-motion="faq-in"] .fq-a p{margin:0;font-size:15.5px;line-height:1.65;
+  color:var(--text-mid);max-width:62ch}
+
+/* The one motion graphic. `draw` is the page's existing clip-path wipe and it
+   ends at the natural state, so a row that never animates is still readable.
+   Gated on .reveal.in: ungated it would finish 8,000px above the reader. */
+.js section[data-motion="faq-in"] .reveal.in .fq-row[open] .fq-a{animation:draw .5s var(--ease) both}
+
+@media(max-width:560px){
+  section[data-motion="faq-in"] .fq-a{padding-left:0}
+  section[data-motion="faq-in"] .fq-q{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .js section[data-motion="faq-in"] .reveal.in .fq-row[open] .fq-a{animation:none}
+  /* The page's own off switch for the block settle is `.js .faq-in{animation:none}`, which is
+     0-2-0 against the 0-3-0 rule that starts it, so it loses and the entrance plays anyway.
+     Measured here with reducedMotion:reduce: faqIn was still running. Same weight, scoped. */
+  .js section[data-motion="faq-in"] .reveal.in .faq-in{animation:none}
+  section[data-motion="faq-in"] .fq-row summary{transition:none}
+  section[data-motion="faq-in"] .fq-row summary:active{transform:none}
+}

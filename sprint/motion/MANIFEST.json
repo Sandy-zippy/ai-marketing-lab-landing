@@ -7,7 +7,7 @@
       "source": "Meta ad account act_777763308169871, thirty day account report dated 7 May 2026: 2,202 clicks and 103 leads at $8.90 each. Plus MASTER_realtor_emails.tsv, 1,116 sourced and verified rows.",
       "format": "1080x1350, 30fps, 6 seconds, h264, 401.9 kB",
       "shows": "The three performance figures counting up from zero, each behind a teal rule that draws first.",
-      "placement": "Produced and held, not yet placed. The page already counts these figures live in the performance bucket, and adding a video element there would reintroduce the layout reflow that an undimensioned video caused earlier today. Sandy decides whether it goes on the page or becomes a social cut.",
+      "placement": "DECIDED 17 Sep 2026, not placed on the page. The file is 1080x1350 portrait, 6s, and it counts up the same three performance figures the work section already counts live in the browser. Placing it would duplicate existing content and reintroduce the layout reflow that an undimensioned video caused earlier the same day. Treated as a social cut, not a page element. The motion fix for the page is per section instead. Reversible on Sandy's word: it would go in the work section inside a fixed aspect-ratio box with width and height attributes set.",
       "rendered": "2026-09-17"
     }
   ],

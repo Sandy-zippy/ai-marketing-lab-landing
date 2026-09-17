@@ -1,0 +1,86 @@
+<!-- 4. AGENDA. The composition (sticky heading column left, numbered steps right) is what DESIGN.md
+     specifies for this section and it was already correct, so it is preserved unchanged.
+     What changed: the four explanatory paragraphs (230 words) are cut to four one-line steps
+     (140 words), and step 3, the live build that is the whole reason to attend, stops being
+     described and is shown as the screen the attendee watches, with the build ticking off.
+     The teal spine is gone: see agenda.css for the argument. -->
+<section data-motion="step-in"
+         data-motion-graphic="inside the build screen three tasks tick off one after another as the reader arrives, and the caret keeps blinking after they land"
+         data-job="Remove the risk of registering by showing exactly what the ninety minutes produces, in the order it happens, instead of describing it">
+  <div class="wrap reveal">
+    <div class="col-head">
+      <span class="eyebrow">The 90 minutes</span>
+      <h2>What actually happens on the call.</h2>
+      <p class="lede">No slides for most of it. You watch the thing get built and you keep what I write.</p>
+    </div>
+
+    <ol class="steps">
+      <li class="step step-in">
+        <span class="step-n">1</span>
+        <div>
+          <h3>Where your clients actually came from</h3>
+          <p>Every client you closed this year on one screen, with what started it.</p>
+        </div>
+      </li>
+      <li class="step step-in">
+        <span class="step-n">2</span>
+        <div>
+          <h3>The one channel to start this week</h3>
+          <p>One channel, not five. The exact first message, post or ad for day one.</p>
+        </div>
+      </li>
+      <li class="step step-in">
+        <span class="step-n">3</span>
+        <div>
+          <h3>A live build, start to finish</h3>
+          <p>I open Claude Code and build it in front of you, including the parts that go wrong.</p>
+
+          <!-- The section's motion graphic, and the only object on the surface. The three rows are
+               the three things the build produces, taken word for word from the page's own
+               approved copy in the section above ("the outreach that keeps following up, the
+               enquiry that gets answered at midnight, the post that goes out without you"), so
+               nothing here is invented and no minute-by-minute timetable is implied. The row text
+               is in the HTML and never owns opacity, so it is readable with JS off and to a
+               crawler; what animates is the tick drawing itself, gated on .js .reveal.in. -->
+          <div class="ag-screen">
+            <div class="ag-bar">
+              <span class="ag-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="ag-title">Claude Code</span>
+            </div>
+            <ul class="ag-rows">
+              <li class="ag-row">
+                <span class="ag-box" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" class="ag-check"><path class="mg-tick" style="--dash:22;--i:0" d="M3.5 8.4l3 3 6-6.4" /></svg>
+                </span>
+                <span class="ag-txt">outreach that keeps following up</span>
+              </li>
+              <li class="ag-row">
+                <span class="ag-box" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" class="ag-check"><path class="mg-tick" style="--dash:22;--i:1" d="M3.5 8.4l3 3 6-6.4" /></svg>
+                </span>
+                <span class="ag-txt">the enquiry answered at midnight</span>
+              </li>
+              <li class="ag-row">
+                <span class="ag-box" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" class="ag-check"><path class="mg-tick" style="--dash:22;--i:2" d="M3.5 8.4l3 3 6-6.4" /></svg>
+                </span>
+                <span class="ag-txt">the post that goes out without you</span>
+              </li>
+            </ul>
+            <div class="ag-foot">
+              <span class="ag-caret" aria-hidden="true"></span>
+              <span>yours to keep</span>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="step step-in">
+        <span class="step-n">4</span>
+        <div>
+          <h3>The six weeks, and how to join</h3>
+          <p>What it covers and what it costs, at the end. Leave after the build and you keep what you saw.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>

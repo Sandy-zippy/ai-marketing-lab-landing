@@ -1,0 +1,86 @@
+/* ===========================================================================
+   FILTER SECTION. New rules only, every selector scoped to
+   section[data-motion="fit-in"]. Nothing global is restyled.
+
+   APPEND AFTER the page's &lt;-ish style> block. Three rules below deliberately
+   outrank the page's split-header grid: the page has
+   `section[data-motion="fit-in"] .wrap` at 0-2-1, these add .reveal for
+   0-3-1. Order matters inside this file too: the 940px block must stay last.
+
+   Why the composition changed. The split header placed the eyebrow alone in
+   grid row 1 with column 2 empty, then a max-width:24ch h2 inside a 1.3fr
+   (~780px) column with the lede bottom-aligned off to the right. Two grid
+   rows spent on three small elements, and roughly a third of the section was
+   white for no compositional reason. The header stops being a banner sitting
+   over empty space and becomes the first of three columns, so every column
+   carries content at 1440.
+
+   The eyebrow and h2 now sit inside .gate-intro, so the page's existing
+   desktop placements for them (grid-column:1;grid-row:2 and friends) go inert
+   on their own: those properties only apply to direct grid children. Nothing
+   had to be unset.
+   ======================================================================== */
+
+section[data-motion="fit-in"] .wrap.reveal{display:grid;
+  grid-template-columns:1.08fr 1fr 1fr;
+  column-gap:clamp(24px,3vw,40px);align-items:start}
+section[data-motion="fit-in"] .gate-intro{grid-column:1}
+/* The lede is a column now, not a stranded right-hand line. */
+section[data-motion="fit-in"] .gate-intro .lede{max-width:34ch}
+
+/* The only separator is one hairline, on the one edge that means something:
+   in or out. A second rule between the intro and the yes column would make
+   this a table of three equal things, which is not what it is. Everything
+   else is done with ink weight, so the skip column is literally quieter than
+   the column the reader is meant to put themselves in. */
+section[data-motion="fit-in"] .gate-no{border-left:1px solid var(--line);
+  padding-left:clamp(20px,2.4vw,32px)}
+
+section[data-motion="fit-in"] .gate-head{font-family:var(--mono);font-size:12.5px;
+  font-weight:700;letter-spacing:.11em;text-transform:uppercase;margin:0 0 18px}
+section[data-motion="fit-in"] .gate-yes .gate-head{color:var(--text-high)}
+section[data-motion="fit-in"] .gate-no .gate-head{color:var(--text-mid)}
+
+/* The six tick and cross SVGs are gone. What replaces them is not an ornament
+   standing next to the sentence, it is the buyer's own name: the reader scans
+   six labels and finds themselves, instead of reading six sentences to work
+   out which one is about them. Type doing the job the drawing was pretending
+   to do. */
+section[data-motion="fit-in"] .gate-list{margin:0}
+/* inline-block so the wipe spans the glyphs. At full column width the text is
+   fully revealed by ~37% of the box and the remaining 63% of the animation
+   wipes empty space, which reads as a broken animation. */
+section[data-motion="fit-in"] .gate-tag{display:inline-block;font-family:var(--mono);
+  font-size:12px;font-weight:400;letter-spacing:.07em;text-transform:uppercase}
+section[data-motion="fit-in"] .gate-yes .gate-tag{color:var(--text-mid)}
+section[data-motion="fit-in"] .gate-no .gate-tag{color:var(--text-low)}
+section[data-motion="fit-in"] .gate-list dd{margin:6px 0 0;
+  font-size:15.5px;line-height:1.55}
+section[data-motion="fit-in"] .gate-yes dd{color:var(--text-high)}
+section[data-motion="fit-in"] .gate-no dd{color:var(--text-mid)}
+section[data-motion="fit-in"] .gate-list dd + dt{margin-top:clamp(18px,2.2vw,24px)}
+
+/* Motion. Six label wipes on the shared `draw` primitive, .5s each, .06s
+   apart, all finished by .86s. Shorter and tighter than the global .85s/.09s
+   default on purpose: this section carries the least motion on the page
+   because its job is to read as candid, and movement undercuts that. The
+   label is revealed left to right like a line being printed, which is a state
+   change the reader can watch, not a box sliding up into place. The old
+   .fit-in translateY entrance is not carried over.
+   0-5-1, so it outranks the global .js .reveal.in .mg-draw and the global
+   --i stagger hook, both 0-4-0. */
+.js section[data-motion="fit-in"] .reveal.in .gate-tag{animation-duration:.5s;
+  animation-delay:calc(var(--i,0) * .06s)}
+@media(prefers-reduced-motion:reduce){
+  .js section[data-motion="fit-in"] .reveal.in .gate-tag{animation:none}
+}
+
+/* Stacked. The hairline moves from the left edge to the top, or it draws down
+   the wrong edge of a single column. */
+@media(max-width:940px){
+  section[data-motion="fit-in"] .wrap.reveal{grid-template-columns:1fr;
+    row-gap:clamp(26px,4vw,34px)}
+  section[data-motion="fit-in"] .gate-intro .lede{max-width:56ch}
+  section[data-motion="fit-in"] .gate-no{border-left:0;padding-left:0;
+    border-top:1px solid var(--line);padding-top:clamp(22px,3.4vw,30px)}
+}

@@ -35,12 +35,20 @@ Colour strategy: **Restrained**. That is a deliberate choice, not timidity. The 
 ## Typography
 
 ```css
---mono: 'Space Mono', 'Courier New', monospace   /* display AND labels */
+--mono: 'Space Mono', 'Courier New', monospace   /* LABELS ONLY, never above 14px */
 --sans: 'Inter', -apple-system, sans-serif       /* body */
 ```
 
-Headlines are Space Mono 700. The display face being a monospace is the whole character of the
-brand. Self-hosted woff2 in `assets/fonts/`, both OFL.
+**Headlines are Inter 700.** CORRECTED 17 Sep 2026. The previous line here read "Headlines are
+Space Mono 700" and was wrong: it was taken from Remy's DECLARED `--font-display` token in his
+`:root`, never from a rendered heading. Measured in a browser on aiwithremy.com: his h1 is
+PP Neue Bit 600/64px/-1.28px, his h2 is Inter 700/28px, and Space Mono never exceeds 14px
+anywhere on his site. Ours were Space Mono at 56 to 66px across 12 pages and Sandy's word for
+the result was "immature".
+
+Space Mono is for labels, eyebrows, meta, form labels and buttons, and is capped at 14px.
+`brand-guard.mjs` fails the build above that, with `[data-fallback]` wordmarks as the one
+declared exception. Self-hosted woff2 in `assets/fonts/`, both OFL.
 
 PP Neue Bit appears in Remy's own rules. We have no licence. Never substitute a rip-site copy.
 
@@ -68,8 +76,7 @@ a document, not a page.
 | Section | Composition |
 |---|---|
 | Hero | Split, copy left, registration card right |
-| Three buyers | Full width, three columns, rows aligned by subgrid |
-| What it costs | Oversize pull quote, wide measure, then a tight three up row |
+| The quiet month | MERGED 17 Sep 2026. Was two sections (three buyers, what it costs) making the same argument and carrying a sparkline per column plus a twelve cell year strip. Both were rejected as charts, not motion graphics. Now one section: the console component shown EMPTY as the object, then three real sourced quotes. |
 | The 90 minutes | Sticky heading left, numbered steps right |
 | Proof | Four up, amount legible at card size |
 | Six weeks | Full width rows on paper ground, bar per week |
