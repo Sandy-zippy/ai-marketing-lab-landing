@@ -92,4 +92,12 @@ All four felt like verification. None was. Lessons:
 `~/HQ/memory/dom-measurement-traps-gates.md` (trap 9),
 `~/HQ/Sandy/memory/an-entrance-fade-is-not-a-motion-graphic.md`.
 
-A brace-balance guard now runs before every commit that touches a stylesheet.
+`brand-guard.mjs` now exists in the repo and is the check none of today's failures had.
+Run `node brand-guard.mjs` (exit 0 clean, 1 breach). It asserts brace balance on every HTML
+and CSS file, and flags Space Mono declared above 14px including in pseudo-element rules,
+with `[data-fallback]` wordmarks as a declared exception. Proven to fire: on a deliberately
+broken file it catches both an orphan brace and a 56px monospace rule and exits 1. On first
+run against the repo it found a 22px breach in `assets/site.css` that every manual scan I
+did today had missed, because that file is linked by no page.
+
+It is a script, not a hook. Nothing runs it automatically yet.
