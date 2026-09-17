@@ -52,7 +52,11 @@ jobs:
           # image 404ing while the HTML looked fine.
           cp assets/photos/sandy-headshot-hd.jpg _site/assets/photos/
           cp assets/proof/*.png _site/assets/proof/
-          cp assets/work/*.jpg _site/assets/work/
+          # Explicit list, never a glob. `cp assets/work/*.jpg` published the PawMe robot
+          # (pawme-build-poster.jpg) and four Riarh ad creatives (work-1,2,3,5.jpg) as
+          # publicly reachable URLs. Sandy removed both by name. No page referenced them,
+          # so every check reported them gone while the deploy kept serving them.
+          cp assets/work/design-riarh.jpg assets/work/content-funnel-17sep.jpg _site/assets/work/
           cp resources/index.html _site/resources/
           touch _site/.nojekyll
           node --check _site/assets/analytics.js
