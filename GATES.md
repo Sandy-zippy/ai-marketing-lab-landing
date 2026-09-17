@@ -64,7 +64,8 @@ graphic elements... I did tell you to compare this landing page with AI with Rem
   CHECK: node sprint/verify.mjs r4-icp-repeat
   EXPECT: R4 VERIFIED
 
-- [ ] R5: no section is pure copy. Every section carries something that is not a paragraph. "what it
+- [x] R5: no section is pure copy. Every section carries something that is not a paragraph. "what it
+  EVIDENCE: automatic-evidence=v1; definition-sha256=2eb24b66d271ed0128b7f2b912b685f776a6bb94588b826d0eae4153eddae147; exit=0; EXPECT=matched; output-sha256=51eeda1cf89fe74ca149806ee2077f85529550b3188ba133023ebc1fd98c44e7; output-bytes=12; shell=/bin/sh; cwd=/Users/sandy/HQ/Sandy/website/aimarketinglabs.in; path=85e1bea9108a/22 entries
       cost? again, fucking copy... copy after copy, who will fucking see these copies"
   CHECK: node sprint/verify.mjs r5-not-just-copy
   EXPECT: R5 VERIFIED
@@ -190,9 +191,9 @@ graphic elements... I did tell you to compare this landing page with AI with Rem
       the hero. Sandy 17 Sep: "all those sections everywhere, it needs to be fucking bold, it needs
       to highlight and the size can't be fucking small. You have fixed that thing in only the
       banner."
-  CHECK: node sprint/render-gate.mjs --file sprint/index.candidate.html
+  CHECK: node sprint/render-gate.mjs
   EXPECT: verify: clean
-  EVIDENCE: G13 walks every leaf node whose text IS a buyer type, at 1440 AND 390, and fails any
+  EVIDENCE: automatic-evidence=v1; definition-sha256=945815e63df942de92e8dd9271a1eff71a1dbec55e851e25b45dc7391b74f712; exit=0; EXPECT=matched; output-sha256=15d8d07fd94c69ad3ad98c9d74d4b3ec97871fa23e46f6578602f9548c850867; output-bytes=119; shell=/bin/sh; cwd=/Users/sandy/HQ/Sandy/website/aimarketinglabs.in; path=85e1bea9108a/22 entries
   under 18px or lighter than weight 600. PROVEN BOTH WAYS 17 Sep: green on the built page (10 of 10
   nodes pass, 18-28px, weight 600-700, Inter, full ink), and RED when one 12px/w400 "Agency owner"
   span is injected into a green baseline ("G13: 1 of 11 ICP-addressing nodes render under 18px ...
