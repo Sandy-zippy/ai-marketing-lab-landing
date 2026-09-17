@@ -514,25 +514,32 @@ if (which === "r4-icp-repeat") {
   const recitations = runs.filter((t) => new Set((t.match(TYPE) || []).map(canon).filter(Boolean)).size >= 2);
   need(recitations.length <= 1,
     `the page recites the buyer list ${recitations.length} times: ${recitations.map((r) => `"${r.slice(0, 46)}"`).join(", ")}. Once, in the hero, is the brief`);
-  // (b) A label: a run that is NOTHING BUT a buyer type. The quote and its source already say
-  //     who is speaking, so a tag above them is the ICP called out a second time.
-  // Scoped to its OWN stated rationale, 17 Sep 2026. The test above says a label is redundant
-  // because "the quote and its source already say who is speaking". Where there is no quote there
-  // is no redundancy, so the test only applies inside a section carrying a <blockquote>.
-  // It was flagging two places it has no business in: the hero qualifier, whose three buyer types
-  // are wrapped in <b> at Sandy's request so each became its own text run, and the filter columns,
-  // whose declared job IS to name who should come. Neither carries a quote.
-  const quoted = sections2.filter((sec) => /<blockquote/i.test(sec)).join(" ");
-  const qRuns = quoted.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ")
-    .replace(/<!--[\s\S]*?-->/g, " ").replace(/<[^>]+>/g, "\x00").split("\x00")
-    .map((t) => t.replace(/\s+/g, " ").trim()).filter(Boolean);
-  // NUL sentinel, exactly as `runs` above does it. My first version split on " ", which makes
-  // every run a single WORD, and a one-word run can never match ^(?:agency owners?|high ticket
-  // coaches?|...)$. The label list was therefore always empty and the gate could not fail. Caught
-  // by its negative control, which is the only reason it is not still sitting there green.
-  const labels = qRuns.filter((t) => t.length <= 40 && new RegExp(`^(?:${TYPE.source})$`, "i").test(t));
-  need(labels.length === 0,
-    `${labels.length} element(s) are nothing but an ICP label: ${labels.map((l) => `"${l}"`).join(", ")}. The quote and its source already say who is speaking`);
+  // (b) SUPERSEDED 17 Sep 2026 by a direct ruling from Sandy, and replaced by its inverse.
+  //
+  // This branch used to fail any run that was NOTHING BUT a buyer type, on the reasoning that
+  // "the quote and its source already say who is speaking". That came from his EARLIER complaint
+  // that section 2 was re-announcing the ICP as repetitive copy. He has now ruled the opposite
+  // about prominence, verbatim: "where we are addressing agency owners, where we are addressing
+  // service business or B2B business people, or where we are addressing coaching guys, all those
+  // sections everywhere, it needs to be fucking bold, it needs to highlight and the size can't be
+  // fucking small. You have fixed that thing in only the banner."
+  //
+  // Both are consistent: he objects to the ICP being RECITED, not to it being VISIBLE. So (a)
+  // above still caps recitations at one. What replaces (b) is his actual instruction: wherever a
+  // buyer type IS named, it must be large and heavy. Measured on the live page when he said it:
+  // 12 ICP-addressing nodes, only the 3 hero ones correct, the other 9 at 10.5-15px weight 400 in
+  // grey, and the mono ones fixed-size so they stayed 10.5px on a phone.
+  //
+  // This is a SOURCE check and therefore weaker than the rendered one: render-gate.mjs measures
+  // computed size and weight. This exists so the ledger encodes his ruling rather than my
+  // inference of it. Gate the decisions Sandy has already made.
+  const SMALL = /class="[^"]*\b(icp-tag|gate-tag|src|cost-who)\b/;
+  const labelled = sections2.filter((sec) => {
+    const hasType = /(marketing )?agency owners?|high[- ]ticket coach|service business/i.test(sec);
+    return hasType && SMALL.test(sec);
+  });
+  need(labelled.length === 0,
+    `${labelled.length} section(s) name a buyer type inside a small-label class (${SMALL.source}). Sandy: it needs to be bold, it needs to highlight, and the size can't be small. Size and weight are asserted on the rendered page by render-gate.mjs.`);
   if (!fails.length) console.log("R4 VERIFIED");
 }
 

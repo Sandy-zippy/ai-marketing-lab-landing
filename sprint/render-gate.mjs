@@ -161,6 +161,32 @@ async function run(url, label) {
          every section's rules inside an SVG <style> in the header once, where they were never in
          the cascade: the hero callout computed 15px against a rule whose own floor is 20px, and
          nothing about the page looked broken. */
+      /* G13. Sandy, 17 Sep, verbatim: "where we are addressing agency owners, where we are
+         addressing service business or B2B business people, or where we are addressing coaching
+         guys, all those sections everywhere, it needs to be fucking bold, it needs to highlight
+         and the size can't be fucking small. You have fixed that thing in only the banner."
+         He was right: measured that moment, 12 ICP-addressing nodes, only the 3 hero ones correct,
+         the other 9 at 10.5-15px weight 400 in grey, and the mono ones fixed-size so they stayed
+         10.5px on a phone too. r4 checks class names in source and can be fooled by a rename;
+         this reads computed size and weight, which cannot. */
+      /* The rule is about where we ADDRESS a buyer type, not where a buyer SPEAKS. My first
+         version matched "nutritionist" anywhere and flagged a 15px quote body, which would have
+         forced 18px/600 onto quoted prose and wrecked the typography. Two narrowings:
+         skip anything inside a <blockquote>, and require the node to BE a buyer label (short,
+         and essentially just the type) rather than merely to contain the word. */
+      const ICP = /^(?:(?:marketing )?agency owners?|high[- ]ticket coach(?:es)?|service business(?: owners?| providers?)?|salon owners?|coach(?:es)?|nutritionists?)\b/i;
+      res.icp = [];
+      for (const el of document.querySelectorAll('body *')) {
+        if (el.children.length) continue;
+        if (el.closest('blockquote')) continue;
+        const t = (el.textContent || '').trim();
+        if (!t || t.length > 46 || !ICP.test(t)) continue;
+        const cs = getComputedStyle(el);
+        res.icp.push({ px: parseFloat(cs.fontSize), w: parseInt(cs.fontWeight, 10),
+                       txt: t.slice(0, 40),
+                       sec: (el.closest('section') || { dataset: {} }).dataset.motion || 'header' });
+      }
+
       res.styleCount = document.querySelectorAll('style').length;
       const cal = document.querySelector('.hero .callout');
       res.calloutPx = cal ? parseFloat(getComputedStyle(cal).fontSize) : 0;
@@ -208,6 +234,9 @@ for (const [w, m] of Object.entries(r)) {
     if (!wm.steps) fail('G11', `wordmark timing is not stepped at ${w}px: a smooth wipe at this size is the shimmer nobody ever saw`);
     if (wm.durMs < 1000) fail('G11', `wordmark animation is ${wm.durMs}ms at ${w}px, too short to be seen`);
   }
+  const weak = (m.icp || []).filter(x => x.px < 18 || x.w < 600);
+  if (weak.length) fail('G13', `${weak.length} of ${m.icp.length} ICP-addressing nodes render under 18px or lighter than 600 at ${w}px: ` +
+    weak.slice(0, 6).map(x => `${x.sec} ${x.px}px/w${x.w} "${x.txt}"`).join(' | '));
   if (m.styleCount !== 1) fail('G12', `${m.styleCount} <style> elements at ${w}px, expected exactly 1 in <head>. Rebuilt CSS may be outside the cascade.`);
   if (m.calloutPx < 20) fail('G12', `hero qualifier computes ${m.calloutPx}px at ${w}px, expected 20 or more. Sandy called it too small twice.`);
   note('INFO', `${w}px: ${m.height}px tall, ${m.sections.length} sections`);
