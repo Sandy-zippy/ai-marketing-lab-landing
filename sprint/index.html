@@ -397,15 +397,11 @@ section[data-motion="step-in"] .steps{margin-top:0}
 .faq summary{padding:19px 2px;font-weight:600;font-size:16.5px;cursor:pointer;list-style:none;
   display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--text-high)}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font-family:var(--mono);color:var(--accent);font-size:19px;flex:none}
-.faq details[open] summary::after{content:"-"}
 .faq p{padding:0 20px 18px;color:var(--text-mid);font-size:15px;line-height:1.6;max-width:66ch}
 
 /* answers open and shut, and the closing ask settles in. Transform only. */
 .faq details{transition:border-color .2s ease}
 .faq details[open]{border-color:var(--accent-line)}
-.faq summary::after{transition:transform .2s var(--ease)}
-.faq details[open] summary::after{transform:rotate(180deg)}
 @keyframes faqIn{from{transform:translateY(12px)}to{transform:none}}
 .js .reveal.in .faq-in{animation:faqIn .45s var(--ease) both}
 @keyframes closeIn{from{transform:translateY(14px)}to{transform:none}}
