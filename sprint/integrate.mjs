@@ -74,7 +74,40 @@ const plan = SECTIONS.map(([motion, file]) => {
     const already = (src.match(new RegExp(`<section[^>]*data-motion="${motion}"`, 'g')) || []).length;
     if (already === 0) { log.push(`  ${motion} already removed (merged into icp-in on a prior run)`); return null; }
   }
-  const [a, b] = findSection(src, motion);
+  let [a, b] = findSection(src, motion);
+  /* Extend the span BACKWARDS over an immediately-preceding HTML comment. Every rebuild file
+     opens with its own `<!-- N. TITLE ... -->` block sitting ABOVE the <section> tag, but
+     findSection spans <section> to </section> only. So each apply deleted the section, ORPHANED
+     the comment a previous apply had inserted, and added a fresh copy above the new markup.
+     Measured 17 Sep 2026: "5b. THE WORK" x3 at HEAD~1, x4 after one more apply; total page
+     comments 31 -> 47. No gate could see it because every oracle strips comments before it reads
+     anything, so the page grew by thousands of bytes of duplicated prose while 25 of 25 stayed
+     green. Same family as the bare-string match this file already documents above: the anchor
+     did not cover the whole unit it was replacing. */
+  {
+    /* Absorb a RUN of adjacent comments, not one. The first version used lastIndexOf('<!--')
+       from the closing '-->', which for a stack of comments finds the LAST opener, absorbing one
+       block and orphaning the rest: close-in ended up with three consecutive "10. CLOSE" markers
+       and the page grew 21 bytes per apply. Walk pair by pair instead, and stop at the first gap
+       that is not pure whitespace. */
+    let a2 = a;
+    for (;;) {
+      let i = a2;
+      while (i > 0 && /\s/.test(src[i - 1])) i--;
+      if (src.slice(i - 3, i) !== '-->') break;
+      // Scan forward from each candidate opener to find the one whose '-->' is exactly at i.
+      let open = -1, from = 0;
+      for (;;) {
+        const o = src.indexOf('<!--', from);
+        if (o === -1 || o >= i) break;
+        if (src.indexOf('-->', o) + 3 === i) { open = o; break; }
+        from = o + 4;
+      }
+      if (open === -1) break;
+      a2 = open;
+    }
+    a = a2;
+  }
   let markup = '';
   if (file) {
     const p = join(HERE, 'rebuild', `${file}.html`);
@@ -164,7 +197,11 @@ for (const f of cssFiles) {
     if (a === -1) break;
     const b = src.indexOf('</style>', a);
     if (b === -1) throw new Error('found a rebuilt-sections block with no closing style tag after it');
-    src = src.slice(0, a) + src.slice(b);
+    /* trimEnd the left side: the marker is preceded by the '\n\n' that the append prepends, and
+       cutting only from the marker left those two bytes behind on every run. The page grew 2
+       bytes per apply forever, which is drift, not damage, but an assembler whose output depends
+       on how many times it has run is one I cannot trust to tell me anything. */
+    src = src.slice(0, a).replace(/\s+$/, '') + src.slice(b);
     n++;
   }
   if (n) log.push(`  stripped ${n} previously-appended stylesheet block(s) before re-appending`);

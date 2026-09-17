@@ -2,23 +2,24 @@
    FILTER SECTION. New rules only, every selector scoped to
    section[data-motion="fit-in"]. Nothing global is restyled.
 
-   APPEND AFTER the page's &lt;-ish style> block. Three rules below deliberately
-   outrank the page's split-header grid: the page has
-   `section[data-motion="fit-in"] .wrap` at 0-2-1, these add .reveal for
-   0-3-1. Order matters inside this file too: the 940px block must stay last.
+   APPEND AFTER the page's stylesheet. Three rules below deliberately outrank
+   the page's split-header grid: the page has
+   `section[data-motion="fit-in"] .wrap` at 0-2-1, these add .reveal for 0-3-1.
+   Order matters inside this file too: the 940px block must stay last.
 
-   Why the composition changed. The split header placed the eyebrow alone in
-   grid row 1 with column 2 empty, then a max-width:24ch h2 inside a 1.3fr
-   (~780px) column with the lede bottom-aligned off to the right. Two grid
-   rows spent on three small elements, and roughly a third of the section was
-   white for no compositional reason. The header stops being a banner sitting
-   over empty space and becomes the first of three columns, so every column
-   carries content at 1440.
+   Composition, unchanged from round 2 and deliberately kept. The header is the
+   first of three columns rather than a banner sitting over an empty right
+   third, so every column carries content at 1440. The eyebrow and h2 sit
+   inside .gate-intro, so the page's desktop placements for them go inert on
+   their own: those properties only apply to direct grid children.
 
-   The eyebrow and h2 now sit inside .gate-intro, so the page's existing
-   desktop placements for them (grid-column:1;grid-row:2 and friends) go inert
-   on their own: those properties only apply to direct grid children. Nothing
-   had to be unset.
+   Round 3 changes one thing. The come along column stopped being three
+   sentences we wrote and became three owners speaking, so it needs the
+   material the brand reserves for a quoted voice. Paper, the same token and
+   the same 10px radius the .icp-card quote uses, so a reader who met that
+   component 6,000px above meets the same object here. It is NOT the same
+   composition: those sit three across under a console, these stack down one
+   column against a column of plain white refusals.
    ======================================================================== */
 
 section[data-motion="fit-in"] .wrap.reveal{display:grid;
@@ -26,53 +27,98 @@ section[data-motion="fit-in"] .wrap.reveal{display:grid;
   column-gap:clamp(24px,3vw,40px);align-items:start}
 section[data-motion="fit-in"] .gate-intro{grid-column:1}
 /* The lede is a column now, not a stranded right-hand line. */
-section[data-motion="fit-in"] .gate-intro .lede{max-width:34ch}
+section[data-motion="fit-in"] .gate-intro .lede{max-width:30ch}
 
 /* The only separator is one hairline, on the one edge that means something:
    in or out. A second rule between the intro and the yes column would make
    this a table of three equal things, which is not what it is. Everything
-   else is done with ink weight, so the skip column is literally quieter than
-   the column the reader is meant to put themselves in. */
+   else is done with ink weight and material, so the skip column is literally
+   quieter than the column the reader is meant to put themselves in. */
 section[data-motion="fit-in"] .gate-no{border-left:1px solid var(--line);
   padding-left:clamp(20px,2.4vw,32px)}
 
 section[data-motion="fit-in"] .gate-head{font-family:var(--mono);font-size:12.5px;
   font-weight:700;letter-spacing:.11em;text-transform:uppercase;margin:0 0 18px}
+/* NOT teal, measured. The global .eyebrow is already color:var(--accent)
+   (index.html:72), so "Honest filter" is this surface's one accent word and a
+   teal column head made two. Ink carries the same job: the column the reader
+   should want to be in is the darker one, and the skip head below is grey.
+   The quote marks inside the cards are pulled off teal for the same reason. */
 section[data-motion="fit-in"] .gate-yes .gate-head{color:var(--text-high)}
 section[data-motion="fit-in"] .gate-no .gate-head{color:var(--text-mid)}
 
-/* The six tick and cross SVGs are gone. What replaces them is not an ornament
-   standing next to the sentence, it is the buyer's own name: the reader scans
-   six labels and finds themselves, instead of reading six sentences to work
-   out which one is about them. Type doing the job the drawing was pretending
-   to do. */
+/* The row labels. Sandy, 17 Sep: every section that addresses a buyer type has
+   to say it bold, in ink, and never small, and only the hero was doing it.
+   These were 12px weight 400 grey Space Mono, which is a caption. They are now
+   the loudest thing in their row and the first thing the eye lands on, which is
+   what lets a reader scan the column and find their own row.
+   Inter, not Space Mono: the brand caps the mono at 14px and these run to 24px.
+   Uppercase is dropped with the mono. At 700 weight in full ink a sentence case
+   line is louder and reads faster than tracked out capitals. */
+section[data-motion="fit-in"] .gate-icp,
+section[data-motion="fit-in"] .gate-tag{display:block;font-family:var(--sans);
+  font-weight:700;letter-spacing:-.01em;line-height:1.25;text-transform:none}
+/* The buyer being addressed. Larger than the column head above it on purpose:
+   the reader is looking for their own business, not for our label for the
+   column. Sits below the h2 in the hierarchy and above the 15px body. */
+section[data-motion="fit-in"] .gate-icp{font-size:clamp(19px,1.95vw,24px);
+  color:var(--text-high);margin:0 0 11px}
+/* Our terms of entry, not a buyer being addressed. Same treatment one size down
+   and in mid grey, so the two columns open each row the same way while the
+   column the reader should want to be in stays the darker and larger. */
+section[data-motion="fit-in"] .gate-no .gate-tag{font-size:clamp(15px,1.35vw,17px);
+  color:var(--text-mid)}
+
+/* The artifact. Same paper, radius and measure as the quoted voice component
+   the page already ships, so this is the system's own material rather than a
+   new card invented for one section. */
+section[data-motion="fit-in"] .gate-voice{margin:0}
+section[data-motion="fit-in"] .gate-voice + .gate-voice{margin-top:clamp(16px,2vw,22px)}
+/* clip-path is declared at its resting, fully open value. A quote is the
+   CONTENT of this section, so it must never be invisible while no animation is
+   running. The wipe below overrides this only for the .5s it is actually
+   playing. */
+section[data-motion="fit-in"] .gate-q{background:var(--paper);border-radius:10px;
+  padding:14px 16px;margin:0;font-size:15px;line-height:1.5;color:var(--paper-ink);
+  clip-path:none}
+/* Grey, not teal. The component's teal quote marks are correct where it is the
+   only accent on that surface; here the column head already spent the budget,
+   and six teal glyphs would be the field the brand rules out. */
+section[data-motion="fit-in"] .gate-q::before,
+section[data-motion="fit-in"] .gate-q::after{content:'"';color:var(--paper-edge);font-weight:700}
+/* The provenance. It is the checkable half of the artifact, so it is printed,
+   not implied: a stranger can open that sub and find the sentence. */
+section[data-motion="fit-in"] .gate-source{display:block;font-family:var(--mono);
+  font-size:10.5px;letter-spacing:.06em;color:var(--text-low);margin-top:8px}
+
 section[data-motion="fit-in"] .gate-list{margin:0}
-/* inline-block so the wipe spans the glyphs. At full column width the text is
-   fully revealed by ~37% of the box and the remaining 63% of the animation
-   wipes empty space, which reads as a broken animation. */
-section[data-motion="fit-in"] .gate-tag{display:inline-block;font-family:var(--mono);
-  font-size:12px;font-weight:400;letter-spacing:.07em;text-transform:uppercase}
-section[data-motion="fit-in"] .gate-yes .gate-tag{color:var(--text-mid)}
-section[data-motion="fit-in"] .gate-no .gate-tag{color:var(--text-low)}
 section[data-motion="fit-in"] .gate-list dd{margin:6px 0 0;
-  font-size:15.5px;line-height:1.55}
-section[data-motion="fit-in"] .gate-yes dd{color:var(--text-high)}
-section[data-motion="fit-in"] .gate-no dd{color:var(--text-mid)}
+  font-size:15.5px;line-height:1.55;color:var(--text-mid)}
 section[data-motion="fit-in"] .gate-list dd + dt{margin-top:clamp(18px,2.2vw,24px)}
 
-/* Motion. Six label wipes on the shared `draw` primitive, .5s each, .06s
-   apart, all finished by .86s. Shorter and tighter than the global .85s/.09s
-   default on purpose: this section carries the least motion on the page
-   because its job is to read as candid, and movement undercuts that. The
-   label is revealed left to right like a line being printed, which is a state
-   change the reader can watch, not a box sliding up into place. The old
-   .fit-in translateY entrance is not carried over.
+/* Motion. Three quote wipes on the shared `draw` primitive, .5s, together.
+   Round 2 ran six of these on the labels. Three is fewer, and it is on the half
+   of the section that is somebody else's sentence, so what the reader watches
+   is an owner's line printing itself. Shorter than the global .85s on purpose:
+   this section carries the least motion on the page because its job is to read
+   as candid, and movement undercuts that. The skip labels do not move at all.
+
+   NO STAGGER, AND `forwards` NOT `both`. This is a correctness fix, not taste.
+   The global primitive is `animation:draw .85s var(--ease) both`, and `both`
+   applies the FROM state during the delay. With a .08s stagger that left quote
+   two and quote three holding clip-path:inset(0 100% 0 0), which is invisible,
+   until their turn came: a screenshot of the built page caught exactly that and
+   showed one sliver and two blank cards. Content that is invisible while no
+   animation is running is a defect even when it self-corrects in 160ms.
+   `forwards` holds only the END state, so before the wipe plays the quote is at
+   its natural, fully readable state, and a wipe that never runs leaves three
+   readable quotes. Delay 0 removes the window entirely.
    0-5-1, so it outranks the global .js .reveal.in .mg-draw and the global
    --i stagger hook, both 0-4-0. */
-.js section[data-motion="fit-in"] .reveal.in .gate-tag{animation-duration:.5s;
-  animation-delay:calc(var(--i,0) * .06s)}
+.js section[data-motion="fit-in"] .reveal.in .gate-q{animation-duration:.5s;
+  animation-delay:0s;animation-fill-mode:forwards}
 @media(prefers-reduced-motion:reduce){
-  .js section[data-motion="fit-in"] .reveal.in .gate-tag{animation:none}
+  .js section[data-motion="fit-in"] .reveal.in .gate-q{animation:none}
 }
 
 /* Stacked. The hairline moves from the left edge to the top, or it draws down

@@ -79,8 +79,18 @@ section[data-motion="shot-in"] .inbox-feed b:first-child{
   100%   {clip-path:inset(0 0 0 100%)}
 }
 /* Gated on .js AND on the section being reached, like every other primitive
-   on the page. Linear, because constant motion must not ease. */
-.js section[data-motion="shot-in"] .reveal.in .inbox-feed b{
+   on the page. Linear, because constant motion must not ease.
+
+   The class is "shot-in" because that is the motion class the page's own
+   inventory binds to this section, and every sibling section carries its class
+   on a real element the same way (agenda "step step-in", founder "fdr-shot
+   who-in"). It sits on the inbox entries rather than on the wall rows on
+   purpose: re-declaring the marquee under a second selector would use the
+   animation shorthand, which resets animation-direction and silently kills the
+   counter-scroll on .wall-row.rev along with the 0px seam. It is also not an
+   entrance. It keeps running after the reader arrives, which is worth more
+   than a lift that is over before they look. */
+.js section[data-motion="shot-in"] .reveal.in .inbox-feed b.shot-in{
   animation:inbox-line 24.5s linear infinite;
   animation-delay:calc(var(--n) * 3.5s)}
 
@@ -99,7 +109,7 @@ section[data-motion="shot-in"] .wall-hint{
 }
 
 @media(prefers-reduced-motion:reduce){
-  .js section[data-motion="shot-in"] .reveal.in .inbox-feed b{animation:none}
+  .js section[data-motion="shot-in"] .reveal.in .inbox-feed b.shot-in{animation:none}
 }
 
 /* Card width. The shipped .pay clamp(248px,25vw,352px) rendered the notification at 350px

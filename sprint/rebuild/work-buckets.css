@@ -9,14 +9,29 @@
    Shared components reused, not redefined: .console and .log from assets/aiml-funnel.css, and the
    .mg-wipe primitive from the page's own style block. Only their overrides live here.
 
-   Layout: 2x2 instead of four stacked full width rows. Same four buckets, same order, half the
-   height. Top row is two real artifacts, bottom row is two working interfaces.
+   THE 3D, added 17 Sep 2026. The section claims four outputs come off ONE system and then drew a
+   2x2 grid, which is a picture of four separate things. The grid is now a single 3D scene: one
+   camera, two panels held near, two set back along Z, all four turned toward one vanishing point.
+   It ARRIVES flat and folds into that arrangement, so the reader watches the grid become a stack
+   rather than finding it already built.
+
+   Why the layout is still a grid underneath: grid guarantees the four never overlap. Overlap was
+   measured and rejected twice today. A receding composition that covers its own artifacts hides
+   the evidence the section exists to show, and the page's own layout gate cannot see occlusion,
+   so nothing would have caught it. Depth here is carried by Z and by rotation, never by one panel
+   sitting on top of another.
    ========================================================================= */
 
+/* The camera. perspective lives on a wrapper rather than on the grid itself, because the grid
+   also carries the fold animation and an element cannot both host the camera and move inside it. */
+section[data-motion="work-in"] .wb-scene{
+  perspective:950px;perspective-origin:50% 36%;
+  margin-top:clamp(28px,3.6vw,42px);
+}
 section[data-motion="work-in"] .wb-grid{
   display:grid;grid-template-columns:1fr 1fr;
   column-gap:clamp(22px,3vw,44px);row-gap:clamp(32px,3.8vw,50px);
-  margin-top:clamp(28px,3.6vw,42px);
+  transform-style:preserve-3d;
 }
 section[data-motion="work-in"] .wb{display:flex;flex-direction:column;min-width:0}
 section[data-motion="work-in"] .wb-top{
@@ -34,6 +49,52 @@ section[data-motion="work-in"] .wb-top h3{
 section[data-motion="work-in"] .wb-line{
   font-size:14.5px;line-height:1.6;color:var(--text-mid);margin:16px 0 0;max-width:46ch;
 }
+
+/* ---------- the fold: flat grid becomes one stack ----------
+   Four keyframes rather than one, because each panel lands at its own place in the scene. Every
+   one starts at transform:none, which is the flat 2x2 the section has always been, so a reader
+   with no script, a failed observer or reduced motion sees a correct composition and never a
+   collapsed one. Only transform is animated.
+   The near pair sits at Z 0 and is NOT pushed toward the camera: pulling it forward grows its
+   projected box and that is how a 3D scene starts overflowing its column sideways. Depth is made
+   by setting the far pair BACK instead, which can only ever shrink. */
+/* MEASURED 17 Sep 2026, and the first numbers were far too timid. At perspective 2200px with a
+   9 degree turn and 130px of separation, the scene reported six 3D nodes and nineteen running
+   animations and still rendered FLAT: captured at two opposite points of the sway, 6.4s and
+   17.9s apart, the two frames were geometrically identical. Foreshortening there is about two
+   percent, which is below what an eye reads as depth, so the section measured as 3D and looked
+   like the grid it replaced. Shorter camera, wider turn, and the far pair set twice as deep. */
+/* Second pass on the numbers. Measured at 1150px/260px: the far pair projected at 0.851 of the
+   near pair against 0.816 predicted, so the depth was real and arriving, just too shallow to
+   read as depth rather than as a grid with slightly odd edges. Deeper Z and a shorter camera.
+   The near pair still never moves toward the viewer: it stays at Z 0 and only turns, so the
+   scene can shrink but never grow into the column and trip the overflow gate. */
+@keyframes wbFoldNearL{to{transform:rotateY(19deg)}}
+@keyframes wbFoldNearR{to{transform:rotateY(-19deg)}}
+@keyframes wbFoldFarL{to{transform:translateZ(-430px) rotateY(15deg)}}
+@keyframes wbFoldFarR{to{transform:translateZ(-430px) rotateY(-15deg)}}
+
+/* The camera settles, then keeps turning. A still 3D composition is indistinguishable from a
+   flat one in a screenshot: depth only reads when the camera moves, which is the whole reason
+   this is a motion graphic and not an arrangement. The sway is infinite and slow, so the section
+   is still moving whenever the reader looks at it rather than having finished before they came. */
+@keyframes wbRigIn{from{transform:rotateX(0deg) rotateY(0deg)}to{transform:rotateX(11deg) rotateY(-8deg)}}
+@keyframes wbSway{
+  0%  {transform:rotateX(11deg) rotateY(-8deg)}
+  50% {transform:rotateX(11deg) rotateY(8deg)}
+  100%{transform:rotateX(11deg) rotateY(-8deg)}
+}
+
+/* Gated on the arrival class the observer adds, never on a clock. This section sits about 6,800px
+   down: ungated, the fold would be over long before the reader exists. */
+.js section[data-motion="work-in"] .reveal.in .wb-grid{
+  animation:wbRigIn .9s var(--ease) both,
+            wbSway 22s ease-in-out .9s infinite;
+}
+.js section[data-motion="work-in"] .reveal.in .wb:nth-child(1){animation:wbFoldNearL .85s var(--ease) .10s both}
+.js section[data-motion="work-in"] .reveal.in .wb:nth-child(2){animation:wbFoldNearR .85s var(--ease) .18s both}
+.js section[data-motion="work-in"] .reveal.in .wb:nth-child(3){animation:wbFoldFarL  .85s var(--ease) .26s both}
+.js section[data-motion="work-in"] .reveal.in .wb:nth-child(4){animation:wbFoldFarR  .85s var(--ease) .34s both}
 
 /* ---------- 01 and 02: a real page inside browser chrome ---------- */
 /* The reference both Sandy named does this: Remy puts a video inside browser chrome, zippyscale
@@ -83,21 +144,30 @@ section[data-motion="work-in"] .log .tick::after{
    js the rows sit at their natural state and nothing is hidden. */
 section[data-motion="work-in"] .log,
 section[data-motion="work-in"] .log .tick{animation:none;opacity:1;transform:none}
-.js section[data-motion="work-in"] .log{opacity:0;transform:translateY(7px)}
+/* The hidden start state lives INSIDE the keyframe, never on the element, so the element's own
+   resting state is the visible one and only the ANIMATION is optional. Measured before this
+   change: js alive and .reveal.in never landing left 5 of 5 rows and 5 of 5 ticks at opacity 0
+   permanently. The shared logIn keyframe cannot serve here, because it is a to-only rule that
+   takes its start from the element, which is precisely what forces the element to carry the
+   hidden state. Hence a scoped keyframe of our own, and `both` so the stagger delay still holds
+   the from-state while a row waits its turn. */
+@keyframes wbLogIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
 .js section[data-motion="work-in"] .reveal.in .log{
-  animation:logIn .55s var(--ease) var(--d,0s) forwards;
+  animation:wbLogIn .55s var(--ease) var(--d,0s) both;
 }
 /* The tick is NOT part of the entrance. It lights when that step runs: the five light in order,
    clear, and run again for as long as the console is on screen. An earlier version rotated the
    rows themselves, which within seconds had the console showing "Follow up set" above "Enquiry
-   from the site form". A system out of causal order reads as random rather than as working. */
+   from the site form". A system out of causal order reads as random rather than as working.
+   Resting state is SHOWN. The loop marks the console .running and only then are un-done ticks
+   hidden, so a loop that never starts leaves every tick readable instead of blank. */
 .js section[data-motion="work-in"] .log .tick{
-  opacity:0;transform:scale(.9);
   transition:opacity .22s var(--ease),transform .22s var(--ease);
 }
-.js section[data-motion="work-in"] .log .txt{color:var(--text-mid)}
-.js section[data-motion="work-in"] .log.done .tick{opacity:1;transform:none}
-.js section[data-motion="work-in"] .log.done .txt{color:var(--text-high)}
+.js section[data-motion="work-in"] .console-body.running .log .tick{opacity:0;transform:scale(.9)}
+.js section[data-motion="work-in"] .console-body.running .log.done .tick{opacity:1;transform:none}
+.js section[data-motion="work-in"] .console-body.running .log .txt{color:var(--text-mid)}
+.js section[data-motion="work-in"] .console-body.running .log.done .txt{color:var(--text-high)}
 
 /* ---------- 04: the counted figures ---------- */
 /* Sandy: "you don't need to show the exact ad account data, you can animate those figures".
@@ -118,17 +188,38 @@ section[data-motion="work-in"] .wb-src{
   color:var(--text-low);margin:14px 0 0;
 }
 
-/* ---------- responsive ---------- */
+/* ---------- responsive ----------
+   DECLARED LIMITATION, and it is a real one: below 860px the scene flattens completely and the
+   phone gets the plain column with no depth at all. A 390px viewport cannot hold four artifacts
+   that each stay legible AND a composition deep enough to read as depth. Both 3D arrangements
+   tried at that width put one panel over another and hid the console's first rows and both of
+   the counted figures, which is the same defect that killed the receding option on the proof
+   wall. Flat and readable beats deep and covered. */
 @media(max-width:860px){
-  section[data-motion="work-in"] .wb-grid{grid-template-columns:1fr}
+  section[data-motion="work-in"] .wb-scene{perspective:none}
+  section[data-motion="work-in"] .wb-grid{grid-template-columns:1fr;transform-style:flat}
+  .js section[data-motion="work-in"] .reveal.in .wb-grid,
+  .js section[data-motion="work-in"] .reveal.in .wb:nth-child(1),
+  .js section[data-motion="work-in"] .reveal.in .wb:nth-child(2),
+  .js section[data-motion="work-in"] .reveal.in .wb:nth-child(3),
+  .js section[data-motion="work-in"] .reveal.in .wb:nth-child(4){animation:none;transform:none}
   /* the two shadow copies reach 26px, so the margin has to clear that before it is a gap at all:
      at 26px the URL sat flush against the third dot. */
   section[data-motion="work-in"] .wb-dots{margin-right:38px}
 }
 
 /* ---------- reduced motion ---------- */
-/* .mg-wipe is already covered by the page's own reduce block. These are the two this file adds. */
+/* .mg-wipe is already covered by the page's own reduce block. These are the ones this file adds.
+   The scene flattens to the plain 2x2 grid, which is a correct and complete composition on its
+   own: nothing here is only legible once it has moved. */
 @media(prefers-reduced-motion:reduce){
+  section[data-motion="work-in"] .wb-scene{perspective:none}
+  section[data-motion="work-in"] .wb-grid{transform-style:flat}
+  .js section[data-motion="work-in"] .reveal.in .wb-grid,
+  .js section[data-motion="work-in"] .reveal.in .wb:nth-child(1),
+  .js section[data-motion="work-in"] .reveal.in .wb:nth-child(2),
+  .js section[data-motion="work-in"] .reveal.in .wb:nth-child(3),
+  .js section[data-motion="work-in"] .reveal.in .wb:nth-child(4){animation:none;transform:none}
   /* The .reveal.in variants have to be listed too. Without them these sit at (0,3,1) against the
      (0,5,1) of the gated rule above, and a media query adds no specificity of its own, so the rows
      went on animating under reduce. Measured before the fix: 10 logIn animations still running. */

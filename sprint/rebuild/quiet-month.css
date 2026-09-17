@@ -36,6 +36,31 @@ section[data-motion="icp-in"] h2{margin:0}
 section[data-motion="icp-in"] .q-big{margin:clamp(18px,2.2vw,26px) 0 9px;max-width:31ch}
 section[data-motion="icp-in"] .src-big{margin:0}
 
+/* ---- the attribution lines -----------------------------------------------
+   Sandy, 17 Sep: the lines that name a buyer type are too small everywhere on the page, and only
+   the banner was fixed. The BUYER TYPE is the part that has to land, not the subreddit, so the
+   attribution is split: the type carries the weight, the source stays provenance and keeps the
+   small grey mono it already had. Was 10.5px / 400 / #AAAAAA on the three cards and 11px on the
+   pull quote, against a hero at 28px / 600 in full ink.
+   Inter and NOT mono, deliberately: Space Mono is hard capped at 14px by the brand rule that
+   mono-sweep.mjs enforces across all 16 pages, and this label has to clear 18px.
+   The floor is the constraint, not the taste: an earlier pass sized this against the 15px quote it
+   sits under and landed on clamp(15px,1.45vw,17px), which G13 named at both viewports for missing
+   18px minimum by 1px at 1440 and 3px at 390. Phone is where the label is smallest against the
+   reader's eye, so the floor governs there. The 20px ceiling matches .icp-card h3, which is what
+   used to carry the buyer type in this card at clamp(17px,1.9vw,19.5px).
+   All FOUR attributions are split, including "Agency owner, r/IndiaBusiness" on the first card:
+   splitting three of four would leave one card visibly lighter than its neighbours. */
+section[data-motion="icp-in"] .src-big,
+section[data-motion="icp-in"] .icp-card .src{line-height:1.4}
+section[data-motion="icp-in"] .who{
+  font-family:var(--sans);font-size:clamp(18px,1.45vw,20px);font-weight:700;
+  letter-spacing:-.01em;color:var(--text-high);
+}
+/* Face, size and tracking are inherited from .src and .src-big on purpose, so each keeps the
+   exact mono treatment it already had (10.5px on the cards, 11px on the pull quote). */
+section[data-motion="icp-in"] .whence{color:var(--text-low)}
+
 /* ---- the panel -----------------------------------------------------------
    Same component the work section uses as a live feed, used here as the opposite: it runs, and
    it has nothing to report. */
@@ -43,7 +68,13 @@ section[data-motion="icp-in"] .qm-panel{box-shadow:0 20px 48px -34px rgba(18,18,
 /* Teal on the head dot reads as live, and nothing in this pipeline is live. Grey it, and the
    caret below stays the one accent mark on the surface. */
 section[data-motion="icp-in"] .console-head .dot{background:var(--text-low)}
-section[data-motion="icp-in"] .qm-body{gap:9px}
+/* The body reserves a little room under the prompt, so the panel reads as a terminal that has
+   finished and is waiting rather than as a field cut to fit its three lines. Declared here rather
+   than left to inherit: the round 1 block set min-height:clamp(118px,15vw,172px) to give a SINGLE
+   caret enough presence to be an argument, which measures 172px at 1440 and left roughly 100px of
+   dead air under a panel that now has three rows in it. This section has to measure the same
+   whether or not that block is still in the page. */
+section[data-motion="icp-in"] .qm-body{gap:9px;min-height:clamp(84px,7vw,104px)}
 
 section[data-motion="icp-in"] .qm-row{display:flex;align-items:baseline;gap:14px}
 section[data-motion="icp-in"] .qm-q{display:flex;align-items:baseline;gap:9px;flex:none}
@@ -96,8 +127,13 @@ section[data-motion="icp-in"] .qm-foot-note{
 }
 @keyframes qmLand{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
 
+/* forwards, NOT both. The indicator's resting state is hidden, so a backwards fill would paint it
+   at opacity 1 through its own delay: measured at 1440 and at 390, both rows showed their dots
+   sitting at the right edge from t=0 with no query text beside them yet, which is two stray marks
+   in an empty box, the exact read this round exists to kill. forwards leaves the delay showing the
+   base rule (opacity 0), so each indicator appears only once its own query has finished wiping in. */
 .js section[data-motion="icp-in"] .reveal.in .qm-work{
-  animation:qmWorking .6s linear calc(var(--i,0) * .5s + .5s) both;
+  animation:qmWorking .6s linear calc(var(--i,0) * .5s + .5s) forwards;
 }
 .js section[data-motion="icp-in"] .reveal .qm-nil{opacity:0}
 .js section[data-motion="icp-in"] .reveal.in .qm-nil{

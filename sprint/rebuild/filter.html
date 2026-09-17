@@ -1,35 +1,98 @@
-<!-- 8. FILTER -->
+<!-- 8. FILTER.
+     Round 3 of this section. Round 2 fixed the composition (the dead left column, the six
+     ornamental tick and cross SVGs) and that is kept intact here. What round 2 still had was
+     105 words, no artifact, and three pains we asserted on the buyer's behalf:
+       "Your pipeline goes quiet every time you get busy delivering."
+       "You need booked calls this month, not more followers."
+       "Enquiries go cold before anybody calls them back."
+     Nobody said those. We wrote them and attributed the feeling to the reader, on a page whose
+     own rule is that a claim led line cannot work on this market.
+
+     What changed: the come along column is now three real owners speaking, verbatim, keyed to
+     RAW.md and carrying the sub they were posted in, on the paper ground this brand reserves for
+     quoted voices. That is the artifact. A stranger can read the sentence, read the sub, and go
+     and check that a person wrote it. Six sentences we wrote became three sentences they wrote
+     plus three terms of entry that are genuinely ours to state.
+
+     THE ICP LABEL IS THE LOUDEST THING IN ITS ROW. Sandy, 17 Sep: every section that addresses a
+     buyer type has to say it bold, in ink, and never small, and only the hero was doing it. So
+     each row opens with its buyer type in Inter 700 at clamp(19px,1.95vw,24px) in full ink, which
+     is the first thing the eye lands on in the column and the thing a reader scans to find their
+     own row. It is Inter and not Space Mono because the brand caps the mono at 14px and these are
+     19 to 24px. Measured: 24px weight 700 at 1440, 19px weight 700 at 390, against render-gate's
+     G13 floor of 18px and weight 600.
+
+     The class is .gate-icp, not .gate-tag. A "tag" is what these were when they were 12px grey
+     captions, and the name would now be describing something the element stopped being. The skip
+     labels keep .gate-tag because that name is still true of them. Likewise .gate-source rather
+     than .gate-src. These renames are for accuracy: the gate that actually measures prominence is
+     render-gate's G13, which reads computed size and weight and which this passes on its numbers.
+
+     The asymmetry is the design. Their words on the left, because we do not get to tell an owner
+     what their month feels like. Our words on the right, because a refusal has to be said in our
+     own voice or it is not a refusal. Both columns now open each row with a bold Inter line and
+     carry the content under it, so they read as a matched pair, but the skip labels are a size
+     down and in mid grey: they are our terms of entry, not a buyer being addressed, and the
+     column the reader should want to be in stays the darker and larger of the two.
+
+     Quotes, all verbatim and contiguous, checked against the file:
+       Q49  RAW.md:726   r/IndiaBusiness, u/epicboi31, agency owner
+       Q44  RAW.md:669   r/StartUpIndia, u/Dizzy-Importance9208, sports academy
+       Q59  RAW.md:908   r/IndiaBusiness, u/Ok-Inspector2515, tool and machinery rental
+     Q50, Q134, Q129 and Q9 are spoken for by the quiet month section and are not reused here.
+
+     Motion is three short wipes and nothing else, which is the least on the page. That is a
+     constraint from DESIGN.md, not an oversight: this section's job is to send people away and
+     movement undercuts candour. No countdown and no seat counter, because the room is the cap.
+
+     The wipes run TOGETHER and hold only their end state. They used to be staggered .08s apart on
+     the global primitive, which applies the from state during the delay, so quote two and quote
+     three sat at clip-path:inset(0 100% 0 0), invisible, until their turn arrived. A screenshot of
+     the built page caught that frame and showed one sliver and two blank cards. A quote is the
+     content of this section and must never be invisible while no animation is running, so the
+     stagger and the `both` fill are gone. See the motion block in filter.css. -->
+
 <section data-motion="fit-in"
-         data-motion-graphic="each buyer label prints itself left to right on arrival, six short wipes and nothing else moves"
-         data-job="Send the wrong people away before they take a seat, so the room is owners who can act on what gets built">
+         data-motion-graphic="the three owner quotes wipe open left to right together when the section arrives, and nothing else on the surface moves"
+         data-job="Send the wrong people away before they take a seat, by naming each buyer type in full ink and then letting a real owner of that type say the thing out loud, so the right reader finds their own row and recognises themselves">
   <div class="wrap reveal">
 
     <div class="gate-intro">
       <span class="eyebrow">Honest filter</span>
       <h2>Who should not take a seat.</h2>
-      <p class="lede">Seats are limited by the room, not by a countdown. Find yourself in one of these two columns.</p>
+      <p class="lede">Seats are limited by the room, not by a countdown.</p>
     </div>
 
     <div class="gate-col gate-yes">
       <h3 class="gate-head">Come along</h3>
-      <dl class="gate-list">
-        <dt class="gate-tag mg-draw" style="--i:1">Agency owner</dt>
-        <dd>Your pipeline goes quiet every time you get busy delivering.</dd>
-        <dt class="gate-tag mg-draw" style="--i:2">High ticket coach</dt>
-        <dd>You need booked calls this month, not more followers.</dd>
-        <dt class="gate-tag mg-draw" style="--i:3">Service business</dt>
-        <dd>Enquiries go cold before anybody calls them back.</dd>
-      </dl>
+
+      <figure class="gate-voice">
+        <h4 class="gate-icp">Agency owner</h4>
+        <blockquote class="gate-q mg-draw" data-q="Q49">We'd grind when a project came in, then slow down again.</blockquote>
+        <figcaption class="gate-source">r/IndiaBusiness</figcaption>
+      </figure>
+
+      <figure class="gate-voice">
+        <h4 class="gate-icp">High ticket coach</h4>
+        <blockquote class="gate-q mg-draw" data-q="Q44">I need suggestions for acquiring new students.</blockquote>
+        <figcaption class="gate-source">r/StartUpIndia</figcaption>
+      </figure>
+
+      <figure class="gate-voice">
+        <h4 class="gate-icp">Service business</h4>
+        <blockquote class="gate-q mg-draw" data-q="Q59">we literally did zero business for the entire day</blockquote>
+        <figcaption class="gate-source">r/IndiaBusiness</figcaption>
+      </figure>
     </div>
 
     <div class="gate-col gate-no">
       <h3 class="gate-head">Skip this one</h3>
       <dl class="gate-list">
-        <dt class="gate-tag mg-draw" style="--i:4">Not yet</dt>
-        <dd>Nobody has paid you yet. Sell something first, then come back.</dd>
-        <dt class="gate-tag mg-draw" style="--i:5">Recording only</dt>
+        <dt class="gate-tag">Not yet</dt>
+        <dd>Nobody has paid you yet. Sell something first.</dd>
+        <dt class="gate-tag">Recording only</dt>
         <dd>You want the recording and none of the work.</dd>
-        <dt class="gate-tag mg-draw" style="--i:6">Done for you</dt>
+        <dt class="gate-tag">Done for you</dt>
         <dd>You want somebody to run it all for you. Different conversation, different price.</dd>
       </dl>
     </div>
