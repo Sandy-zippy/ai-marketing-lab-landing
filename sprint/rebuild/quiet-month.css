@@ -112,9 +112,13 @@ section[data-motion="icp-in"] .qm-foot-note{
    the emptiness legible as an empty month rather than as a broken one.
    Every keyframe ends at the element's natural state, so if none of this runs the panel is
    fully rendered and correct. */
-.js section[data-motion="icp-in"] .reveal .qm-q.mg-draw{clip-path:inset(0 100% 0 0)}
+/* The hidden start state lives INSIDE @keyframes draw (index.html:476), never on the element, so
+   .qm-q's own resting style is the visible one and the animation is the part that is optional.
+   Measured 17 Sep, JS alive and the page never scrolled: a .js .reveal pre-arrival clip held
+   ">referrals" and ">follow ups" at inset(0 100% 0 0) indefinitely, because .in only arrives on
+   scroll. Those are the query labels, so that rule hid more text than the answers did. */
 .js section[data-motion="icp-in"] .reveal.in .qm-q.mg-draw{
-  clip-path:inset(0);animation-duration:.5s;animation-delay:calc(var(--i,0) * .5s);
+  animation-duration:.5s;animation-delay:calc(var(--i,0) * .5s);
 }
 
 @keyframes qmWorking{
@@ -135,12 +139,14 @@ section[data-motion="icp-in"] .qm-foot-note{
 .js section[data-motion="icp-in"] .reveal.in .qm-work{
   animation:qmWorking .6s linear calc(var(--i,0) * .5s + .5s) forwards;
 }
-.js section[data-motion="icp-in"] .reveal .qm-nil{opacity:0}
+/* Same shape: qmLand's own from{} carries the opacity 0, and the animation exists only under
+   .reveal.in, so before arrival the answer renders at its natural visible state. "nothing new" and
+   "nothing scheduled" are the whole argument of this section and may never wait on script. */
 .js section[data-motion="icp-in"] .reveal.in .qm-nil{
   animation:qmLand .24s var(--ease) calc(var(--i,0) * .5s + 1.1s) both;
 }
-/* The prompt returns once both checks have answered, at 1.84s. */
-.js section[data-motion="icp-in"] .reveal .qm-wait{opacity:0}
+/* The prompt returns once both checks have answered, at 1.84s. Visible at rest for the same
+   reason: a console that is not running still shows its prompt, so that is its natural state. */
 .js section[data-motion="icp-in"] .reveal.in .qm-wait{
   animation:qmLand .3s var(--ease) 2s both;
 }
@@ -158,13 +164,15 @@ section[data-motion="icp-in"] .qm-caret{
    Every one of them ends at the element's natural state, so switching them all off leaves the
    panel fully rendered: two checks, both answered, the prompt waiting under them. */
 @media(prefers-reduced-motion:reduce){
-  .js section[data-motion="icp-in"] .reveal .qm-q.mg-draw,
-  .js section[data-motion="icp-in"] .reveal.in .qm-q.mg-draw{clip-path:none;animation:none}
-  .js section[data-motion="icp-in"] .reveal .qm-nil,
-  .js section[data-motion="icp-in"] .reveal .qm-wait{opacity:1}
-  .js section[data-motion="icp-in"] .reveal.in .qm-work{animation:none}
+  /* Only the animations are switched off now. Every element here already rests at its visible
+     state, so there is nothing left for this block to un-hide: the pre-arrival opacity and clip
+     rules it used to reverse are gone. .qm-work is the one deliberate exception and keeps its
+     hidden resting state, because a working indicator that is not working should not be on
+     screen; switching its animation off simply leaves it absent, which is correct. */
+  .js section[data-motion="icp-in"] .reveal.in .qm-q.mg-draw,
+  .js section[data-motion="icp-in"] .reveal.in .qm-work,
   .js section[data-motion="icp-in"] .reveal.in .qm-nil,
-  .js section[data-motion="icp-in"] .reveal.in .qm-wait{animation:none;opacity:1}
+  .js section[data-motion="icp-in"] .reveal.in .qm-wait{animation:none}
   section[data-motion="icp-in"] .console-head .dot,
   section[data-motion="icp-in"] .qm-caret{animation:none}
 }

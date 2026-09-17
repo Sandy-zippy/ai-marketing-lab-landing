@@ -74,10 +74,24 @@ section[data-motion="work-in"] .wb-line{
 @keyframes wbFoldFarL{to{transform:translateZ(-430px) rotateY(15deg)}}
 @keyframes wbFoldFarR{to{transform:translateZ(-430px) rotateY(-15deg)}}
 
-/* The camera settles, then keeps turning. A still 3D composition is indistinguishable from a
-   flat one in a screenshot: depth only reads when the camera moves, which is the whole reason
-   this is a motion graphic and not an arrangement. The sway is infinite and slow, so the section
-   is still moving whenever the reader looks at it rather than having finished before they came. */
+/* The camera settles, then keeps turning. A still 3D composition is indistinguishable from a flat
+   one in a screenshot, so the sway is what keeps the scene alive once the entrance is over.
+
+   MEASURED 17 Sep 2026, and it corrects the sentence above it. The FOLD carries the depth a reader
+   actually perceives: about 136px of projected-width change per panel, nearly all of it inside the
+   first second, gated on arrival. The SWAY is genuinely turning, 45.2px of swing on a 507px panel
+   across its 11s half period, but that is only about 4px per second: roughly 12px over a 3s dwell
+   and 33px over 6s. Real, and marginal at the timescale anyone actually reads at.
+
+   So do NOT shorten, trim or retime the fold on the assumption that the sway is carrying the
+   depth. It is not. Removing the fold would silently flatten this section while every gate stayed
+   green, because no gate here can see perceived depth.
+
+   How both of us got it wrong first: we each judged the scene from screenshots taken 4s apart and
+   concluded it was a flat grid. A still frame of a 22s animation is not evidence about that
+   animation, and the sampling interval has to be derived from the period, not from whatever is
+   convenient. Sample at the half period to prove motion exists, and across a realistic dwell to
+   find out whether a reader can see it. Those are two different questions. */
 @keyframes wbRigIn{from{transform:rotateX(0deg) rotateY(0deg)}to{transform:rotateX(11deg) rotateY(-8deg)}}
 @keyframes wbSway{
   0%  {transform:rotateX(11deg) rotateY(-8deg)}
