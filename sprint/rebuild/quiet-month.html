@@ -3,27 +3,41 @@
      same argument twice and carried a sparkline per column plus a twelve cell year strip. Both
      were charts and both are gone.
 
-     Round 2 of this section. Round 1 of it put the console component on the surface EMPTY: one
-     caret in a 1052x255 white panel, which measured as a rendering fault rather than as a quiet
-     month, with 74px of dead air between the pull quote and the top of the panel.
-     What changed: the panel is no longer the full width of the page, it sits in the right column
-     beside the headline, which is what closes the gap. And it is no longer blank. The pipeline
-     RUNS while the reader watches and comes back with nothing, twice, which is the difference
-     between an empty box and an empty month. The eyebrow is gone: the panel head labels the
-     section, so the label above it was the same words a second time.
+     Round 3 touches the CONSOLE OBJECT ONLY. The copy, the four quotes, the headline and the
+     layout of the quotes are the best words on the page and are carried over untouched.
+
+     Round 1 put the console on the surface EMPTY: one caret in a 1052x255 white panel, which
+     measured as a failed render rather than as a quiet month. Round 2 gave the rows words.
+     What round 3 fixes is the last two reads of "broken":
+       a. Nothing animated INTO the emptiness. The rows arrived already answered, so the reader
+          met a result with no evidence of a process. Now the pipeline RUNS while they watch:
+          each query wipes open, a working indicator ticks in the status column, and then the
+          answer LANDS in it. Twice, one after the other. Then the prompt comes back and waits.
+          The emptiness is earned because the reader saw the check happen.
+       b. "Illustration" alone, 11px mono, right aligned, read as dev scaffolding left in by
+          accident, and at 390 the foot wrapped and isolated it further. It is now a sentence in
+          the body face, left aligned under the panel, which is a figure caption and not a flag.
+
+     The reviewer asked for a literal drain: rows appearing then going out one by one until
+     nothing is left. Not built, for two reasons. To drain, the rows must first hold items, and
+     any item here is a record we invented, which is the one thing this page cannot do. And a
+     literal drain ends on an empty box, which reinstates the round 1 defect for every reader who
+     arrives after the sequence, under reduced motion, or in a screenshot. Running the check and
+     returning nothing gives the same beat, process then earned emptiness, and leaves the words
+     standing at rest.
 
      Nothing in the panel is a figure. No count, no elapsed time, no date. Every number on this
      page has to trace to a file or an ad account, and a quiet month has none to trace, so the
-     panel answers in words and says Illustration on its own foot.
+     panel answers in words and captions itself.
      Every other word on this surface belongs to a real buyer. -->
 <section data-motion="icp-in"
-         data-motion-graphic="the pipeline runs while the reader watches: two checks wipe open left to right one after the other, each returning nothing, and the caret under them keeps blinking on a loop that is still going whenever the reader arrives"
-         data-job="Show the quiet month as a pipeline that runs and returns nothing, instead of describing it in prose, then let three owners say in their own words what that month is like">
+         data-motion-graphic="the pipeline runs while the reader watches: two queries wipe open left to right one after the other, a working indicator ticks in the status column of each, and the answer lands in it reading nothing new and nothing scheduled, after which the prompt returns and its caret blinks on a loop that is still going whenever the reader arrives"
+         data-job="Show the quiet month as a pipeline that runs on screen and returns nothing, instead of describing it in prose, then let three owners say in their own words what that month is like">
   <div class="wrap reveal">
 
     <!-- The headline and the buyer's own sentence are one block, so the panel beside them sits
          against a single column of text. Three separate grid items in the left column let a taller
-         panel push them apart, which is exactly the 74px of dead air this round is fixing. -->
+         panel push them apart, which was the 74px of dead air round 2 fixed. -->
     <div class="qm-say">
       <h2>Nothing broke. The referrals just stopped.</h2>
 
@@ -33,10 +47,10 @@
 
     <!-- The object. The shared .console component from assets/aiml-funnel.css, which the page
          already links and which this section is the first to use as a panel rather than a feed.
-         The two rows carry .mg-draw, the page's own arrival-gated wipe primitive (index.html:486),
-         staggered, so the reader watches each check open and come back empty. The caret below them
-         is continuous and infinite, so unlike a one shot entrance 1,200px down the page it has not
-         already finished by the time anyone gets here.
+         Each row is a query on the left and a status column on the right. The query carries
+         .mg-draw, the page's own arrival-gated wipe (index.html:486), so it opens left to right
+         the way a command lands in a terminal. The status column holds two children stacked in
+         one grid cell, so the working dots give way to the answer with no reflow.
          The head dot is grey in this section, not the component's teal: teal reads as live, and
          nothing is live in this pipeline. The caret is the one accent mark on the surface. -->
     <div class="console qm-panel">
@@ -45,18 +59,34 @@
         <span>Referral pipeline</span>
       </div>
       <div class="console-body qm-body">
-        <div class="qm-row mg-draw" style="--i:0">
-          <span class="qm-op">&gt;</span><span class="qm-cmd">referrals</span><span class="qm-nil">nothing new</span>
+
+        <div class="qm-row" style="--i:0">
+          <span class="qm-q mg-draw"><span class="qm-op">&gt;</span>referrals</span>
+          <span class="qm-status">
+            <span class="qm-work" aria-hidden="true">&#183;&#183;&#183;</span>
+            <span class="qm-nil">nothing new</span>
+          </span>
         </div>
-        <div class="qm-row mg-draw" style="--i:1">
-          <span class="qm-op">&gt;</span><span class="qm-cmd">follow ups</span><span class="qm-nil">nothing scheduled</span>
+
+        <div class="qm-row" style="--i:1">
+          <span class="qm-q mg-draw"><span class="qm-op">&gt;</span>follow ups</span>
+          <span class="qm-status">
+            <span class="qm-work" aria-hidden="true">&#183;&#183;&#183;</span>
+            <span class="qm-nil">nothing scheduled</span>
+          </span>
         </div>
+
+        <!-- The prompt returns after both checks have answered, which is what a terminal does
+             when it has finished and has nothing left to say. Opacity only, never height, so
+             nothing below it moves. -->
         <div class="qm-row qm-wait">
-          <span class="qm-op">&gt;</span><span class="qm-caret" aria-hidden="true"></span>
+          <span class="qm-q"><span class="qm-op">&gt;</span></span>
+          <span class="qm-caret" aria-hidden="true"></span>
         </div>
+
       </div>
       <div class="console-foot">
-        <span class="qm-foot-note">Illustration</span>
+        <span class="qm-foot-note">Illustration, not an account</span>
       </div>
     </div>
 
