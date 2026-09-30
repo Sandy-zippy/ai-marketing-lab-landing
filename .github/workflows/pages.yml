@@ -33,13 +33,14 @@ jobs:
           set -euo pipefail
           node brand-guard.mjs
       # /call is the paid-traffic VSL page. Its CTA is a Razorpay link held in one constant;
-      # empty means every button reads "Payment link pending". Never ship that, or the page
-      # without its video, to a live URL.
+      # empty means every button reads "Payment link pending". Never ship that, the page
+      # without its video, or paid traffic with no pixel to measure it, to a live URL.
       - name: Call page gate
         shell: bash
         run: |
           set -euo pipefail
           if grep -q 'const PAY_LINK = ""' call/index.html; then echo "BLOCKED: PAY_LINK is empty in call/index.html"; exit 1; fi
+          if grep -q 'const META_PIXEL_ID = ""' assets/meta-pixel.js; then echo "BLOCKED: META_PIXEL_ID is empty in assets/meta-pixel.js"; exit 1; fi
           test -s call/vsl/aiml-vsl.mp4 || { echo "BLOCKED: call/vsl/aiml-vsl.mp4 missing"; exit 1; }
       - uses: actions/configure-pages@v5
       - name: Build public artifact
@@ -72,11 +73,16 @@ jobs:
           # so every check reported them gone while the deploy kept serving them.
           cp assets/work/design-riarh.jpg assets/work/content-funnel-17sep.jpg _site/assets/work/
           cp resources/index.html _site/resources/
-          mkdir -p _site/call/vsl
+          mkdir -p _site/call/vsl _site/assets/brand
+          cp assets/meta-pixel.js _site/assets/
+          cp assets/brand/aiml-horizontal.svg assets/brand/favicon.ico assets/brand/favicon.svg \
+             assets/brand/apple-touch-icon.png assets/brand/icon-192.png assets/brand/icon-512.png \
+             assets/brand/maskable-512.png assets/brand/site.webmanifest _site/assets/brand/
           cp call/index.html call/booked.html call/poster.jpg _site/call/
           cp call/vsl/aiml-vsl.mp4 _site/call/vsl/
           touch _site/.nojekyll
           node --check _site/assets/analytics.js
+          node --check _site/assets/meta-pixel.js
           ! grep -RniE 'REPLACE_WITH|aimarketinglab\.club|37 of 100|#book|This Thursday|Lorem ipsum' _site
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -4,13 +4,18 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Book a call with Sandy | AI Marketing Lab</title>
-<meta name="description" content="For agency owners, high-ticket coaches and B2B founders who already have paying clients. Watch the 11 minute video, then book a 45 minute call with Sandy." />
+<meta name="description" content="For agency owners, high-ticket coaches and B2B founders who already have paying clients. Watch the 8 minute video, then book a 45 minute call with Sandy." />
 <meta property="og:title" content="Full calendar when you chase. Empty pipeline when you deliver." />
-<meta property="og:description" content="How I broke that cycle with Claude Code. An 11 minute video, then a 45 minute call." />
+<meta property="og:description" content="How I broke that cycle with Claude Code. An 8 minute video, then a 45 minute call." />
 <meta property="og:image" content="https://aimarketinglabs.in/assets/og/aiml-og-1200x630.jpg" />
 <meta property="og:url" content="https://aimarketinglabs.in/call/" />
 <link rel="canonical" href="https://aimarketinglabs.in/call/" />
-<link rel="icon" href="../assets/favicon.svg" />
+<link rel="icon" href="../assets/brand/favicon.ico" sizes="48x48" />
+<link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png" />
+<link rel="manifest" href="../assets/brand/site.webmanifest" />
+<meta name="theme-color" content="#121212" />
+<script src="../assets/meta-pixel.js"></script>
 <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
 <style>
 @font-face{font-family:'Inter';src:url('../assets/fonts/inter-latin.woff2') format('woff2');font-weight:400 900;font-display:swap}
@@ -221,8 +226,7 @@ footer nav a:hover{color:var(--ink)}
 <body>
 
 <header class="bar">
-  <!-- LOGO SLOT: AIML logo is being redesigned. Swap the src below for the new file; keep height 20px. -->
-  <img src="../assets/aiml-wordmark-v3.svg" alt="AI Marketing Lab" width="152" height="20" />
+  <img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" />
   <span class="label">Video + 45 min call</span>
 </header>
 
@@ -232,15 +236,15 @@ footer nav a:hover{color:var(--ink)}
     <p class="callout">For agency owners, high-ticket coaches and B2B founders <em>who already have paying clients</em></p>
     <h1><span class="l">Full calendar when you chase.</span> <span class="l">Empty pipeline when you deliver.</span></h1>
 
-    <!-- VSL SLOT. Final file pending: drop it at call/vsl/aiml-vsl.mp4 (H.264, faststart).
-         Poster is a frame from the style-proof cut; replace with a frame from the final cut. -->
+    <!-- VSL: call/vsl/aiml-vsl.mp4, made from the v3 master by call/vsl/prepare.sh (run on the Mini).
+         poster.jpg is the frame at 0:03 of the same master. -->
     <div class="player" id="player">
       <video id="vsl" controls playsinline preload="metadata" poster="poster.jpg" controlslist="nodownload">
         <source src="vsl/aiml-vsl.mp4" type="video/mp4" />
       </video>
       <span class="pending">Video file pending</span>
     </div>
-    <p class="vmeta">About 11 minutes. Sound on.</p>
+    <p class="vmeta">About 8 minutes. Sound on.</p>
 
     <p class="lede">Watch how I broke that cycle with Claude Code. First for clients in Canada and the US, then for my own business in India.</p>
 
@@ -494,7 +498,7 @@ footer nav a:hover{color:var(--ink)}
 
 <footer>
   <div class="wrap">
-    <img src="../assets/aiml-wordmark-v3.svg" alt="AI Marketing Lab" width="122" height="16" />
+    <img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="125" height="18" />
     <nav><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../refund.html">Refunds</a></nav>
   </div>
 </footer>
@@ -510,6 +514,7 @@ const PAY_LINK = "";
     if (PAY_LINK) {
       b.href = PAY_LINK;
       b.rel = 'noopener';
+      b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); });
     } else {
       b.removeAttribute('href');
       b.setAttribute('aria-disabled', 'true');
@@ -523,6 +528,15 @@ const PAY_LINK = "";
   var player = document.getElementById('player');
   var src = player.querySelector('source');
   src.addEventListener('error', function () { player.classList.add('is-missing'); });
+
+  // Pixel: ViewContent once the viewer has played half the VSL.
+  var vsl = document.getElementById('vsl'), halfSent = false;
+  vsl.addEventListener('timeupdate', function () {
+    if (!halfSent && vsl.duration && vsl.currentTime / vsl.duration >= 0.5) {
+      halfSent = true;
+      aimlTrack('ViewContent', { content_name: 'AIML VSL 50%' });
+    }
+  });
 })();
 </script>
 </body>
