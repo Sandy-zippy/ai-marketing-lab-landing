@@ -13,11 +13,9 @@
 <script src="../assets/meta-pixel.js"></script>
 <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
 <!--
-  FINAL /sprint preview, same system as /call. Not deployed.
-  PROVENANCE: as /call; timeline pattern from Aceternity timeline (pattern only, rebuilt in CSS).
-  MOTION BUDGET (max 4): 0 hero, nothing. 1 the week-by-week timeline: the spine draws, each week
-  node and card lands in order. Once. 2 proof wall: emails land from a pile. Once. 3 buttons: hover.
-  Rules as /call: transform only, HTML is the final state, arrival-gated, reduced motion = static.
+  uAbility-grammar /sprint preview, same system as uab/call.html.
+  MOTION BUDGET: 1 week-by-week timeline draws on arrival. 2 proof wall lands from a pile. 3 button hover.
+  Transform only, HTML is the final state, reduced motion = static.
 -->
 <style>
 @font-face{font-family:'Inter';src:url('../assets/fonts/inter-latin.woff2') format('woff2');font-weight:400 900;font-display:swap}
@@ -301,57 +299,219 @@ footer nav a:hover{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important}
 }
+
+/* ---------- uAbility grammar, AIML brand ---------- */
+.band{position:relative;background:#121212 url('../assets/photos/aiml/uab-hero.jpg') 22% 40%/cover no-repeat;color:#fff;padding:176px 0 calc(var(--s7) + 72px)}
+@media (max-width:979px){.band{background-size:auto 470px;background-position:10% -170px}.band h1{font-size:36px}section.hero-card .wrap{gap:var(--s3)}.band .callout{font-size:20px}}
+.band::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,18,18,.1) 0%,rgba(18,18,18,.55) 32%,rgba(18,18,18,.9) 60%,rgba(18,18,18,.95) 100%)}
+.band .wrap{position:relative;display:grid;gap:var(--s4);justify-items:center;text-align:center}
+.band .callout{color:#fff;max-width:34ch;background:rgba(18,18,18,.75);border-radius:6px;padding:6px 10px}
+.band .act{justify-items:center;text-align:center}
+.band .note{color:rgba(255,255,255,.8)}
+.band .btn{background:#fff;color:var(--ink)}
+@media (min-width:980px){
+  .band{background-position:50% 40%;padding:var(--s8) 0 calc(var(--s8) + 80px)}
+  .band::before{background:linear-gradient(90deg,rgba(18,18,18,.05) 0%,rgba(18,18,18,.35) 40%,rgba(18,18,18,.88) 58%,rgba(18,18,18,.92) 100%)}
+  .band .wrap{justify-items:start;text-align:left;padding-left:calc(50% + var(--s5))}
+  .band .act{justify-items:start;text-align:left}
+  .band h1{font-size:clamp(40px,4.6vw,64px)}
+}
+.band .callout em{color:#5FD3CD}
+.band h1{font-size:clamp(40px,7.4vw,84px);max-width:14ch}
+.band h1 em{font-style:normal;color:#5FD3CD}
+.band .starts{color:#fff;background:var(--warm);padding:4px 10px;border-radius:6px}
+.hero-card{position:relative;margin-top:calc(-80px - var(--s7));padding-bottom:var(--s7)}
+.hero-card .wrap{display:grid;gap:var(--s5);justify-items:center}
+.vcard{width:100%;max-width:860px;background:var(--canvas);border-radius:18px;padding:10px;box-shadow:0 40px 80px -40px rgba(18,18,18,.6)}
+.vcard .player{border-radius:12px;box-shadow:none}
+.playbtn{position:absolute;left:75%;top:78%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;border:0;background:var(--accent);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 0 0 10px rgba(0,161,155,.25);transition:transform .2s var(--ease)}
+.playbtn:hover{transform:translate(-50%,-50%) scale(1.06)}
+.playbtn:focus-visible{outline:3px solid #fff;outline-offset:4px}
+.playbtn svg{width:24px;height:24px;margin-left:3px}
+@media (min-width:768px){.playbtn{width:84px;height:84px}.playbtn svg{width:30px;height:30px}}
+.player.playing .playbtn{display:none}
+.hero-card .act{justify-items:center;text-align:center}
+.band-act{display:none}
+@media (min-width:980px){.band-act{display:grid}.hero-card .act.dup{display:none}}
+.hero-card .lede{text-align:center;max-width:56ch}
+
+/* trust row: every number carries its source line */
+.trust{padding-block:var(--s7);border-bottom:1px solid var(--line)}
+.trust ul{list-style:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s5) var(--s4)}
+@media (min-width:900px){.trust ul{grid-template-columns:repeat(4,1fr);gap:var(--s5)}}
+.trust li{display:grid;gap:var(--s1);align-content:start;border:1px solid var(--line);border-radius:14px;padding:var(--s4)}
+.trust li svg{width:28px;height:28px;color:var(--accent);margin-bottom:var(--s2)}
+.trust .n{font-size:clamp(30px,3.4vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.trust .n .arr{color:var(--low);font-weight:400}
+.trust .t{font-size:var(--fs-sm);font-weight:600}
+.trust .src{font-size:12px;color:var(--mid);line-height:1.4}
+
+/* founder letter */
+.letter-sec{background:var(--paper);border-block:1px solid var(--paper-edge)}
+.desk{max-width:680px;margin:0 auto;color:var(--paper-ink)}
+.desk .from{font-size:var(--fs-sm);color:var(--mid);border-bottom:1px solid var(--paper-edge);padding-bottom:var(--s3);margin-bottom:var(--s5)}
+.desk .from b{display:block;color:var(--ink);font-size:var(--fs-lg)}
+.desk p{font-size:var(--fs-lg);line-height:1.6;margin-top:var(--s3)}
+.desk p.big{font-size:clamp(22px,2.6vw,28px);font-weight:700;letter-spacing:-.02em;line-height:1.25;margin-top:var(--s6)}
+.desk ul{list-style:none;display:grid;gap:var(--s2);margin:var(--s4) 0}
+.desk li{font-size:var(--fs-lg);padding-left:30px;position:relative}
+.desk .asks li::before{content:"?";position:absolute;left:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--canvas);border:1px solid var(--paper-edge);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--mid)}
+.desk .wants li::before{content:"";position:absolute;left:4px;top:7px;width:12px;height:7px;border-left:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(-45deg)}
+.desk .wheel li::before{content:"";position:absolute;left:4px;top:11px;width:12px;height:2px;background:var(--warm)}
+.desk .sign{margin-top:var(--s6);font-size:var(--fs-lg);display:grid;grid-template-columns:140px 1fr;gap:var(--s4);align-items:center}
+.desk .sign img{width:140px;height:105px;object-fit:cover;object-position:60% 40%;border-radius:10px}
+.desk .sign b{display:block;font-size:22px}
+
+/* case cards: tags, name, story, big before / after */
+.ccards{display:grid;gap:var(--s4)}
+@media (min-width:980px){.ccards{grid-template-columns:repeat(3,1fr);align-items:stretch}}
+.cc{border:1px solid var(--line);border-radius:18px;padding:var(--s5);display:grid;gap:var(--s3);align-content:start;background:var(--canvas)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;background:var(--surface);color:var(--body)}
+.tags span:first-child{background:var(--accent-soft);color:#00736E}
+.cc h3{font-size:24px}
+.cc .story{font-size:var(--fs-sm);color:var(--mid)}
+.js .cc .story:not(.open){display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.more{justify-self:start;border:0;background:none;padding:0;font-family:var(--sans);font-size:var(--fs-sm);font-weight:600;color:var(--ink);text-decoration:underline;cursor:pointer}
+.more:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.more{display:none}
+.js .more{display:inline}
+@media (min-width:980px){.tally{grid-column:1/-1}}
+.ba{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s4);border-top:1px solid var(--line);padding-top:var(--s4);margin-top:var(--s2)}
+.ba p.k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.ba p.v{font-size:clamp(22px,2.2vw,28px);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-top:var(--s1)}
+.ba .after p.v{color:var(--accent)}
+.ba p.v.txt{font-size:18px;line-height:1.25}
+.ba p.s{font-size:13px;color:var(--mid);margin-top:var(--s2)}
+.cc .paid{font-size:var(--fs-sm);border-top:1px dashed var(--line);padding-top:var(--s3);margin-top:auto}
+.cc .paid b{font-weight:700}
+
+/* 01 to 05 pillars */
+.pillars-head .range{font-size:clamp(64px,11vw,140px);font-weight:800;letter-spacing:-.05em;line-height:.9;color:transparent;-webkit-text-stroke:1.5px var(--accent)}
+.pillars{display:grid;gap:var(--s3)}
+.pl{border:1px solid var(--line);border-radius:16px;background:var(--canvas)}
+.pl[open]{border-color:var(--ink)}
+.pl summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:var(--s4);align-items:center;padding:var(--s4) var(--s5)}
+.pl summary::-webkit-details-marker{display:none}
+.pl summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:16px}
+.pl .no{font-size:var(--fs-sm);font-weight:700;color:var(--accent)}
+.pl summary b{font-size:clamp(20px,2.2vw,24px);letter-spacing:-.02em}
+.pl summary i{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:18px;transition:transform .3s var(--ease)}
+.pl[open] summary i{transform:rotate(45deg)}
+.pl-body{padding:0 var(--s5) var(--s5);display:grid;gap:var(--s4)}
+.pl[open] .pl-body{animation:plin .35s var(--ease)}
+@keyframes plin{from{transform:translateY(-8px)}to{transform:none}}
+.pl-body .two{display:grid;gap:var(--s4)}
+@media (min-width:900px){.pl-body .two{grid-template-columns:1fr 1fr;gap:var(--s6)}}
+.pl-body h4{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:var(--s1)}
+.pl-body .runs h4{color:var(--accent)}
+.pl-body p{color:var(--body)}
+
+/* join boxes */
+.joins{display:grid;gap:var(--s4)}
+@media (min-width:900px){.joins{grid-template-columns:1fr 1fr;align-items:start}}
+.join{border:1px solid var(--line);border-radius:20px;padding:var(--s6) var(--s5);display:grid;gap:var(--s4);background:var(--canvas);box-shadow:0 30px 60px -44px rgba(18,18,18,.45)}
+.join.lead{border:2px solid var(--ink)}
+.join h3{font-size:26px}
+.join .spec{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.inc{list-style:none;display:grid;gap:var(--s3)}
+.inc li{display:grid;grid-template-columns:28px 1fr;gap:var(--s3);align-items:start;font-size:var(--fs-body);color:var(--body)}
+.inc li svg{width:28px;height:28px;padding:5px;border-radius:8px;background:var(--accent-soft);color:#00736E}
+.join .btn{max-width:none}
+
+/* final box */
+.fbox{max-width:760px;margin:0 auto;border:2px solid var(--ink);border-radius:22px;padding:var(--s7) var(--s5);display:grid;gap:var(--s4);justify-items:center;text-align:center;background:var(--canvas)}
+.fbox h2{max-width:20ch}
+.fbox .inc{text-align:left;max-width:460px}
+@media (min-width:900px){.fbox{padding:var(--s8)}}
+.close{border-top:0}
+.prog-head{display:grid;gap:var(--s5)}
+@media (min-width:980px){.prog-head{grid-template-columns:1fr 1fr;align-items:end}}
+.photo{margin:0}.photo img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:14px}
+.photo figcaption{font-size:12px;color:var(--mid);margin-top:var(--s1)}
+.fphoto{width:100%;height:auto;max-width:520px;aspect-ratio:16/8;object-fit:cover;object-position:40% 45%;border-radius:14px}
+@media (max-width:979px){.pillars-head{margin-bottom:var(--s5)}.pillars-head .range{font-size:56px}.demo .prompt{font-size:12px;line-height:1.45}.cc{gap:var(--s2);padding:var(--s4)}.join{padding:var(--s5) var(--s4)}.demo .draft .body{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.desk p{font-size:var(--fs-body)}.desk li{font-size:var(--fs-body)}}
 </style>
 </head>
 <body>
 <div class="wrap"><header class="bar"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" /><span class="label">21 days · live</span></header></div>
 <main>
-<section class="hero" data-job="Say what the Sprint is, who it's for and when it starts, in one screen">
-  <div class="wrap hero-grid">
-    <div class="h-copy">
-      <p class="callout h-qual">For agency owners, high-ticket coaches and B2B founders <em>who already have paying clients</em></p>
-      <h1 class="h-h1"><span>Build the system that gets you clients.</span> <span>21 days, live with me.</span></h1>
-      <p class="starts h-vid">Starts Monday 26 October 2026</p>
-      <p class="lede h-lede">15 live sessions, weekdays at 7 pm IST. I build each step on screen. You build the same step on your business with Claude Code, right there. Your first 100 messages go out in week 2.</p>
-      <div class="act h-act"><a class="btn js-pay" href="#">Book my call <span class="price">₹999</span></a><p class="note">Seats are sold on a 45 minute call with me. The ₹999 comes off the Sprint. <a href="../call/">Watch the 8 minute video first</a>.</p></div>
-      <div class="who h-who"><img src="../assets/photos/sandy-headshot-hd.jpg" alt="Sandy Kadyan" width="48" height="48" /><p><b>Sandy Kadyan</b><br />Running a marketing agency since 2017, out of Vancouver</p></div>
-    </div>
+<section class="band hero" data-job="Say what the Sprint is, who it's for and when it starts, over a real photo of Sandy teaching">
+  <div class="wrap">
+    <p class="callout">For agency owners, high-ticket coaches and B2B founders <em>who already have paying clients</em></p>
+    <h1>Build the system that gets you clients. <em>21 days</em>, live.</h1>
+    <div class="act" style="display:grid"><a class="btn js-pay" href="#">Book my call <span class="price">₹999</span></a><p class="note">Seats are sold on a 45 minute call with me. The ₹999 comes off the Sprint.</p></div>
   </div>
 </section>
-<section class="stats" aria-label="Results" data-job="Buy permission to scroll with three numbers Sandy stated">
+<section class="hero-card" data-job="Offer the single action and say how the 21 days run">
+  <div class="wrap">
+    <div class="vcard" style="max-width:720px;padding:var(--s5)"><p class="lede" style="text-align:center;margin:0 auto">15 live sessions, weekdays at 7 pm IST. I build each step on screen. You build the same step on your business with Claude Code, right there. Your first 100 messages go out in week 2.</p></div>
+    <p class="starts">Starts Monday 26 October 2026</p>
+    <p class="note"><a href="../call/">Watch the 8 minute video first</a>.</p>
+  </div>
+</section>
+<section class="trust" aria-label="Results" data-job="Buy permission to scroll with four numbers, each carrying where it comes from">
   <div class="wrap"><ul>
-    <li><span class="n">Since 2017</span><span class="t">Agency in Vancouver, clients in Canada and the US</span></li>
-    <li><span class="n">$220,000</span><span class="t">In 6 months in India</span></li>
-    <li><span class="n">~300 <span class="arr">&rarr;</span> ~50 <span class="arr">&rarr;</span> 10+</span><span class="t">Leads, qualified, closed at ₹1.5L each. My own automation offer, same system.</span></li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg><span class="n">CA$55,600</span><span class="t">Paid by 7 clients, in 23 payments</span><span class="src">Based on the 7 payment emails shown below, from the agency inbox. A sample, not the total.</span></li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18l6-6 4 4 6-7"/><path d="M15 9h5v5"/></svg><span class="n">$220,000</span><span class="t">In 6 months in India</span><span class="src">Sandy's own figure for the India operation, 2026.</span></li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 7v6l-4 2v-8z"/></svg><span class="n">~300 <span class="arr">&rarr;</span> 10+</span><span class="t">Leads to closed deals, at ₹1.5L each</span><span class="src">About 50 of the 300 qualified. Sandy's own automation offer, same system.</span></li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><span class="n">Since 2017</span><span class="t">Running a marketing agency</span><span class="src">Out of Vancouver, for clients in Canada and the US.</span></li>
   </ul></div>
 </section>
-
 <section data-job="Show the 21 days so the buyer can see exactly what gets built and when">
   <div class="wrap">
     <div class="head"><p class="label">The 21 days</p><h2>What we build, week by week</h2><p class="lede">Each session: I teach one step, then we build it live. Miss one and the recording's up the next morning.</p></div>
     <div class="tl" id="tl"><span class="tl-line" aria-hidden="true"></span><article class="tl-item" style="--i:0"><span class="tl-node" aria-hidden="true"></span><p class="spec">Before day 1</p><h3>Setup weekend</h3><p>Install Claude Code and the skill files. Buy your sending domains, so they're warmed up by week 2.</p></article><article class="tl-item" style="--i:1"><span class="tl-node" aria-hidden="true"></span><p class="spec">Week 1</p><h3>Build what you sell</h3><ol><li><span>Offer</span>The offer and the lead magnet.</li><li><span>Page</span>Your landing page and your video.</li><li><span>Backend</span>Form to CRM to booking, so no lead gets lost.</li><li><span>List</span>Pick one channel and build the list.</li></ol></article><article class="tl-item" style="--i:2"><span class="tl-node" aria-hidden="true"></span><p class="spec">Week 2</p><h3>Get clients in</h3><ol><li><span>Email</span>Cold email.</li><li><span>LinkedIn</span>Connection requests and a follow-up sequence.</li><li><span>Content</span>Posts that turn comments into DMs.</li><li><span>Friday</span>Launch day. Your first 100 messages go out.</li></ol></article><article class="tl-item" style="--i:3"><span class="tl-node" aria-hidden="true"></span><p class="spec">Week 3</p><h3>After the yes</h3><ol><li><span>Speed</span>Call every lead back fast, and follow up.</li><li><span>Call</span>Your sales call script, and getting people to show up.</li><li><span>Numbers</span>Reading your own numbers.</li><li><span>Friday</span>Hot seats, then demo day on 13 November.</li></ol></article></div>
   </div>
-</section>
-
-<section class="paperband" data-job="Name what the buyer walks away owning at the end of the 21 days">
+</section><section class="paperband" data-job="Name what the buyer walks away owning at the end of the 21 days">
   <div class="wrap">
     <div class="head"><p class="label">What you leave with</p><h2>Yours to keep, running</h2></div>
     <ul class="keep"><li>Your offer, written</li><li>A lead magnet</li><li>Your landing page and video</li><li>Form to CRM to booking</li><li>One channel, live</li><li>Your first 100 messages sent</li><li>Follow-ups that run</li><li>A sales call script</li><li>The skill files</li></ul>
   </div>
+</section><section data-job="Answer the claim with named international clients, each as a before and after">
+  <div class="wrap">
+    <div class="head"><p class="label">Case studies</p><h2>Clients you're trying to win</h2><p class="lede">International, because most of you want international clients.</p></div>
+    <div class="ccards">
+      <article class="cc"><div class="tags"><span>Coaching business</span><span>Vancouver</span><span>Ads + funnel</span></div>
+        <p class="label">Scale Your Results</p><h3>Sami</h3>
+        <p class="story">A booked sales call was costing him too much. We rebuilt his ads, his funnel and the qualification behind them.</p><button class="more" type="button" aria-expanded="false">Read more</button>
+        <div class="ba"><div><p class="k">Before</p><p class="v">$250 a booked call</p><p class="s">~$20k a month in ads made ~$30k</p></div>
+          <div class="after"><p class="k">After</p><p class="v">$70 a booked call</p><p class="s">~$30k a month in ads makes ~$85k</p></div></div>
+        <p class="paid">He paid us <b>~$12k</b></p></article>
+      <article class="cc"><div class="tags"><span>Medical construction</span><span>AI voice calling</span></div>
+        <p class="label">Medico</p><h3>Medical construction</h3>
+        <p class="story">Ads, SEO, social and a newsletter, plus AI voice calling that phones every enquiry, qualifies it and books it.</p><button class="more" type="button" aria-expanded="false">Read more</button>
+        <div class="ba"><div><p class="k">Before</p><p class="v txt">Leads waited for a call back</p></div>
+          <div class="after"><p class="k">After</p><p class="v">~$6M contracted</p><p class="s">Work traced to the system, over 2 years</p></div></div>
+        <p class="paid">We've made <b>~$100k</b></p></article>
+      <article class="cc"><div class="tags"><span>UI/UX design agency</span><span>$10,000+ projects</span></div>
+        <p class="label">Rumor Avenue</p><h3>Design agency</h3>
+        <p class="story">LinkedIn and email outreach to the people who buy those projects, with a follow-up sequence behind it.</p><button class="more" type="button" aria-expanded="false">Read more</button>
+        <div class="ba"><div><p class="k">Before</p><p class="v txt">Every client came from the founder's network</p></div>
+          <div class="after"><p class="k">After</p><p class="v">$100k+ new business</p><p class="s">In about 3 months</p></div></div>
+        <p class="paid">They paid us <b>$5k setup + $2.5k/mo</b></p></article>
+    </div>
+  </div>
 </section>
 <section class="paperband" data-job="Make the proof checkable by a stranger: the real payment emails behind the system being taught">
   <div class="wrap">
-    <div class="head"><p class="label">Proof</p><h2>The payments, unedited</h2><p class="lede">Payment emails from my agency's inbox, as they arrived.</p></div>
+    <div class="head"><p class="label">Results and receipts</p><h2>Real payments. Real emails.</h2><p class="lede">Payment emails from my agency's inbox, as they arrived.</p></div>
     <div class="wall" id="wall">
       <figure class="slip" style="--i:0;--px:30%;--py:-40px;--pr:-6deg"><a href="../assets/proof/redacted/deck-1.png" target="_blank" rel="noopener" aria-label="CA$10,000, Medico, via Wise: open the full email"><img src="../assets/proof/redacted/card-1.png" width="500" height="100" loading="lazy" alt="Wise notification: you received 10,000 CAD from Medico Construction Design LTD" /><figcaption><b>CA$10,000</b><span>Medico, via Wise</span></figcaption></a></figure>
-      <figure class="slip" style="--i:1;--px:0;--py:-90px;--pr:5deg"><a href="../assets/proof/redacted/deck-2.png" target="_blank" rel="noopener" aria-label="CA$5,000, Riarh Group, via PayPal: open the full email"><img src="../assets/proof/redacted/card-2.png" width="500" height="100" loading="lazy" alt="PayPal notification: you received a $5,000.00 CAD payment for invoice 0316, payer name hidden" /><figcaption><b>CA$5,000</b><span>Riarh Group, via PayPal</span></figcaption></a></figure>
-      <figure class="slip" style="--i:2;--px:-30%;--py:-60px;--pr:-4deg"><a href="../assets/proof/redacted/deck-4.png" target="_blank" rel="noopener" aria-label="CA$4,000, Scale Your Results: open the full email"><img src="../assets/proof/redacted/card-4.png" width="500" height="100" loading="lazy" alt="Payment received: CA$4,000.00 against Scale Your Results, payer name hidden" /><figcaption><b>CA$4,000</b><span>Scale Your Results</span></figcaption></a></figure>
-      <figure class="slip" style="--i:3;--px:30%;--py:-200px;--pr:6deg"><a href="../assets/proof/redacted/deck-5.png" target="_blank" rel="noopener" aria-label="CA$2,500, Prepare Medical: open the full email"><img src="../assets/proof/redacted/card-5.png" width="500" height="100" loading="lazy" alt="Payment received: CA$2,500.00 against the Prepare Medical January invoice, payer name hidden" /><figcaption><b>CA$2,500</b><span>Prepare Medical</span></figcaption></a></figure>
-      <figure class="slip" style="--i:4;--px:0;--py:-240px;--pr:-5deg"><a href="../assets/proof/redacted/deck-3.png" target="_blank" rel="noopener" aria-label="CA$2,000, Realtor, Toronto: open the full email"><img src="../assets/proof/redacted/card-3.png" width="500" height="100" loading="lazy" alt="Payment received: CA$2,000.00 from a realtor in Toronto, payer name hidden" /><figcaption><b>CA$2,000</b><span>Realtor, Toronto</span></figcaption></a></figure>
-      <figure class="slip" style="--i:5;--px:-30%;--py:-210px;--pr:4deg"><a href="../assets/proof/redacted/deck-6.png" target="_blank" rel="noopener" aria-label="CA$1,500, Best Home Kitchens: open the full email"><img src="../assets/proof/redacted/card-6.png" width="500" height="100" loading="lazy" alt="Payment received: CA$1,500.00 against Best Home Kitchens social media, payer name hidden" /><figcaption><b>CA$1,500</b><span>Best Home Kitchens</span></figcaption></a></figure>
-      <figure class="slip" style="--i:6;--px:30%;--py:-360px;--pr:-7deg"><a href="../assets/proof/redacted/deck-7.png" target="_blank" rel="noopener" aria-label="CA$300, via Wise: open the full email"><img src="../assets/proof/redacted/card-7.png" width="500" height="100" loading="lazy" alt="Wise notification: you received 300 CAD, payer name hidden" /><figcaption><b>CA$300</b><span>via Wise</span></figcaption></a></figure>
-      <p class="tally"><b>CA$55,600</b><span>7 clients, 23 payments. A sample, not the total. Tap any email to open it full size. Payer names hidden.</span></p>
+      <figure class="slip" style="--i:1;--px:0;--py:-90px;--pr:5deg"><a href="../assets/proof/redacted/deck-2.png" target="_blank" rel="noopener" aria-label="CA$5,000, Riarh Group, via PayPal: open the full email"><img src="../assets/proof/redacted/card-2.png" width="500" height="100" loading="lazy" alt="PayPal notification: you received a $5,000.00 CAD payment for invoice 0316, personal name hidden" /><figcaption><b>CA$5,000</b><span>Riarh Group, via PayPal</span></figcaption></a></figure>
+      <figure class="slip" style="--i:2;--px:-30%;--py:-60px;--pr:-4deg"><a href="../assets/proof/redacted/deck-4.png" target="_blank" rel="noopener" aria-label="CA$4,000, Scale Your Results: open the full email"><img src="../assets/proof/redacted/card-4.png" width="500" height="100" loading="lazy" alt="Payment received: CA$4,000.00 against Scale Your Results, personal name hidden" /><figcaption><b>CA$4,000</b><span>Scale Your Results</span></figcaption></a></figure>
+      <figure class="slip" style="--i:3;--px:30%;--py:-200px;--pr:6deg"><a href="../assets/proof/redacted/deck-5.png" target="_blank" rel="noopener" aria-label="CA$2,500, Prepare Medical: open the full email"><img src="../assets/proof/redacted/card-5.png" width="500" height="100" loading="lazy" alt="Payment received: CA$2,500.00 against the Prepare Medical January invoice, personal name hidden" /><figcaption><b>CA$2,500</b><span>Prepare Medical</span></figcaption></a></figure>
+      <figure class="slip" style="--i:4;--px:0;--py:-240px;--pr:-5deg"><a href="../assets/proof/redacted/deck-3.png" target="_blank" rel="noopener" aria-label="CA$2,000, Realtor, Toronto: open the full email"><img src="../assets/proof/redacted/card-3.png" width="500" height="100" loading="lazy" alt="Payment received: CA$2,000.00 from a realtor in Toronto, personal name hidden" /><figcaption><b>CA$2,000</b><span>Realtor, Toronto</span></figcaption></a></figure>
+      <figure class="slip" style="--i:5;--px:-30%;--py:-210px;--pr:4deg"><a href="../assets/proof/redacted/deck-6.png" target="_blank" rel="noopener" aria-label="CA$1,500, Best Home Kitchens: open the full email"><img src="../assets/proof/redacted/card-6.png" width="500" height="100" loading="lazy" alt="Payment received: CA$1,500.00 against Best Home Kitchens social media, personal name hidden" /><figcaption><b>CA$1,500</b><span>Best Home Kitchens</span></figcaption></a></figure>
+      <p class="tally"><b>CA$55,600</b><span>7 clients, 23 payments. A sample, not the total. Tap any email to open it full size. Personal names hidden.</span></p>
     </div>
+  </div>
+</section>
+<section data-job="Show the two ways to build it, with what's included and no prices, so the call is the next step">
+  <div class="wrap">
+    <div class="head prog-head"><div><p class="label">The programs</p><h2>Two ways to build it with me</h2><p class="lede">No prices here. Which one fits your business is what the call decides.</p></div>
+      <figure class="photo"><img src="../assets/photos/aiml/uab-notes.jpg" alt="Sandy with a client in India, working through their plan" width="1200" height="676" loading="lazy" /><figcaption>With a client in India</figcaption></figure></div>
+    <div class="joins"><article class="join lead"><p class="spec">Group, live</p><h3>The 21 Day Sprint</h3><p class="starts">Starts Monday 26 October 2026</p><ul class="inc"><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>15 live sessions, weekdays at 7 pm IST, 90 minutes each</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The recording's up the next morning if you miss one</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Week 1: your offer, lead magnet, landing page and the backend that catches every lead</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Week 2: one channel set up, and your first 100 messages out that Friday</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Week 3: follow-up, your sales call, reading your own numbers, then demo day</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The skill files, yours to keep</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The First Client guarantee</span></li></ul><a class="btn js-pay" href="#">Book my call <span class="price">₹999</span></a></article><article class="join"><p class="spec">One to one</p><h3>The Accelerator</h3><ul class="inc"><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>8 weeks, one to one, me on every call</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Built on your business: getting clients in, and everything after the yes</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The skill files and the First Client guarantee</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>I take 10 people at a time</span></li></ul><a class="btn js-pay" href="#">Book my call <span class="price">₹999</span></a></article></div>
   </div>
 </section>
 <section class="guar" data-job="Remove the fear at the ask with the First Client guarantee and its exact terms">
@@ -377,13 +537,15 @@ footer nav a:hover{color:var(--ink)}
 </section>
 <section data-job="Kill the objections left before the ask">
   <div class="wrap faq"><div class="head"><p class="label">Questions</p><h2>Before you book</h2></div><details><summary>Why is there a call before I can join?</summary><p>Because the Sprint only works on a business that already sells something. On the call we look at yours and I tell you straight whether the Sprint fits, or whether one to one with me fits better. The ₹999 comes off whichever you join.</p></details><details><summary>I'm not technical. Will I keep up?</summary><p>You don't need to be technical. You won't write code, because the skill files already exist. You watch me do a step, then do the same step on your business. Stuck? Ask me live.</p></details><details><summary>What if I miss a session?</summary><p>The recording's up the next morning. For the guarantee, watch it within 48 hours.</p></details><details><summary>Will I need to pay for any tools?</summary><p>Yes, a few, and you pay for them directly: your domains, email inboxes and a sending tool. We set each one up together, so nothing sits unused.</p></details><details><summary>What if I want more help than a group gives?</summary><p>That's the Accelerator: 8 weeks, one to one, with me on every call. I take 10 people at a time. We decide on the call which one fits.</p></details></div>
-</section>
-<section class="close" data-job="Convert the scrolled reader with the same single action">
-  <div class="wrap">
-    <h2>Picture Friday, 13 November</h2>
-    <p class="lede">It's the last day of the Sprint. Your offer's written, your page is live, and there are calls in your calendar you didn't chase.</p>
-    <div class="act"><a class="btn js-pay" href="#">Book my call <span class="price">₹999</span></a><p class="note">45 minutes with me. The ₹999 comes off the Sprint.</p></div>
-  </div>
+</section><section class="close" data-job="Convert the scrolled reader with the same single action and what the call gives them">
+  <div class="wrap"><div class="fbox">
+    <img class="fphoto" src="../assets/photos/aiml/uab-board.jpg" alt="Sandy at a whiteboard, mapping a business" width="1800" height="1012" loading="lazy" />
+    <p class="label">The next step</p>
+    <h2>Book a 45 minute call with me</h2>
+    <ul class="inc"><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Before it, I look at your business</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>We map where your clients come from today</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>And where they leak out</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>You leave with what to build first, whether you join or not</span></li><li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Then I tell you which program fits</span></li></ul>
+    <a class="btn js-pay" href="#">Book my call <span class="price">₹999</span></a>
+    <p class="note">The ₹999 comes off whichever program you join.</p>
+  </div></div>
 </section>
 </main>
 <footer><div class="wrap"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="125" height="18" /><nav><a href="../call/">The video</a><a href="../resources/">Resources</a><a href="../contact.html">Contact</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../refund.html">Refunds</a></nav></div></footer>
@@ -408,6 +570,12 @@ function arrive(el, fn, thr) {
   return true;
 }
 arrive(document.getElementById('wall'));
+
+document.querySelectorAll('.cc .more').forEach(function (b) {
+  var p = b.previousElementSibling;
+  if (p.scrollHeight <= p.clientHeight + 2) { b.hidden = true; return; }   /* fits in 3 lines: no toggle */
+  b.addEventListener('click', function () { var o = p.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Show less' : 'Read more'; });
+});
 
 arrive(document.getElementById('tl'), null, 0.15);
 </script>

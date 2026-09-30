@@ -62,6 +62,9 @@ jobs:
           # None of these were in the copy list, so the page would have deployed with every
           # image 404ing while the HTML looked fine.
           cp assets/photos/sandy-headshot-hd.jpg _site/assets/photos/
+          mkdir -p _site/assets/photos/aiml
+          cp assets/photos/aiml/uab-board.jpg assets/photos/aiml/uab-desk.jpg assets/photos/aiml/uab-hero.jpg \
+             assets/photos/aiml/uab-meet.jpg assets/photos/aiml/uab-notes.jpg _site/assets/photos/aiml/
           # Explicit list, same reason as assets/work above. `cp assets/proof/*.png` also
           # published crop-1..7.png, 1.1MB no deployed page references. I fixed the work
           # glob and missed its sibling one line up; an audit agent caught it.
