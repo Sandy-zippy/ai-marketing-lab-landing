@@ -225,9 +225,16 @@ for (const [w, m] of Object.entries(r)) {
   if (m.height > 12000) fail('G8', `page ${m.height}px at ${w}px, over the 12000px ceiling`);
   const nojob = m.sections.filter(s => !s.job).map(s => s.motion);
   if (nojob.length) fail('G9', `section without a real data-job at ${w}px: ${nojob.join(', ')}`);
-  if (m.motionless.length) fail('G10', `section with zero running animations at ${w}px: ${m.motionless.join(', ')}`);
+  /* DECLARED EXCEPTIONS (1 Oct 2026). /sprint was rebuilt on the /call design (static, logo as a
+     plain <img>, no motion), because the 17 Sep page sold the dead free-session funnel. G10 and
+     G11 describe that old page's motion design. Each exception goes RED the moment its check
+     would pass, so it gets deleted instead of rotting. Motion for the new page is a follow-up. */
+  const DECLARED = { G10: 'rebuilt page is static, like /call', G11: 'rebuilt header uses the plain logo img, like /call' };
+  if (m.motionless.length) note('EXCEPTION G10', `${DECLARED.G10} (${m.motionless.length} static sections at ${w}px)`);
+  else fail('G10', `declared exception no longer needed at ${w}px: every section animates. Delete DECLARED.G10.`);
   const wm = m.wordmark;
-  if (!wm.present) fail('G11', `no .bar .mark at ${w}px: the wordmark is absent from the header`);
+  if (!wm.present) note('EXCEPTION G11', `${DECLARED.G11} at ${w}px`);
+  else if (DECLARED.G11) fail('G11', `.bar .mark is back at ${w}px: delete DECLARED.G11 so the wordmark checks run again.`);
   else {
     if (!wm.pixels) fail('G11', `wordmark present but decoded 0 pixels at ${w}px`);
     if (wm.anim !== 'draw') fail('G11', `wordmark animation-name is "${wm.anim}" at ${w}px, expected draw`);
