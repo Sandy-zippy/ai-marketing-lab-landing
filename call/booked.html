@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Your call is booked | AI Marketing Lab</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="../assets/favicon.svg" />
+<style>
+@font-face{font-family:'Inter';src:url('../assets/fonts/inter-latin.woff2') format('woff2');font-weight:400 900;font-display:swap}
+@font-face{font-family:'Space Mono';src:url('../assets/fonts/spacemono-400-latin.woff2') format('woff2');font-weight:400;font-display:swap}
+:root{
+  --canvas:#FFFFFF; --ink:#121212; --mid:#7E7E7E; --line:#E3E3E3; --paper:#FAF7EE; --paper-edge:#E5DECA;
+  --accent:#00A19B;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'Space Mono','Courier New',monospace;
+  --fs-display:clamp(28px,5vw,44px); --fs-lg:18px; --fs-body:16px; --fs-sm:14px; --fs-label:12px;
+  --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);font-size:var(--fs-body);line-height:1.55;color:var(--ink);background:var(--canvas);-webkit-font-smoothing:antialiased}
+.page{max-width:640px;margin:0 auto;padding:var(--s5) 16px var(--s8)}
+.page > img{height:20px;width:auto;margin-bottom:var(--s7)}
+.label{font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:var(--fs-display);font-weight:700;line-height:1.15;letter-spacing:-.02em;margin:var(--s3) 0 var(--s4)}
+.lede{font-size:var(--fs-lg);color:var(--mid)}
+ol{list-style:none;counter-reset:s;margin-top:var(--s6);border-top:1px solid var(--line)}
+ol li{counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:var(--s3);padding:var(--s4) 0;border-bottom:1px solid var(--line)}
+ol li::before{content:counter(s);font-family:var(--mono);font-size:var(--fs-sm);color:var(--mid);padding-top:2px}
+ol b{display:block;font-weight:600}
+ol p{color:var(--mid);font-size:var(--fs-sm)}
+.note{margin-top:var(--s6);background:var(--paper);border:1px solid var(--paper-edge);border-radius:12px;padding:var(--s5);font-size:var(--fs-sm)}
+.note a{color:var(--ink)}
+footer{margin-top:var(--s7);font-size:var(--fs-sm);color:var(--mid);display:flex;gap:var(--s4)}
+footer a{color:inherit;text-decoration:none}
+</style>
+</head>
+<body>
+<main class="page">
+  <!-- LOGO SLOT: swap for the redesigned AIML logo; keep height 20px. -->
+  <img src="../assets/aiml-wordmark-v3.svg" alt="AI Marketing Lab" width="152" height="20" />
+  <p class="label">Call booked</p>
+  <h1>You're on my calendar.</h1>
+  <p class="lede">Your 45 minute call with me is booked. Here's what happens next.</p>
+
+  <ol>
+    <li><div><b>Check your email</b><p>The calendar invite and your ₹999 receipt are in your inbox. Add the invite so the time's blocked.</p></div></li>
+    <li><div><b>I look at your business first</b><p>Before we talk, I go through your business, so the 45 minutes go on your situation, not on introductions.</p></div></li>
+    <li><div><b>We map both halves</b><p>Where your clients come from today, and where they leak out. You leave with that map whether you join or not.</p></div></li>
+    <li><div><b>Then I tell you which option fits</b><p>The Sprint, the Accelerator, or neither yet. If you join either, the ₹999 comes off the price.</p></div></li>
+  </ol>
+
+  <p class="note">Haven't finished the video? <a href="./">Watch the rest before the call</a>.</p>
+
+  <footer><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../refund.html">Refunds</a></footer>
+</main>
+</body>
+</html>

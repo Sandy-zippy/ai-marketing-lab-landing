@@ -32,6 +32,15 @@ jobs:
         run: |
           set -euo pipefail
           node brand-guard.mjs
+      # /call is the paid-traffic VSL page. Its CTA is a Razorpay link held in one constant;
+      # empty means every button reads "Payment link pending". Never ship that, or the page
+      # without its video, to a live URL.
+      - name: Call page gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -q 'const PAY_LINK = ""' call/index.html; then echo "BLOCKED: PAY_LINK is empty in call/index.html"; exit 1; fi
+          test -s call/vsl/aiml-vsl.mp4 || { echo "BLOCKED: call/vsl/aiml-vsl.mp4 missing"; exit 1; }
       - uses: actions/configure-pages@v5
       - name: Build public artifact
         shell: bash
@@ -63,6 +72,9 @@ jobs:
           # so every check reported them gone while the deploy kept serving them.
           cp assets/work/design-riarh.jpg assets/work/content-funnel-17sep.jpg _site/assets/work/
           cp resources/index.html _site/resources/
+          mkdir -p _site/call/vsl
+          cp call/index.html call/booked.html call/poster.jpg _site/call/
+          cp call/vsl/aiml-vsl.mp4 _site/call/vsl/
           touch _site/.nojekyll
           node --check _site/assets/analytics.js
           ! grep -RniE 'REPLACE_WITH|aimarketinglab\.club|37 of 100|#book|This Thursday|Lorem ipsum' _site
