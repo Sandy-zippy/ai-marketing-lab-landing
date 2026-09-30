@@ -68,6 +68,13 @@ jobs:
           cp assets/proof/deck-1.png assets/proof/deck-2.png assets/proof/deck-3.png \
              assets/proof/deck-4.png assets/proof/deck-5.png assets/proof/deck-6.png \
              assets/proof/deck-7.png _site/assets/proof/
+          # Redacted copies (payer personal names boxed out) used by /call and /sprint since 1 Oct 2026.
+          mkdir -p _site/assets/proof/redacted
+          cp assets/proof/redacted/card-1.png assets/proof/redacted/card-2.png assets/proof/redacted/card-3.png \
+             assets/proof/redacted/card-4.png assets/proof/redacted/card-5.png assets/proof/redacted/card-6.png \
+             assets/proof/redacted/card-7.png assets/proof/redacted/deck-1.png assets/proof/redacted/deck-2.png \
+             assets/proof/redacted/deck-3.png assets/proof/redacted/deck-4.png assets/proof/redacted/deck-5.png \
+             assets/proof/redacted/deck-6.png assets/proof/redacted/deck-7.png _site/assets/proof/redacted/
           # Explicit list, never a glob. `cp assets/work/*.jpg` published the PawMe robot
           # (pawme-build-poster.jpg) and four Riarh ad creatives (work-1,2,3,5.jpg) as
           # publicly reachable URLs. Sandy removed both by name. No page referenced them,

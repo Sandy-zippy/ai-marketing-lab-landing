@@ -5,553 +5,548 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Busy one month. Nothing booked the next. | AI Marketing Lab</title>
 <meta name="description" content="For agency owners, high-ticket coaches and B2B founders who already have paying clients. An 8 minute video on putting client-getting on Claude Code, then a 45 minute call with Sandy." />
-<meta property="og:title" content="Busy one month. Nothing booked the next." />
-<meta property="og:description" content="How I put the chasing on Claude Code, so clients keep coming in while you deliver. An 8 minute video, then a 45 minute call." />
-<meta property="og:image" content="https://aimarketinglabs.in/assets/og/aiml-og-1200x630.jpg" />
-<meta property="og:url" content="https://aimarketinglabs.in/call/" />
+<meta name="robots" content="noindex" />
 <link rel="canonical" href="https://aimarketinglabs.in/call/" />
-<link rel="icon" href="../assets/brand/favicon.ico" sizes="48x48" />
 <link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml" />
-<link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png" />
-<link rel="manifest" href="../assets/brand/site.webmanifest" />
+<link rel="icon" href="../assets/brand/favicon.ico" sizes="48x48" />
 <meta name="theme-color" content="#121212" />
 <script src="../assets/meta-pixel.js"></script>
 <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<!--
+  FINAL /call preview (direction B, critic fixes applied). Not deployed.
+  PROVENANCE: design system ui-ux-pro-max (Exaggerated Minimalism, brand-locked palette/fonts);
+  hero from 21st.dev Editorial Collage Hero (19074, pattern only); proof wall from 21st.dev Card Fan
+  Carousel (14896) + Kokonut UI card-stack (MIT, @dorianbaffier), ported to CSS; mechanism beat
+  ported from Magic UI terminal (MIT, dillionverma) via direction A; motion grammar from
+  business-motion-film (persistent actor, cause and effect, fast exit / slow landing).
+  MOTION BUDGET (max 4): 0 hero, nothing (the video is the hero element).
+  1 month rows: outreach dots appear, the delivery bar grows, next month stays empty. Once.
+  2 mechanism: prompt types (about 1s), draft shells appear then fill, each draft flies to its
+    calendar slot and becomes Call N, counter 0 to 3. Once, plus a Replay button.
+  3 proof wall: the 7 emails land from a pile into the grid. Once.
+  4 buttons: hover lift.
+  Rules: transform only, no opacity on text, HTML is the final state (no-JS and reduced motion
+  show it), below-fold motion armed only if below the fold at load and started by arrival.
+-->
 <style>
 @font-face{font-family:'Inter';src:url('../assets/fonts/inter-latin.woff2') format('woff2');font-weight:400 900;font-display:swap}
 @font-face{font-family:'Space Mono';src:url('../assets/fonts/spacemono-400-latin.woff2') format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:'Space Mono';src:url('../assets/fonts/spacemono-700-latin.woff2') format('woff2');font-weight:700;font-display:swap}
-
 :root{
-  /* colour: locked brand, DESIGN.md */
-  --canvas:#FFFFFF; --ink:#121212; --mid:#7E7E7E; --low:#AAAAAA; --line:#E3E3E3;
-  --surface:#F8F8F8; --paper:#FAF7EE; --paper-edge:#E5DECA; --paper-ink:#2A2A2A;
-  --accent:#00A19B; --accent-soft:rgba(0,161,155,.10); --warm:#B4241A;
+  --canvas:#FFFFFF; --ink:#121212; --body:#3A3A3A; --mid:#7E7E7E; --low:#ABABAB; --line:#E3E3E3; --surface:#F6F6F4;
+  --paper:#FAF7EE; --paper-edge:#E5DECA; --paper-ink:#2A2A2A; --accent:#00A19B; --accent-soft:rgba(0,161,155,.12); --warm:#B4241A;
   --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --mono:'Space Mono','Courier New',monospace; /* labels only, 14px max */
-  /* type scale */
-  --fs-display:clamp(30px,6.2vw,48px);
-  --fs-callout:clamp(20px,2.3vw,22px); /* Sandy: qualifier too small, twice. 20px floor. */
-  --fs-h2:clamp(24px,3.4vw,34px);
-  --fs-num:clamp(26px,3.6vw,38px);
-  --fs-card:19px;
-  --fs-lg:18px;
-  --fs-body:16px;
-  --fs-sm:14px;
-  --fs-label:12px;
-  /* spacing, 4px grid */
+  --fs-display:clamp(40px,7vw,80px); --fs-callout:clamp(20px,1.9vw,22px); --fs-h2:clamp(30px,4.2vw,48px);
+  --fs-num:clamp(30px,3.6vw,44px); --fs-card:20px; --fs-lg:18px; --fs-body:16px; --fs-sm:14px; --fs-label:12px;
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px; --s9:96px;
-  --gutter:16px; --max:1120px;
-  --ease:cubic-bezier(.22,1,.36,1);
+  --gutter:16px; --max:1180px; --r:14px;
+  --ease:cubic-bezier(.22,1,.36,1);       /* ease-out-quint: readable landing */
+  --dash:cubic-bezier(.7,0,.2,1);         /* fast exit, slow arrival (motion grammar rule 4) */
 }
-@media (min-width:768px){:root{--gutter:32px}}
+@media (min-width:768px){:root{--gutter:40px}}
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{font-family:var(--sans);font-size:var(--fs-body);line-height:1.55;color:var(--ink);background:var(--canvas);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img,video{display:block;max-width:100%}
+main{overflow-x:clip} /* armed pile / timeline offsets must never widen the page */
 a{color:inherit}
-h1,h2,h3{font-family:var(--sans);font-weight:700;line-height:1.15;letter-spacing:-.01em}
-h2{font-size:var(--fs-h2);max-width:22ch}
 .wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
 .label{font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
-.lede{font-size:var(--fs-lg);color:var(--mid);max-width:60ch}
+h1,h2,h3{font-weight:700;line-height:1.05;letter-spacing:-.03em}
+h2{font-size:var(--fs-h2);max-width:16ch}
+h3{font-size:var(--fs-card);letter-spacing:-.01em;line-height:1.2}
+.lede{font-size:var(--fs-lg);color:var(--mid);max-width:52ch}
+.lede b{color:var(--ink);font-weight:600}
 section{padding-block:var(--s8)}
-@media (min-width:768px){section{padding-block:var(--s9)}}
-.sec-head{display:grid;gap:var(--s3);margin-bottom:var(--s6)}
+@media (min-width:980px){section{padding-block:var(--s9)}}
+.head{display:grid;gap:var(--s3);margin-bottom:var(--s7)}
 
-/* top bar */
-.bar{padding:var(--s4) var(--gutter);display:flex;align-items:center;justify-content:space-between;max-width:var(--max);margin:0 auto}
+/* bar */
+.bar{display:flex;align-items:center;justify-content:space-between;padding:var(--s4) 0}
 .bar img{height:20px;width:auto}
-.bar .label{font-size:11px}
 
-/* hero */
-.hero{padding-top:var(--s3);padding-bottom:var(--s7);text-align:center}
-.hero .wrap{max-width:900px;display:flex;flex-direction:column;align-items:center}
-.callout{font-size:var(--fs-callout);font-weight:600;line-height:1.35;color:var(--ink);max-width:34ch;margin-bottom:var(--s3)}
-.callout em{font-style:normal;color:var(--accent)}
-h1{font-size:var(--fs-display);max-width:17ch;text-wrap:balance;letter-spacing:-.02em;margin-bottom:var(--s5)}
-.player{position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#101413;border:1px solid var(--line);box-shadow:0 24px 60px -32px rgba(18,18,18,.35)}
-.player video{width:100%;height:100%;object-fit:cover;background:#101413}
-.player .pending{position:absolute;left:var(--s3);top:var(--s3);display:none;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:var(--canvas);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:var(--s1) var(--s2)}
-.player.is-missing .pending{display:block}
-.vmeta{margin-top:var(--s3);font-family:var(--mono);font-size:var(--fs-label);color:var(--mid);letter-spacing:.06em}
-.hero .lede{margin-top:var(--s5);max-width:48ch}
-.cta-block{margin-top:var(--s5);display:flex;flex-direction:column;align-items:center;gap:var(--s3);width:100%}
-.btn{font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);letter-spacing:.02em;display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);min-height:52px;padding:var(--s4) var(--s6);border-radius:10px;background:var(--accent);color:#FFFFFF;text-decoration:none;border:1px solid var(--accent);width:100%;max-width:380px;transition:transform .16s var(--ease),box-shadow .2s var(--ease)}
-.btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(0,161,155,.7)}
+/* CTA: ink button, teal price pill (never a teal field) */
+.btn{font-family:var(--sans);font-weight:700;font-size:17px;display:inline-flex;align-items:center;justify-content:center;gap:var(--s3);min-height:56px;padding:var(--s4) var(--s6);border-radius:12px;background:var(--ink);color:#fff;text-decoration:none;width:100%;max-width:380px;cursor:pointer;transition:transform .16s var(--ease),box-shadow .2s var(--ease)}
+.btn .price{font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;color:#fff;background:var(--accent);border-radius:6px;padding:2px 8px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 32px -16px rgba(18,18,18,.6)}
 .btn:active{transform:none}
-.btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-.btn.is-pending{background:var(--surface);color:var(--ink);border:1px dashed var(--ink);cursor:not-allowed;box-shadow:none;transform:none}
-.cta-note{font-size:var(--fs-sm);color:var(--mid);max-width:40ch}
-.who{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s5);text-align:left}
-.who img{width:44px;height:44px;border-radius:50%;object-fit:cover}
-.who p{font-size:var(--fs-sm);color:var(--mid);line-height:1.4}
-.who b{color:var(--ink);font-weight:600}
+.btn:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.act{display:grid;gap:var(--s3);justify-items:start}
+.note{font-size:var(--fs-sm);color:var(--mid);max-width:42ch}
+.note a{color:var(--ink)}
 
-/* proof bar */
-.proofbar{border-block:1px solid var(--line);padding-block:0}
-.proofbar ul{list-style:none;display:grid;grid-template-columns:1fr}
-.proofbar li{padding:var(--s5) 0;border-bottom:1px solid var(--line);display:grid;gap:var(--s1)}
-.proofbar li:last-child{border-bottom:0}
-.proofbar .n{font-size:var(--fs-num);font-weight:700;letter-spacing:-.02em;line-height:1.1}
-.proofbar .n .arr{color:var(--low);font-weight:400;padding-inline:2px}
-.proofbar .t{font-size:var(--fs-sm);color:var(--mid)}
-@media (min-width:900px){
-  .proofbar ul{grid-template-columns:1fr 1fr 1.6fr}
-  .proofbar li{padding:var(--s6) var(--s5);border-bottom:0;border-right:1px solid var(--line)}
-  .proofbar li:first-child{padding-left:0}
-  .proofbar li:last-child{border-right:0}
+/* hero: headline scale, left aligned. Phone order: qualifier, headline, video, CTA, sub, who */
+.hero{padding:var(--s3) 0 var(--s8)}
+.hero-grid{display:grid;gap:var(--s5)}
+.hero-grid > *{min-width:0}
+.callout{font-size:var(--fs-callout);font-weight:600;line-height:1.3;max-width:32ch}
+.callout em{font-style:normal;color:var(--accent)}
+h1{font-size:var(--fs-display);font-weight:800;letter-spacing:-.045em;line-height:.98}
+h1 span{display:block;text-wrap:balance}
+.starts{font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;color:var(--warm)}
+.player{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:#101413;box-shadow:0 30px 70px -40px rgba(18,18,18,.55)}
+.player video{width:100%;height:100%;object-fit:cover}
+.vmeta{margin-top:var(--s2);font-family:var(--mono);font-size:var(--fs-label);color:var(--mid)}
+.who{display:flex;align-items:center;gap:var(--s3);padding-top:var(--s4);border-top:1px solid var(--line)}
+.who img{width:48px;height:48px;border-radius:50%;object-fit:cover}
+.who p{font-size:var(--fs-sm);color:var(--mid);line-height:1.4}
+.who b{color:var(--ink)}
+.h-copy{display:contents}
+.h-qual{order:1}.h-h1{order:2}.h-vid{order:3}.h-act{order:4}.h-lede{order:5}.h-who{order:6}
+@media (min-width:980px){
+  .hero{padding:var(--s6) 0 var(--s9)}
+  .hero-grid.has-vid{grid-template-columns:.85fr 1.15fr;column-gap:var(--s8);row-gap:var(--s6);align-items:start}
+  .has-vid .h-qual,.has-vid .h-h1{grid-column:1/-1}
+  .has-vid .h-lede{grid-column:1;grid-row:3;order:0}
+  .has-vid .h-act{grid-column:1;grid-row:4;order:0}
+  .has-vid .h-who{grid-column:1;grid-row:5;order:0}
+  .has-vid .h-vid{grid-column:2;grid-row:3/6;order:0}
+  .hero-grid:not(.has-vid) h1{max-width:14ch}
+  .hero-grid:not(.has-vid) .lede{max-width:56ch}
 }
 
-/* chain */
-.chain{display:grid;gap:var(--s6)}
-.half h3{font-family:var(--mono);font-size:var(--fs-label);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:var(--s3)}
-.links{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2)}
-.links li{font-size:var(--fs-sm);font-weight:500;border:1px solid var(--line);border-radius:8px;padding:var(--s2) var(--s3);background:var(--canvas);position:relative}
-.links li.broken{border:1.5px dashed var(--ink);font-weight:700}
-.links li.broken::after{content:"where most leads go quiet";display:block;font-weight:400;font-size:var(--fs-label);color:var(--mid)}
-.chain-body{max-width:60ch;font-size:var(--fs-lg);color:var(--mid)}
-.chain-body b{color:var(--ink);font-weight:600}
-@media (min-width:900px){.chain{grid-template-columns:1fr 1fr;align-items:start}.chain-body{grid-column:1/-1}}
+/* stats strip: numerals */
+.stats{border-block:1px solid var(--line);padding-block:0}
+.stats ul{list-style:none;display:grid}
+.stats li{padding:var(--s5) 0;border-bottom:1px solid var(--line);display:grid;gap:var(--s1)}
+.stats li:last-child{border-bottom:0}
+.stats .n{font-size:var(--fs-num);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.stats .arr{color:var(--low);font-weight:400}
+.stats .t{font-size:var(--fs-sm);color:var(--mid)}
+@media (min-width:900px){.stats ul{grid-template-columns:1fr 1fr 1.5fr}.stats li{padding:var(--s6) var(--s5);border-bottom:0;border-right:1px solid var(--line)}.stats li:first-child{padding-left:0}.stats li:last-child{border-right:0}}
 
-/* mechanism */
-.mech{display:grid;gap:var(--s6);align-items:center}
-@media (min-width:900px){.mech{grid-template-columns:1fr 1.15fr;gap:var(--s8)}}
-.mech .copy p:not(.label){font-size:var(--fs-lg);color:var(--mid);max-width:46ch}
-.mech .copy p + p{margin-top:var(--s4)}
-.mech .copy p b{color:var(--ink);font-weight:600}
-.term{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;font-family:var(--mono);font-size:13px;line-height:1.6}
-.term-head{white-space:nowrap;display:flex;align-items:center;gap:var(--s2);padding:var(--s2) var(--s4);border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
-.term-head i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
-.term-head span{margin-left:auto}
-.term-body{padding:var(--s4)}
-.term .prompt{color:var(--ink);background:var(--canvas);border:1px solid var(--line);border-radius:6px;padding:var(--s3)}
-.term .out{color:var(--mid);margin-top:var(--s3)}
-.term .out b{color:var(--accent);font-weight:400}
+/* month rows */
+.quiet-grid{display:grid;gap:var(--s6)}
+@media (min-width:980px){.quiet-grid{grid-template-columns:.9fr 1.1fr;gap:var(--s8);align-items:center}}
+.months{display:grid;gap:var(--s3)}
+.month{border:1px solid var(--line);border-radius:var(--r);padding:var(--s4) var(--s5);background:var(--canvas)}
+.month h3{font-size:var(--fs-body);display:flex;justify-content:space-between;align-items:baseline;margin-bottom:var(--s2)}
+.month h3 span{font-family:var(--mono);font-size:var(--fs-label);font-weight:400;color:var(--mid);letter-spacing:.06em;text-transform:uppercase}
+.row{display:grid;grid-template-columns:96px 1fr;gap:var(--s3);align-items:center;padding:6px 0;border-top:1px solid var(--line)}
+.row dt{font-size:var(--fs-sm);color:var(--mid)}
+.lane{position:relative;height:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.lane i{display:block;border-radius:5px;background:var(--surface);border:1px dashed #D4D4D0}
+.dots{position:absolute;inset:0;display:flex;align-items:center;gap:6px;padding-left:6px}
+.dots b{width:9px;height:9px;border-radius:50%;background:var(--ink);transform:scale(var(--d,1));transition:transform .3s var(--ease);transition-delay:calc(var(--k) * 90ms)}
+.fill{position:absolute;top:0;bottom:0;left:calc(25% + 2px);right:0;border-radius:5px;background:var(--ink);transform-origin:left;transform:scaleX(var(--f,1));transition:transform 1.1s var(--ease) .75s}
+.fill small{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:var(--fs-label);font-weight:600;color:#fff;white-space:nowrap}
+.month .say{font-size:var(--fs-sm);font-weight:600;margin-top:var(--s2)}
+.js .months.armed:not(.in) .dots b{--d:0;transition:none}
+.js .months.armed:not(.in) .fill{--f:0;transition:none}
 
-/* cases */
+/* mechanism: terminal drafts hand off to calendar slots */
+.demo{position:relative;display:grid;gap:var(--s4);align-items:start}
+@media (min-width:980px){.demo{grid-template-columns:1.3fr 1fr}}
+.win{background:var(--canvas);border:1px solid var(--line);border-radius:var(--r);overflow:clip;box-shadow:0 24px 60px -40px rgba(18,18,18,.35)}
+.win-head{display:flex;align-items:center;gap:var(--s2);padding:var(--s3) var(--s4);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);white-space:nowrap}
+.win-head i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.win-head span{margin-left:auto}
+.term{font-family:var(--mono);font-size:13px;line-height:1.6;padding:var(--s4);display:grid;gap:var(--s3)}
+.prompt{position:relative;border:1px solid var(--line);border-radius:8px;padding:var(--s3);background:var(--canvas)}
+.prompt .gt{color:var(--accent)}
+.prompt .ghost{visibility:hidden}
+.prompt .live{position:absolute;inset:var(--s3)}
+.caret{display:inline-block;width:8px;height:15px;background:var(--ink);vertical-align:-2px;margin-left:2px}
+.caret[hidden]{display:none}
+.read{color:var(--mid)}
+.read b{color:var(--accent);font-weight:400}
+.drafts{display:grid;gap:var(--s2)}
+.draft{position:relative;border:1px solid var(--line);border-radius:10px;padding:var(--s3);font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--body);background:var(--canvas)}
+.draft .to{display:flex;justify-content:space-between;gap:var(--s3);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);margin-bottom:var(--s1)}
+.draft .to b{color:var(--ink)}
+.draft.sent{border-color:var(--accent)}
+.draft .sk{display:none}
+.demo.armed .draft.shell .body{visibility:hidden}
+.demo.armed .draft.shell .sk{display:grid;gap:6px;position:absolute;left:var(--s3);right:var(--s3);top:34px}
+.sk i{display:block;height:10px;border-radius:4px;background:var(--surface)}
+.sk i:nth-child(2){width:86%}.sk i:nth-child(3){width:62%}
+.demo.armed .step.wait{visibility:hidden}
+.done{color:var(--ink)}
+.done b{color:var(--accent);font-weight:700}
+.cal{padding:var(--s4);display:grid;gap:var(--s3)}
+.cal-grid{display:grid;grid-template-columns:40px repeat(5,1fr);grid-auto-rows:auto;gap:6px;font-family:var(--mono);font-size:11px}
+.cal-grid .d{color:var(--mid);text-align:center;letter-spacing:.06em;text-transform:uppercase}
+.cal-grid .t{color:var(--mid);align-self:center}
+.slot{height:48px;border-radius:8px;border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--sans);font-size:12px;line-height:1.2;color:var(--mid);padding:2px}
+.slot.busy{border:1px solid var(--paper-edge);background:var(--paper);color:var(--paper-ink)}
+.slot.booked{border:1px solid var(--accent);background:var(--accent);color:#fff;font-weight:700}
+.demo.armed .slot.pending{border:1px dashed var(--line);background:transparent;color:transparent}
+.slot.land{animation:land .35s var(--ease)}
+@keyframes land{from{transform:scale(.9)}to{transform:scale(1)}}
+.legend{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);font-size:12px;color:var(--mid)}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.legend .lb::before{background:var(--paper);border:1px solid var(--paper-edge)}
+.legend .lk::before{background:var(--accent)}
+.cal-foot{display:flex;justify-content:space-between;align-items:center;gap:var(--s3);font-size:var(--fs-sm);color:var(--mid);border-top:1px solid var(--line);padding-top:var(--s3)}
+.cal-foot b{color:var(--ink);font-size:var(--fs-lg)}
+/* phones: the week collapses to a 5-day strip pinned under the prompt, so each draft lands in view */
+.strip{position:sticky;top:0;z-index:3;background:var(--canvas);margin-inline:calc(var(--s4) * -1);padding:var(--s2) var(--s4);border-block:1px solid var(--line);display:grid;gap:6px}
+.strip-head{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--sans);font-size:12px;color:var(--mid)}
+.strip-head b{color:var(--ink);font-size:var(--fs-body)}
+.strip-days{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.strip-days div{display:grid;gap:2px;text-align:center;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--mid)}
+.strip .slot{height:36px;font-size:11px}
+@media (min-width:980px){.strip{display:none}}
+@media (max-width:979px){.cal-win{display:none}}
+.fly{position:absolute;z-index:5;margin:0;pointer-events:none;box-shadow:0 20px 40px -20px rgba(18,18,18,.5)}
+.demo-foot{display:flex;justify-content:space-between;align-items:center;gap:var(--s4);margin-top:var(--s4);flex-wrap:wrap}
+.demo-foot p{font-size:var(--fs-sm);color:var(--mid);max-width:62ch}
+.replay{font-family:var(--sans);font-size:var(--fs-sm);font-weight:600;border:1px solid var(--line);background:var(--canvas);border-radius:8px;padding:var(--s2) var(--s4);cursor:pointer}
+.replay:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* case studies */
 .cases{display:grid;gap:var(--s4)}
-.case{border:1px solid var(--line);border-radius:14px;padding:var(--s5);display:grid;gap:var(--s5);background:var(--canvas)}
-@media (min-width:900px){.case{grid-template-columns:1fr 1.4fr;padding:var(--s6);gap:var(--s7)}}
-.case h3{font-size:var(--fs-card);margin-top:var(--s1)}
-.case .what{font-size:var(--fs-sm);color:var(--mid);margin-top:var(--s2);max-width:40ch}
-.figs{display:grid;gap:0;align-content:start}
+.case{border:1px solid var(--line);border-radius:var(--r);padding:var(--s5);display:grid;gap:var(--s5);background:var(--canvas)}
+@media (min-width:900px){.case{grid-template-columns:1fr 1.3fr;padding:var(--s6);gap:var(--s7)}}
+.case .what{font-size:var(--fs-sm);color:var(--mid);margin-top:var(--s2);max-width:42ch}
+.figs{display:grid;align-content:start}
 .fig{display:grid;grid-template-columns:1fr auto;gap:var(--s4);align-items:baseline;padding-block:var(--s3);border-bottom:1px solid var(--line)}
-.fig:first-child{padding-top:0}
-.fig:last-child{border-bottom:0;padding-bottom:0}
+.fig:first-child{padding-top:0}.fig:last-child{border-bottom:0;padding-bottom:0}
 .fig dt{font-size:var(--fs-sm);color:var(--mid)}
 .fig dd{font-size:var(--fs-lg);font-weight:700;text-align:right;white-space:nowrap}
 .fig dd .arr{color:var(--low);font-weight:400}
-.fig.paid dt,.fig.paid dd{color:var(--ink)}
+.fig.paid dt{color:var(--ink)}
 .fig.paid dd{font-family:var(--mono);font-size:var(--fs-sm)}
 .foot-note{margin-top:var(--s4);font-size:var(--fs-sm);color:var(--mid)}
+.paperband{background:var(--paper);border-block:1px solid var(--paper-edge)}
 
-/* payments */
-.pay{background:var(--surface)}
-.shots{align-items:start;display:grid;grid-auto-flow:column;grid-auto-columns:86%;gap:var(--s3);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--s3);-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
-.shots figure{scroll-snap-align:start;background:var(--canvas);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.shots img{width:100%;height:auto}
-.shots a{display:block}
-.shots a:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
-.shots figcaption{font-size:var(--fs-label);font-family:var(--mono);color:var(--mid);padding:var(--s2) var(--s3);border-top:1px solid var(--line);letter-spacing:.04em}
-.swipe{margin-top:var(--s2);font-family:var(--mono);font-size:var(--fs-label);color:var(--mid)}
-@media (min-width:768px){
-  .shots{grid-auto-flow:row;grid-template-columns:repeat(2,1fr);overflow:visible}
-  .swipe{display:none}
-}
-@media (min-width:1100px){.shots{display:block;columns:3;column-gap:var(--s3)}.shots figure{break-inside:avoid;margin-bottom:var(--s3)}}
+/* proof wall: equal cells, every email cropped on its amount line */
+.wall{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s3)}
+@media (max-width:979px){.tally{grid-column:1/-1}.wall .slip:nth-of-type(7){grid-column:1/-1}}
+@media (min-width:980px){.wall{grid-template-columns:repeat(3,1fr);gap:var(--s4)}}
+.slip{margin:0;background:var(--canvas);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 18px 40px -30px rgba(18,18,18,.45);transform:none;transition:transform .7s var(--ease);transition-delay:calc(var(--i) * 70ms)}
+.slip a{display:block;text-decoration:none}
+.slip a:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+.slip img{width:100%;height:auto;aspect-ratio:500/100;border-bottom:1px solid var(--line)}
+.slip figcaption{display:grid;gap:2px;padding:var(--s2) var(--s3)}
+.slip figcaption b{font-size:var(--fs-lg);letter-spacing:-.01em}
+.slip figcaption span{font-family:var(--mono);font-size:11px;color:var(--mid)}
+.tally{display:grid;align-content:center;gap:var(--s1);padding:var(--s4);border-radius:10px;border:1px dashed var(--paper-edge);background:var(--canvas)}
+.tally b{font-size:var(--fs-num);font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--ink)}
+.tally span{font-size:var(--fs-sm);color:var(--mid)}
+@media (min-width:980px){.tally{grid-column:span 2}}
+.js .wall.armed:not(.in) .slip{transform:translate(var(--px,0),var(--py,-60px)) rotate(var(--pr,-6deg)) scale(.94);transition:none}
 
 /* offers */
 .ways{display:grid;gap:var(--s4)}
 @media (min-width:900px){.ways{grid-template-columns:1.2fr 1fr;align-items:start}}
-.way{border:1px solid var(--line);border-radius:14px;padding:var(--s5);display:grid;gap:var(--s3);align-content:start}
+.way{border:1px solid var(--line);border-radius:var(--r);padding:var(--s5);display:grid;gap:var(--s3);align-content:start}
 @media (min-width:900px){.way{padding:var(--s6)}}
-.way h3{font-size:var(--fs-card)}
-.way .spec{font-family:var(--mono);font-size:var(--fs-label);color:var(--mid);letter-spacing:.04em}
+.way .spec{font-family:var(--mono);font-size:var(--fs-label);color:var(--mid);letter-spacing:.04em;text-transform:uppercase}
 .way p{color:var(--mid)}
-.way ol{list-style:none;display:grid;gap:var(--s2);margin-top:var(--s1)}
-.way ol li{display:grid;grid-template-columns:64px 1fr;gap:var(--s3);font-size:var(--fs-sm);border-top:1px solid var(--line);padding-top:var(--s2)}
+.way ol{list-style:none;display:grid;gap:var(--s2)}
+.way ol li{display:grid;grid-template-columns:64px 1fr;gap:var(--s3);font-size:var(--fs-sm);border-top:1px solid var(--line);padding-top:var(--s2);color:var(--body)}
 .way ol li span{font-family:var(--mono);font-size:var(--fs-label);color:var(--mid);padding-top:2px}
-.starts{font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;color:var(--warm)}
-.ways-note{margin-top:var(--s5);font-size:var(--fs-lg)}
+.ways-note{margin:var(--s5) 0;font-size:var(--fs-lg)}
 
-/* guarantee */
+/* sprint timeline: the line draws, then each week lands */
+.tl{position:relative;display:grid;gap:var(--s5);padding-left:40px}
+.tl-line{position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--ink);transform-origin:top;transform:scaleY(var(--g,1));transition:transform 1.4s var(--ease)}
+.tl-item{position:relative;display:grid;gap:var(--s3);align-content:start;transform:translateX(var(--x,0));transition:transform .6s var(--ease);transition-delay:calc(.25s + var(--i) * .3s)}
+.tl-node{position:absolute;left:-40px;top:2px;width:24px;height:24px;border-radius:50%;background:var(--canvas);border:2px solid var(--ink);display:grid;place-items:center;transform:scale(var(--s,1));transition:transform .4s var(--ease);transition-delay:calc(.25s + var(--i) * .3s)}
+.tl-node::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.tl-item .spec{font-family:var(--mono);font-size:var(--fs-label);color:var(--mid);letter-spacing:.06em;text-transform:uppercase}
+.tl-item ol{list-style:none;display:grid;gap:0}
+.tl-item ol li{display:grid;grid-template-columns:84px 1fr;gap:var(--s3);font-size:var(--fs-body);border-top:1px solid var(--line);padding:var(--s2) 0;color:var(--body)}
+.tl-item ol li span{font-family:var(--mono);font-size:var(--fs-label);color:var(--mid);padding-top:3px}
+.tl-item > p{color:var(--mid);max-width:56ch}
+@media (min-width:980px){
+  .tl{grid-template-columns:repeat(4,1fr);column-gap:var(--s5);padding:44px 0 0}
+  .tl-line{left:0;right:0;top:11px;bottom:auto;width:auto;height:2px;transform-origin:left;transform:scaleX(var(--g,1))}
+  .tl-node{left:0;top:-44px}
+  .tl-item ol li{grid-template-columns:1fr;gap:0}
+  .js .tl.armed:not(.in) .tl-item{--x:0;transform:translateY(20px)}
+}
+.js .tl.armed:not(.in) .tl-line{--g:0;transition:none}
+.js .tl.armed:not(.in) .tl-item{--x:24px;transition:none}
+.js .tl.armed:not(.in) .tl-node{--s:.2;transition:none}
+.keep{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2)}
+.keep li{font-size:var(--fs-body);font-weight:500;border:1px solid var(--line);border-radius:999px;padding:var(--s2) var(--s4);background:var(--canvas)}
+
+/* guarantee letter */
 .guar{background:var(--paper);border-block:1px solid var(--paper-edge)}
 .letter{max-width:640px;margin:0 auto;color:var(--paper-ink)}
-.letter h2{margin-bottom:var(--s4)}
+.letter h2{margin:var(--s3) 0 var(--s4)}
 .letter p:not(.label){font-size:var(--fs-lg);margin-top:var(--s3)}
-.letter p.terms{font-size:var(--fs-sm)}
-.terms{margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--paper-edge);font-size:var(--fs-sm);color:var(--mid)}
-.terms b{color:var(--paper-ink);font-weight:600}
+.letter .terms{margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--paper-edge);font-size:var(--fs-sm);color:var(--mid)}
+.letter .terms b{color:var(--paper-ink)}
+.sig{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s5)}
+.sig b{font-size:var(--fs-body)}
 
 /* filter */
 .filter{display:grid;gap:var(--s5)}
 @media (min-width:768px){.filter{grid-template-columns:1fr 1fr;gap:var(--s7)}}
-.filter h3{font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:var(--s3)}
+.filter h3{font-family:var(--mono);font-size:var(--fs-label);font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:var(--s3)}
 .filter ul{list-style:none;display:grid;gap:var(--s3)}
 .filter li{font-size:var(--fs-lg);padding-left:var(--s6);position:relative}
-.filter li::before{position:absolute;left:0;top:0;font-family:var(--mono);font-size:var(--fs-sm);color:var(--mid)}
+.filter li::before{position:absolute;left:0;top:3px;font-family:var(--mono);font-size:var(--fs-sm);color:var(--mid)}
 .filter .no li::before{content:"no"}
 .filter .yes li::before{content:"yes";color:var(--accent)}
 .filter-close{margin-top:var(--s6);font-size:var(--fs-lg);color:var(--mid);max-width:52ch}
 
 /* faq */
-.faq{max-width:720px}
+.faq{max-width:760px}
 .faq details{border-bottom:1px solid var(--line)}
 .faq details:first-of-type{border-top:1px solid var(--line)}
 .faq summary{cursor:pointer;list-style:none;padding:var(--s5) var(--s6) var(--s5) 0;font-weight:600;font-size:var(--fs-lg);position:relative}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);font-family:var(--sans, Inter, sans-serif);font-weight:700;font-size:var(--fs-lg);color:var(--mid)}
+.faq summary::after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);font-family:var(--sans);font-weight:700;font-size:var(--fs-lg);color:var(--mid)}
 .faq details[open] summary::after{content:"\2212"}
 .faq summary:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
-.faq details p{padding-bottom:var(--s5);color:var(--mid);max-width:60ch}
+.faq details p{padding-bottom:var(--s5);color:var(--mid);max-width:62ch}
 
 /* close */
-.close{text-align:center;border-top:1px solid var(--line)}
-.close .wrap{display:flex;flex-direction:column;align-items:center}
-.close h2{margin-inline:auto}
-.close .lede{margin-top:var(--s4);margin-inline:auto}
-
-footer{border-top:1px solid var(--line);padding:var(--s6) var(--gutter)}
-footer .wrap{padding:0;display:flex;flex-wrap:wrap;gap:var(--s4);justify-content:space-between;align-items:center}
-footer img{height:16px;width:auto;opacity:.8}
-footer nav{display:flex;gap:var(--s4);font-size:var(--fs-sm);color:var(--mid)}
+.close{border-top:1px solid var(--line)}
+.close .wrap{display:grid;gap:var(--s4);justify-items:start}
+.close h2{max-width:18ch}
+footer{border-top:1px solid var(--line);padding:var(--s6) 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:var(--s4);justify-content:space-between;align-items:center}
+footer img{height:16px;width:auto}
+footer nav{display:flex;flex-wrap:wrap;gap:var(--s4);font-size:var(--fs-sm);color:var(--mid)}
 footer nav a{text-decoration:none}
 footer nav a:hover{color:var(--ink)}
 
-h1 .l{display:block}
-@media (min-width:1100px){.hero h1{max-width:none}.player{max-width:760px}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
 </style>
 </head>
 <body>
-
-<header class="bar">
-  <img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" />
-  <span class="label">Video + 45 min call</span>
-</header>
-
+<div class="wrap"><header class="bar"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" /><span class="label">Video + 45 min call</span></header></div>
 <main>
-<section class="hero" data-job="Select the buyer and get the video played in the first screen">
-  <div class="wrap">
-    <p class="callout">For agency owners, high-ticket coaches and B2B founders <em>who already have paying clients</em></p>
-    <h1><span class="l">Busy one month.</span> <span class="l">Nothing booked the next.</span></h1>
-
-    <!-- VSL v4 (8:35). Adaptive stream call/vsl/hls/master.m3u8 (1080p + 540p, from the 1080p master on the Mini);
-         Safari plays HLS natively, other browsers use hls.js; vsl/aiml-vsl.mp4 (720p) is the no-JS fallback. -->
-    <div class="player" id="player">
-      <video id="vsl" controls playsinline preload="metadata" poster="poster.jpg" controlslist="nodownload">
-        <source src="vsl/aiml-vsl.mp4" type="video/mp4" />
-      </video>
-      <span class="pending">Video file pending</span>
+<section class="hero" data-job="Select the buyer, say their problem in their words, and get the video played in one screen">
+  <div class="wrap hero-grid has-vid">
+    <div class="h-copy">
+      <p class="callout h-qual">For agency owners, high-ticket coaches and B2B founders <em>who already have paying clients</em></p>
+      <h1 class="h-h1"><span>Busy one month.</span> <span>Nothing booked the next.</span></h1>
+      <p class="lede h-lede">Clients only come in while you're chasing them. This video shows how I put the chasing on Claude Code, so it keeps running while you deliver.</p>
+      <div class="act h-act"><a class="btn js-pay" href="#">Book my call <span class="price">₹999</span></a><p class="note">45 minutes with me. The ₹999 comes off whichever program you join.</p></div>
+      <div class="who h-who"><img src="../assets/photos/sandy-headshot-hd.jpg" alt="Sandy Kadyan" width="48" height="48" /><p><b>Sandy Kadyan</b><br />Running a marketing agency since 2017, out of Vancouver</p></div>
     </div>
-    <p class="vmeta">About 8 minutes. Sound on.</p>
-
-    <p class="lede">Clients only come in while you're chasing them. This video shows how I put the chasing on Claude Code, so it keeps running while you deliver.</p>
-
-    <div class="cta-block">
-      <a class="btn js-pay" href="#" data-label="Book my call, ₹999">Book my call, ₹999</a>
-      <p class="cta-note">45 minutes with me. The ₹999 comes off whichever program you join.</p>
+    <div class="h-vid">
+      <div class="player" id="player"><video id="vsl" controls playsinline preload="metadata" poster="poster.jpg" controlslist="nodownload"><source src="vsl/aiml-vsl.mp4" type="video/mp4" /></video></div>
+      <p class="vmeta">About 8 minutes. Sound on.</p>
     </div>
+  </div>
+</section>
+<section class="stats" aria-label="Results" data-job="Buy permission to scroll with three numbers Sandy stated">
+  <div class="wrap"><ul>
+    <li><span class="n">Since 2017</span><span class="t">Agency in Vancouver, clients in Canada and the US</span></li>
+    <li><span class="n">$220,000</span><span class="t">In 6 months in India</span></li>
+    <li><span class="n">~300 <span class="arr">&rarr;</span> ~50 <span class="arr">&rarr;</span> 10+</span><span class="t">Leads, qualified, closed at ₹1.5L each. My own automation offer, same system.</span></li>
+  </ul></div>
+</section>
 
-    <div class="who">
-      <img src="../assets/photos/sandy-headshot-hd.jpg" alt="Sandy Kadyan" width="44" height="44" />
-      <p><b>Sandy Kadyan</b><br />Running a marketing agency since 2017, out of Vancouver</p>
+<section data-job="Name the real problem: when the owner is delivering nobody is chasing, so next month is empty">
+  <div class="wrap quiet-grid">
+    <div class="head" style="margin:0"><p class="label">Why it keeps happening</p><h2>Why next month goes quiet</h2>
+      <p class="lede">Getting a client is a chain of small jobs, and in most businesses <b>you do every one of them</b>. So the week a project lands, the chain stops. Nobody new gets a message, nobody gets a follow-up, and next month is empty.</p></div>
+    <div class="months" id="months">
+      <article class="month"><h3>This month <span>Busy</span></h3><dl>
+        <div class="row"><dt>Outreach</dt><dd class="lane"><i></i><i></i><i></i><i></i><span class="dots"><b style="--k:0"></b><b style="--k:1"></b><b style="--k:2"></b><b style="--k:3"></b><b style="--k:4"></b></span></dd></div>
+        <div class="row"><dt>Delivery</dt><dd class="lane"><i></i><i></i><i></i><i></i><span class="fill"><small>Client work</small></span></dd></div>
+        <div class="row"><dt>Follow-ups</dt><dd class="lane"><i></i><i></i><i></i><i></i></dd></div>
+      </dl><p class="say">A project lands in week 1 and the chasing stops.</p></article>
+      <article class="month"><h3>Next month <span>Quiet</span></h3><dl>
+        <div class="row"><dt>Outreach</dt><dd class="lane"><i></i><i></i><i></i><i></i></dd></div>
+        <div class="row"><dt>Calls booked</dt><dd class="lane"><i></i><i></i><i></i><i></i></dd></div>
+      </dl><p class="say">Nothing booked. Back to chasing.</p></article>
     </div>
   </div>
 </section>
 
-<section class="proofbar" aria-label="Results" data-job="Buy permission to scroll with three numbers Sandy stated">
+<section class="paperband" data-job="Show the mechanism as cause and effect: a Claude Code prompt writes drafts, the drafts become booked calls">
   <div class="wrap">
-    <ul>
-      <li><span class="n">Since 2017</span><span class="t">Agency in Vancouver, clients in Canada and the US</span></li>
-      <li><span class="n">$220,000</span><span class="t">In 6 months in India</span></li>
-      <li><span class="n">~300 <span class="arr">&rarr;</span> ~50 <span class="arr">&rarr;</span> 10+</span><span class="t">Leads, qualified, closed at ₹1.5L each. My own automation offer, same system.</span></li>
-    </ul>
+    <div class="head"><p class="label">What changed</p><h2>Every step, written down once</h2>
+      <p class="lede">For eight years I did every step by hand: who to message, what to say, when to follow up. Now each step is a file. <b>Claude Code reads the file and does the step.</b> You check what it wrote. The work stops waiting for you to be free.</p></div>
+    <div class="demo" id="demo">
+      <figure class="win" aria-label="Claude Code session">
+        <div class="win-head"><i></i><i></i><i></i>Claude Code<span>outreach</span></div>
+        <div class="term">
+          <p class="prompt"><span class="ghost" aria-hidden="true"><span class="gt">&gt; </span>Read ~/HQ/.claude/skills/hot-outreach/SKILL.md and the reference files it points to. Write give-first first messages for 3 prospects: a Toronto agency owner running Meta ads, a high-ticket coach in Vancouver, a B2B services firm in Calgary. Under 80 words each, open-loop question at the end. Don't send anything.</span><span class="live"><span class="gt">&gt; </span><span class="typed">Read ~/HQ/.claude/skills/hot-outreach/SKILL.md and the reference files it points to. Write give-first first messages for 3 prospects: a Toronto agency owner running Meta ads, a high-ticket coach in Vancouver, a B2B services firm in Calgary. Under 80 words each, open-loop question at the end. Don't send anything.</span><span class="caret" hidden></span></span></p>
+          <div class="strip" aria-label="Your week"><p class="strip-head"><span>Your week</span><span><b class="bk">3</b> calls booked</span></p><div class="strip-days"><div>Mon<span class="slot busy">Work</span></div><div>Tue<span class="slot booked pending" data-n="1">Call 1</span></div><div>Wed<span class="slot busy">Work</span></div><div>Thu<span class="slot booked pending" data-n="2">Call 2</span></div><div>Fri<span class="slot booked pending" data-n="3">Call 3</span></div></div></div><p class="read step">Reading 3 files&hellip; <b>SKILL.md</b> &middot; research.md &middot; email.md</p>
+          <div class="drafts"><article class="draft step shell" data-n="1"><p class="to"><b>Draft 1</b>Toronto agency owner</p><span class="sk" aria-hidden="true"><i></i><i></i><i></i></span><p class="body">Saw your Meta ads for the Mississauga dental clinic. The page asks for a call before it says what the visit costs. I rewrote the top three lines so the price range sits above the form. Want them?</p></article><article class="draft step shell" data-n="2"><p class="to"><b>Draft 2</b>Vancouver coach</p><span class="sk" aria-hidden="true"><i></i><i></i><i></i></span><p class="body">Your webinar replay sits behind a second form, so people who already gave you their email fill it in twice. I mapped where that page loses them. Should I send the one-page version?</p></article><article class="draft step shell" data-n="3"><p class="to"><b>Draft 3</b>Calgary B2B firm</p><span class="sk" aria-hidden="true"><i></i><i></i><i></i></span><p class="body">Your case study ends on the numbers with no next step. One line and a booking link there would catch the readers who are already convinced. Want the line I'd use?</p></article></div>
+          <p class="done step">Saved to outreach-drafts.md. Follow-ups set: <b>day 3</b> and <b>day 7</b>.</p>
+        </div>
+      </figure>
+      <figure class="win cal-win" aria-label="Your week">
+        <div class="win-head"><i></i><i></i><i></i>Your week<span>calendar</span></div>
+        <div class="cal">
+          <div class="cal-grid" id="cal"><span></span><span class="d">Mon</span><span class="d">Tue</span><span class="d">Wed</span><span class="d">Thu</span><span class="d">Fri</span><span class="t">10am</span><span class="slot busy">Client work</span><span class="slot busy">Client work</span><span class="slot busy">Client work</span><span class="slot busy">Client work</span><span class="slot booked pending" data-n="3">Call 3</span><span class="t">1pm</span><span class="slot busy">Client work</span><span class="slot busy">Client work</span><span class="slot busy">Client work</span><span class="slot booked pending" data-n="2">Call 2</span><span class="slot busy">Client work</span><span class="t">4pm</span><span class="slot busy">Client work</span><span class="slot booked pending" data-n="1">Call 1</span><span class="slot busy">Client work</span><span class="slot busy">Client work</span><span class="slot busy">Client work</span></div>
+          <div class="legend"><span class="lb">Your client work</span><span class="lk">Call booked</span></div>
+          <div class="cal-foot"><span>You kept delivering all week.</span><span><b class="bk">3</b> calls booked</span></div>
+        </div>
+      </figure>
+    </div>
+    <div class="demo-foot"><p>Example drafts, recreated from a run to show the flow. The prompt is the real one from the video, where the full session runs unedited.</p><button class="replay" id="replay" type="button">Replay</button></div>
   </div>
 </section>
 
-<section data-job="Name the real problem: getting a client is a chain and the owner is every link">
+<section data-job="Answer the claim with named international clients and their numbers">
   <div class="wrap">
-    <div class="sec-head">
-      <p class="label">Why it keeps happening</p>
-      <h2>Why next month goes quiet</h2>
-    </div>
-    <div class="chain">
-      <div class="half">
-        <h3>Upstream: getting clients in</h3>
-        <ol class="links">
-          <li>Find the right people</li>
-          <li>Write to them</li>
-          <li class="broken">Follow up</li>
-          <li>Make the ads</li>
-          <li>Build the page</li>
-        </ol>
-      </div>
-      <div class="half">
-        <h3>Downstream: after the yes</h3>
-        <ol class="links">
-          <li>Call the lead back fast</li>
-          <li>Remind before the call</li>
-          <li>The sales call</li>
-          <li>Deliver</li>
-          <li>Get them to buy again</li>
-        </ol>
-      </div>
-      <p class="chain-body">Getting a client is a chain of small jobs, and in most businesses <b>you do every one of them</b>. So the week a project lands, the chain stops. Nobody new gets a message, nobody gets a follow-up, and next month is empty.</p>
-    </div>
-  </div>
-</section>
-
-<section style="padding-top:0" data-job="Show the mechanism: skill files that Claude Code runs">
-  <div class="wrap mech">
-    <div class="copy">
-      <p class="label">What changed</p>
-      <h2 style="margin:var(--s3) 0 var(--s5)">Every step, written down once</h2>
-      <p>For eight years I did every step by hand: who to message, what to say, when to follow up. Now each step is a file.</p>
-      <p><b>Claude Code reads the file and does the step.</b> You check what it wrote. The work stops waiting for you to be free.</p>
-    </div>
-    <figure class="term" aria-label="A real Claude Code session from the video">
-      <div class="term-head"><i></i><i></i><i></i>Claude Code<span>From the video</span></div>
-      <div class="term-body">
-        <p class="prompt">Read ~/HQ/.claude/skills/hot-outreach/SKILL.md and the reference files it points to for email and research. Then write give-first first messages for 3 prospects: a Toronto agency owner running Meta ads, a high-ticket coach in Vancouver, a B2B services firm in Calgary. Under 80 words each, open-loop question at the end. Save to outreach-drafts.md here. Don't load any other skill and don't send anything.</p>
-        <p class="out">Reading 1 file&hellip;<br />~/HQ/.claude/skills/hot-outreach/SKILL.md<br /><b>*</b> Effecting&hellip;</p>
-      </div>
-    </figure>
-  </div>
-</section>
-
-<section style="background:var(--paper);border-block:1px solid var(--paper-edge)" data-job="Answer the claim with named international clients and their numbers">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="label">Case studies</p>
-      <h2>Clients you're trying to win</h2>
-      <p class="lede">International, because most of you want international clients.</p>
-    </div>
+    <div class="head"><p class="label">Case studies</p><h2>Clients you're trying to win</h2><p class="lede">International, because most of you want international clients.</p></div>
     <div class="cases">
-      <article class="case">
-        <div>
-          <p class="label">Scale Your Results</p>
-          <h3>Sami, high-ticket coach, Vancouver</h3>
-          <p class="what">We rebuilt his ads, his funnel and the qualification behind them.</p>
-        </div>
-        <dl class="figs">
-          <div class="fig"><dt>Cost per booked call</dt><dd>$250 <span class="arr">&rarr;</span> $70</dd></div>
-          <div class="fig"><dt>Before, a month</dt><dd>~$20k ads <span class="arr">&rarr;</span> ~$30k</dd></div>
-          <div class="fig"><dt>After, a month</dt><dd>~$30k ads <span class="arr">&rarr;</span> ~$85k</dd></div>
-          <div class="fig paid"><dt>He paid us</dt><dd>~$12k</dd></div>
-        </dl>
-      </article>
-      <article class="case">
-        <div>
-          <p class="label">Medico</p>
-          <h3>Medical construction</h3>
-          <p class="what">Ads, SEO, social, AI voice calling on every enquiry, and a newsletter.</p>
-        </div>
-        <dl class="figs">
-          <div class="fig"><dt>Contracted work, over 2 years</dt><dd>~$6M</dd></div>
-          <div class="fig paid"><dt>We've made</dt><dd>~$100k</dd></div>
-        </dl>
-      </article>
-      <article class="case">
-        <div>
-          <p class="label">Rumor Avenue</p>
-          <h3>UI/UX design agency, $10,000+ projects</h3>
-          <p class="what">LinkedIn and email outreach to the people who buy those projects, with a follow-up sequence behind it.</p>
-        </div>
-        <dl class="figs">
-          <div class="fig"><dt>New business, in about 3 months</dt><dd>$100k+</dd></div>
-          <div class="fig paid"><dt>They paid us</dt><dd>$5k setup + $2.5k/mo</dd></div>
-        </dl>
-      </article>
+      <article class="case"><div><p class="label">Scale Your Results</p><h3>Sami, high-ticket coach, Vancouver</h3><p class="what">We rebuilt his ads, his funnel and the qualification behind them.</p></div>
+        <dl class="figs"><div class="fig"><dt>Cost per booked call</dt><dd>$250 <span class="arr">&rarr;</span> $70</dd></div><div class="fig"><dt>Before, a month</dt><dd>~$20k ads <span class="arr">&rarr;</span> ~$30k</dd></div><div class="fig"><dt>After, a month</dt><dd>~$30k ads <span class="arr">&rarr;</span> ~$85k</dd></div><div class="fig paid"><dt>He paid us</dt><dd>~$12k</dd></div></dl></article>
+      <article class="case"><div><p class="label">Medico</p><h3>Medical construction</h3><p class="what">Ads, SEO, social, AI voice calling on every enquiry, and a newsletter.</p></div>
+        <dl class="figs"><div class="fig"><dt>Contracted work, over 2 years</dt><dd>~$6M</dd></div><div class="fig paid"><dt>We've made</dt><dd>~$100k</dd></div></dl></article>
+      <article class="case"><div><p class="label">Rumor Avenue</p><h3>UI/UX design agency, $10,000+ projects</h3><p class="what">LinkedIn and email outreach to the people who buy those projects, with a follow-up sequence behind it.</p></div>
+        <dl class="figs"><div class="fig"><dt>New business, in about 3 months</dt><dd>$100k+</dd></div><div class="fig paid"><dt>They paid us</dt><dd>$5k setup + $2.5k/mo</dd></div></dl></article>
     </div>
     <p class="foot-note">The last line on each card is what the client paid us for the work.</p>
   </div>
 </section>
-
-<section class="pay" data-job="Make the proof checkable by a stranger: real payment emails">
+<section class="paperband" data-job="Make the proof checkable by a stranger: the real payment emails, cropped on the amount line">
   <div class="wrap">
-    <div class="sec-head">
-      <p class="label">Proof</p>
-      <h2>The payments, unedited</h2>
-      <p class="lede">Payment emails from my agency's inbox, as they arrived.</p>
+    <div class="head"><p class="label">Proof</p><h2>The payments, unedited</h2><p class="lede">Payment emails from my agency's inbox, as they arrived.</p></div>
+    <div class="wall" id="wall">
+      <figure class="slip" style="--i:0;--px:30%;--py:-40px;--pr:-6deg"><a href="../assets/proof/redacted/deck-1.png" target="_blank" rel="noopener" aria-label="CA$10,000, Medico, via Wise: open the full email"><img src="../assets/proof/redacted/card-1.png" width="500" height="100" loading="lazy" alt="Wise notification: you received 10,000 CAD from Medico Construction Design LTD" /><figcaption><b>CA$10,000</b><span>Medico, via Wise</span></figcaption></a></figure>
+      <figure class="slip" style="--i:1;--px:0;--py:-90px;--pr:5deg"><a href="../assets/proof/redacted/deck-2.png" target="_blank" rel="noopener" aria-label="CA$5,000, Riarh Group, via PayPal: open the full email"><img src="../assets/proof/redacted/card-2.png" width="500" height="100" loading="lazy" alt="PayPal notification: you received a $5,000.00 CAD payment for invoice 0316, payer name hidden" /><figcaption><b>CA$5,000</b><span>Riarh Group, via PayPal</span></figcaption></a></figure>
+      <figure class="slip" style="--i:2;--px:-30%;--py:-60px;--pr:-4deg"><a href="../assets/proof/redacted/deck-4.png" target="_blank" rel="noopener" aria-label="CA$4,000, Scale Your Results: open the full email"><img src="../assets/proof/redacted/card-4.png" width="500" height="100" loading="lazy" alt="Payment received: CA$4,000.00 against Scale Your Results, payer name hidden" /><figcaption><b>CA$4,000</b><span>Scale Your Results</span></figcaption></a></figure>
+      <figure class="slip" style="--i:3;--px:30%;--py:-200px;--pr:6deg"><a href="../assets/proof/redacted/deck-5.png" target="_blank" rel="noopener" aria-label="CA$2,500, Prepare Medical: open the full email"><img src="../assets/proof/redacted/card-5.png" width="500" height="100" loading="lazy" alt="Payment received: CA$2,500.00 against the Prepare Medical January invoice, payer name hidden" /><figcaption><b>CA$2,500</b><span>Prepare Medical</span></figcaption></a></figure>
+      <figure class="slip" style="--i:4;--px:0;--py:-240px;--pr:-5deg"><a href="../assets/proof/redacted/deck-3.png" target="_blank" rel="noopener" aria-label="CA$2,000, Realtor, Toronto: open the full email"><img src="../assets/proof/redacted/card-3.png" width="500" height="100" loading="lazy" alt="Payment received: CA$2,000.00 from a realtor in Toronto, payer name hidden" /><figcaption><b>CA$2,000</b><span>Realtor, Toronto</span></figcaption></a></figure>
+      <figure class="slip" style="--i:5;--px:-30%;--py:-210px;--pr:4deg"><a href="../assets/proof/redacted/deck-6.png" target="_blank" rel="noopener" aria-label="CA$1,500, Best Home Kitchens: open the full email"><img src="../assets/proof/redacted/card-6.png" width="500" height="100" loading="lazy" alt="Payment received: CA$1,500.00 against Best Home Kitchens social media, payer name hidden" /><figcaption><b>CA$1,500</b><span>Best Home Kitchens</span></figcaption></a></figure>
+      <figure class="slip" style="--i:6;--px:30%;--py:-360px;--pr:-7deg"><a href="../assets/proof/redacted/deck-7.png" target="_blank" rel="noopener" aria-label="CA$300, via Wise: open the full email"><img src="../assets/proof/redacted/card-7.png" width="500" height="100" loading="lazy" alt="Wise notification: you received 300 CAD, payer name hidden" /><figcaption><b>CA$300</b><span>via Wise</span></figcaption></a></figure>
+      <p class="tally"><b>CA$55,600</b><span>7 clients, 23 payments. A sample, not the total. Tap any email to open it full size. Payer names hidden.</span></p>
     </div>
-    <div class="shots">
-      <figure><a href="../assets/proof/deck-1.png" target="_blank" rel="noopener"><img src="../assets/proof/deck-1.png" width="937" height="380" alt="Wise notification: you received 10,000 CAD from Medico Construction Design LTD" /></a><figcaption>CA$10,000, Medico, via Wise</figcaption></figure>
-      <figure><a href="../assets/proof/deck-2.png" target="_blank" rel="noopener"><img src="../assets/proof/deck-2.png" width="937" height="518" loading="lazy" alt="PayPal notification: you received a $5,000.00 CAD payment for invoice 0316, paid by Dal Riarh" /></a><figcaption>CA$5,000, Riarh, via PayPal</figcaption></figure>
-      <figure><a href="../assets/proof/deck-4.png" target="_blank" rel="noopener"><img src="../assets/proof/deck-4.png" width="937" height="510" loading="lazy" alt="Payment received: CA$4,000.00 against Scale Your Results, invoice issued for Sami Ahmad" /></a><figcaption>CA$4,000, Scale Your Results</figcaption></figure>
-      <figure><a href="../assets/proof/deck-5.png" target="_blank" rel="noopener"><img src="../assets/proof/deck-5.png" width="937" height="510" loading="lazy" alt="Payment received: CA$2,500.00 against Prepare Medical January invoice, issued for Navroop Sehmi" /></a><figcaption>CA$2,500, Prepare Medical</figcaption></figure>
-      <figure><a href="../assets/proof/deck-3.png" target="_blank" rel="noopener"><img src="../assets/proof/deck-3.png" width="937" height="510" loading="lazy" alt="Payment received: CA$2,000.00 against Cody Sturgess, Realtor Toronto" /></a><figcaption>CA$2,000, realtor, Toronto</figcaption></figure>
-      <figure><a href="../assets/proof/deck-6.png" target="_blank" rel="noopener"><img src="../assets/proof/deck-6.png" width="937" height="510" loading="lazy" alt="Payment received: CA$1,500.00 against Best Home Kitchens social media, issued for Naina" /></a><figcaption>CA$1,500, Best Home Kitchens</figcaption></figure>
-      <figure><a href="../assets/proof/deck-7.png" target="_blank" rel="noopener"><img src="../assets/proof/deck-7.png" width="937" height="360" loading="lazy" alt="Wise notification: you received 300 CAD from Amarpreet Singh Nagra" /></a><figcaption>CA$300, via Wise</figcaption></figure>
-    </div>
-    <p class="swipe">7 payments. Swipe, or tap one to open it full size &rarr;</p>
   </div>
 </section>
 
 <section data-job="Show the two ways to build it, without prices, so the call is the next step">
   <div class="wrap">
-    <div class="sec-head">
-      <p class="label">The programs</p>
-      <h2>Two ways to build it</h2>
-    </div>
+    <div class="head"><p class="label">The programs</p><h2>Two ways to build it</h2></div>
     <div class="ways">
-      <article class="way">
-        <p class="spec">Group, live</p>
-        <h3>The 21 Day Sprint</h3>
-        <p class="starts">Starts Monday 26 October 2026</p>
+      <article class="way"><p class="spec">Group, live</p><h3>The 21 Day Sprint</h3><p class="starts">Starts Monday 26 October 2026</p>
         <p>Every weekday at 7 pm IST, for 90 minutes. I show one piece of the system running. You build it on your business right there, with Claude Code or Codex.</p>
-        <ol>
-          <li><span>Week 1</span>Build what you sell: offer, lead magnet, landing page, and the backend that catches every lead.</li>
-          <li><span>Week 2</span>Get clients in. Pick one channel and set it up. Your first 100 messages go out that Friday.</li>
-          <li><span>Week 3</span>After the yes: follow-up, your sales call, and reading your own numbers. Then demo day.</li>
-        </ol>
-      </article>
-      <article class="way">
-        <p class="spec">One to one</p>
-        <h3>The Accelerator</h3>
-        <p>8 weeks, with me on every call, building it with you.</p>
-        <p>I take 10 people at a time. I'm on every one of those calls, and I can't do more than 10 properly.</p>
-      </article>
+        <ol><li><span>Week 1</span>Build what you sell: offer, lead magnet, landing page, and the backend that catches every lead.</li><li><span>Week 2</span>Get clients in. Pick one channel and set it up. Your first 100 messages go out that Friday.</li><li><span>Week 3</span>After the yes: follow-up, your sales call, and reading your own numbers. Then demo day.</li></ol></article>
+      <article class="way"><p class="spec">One to one</p><h3>The Accelerator</h3><p>8 weeks, with me on every call, building it with you.</p><p>I take 10 people at a time. I'm on every one of those calls, and I can't do more than 10 properly.</p></article>
     </div>
     <p class="ways-note">No prices here. Which one fits your business is what the call decides.</p>
-    <div class="cta-block" style="align-items:flex-start">
-      <a class="btn js-pay" href="#" data-label="Book my call, ₹999">Book my call, ₹999</a>
-    </div>
+    <div class="act"><a class="btn js-pay" href="#">Book my call <span class="price">₹999</span></a></div>
   </div>
 </section>
-
-<section class="guar" data-job="Remove the fear at the ask with the First Client guarantee">
-  <div class="wrap">
-    <div class="letter">
-      <p class="label">Same on both programs</p>
-      <h2 style="margin-top:var(--s3)">The First Client guarantee</h2>
-      <p>Follow the build. After launch day, do the outreach every weekday for 30 days.</p>
-      <p>If you haven't closed a client within 90 days, you get your money back. All of it.</p>
-      <p>I can offer that because the system works when the work gets done. The conditions are simply the work.</p>
-      <p class="terms"><b>Sprint terms:</b> attend 12 of the 15 sessions, live or on the recording within 48 hours. Send 100 messages every weekday for 30 days after launch day, and log them in the shared sheet.</p>
-    </div>
-  </div>
+<section class="guar" data-job="Remove the fear at the ask with the First Client guarantee and its exact terms">
+  <div class="wrap"><div class="letter">
+    <p class="label">Same on both programs</p>
+    <h2>The First Client guarantee</h2>
+    <p>Follow the build. After launch day, do the outreach every weekday for 30 days.</p>
+    <p>If you haven't closed a client within 90 days, you get your money back. All of it.</p>
+    <p>I can offer that because the system works when the work gets done. The conditions are simply the work.</p>
+    <p class="terms"><b>Sprint terms:</b> attend 12 of the 15 sessions, live or on the recording within 48 hours. Send 100 messages every weekday for 30 days after launch day, and log them in the shared sheet.</p>
+    <div class="sig"><b>Sandy</b></div>
+  </div></div>
 </section>
-
 <section data-job="Send the wrong people away in plain words">
   <div class="wrap">
-    <div class="sec-head">
-      <p class="label">Be honest with yourself</p>
-      <h2>Who this isn't for</h2>
-    </div>
+    <div class="head"><p class="label">Be honest with yourself</p><h2>Who this isn't for</h2></div>
     <div class="filter">
-      <div class="no">
-        <h3>Not a fit</h3>
-        <ul>
-          <li>Freelancers looking for a first project</li>
-          <li>People who want to become a coach one day</li>
-        </ul>
-      </div>
-      <div class="yes">
-        <h3>A fit</h3>
-        <ul>
-          <li>You run a business that already exists</li>
-          <li>You have an offer people already pay for</li>
-        </ul>
-      </div>
+      <div class="no"><h3>Not a fit</h3><ul><li>Freelancers looking for a first project</li><li>People who want to become a coach one day</li></ul></div>
+      <div class="yes"><h3>A fit</h3><ul><li>You run a business that already exists</li><li>You have an offer people already pay for</li></ul></div>
     </div>
     <p class="filter-close">We build the system on top of your business. We don't build the business from zero.</p>
   </div>
 </section>
-
-<section style="padding-top:0" data-job="Kill the four objections left before the ask">
-  <div class="wrap faq">
-    <div class="sec-head">
-      <p class="label">Questions</p>
-      <h2>Before you book</h2>
-    </div>
-    <details>
-      <summary>Why does the call cost ₹999?</summary>
-      <p>I take every call myself, and the fee keeps my calendar for owners who are serious. If you join the Sprint or the Accelerator, the ₹999 comes off the price.</p>
-    </details>
-    <details>
-      <summary>What happens on the call?</summary>
-      <p>It's 45 minutes with me, not a sales team. Before it, I look at your business. On it, we map both halves: where your clients come from today, and where they leak out. You leave with that map whether you join or not. Then I tell you which option fits.</p>
-    </details>
-    <details>
-      <summary>How much time does it take?</summary>
-      <p>The Sprint is 90 minutes each weekday evening at 7 pm IST, for three weeks. Miss one and the recording's up the next morning. The Accelerator is 8 weeks, one to one, with me on every call.</p>
-    </details>
-    <details>
-      <summary>I'm not technical. Will I keep up?</summary>
-      <p>You don't need to be technical. You won't write code, because the skill files already exist. You watch me do a step, then do the same step on your business. Stuck? Ask me live.</p>
-    </details>
-  </div>
+<section data-job="Kill the objections left before the ask">
+  <div class="wrap faq"><div class="head"><p class="label">Questions</p><h2>Before you book</h2></div><details><summary>Why does the call cost ₹999?</summary><p>I take every call myself, and the fee keeps my calendar for owners who are serious. If you join the Sprint or the Accelerator, the ₹999 comes off the price.</p></details><details><summary>What happens on the call?</summary><p>It's 45 minutes with me, not a sales team. Before it, I look at your business. On it, we map both halves: where your clients come from today, and where they leak out. You leave with that map whether you join or not. Then I tell you which option fits.</p></details><details><summary>How much time does it take?</summary><p>The Sprint is 90 minutes each weekday evening at 7 pm IST, for three weeks. Miss one and the recording's up the next morning. The Accelerator is 8 weeks, one to one, with me on every call.</p></details><details><summary>I'm not technical. Will I keep up?</summary><p>You don't need to be technical. You won't write code, because the skill files already exist. You watch me do a step, then do the same step on your business. Stuck? Ask me live.</p></details></div>
 </section>
-
 <section class="close" data-job="Convert the scrolled reader with the same single action">
   <div class="wrap">
     <h2>Picture Friday, 13 November</h2>
     <p class="lede">It's the last day of the Sprint. Your offer's written, your page is live, and there are calls in your calendar you didn't chase.</p>
-    <div class="cta-block">
-      <a class="btn js-pay" href="#" data-label="Book my call, ₹999">Book my call, ₹999</a>
-      <p class="cta-note">45 minutes with me. The ₹999 comes off whichever program you join.</p>
-    </div>
+    <div class="act"><a class="btn js-pay" href="#">Book my call <span class="price">₹999</span></a><p class="note">45 minutes with me. The ₹999 comes off whichever program you join.</p></div>
   </div>
 </section>
 </main>
-
-<footer>
-  <div class="wrap">
-    <img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="125" height="18" />
-    <nav><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../refund.html">Refunds</a></nav>
-  </div>
-</footer>
-
+<footer><div class="wrap"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="125" height="18" /><nav><a href="../sprint/">The Sprint</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../refund.html">Refunds</a></nav></div></footer>
 <script>
-/* Razorpay INR 999 payment link. Empty = every CTA shows "Payment link pending" and
-   the Pages workflow refuses to deploy. Paste the link here, nowhere else. */
+document.documentElement.classList.add('js');
+window.aimlTrack = window.aimlTrack || function () {};
 const PAY_LINK = "https://rzp.io/rzp/aimarketinglab-call";
+document.querySelectorAll('.js-pay').forEach(function (b) {
+  b.href = PAY_LINK; b.rel = 'noopener';
+  b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); });
+});
+var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window);
+/* Arrival gate: arm only what is still below the fold, play it once when it arrives. No timers. */
+function arrive(el, fn, thr) {
+  if (!el || REDUCE) return false;
+  if (el.getBoundingClientRect().top < innerHeight * 0.85) return false; /* on screen at load: stays in its final state */
+  el.classList.add('armed');
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); el.classList.add('in'); if (fn) fn(); } });
+  }, { threshold: thr || 0.2 });
+  io.observe(el);
+  return true;
+}
+arrive(document.getElementById('wall'));
 
+/* VSL: adaptive HLS (1080p + 540p), 720p mp4 fallback. */
 (function () {
-  var btns = document.querySelectorAll('.js-pay');
-  btns.forEach(function (b) {
-    if (PAY_LINK) {
-      b.href = PAY_LINK;
-      b.rel = 'noopener';
-      b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); });
-    } else {
-      b.removeAttribute('href');
-      b.setAttribute('aria-disabled', 'true');
-      b.setAttribute('role', 'link');
-      b.classList.add('is-pending');
-      b.textContent = 'Payment link pending';
-    }
-  });
-
-  // Full quality: adaptive HLS (1080p when the connection allows), 720p mp4 stays as the fallback source.
-  (function () {
-    var v = document.getElementById('vsl'), HLS = 'vsl/hls/master.m3u8';
-    if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = HLS; return; }
+  var v = document.getElementById('vsl'), HLS = 'vsl/hls/master.m3u8';
+  if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = HLS; }
+  else {
     var s = document.createElement('script');
     s.src = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js';
-    s.onload = function () {
-      if (!window.Hls || !window.Hls.isSupported()) return;
-      var h = new window.Hls({ capLevelToPlayerSize: true, startLevel: -1 });
-      h.loadSource(HLS); h.attachMedia(v);
-    };
+    s.onload = function () { if (!window.Hls || !window.Hls.isSupported()) return;
+      var h = new window.Hls({ capLevelToPlayerSize: true, startLevel: -1 }); h.loadSource(HLS); h.attachMedia(v); };
     document.head.appendChild(s);
-  })();
-
-  // Video slot: show a visible marker when the VSL file is missing.
-  var player = document.getElementById('player');
-  var src = player.querySelector('source');
-  src.addEventListener('error', function () { player.classList.add('is-missing'); });
-
-  // Pixel: ViewContent once the viewer has played half the VSL.
-  var vsl = document.getElementById('vsl'), halfSent = false;
-  vsl.addEventListener('timeupdate', function () {
-    if (!halfSent && vsl.duration && vsl.currentTime / vsl.duration >= 0.5) {
-      halfSent = true;
-      aimlTrack('ViewContent', { content_name: 'AIML VSL 50%' });
-    }
+  }
+  var half = false;
+  v.addEventListener('timeupdate', function () {
+    if (!half && v.duration && v.currentTime / v.duration >= 0.5) { half = true; aimlTrack('ViewContent', { content_name: 'AIML VSL 50%' }); }
   });
+})();
+
+arrive(document.getElementById('months'));
+
+/* Mechanism: the draft is the persistent actor. It is carried to its calendar slot at matching
+   coordinates and becomes "Call N" there (cause, then effect). */
+(function () {
+  var demo = document.getElementById('demo'); if (!demo) return;
+  var typed = demo.querySelector('.typed'), caret = demo.querySelector('.caret'), full = typed.textContent;
+  var steps = [].slice.call(demo.querySelectorAll('.step'));
+  var drafts = [].slice.call(demo.querySelectorAll('.draft'));
+  function slotsNow() { return [].slice.call(demo.querySelectorAll('.slot[data-n]')).filter(function (s) { return s.offsetParent; }).sort(function (a, b) { return a.dataset.n - b.dataset.n; }); }
+  var allSlots = [].slice.call(demo.querySelectorAll('.slot[data-n]')), bks = [].slice.call(demo.querySelectorAll('.bk')), run = 0;
+  function count(n) { bks.forEach(function (b) { b.textContent = String(n); }); }
+  function wait(ms, id) { return new Promise(function (r) { setTimeout(function () { r(id === run); }, ms); }); }
+  function reset() {
+    demo.classList.add('armed');
+    steps.forEach(function (s) { s.classList.add('wait'); });
+    drafts.forEach(function (d) { d.classList.add('shell'); d.classList.remove('sent'); });
+    allSlots.forEach(function (s) { s.classList.add('pending'); s.classList.remove('land'); });
+    demo.querySelectorAll('.fly').forEach(function (f) { f.remove(); });
+    count(0); typed.textContent = '';
+  }
+  function carry(d, slot) {
+    var box = demo.getBoundingClientRect(), a = d.getBoundingClientRect(), b = slot.getBoundingClientRect();
+    var f = d.cloneNode(true); f.classList.add('fly'); f.classList.remove('step', 'wait', 'shell');
+    f.style.left = (a.left - box.left) + 'px'; f.style.top = (a.top - box.top) + 'px'; f.style.width = a.width + 'px';
+    demo.appendChild(f);
+    var s = b.width / a.width, dx = (b.left + b.width / 2) - (a.left + a.width / 2), dy = (b.top + b.height / 2) - (a.top + a.height / 2);
+    return f.animate([{ transform: 'none' }, { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + s + ')' }],
+      { duration: 700, easing: 'cubic-bezier(.7,0,.2,1)', fill: 'forwards' }).finished.then(function () { f.remove(); });
+  }
+  async function play() {
+    var id = ++run; reset(); caret.hidden = false;
+    for (var i = 0; i <= full.length; i += 6) { typed.textContent = full.slice(0, i); if (!(await wait(20, id))) return; }
+    typed.textContent = full; caret.hidden = true;
+    for (var k = 0; k < steps.length - 1; k++) {                   /* read line, then 3 draft shells */
+      if (!(await wait(k === 0 ? 250 : 220, id))) return; steps[k].classList.remove('wait');
+    }
+    for (var j = 0; j < drafts.length; j++) { if (!(await wait(260, id))) return; drafts[j].classList.remove('shell'); }
+    if (!(await wait(350, id))) return; steps[steps.length - 1].classList.remove('wait');
+    var slots = slotsNow();
+    for (var n = 0; n < drafts.length; n++) {
+      if (!(await wait(250, id))) return;
+      await carry(drafts[n], slots[n]); if (id !== run) return;
+      drafts[n].classList.add('sent'); slots[n].classList.remove('pending'); slots[n].classList.add('land');
+      count(n + 1);
+    }
+  }
+  if (arrive(demo, play, 0.3)) reset();
+  document.getElementById('replay').addEventListener('click', function () { if (!REDUCE) play(); });
 })();
 </script>
 </body>
