@@ -42,6 +42,7 @@ jobs:
           if grep -q 'const PAY_LINK = ""' call/index.html; then echo "BLOCKED: PAY_LINK is empty in call/index.html"; exit 1; fi
           if grep -q 'const META_PIXEL_ID = ""' assets/meta-pixel.js; then echo "BLOCKED: META_PIXEL_ID is empty in assets/meta-pixel.js"; exit 1; fi
           test -s call/vsl/aiml-vsl.mp4 || { echo "BLOCKED: call/vsl/aiml-vsl.mp4 missing"; exit 1; }
+          test -s call/vsl/hls/master.m3u8 || { echo "BLOCKED: call/vsl/hls/master.m3u8 missing"; exit 1; }
       - uses: actions/configure-pages@v5
       - name: Build public artifact
         shell: bash
@@ -80,6 +81,7 @@ jobs:
              assets/brand/maskable-512.png assets/brand/site.webmanifest _site/assets/brand/
           cp call/index.html call/booked.html call/poster.jpg _site/call/
           cp call/vsl/aiml-vsl.mp4 _site/call/vsl/
+          cp -R call/vsl/hls _site/call/vsl/
           touch _site/.nojekyll
           node --check _site/assets/analytics.js
           node --check _site/assets/meta-pixel.js

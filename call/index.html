@@ -236,8 +236,8 @@ footer nav a:hover{color:var(--ink)}
     <p class="callout">For agency owners, high-ticket coaches and B2B founders <em>who already have paying clients</em></p>
     <h1><span class="l">Full calendar when you chase.</span> <span class="l">Empty pipeline when you deliver.</span></h1>
 
-    <!-- VSL: call/vsl/aiml-vsl.mp4, made from the v3 master by call/vsl/prepare.sh (run on the Mini).
-         poster.jpg is the frame at 0:03 of the same master. -->
+    <!-- VSL v4 (8:35). Adaptive stream call/vsl/hls/master.m3u8 (1080p + 540p, from the 1080p master on the Mini);
+         Safari plays HLS natively, other browsers use hls.js; vsl/aiml-vsl.mp4 (720p) is the no-JS fallback. -->
     <div class="player" id="player">
       <video id="vsl" controls playsinline preload="metadata" poster="poster.jpg" controlslist="nodownload">
         <source src="vsl/aiml-vsl.mp4" type="video/mp4" />
@@ -523,6 +523,20 @@ const PAY_LINK = "https://rzp.io/rzp/aimarketinglab-call";
       b.textContent = 'Payment link pending';
     }
   });
+
+  // Full quality: adaptive HLS (1080p when the connection allows), 720p mp4 stays as the fallback source.
+  (function () {
+    var v = document.getElementById('vsl'), HLS = 'vsl/hls/master.m3u8';
+    if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = HLS; return; }
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js';
+    s.onload = function () {
+      if (!window.Hls || !window.Hls.isSupported()) return;
+      var h = new window.Hls({ capLevelToPlayerSize: true, startLevel: -1 });
+      h.loadSource(HLS); h.attachMedia(v);
+    };
+    document.head.appendChild(s);
+  })();
 
   // Video slot: show a visible marker when the VSL file is missing.
   var player = document.getElementById('player');
