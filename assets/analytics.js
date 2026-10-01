@@ -114,7 +114,7 @@
     var banner = document.createElement('aside');
     banner.className = 'aiml-consent';
     banner.setAttribute('aria-label', 'Analytics choice');
-    banner.innerHTML = '<p>We use optional analytics to improve this site and see which ads bring people who actually attend. <a href="/privacy.html">Privacy details</a>.</p><div class="aiml-consent__actions"><button class="aiml-consent__allow" type="button">Allow analytics</button><button class="aiml-consent__decline" type="button">Decline</button></div>';
+    banner.innerHTML = '<p>We use optional analytics to improve this site and see which ads bring people who actually attend. <a href="/privacy">Privacy details</a>.</p><div class="aiml-consent__actions"><button class="aiml-consent__allow" type="button">Allow analytics</button><button class="aiml-consent__decline" type="button">Decline</button></div>';
     document.body.appendChild(banner);
 
     // The banner is fixed to the bottom of the viewport, so on a short page it
