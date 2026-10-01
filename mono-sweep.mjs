@@ -1,57 +1,47 @@
-/* Rendered Space Mono sweep across every page, both viewports, pseudo-elements included.
+/* Rendered heading-font sweep on the funnel pages, both viewports.
  *
- * Exists because brand-guard.mjs is STRUCTURALLY BLIND to the defect it was built for. Its regex
- * matches a CSS block containing both var(--mono) and font-size. On 17 Sep 2026 vsl/watch.html:47
- * set .book{font-size:16px} while the FACE was declared in assets/aiml-funnel.css: two rules, two
- * files, so the guard printed "clean" and exited 0 over three rendered 16px nodes. Commit 8992100
- * had fixed the identical split on vsl/booked.html hours earlier and named the cause in its own
- * message. The "zero Space Mono above 14px" claim was made and was false three times in one day.
+ * RULE CHANGED 1 Oct 2026. The old gate failed any Space Mono above 14px. Sandy reversed that:
+ * headlines and the ICP callout ARE Space Mono 700 (company.yaml brand.display_font, his 12 Sep
+ * lock), and the live page shipped Inter 800 headings, which he called "not in the right font".
+ * So the gate now asserts the opposite direction: every h1, h2, h3 and .callout on the funnel
+ * pages renders in Space Mono at weight 700.
  *
- * A static scan cannot answer this question. Only computed style can. [data-fallback] wordmarks
- * are the one declared exception, and ::before/::after are swept explicitly because
- * querySelectorAll cannot select pseudo-elements, which hid five 19px markers earlier the same day.
+ * Only computed style can answer this (a static scan was blind to split rules, 17 Sep 2026).
+ * It also asserts the POPULATION: a page with zero headings found fails, so the gate can't pass
+ * by measuring nothing.
  *
- * Run: node mono-sweep.mjs   (exit 0 clean, 1 breach)
+ * Run: ROOT=$PWD node mono-sweep.mjs   (exit 0 clean, 1 breach)
  */
 import puppeteer from '/Users/sandy/HQ/System/tools/pdf-renderer/node_modules/puppeteer/lib/esm/puppeteer/puppeteer.js';
 import { globSync } from 'node:fs';
-const ROOT='/Users/sandy/HQ/Sandy/website/aimarketinglabs.in';
-const pages=globSync(`${ROOT}/**/*.html`,{exclude:p=>/node_modules|candidate|rebuild/.test(p)})
-  .filter(p=>!/node_modules|candidate|rebuild/.test(p));
-// Resolve Chrome the way render-gate does. A bare run used to inherit puppeteer's hardcoded
-// build number, which is not installed, so the sweep died on launch and exited 1 while the
-// hook (which sets CHROME_BIN) passed. A gate that fails for the wrong reason hides what it
-// was built to catch: this reported a brand breach when zero existed.
-const CHROME=process.env.CHROME_BIN
+const ROOT = process.env.ROOT || '/Users/sandy/HQ/Sandy/website/aimarketinglabs.in';
+const PAGES = ['call/index.html', 'sprint/index.html'];
+const MIN = { 'call/index.html': 8, 'sprint/index.html': 6 };   // h1+h2+h3+callout expected at least
+const CHROME = process.env.CHROME_BIN
   || globSync('/Users/sandy/.cache/puppeteer/chrome/mac_arm-*/chrome-mac-arm64/*.app/Contents/MacOS/*').sort().pop();
-if(!CHROME){console.error('no chrome build found under ~/.cache/puppeteer/chrome');process.exit(1);}
-const b=await puppeteer.launch({executablePath:CHROME,headless:'new',args:['--no-sandbox']});
-let total=0;
-for(const f of pages){
-  for(const vw of [1440,390]){
-    const p=await b.newPage(); await p.setCacheEnabled(false);
-    await p.setViewport({width:vw,height:900});
-    try{ await p.goto('file://'+f,{waitUntil:'domcontentloaded',timeout:30000}); }catch(e){ await p.close(); continue; }
-    await new Promise(r=>setTimeout(r,250));
-    const hits=await p.evaluate(()=>{
-      const out=[]; const isMono=s=>/space mono|courier|monospace/i.test(s);
-      const fb=e=>e.closest('[data-fallback]')!==null;
-      for(const el of document.querySelectorAll('body *')){
-        const cs=getComputedStyle(el);
-        if(isMono(cs.fontFamily)&&parseFloat(cs.fontSize)>14.001&&!fb(el))
-          out.push({sel:el.tagName+(el.id?'#'+el.id:'')+'.'+String(el.className||'').split(' ')[0],px:cs.fontSize,ps:''});
-        for(const ps of ['::before','::after']){
-          const s=getComputedStyle(el,ps);
-          if(!s.content||['none','""','normal'].includes(s.content))continue;
-          if(isMono(s.fontFamily)&&parseFloat(s.fontSize)>14.001&&!fb(el))
-            out.push({sel:el.tagName+'.'+String(el.className||'').split(' ')[0],px:s.fontSize,ps});
-        }}
-      return out;});
-    if(hits.length){ total+=hits.length;
-      console.log(`  BREACH ${f.replace(ROOT+'/','')} @${vw}: `+hits.map(h=>`${h.sel}${h.ps} ${h.px}`).join(' | ')); }
+if (!CHROME) { console.error('no chrome build found under ~/.cache/puppeteer/chrome'); process.exit(1); }
+const b = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox'] });
+let bad = 0;
+for (const f of PAGES) {
+  for (const vw of [1440, 390]) {
+    const p = await b.newPage(); await p.setCacheEnabled(false);
+    await p.setViewport({ width: vw, height: 900 });
+    await p.goto(`file://${ROOT}/${f}`, { waitUntil: 'load', timeout: 30000 });
+    await p.evaluate(() => document.fonts.ready);
+    const r = await p.evaluate(() => {
+      const els = [...document.querySelectorAll('h1,h2,h3,.callout')];
+      const miss = els.filter(e => {
+        const cs = getComputedStyle(e);
+        return !/^"?space mono/i.test(cs.fontFamily) || cs.fontWeight !== '700' ||
+          !document.fonts.check(`700 16px "Space Mono"`);
+      }).map(e => `${e.tagName}.${e.className} "${e.textContent.trim().slice(0, 30)}" ${getComputedStyle(e).fontFamily.split(',')[0]} ${getComputedStyle(e).fontWeight}`);
+      return { n: els.length, miss };
+    });
+    const pop = r.n >= MIN[f];
+    if (!pop || r.miss.length) { bad++; console.log(`  BREACH ${f} @${vw}: found ${r.n} (min ${MIN[f]}) ${r.miss.join(' | ')}`); }
+    else console.log(`  ok ${f} @${vw}: ${r.n} of ${r.n} headings in Space Mono 700`);
     await p.close();
   }
 }
-console.log(`\npages swept: ${pages.length}  x2 viewports  |  Space Mono above 14px: ${total}`);
 await b.close();
-process.exit(total?1:0);
+process.exit(bad ? 1 : 0);

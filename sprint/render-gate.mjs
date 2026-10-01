@@ -217,7 +217,8 @@ const r = await run('file://' + target, 'sprint');
 for (const [w, m] of Object.entries(r)) {
   if (m.overflowX) fail('G2', `horizontal overflow at ${w}px`);
   if (m.broken.length) fail('G3', `${m.broken.length} broken image(s) at ${w}px: ${m.broken.join(', ')}`);
-  if (m.mono.length) fail('G4', `Space Mono above 14px at ${w}px: ` + m.mono.map(x => `${x.sel}${x.ps === 'element' ? '' : x.ps} ${x.px}`).join(' | '));
+  /* G4 RETIRED 1 Oct 2026: Sandy reversed the 'Space Mono never above 14px' ban (headlines ARE Space Mono 700,
+     company.yaml brand.display_font). The inverse assertion lives in mono-sweep.mjs. */
   if (m.prematurelyFinished.length) fail('G5', `animation already finished below the fold at ${w}px: ${m.prematurelyFinished.join(', ')}`);
   if (m.banned.length) fail('G6', `rejected construct present at ${w}px: ` + m.banned.map(x => `${x.sel} x${x.n} (${x.why})`).join(' | '));
   const tall = m.sections.filter(s => s.h > 2000);
