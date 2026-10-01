@@ -1,6 +1,7 @@
 /* static: S2's final frame (the map half out of its sleeve) returns, with one labelled pin */
 /* room above the sleeve for the pin label, which sits clear of the map's own pins */
 #s10 .sheet{position:relative;margin-top:var(--s7);width:calc(var(--s10) * 2 + var(--s6))}
+@media (min-width:768px){#s10 .sheet{margin-inline:auto}}
 @media (min-width:1024px){#s10 .sheet{width:calc(var(--s10) * 2 + var(--s8))}}
 #s10 .sheet img{width:100%;height:auto}
 /* tip of the sleeve's own teal pin: 84.25/330, 35.5/420 */

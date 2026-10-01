@@ -27,9 +27,9 @@
 #s3 .s3-board{display:grid;grid-template-columns:minmax(0,1fr);row-gap:var(--s4)}
 #s3 .s3-zone{position:relative;padding:var(--s4) var(--s3) var(--s5);background:var(--canvas);border:1px solid var(--line);border-radius:var(--r);
   background-image:radial-gradient(var(--line) 1px,transparent 1.5px);background-size:var(--s5) var(--s5);
-  box-shadow:0 var(--s2) 0 var(--elevated),0 var(--s2) 0 1px var(--line);
-  transform:perspective(1800px) rotateX(5deg);transform-origin:50% 100%}
-@media (min-width:1024px){#s3 .s3-zone{transform:perspective(1800px) rotateX(9deg)}}
+  transform-origin:50% 100%}
+/* tabletop tilt + slab only side by side; stacked tall zones tilted into ghost edges at 390 */
+@media (min-width:1024px){#s3 .s3-zone{box-shadow:0 var(--s2) 0 var(--elevated),0 var(--s2) 0 1px var(--line);transform:perspective(1800px) rotateX(9deg)}}
 #s3 .s3-zl{color:var(--ink);font-size:var(--fs-sm);text-align:center;margin-bottom:var(--s3)}
 #s3 .s3-sts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4) var(--s3)}
 @media (min-width:600px){#s3 .s3-sts{grid-template-columns:repeat(3,minmax(0,1fr))}}

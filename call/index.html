@@ -175,7 +175,7 @@ html.js body[data-state="b"] #qualify{display:none}
 .fld{display:grid;gap:var(--s1)}
 .fld input{min-height:48px;padding:0 var(--s4);border:1px solid var(--line);border-radius:var(--r-sm);font:inherit;font-size:var(--fs-body);background:var(--canvas);color:var(--ink)}
 .fld input:focus{outline:none;border-color:var(--ink)}
-.fld input[aria-invalid="true"]{border-color:var(--urgent)}
+.fld input[aria-invalid="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)} /* 2px ink stroke, no layout shift; red is urgency only */
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .err{font-size:var(--fs-sm);color:var(--ink)}
 .btn-full{width:100%}
@@ -260,7 +260,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
             <label class="fld"><span class="label">WhatsApp</span><input name="ph" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+91" /></label>
             <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
             <p class="err" id="qerr" role="alert" hidden></p>
-            <button class="btn btn-full" type="submit">Watch the video</button>
+            <button class="btn btn-full" type="submit">Watch the 8-minute training</button>
             <p class="note">I'll send the video and call details by email and WhatsApp.</p>
             <p class="note fine">Used only to send you the training and call details. <a href="../privacy">Privacy</a></p>
           </fieldset>
@@ -480,12 +480,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
       </ul>
     </div>
     <div class="c-6-12">
-      <div class="viz s2b-viz" role="img" aria-label="A terminal runs ls skills/ and prints 13 skill pack folders. They drop into a filing drawer as folders with tabs; the Install Kit and Offer Forge are pulled out at the front, tagged Yours after the call.">
-        <div class="s2b-term" aria-hidden="true">
-          <div class="s2b-bar"><i></i><i></i><i></i></div>
-          <p class="s2b-cmd"><span class="s2b-ps">~ %</span> <span class="s2b-ty">ls skills/</span></p>
-          <ol class="s2b-ls"><li style="--i:0">install-kit/</li><li style="--i:1">offer-forge/</li><li style="--i:2">hot-pipeline-kit/</li><li style="--i:3">copy-engine-room/</li><li style="--i:4">page-and-vsl-factory/</li><li style="--i:5">ad-creative-studio/</li><li style="--i:6">paid-media-cockpit/</li><li style="--i:7">content-flywheel/</li><li style="--i:8">reel-and-video-edit-suite/</li><li style="--i:9">numbers-room/</li><li style="--i:10">follow-up-and-close-kit/</li><li style="--i:11">client-delivery-desk/</li><li style="--i:12">ai-shortlist-engine/</li></ol>
-        </div>
+      <div class="viz s2b-viz" role="img" aria-label="13 skill pack folders drop into a filing drawer; the Install Kit and Offer Forge are pulled out at the front, tagged Yours after the call.">
         <div class="s2b-cab" aria-hidden="true">
           <div class="s2b-stk"><div class="s2b-f" style="--k:0"><span class="s2b-tab s2b-p0">hot-pipeline-kit/</span></div><div class="s2b-f" style="--k:1"><span class="s2b-tab s2b-p1">copy-engine-room/</span></div><div class="s2b-f" style="--k:2"><span class="s2b-tab s2b-p2">page-and-vsl-factory/</span></div><div class="s2b-f" style="--k:3"><span class="s2b-tab s2b-p0">ad-creative-studio/</span></div><div class="s2b-f" style="--k:4"><span class="s2b-tab s2b-p1">paid-media-cockpit/</span></div><div class="s2b-f" style="--k:5"><span class="s2b-tab s2b-p2">content-flywheel/</span></div><div class="s2b-f" style="--k:6"><span class="s2b-tab s2b-p0">reel-and-video-edit-suite/</span></div><div class="s2b-f" style="--k:7"><span class="s2b-tab s2b-p1">numbers-room/</span></div><div class="s2b-f" style="--k:8"><span class="s2b-tab s2b-p2">follow-up-and-close-kit/</span></div><div class="s2b-f" style="--k:9"><span class="s2b-tab s2b-p0">client-delivery-desk/</span></div><div class="s2b-f" style="--k:10"><span class="s2b-tab s2b-p1">ai-shortlist-engine/</span></div><div class="s2b-lip"><i></i></div></div>
           <div class="s2b-out"><div class="s2b-po s2b-po0"><span class="s2b-tab">install-kit/</span><div class="s2b-pb"><b class="s2b-pn">00</b><b class="s2b-pt">The Install Kit</b><span class="s2b-ink">Yours after the call</span></div></div><div class="s2b-po s2b-po1"><span class="s2b-tab">offer-forge/</span><div class="s2b-pb"><b class="s2b-pn">01</b><b class="s2b-pt">Offer Forge</b><span class="s2b-ink">Yours after the call</span></div></div></div>

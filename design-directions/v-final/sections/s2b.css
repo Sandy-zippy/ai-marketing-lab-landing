@@ -1,4 +1,4 @@
-/* S2b bonuses: H + sub + who-gets-what key left, terminal + filing drawer right, 13-row folder index below.
+/* S2b bonuses: H + sub + who-gets-what key left, filing drawer right (each pack name shown once), 13-row folder index below.
    Default styles = the FINISHED frame. .armed (JS, motion allowed) holds the start frame until .go. */
 #s2b{--tab:calc(var(--s5) + var(--s1));--lip:var(--s7)}
 @media (min-width:1024px){#s2b .grid{align-items:start}}
@@ -15,16 +15,6 @@
 /* viz */
 #s2b .s2b-viz{display:grid;gap:var(--s5);padding:var(--s4)}
 @media (min-width:768px){#s2b .s2b-viz{padding:var(--s6)}}
-
-/* terminal (light: no dark AIML surface) */
-#s2b .s2b-term{background:var(--canvas);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-#s2b .s2b-bar{display:flex;gap:var(--s2);padding:var(--s3) var(--s4);border-bottom:1px solid var(--line)}
-#s2b .s2b-bar i{width:var(--s3);height:var(--s3);border-radius:50%;background:var(--line)}
-#s2b .s2b-cmd,#s2b .s2b-ls{font-family:var(--mono);font-size:var(--fs-sm);line-height:1.6;color:var(--ink)}
-#s2b .s2b-cmd{padding:var(--s4) var(--s4) var(--s2)}
-#s2b .s2b-ps{color:var(--quiet)}
-#s2b .s2b-ty{display:inline-block;white-space:nowrap}
-#s2b .s2b-ls{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(28ch,1fr));column-gap:var(--s5);padding:0 var(--s4) var(--s4)}
 
 /* drawer: 11 folders standing in a tilted drawer, tabs staggered, slightly fanned */
 #s2b .s2b-cab{perspective:1200px}
@@ -83,18 +73,14 @@
   #s2b .s2b-tgs{justify-content:flex-end}
 }
 
-/* motion: one viz timeline (about 5.9 s, paused until in view), each index row slides out of its tab as it enters view */
-#s2b.armed .s2b-ty{animation:s2b-type 600ms steps(10,end) 200ms both}
-#s2b.armed .s2b-ls li{animation:s2b-print 120ms linear both;animation-delay:calc(900ms + var(--i) * 110ms)}
-#s2b.armed .s2b-lip{animation:s2b-lip 500ms var(--ease) 2300ms both}
-#s2b.armed .s2b-f{animation:s2b-drop 600ms var(--ease) both;animation-delay:calc(2500ms + var(--k) * 110ms)}
-#s2b.armed .s2b-po1{animation:s2b-pull 900ms var(--ease) 4300ms both}
-#s2b.armed .s2b-po0{animation:s2b-pull 900ms var(--ease) 4550ms both}
-#s2b.armed .s2b-po1 .s2b-ink{animation:s2b-stamp 400ms var(--ease) 5200ms both}
-#s2b.armed .s2b-po0 .s2b-ink{animation:s2b-stamp 400ms var(--ease) 5450ms both}
+/* motion: one viz timeline (about 3.9 s, paused until in view), each index row slides out of its tab as it enters view */
+#s2b.armed .s2b-lip{animation:s2b-lip 500ms var(--ease) 200ms both}
+#s2b.armed .s2b-f{animation:s2b-drop 600ms var(--ease) both;animation-delay:calc(400ms + var(--k) * 110ms)}
+#s2b.armed .s2b-po1{animation:s2b-pull 900ms var(--ease) 2200ms both}
+#s2b.armed .s2b-po0{animation:s2b-pull 900ms var(--ease) 2450ms both}
+#s2b.armed .s2b-po1 .s2b-ink{animation:s2b-stamp 400ms var(--ease) 3100ms both}
+#s2b.armed .s2b-po0 .s2b-ink{animation:s2b-stamp 400ms var(--ease) 3350ms both}
 #s2b.armed:not(.go) .s2b-viz *,#s2b.paused .s2b-viz *{animation-play-state:paused!important}
-@keyframes s2b-type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
-@keyframes s2b-print{from{opacity:0;transform:translateX(calc(var(--s2) * -1))}}
 @keyframes s2b-lip{from{opacity:0;transform:translateY(var(--s4))}}
 @keyframes s2b-drop{from{opacity:0;transform:translateY(calc(var(--s7) * -1))}}
 @keyframes s2b-pull{0%{opacity:0;transform:translateY(calc(var(--lip) * -1.6))}25%{opacity:1;transform:translateY(calc(var(--lip) * -1.6))}}

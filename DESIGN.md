@@ -35,20 +35,16 @@ Colour strategy: **Restrained**. That is a deliberate choice, not timidity. The 
 ## Typography
 
 ```css
---mono: 'Space Mono', 'Courier New', monospace   /* LABELS ONLY, never above 14px */
+--mono: 'Space Mono', 'Courier New', monospace   /* headlines (700), ICP callout, labels, buttons */
 --sans: 'Inter', -apple-system, sans-serif       /* body */
 ```
 
-**Headlines are Inter 700.** CORRECTED 17 Sep 2026. The previous line here read "Headlines are
-Space Mono 700" and was wrong: it was taken from Remy's DECLARED `--font-display` token in his
-`:root`, never from a rendered heading. Measured in a browser on aiwithremy.com: his h1 is
-PP Neue Bit 600/64px/-1.28px, his h2 is Inter 700/28px, and Space Mono never exceeds 14px
-anywhere on his site. Ours were Space Mono at 56 to 66px across 12 pages and Sandy's word for
-the result was "immature".
+**Headlines are Space Mono 700**, and so is the ICP callout above the H1. Sandy's ruling, 1 Oct
+2026, which reverses the 17 Sep "Inter 700 headlines" correction that stood here. The 14px
+ceiling on Space Mono is dead: `brand-guard.mjs` dropped it in ef42d1e.
 
-Space Mono is for labels, eyebrows, meta, form labels and buttons, and is capped at 14px.
-`brand-guard.mjs` fails the build above that, with `[data-fallback]` wordmarks as the one
-declared exception. Self-hosted woff2 in `assets/fonts/`, both OFL.
+Space Mono also carries labels, eyebrows, meta, form labels and buttons. Inter is body only.
+Self-hosted woff2 in `assets/fonts/`, both OFL.
 
 PP Neue Bit appears in Remy's own rules. We have no licence. Never substitute a rip-site copy.
 
