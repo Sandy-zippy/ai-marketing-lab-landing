@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Busy one month. Nothing booked the next. | AI Marketing Lab</title>
+<meta name="description" content="For marketing agency owners, high-ticket coaches and B2B service businesses who already have paying clients. Watch the video, then book a 45 minute call with Sandy." />
+<meta name="robots" content="noindex" />
+<link rel="icon" href="../../../assets/brand/favicon.svg" type="image/svg+xml" />
+<meta name="theme-color" content="#FFFFFF" />
+<link rel="preload" href="../../../assets/fonts/spacemono-700-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<!--
+  Direction B, "product film" (1 Oct 2026). Claude Code is the product on screen: every section is the
+  system doing the work, words only label it. Patterns ported to vanilla from 21st.dev:
+  Terminal (id 28360), Animated Beam (id 919), Feature Comparison Table (id 21218).
+  Motion budget: VSL (tap only), terminal typing, pipeline fill, calendar calls landing, guarantee loop.
+  All motion off under prefers-reduced-motion; without JS every visual shows its finished state.
+-->
+<style>
+@font-face{font-family:'Inter';src:url('../../../assets/fonts/inter-latin.woff2') format('woff2');font-weight:400 900;font-display:swap}
+@font-face{font-family:'Space Mono';src:url('../../../assets/fonts/spacemono-400-latin.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Space Mono';src:url('../../../assets/fonts/spacemono-700-latin.woff2') format('woff2');font-weight:700;font-display:swap}
+:root{
+  --canvas:#FFFFFF;--ink:#121212;--body:#3A3A3A;--mid:#6B6B6B;--line:#E3E3E3;--soft:#F4F4F2;
+  --accent:#00A19B;--accent-ink:#00736E;--accent-wash:#E3F4F3;
+  --term:#141414;--term-line:#2A2A2A;--term-dim:#8A8A8A;--term-txt:#EDEDED;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'Space Mono','Courier New',monospace;
+  --fs-display:clamp(34px,4vw,52px);--fs-h2:clamp(28px,3.6vw,44px);--fs-callout:clamp(17px,1.5vw,20px);
+  --fs-lg:18px;--fs-body:16px;--fs-sm:14px;--fs-label:12px;
+  --s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:72px;--s9:120px;
+  --gutter:16px;--max:1180px;--ease:cubic-bezier(.22,1,.36,1);
+}
+@media (min-width:768px){:root{--gutter:40px}}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);font-size:var(--fs-body);line-height:1.6;color:var(--ink);background:var(--canvas);-webkit-font-smoothing:antialiased}
+main{overflow-x:clip}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
+h1,h2,h3,.callout,.mono{font-family:var(--mono);font-weight:700;letter-spacing:-.02em}
+h1{font-size:var(--fs-display);line-height:1.04;text-wrap:balance}
+h2{font-size:var(--fs-h2);line-height:1.1;text-wrap:balance;max-width:18ch}
+h3{font-size:20px;line-height:1.3}
+.kicker{font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:var(--s3)}
+.sub{font-size:var(--fs-lg);color:var(--body);max-width:44ch;margin-top:var(--s4)}
+.note{font-size:var(--fs-sm);color:var(--mid)}
+section{padding-block:var(--s8)}
+@media (min-width:980px){section{padding-block:var(--s9)}}
+.head{margin-bottom:var(--s7)}
+.head.center{text-align:center}.head.center h2,.head.center .sub{margin-inline:auto}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;padding-block:var(--s4)}
+.top img{height:20px;width:auto}
+.top .mini{font-weight:700;font-size:var(--fs-sm);text-decoration:none;border:1px solid var(--ink);border-radius:10px;padding:8px 14px;display:inline-flex;gap:8px;align-items:center;transition:background .2s var(--ease),color .2s var(--ease)}
+.top .mini:hover{background:var(--ink);color:#fff}
+
+/* button */
+.btn{font-weight:700;font-size:var(--fs-lg);display:inline-flex;align-items:center;justify-content:center;gap:var(--s3);min-height:58px;padding:var(--s4) var(--s6);border-radius:12px;background:var(--ink);color:#fff;text-decoration:none;width:100%;max-width:380px;cursor:pointer;transition:transform .16s var(--ease),box-shadow .2s var(--ease)}
+.price{font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;background:var(--accent);color:#fff;border-radius:6px;padding:2px 8px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 32px -16px rgba(18,18,18,.6)}
+.btn:focus-visible,.top .mini:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.btn.nudge{animation:nudge 1.2s var(--ease) 2}
+@keyframes nudge{40%{transform:scale(1.05)}}
+
+/* hero */
+.hero{padding-block:var(--s5) var(--s8)}
+.hero-grid{display:grid;gap:var(--s6);align-items:center}
+@media (min-width:980px){.hero-grid{grid-template-columns:1fr 1fr;gap:var(--s7)}}
+.callout{font-size:var(--fs-callout);line-height:1.4;margin-bottom:var(--s4)}
+.callout em{font-style:normal;color:var(--accent-ink)}
+.hero .sub{margin-bottom:var(--s5)}
+.act{display:grid;gap:var(--s2)}
+@media (max-width:979px){.hero .act{justify-items:center;text-align:center}.hero-copy{text-align:center}.hero .sub{margin-inline:auto}}
+.player{position:relative;border-radius:16px;overflow:hidden;background:var(--ink);aspect-ratio:16/9;box-shadow:0 40px 80px -40px rgba(18,18,18,.55),0 0 0 1px rgba(18,18,18,.06)}
+.player video{width:100%;height:100%;object-fit:cover}
+.play{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(0deg,rgba(18,18,18,.55),transparent 55%);border:0;cursor:pointer;color:#fff}
+.play i{width:76px;height:76px;border-radius:50%;background:var(--accent);display:grid;place-items:center;transition:transform .2s var(--ease)}
+.play:hover i{transform:scale(1.06)}
+.play i svg{width:28px;margin-left:4px}
+.play b{position:absolute;left:16px;bottom:16px;font-size:var(--fs-sm);background:rgba(18,18,18,.7);border-radius:8px;padding:6px 10px}
+.vtap{position:absolute;inset:0;background:transparent;border:0;cursor:pointer}
+.vprog{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.18)}
+.vprog i{display:block;height:100%;background:var(--accent);transform:scaleX(0);transform-origin:left}
+
+/* authority */
+.auth{padding-block:0 var(--s7)}
+.auth ul{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s4) var(--s6);border-top:1px solid var(--line);padding-top:var(--s5)}
+.auth li{display:flex;align-items:baseline;gap:10px;font-size:var(--fs-sm);color:var(--mid)}
+.auth b{font-family:var(--mono);font-size:22px;color:var(--ink)}
+.auth li:first-child b{color:var(--accent-ink)}
+
+/* month vs month */
+.months{display:grid;gap:var(--s5)}
+@media (min-width:900px){.months{grid-template-columns:1fr 1fr}}
+.month{border:1px solid var(--line);border-radius:16px;padding:var(--s5);background:#fff}
+.month.after{border-color:var(--accent);box-shadow:0 30px 60px -40px rgba(0,161,155,.5)}
+.mtop{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:var(--s4);gap:var(--s3)}
+.mtop span{font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal b{font-family:var(--mono);font-size:10px;color:var(--mid);text-align:center;padding-bottom:4px;font-weight:400}
+.cal i{display:block;aspect-ratio:1.25;border-radius:6px;background:var(--soft);position:relative}
+.cal i.w{background:#E6E6E3}
+.cal i.c{background:var(--accent)}
+.cal i.c::after{content:'';position:absolute;inset:0;margin:auto;width:40%;height:40%;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L19 7'/%3E%3C/svg%3E")}
+.legend{display:flex;gap:var(--s4);margin-top:var(--s4);font-size:var(--fs-sm);color:var(--mid)}
+.legend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;background:#E6E6E3;margin-right:6px;vertical-align:-1px}
+.legend span.k::before{background:var(--accent)}
+.mcap{margin-top:var(--s4);font-weight:600}
+
+/* terminal */
+.tgrid{display:grid;gap:var(--s5)}
+@media (min-width:980px){.tgrid{grid-template-columns:.8fr 1.2fr;align-items:stretch}}
+.skill{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:var(--fs-label);color:var(--mid)}
+.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:#D9D9D6}
+.skill pre{font-family:var(--mono);font-size:13px;line-height:1.75;padding:var(--s5);white-space:pre-wrap;color:var(--body)}
+.skill pre .h{color:var(--ink);font-weight:700}.skill pre .a{color:var(--accent-ink)}
+.term{background:var(--term);border-radius:16px;overflow:hidden;color:var(--term-txt);box-shadow:0 40px 80px -40px rgba(18,18,18,.6);display:flex;flex-direction:column}
+.term .bar{border-color:var(--term-line);color:var(--term-dim)}
+.term .dots i{background:#3A3A3A}
+.tbody{font-family:var(--mono);font-size:14px;line-height:1.9;padding:var(--s5);flex:1}
+.prompt{color:#fff}.prompt::before{content:'> ';color:var(--accent)}
+.caret{display:inline-block;width:8px;height:1.1em;background:var(--accent);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.out{list-style:none;margin-top:var(--s3)}
+.out li{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:baseline;color:var(--term-txt)}
+.out li::before{content:'\2713';color:var(--accent);font-weight:700}
+.out li em{font-style:normal;color:var(--term-dim);font-size:12px}
+.out li.done{color:#fff;font-weight:700}
+@media (max-width:599px){.out li{grid-template-columns:22px 1fr;line-height:1.5;margin-bottom:8px}.out li em{grid-column:2}}
+.out li.done::before{content:'\25CF'}
+.tfoot{font-size:var(--fs-sm);margin-top:var(--s5);color:var(--body)}
+
+/* pipeline */
+.pipe{position:relative;list-style:none;display:grid;gap:0}
+.pipe li{position:relative;display:grid;grid-template-columns:44px 1fr;gap:var(--s4);padding-bottom:var(--s5)}
+.node{width:44px;height:44px;border-radius:50%;border:2px solid var(--ink);background:#fff;display:grid;place-items:center;position:relative;z-index:1;transition:background .3s var(--ease),border-color .3s var(--ease)}
+.node svg{width:20px;height:20px}
+.pipe li.on .node{background:var(--accent);border-color:var(--accent);color:#fff}
+.pipe .rail{position:absolute;left:21px;top:22px;bottom:44px;width:2px;background:var(--line)}
+.pipe .rail i{display:block;width:100%;height:100%;background:var(--accent);transform-origin:top;transform:scaleY(var(--p,1))}
+.pipe h3{font-size:17px;line-height:1.2;margin-top:10px}
+.chip{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:12px;background:var(--accent-wash);color:var(--accent-ink);border-radius:6px;padding:3px 8px}
+.stage{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+@media (min-width:980px){
+  .pipe{grid-template-columns:repeat(8,1fr);gap:var(--s3)}
+  .pipe li{grid-template-columns:1fr;justify-items:center;text-align:center;padding:0}
+  .pipe .rail{left:6%;right:6%;top:21px;bottom:auto;width:auto;height:2px}
+  .pipe .rail i{transform-origin:left;transform:scaleX(var(--p,1))}
+  .pipe h3{margin-top:var(--s3)}
+}
+.zones{display:none}
+@media (min-width:980px){.zones{display:grid;grid-template-columns:6fr 2fr;gap:var(--s3);margin-bottom:var(--s5)}
+.zones span{font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.1em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--line);padding-bottom:8px}}
+
+/* proof */
+.proof{display:grid;gap:var(--s5)}
+@media (min-width:900px){.proof{grid-template-columns:1fr 1fr}}
+.res{border:1px solid var(--line);border-radius:16px;padding:var(--s5)}
+.who{display:flex;gap:10px;align-items:baseline;margin-bottom:var(--s4)}
+.who b{font-family:var(--mono)}.who span{font-size:var(--fs-sm);color:var(--mid)}
+.cbar{display:grid;grid-template-columns:52px 1fr 52px;gap:var(--s3);align-items:center;font-size:var(--fs-sm);color:var(--mid);margin-bottom:var(--s2)}
+.cbar i{display:block;height:12px;border-radius:6px;background:var(--ink);width:var(--w)}
+.cbar.after i{background:var(--accent)}
+.cbar em{font-style:normal;font-family:var(--mono);font-weight:700;color:var(--ink);text-align:right}
+.big{font-family:var(--mono);font-weight:700;font-size:44px;line-height:1;margin-bottom:var(--s3)}
+.res p:last-child{color:var(--body);font-size:15px;margin-top:var(--s3)}
+.mails{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;padding:var(--s5) 0 var(--s2);margin-top:var(--s5)}
+.mails figure{flex:0 0 min(78%,420px);scroll-snap-align:start;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.mails figcaption{font-size:var(--fs-sm);color:var(--mid);padding:10px 14px;border-top:1px solid var(--line)}
+
+/* programs */
+.cmp{width:100%;border-collapse:separate;border-spacing:0;font-size:15px}
+.cmp th,.cmp td{text-align:left;vertical-align:top;padding:14px 16px;border-bottom:1px solid var(--line)}
+.cmp thead th{border:0;padding-bottom:var(--s4)}
+.cmp thead h3{font-size:22px}
+.cmp thead .tag{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:12px;border-radius:6px;padding:3px 8px;border:1px solid var(--line)}
+.cmp thead .tag.hot{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cmp tbody th{font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.08em;text-transform:uppercase;color:var(--mid);font-weight:400;width:22%}
+.cmp td b{display:block}
+.cmp td>span{display:block;color:var(--mid);font-size:var(--fs-sm)}
+.cmp .s{background:var(--accent-wash)}
+.cmp thead .s{border-radius:14px 14px 0 0}
+.cmp tfoot td{border:0;padding-top:var(--s5)}
+.cmp tfoot .s{border-radius:0 0 14px 14px;padding-bottom:var(--s5)}
+@media (max-width:767px){
+  .cmp,.cmp tbody,.cmp tr,.cmp td,.cmp th{display:block;width:100%}
+  .cmp thead{display:none}
+  .cmp tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:0 var(--s3);padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+  .cmp tbody th{grid-column:1/-1;padding:0 0 6px;border:0}
+  .cmp td{padding:0;border:0;font-size:14px}
+  .cmp td::before{content:attr(data-p);display:block;font-family:var(--mono);font-size:11px;color:var(--accent-ink);font-weight:700}
+  .cmp tbody .s{background:none}
+  .cmp tfoot,.cmp tfoot tr{display:grid;gap:var(--s3)}
+  .cmp tfoot th,.cmp tfoot td:last-child{display:none}
+  .cmp tfoot .s{background:none;padding:0}
+}
+.cmp-note{margin-top:var(--s5);text-align:center}
+
+/* guarantee */
+.g{display:grid;gap:var(--s6);align-items:center}
+@media (min-width:900px){.g{grid-template-columns:1fr 1fr}}
+.g video{border-radius:16px;width:100%;aspect-ratio:720/804;object-fit:cover;background:var(--ink)}
+.g .lead{font-size:20px;font-weight:600;margin:var(--s4) 0}
+.conds{list-style:none;display:grid;gap:var(--s3)}
+.conds li{display:grid;grid-template-columns:28px 1fr;gap:var(--s3);color:var(--body)}
+.conds li span{font-family:var(--mono);font-weight:700;color:var(--accent-ink)}
+
+/* faq + final */
+.faq{max-width:760px}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:var(--s5) 0;font-weight:600;font-size:17px;display:flex;justify-content:space-between;gap:var(--s4)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'+';font-family:var(--mono);color:var(--accent-ink)}
+details[open] summary::after{content:'\2212'}
+details p{padding-bottom:var(--s5);color:var(--body);max-width:60ch}
+.final{text-align:center;border-top:1px solid var(--line)}
+.final h2{margin:0 auto var(--s5)}
+.final .act{justify-items:center}
+footer{border-top:1px solid var(--line);padding-block:var(--s6)}
+.frow{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s4);align-items:center}
+.frow nav{display:flex;flex-wrap:wrap;gap:var(--s4);font-size:var(--fs-sm)}
+.frow nav a{color:var(--mid);text-decoration:none}
+.legal{font-size:12px;color:var(--mid);margin-top:var(--s4);max-width:80ch}
+
+/* pipeline gauge under each month */
+.gauge{margin-top:var(--s4)}
+.gauge p{display:flex;justify-content:space-between;font-size:var(--fs-sm);color:var(--mid);margin-bottom:6px}
+.gauge p b{font-family:var(--mono);color:var(--ink)}
+.gauge div{height:10px;border-radius:5px;background:var(--soft);overflow:hidden}
+.gauge i{display:block;height:100%;width:100%;background:var(--ink);transform-origin:left;transform:scaleX(var(--g,1));transition:transform 3.2s cubic-bezier(.4,0,.2,1)}
+.after .gauge i{background:var(--accent)}
+
+/* program timeline */
+.tl{border:1px solid var(--line);border-radius:16px;padding:var(--s5);margin-bottom:var(--s7);background:#fff}
+.tl-axis,.tl-row{display:grid;grid-template-columns:110px repeat(8,1fr);gap:4px;align-items:center}
+.tl-axis span{font-family:var(--mono);font-size:11px;color:var(--mid);text-align:center}
+.tl-row{margin-top:var(--s3)}
+.tl-row>b{font-family:var(--mono);font-size:13px}
+.seg{height:44px;border-radius:8px;display:flex;align-items:center;padding:0 10px;font-size:12px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;transform-origin:left}
+.seg.k{background:var(--accent)}.seg.d{background:var(--ink)}.seg.l{background:#5A5A5A}
+.tl-note{display:flex;flex-wrap:wrap;gap:var(--s4) var(--s6);margin-top:var(--s4);font-size:var(--fs-sm);color:var(--mid)}
+@media (max-width:767px){.tl-axis,.tl-row{grid-template-columns:64px repeat(8,1fr)}.seg{font-size:0;padding:0}.tl-row>b{font-size:10px}.tl-axis,.tl-row{grid-template-columns:72px repeat(8,1fr)}}
+@media (min-width:768px) and (max-width:979px){.seg{white-space:normal;font-size:10px;line-height:1.15;padding:0 4px}.tl-axis,.tl-row{grid-template-columns:90px repeat(8,1fr)}}
+
+/* guarantee dial */
+.dial{width:100%;max-width:440px;margin:0 auto;aspect-ratio:1;position:relative}
+.dial svg{width:100%;height:100%;transform:rotate(-90deg)}
+.dial .tk{stroke:#CFCFCB}
+.dial .arc{stroke:var(--accent);stroke-dasharray:100 100;stroke-dashoffset:var(--o,0)}
+.dial-c{position:absolute;inset:0;display:grid;place-items:center;text-align:center;align-content:center;gap:4px}
+.dial-c b{font-family:var(--mono);font-size:clamp(56px,9vw,96px);line-height:1}
+.dial-c span{font-family:var(--mono);font-size:var(--fs-sm);color:var(--mid);letter-spacing:.08em;text-transform:uppercase}
+.stamp{margin-top:10px;font-family:var(--mono);font-weight:700;font-size:15px;background:var(--ink);color:#fff;border-radius:8px;padding:6px 12px;display:inline-flex;gap:6px;align-items:center}
+.stamp::before{content:'\2713';color:var(--accent)}
+
+/* motion: only with JS and without reduced motion; default state is the finished picture */
+.anim .cal i[data-d]{opacity:0}
+.anim .run .cal i[data-d]{animation:land .45s var(--ease) forwards;animation-delay:calc(var(--d) * 1ms)}
+.anim .mails figure{opacity:0;transform:translateX(60px)}
+.anim .run .mails figure{animation:slide .6s var(--ease) forwards;animation-delay:calc(var(--d) * 1ms)}
+@keyframes slide{to{opacity:1;transform:none}}
+.anim .cbar.after i{transition:width 1.6s var(--ease) .4s}
+.anim .tl .seg{transform:scaleX(0)}
+.anim .run .tl .seg{animation:grow .7s var(--ease) forwards;animation-delay:calc(var(--d) * 1ms)}
+@keyframes grow{to{transform:scaleX(1)}}
+.anim .stamp{opacity:0;transform:scale(1.5)}
+.anim .stamp.on{animation:land .5s var(--ease) forwards}
+@keyframes land{0%{transform:scale(1.6);opacity:0}60%{opacity:1}100%{transform:scale(1);opacity:1}}
+</style>
+</head>
+<body>
+<div class="wrap"><header class="top"><img src="../../../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" /><a class="mini js-pay" href="#">Book my call <span class="price">₹999</span></a></header></div>
+<main>
+
+<section class="hero" data-job="Name the buyer, say their month, play the VSL, offer the call from the first second">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="callout">For marketing agency owners, high-ticket coaches and B2B service businesses <em>who already have paying clients</em></p>
+      <h1>Busy one month. Nothing booked the next.</h1>
+      <p class="sub">Claude Code now runs the list, the messages and the follow-ups. Watch it work.</p>
+      <div class="act"><a class="btn js-pay" id="hero-cta" href="#">Book my call <span class="price">₹999</span></a><p class="note">45 minutes with Sandy. The ₹999 comes off whichever program you join.</p></div>
+    </div>
+    <div class="player" id="player">
+      <video id="vsl" playsinline preload="none" poster="../../../call/poster.jpg" controlslist="nodownload noplaybackrate" disablepictureinpicture controls><source src="../../../call/vsl/aiml-vsl.mp4" type="video/mp4" /></video>
+      <button class="vtap" type="button" id="vtap" aria-label="Pause or play the video" hidden></button>
+      <button class="play" type="button" id="play" aria-label="Play the video with sound" hidden><i><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></i><b id="play-l">Watch with sound · 8:35</b></button>
+      <div class="vprog" aria-hidden="true"><i id="vbar"></i></div>
+    </div>
+  </div>
+</section>
+
+<section class="auth" aria-label="Businesses we helped scale">
+  <div class="wrap"><ul>
+    <li><b>100+</b>businesses helped scale since 2017</li>
+    <li><b>$220k</b>first 6 months in India</li>
+    <li><b>10+</b>clients closed at ₹1.5L to ₹2L</li>
+    <li><b>$100k+</b>for a design agency in 3 months</li>
+  </ul></div>
+</section>
+
+<section data-job="Their month, then the same month with Claude Code chasing" id="months">
+  <div class="wrap">
+    <div class="head"><p class="kicker">Your month</p><h2>Same client work. Different calendar.</h2></div>
+    <div class="months">
+      <div class="month"><div class="mtop"><h3>Now</h3><span>You do the chasing</span></div><div class="cal" id="cal-a"></div><div class="gauge"><p><span>Pipeline</span><b id="ga-l">full</b></p><div><i id="ga"></i></div></div><p class="mcap">Delivery fills the month. The pipeline drains to empty.</p></div>
+      <div class="month after"><div class="mtop"><h3>With Claude Code</h3><span>It does the chasing</span></div><div class="cal" id="cal-b"></div><div class="gauge"><p><span>Pipeline</span><b>topped up daily</b></p><div><i></i></div></div><p class="mcap">Same delivery. The follow-ups never stop, so calls keep landing.</p></div>
+    </div>
+    <div class="legend"><span>Client work</span><span class="k">Sales call booked</span></div>
+  </div>
+</section>
+
+<section data-job="Show the mechanism: one skill file, Claude Code runs it" id="run" style="background:var(--soft)">
+  <div class="wrap">
+    <div class="head"><p class="kicker">The mechanism</p><h2>You write it once. Claude Code runs it daily.</h2></div>
+    <div class="tgrid">
+      <div class="skill"><div class="bar"><span class="dots"><i></i><i></i><i></i></span>skills/outreach.md</div>
+<pre><span class="h"># Outreach</span>
+Who: <span class="a">agency owners, Toronto, run paid ads</span>
+1. Build the list from public sites
+2. Read each site, write one first message
+3. Follow up day 3 and day 7, no reply
+4. "Interested" → send the booking link
+5. Log every reply in the sheet</pre></div>
+      <div class="term" aria-label="Claude Code running the outreach skill"><div class="bar"><span class="dots"><i></i><i></i><i></i></span>claude code</div>
+        <div class="tbody"><p class="prompt"><span id="cmd">run outreach.md for 200 agency owners in Toronto</span><span class="caret" id="caret"></span></p>
+          <ol class="out" id="out">
+            <li>List built<em>200 found</em></li>
+            <li>Sites read<em>200 of 200</em></li>
+            <li>First messages written<em>200, each one different</em></li>
+            <li>Follow-ups queued<em>day 3, day 7</em></li>
+            <li>Replies sorted<em>"interested" → booking link</em></li>
+            <li class="done">Sales call booked<em>Thu 11:00</em></li>
+          </ol>
+        </div></div>
+    </div>
+  </div>
+</section>
+
+<section data-job="The whole system upstream to downstream, running step by step" id="pipeline">
+  <div class="wrap">
+    <div class="head"><p class="kicker">The whole system</p><h2>From finding clients to keeping them.</h2></div>
+    <div class="zones"><span>Getting clients in</span><span>After the yes</span></div>
+    <ol class="pipe" id="pipe">
+      <span class="rail" aria-hidden="true"><i id="rail"></i></span>
+      <li><span class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span><div><p class="stage">01</p><h3>Leads</h3><span class="chip">200 found</span></div></li>
+      <li><span class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H5l-1 4z"/></svg></span><div><p class="stage">02</p><h3>Outreach</h3><span class="chip">200 sent</span></div></li>
+      <li><span class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><div><p class="stage">03</p><h3>Content</h3><span class="chip">posts drafted</span></div></li>
+      <li><span class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 15l5-5 4 4 3-3 6 6"/></svg></span><div><p class="stage">04</p><h3>Ads</h3><span class="chip">40 creatives</span></div></li>
+      <li><span class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12a8 8 0 0 1 14-5l2-2v6h-6l2-2a5 5 0 1 0 1 6"/></svg></span><div><p class="stage">05</p><h3>Follow-up</h3><span class="chip">day 3, day 7</span></div></li>
+      <li><span class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M9 15l2 2 4-4"/></svg></span><div><p class="stage">06</p><h3>Booked call</h3><span class="chip">reminders sent</span></div></li>
+      <li><span class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L19 7"/></svg></span><div><p class="stage">07</p><h3>Delivery</h3><span class="chip">onboarding done</span></div></li>
+      <li><span class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><div><p class="stage">08</p><h3>Report</h3><span class="chip">sent Sunday</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="proof" data-job="Proof on named clients, then the real payment emails" style="background:var(--soft)">
+  <div class="wrap">
+    <div class="head"><p class="kicker">Done for clients first</p><h2>Built on real businesses.</h2></div>
+    <div class="proof">
+      <article class="res"><p class="who"><b>Sami</b><span>High-ticket coach, Vancouver</span></p>
+        <div class="cbar"><span>Before</span><i style="--w:100%"></i><em>$250</em></div>
+        <div class="cbar after"><span>After</span><i id="cb" style="--w:28%"></i><em id="cbn">$70</em></div>
+        <p>Cost per booked sales call after we rebuilt his ads and funnel. He then scaled from $2,000 to about $30,000 a month in ads.</p></article>
+      <article class="res"><p class="who"><b>Medico</b><span>Medical construction</span></p>
+        <p class="big">~$6M</p>
+        <p>Contracted work traced to one system over 2 years: an AI call that phones, qualifies and books every enquiry.</p></article>
+    </div>
+    <div class="mails" aria-label="Real payment emails, personal names hidden">
+      <figure style="--d:0"><img src="../../../assets/proof/redacted/deck-1.png" width="937" height="380" loading="eager" alt="Wise notification: you received 10,000 CAD from Medico Construction Design LTD" /><figcaption>CA$10,000, Medico, via Wise</figcaption></figure>
+      <figure style="--d:250"><img src="../../../assets/proof/redacted/deck-2.png" width="937" height="380" loading="eager" alt="PayPal notification: a $5,000.00 CAD payment for invoice 0316, personal name hidden" /><figcaption>CA$5,000, Riarh Group, via PayPal</figcaption></figure>
+      <figure style="--d:500"><img src="../../../assets/proof/redacted/deck-4.png" width="937" height="380" loading="eager" alt="Payment received: CA$4,000.00 against Scale Your Results, personal name hidden" /><figcaption>CA$4,000, Scale Your Results</figcaption></figure>
+      <figure style="--d:750"><img src="../../../assets/proof/redacted/deck-5.png" width="937" height="380" loading="eager" alt="Payment received: CA$2,500.00 against the Prepare Medical invoice, personal name hidden" /><figcaption>CA$2,500, Prepare Medical</figcaption></figure>
+    </div>
+    <p class="note">Real payment emails, Canada and the US. Personal names hidden.</p>
+  </div>
+</section>
+
+<section id="programs" class="progs" data-job="Sprint vs Accelerator as one crisp comparison so the call decides between two known options">
+  <div class="wrap">
+    <div class="head center"><p class="kicker">Two ways to build it</p><h2>Build it yourself, or with me.</h2></div>
+    <div class="tl" aria-label="Timeline: the Sprint runs 3 weeks, the Accelerator 8 weeks">
+      <div class="tl-axis"><span></span><span>Wk 1</span><span>Wk 2</span><span>Wk 3</span><span>Wk 4</span><span>Wk 5</span><span>Wk 6</span><span>Wk 7</span><span>Wk 8</span></div>
+      <div class="tl-row"><b>Sprint</b><span class="seg k" style="--d:0">Build</span><span class="seg k" style="--d:350">Get clients</span><span class="seg k" style="--d:700">After yes</span></div>
+      <div class="tl-row"><b>Accelerator</b><span class="seg d" style="--d:1100">Teardown</span><span class="seg d" style="grid-column:span 3;--d:1450">Getting clients in</span><span class="seg l" style="grid-column:span 4;--d:1800">After the yes: follow-up, sales call, delivery</span></div>
+      <div class="tl-note"><span><b style="color:var(--accent-ink)">Sprint:</b> 21 days, group, you build it live</span><span><b style="color:var(--ink)">Accelerator:</b> 8 weeks, one to one, I build it with you</span></div>
+    </div>
+    <table class="cmp">
+      <thead><tr><th></th><th class="s"><h3>21 Day Sprint</h3><span class="tag hot">Starts Mon 26 Oct</span></th><th><h3>Accelerator</h3><span class="tag">10 seats</span></th></tr></thead>
+      <tbody>
+        <tr><th>Who builds</th><td class="s" data-p="Sprint"><b>You, live with me</b></td><td data-p="Accelerator"><b>Me, with you</b></td></tr>
+        <tr><th>Format</th><td class="s" data-p="Sprint"><b>Group, live online</b><span>15 weekday sessions, 7 to 8:30 pm IST</span></td><td data-p="Accelerator"><b>One to one</b><span>8 weeks, rolling start</span></td></tr>
+        <tr><th>Week 1</th><td class="s" data-p="Sprint"><b>Build what you sell</b><span>Offer, lead magnet, page, video, booking backend</span></td><td data-p="Accelerator"><b>Business teardown</b><span>Where clients come from and leak out</span></td></tr>
+        <tr><th>Week 2</th><td class="s" data-p="Sprint"><b>Get clients in</b><span>Email, LinkedIn, content or ads. First 100 messages out</span></td><td data-p="Accelerator"><b>Weeks 1 to 4: getting clients in</b><span>Outreach, content and ads installed</span></td></tr>
+        <tr><th>Week 3</th><td class="s" data-p="Sprint"><b>After the yes</b><span>Replies, follow-ups, sales call. Demo day Fri 13 Nov</span></td><td data-p="Accelerator"><b>Weeks 5 to 8: after the yes</b><span>Follow-up, sales call, delivery, repeat buying</span></td></tr>
+        <tr><th>You keep</th><td class="s" data-p="Sprint"><b>The system, running</b><span>Every skill file</span></td><td data-p="Accelerator"><b>The system, running</b><span>Design, outbound, ads, automation, content files</span></td></tr>
+      </tbody>
+      <tfoot><tr><th></th><td class="s"><a class="btn js-pay" href="#">Book my call <span class="price">₹999</span></a></td><td><a class="btn js-pay" href="#">Book my call <span class="price">₹999</span></a></td></tr></tfoot>
+    </table>
+    <p class="note cmp-note">Fees are on the call. The ₹999 comes off either one.</p>
+  </div>
+</section>
+
+<section id="guar" data-job="Remove the fear at the ask: the guarantee with its conditions" style="background:var(--soft)">
+  <div class="wrap g">
+    <div class="dial" id="dial" role="img" aria-label="A 90 day dial running down to your first client">
+      <svg viewBox="0 0 200 200"><g id="ticks"></g><circle class="arc" cx="100" cy="100" r="80" fill="none" stroke-width="10" stroke-linecap="round" pathLength="100" id="arc"/></svg>
+      <div class="dial-c"><span>Day</span><b id="day">90</b><span>of 90</span><p class="stamp on" id="stamp">First client</p></div>
+    </div>
+    <div><p class="kicker">First Client guarantee</p><h2>No client in 90 days? Fee back.</h2>
+      <p class="lead">Do the work. If you haven't closed a client in 90 days, you get your program fee back.</p>
+      <ul class="conds">
+        <li><span>01</span>Show up to 12 of the 15 sessions, live or on the recording within 48 hours.</li>
+        <li><span>02</span>After launch day, send 100 messages every weekday for 30 days.</li>
+        <li><span>03</span>Log them in the sheet we give you.</li>
+      </ul>
+      <p class="note" style="margin-top:var(--s4)">Sprint conditions shown. The Accelerator's are covered on the call. <a href="../../../refund">Refund terms</a>.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap faq"><div class="head"><h2>Before you book</h2></div>
+    <details><summary>Why ₹999 for the call?</summary><p>Sandy takes every call himself. The fee keeps the calendar for serious owners, and it comes off your program.</p></details>
+    <details><summary>What happens on the call?</summary><p>45 minutes, not a sales team. You map where your clients come from, where they leak out and what to build first. You keep the map.</p></details>
+    <details><summary>Is this for me?</summary><p>It's for a business with an offer people already pay for. If you're after your first project, it's too early.</p></details>
+    <details><summary>I'm not technical. Will I keep up?</summary><p>You won't write code. The skill files already exist. You watch a step, then run it on your business.</p></details>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap"><h2>Watched it? Book your call.</h2><div class="act"><a class="btn js-pay" href="#">Book my call <span class="price">₹999</span></a><p class="note">The ₹999 comes off your program.</p></div></div>
+</section>
+</main>
+<footer><div class="wrap">
+  <div class="frow"><img src="../../../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="125" height="18" /><nav><a href="../../../sprint/">The Sprint</a><a href="../../../contact">Contact</a><a href="../../../privacy">Privacy</a><a href="../../../terms">Terms</a><a href="../../../refund">Refunds</a></nav></div>
+  <p class="legal">AI Marketing Lab is a brand of ZippyScale. Results vary and depend on the work you put in; the figures above are past client results, not a promise. This site isn't part of Facebook or Meta Platforms, Inc., and isn't endorsed by Meta.</p>
+</div></footer>
+<script>
+document.documentElement.classList.add('js');
+window.aimlTrack = window.aimlTrack || function () {};
+var PAY_LINK = 'https://rzp.io/rzp/aimarketinglab-call';
+document.querySelectorAll('.js-pay').forEach(function (b) {
+  b.href = PAY_LINK; b.rel = 'noopener';
+  b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); });
+});
+var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window);
+if (!REDUCE) document.documentElement.classList.add('anim');
+function onSee(el, fn, th) {
+  if (REDUCE) return fn(true);
+  var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); fn(false); } }, { threshold: th || 0.35 });
+  io.observe(el);
+}
+
+/* Month calendars: grey client work, teal booked calls. "After" calls land one by one. */
+(function () {
+  var days = 'MTWTFSS'.split(''), WORK = [0,1,2,3,4,7,8,9,10,11,14,15,16,17,18,21,22,23,24,25,28,29];
+  function build(id, calls) {
+    var c = document.getElementById(id), h = '';
+    days.forEach(function (d) { h += '<b>' + d + '</b>'; });
+    for (var i = 0; i < 35; i++) {
+      var k = calls.indexOf(i), cls = k > -1 ? 'c' : (WORK.indexOf(i) > -1 ? 'w' : '');
+      var w = WORK.indexOf(i), d = cls === 'w' ? w * 70 : cls === 'c' ? 600 + k * 170 : -1;
+      h += '<i class="' + cls + '"' + (d > -1 ? ' data-d style="--d:' + d + '"' : '') + '></i>';
+    }
+    c.innerHTML = h;
+  }
+  build('cal-a', [9, 18, 24]);
+  build('cal-b', [1, 3, 8, 9, 11, 15, 16, 18, 22, 24, 25, 29]);   /* ponytail: illustrative month, no count claimed */
+  var ga = document.getElementById('ga'), gl = document.getElementById('ga-l');
+  onSee(document.getElementById('months'), function (still) {
+    document.getElementById('months').classList.add('run');
+    if (still) { ga.style.setProperty('--g', .04); gl.textContent = 'empty'; return; }
+    requestAnimationFrame(function () { ga.style.setProperty('--g', .04); });
+    setTimeout(function () { gl.textContent = 'empty by week 5'; }, 3200);
+  });
+})();
+
+/* Terminal: types the command, then each line ticks in. Reduced motion or no JS: finished state. */
+(function () {
+  var cmd = document.getElementById('cmd'), lines = document.querySelectorAll('#out li'), caret = document.getElementById('caret');
+  if (REDUCE) { caret.style.animation = 'none'; return; }
+  var full = cmd.textContent; cmd.textContent = '';
+  lines.forEach(function (l) { l.style.visibility = 'hidden'; });
+  onSee(document.getElementById('run'), function () {
+    var i = 0;
+    (function type() {
+      cmd.textContent = full.slice(0, ++i);
+      if (i < full.length) return setTimeout(type, 28);
+      lines.forEach(function (l, k) { setTimeout(function () { l.style.visibility = 'visible'; }, 500 + k * 650); });
+    })();
+  });
+})();
+
+/* Pipeline: the rail fills and each step switches on in order, then loops slowly. */
+(function () {
+  var items = document.querySelectorAll('#pipe li'), rail = document.getElementById('rail'), n = items.length;
+  function set(k) {
+    items.forEach(function (li, j) { li.classList.toggle('on', j <= k); });
+    rail.style.setProperty('--p', n > 1 ? Math.max(0, k) / (n - 1) : 1);
+  }
+  if (REDUCE) return set(n - 1);
+  set(-1);
+  rail.style.transition = 'transform .7s cubic-bezier(.22,1,.36,1)';
+  onSee(document.getElementById('pipeline'), function () {
+    var k = -1;
+    (function step() {
+      if (++k >= n) { setTimeout(function () { k = -1; set(-1); setTimeout(step, 900); }, 3500); return; }
+      set(k); setTimeout(step, 800);
+    })();
+  }, 0.3);
+})();
+
+/* Proof: emails slide in, the cost bar drops $250 to $70 while the number counts down. */
+(function () {
+  var sec = document.getElementById('proof'), cb = document.getElementById('cb'), n = document.getElementById('cbn');
+  if (!REDUCE) cb.style.width = '100%';
+  onSee(sec, function (still) {
+    sec.classList.add('run'); if (still) return;
+    cb.style.width = '28%';
+    var t0 = performance.now() + 400;
+    (function tick(t) { var p = Math.min(1, Math.max(0, (t - t0) / 1600)); n.textContent = '$' + Math.round(250 - 180 * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); })(t0);
+  });
+})();
+
+/* Programs timeline builds week by week. */
+onSee(document.getElementById('programs'), function () { document.getElementById('programs').classList.add('run'); });
+
+/* Guarantee dial: tick marks, then the arc runs day 0 to 90 and lands on "First client". */
+(function () {
+  var g = document.getElementById('ticks'), arc = document.getElementById('arc'), day = document.getElementById('day'), st = document.getElementById('stamp'), h = '';
+  for (var i = 0; i < 90; i++) { var a = i / 90 * 2 * Math.PI, r1 = i % 15 ? 93 : 89; h += '<line class="tk" x1="' + (100 + r1 * Math.cos(a)).toFixed(1) + '" y1="' + (100 + r1 * Math.sin(a)).toFixed(1) + '" x2="' + (100 + 97 * Math.cos(a)).toFixed(1) + '" y2="' + (100 + 97 * Math.sin(a)).toFixed(1) + '" stroke-width="' + (i % 15 ? 1 : 2) + '"/>'; }
+  g.innerHTML = h;
+  if (REDUCE) return;
+  arc.style.setProperty('--o', 100); day.textContent = '0'; st.classList.remove('on');
+  onSee(document.getElementById('guar'), function () {
+    (function run() {
+      var t0 = performance.now(), D = 4200;
+      st.classList.remove('on');
+      (function f(t) {
+        var p = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - p, 2);
+        arc.style.setProperty('--o', (100 - 100 * e).toFixed(2)); day.textContent = Math.round(90 * e);
+        if (p < 1) return requestAnimationFrame(f);
+        st.classList.add('on'); setTimeout(function () { arc.style.setProperty('--o', 100); day.textContent = '0'; setTimeout(run, 600); }, 3800);
+      })(t0);
+    })();
+  }, 0.4);
+})();
+
+/* Smart VSL player (same as live /call): nothing loads until tap, no seeking ahead, resume, CTA nudge at the pitch. */
+(function () {
+  var v = document.getElementById('vsl'), HLS = '../../../call/vsl/hls/master.m3u8';
+  var play = document.getElementById('play'), playL = document.getElementById('play-l'), tap = document.getElementById('vtap');
+  var bar = document.getElementById('vbar'), cta = document.getElementById('hero-cta');
+  var KT = 'aiml_vsl_t', PITCH = 475, saved = 0, live = false, max = 0, half = false, nudged = false;
+  function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function put(k, val) { try { localStorage.setItem(k, val); } catch (e) {} }
+  saved = parseFloat(get(KT)) || 0;
+  v.controls = false; play.hidden = false;
+  if (saved > 10) playL.textContent = 'Continue where you left off';
+  function load(cb) {
+    if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = HLS; return cb(); }
+    var s = document.createElement('script');
+    s.src = '../../../assets/vendor/hls.light.min.js';
+    s.onload = function () {
+      if (window.Hls && window.Hls.isSupported()) { var h = new window.Hls({ capLevelToPlayerSize: true }); h.loadSource(HLS); h.attachMedia(v); }
+      else { v.src = '../../../call/vsl/aiml-vsl.mp4'; }
+      cb();
+    };
+    s.onerror = function () { v.src = '../../../call/vsl/aiml-vsl.mp4'; cb(); };
+    document.head.appendChild(s);
+  }
+  play.addEventListener('click', function () {
+    play.hidden = true; tap.hidden = false; live = true;
+    load(function () {
+      var start = saved > 10 ? saved : 0; max = start;
+      if (start) v.addEventListener('loadedmetadata', function () { v.currentTime = start; }, { once: true });
+      v.play().catch(function () {});
+    });
+  });
+  tap.addEventListener('click', function () { if (v.paused) v.play(); else v.pause(); });
+  v.addEventListener('seeking', function () { if (live && v.currentTime > max + 1) v.currentTime = max; });
+  v.addEventListener('timeupdate', function () {
+    var t = v.currentTime, d = v.duration || 0;
+    if (!d || !live) return;
+    bar.style.transform = 'scaleX(' + (1 - Math.pow(1 - t / d, 2.5)).toFixed(4) + ')';
+    if (!v.seeking && t > max) max = t;
+    if (Math.floor(t) % 2 === 0) put(KT, String(Math.floor(t)));
+    if (!nudged && t >= PITCH) { nudged = true; cta.classList.add('nudge'); }
+    if (!half && t / d >= 0.5) { half = true; aimlTrack('ViewContent', { content_name: 'AIML VSL 50%' }); }
+  });
+  v.addEventListener('ended', function () { put(KT, '0'); });
+})();
+</script>
+</body>
+</html>
