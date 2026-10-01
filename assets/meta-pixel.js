@@ -11,5 +11,29 @@ if (META_PIXEL_ID) {
   document,'script','https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', META_PIXEL_ID);
   fbq('track', 'PageView');
-  window.aimlTrack = function (ev, params) { fbq('track', ev, params); };
+  window.aimlTrack = function (ev, params, opts) { fbq('track', ev, params, opts); };
 }
+
+/* Ad attribution. The click lands on /call or /sprint with utm_* and fbclid; Razorpay then sends
+   the buyer to booked.html with none of it. Keep the last paid touch in localStorage so the
+   Purchase event and the Cal.com booking can say which ad (utm_content = ad id) drove them. */
+window.aimlAttr = function () {
+  var a = {};
+  try { a = JSON.parse(localStorage.getItem('aiml_attr') || '{}'); } catch (e) {}
+  ['_fbp', '_fbc'].forEach(function (k) {
+    var m = document.cookie.match(new RegExp('(?:^|; )' + k + '=([^;]+)'));
+    if (m) a[k.slice(1)] = m[1];
+  });
+  return a;
+};
+try {
+  var q = new URLSearchParams(location.search), hit = {};
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id', 'fbclid'].forEach(function (k) {
+    if (q.get(k)) hit[k] = q.get(k);
+  });
+  if (Object.keys(hit).length) {
+    hit.landed = new Date().toISOString();
+    hit.page = location.pathname;
+    localStorage.setItem('aiml_attr', JSON.stringify(hit));
+  }
+} catch (e) {}

@@ -74,8 +74,15 @@ footer a{color:inherit;text-decoration:none}
 <script>
 /* Arriving here means Razorpay took the ₹999, so Purchase fires on load (PageView comes from
    meta-pixel.js). Schedule fires only when Cal.com confirms a booking. */
-try { if (!sessionStorage.getItem('aiml_paid')) { aimlTrack('Purchase', { value: 999, currency: 'INR' }); sessionStorage.setItem('aiml_paid', '1'); } }
-catch (e) { aimlTrack('Purchase', { value: 999, currency: 'INR' }); }
+/* event_id: Razorpay's payment id when its redirect carries one, so the server-side CAPI Purchase
+   (n8n, keyed on the same payment id) deduplicates with this one. Fallback: a random id. */
+var attr = aimlAttr();
+var pid = new URLSearchParams(location.search).get('razorpay_payment_id') || '';
+var evKey = pid || ('web_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8));
+var pdata = { value: 999, currency: 'INR', content_name: 'AIML 45 min call' };
+['utm_source', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id'].forEach(function (k) { if (attr[k]) pdata[k] = attr[k]; });
+try { if (!sessionStorage.getItem('aiml_paid')) { aimlTrack('Purchase', pdata, { eventID: 'purchase_' + evKey }); sessionStorage.setItem('aiml_paid', '1'); } }
+catch (e) { aimlTrack('Purchase', pdata, { eventID: 'purchase_' + evKey }); }
 
 /* Cal.com embed loader, same pattern as vsl/watch.html. */
 var CAL_ORIGIN = 'https://cal.com', CAL_LINK = 'sandy-kadyan/ai-growth-audit';
@@ -90,7 +97,12 @@ var CAL_ORIGIN = 'https://cal.com', CAL_LINK = 'sandy-kadyan/ai-growth-audit';
     p(cal,ar);};
 })(window,'https://app.cal.com/embed/embed.js','init');
 Cal('init', { origin: CAL_ORIGIN });
-Cal('inline', { elementOrSelector: '#calwrap', calLink: CAL_LINK });
+/* Cal.com stores metadata[...] params on the booking, so every call records the ad that drove it. */
+var calConfig = {};
+['utm_source', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id', 'fbclid', 'fbc', 'fbp'].forEach(function (k) { if (attr[k]) calConfig['metadata[' + k + ']'] = attr[k]; });
+if (pid) calConfig['metadata[razorpay_payment_id]'] = pid;
+calConfig['metadata[event_key]'] = evKey;
+Cal('inline', { elementOrSelector: '#calwrap', calLink: CAL_LINK, config: calConfig });
 Cal('ui', { styles: { branding: { brandColor: '#00A19B' } }, hideEventTypeDetails: false, layout: 'month_view' });
 
 var scheduled = false;
@@ -98,7 +110,7 @@ function onBooked() {
   if (scheduled) return; scheduled = true;
   document.body.classList.add('booked');
   window.scrollTo(0, 0);
-  aimlTrack('Schedule', { value: 999, currency: 'INR' });
+  aimlTrack('Schedule', pdata, { eventID: 'schedule_' + evKey });
 }
 Cal('on', { action: 'bookingSuccessful', callback: onBooked });
 Cal('on', { action: 'bookingSuccessfulV2', callback: onBooked });
