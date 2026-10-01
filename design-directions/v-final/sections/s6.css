@@ -1,0 +1,79 @@
+/* S6 Proof: three cutaways (Built / Made / Paid us trays), the sieve, a quiet client wall. Finished frame is the default; .arm is the pre-play state. */
+#s6 .cuts{display:grid;gap:var(--s5)}
+#s6 .cut{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s3);padding:var(--s3);align-items:start}
+#s6 .cut-n{grid-column:1/-1;padding:var(--s2) var(--s2) 0}
+#s6 .tray{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2);padding:var(--s4);background:var(--canvas);border:1px solid var(--line);border-radius:var(--r-sm);min-width:0}
+#s6 .v{font-size:var(--fs-body);color:var(--body)}
+
+/* the S3 station that did the work, awake */
+#s6 .stns{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s2)}
+#s6 .stn{display:flex;flex-direction:column;align-items:center;width:var(--s9)}
+#s6 .stn svg{width:100%;height:auto;overflow:visible;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+#s6 .stn span{font-size:var(--fs-sm);font-weight:600;line-height:1.25;text-align:center;color:var(--accent-ink);transition:color 600ms var(--ease) 200ms}
+#s6 .stn .pl-l{fill:var(--elevated);stroke:var(--line)}
+#s6 .stn .pl-r{fill:var(--line);stroke:var(--line)}
+#s6 .stn .pl-t{fill:var(--accent-soft);stroke:var(--accent)}
+#s6 .stn .k,#s6 .stn .f,#s6 .stn .w{stroke:var(--accent-ink)}
+#s6 .stn .k{fill:none}
+#s6 .stn .f{fill:var(--accent-soft)}
+#s6 .stn .w{fill:var(--canvas)}
+#s6 .stn .s{fill:var(--accent);stroke:none}
+#s6 .stn .t,#s6 .stn .ln{stroke:var(--accent);fill:none}
+#s6 .stn .ln{stroke-width:3}
+#s6 .stn *{transition:fill 600ms var(--ease) 200ms,stroke 600ms var(--ease) 200ms}
+
+/* money: one volume per case on one scale; Paid us is the light block nested at its start */
+#s6 .t-money{align-items:stretch}
+#s6 .bar{--d:8px;position:relative;height:calc(var(--s7) - var(--s2));margin:var(--s2) var(--d) var(--s2) 0}
+#s6 .slab{position:absolute;left:0;bottom:0;height:calc(100% - var(--d));width:max(4px,calc(100% * var(--w)));background:var(--ink);transform-origin:0 50%;
+  transition:transform 1200ms var(--ease) calc(300ms + var(--i) * 600ms)}
+#s6 .slab::before{content:"";position:absolute;left:0;bottom:100%;width:100%;height:var(--d);background:var(--quiet);transform:skewX(-45deg);transform-origin:0 100%}
+#s6 .slab::after{content:"";position:absolute;left:100%;top:0;width:var(--d);height:100%;background:var(--body);transform:skewY(-45deg);transform-origin:0 0}
+#s6 .slab.paid{background:var(--low);transition-delay:calc(1500ms + var(--i) * 300ms);transition-duration:800ms}
+#s6 .slab.paid::before{background:var(--line)}
+#s6 .slab.paid::after{background:var(--quiet)}
+#s6 .amt{font-family:var(--mono);font-weight:700;font-size:var(--fs-body);line-height:var(--lh-head);letter-spacing:-.01em;transition:opacity 600ms var(--ease) calc(700ms + var(--i) * 600ms)}
+#s6 .paid-l{display:flex;align-items:baseline;gap:var(--s3);padding-left:var(--s3);border-left:2px solid var(--low)}
+#s6 .pa{--i:2;color:var(--body)}
+
+/* pre-play */
+#s6 .cut.arm *{transition:none}
+#s6 .cut.arm .slab{transform:scaleX(0)}
+#s6 .cut.arm .amt{opacity:0}
+#s6 .cut.arm .stn span{color:var(--quiet)}
+#s6 .cut.arm .stn .pl-t{fill:var(--canvas);stroke:var(--line)}
+#s6 .cut.arm .stn .k,#s6 .cut.arm .stn .f,#s6 .cut.arm .stn .w,#s6 .cut.arm .stn .t,#s6 .cut.arm .stn .ln{stroke:var(--low)}
+#s6 .cut.arm .stn .f{fill:var(--elevated)}
+#s6 .cut.arm .stn .s{fill:var(--low)}
+
+/* sieve */
+#s6 .sieve{padding:var(--s5)}
+#s6 .sv{width:100%;margin-top:var(--s4);overflow:visible}
+#s6 .sv text{font-family:var(--mono);font-size:var(--fs-sm);fill:var(--ink)}
+#s6 .sv [data-b]{font-weight:700;font-size:var(--fs-lg)}
+#s6 .sv [data-b="acc"]{fill:var(--accent-ink)}
+#s6 .sv text{transition:opacity 600ms var(--ease)}
+#s6 .sv .mesh{stroke:var(--quiet);stroke-width:2;stroke-dasharray:2 5}
+#s6 .sv .g{fill:var(--ink);transition:fill 900ms var(--ease)}
+#s6 .sv .g.off{fill:var(--low)}
+#s6 .sv .m{fill:var(--ink)}
+#s6 .sv .w{fill:var(--accent)}
+
+/* client wall: names only, plain Inter, ink so they read */
+#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s3) var(--s6);padding-top:var(--s5);border-top:1px solid var(--line);color:var(--ink);font-size:var(--fs-body)}
+
+/* Sami's testimonial: 9:16, click to play, beside Scale Your Results on desktop, under it on mobile */
+#s6 .vid{width:min(100%,calc(var(--s10) * 2 + var(--s5) + var(--s2)))}
+#s6 .vid-box{aspect-ratio:9/16;border-radius:var(--r);overflow:hidden;background:var(--ink);border:1px solid var(--line)}
+#s6 .vid-box video{width:100%;height:100%;object-fit:cover}
+#s6 .vid .note{margin-top:var(--s2)}
+
+@media (min-width:768px){
+  #s6 .cut{grid-template-columns:3fr 7fr;padding:var(--s4)}
+  #s6 .amt{font-size:var(--fs-lg)}
+}
+@media (min-width:1024px){
+  #s6 .cuts{grid-template-columns:minmax(0,1fr) auto;align-items:start}
+  #s6 .cuts>.cut:first-child{grid-column:1/-1}
+  #s6 .vid{grid-column:2;grid-row:2/span 2;width:calc(var(--s10) * 2 + var(--s5) + var(--s2))}
+}

@@ -9,9 +9,11 @@ import { join, extname } from "node:path";
 const CEILING = 14;                       // Space Mono never exceeds this. Measured on aiwithremy.com.
 const EXCEPTION = /data-fallback/;        // wordmark shown only if the logo SVG fails. Declared, with reason, in each file.
 
+const p0 = (d, f) => join(d, f).replace(/^\.\//, '');
 function walk(dir, out = []) {
   for (const f of readdirSync(dir)) {
     if (/^(node_modules|\.git|_site|screenshots)$/.test(f)) continue;
+    if (p0(dir, f) === 'design-directions/v-oct1') continue;   // Sandy rejected these previews 1 Oct; no longer deployed (pages.yml)
     const p = join(dir, f);
     if (statSync(p).isDirectory()) walk(p, out);
     else if ([".html", ".css"].includes(extname(p))) out.push(p);

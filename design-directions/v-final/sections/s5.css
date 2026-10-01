@@ -1,0 +1,73 @@
+#s5 .s5-urgent{color:var(--urgent);font-weight:700}
+
+/* comparison strip (static), right column, top-aligned */
+#s5 .s5-cmps{align-self:start;display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+#s5 .s5-cmp{display:flex;flex-direction:column;gap:var(--s4);padding:var(--s5);border:1px solid var(--line);border-radius:var(--r-lg)}
+#s5 .s5-cmp svg{width:100%;max-width:240px;height:auto}
+#s5 .s5-cmp p{font-size:var(--fs-body);color:var(--body)}
+#s5 .s5-cmp b{font-family:var(--mono);color:var(--ink)}
+#s5 .s5-sil{fill:var(--quiet)}
+#s5 .s5-lap{fill:var(--ink)}
+#s5 .s5-tbl{fill:var(--low)}
+
+/* the frame. Finished frame = plain CSS; JS only animates FROM a start state, so height never changes */
+#s5 .s5-viz{padding:var(--s5)}
+
+/* header band: ten seats from above, there for the whole scene */
+#s5 .s5-band{perspective:1000px}
+#s5 .s5-room{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:var(--s3);transform-origin:50% 100%}
+#s5 .s5-seat{position:relative;display:flex;flex-direction:column;align-items:center;gap:var(--s1)}
+#s5 .s5-seat i:first-child{display:block;width:100%;height:var(--s6);border:1px solid var(--low);border-radius:var(--r-sm);background:var(--elevated)}
+#s5 .s5-seat i:nth-child(2){display:block;width:46%;height:var(--s5);border:1px solid var(--low);border-radius:var(--s3);background:var(--elevated)}
+#s5 .s5-lit i:first-child,#s5 .s5-lit i:nth-child(2){border:2px solid var(--accent);background:var(--accent-soft)}
+#s5 .s5-card{position:absolute;left:50%;top:var(--s1);transform:translateX(-50%);font-family:var(--mono);font-size:var(--fs-label);font-weight:700;line-height:1.5;
+  color:var(--canvas);background:var(--ink);padding:0 var(--s2);border-radius:var(--s1)}
+
+/* the desk */
+#s5 .s5-desk{display:flex;flex-direction:column;gap:var(--s5);margin-top:var(--s5);padding-top:var(--s5);border-top:1px solid var(--line);transform-origin:50% 0}
+#s5 .s5-rail{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+#s5 .s5-grp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--s3);row-gap:var(--s3);align-content:start;
+  padding:var(--s3);background:var(--canvas);border:1px solid var(--line);border-radius:var(--r)}
+#s5 .s5-gh{grid-column:1/-1;grid-row:1;font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+#s5 .s5-wk{display:contents}
+#s5 .s5-seg{grid-row:2;display:block;height:var(--s2);border-radius:var(--s1);background:var(--line);overflow:hidden}
+#s5 .s5-seg b{display:block;width:100%;height:100%;background:var(--accent);transform-origin:left center}
+#s5 .s5-wl{grid-row:3;font-size:var(--fs-label);line-height:1.35;color:var(--body)}
+#s5 .s5-wl em{font-style:normal;font-family:var(--mono);font-weight:700;color:var(--ink)}
+#s5 .s5-wk:nth-of-type(1)>*{grid-column:1}
+#s5 .s5-wk:nth-of-type(2)>*{grid-column:2}
+#s5 .s5-wk:nth-of-type(3)>*{grid-column:3}
+#s5 .s5-wk:nth-of-type(4)>*{grid-column:4}
+
+/* your system: the tray each week drops its stations into */
+#s5 .s5-tray{grid-row:4;grid-column:1/-1;display:block;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm)}
+#s5 .s5-tks{grid-row:4;position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2);padding:var(--s3) var(--s1);min-width:0}
+#s5 .s5-tk{display:inline-flex;align-items:center;gap:var(--s1);max-width:100%;padding:var(--s1) var(--s2);font-size:var(--fs-label);line-height:1.3;
+  color:var(--ink);background:var(--canvas);border:1px solid var(--ink);border-radius:var(--r-sm)}
+#s5 .s5-tk::before{content:"";flex:none;width:var(--s2);height:var(--s2);border-radius:50%;background:var(--accent)}
+
+/* closing beat: the key */
+#s5 .s5-foot{display:flex;align-items:center}
+#s5 .s5-key{display:flex;align-items:center;gap:var(--s4)}
+#s5 .s5-key svg{width:var(--s10);height:auto;fill:none;stroke:var(--ink);stroke-width:4;stroke-linecap:round}
+#s5 .s5-tag{font-family:var(--mono);font-size:var(--fs-h3);font-weight:700;color:var(--ink);padding:var(--s2) var(--s4);background:var(--paper);border:1px solid var(--paper-edge);border-radius:var(--r-sm)}
+
+/* tablet: the two halves stack, weeks still side by side */
+@media (max-width:1023px){
+  #s5 .s5-rail{grid-template-columns:1fr}
+}
+/* phone: two rows of seats; the rail runs down the left, each week a row with its own tray */
+@media (max-width:767px){
+  #s5 .s5-cmps{grid-template-columns:1fr}
+  #s5 .s5-viz{padding:var(--s4)}
+  #s5 .s5-room{grid-template-columns:repeat(5,minmax(0,1fr));row-gap:var(--s4)}
+  #s5 .s5-grp{grid-template-columns:1fr;row-gap:var(--s4)}
+  #s5 .s5-gh{grid-row:auto}
+  #s5 .s5-tray{display:none}
+  #s5 .s5-wk{display:grid;grid-template-columns:var(--s2) minmax(0,1fr);column-gap:var(--s3);row-gap:var(--s2)}
+  #s5 .s5-grp .s5-wk>*{grid-column:2}
+  #s5 .s5-grp .s5-wk>.s5-seg{grid-column:1;grid-row:1/span 2;width:var(--s2);height:auto;align-self:stretch}
+  #s5 .s5-seg b{transform-origin:center top}
+  #s5 .s5-wl{grid-row:1;font-size:var(--fs-sm)}
+  #s5 .s5-tks{grid-row:2;flex-direction:row;flex-wrap:wrap;padding:var(--s2);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm)}
+}

@@ -1,0 +1,12 @@
+/* static: S2's final frame (the map half out of its sleeve) returns, with one labelled pin */
+/* room above the sleeve for the pin label, which sits clear of the map's own pins */
+#s10 .sheet{position:relative;margin-top:var(--s7);width:calc(var(--s10) * 2 + var(--s6))}
+@media (min-width:1024px){#s10 .sheet{width:calc(var(--s10) * 2 + var(--s8))}}
+#s10 .sheet img{width:100%;height:auto}
+/* tip of the sleeve's own teal pin: 84.25/330, 35.5/420 */
+#s10 .pin{position:absolute;left:25.53%;top:8.45%}
+#s10 .pin svg{position:absolute;left:0;bottom:0;width:var(--s6);max-width:none;height:auto;transform:translateX(-50%);filter:drop-shadow(0 var(--s1) var(--s1) rgba(18,18,18,.18))}
+#s10 .pin path{fill:var(--accent);stroke:var(--accent-ink);stroke-width:1.5}
+#s10 .pin circle{fill:var(--canvas)}
+#s10 .pin b{position:absolute;left:var(--s5);top:calc(-1 * var(--s7));padding:var(--s1) var(--s2);border-radius:var(--r-sm);background:var(--canvas);border:1px solid var(--line);
+  font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1.3;color:var(--ink);white-space:nowrap}

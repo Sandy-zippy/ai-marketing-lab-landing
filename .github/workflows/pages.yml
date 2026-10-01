@@ -103,12 +103,9 @@ jobs:
              assets/loops/guarantee.mp4 assets/loops/guarantee.webm assets/loops/guarantee.jpg _site/assets/loops/
           cp call/vsl/aiml-vsl.mp4 _site/call/vsl/
           cp -R call/vsl/hls _site/call/vsl/
-          # Design previews for Sandy to pick from (noindex, unlinked). Remove after the pick.
-          mkdir -p _site/design-directions/v-oct1/a _site/design-directions/v-oct1/b _site/design-directions/v-oct1/c
-          cp design-directions/v-oct1/a/index.html _site/design-directions/v-oct1/a/
-          cp design-directions/v-oct1/b/index.html _site/design-directions/v-oct1/b/
-          cp design-directions/v-oct1/c/index.html _site/design-directions/v-oct1/c/
-          cp -R design-directions/v-oct1/c/img _site/design-directions/v-oct1/c/
+          # /call is built from design-directions/v-final (python3 build.py --root ../ --out ../../call/index.html).
+          # Its page-local files live in that folder; copy each folder whole, they hold only what the page uses.
+          cp -R design-directions/v-final/assets design-directions/v-final/css design-directions/v-final/js design-directions/v-final/media _site/call/
           touch _site/.nojekyll
           node --check _site/assets/analytics.js
           node --check _site/assets/meta-pixel.js

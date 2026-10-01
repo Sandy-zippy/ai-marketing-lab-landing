@@ -1,0 +1,85 @@
+/* S4: 15 bricks = 15 sessions, three floors, a dusk sky, the date ribbon. Natural styles = the finished frame. */
+#s4 .grid{row-gap:var(--s5)}
+#s4 .s4-wk1,#s4 .s4-wk2,#s4 .s4-wk3{color:var(--body);max-width:52ch}
+#s4 .s4-wk1 strong,#s4 .s4-wk2 strong,#s4 .s4-wk3 strong{color:var(--ink);font-weight:600}
+
+#s4 .s4-viz{display:grid;grid-template-rows:var(--s9) var(--s8) var(--s8) var(--s9) auto;--bx:var(--s3);--bw:70%}
+#s4 .s4-viz>div{position:relative;min-width:0}
+
+/* sky: one quiet dusk band, a low sun on the horizon */
+#s4 .s4-sky{background:linear-gradient(180deg,transparent 10%,var(--elevated) 70%,transparent 100%)}
+#s4 .s4-f1{border-bottom:1px solid var(--ink)}
+
+/* building */
+#s4 .s4-br,#s4 .s4-rooms,#s4 .s4-wins{position:absolute;left:var(--bx);width:var(--bw);top:0;bottom:0;display:flex}
+#s4 .s4-rooms,#s4 .s4-wins{left:calc(var(--bx) + var(--bw) / 5);width:calc(var(--bw) * .8)}
+#s4 .s4-wt{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;font-family:var(--mono);font-size:var(--fs-label);line-height:1.1;letter-spacing:.04em;text-transform:uppercase;color:var(--low)}
+#s4 .s4-wt b{font-size:var(--fs-h3);color:var(--canvas)}
+#s4 .s4-br i{position:relative;flex:1;font-style:normal;background:var(--ink);border:1px solid var(--surface)}
+#s4 .s4-wins{justify-content:space-evenly;align-items:center}
+#s4 .s4-rooms span{flex:1;display:grid;justify-items:center;align-content:center;gap:var(--s1);text-align:center}
+#s4 .s4-rooms em{font-style:normal;letter-spacing:-.02em;font-size:var(--fs-label);line-height:1.15;color:var(--canvas)}
+#s4 .s4-rooms svg{width:var(--s5);height:var(--s5);fill:none;stroke:var(--canvas);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+#s4 .s4-w{position:relative;width:var(--s6);height:var(--s5);background:var(--body);border:1px solid var(--quiet)}
+#s4 .s4-w b{position:absolute;inset:0;display:grid;place-items:center;background:var(--accent);box-shadow:0 0 0 var(--s1) var(--accent-soft)}
+#s4 .s4-w svg{width:var(--s4);height:var(--s4);fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#s4 .s4-roof{position:absolute;bottom:0;left:calc(var(--bx) - var(--s1));width:calc(var(--bw) + var(--s2));height:var(--s2);background:var(--ink)}
+#s4 .s4-pole{position:absolute;bottom:var(--s2);left:calc(var(--bx) + var(--bw) * .3);height:var(--s8);border-left:1px solid var(--ink);border-right:1px solid var(--ink);transform-origin:bottom}
+#s4 .s4-flag{position:absolute;top:0;left:0;transform-origin:left;white-space:nowrap;background:var(--accent-ink);color:var(--canvas);
+  font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1;letter-spacing:.06em;text-transform:uppercase;
+  padding:var(--s2) var(--s5) var(--s2) var(--s3);clip-path:polygon(0 0,100% 0,88% 50%,100% 100%,0 100%)}
+
+/* floor 2: the Friday door opens, envelopes pour out under the tag */
+#s4 .s4-door{position:absolute;left:28%;right:28%;bottom:0;height:72%;background:var(--accent);perspective:160px}
+#s4 .s4-leaf{position:absolute;inset:0;background:var(--body);border:1px solid var(--quiet);transform-origin:left center;transform:rotateY(-72deg)}
+#s4 .s4-stream{position:absolute;left:calc(var(--bx) + var(--bw) + var(--s2));right:var(--s3);bottom:8%;height:150%;z-index:1}
+#s4 .s4-ppl{position:absolute;right:0;bottom:0;width:32%}
+#s4 .s4-ppl svg{width:100%;height:auto;fill:var(--canvas);stroke:var(--ink);stroke-width:1.5;stroke-linecap:round}
+#s4 .s4-ev{position:absolute;inset:0}
+#s4 .s4-ev svg{position:absolute;left:calc(var(--x) * 1%);bottom:calc(var(--y) * 1%);width:var(--s4);height:var(--s3);fill:var(--canvas);stroke:var(--ink);stroke-width:1;stroke-linejoin:round}
+#s4 .s4-tag{position:absolute;left:0;bottom:calc(100% + var(--s1));background:var(--ink);color:var(--canvas);font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1;padding:var(--s2) var(--s3);border-radius:var(--r-sm);white-space:nowrap}
+
+/* date ribbon: 15 weekdays, 26 Oct to 13 Nov */
+#s4 .s4-rib{padding:var(--s4) var(--s4) var(--s5)}
+#s4 .s4-days,#s4 .s4-mo{display:flex;gap:var(--s3)}
+#s4 .s4-wk,#s4 .s4-mo span{flex:1;display:flex}
+#s4 .s4-wk{border-top:1px solid var(--line);padding-top:var(--s2)}
+#s4 .s4-d{flex:1;display:grid;justify-items:center;gap:var(--s1);font-family:var(--mono);font-size:var(--fs-label);line-height:1.2;color:var(--ink)}
+#s4 .s4-d b{display:block;width:var(--s2);height:var(--s2);background:var(--ink)}
+#s4 .s4-last{color:var(--accent-ink);font-weight:700}
+#s4 .s4-last b{background:var(--accent)}
+#s4 .s4-mo{margin-top:var(--s2);font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.08em;text-transform:uppercase;color:var(--quiet)}
+
+/* desktop: copy c-1-5, building c-6-12; each week line sits beside its floor (shared rows via subgrid) */
+@media (min-width:768px){
+  #s4 .s4-viz{--bx:var(--s6);--bw:58%;grid-template-rows:var(--s9) var(--s8) var(--s8) var(--s9) auto}
+  #s4 .s4-ev svg{width:var(--s5);height:var(--s4)}
+}
+/* desktop: copy c-1-5 top-aligned (head, then weeks 1 to 3), building c-6-12 */
+@media (min-width:1024px){
+  #s4 .grid{grid-template-rows:repeat(4,auto) 1fr;row-gap:var(--s4)}
+  #s4 .s4-head{grid-row:1;padding-bottom:var(--s3)}
+  #s4 .s4-viz{grid-row:1/6;align-self:start}
+  #s4 .s4-wk1{grid-row:2}#s4 .s4-wk2{grid-row:3}#s4 .s4-wk3{grid-row:4}
+  #s4 .s4-wk1,#s4 .s4-wk2,#s4 .s4-wk3{grid-column:1/6}
+  #s4 .s4-w{width:var(--s7);height:var(--s6)}
+}
+
+/* motion: plays once on .go, holds the natural (finished) styles above */
+#s4 .armed:not(.go) .a{opacity:0}
+#s4 .go .s4-br i{animation:s4-lay .5s var(--ease) var(--t) both}
+#s4 .go .s4-rooms span{animation:s4-pop .5s var(--ease) var(--t) both}
+#s4 .go .s4-wins,#s4 .go .s4-roof,#s4 .go .s4-tag,#s4 .go .s4-ppl,#s4 .go .s4-d b{animation:s4-fade .4s var(--ease) var(--t) both}
+#s4 .go .s4-w b{animation:s4-fade .6s var(--ease) var(--t) both}
+#s4 .go .s4-leaf{animation:s4-open .7s var(--ease) var(--t) both}
+#s4 .go .s4-ev{animation:s4-pour 1s var(--ease) var(--t) both}
+#s4 .go .s4-pole{animation:s4-up .4s var(--ease) var(--t) both}
+#s4 .go .s4-flag{animation:s4-unfurl .5s var(--ease) var(--t) both}
+#s4 .paused *,#s4 .paused *::before{animation-play-state:paused!important}
+@keyframes s4-lay{from{opacity:0;transform:translateY(calc(var(--s6) * -1))}}
+@keyframes s4-pop{from{opacity:0;transform:translateY(var(--s2)) scale(.6)}}
+@keyframes s4-fade{from{opacity:0}}
+@keyframes s4-open{from{transform:none}}
+@keyframes s4-pour{from{opacity:0;transform:translate(calc(var(--x) * -1%),calc((var(--y) - 20) * 1%)) scale(.4)}}
+@keyframes s4-up{from{transform:scaleY(0)}}
+@keyframes s4-unfurl{from{transform:scaleX(0)}}

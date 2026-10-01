@@ -1,0 +1,108 @@
+/* S2b bonuses: H + sub + who-gets-what key left, terminal + filing drawer right, 13-row folder index below.
+   Default styles = the FINISHED frame. .armed (JS, motion allowed) holds the start frame until .go. */
+#s2b{--tab:calc(var(--s5) + var(--s1));--lip:var(--s7)}
+@media (min-width:1024px){#s2b .grid{align-items:start}}
+#s2b .s2b-hd>*+*{margin-top:var(--s4)}
+#s2b .s2b-hd .s2b-key{margin-top:var(--s6)}
+
+/* tags */
+#s2b .s2b-tg{display:inline-block;font-family:var(--mono);font-size:var(--fs-label);line-height:1.5;letter-spacing:.06em;white-space:nowrap;
+  color:var(--ink);border:1px solid var(--ink);border-radius:var(--r-sm);padding:0 var(--s2)}
+#s2b .s2b-tg.s2b-call{background:var(--ink);color:var(--canvas)}
+#s2b .s2b-key{list-style:none;display:grid;gap:var(--s3)}
+#s2b .s2b-key li{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s3);font-size:var(--fs-sm);color:var(--body)}
+
+/* viz */
+#s2b .s2b-viz{display:grid;gap:var(--s5);padding:var(--s4)}
+@media (min-width:768px){#s2b .s2b-viz{padding:var(--s6)}}
+
+/* terminal (light: no dark AIML surface) */
+#s2b .s2b-term{background:var(--canvas);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+#s2b .s2b-bar{display:flex;gap:var(--s2);padding:var(--s3) var(--s4);border-bottom:1px solid var(--line)}
+#s2b .s2b-bar i{width:var(--s3);height:var(--s3);border-radius:50%;background:var(--line)}
+#s2b .s2b-cmd,#s2b .s2b-ls{font-family:var(--mono);font-size:var(--fs-sm);line-height:1.6;color:var(--ink)}
+#s2b .s2b-cmd{padding:var(--s4) var(--s4) var(--s2)}
+#s2b .s2b-ps{color:var(--quiet)}
+#s2b .s2b-ty{display:inline-block;white-space:nowrap}
+#s2b .s2b-ls{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(28ch,1fr));column-gap:var(--s5);padding:0 var(--s4) var(--s4)}
+
+/* drawer: 11 folders standing in a tilted drawer, tabs staggered, slightly fanned */
+#s2b .s2b-cab{perspective:1200px}
+#s2b .s2b-stk{position:relative;height:calc(11 * var(--tab) + var(--s2) + var(--lip));transform:rotateX(10deg);transform-origin:50% 100%}
+#s2b .s2b-f{position:absolute;bottom:0;top:calc((var(--k) + 1) * var(--tab));
+  left:calc((10 - var(--k)) * var(--s1) / 2);right:calc((10 - var(--k)) * var(--s1) / 2);
+  background:var(--paper);border:1px solid var(--paper-edge);border-radius:0 var(--r-sm) 0 0;
+  transform:rotate(calc((var(--k) - 5) * .25deg));transform-origin:50% 100%}
+#s2b .s2b-tab{font-family:var(--mono);font-size:var(--fs-label);color:var(--paper-ink);white-space:nowrap;
+  height:var(--tab);line-height:calc(var(--tab) - 1px);padding:0 var(--s3);
+  background:var(--paper);border:1px solid var(--paper-edge);border-bottom:0;border-radius:var(--r-sm) var(--r-sm) 0 0}
+#s2b .s2b-f .s2b-tab{position:absolute;bottom:100%;font-size:var(--fs-sm)} /* 14px: the drawer tilt shrinks back tabs ~5%, keep them over 12px rendered */
+#s2b .s2b-f .s2b-p0{left:var(--s4)}
+#s2b .s2b-f .s2b-p1{left:50%;transform:translateX(-50%)}
+#s2b .s2b-f .s2b-p2{right:var(--s4)}
+#s2b .s2b-lip{position:absolute;left:calc(var(--s2) * -1);right:calc(var(--s2) * -1);bottom:0;height:var(--lip);
+  background:var(--elevated);border:1px solid var(--line);border-radius:var(--r-sm);display:grid;place-items:center}
+#s2b .s2b-lip i{width:var(--s9);height:var(--s3);border-radius:999px;background:var(--canvas);border:1px solid var(--quiet-line)}
+
+/* the two call folders, pulled out in front of the drawer */
+#s2b .s2b-out{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin-top:calc(var(--lip) * -.3)}
+#s2b .s2b-po{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+#s2b .s2b-po .s2b-tab{position:relative;z-index:1;margin-left:var(--s3);margin-bottom:-1px}
+#s2b .s2b-pb{align-self:stretch;display:grid;justify-items:start;gap:var(--s2);padding:var(--s4);
+  background:var(--paper);border:1px solid var(--paper-edge);border-radius:0 var(--r-sm) var(--r-sm) var(--r-sm);box-shadow:0 var(--s3) var(--s5) rgba(18,18,18,.10)}
+@media (max-width:767px){#s2b .s2b-pb{padding:var(--s3)}}
+#s2b .s2b-po0{z-index:2;transform:rotate(-1.5deg)}
+#s2b .s2b-po1{transform:translateY(var(--s3)) rotate(1.2deg)}
+#s2b .s2b-pn{font-family:var(--mono);font-weight:700;font-size:var(--fs-num);line-height:1;color:var(--ink)}
+#s2b .s2b-po0 .s2b-pn{color:var(--accent-ink)} /* the one teal on this section: the front folder's number */
+#s2b .s2b-pt{font-family:var(--mono);font-weight:700;font-size:var(--fs-lg);line-height:1.25;color:var(--ink)}
+#s2b .s2b-ink{white-space:nowrap;font-size:var(--fs-label);font-weight:600;line-height:1.5;color:var(--canvas);background:var(--ink);border-radius:var(--r-sm);padding:var(--s1) var(--s2)}
+
+/* index: 13 folders, tab on top, body readable without interaction */
+#s2b .s2b-idx{list-style:none;display:grid;gap:var(--s3);margin-top:var(--s4)}
+#s2b .s2b-r{display:flex;flex-direction:column;align-items:flex-start}
+#s2b .s2b-r .s2b-tab{position:relative;z-index:1;margin-bottom:-1px}
+#s2b .s2b-r.s2b-p0 .s2b-tab{margin-left:var(--s4)}
+#s2b .s2b-r.s2b-p1 .s2b-tab{margin-left:var(--s7)}
+#s2b .s2b-r.s2b-p2 .s2b-tab{margin-left:var(--s9)}
+#s2b .s2b-rb{align-self:stretch;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:var(--s4);row-gap:var(--s3);
+  padding:var(--s4);background:var(--paper);border:1px solid var(--paper-edge);border-radius:var(--r-sm)}
+#s2b .s2b-rb>*:not(.s2b-n){grid-column:2}
+#s2b .s2b-n{grid-row:1/4;font-family:var(--mono);font-weight:700;font-size:var(--fs-lg);line-height:1.25;color:var(--quiet)}
+#s2b .s2b-nm h3{font-size:var(--fs-lg);line-height:1.25;color:var(--ink)}
+#s2b .s2b-nm p{margin-top:var(--s1);font-size:var(--fs-body);line-height:1.45;color:var(--body)}
+#s2b .s2b-lb{font-family:var(--mono);font-size:var(--fs-label);line-height:1.6;color:var(--quiet)}
+#s2b .s2b-tgs{display:flex;flex-wrap:wrap;gap:var(--s2)}
+@media (min-width:1024px){
+  #s2b .s2b-r.s2b-p1 .s2b-tab{margin-left:var(--s10)}
+  #s2b .s2b-r.s2b-p2 .s2b-tab{margin-left:calc(var(--s10) * 2)}
+  #s2b .s2b-rb{grid-template-columns:auto minmax(0,5fr) minmax(0,4fr) minmax(0,3fr);column-gap:var(--s5);align-items:start;padding:var(--s4) var(--s5)}
+  #s2b .s2b-rb>*:not(.s2b-n){grid-column:auto}
+  #s2b .s2b-n{grid-row:auto}
+  #s2b .s2b-lb{padding-top:var(--s1)}
+  #s2b .s2b-tgs{justify-content:flex-end}
+}
+
+/* motion: one viz timeline (about 5.9 s, paused until in view), each index row slides out of its tab as it enters view */
+#s2b.armed .s2b-ty{animation:s2b-type 600ms steps(10,end) 200ms both}
+#s2b.armed .s2b-ls li{animation:s2b-print 120ms linear both;animation-delay:calc(900ms + var(--i) * 110ms)}
+#s2b.armed .s2b-lip{animation:s2b-lip 500ms var(--ease) 2300ms both}
+#s2b.armed .s2b-f{animation:s2b-drop 600ms var(--ease) both;animation-delay:calc(2500ms + var(--k) * 110ms)}
+#s2b.armed .s2b-po1{animation:s2b-pull 900ms var(--ease) 4300ms both}
+#s2b.armed .s2b-po0{animation:s2b-pull 900ms var(--ease) 4550ms both}
+#s2b.armed .s2b-po1 .s2b-ink{animation:s2b-stamp 400ms var(--ease) 5200ms both}
+#s2b.armed .s2b-po0 .s2b-ink{animation:s2b-stamp 400ms var(--ease) 5450ms both}
+#s2b.armed:not(.go) .s2b-viz *,#s2b.paused .s2b-viz *{animation-play-state:paused!important}
+@keyframes s2b-type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes s2b-print{from{opacity:0;transform:translateX(calc(var(--s2) * -1))}}
+@keyframes s2b-lip{from{opacity:0;transform:translateY(var(--s4))}}
+@keyframes s2b-drop{from{opacity:0;transform:translateY(calc(var(--s7) * -1))}}
+@keyframes s2b-pull{0%{opacity:0;transform:translateY(calc(var(--lip) * -1.6))}25%{opacity:1;transform:translateY(calc(var(--lip) * -1.6))}}
+@keyframes s2b-stamp{from{opacity:0;transform:scale(1.3)}}
+
+#s2b.armed .s2b-r:not(.in) .s2b-tab{opacity:0}
+#s2b.armed .s2b-r:not(.in) .s2b-rb{clip-path:inset(0 0 100% 0)}
+#s2b.armed .s2b-r:not(.in) .s2b-lb,#s2b.armed .s2b-r:not(.in) .s2b-tgs{opacity:0;transform:translateX(calc(var(--s5) * -1))}
+#s2b.armed .s2b-r .s2b-tab{transition:opacity var(--d-ui) var(--ease)}
+#s2b.armed .s2b-r .s2b-rb{transition:clip-path 700ms var(--ease) 150ms}
+#s2b.armed .s2b-r .s2b-lb,#s2b.armed .s2b-r .s2b-tgs{transition:opacity 500ms var(--ease) 550ms,transform 700ms var(--ease) 550ms}

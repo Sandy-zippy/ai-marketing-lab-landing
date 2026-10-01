@@ -1,0 +1,76 @@
+#s7 .grid{align-items:start}
+#s7 .s7-both{color:var(--body)}
+#s7 .s7-viz{display:grid;gap:var(--s6);padding:var(--s5) var(--s5) var(--s7)}
+#s7 .s7-sheet{background:var(--paper);border:1px solid var(--paper-edge);border-radius:var(--r);padding:var(--s1) var(--s5)}
+#s7 .s7-rows{list-style:none}
+#s7 .s7-rows li{display:flex;align-items:center;gap:var(--s3);padding-block:var(--s3);border-bottom:1px solid var(--paper-edge)}
+#s7 .s7-rows li:last-child{border-bottom:0}
+#s7 .s7-box{position:relative;flex:none;width:18px;height:18px;border:1px solid var(--quiet);border-radius:var(--s1)}
+#s7 .s7-box::before{content:'';position:absolute;inset:-1px;border-radius:var(--s1);background:var(--accent)}
+#s7 .s7-box svg{position:absolute;inset:-1px;width:18px;height:18px;fill:none;stroke:var(--canvas);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#s7 .s7-box path,#s7 .s7-ring path,#s7 .s7-o{stroke-dasharray:1;stroke-dashoffset:0}
+#s7 .s7-step{font-size:var(--fs-sm);line-height:1.3;color:var(--paper-ink)}
+#s7 .s7-st{margin-left:auto;display:grid}
+#s7 .s7-st>span{grid-area:1/1;justify-self:end;font-family:var(--mono);font-size:var(--fs-label);line-height:1;letter-spacing:.04em;padding:var(--s1) var(--s2);border-radius:var(--r-lg);border:1px solid transparent}
+#s7 .s7-st .m{border:1px dashed var(--quiet);color:var(--body);opacity:0}
+#s7 .s7-st .d{background:var(--accent-soft);color:var(--accent-ink)}
+
+#s7 .s7-run{display:grid;grid-template-columns:minmax(0,1fr) auto;row-gap:var(--s5);column-gap:var(--s2)}
+#s7 .s7-lines{grid-column:1;grid-row:1/3;position:relative}
+#s7 .s7-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;fill:none;stroke-width:2;stroke-linecap:round}
+#s7 .s7-g{stroke:var(--line)}
+#s7 .s7-tk{stroke:var(--low);stroke-width:1}
+#s7 .s7-ot,#s7 .s7-ou{stroke:var(--accent);stroke-width:2.5}
+#s7 .s7-ol{stroke:var(--low);stroke-width:1.5}
+#s7 .s7-dot{fill:var(--ink);stroke:none}
+#s7 .s7-fk{fill:var(--canvas);stroke:var(--accent)}
+#s7 .s7-days{position:absolute;left:0;top:0;font-family:var(--mono);font-size:var(--fs-label);line-height:1;letter-spacing:.06em;text-transform:uppercase;color:var(--body);white-space:nowrap}
+
+/* the outcome: strong, teal */
+#s7 .s7-win{grid-column:2;grid-row:1;align-self:center;justify-self:start;position:relative;display:flex;align-items:center;gap:var(--s2);padding:var(--s4) var(--s5);border:1px solid var(--line);border-radius:var(--r);background:var(--canvas);color:var(--quiet);font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;line-height:1;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+#s7 .s7-lit{position:absolute;inset:-1px;display:flex;align-items:center;gap:var(--s2);padding:0 var(--s5);border-radius:var(--r);background:var(--accent-ink);color:var(--canvas);box-shadow:0 0 0 6px var(--accent-soft)}
+#s7 .s7-ring svg{width:20px;height:20px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+#s7 .s7-ring circle{stroke:var(--line)}
+#s7 .s7-lit .s7-ring circle{stroke:var(--canvas)}
+#s7 .s7-lit .s7-ring path{stroke:var(--canvas);stroke-width:2}
+
+/* the fallback: faint, grey */
+#s7 .s7-wal{grid-column:2;grid-row:2;justify-self:start}
+#s7 .s7-purse{position:relative;width:164px;height:100px}
+#s7 .s7-back{position:absolute;left:var(--s1);right:var(--s1);bottom:30px;height:46px;background:var(--elevated);border:1px solid var(--quiet);border-radius:var(--r-sm)}
+#s7 .s7-note{position:absolute;left:var(--x);bottom:46px;width:44px;height:36px;display:flex;justify-content:center;padding-top:var(--s1);font-style:normal;font-size:var(--fs-sm);font-weight:600;line-height:1;color:var(--paper-ink);background:var(--paper);border:1px solid var(--low);border-radius:var(--s1);transform:rotate(var(--r));transform-origin:50% 100%}
+#s7 .s7-front{position:absolute;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;padding:var(--s3) 0 0 var(--s3)}
+#s7 .s7-front svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#s7 .s7-wb{fill:var(--canvas);stroke:var(--quiet);stroke-width:1}
+#s7 .s7-ws{fill:none;stroke:var(--low);stroke-width:1;stroke-dasharray:3 3}
+#s7 .s7-wk{fill:var(--quiet)}
+#s7 .s7-wl{position:relative;font-family:var(--mono);font-size:var(--fs-label);line-height:1;letter-spacing:.04em;text-transform:uppercase;color:var(--body);white-space:nowrap}
+
+/* scene: armed (.s7-arm) holds frame 0, .s7-go runs it, .s7-hold pauses it. No class = finished frame. */
+#s7 .s7-arm *,#s7 .s7-arm *::before{animation-play-state:paused!important}
+#s7 .s7-arm.s7-go *,#s7 .s7-arm.s7-go *::before{animation-play-state:running!important}
+#s7 .s7-arm.s7-go.s7-hold *,#s7 .s7-arm.s7-go.s7-hold *::before{animation-play-state:paused!important}
+#s7 .s7-arm .s7-rows li{--t:calc(.35s + var(--i) * .42s)}
+#s7 .s7-arm .s7-st .m{animation:s7-out .35s var(--ease) var(--t) both}
+#s7 .s7-arm .s7-st .d{animation:s7-up .35s var(--ease) var(--t) both}
+#s7 .s7-arm .s7-box::before{animation:s7-pop .35s var(--ease) var(--t) both}
+#s7 .s7-arm .s7-box path{animation:s7-draw .35s var(--ease) calc(var(--t) + .1s) both}
+#s7 .s7-arm .s7-ot{animation:s7-draw .8s var(--ease) 2.45s both}
+#s7 .s7-arm .s7-ou{animation:s7-draw .55s var(--ease) 3.2s both}
+#s7 .s7-arm .s7-lit{animation:s7-light .45s var(--ease) 3.65s both}
+#s7 .s7-arm .s7-lit .s7-ring path{animation:s7-draw .4s var(--ease) 3.85s both}
+#s7 .s7-arm .s7-ol{animation:s7-draw .6s var(--ease) 4.3s both}
+#s7 .s7-arm .s7-note{animation:s7-fly .6s var(--ease) calc(4.75s + var(--n) * .25s) both}
+@keyframes s7-out{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-6px)}}
+@keyframes s7-up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes s7-pop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:none}}
+@keyframes s7-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes s7-light{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+@keyframes s7-fly{from{opacity:0;transform:translate(-96px,-40px) rotate(-34deg)}40%{opacity:1}to{opacity:1;transform:rotate(var(--r))}}
+
+@media (max-width:480px){
+  #s7 .s7-viz{padding:var(--s4) var(--s4) var(--s7)}
+  #s7 .s7-sheet{padding:var(--s1) var(--s4)}
+  #s7 .s7-win{padding:var(--s3);font-size:var(--fs-label)}
+  #s7 .s7-lit{padding:0 var(--s3)}
+}

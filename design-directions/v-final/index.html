@@ -13,13 +13,13 @@
 <meta property="og:description" content="Watch how I write each step down once, and Claude Code runs it." />
 <meta property="og:image" content="https://aimarketinglabs.in/assets/og/call-og.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
-<link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml" />
 <meta name="theme-color" content="#FFFFFF" />
-<link rel="preload" href="../assets/fonts/spacemono-700-latin.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../../assets/fonts/spacemono-700-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" as="image" href="assets/still.jpg" imagesrcset="assets/still-640.jpg 640w, assets/still.jpg 1280w" imagesizes="(min-width:1024px) 640px, 100vw" fetchpriority="high" />
 <script>document.documentElement.classList.add('js')</script>
-<script src="../assets/meta-pixel.js" defer></script>
+<script src="../../assets/meta-pixel.js" defer></script>
 <style>
 /* AIML /call v-final: DESIGN TOKENS + shared base. Every section partial uses ONLY these.
    Brand (company.yaml, Sandy 1 Oct 2026): white ground, ink #121212, quiet #7E7E7E, paper #FAF7EE,
@@ -35,9 +35,9 @@
           scene, plays ONCE when in view, then holds its last frame). Anything >5s gets a .mo-pause
           button. prefers-reduced-motion: render the FINISHED frame, no motion. Ease out expo only. */
 
-@font-face{font-family:'Inter';src:url('../assets/fonts/inter-latin.woff2') format('woff2');font-weight:400 900;font-display:swap}
-@font-face{font-family:'Space Mono';src:url('../assets/fonts/spacemono-400-latin.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'Space Mono';src:url('../assets/fonts/spacemono-700-latin.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../assets/fonts/inter-latin.woff2') format('woff2');font-weight:400 900;font-display:swap}
+@font-face{font-family:'Space Mono';src:url('../../assets/fonts/spacemono-400-latin.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Space Mono';src:url('../../assets/fonts/spacemono-700-latin.woff2') format('woff2');font-weight:700;font-display:swap}
 
 :root{
   /* colour */
@@ -209,7 +209,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 <noscript><link rel="stylesheet" href="css/sections.css" /></noscript>
 </head>
 <body>
-<div class="wrap"><header class="top"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" /></header></div>
+<div class="wrap"><header class="top"><img src="../../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" /></header></div>
 <main>
 
 <!-- SCREEN 1: qualify (state A). Hidden once a qualified lead exists. -->
@@ -263,7 +263,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
             <p class="err" id="qerr" role="alert" hidden></p>
             <button class="btn btn-full" type="submit">Watch the video</button>
             <p class="note">I'll send the video and call details by email and WhatsApp.</p>
-            <p class="note fine">Used only to send you the training and call details. <a href="../privacy">Privacy</a></p>
+            <p class="note fine">Used only to send you the training and call details. <a href="../../privacy">Privacy</a></p>
           </fieldset>
         </form>
         <div class="dq" id="dq" hidden tabindex="-1">
@@ -285,7 +285,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
         <p class="lede">The booking button appears once you've seen the system.</p>
       </div>
       <div class="player" id="player">
-        <video id="vsl" playsinline preload="none" poster="assets/still.jpg" controlslist="nodownload noplaybackrate" disablepictureinpicture controls><source src="../call/vsl/aiml-vsl.mp4" type="video/mp4" /></video>
+        <video id="vsl" playsinline preload="none" poster="assets/still.jpg" controlslist="nodownload noplaybackrate" disablepictureinpicture controls><source src="../../call/vsl/aiml-vsl.mp4" type="video/mp4" /></video>
         <button class="vtap" type="button" id="vtap" aria-label="Pause or play the video" hidden></button>
         <button class="play" type="button" id="play" aria-label="Play the video with sound" hidden><i><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></i><b id="play-l">Watch with sound</b></button>
         <div class="vprog" aria-hidden="true"><i id="vbar"></i></div>
@@ -632,7 +632,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 </div>
 </main>
 <footer><div class="wrap">
-  <div class="frow"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="125" height="18" /><nav><a href="../contact">Contact</a><a href="../privacy">Privacy</a><a href="../terms">Terms</a><a href="../refund">Refunds</a></nav></div>
+  <div class="frow"><img src="../../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="125" height="18" /><nav><a href="../../contact">Contact</a><a href="../../privacy">Privacy</a><a href="../../terms">Terms</a><a href="../../refund">Refunds</a></nav></div>
   <p class="legal">AI Marketing Lab is a brand of ZippyScale. Results vary and depend on the work you put in; <span data-reveal="pitch">the figures above are past client results, not a promise. </span>This site isn't part of Facebook or Meta Platforms, Inc., and isn't endorsed by Meta.</p>
 </div></footer>
 <script>
@@ -778,7 +778,7 @@ function stateDQ() {
 
 /* ---- screen 2: smart player (from call/index.html): nothing loads until tap, no seek ahead, resume ---- */
 (function () {
-  var v = document.getElementById('vsl'), HLS = '../call/vsl/hls/master.m3u8', MP4 = '../call/vsl/aiml-vsl.mp4';
+  var v = document.getElementById('vsl'), HLS = '../../call/vsl/hls/master.m3u8', MP4 = '../../call/vsl/aiml-vsl.mp4';
   var play = document.getElementById('play'), playL = document.getElementById('play-l'), tap = document.getElementById('vtap');
   var bar = document.getElementById('vbar');
   var KT = 'aiml_vsl_t', saved = parseFloat(lsGet(KT)) || 0, live = false, max = 0, half = false, nudged = false;
@@ -788,7 +788,7 @@ function stateDQ() {
   function load(cb) {
     if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = HLS; return cb(); }
     var s = document.createElement('script');
-    s.src = '../assets/vendor/hls.light.min.js';
+    s.src = '../../assets/vendor/hls.light.min.js';
     s.onload = function () {
       if (window.Hls && window.Hls.isSupported()) { var h = new window.Hls({ capLevelToPlayerSize: true }); h.loadSource(HLS); h.attachMedia(v); }
       else v.src = MP4;

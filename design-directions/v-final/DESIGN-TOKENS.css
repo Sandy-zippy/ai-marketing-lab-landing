@@ -1,0 +1,113 @@
+/* AIML /call v-final: DESIGN TOKENS + shared base. Every section partial uses ONLY these.
+   Brand (company.yaml, Sandy 1 Oct 2026): white ground, ink #121212, quiet #7E7E7E, paper #FAF7EE,
+   lines #E3E3E3, Space Mono 700 headings + ICP callout, Inter body, teal #00A19B the only accent
+   (one accent word/numeral per surface), brick #B4241A urgency ONLY, at most once on the page.
+
+   GRID   one 12-col grid inside .wrap (max 1120px content + gutter). Every section's content
+          starts on the .wrap left edge. Use .grid + .c-* spans; never add horizontal margin/padding
+          to a section's first-level children.
+   SPACE  4px scale --s1..--s10. No loose px for gap/padding/margin.
+   TYPE   9 steps, >=1.25 between headline steps.
+   MOTION --d-micro 200ms (hover/press), --d-ui 300ms (state change), --d-scene <= 6s (one section
+          scene, plays ONCE when in view, then holds its last frame). Anything >5s gets a .mo-pause
+          button. prefers-reduced-motion: render the FINISHED frame, no motion. Ease out expo only. */
+
+@font-face{font-family:'Inter';src:url('{{ROOT}}assets/fonts/inter-latin.woff2') format('woff2');font-weight:400 900;font-display:swap}
+@font-face{font-family:'Space Mono';src:url('{{ROOT}}assets/fonts/spacemono-400-latin.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Space Mono';src:url('{{ROOT}}assets/fonts/spacemono-700-latin.woff2') format('woff2');font-weight:700;font-display:swap}
+
+:root{
+  /* colour */
+  --canvas:#FFFFFF;--ink:#121212;--body:#3A3A3A;
+  --quiet:#6B6B6B; /* text-safe quiet: brand #7E7E7E is 3.9:1 on white, under AA for 12-14px labels (live call page uses #6B6B6B) */
+  --quiet-line:#7E7E7E;--low:#AAAAAA;
+  --line:#E3E3E3;--surface:#F8F8F8;--elevated:#F2F2F2;
+  --paper:#FAF7EE;--paper-edge:#E5DECA;--paper-ink:#2A2A2A;
+  --accent:#00A19B;--accent-ink:#00736E;--accent-soft:rgba(0,161,155,.10);
+  --urgent:#B4241A;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'Space Mono','Courier New',monospace;
+
+  /* type scale */
+  --fs-h1:clamp(30px,4.4vw,52px);   /* screen H1 */
+  --fs-h2:clamp(24px,3.2vw,38px);   /* section H */
+  --fs-callout:clamp(15px,1.7vw,22px); /* ICP callout, ~0.45 of H1 */
+  --fs-h3:20px;--fs-lg:18px;--fs-body:16px;--fs-sm:14px;--fs-label:12px;
+  --fs-num:clamp(28px,3.6vw,44px);  /* proof numerals */
+  --lh-tight:1.12;--lh-head:1.2;--lh-body:1.6;
+
+  /* spacing, 4px base */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
+
+  /* grid */
+  --max:1120px;--gutter:16px;--col-gap:var(--s4);--sec-pad:var(--s8);
+
+  /* shape + motion */
+  --r-sm:8px;--r:14px;--r-lg:20px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --d-micro:200ms;--d-ui:300ms;--d-scene:6s;
+}
+@media (min-width:768px){:root{--gutter:40px;--col-gap:var(--s5);--sec-pad:var(--s9)}}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--ink);background:var(--canvas);-webkit-font-smoothing:antialiased}
+main{overflow-x:clip}
+img,video,svg,canvas{display:block;max-width:100%}
+a{color:inherit}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+/* grid */
+.wrap{max-width:calc(var(--max) + 2 * var(--gutter));margin:0 auto;padding-inline:var(--gutter)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col-gap);row-gap:var(--s6)}
+.grid>*{grid-column:1/-1;min-width:0}
+@media (min-width:1024px){
+  .c-1-6{grid-column:1/7}.c-7-12{grid-column:7/13}
+  .c-1-5{grid-column:1/6}.c-6-12{grid-column:6/13}
+  .c-1-7{grid-column:1/8}.c-8-12{grid-column:8/13}
+  .c-1-8{grid-column:1/9}.c-9-12{grid-column:9/13}
+  .c-1-4{grid-column:1/5}.c-5-8{grid-column:5/9}
+}
+.sec{padding-block:var(--sec-pad);border-top:1px solid var(--line)}
+
+/* type */
+h1,h2,h3,.callout,.num{font-family:var(--mono);font-weight:700;letter-spacing:-.02em}
+h1{font-size:var(--fs-h1);line-height:var(--lh-tight);text-wrap:balance;max-width:20ch}
+h2{font-size:var(--fs-h2);line-height:var(--lh-head);text-wrap:balance;max-width:24ch}
+h3{font-size:var(--fs-h3);line-height:1.3}
+.callout{font-size:var(--fs-callout);line-height:1.35;max-width:46ch;color:var(--ink)}
+.callout em{font-style:normal;color:var(--accent-ink)}
+.label{font-family:var(--mono);font-size:var(--fs-label);font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet)}
+.lede{font-size:var(--fs-lg);color:var(--body);max-width:56ch}
+.note{font-size:var(--fs-sm);color:var(--quiet);max-width:52ch}
+.num{font-size:var(--fs-num);line-height:1}
+.accent{color:var(--accent-ink)}
+.stack>*+*{margin-top:var(--s4)}
+.stack-lg>*+*{margin-top:var(--s6)}
+
+/* button */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s3);min-height:52px;padding:0 var(--s6);
+  font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;
+  color:#fff;background:var(--ink);border-radius:999px;transition:background-color var(--d-micro) var(--ease),transform var(--d-micro) var(--ease)}
+.btn:hover{background:#000}
+.btn:active{transform:translateY(1px)}
+.btn .price{color:#7FE3DE}
+.btn.nudge{animation:nudge 900ms var(--ease) 1}
+@keyframes nudge{30%{box-shadow:0 0 0 10px var(--accent-soft)}100%{box-shadow:0 0 0 0 transparent}}
+
+/* motion visuals: shared frame + pause control */
+.viz{position:relative;width:100%;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden}
+.mo-pause{position:absolute;right:var(--s3);bottom:var(--s3);z-index:3;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.92);border:1px solid var(--line);color:var(--ink)}
+.mo-pause svg{width:14px;height:14px}
+
+/* reveal gating (JS only; no-JS readers see everything) */
+html.js [data-reveal]:not(.on){display:none}
+html.js [data-reveal].on{animation:in var(--d-ui) var(--ease) both}
+@keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important;scroll-behavior:auto!important}
+}
