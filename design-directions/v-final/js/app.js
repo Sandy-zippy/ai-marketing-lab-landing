@@ -24,7 +24,9 @@ function pixelReady(fn) {
   var done = false; function go() { if (!done) { done = true; fn(); } }
   loadPixel().then(go); setTimeout(go, 1500);
 }
-addEventListener('load', function () { if (window.requestIdleCallback) requestIdleCallback(loadPixel, { timeout: 3000 }); else setTimeout(loadPixel, 3000); });
+/* 2.5 s after load, not the first idle slot: fbevents.js + its config are ~700 ms of main thread on a throttled phone and
+   landed before the hero still painted (Lighthouse mobile LCP 4.6 s with the pixel, 2.4 s without, 2 Oct 2026). */
+addEventListener('load', function () { setTimeout(function () { if (window.requestIdleCallback) requestIdleCallback(loadPixel, { timeout: 2000 }); else loadPixel(); }, 2500); });
 ['pointerdown', 'keydown', 'touchstart'].forEach(function (t) { addEventListener(t, loadPixel, { once: true, passive: true }); });
 function custom(ev, p) { pixelReady(function () { if (window.fbq) fbq('trackCustom', ev, p || {}); }); }
 

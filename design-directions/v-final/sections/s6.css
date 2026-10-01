@@ -22,19 +22,22 @@
 #s6 .stn .ln{stroke-width:3}
 #s6 .stn *{transition:fill 600ms var(--ease) 200ms,stroke 600ms var(--ease) 200ms}
 
-/* money: one volume per case on one scale; Paid us is the light block nested at its start */
+/* money: two labelled rows per case on that case's own scale. Made fills the width; Paid us is drawn
+   under it at its real share of Made (never below 6px, so a 1.7% fee still shows as a sliver). */
 #s6 .t-money{align-items:stretch}
 #s6 .bar{--d:8px;position:relative;height:calc(var(--s7) - var(--s2));margin:var(--s2) var(--d) var(--s2) 0}
-#s6 .slab{position:absolute;left:0;bottom:0;height:calc(100% - var(--d));width:max(4px,calc(100% * var(--w)));background:var(--ink);transform-origin:0 50%;
+#s6 .slab{position:absolute;left:0;bottom:0;height:calc(100% - var(--d));width:max(6px,calc(100% * var(--w)));background:var(--ink);transform-origin:0 50%;
   transition:transform 1200ms var(--ease) calc(300ms + var(--i) * 600ms)}
 #s6 .slab::before{content:"";position:absolute;left:0;bottom:100%;width:100%;height:var(--d);background:var(--quiet);transform:skewX(-45deg);transform-origin:0 100%}
 #s6 .slab::after{content:"";position:absolute;left:100%;top:0;width:var(--d);height:100%;background:var(--body);transform:skewY(-45deg);transform-origin:0 0}
-#s6 .slab.paid{background:var(--low);transition-delay:calc(1500ms + var(--i) * 300ms);transition-duration:800ms}
-#s6 .slab.paid::before{background:var(--line)}
-#s6 .slab.paid::after{background:var(--quiet)}
+#s6 .bar:has(.paid){height:var(--s5)}
+#s6 .slab.paid{--d:5px;background:var(--accent)}
+#s6 .slab.paid::before{background:var(--accent-ink)}
+#s6 .slab.paid::after{background:var(--accent-ink)}
 #s6 .amt{font-family:var(--mono);font-weight:700;font-size:var(--fs-body);line-height:var(--lh-head);letter-spacing:-.01em;transition:opacity 600ms var(--ease) calc(700ms + var(--i) * 600ms)}
-#s6 .paid-l{display:flex;align-items:baseline;gap:var(--s3);padding-left:var(--s3);border-left:2px solid var(--low)}
-#s6 .pa{--i:2;color:var(--body)}
+#s6 .pl{margin-top:var(--s3)}
+#s6 .pa{--i:1;color:var(--body)}
+#s6 .cut:nth-child(2) .pa{--i:2}
 
 /* pre-play */
 #s6 .cut.arm *{transition:none}
@@ -60,7 +63,9 @@
 #s6 .sv .w{fill:var(--accent)}
 
 /* client wall: names only, plain Inter, ink so they read */
-#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s3) var(--s6);padding-top:var(--s5);border-top:1px solid var(--line);color:var(--ink);font-size:var(--fs-body)}
+#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s3) var(--s6);padding-top:var(--s5);border-top:1px solid var(--line);color:var(--ink);font-size:var(--fs-body)}
+#s6 .wall-l{flex-basis:100%}
+@media (min-width:768px){#s6 .wall-l{flex-basis:auto}}
 
 /* Sami's testimonial: 9:16, click to play, beside Scale Your Results on desktop, under it on mobile */
 #s6 .vid{width:min(100%,calc(var(--s10) * 2 + var(--s5) + var(--s2)))}

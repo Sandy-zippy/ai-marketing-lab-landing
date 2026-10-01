@@ -7,9 +7,8 @@
 /* agent: Claude Code cursor holding a skill-file card */
 #s3 h2{max-width:30ch}
 /* Claude Code parks under the last station it woke (Repeat buying) */
-#s3 .s3-park{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s3);margin-top:var(--s2)}
-@media (min-width:600px){#s3 .s3-park{grid-template-columns:repeat(3,minmax(0,1fr))}}
-#s3 .s3-agent{grid-column:-2/-1;justify-self:center;position:relative;z-index:6;width:calc(var(--s10) + var(--s2));height:var(--s9);will-change:transform}
+#s3 .s3-park{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s3)}
+#s3 .s3-agent{grid-column:-2/-1;justify-self:center;position:relative;z-index:6;width:calc(var(--s10) + var(--s2));height:var(--s8);will-change:transform}
 #s3 .s3-ptr{position:absolute;left:0;top:0;width:var(--s5);height:auto;overflow:visible}
 #s3 .s3-ptr path{fill:var(--ink);stroke:var(--canvas);stroke-width:1.5;stroke-linejoin:round}
 #s3 .s3-cc{position:absolute;left:var(--s4);top:var(--s5);white-space:nowrap;font-family:var(--mono);font-size:var(--fs-sm);line-height:1;
@@ -31,8 +30,8 @@
 /* tabletop tilt + slab only side by side; stacked tall zones tilted into ghost edges at 390 */
 @media (min-width:1024px){#s3 .s3-zone{box-shadow:0 var(--s2) 0 var(--elevated),0 var(--s2) 0 1px var(--line);transform:perspective(1800px) rotateX(9deg)}}
 #s3 .s3-zl{color:var(--ink);font-size:var(--fs-sm);text-align:center;margin-bottom:var(--s3)}
-#s3 .s3-sts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4) var(--s3)}
-@media (min-width:600px){#s3 .s3-sts{grid-template-columns:repeat(3,minmax(0,1fr))}}
+#s3 .s3-sts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4) var(--s2)}
+@media (min-width:600px){#s3 .s3-sts{gap:var(--s4) var(--s3)}}
 @media (min-width:1024px){
   #s3 .s3-scene{padding:var(--s6)}
   #s3 .s3-board{grid-template-columns:minmax(0,1fr) calc(var(--s10) + var(--s6)) minmax(0,1fr);column-gap:var(--s3);align-items:stretch}

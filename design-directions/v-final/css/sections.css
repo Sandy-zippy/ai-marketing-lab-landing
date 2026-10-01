@@ -247,9 +247,8 @@
 /* agent: Claude Code cursor holding a skill-file card */
 #s3 h2{max-width:30ch}
 /* Claude Code parks under the last station it woke (Repeat buying) */
-#s3 .s3-park{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s3);margin-top:var(--s2)}
-@media (min-width:600px){#s3 .s3-park{grid-template-columns:repeat(3,minmax(0,1fr))}}
-#s3 .s3-agent{grid-column:-2/-1;justify-self:center;position:relative;z-index:6;width:calc(var(--s10) + var(--s2));height:var(--s9);will-change:transform}
+#s3 .s3-park{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s3)}
+#s3 .s3-agent{grid-column:-2/-1;justify-self:center;position:relative;z-index:6;width:calc(var(--s10) + var(--s2));height:var(--s8);will-change:transform}
 #s3 .s3-ptr{position:absolute;left:0;top:0;width:var(--s5);height:auto;overflow:visible}
 #s3 .s3-ptr path{fill:var(--ink);stroke:var(--canvas);stroke-width:1.5;stroke-linejoin:round}
 #s3 .s3-cc{position:absolute;left:var(--s4);top:var(--s5);white-space:nowrap;font-family:var(--mono);font-size:var(--fs-sm);line-height:1;
@@ -271,8 +270,8 @@
 /* tabletop tilt + slab only side by side; stacked tall zones tilted into ghost edges at 390 */
 @media (min-width:1024px){#s3 .s3-zone{box-shadow:0 var(--s2) 0 var(--elevated),0 var(--s2) 0 1px var(--line);transform:perspective(1800px) rotateX(9deg)}}
 #s3 .s3-zl{color:var(--ink);font-size:var(--fs-sm);text-align:center;margin-bottom:var(--s3)}
-#s3 .s3-sts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4) var(--s3)}
-@media (min-width:600px){#s3 .s3-sts{grid-template-columns:repeat(3,minmax(0,1fr))}}
+#s3 .s3-sts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4) var(--s2)}
+@media (min-width:600px){#s3 .s3-sts{gap:var(--s4) var(--s3)}}
 @media (min-width:1024px){
   #s3 .s3-scene{padding:var(--s6)}
   #s3 .s3-board{grid-template-columns:minmax(0,1fr) calc(var(--s10) + var(--s6)) minmax(0,1fr);column-gap:var(--s3);align-items:stretch}
@@ -358,21 +357,26 @@
 #s4 .s4-wt{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;font-family:var(--mono);font-size:var(--fs-label);line-height:1.1;letter-spacing:.04em;text-transform:uppercase;color:var(--low)}
 #s4 .s4-wt b{font-size:var(--fs-h3);color:var(--canvas)}
 #s4 .s4-br i{position:relative;flex:1;font-style:normal;background:var(--ink);border:1px solid var(--surface)}
-#s4 .s4-wins{justify-content:space-evenly;align-items:center}
+#s4 .s4-wins{width:calc(var(--bw) * .6);align-items:center}
+#s4 .s4-w{flex:1;min-width:0;text-align:center}
+#s4 .s4-w em{max-width:calc(100% - var(--s1))}
 #s4 .s4-rooms span{flex:1;display:grid;justify-items:center;align-content:center;gap:var(--s1);text-align:center}
-#s4 .s4-rooms em{font-style:normal;letter-spacing:-.02em;font-size:var(--fs-label);line-height:1.15;color:var(--canvas)}
+#s4 .s4-rooms em,#s4 .s4-w em{font-style:normal;letter-spacing:-.02em;font-size:var(--fs-label);line-height:1.15;color:var(--canvas)}
 #s4 .s4-rooms svg{width:var(--s5);height:var(--s5);fill:none;stroke:var(--canvas);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-#s4 .s4-w{position:relative;width:var(--s6);height:var(--s5);background:var(--body);border:1px solid var(--quiet)}
-#s4 .s4-w b{position:absolute;inset:0;display:grid;place-items:center;background:var(--accent);box-shadow:0 0 0 var(--s1) var(--accent-soft)}
+/* week 2: the four channel rooms, one of which the buyer picks; the Friday door sits at the far right of the floor */
+#s4 .s4-ch em{white-space:nowrap}
+#s4 .s4-ch span:last-child{padding-right:var(--s2)}
+#s4 .s4-w{display:grid;justify-items:center;gap:var(--s1)}
+#s4 .s4-w b{position:relative;width:var(--s6);height:var(--s5);display:grid;place-items:center;background:var(--accent);box-shadow:0 0 0 var(--s1) var(--accent-soft)}
 #s4 .s4-w svg{width:var(--s4);height:var(--s4);fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 #s4 .s4-roof{position:absolute;bottom:0;left:calc(var(--bx) - var(--s1));width:calc(var(--bw) + var(--s2));height:var(--s2);background:var(--ink)}
-#s4 .s4-pole{position:absolute;bottom:var(--s2);left:calc(var(--bx) + var(--bw) * .3);height:var(--s8);border-left:1px solid var(--ink);border-right:1px solid var(--ink);transform-origin:bottom}
+#s4 .s4-pole{position:absolute;bottom:var(--s2);left:calc(var(--bx) + var(--bw) * .9);height:var(--s8);border-left:1px solid var(--ink);border-right:1px solid var(--ink);transform-origin:bottom}
 #s4 .s4-flag{position:absolute;top:0;left:0;transform-origin:left;white-space:nowrap;background:var(--accent-ink);color:var(--canvas);
   font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1;letter-spacing:.06em;text-transform:uppercase;
   padding:var(--s2) var(--s5) var(--s2) var(--s3);clip-path:polygon(0 0,100% 0,88% 50%,100% 100%,0 100%)}
 
 /* floor 2: the Friday door opens, envelopes pour out under the tag */
-#s4 .s4-door{position:absolute;left:28%;right:28%;bottom:0;height:72%;background:var(--accent);perspective:160px}
+#s4 .s4-door{position:absolute;left:76%;right:-1px;bottom:0;height:72%;background:var(--accent);perspective:160px}
 #s4 .s4-leaf{position:absolute;inset:0;background:var(--body);border:1px solid var(--quiet);transform-origin:left center;transform:rotateY(-72deg)}
 #s4 .s4-stream{position:absolute;left:calc(var(--bx) + var(--bw) + var(--s2));right:var(--s3);bottom:8%;height:150%;z-index:1}
 #s4 .s4-ppl{position:absolute;right:0;bottom:0;width:32%}
@@ -404,7 +408,7 @@
   #s4 .s4-viz{grid-row:1/6;align-self:start}
   #s4 .s4-wk1{grid-row:2}#s4 .s4-wk2{grid-row:3}#s4 .s4-wk3{grid-row:4}
   #s4 .s4-wk1,#s4 .s4-wk2,#s4 .s4-wk3{grid-column:1/6}
-  #s4 .s4-w{width:var(--s7);height:var(--s6)}
+  #s4 .s4-w b{width:var(--s7);height:var(--s6)}
 }
 
 /* motion: plays once on .go, holds the natural (finished) styles above */
@@ -526,19 +530,22 @@
 #s6 .stn .ln{stroke-width:3}
 #s6 .stn *{transition:fill 600ms var(--ease) 200ms,stroke 600ms var(--ease) 200ms}
 
-/* money: one volume per case on one scale; Paid us is the light block nested at its start */
+/* money: two labelled rows per case on that case's own scale. Made fills the width; Paid us is drawn
+   under it at its real share of Made (never below 6px, so a 1.7% fee still shows as a sliver). */
 #s6 .t-money{align-items:stretch}
 #s6 .bar{--d:8px;position:relative;height:calc(var(--s7) - var(--s2));margin:var(--s2) var(--d) var(--s2) 0}
-#s6 .slab{position:absolute;left:0;bottom:0;height:calc(100% - var(--d));width:max(4px,calc(100% * var(--w)));background:var(--ink);transform-origin:0 50%;
+#s6 .slab{position:absolute;left:0;bottom:0;height:calc(100% - var(--d));width:max(6px,calc(100% * var(--w)));background:var(--ink);transform-origin:0 50%;
   transition:transform 1200ms var(--ease) calc(300ms + var(--i) * 600ms)}
 #s6 .slab::before{content:"";position:absolute;left:0;bottom:100%;width:100%;height:var(--d);background:var(--quiet);transform:skewX(-45deg);transform-origin:0 100%}
 #s6 .slab::after{content:"";position:absolute;left:100%;top:0;width:var(--d);height:100%;background:var(--body);transform:skewY(-45deg);transform-origin:0 0}
-#s6 .slab.paid{background:var(--low);transition-delay:calc(1500ms + var(--i) * 300ms);transition-duration:800ms}
-#s6 .slab.paid::before{background:var(--line)}
-#s6 .slab.paid::after{background:var(--quiet)}
+#s6 .bar:has(.paid){height:var(--s5)}
+#s6 .slab.paid{--d:5px;background:var(--accent)}
+#s6 .slab.paid::before{background:var(--accent-ink)}
+#s6 .slab.paid::after{background:var(--accent-ink)}
 #s6 .amt{font-family:var(--mono);font-weight:700;font-size:var(--fs-body);line-height:var(--lh-head);letter-spacing:-.01em;transition:opacity 600ms var(--ease) calc(700ms + var(--i) * 600ms)}
-#s6 .paid-l{display:flex;align-items:baseline;gap:var(--s3);padding-left:var(--s3);border-left:2px solid var(--low)}
-#s6 .pa{--i:2;color:var(--body)}
+#s6 .pl{margin-top:var(--s3)}
+#s6 .pa{--i:1;color:var(--body)}
+#s6 .cut:nth-child(2) .pa{--i:2}
 
 /* pre-play */
 #s6 .cut.arm *{transition:none}
@@ -564,7 +571,9 @@
 #s6 .sv .w{fill:var(--accent)}
 
 /* client wall: names only, plain Inter, ink so they read */
-#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s3) var(--s6);padding-top:var(--s5);border-top:1px solid var(--line);color:var(--ink);font-size:var(--fs-body)}
+#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s3) var(--s6);padding-top:var(--s5);border-top:1px solid var(--line);color:var(--ink);font-size:var(--fs-body)}
+#s6 .wall-l{flex-basis:100%}
+@media (min-width:768px){#s6 .wall-l{flex-basis:auto}}
 
 /* Sami's testimonial: 9:16, click to play, beside Scale Your Results on desktop, under it on mobile */
 #s6 .vid{width:min(100%,calc(var(--s10) * 2 + var(--s5) + var(--s2)))}
