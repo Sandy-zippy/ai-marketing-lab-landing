@@ -136,11 +136,12 @@ function stateDQ() {
     var f = form.elements, bad = null;
     var fn = f.fn.value.trim(), em = f.em.value.trim().toLowerCase(), ph = f.ph.value.replace(/[^\d+]/g, '');
     var phd = ph.replace(/\D/g, '').replace(/^0+/, ''); if (phd.length === 10) phd = '91' + phd;   /* India default, matches the relay's phone_() */
-    [f.fn, f.em, f.ph].forEach(function (i) { i.removeAttribute('aria-invalid'); });
+    [f.fn, f.em, f.ph].forEach(function (i) { i.removeAttribute('aria-invalid'); i.removeAttribute('aria-describedby'); });
     if (!fn) bad = [f.fn, 'Add your first name.'];
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) bad = [f.em, 'That email looks off.'];
     else if (ph.replace(/\D/g, '').length < 10) bad = [f.ph, 'Add your WhatsApp number with the country code.'];
-    if (bad) { bad[0].setAttribute('aria-invalid', 'true'); err.textContent = bad[1]; err.hidden = false; bad[0].focus(); return; }
+    /* the message sits directly under the field it is about */
+    if (bad) { bad[0].setAttribute('aria-invalid', 'true'); bad[0].setAttribute('aria-describedby', 'qerr'); bad[0].parentNode.after(err); err.textContent = bad[1]; err.hidden = false; bad[0].focus(); return; }
     err.hidden = true;
     if (f.company.value) return stateB();                     /* honeypot: bots see the video, nothing is sent */
     var id = 'lead_' + (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '_' + Math.random().toString(36).slice(2));
