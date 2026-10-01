@@ -65,6 +65,7 @@ jobs:
           mkdir -p _site/assets/photos/aiml
           cp assets/photos/aiml/uab-board.jpg assets/photos/aiml/uab-desk.jpg assets/photos/aiml/uab-hero.jpg \
              assets/photos/aiml/uab-meet.jpg assets/photos/aiml/uab-notes.jpg _site/assets/photos/aiml/
+          cp assets/photos/aiml/proof-phone.jpg _site/assets/photos/aiml/
           # Explicit list, same reason as assets/work above. `cp assets/proof/*.png` also
           # published crop-1..7.png, 1.1MB no deployed page references. I fixed the work
           # glob and missed its sibling one line up; an audit agent caught it.
@@ -90,6 +91,12 @@ jobs:
              assets/brand/apple-touch-icon.png assets/brand/icon-192.png assets/brand/icon-512.png \
              assets/brand/maskable-512.png assets/brand/site.webmanifest _site/assets/brand/
           cp call/index.html call/booked.html call/poster.jpg _site/call/
+          # Motion loops for the /call and /sprint sections. Explicit list, never a glob.
+          mkdir -p _site/assets/loops
+          cp assets/loops/pain.mp4 assets/loops/pain.webm assets/loops/pain.jpg \
+             assets/loops/system.mp4 assets/loops/system.webm assets/loops/system.jpg \
+             assets/loops/sprint.mp4 assets/loops/sprint.webm assets/loops/sprint.jpg \
+             assets/loops/guarantee.mp4 assets/loops/guarantee.webm assets/loops/guarantee.jpg _site/assets/loops/
           cp call/vsl/aiml-vsl.mp4 _site/call/vsl/
           cp -R call/vsl/hls _site/call/vsl/
           touch _site/.nojekyll
