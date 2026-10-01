@@ -10,11 +10,13 @@
  * It also asserts the POPULATION: a page with zero headings found fails, so the gate can't pass
  * by measuring nothing.
  *
- * Run: ROOT=$PWD node mono-sweep.mjs   (exit 0 clean, 1 breach)
+ * Run: node mono-sweep.mjs   (exit 0 clean, 1 breach; ROOT=<dir> to sweep another checkout)
  */
 import puppeteer from '/Users/sandy/HQ/System/tools/pdf-renderer/node_modules/puppeteer/lib/esm/puppeteer/puppeteer.js';
 import { globSync } from 'node:fs';
-const ROOT = process.env.ROOT || '/Users/sandy/HQ/Sandy/website/aimarketinglabs.in';
+// Default = the checkout this script lives in. A hardcoded main-checkout path made the pre-push hook
+// sweep a stale tree instead of the commit being pushed.
+const ROOT = process.env.ROOT || decodeURIComponent(new URL('.', import.meta.url).pathname).replace(/\/$/, '');
 const PAGES = ['call/index.html', 'sprint/index.html'];
 const MIN = { 'call/index.html': 8, 'sprint/index.html': 6 };   // h1+h2+h3+callout expected at least
 const CHROME = process.env.CHROME_BIN
