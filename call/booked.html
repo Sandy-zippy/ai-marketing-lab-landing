@@ -72,17 +72,16 @@ footer a{color:inherit;text-decoration:none}
   <footer><a href="../privacy">Privacy</a><a href="../terms">Terms</a><a href="../refund">Refunds</a></footer>
 </main>
 <script>
-/* Arriving here means Razorpay took the ₹999, so Purchase fires on load (PageView comes from
-   meta-pixel.js). Schedule fires only when Cal.com confirms a booking. */
-/* event_id: Razorpay's payment id when its redirect carries one, so the server-side CAPI Purchase
-   (n8n, keyed on the same payment id) deduplicates with this one. Fallback: a random id. */
+/* Browser Purchase fires ONLY when Razorpay's redirect carries razorpay_payment_id, so a direct
+   visit to this public page never counts as a sale. event_id = purchase_<payment id> dedups with
+   the server-side CAPI Purchase (Apps Script relay, same key). Schedule fires on Cal.com confirm. */
 var attr = aimlAttr();
 var pid = new URLSearchParams(location.search).get('razorpay_payment_id') || '';
 var evKey = pid || ('web_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8));
 var pdata = { value: 999, currency: 'INR', content_name: 'AIML 45 min call' };
 ['utm_source', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id'].forEach(function (k) { if (attr[k]) pdata[k] = attr[k]; });
-try { if (!sessionStorage.getItem('aiml_paid')) { aimlTrack('Purchase', pdata, { eventID: 'purchase_' + evKey }); sessionStorage.setItem('aiml_paid', '1'); } }
-catch (e) { aimlTrack('Purchase', pdata, { eventID: 'purchase_' + evKey }); }
+if (pid) { try { if (!sessionStorage.getItem('aiml_paid')) { aimlTrack('Purchase', pdata, { eventID: 'purchase_' + evKey }); sessionStorage.setItem('aiml_paid', '1'); } }
+catch (e) { aimlTrack('Purchase', pdata, { eventID: 'purchase_' + evKey }); } }
 
 /* Cal.com embed loader, same pattern as vsl/watch.html. */
 var CAL_ORIGIN = 'https://cal.com', CAL_LINK = 'sandy-kadyan/ai-growth-audit';

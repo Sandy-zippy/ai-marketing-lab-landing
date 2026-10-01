@@ -16,5 +16,12 @@ const r = await p.evaluate(() => ({ fb: window.__fb.filter(x => x[0] === 'track'
 const [, , data, opts] = r.fb[0] || [];
 const ok = r.fb.length === 1 && opts?.eventID === 'purchase_pay_TEST123' && data?.utm_content === '1201' && data?.value === 999
   && r.calq.includes('metadata[utm_content]') && r.calq.includes('pay_TEST123') && r.calq.includes('fb.1.123.456');
+// A direct visit (no payment id) must fire NO Purchase.
+const p2 = await b.newPage();
+await p2.route(/connect\.facebook\.net|app\.cal\.com/, r => r.fulfill({ status: 200, contentType: 'text/javascript', body: '' }));
+await p2.addInitScript(() => { window.__fb = []; window.fbq = function () { window.__fb.push([...arguments]); }; window._fbq = window.fbq; });
+await p2.goto(B + 'call/booked.html'); await p2.waitForTimeout(500);
+const direct = await p2.evaluate(() => window.__fb.filter(x => x[0] === 'track' && x[1] === 'Purchase').length);
+if (direct !== 0) { console.log('FAIL direct visit fired Purchase x' + direct); await b.close(); process.exit(1); }
 console.log(ok ? 'PASS' : 'FAIL', JSON.stringify({ purchase: r.fb[0] }), r.calq.slice(0, 400));
 await b.close(); process.exit(ok ? 0 : 1);
