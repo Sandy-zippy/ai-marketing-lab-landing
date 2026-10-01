@@ -30,6 +30,8 @@ page = rd('shell.html')
 sub = {'TOKENS': rd('DESIGN-TOKENS.css'), 'SHELL_CSS': rd('css/shell.css'), 'APP_JS': rd('js/app.js')}
 for s in secs:
     sub[s.upper()] = rd(f'sections/{s}.html') or f'<section id="{s}" class="sec"></section>'
+    # sections stay hidden until the video reveals them: never let their images compete with the first paint
+    sub[s.upper()] = re.sub(r'<img(?![^>]*loading=)', '<img loading="lazy"', sub[s.upper()]).replace(' poster="', ' data-poster="')
 for k, v in sub.items(): page = page.replace('{{%s}}' % k, v)
 page = (page.replace('{{RELAY_URL}}', env('~/.secrets/aiml-tracking.env').get('APPS_SCRIPT_URL', ''))
             .replace('{{REVEAL_SOFT}}', str(soft)).replace('{{PITCH}}', str(pitch)).replace('{{CTA_SPOKEN}}', str(cta))

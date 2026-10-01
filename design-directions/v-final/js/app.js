@@ -10,7 +10,23 @@ var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 function lsPut(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
-function custom(ev, p) { if (window.fbq) fbq('trackCustom', ev, p || {}); }
+/* Meta pixel loads after the first paint: on idle after load (3 s cap) or on the first tap/key, whichever comes first.
+   Anything that needs it (custom events, the Lead, utm/fbc for the beacon) waits for it, capped at 1.5 s. */
+var pixelP = null;
+function loadPixel() {
+  if (!pixelP) pixelP = new Promise(function (res) {
+    var s = document.createElement('script'); s.src = '{{ROOT}}assets/meta-pixel.js'; s.onload = s.onerror = function () { res(); };
+    document.head.appendChild(s);
+  });
+  return pixelP;
+}
+function pixelReady(fn) {
+  var done = false; function go() { if (!done) { done = true; fn(); } }
+  loadPixel().then(go); setTimeout(go, 1500);
+}
+addEventListener('load', function () { if (window.requestIdleCallback) requestIdleCallback(loadPixel, { timeout: 3000 }); else setTimeout(loadPixel, 3000); });
+['pointerdown', 'keydown', 'touchstart'].forEach(function (t) { addEventListener(t, loadPixel, { once: true, passive: true }); });
+function custom(ev, p) { pixelReady(function () { if (window.fbq) fbq('trackCustom', ev, p || {}); }); }
 
 /* Shared helpers for section partials (js/sections.js). */
 window.AIML = {
@@ -50,7 +66,10 @@ document.querySelectorAll('.js-pay').forEach(function (b) {
 var shown = {};
 function reveal(stage) {
   if (shown[stage]) return; shown[stage] = true;
-  document.querySelectorAll('[data-reveal="' + stage + '"]').forEach(function (el) { el.classList.add('on'); });
+  document.querySelectorAll('[data-reveal="' + stage + '"]').forEach(function (el) {
+    el.classList.add('on');
+    el.querySelectorAll('video[data-poster]').forEach(function (v) { v.poster = v.dataset.poster; });
+  });
   document.dispatchEvent(new CustomEvent('aiml:reveal', { detail: { stage: stage } }));
 }
 function stateB() {
@@ -96,8 +115,7 @@ function stateDQ() {
 
   function finishDQ() {
     custom('Disqualified', { reason: dq });
-    var row = base(); row.ok = false; row.reason = dq;
-    send(row);
+    pixelReady(function () { var row = base(); row.ok = false; row.reason = dq; send(row); });
     lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2 || '', ok: false, ts: Date.now() }));
     stateDQ();
   }
@@ -126,12 +144,14 @@ function stateDQ() {
     err.hidden = true;
     if (f.company.value) return stateB();                     /* honeypot: bots see the video, nothing is sent */
     var id = 'lead_' + (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '_' + Math.random().toString(36).slice(2));
-    var row = base(); row.ok = true; row.first_name = fn; row.email = em; row.whatsapp = ph; row.event_id = id;
-    send(row);
-    if (window.fbq && typeof META_PIXEL_ID !== 'undefined' && META_PIXEL_ID) {
-      fbq('init', META_PIXEL_ID, { em: em, fn: fn.toLowerCase(), ph: phd });   /* advanced matching, pixel hashes */
-      fbq('track', 'Lead', { content_name: 'AIML VSL optin' }, { eventID: id });
-    }
+    pixelReady(function () {                                   /* same event_id in the beacon (CAPI) and the pixel = Meta dedups */
+      var row = base(); row.ok = true; row.first_name = fn; row.email = em; row.whatsapp = ph; row.event_id = id;
+      send(row);
+      if (window.fbq && typeof META_PIXEL_ID !== 'undefined' && META_PIXEL_ID) {
+        fbq('init', META_PIXEL_ID, { em: em, fn: fn.toLowerCase(), ph: phd });   /* advanced matching, pixel hashes */
+        fbq('track', 'Lead', { content_name: 'AIML VSL optin' }, { eventID: id });
+      }
+    });
     lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2, ok: true, fn: fn, ts: Date.now() }));
     still.classList.add('lift');
     setTimeout(function () { stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' }); }, REDUCE ? 0 : 450);
