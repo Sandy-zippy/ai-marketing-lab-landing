@@ -1,31 +1,12 @@
-/* Shell: header, screen 1 (qualify + two-lock still), screen 2 (player), footer. Tokens only. */
+/* Shell: header, screen 1 (qualify only), screen 2 (player), footer. Tokens only. */
 .top{padding-block:var(--s5)}
 .top img{height:22px;width:auto}
 .scr{padding-block:var(--s6) var(--s8)}
 html.js body[data-state="b"] #qualify{display:none}
 
-/* two-lock still */
-.still{position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--ink);aspect-ratio:16/9;border:1px solid var(--line)}
-.still img{width:100%;height:100%;object-fit:cover;filter:saturate(.85) brightness(.72);transition:filter var(--d-ui) var(--ease)}
-.locks{position:absolute;left:23%;top:50%;transform:translate(-50%,calc(-100% - clamp(36px,4.2vw,52px)));display:flex;gap:var(--s4)}
-.lock{width:clamp(30px,3.2vw,44px);height:auto;aspect-ratio:40/48;overflow:visible;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round}
-.lock rect{fill:rgba(18,18,18,.55)}
-.lock circle{fill:#fff;stroke:none}
-.lock .shackle{transform-origin:29px 22px;transition:transform 450ms var(--ease),stroke var(--d-ui) var(--ease)}
-.lock.open .shackle{transform:translateY(-5px) rotate(28deg);stroke:#7FE3DE}
-.lock.open rect{stroke:#7FE3DE}
-.tri{position:absolute;left:23%;top:50%;width:clamp(60px,6.4vw,88px);height:auto;aspect-ratio:1;transform:translate(-50%,-50%)}
-.tri circle{fill:rgba(255,255,255,.12);stroke:#fff;stroke-width:2}
-/* locked: a faint dashed triangle; on submit it draws solid and fills */
-.tri path{fill:none;stroke:rgba(255,255,255,.45);stroke-width:3;stroke-linejoin:round;stroke-dasharray:6 6;transition:stroke var(--d-ui) var(--ease),fill 200ms 550ms}
-.still[data-open="2"] .tri path{stroke:rgba(255,255,255,.8)}
-.still.lift .tri path{stroke:#fff;stroke-dasharray:90;stroke-dashoffset:0;animation:draw 600ms var(--ease) both;fill:#fff}
-@keyframes draw{from{stroke-dashoffset:90;fill:transparent}}
-.still.lift{transform:translateY(-8px) scale(1.01);transition:transform 500ms var(--ease)}
-.still.lift img{filter:none}
-.still-cap{position:absolute;left:var(--s4);bottom:var(--s4);font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;color:#fff;background:rgba(18,18,18,.6);padding:var(--s1) var(--s3);border-radius:var(--r-sm)}
-
-/* qualify form */
+/* qualify form: screen 1 is the questions and nothing else (no video, no still). Copy c-1-7, questions c-8-12 beside it on desktop. */
+#qualify .grid{align-items:start}
+.qlabel{margin-bottom:var(--s4)}
 .qform{display:grid;gap:var(--s5)}
 .q{border:0;display:grid;gap:var(--s3)}
 .q[disabled]{display:none}

@@ -89,13 +89,12 @@ function stateDQ() {
 
 /* ---- screen 1: qualify ---- */
 (function () {
-  var form = document.getElementById('qform'), still = document.getElementById('still'), err = document.getElementById('qerr');
+  var form = document.getElementById('qform'), err = document.getElementById('qerr');
   var lead = null; try { lead = JSON.parse(lsGet('aiml_lead') || 'null'); } catch (e) {}
   if (lead && lead.ok) return stateB();
   if (lead && lead.ok === false) return stateDQ();
   document.body.dataset.state = 'a';
   var ans = {}, dq = null;
-  var locks = still.querySelectorAll('.lock');
 
   form.querySelectorAll('.q[data-q="1"], .q[data-q="2"]').forEach(function (fs) {
     var n = fs.dataset.q;
@@ -106,8 +105,6 @@ function stateDQ() {
         ans['q' + n] = b.dataset.v;
         custom('QualifyStep', { step: Number(n), answer: b.dataset.v });
         if (b.dataset.dq) { dq = 'q' + n + ':' + b.dataset.v; return finishDQ(); }
-        locks[n - 1].classList.add('open');
-        still.dataset.open = String(still.querySelectorAll('.lock.open').length);
         var next = form.querySelector('.q[data-q="' + (+n + 1) + '"]');
         next.disabled = false;
         var first = next.querySelector('button, input'); if (first) first.focus({ preventScroll: true });
@@ -156,8 +153,7 @@ function stateDQ() {
       }
     });
     lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2, ok: true, fn: fn, ts: Date.now() }));
-    still.classList.add('lift');
-    setTimeout(function () { stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' }); }, REDUCE ? 0 : 450);
+    stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
   });
 })();
 
