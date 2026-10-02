@@ -55,6 +55,9 @@
 #s7 .s7-wb{fill:var(--canvas);stroke:var(--ink);stroke-width:3;vector-effect:non-scaling-stroke}
 #s7 .s7-ws{fill:none;stroke:var(--quiet-line);stroke-width:2;stroke-dasharray:4 4;vector-effect:non-scaling-stroke}
 
+/* tablet: the 44px label ran past the right edge at 768 (gates.py offscreen, 2 Oct) */
+@media (min-width:768px) and (max-width:1023px){#s7 .s7-oh{font-size:var(--fs-h3)}}
+
 @media (max-width:767px){
   #s7 .s7-rows li{padding:var(--s3) var(--s4)}
   #s7 .s7-fork{--node:33.520%;--end:46.089%;aspect-ratio:358/280;margin-top:0}
