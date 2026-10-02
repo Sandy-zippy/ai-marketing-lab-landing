@@ -17,8 +17,8 @@ import { globSync } from 'node:fs';
 // Default = the checkout this script lives in. A hardcoded main-checkout path made the pre-push hook
 // sweep a stale tree instead of the commit being pushed.
 const ROOT = process.env.ROOT || decodeURIComponent(new URL('.', import.meta.url).pathname).replace(/\/$/, '');
-const PAGES = ['call/index.html', 'sprint/index.html'];
-const MIN = { 'call/index.html': 8, 'sprint/index.html': 6 };   // h1+h2+h3+callout expected at least
+const PAGES = ['index.html', 'call/index.html', 'sprint/index.html'];   // index.html = the funnel served as the homepage (2 Oct 2026)
+const MIN = { 'index.html': 8, 'call/index.html': 8, 'sprint/index.html': 6 };   // h1+h2+h3+callout expected at least
 const CHROME = process.env.CHROME_BIN
   || globSync('/Users/sandy/.cache/puppeteer/chrome/mac_arm-*/chrome-mac-arm64/*.app/Contents/MacOS/*').sort().pop();
 if (!CHROME) { console.error('no chrome build found under ~/.cache/puppeteer/chrome'); process.exit(1); }

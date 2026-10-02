@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -q 'const PAY_LINK = ""' call/index.html; then echo "BLOCKED: PAY_LINK is empty in call/index.html"; exit 1; fi
+          for f in index.html call/index.html; do if ! grep -q "PAY_LINK = 'https://rzp.io/" $f; then echo "BLOCKED: no Razorpay PAY_LINK in $f"; exit 1; fi; done
           if grep -q 'const META_PIXEL_ID = ""' assets/meta-pixel.js; then echo "BLOCKED: META_PIXEL_ID is empty in assets/meta-pixel.js"; exit 1; fi
           test -s call/vsl/aiml-vsl.mp4 || { echo "BLOCKED: call/vsl/aiml-vsl.mp4 missing"; exit 1; }
           test -s call/vsl/hls/master.m3u8 || { echo "BLOCKED: call/vsl/hls/master.m3u8 missing"; exit 1; }

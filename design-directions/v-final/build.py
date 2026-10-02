@@ -1,6 +1,6 @@
 """Assemble index.html from shell.html + tokens + sections/sN.{html,css,js}.
    python3 build.py            -> index.html here (ROOT ../../, preview inside .call-release)
-   python3 build.py --root ../ --out ../../call/index.html -> the staged /call page (pages.yml copies
+   python3 build.py --root ../ --out ../../call/index.html -> the /call page; add --home --out ../../index.html for the homepage copy (pages.yml copies
    this folder's assets/ css/ js/ media/ next to it). Sandy approves before any push."""
 import json, os, re, sys
 H = os.path.dirname(os.path.abspath(__file__))
@@ -36,6 +36,13 @@ for k, v in sub.items(): page = page.replace('{{%s}}' % k, v)
 page = (page.replace('{{RELAY_URL}}', env('~/.secrets/aiml-tracking.env').get('APPS_SCRIPT_URL', ''))
             .replace('{{REVEAL_SOFT}}', str(soft)).replace('{{PITCH}}', str(pitch)).replace('{{CTA_SPOKEN}}', str(cta))
             .replace('{{ROOT}}', ROOT))
+# --home: the same page served at aimarketinglabs.in/ (Sandy, 2 Oct: the funnel IS the homepage, no jump to /call).
+# Its files stay in /call/; <base> resolves every page-local path and ../ link exactly as on /call.
+if '--home' in sys.argv:
+    page = (page.replace('<meta charset="UTF-8" />', '<meta charset="UTF-8" />\n<base href="/call/" />', 1)
+                .replace('<meta name="robots" content="noindex" />', '<meta name="robots" content="index,follow" />'))
+# both URLs name the homepage as the one to index
+page = page.replace('https://aimarketinglabs.in/call/"', 'https://aimarketinglabs.in/"')
 left = re.findall(r'\{\{[A-Z0-9_]+\}\}', page)
 assert not left, f'unfilled slots: {left}'
 K = env('~/.secrets/aiml-tracking.env').get('APPS_SCRIPT_URL_SECRET')
