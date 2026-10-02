@@ -5,13 +5,20 @@
 html.js body[data-state="b"] #qualify{display:none}
 
 /* screen 1: uAbility's opt-in shape. One centred column: callout, promise, without-line, instruction, one button. */
-.one{display:grid;justify-items:center;text-align:center;row-gap:var(--s5)}
-#qualify .callout{max-width:none;font-size:var(--fs-lg)}
-#qualify h1{font-size:clamp(20px,1.75vw,25px);line-height:1.35;max-width:none;text-wrap:balance}
-.without{font-family:var(--mono);font-weight:700;font-size:var(--fs-lg);line-height:1.4;color:var(--accent-ink);max-width:60ch}
-.instr{font-size:var(--fs-lg);color:var(--body)}
-.btn-big{min-height:64px;padding:0 var(--s8);font-size:var(--fs-body)}
-@media (max-width:480px){.btn-big{width:100%}}
+/* State A fills the first screen: grey band (uAbility's), content centred, footer below the fold. */
+body[data-state="a"]{background:var(--surface)}
+body[data-state="a"] footer{background:var(--canvas);margin-top:0}
+body[data-state="a"] #qualify{min-height:calc(100svh - 70px);display:grid;align-content:center;padding-block:var(--s6) var(--s10)}
+.one{display:grid;justify-items:center;text-align:center}
+#qualify .callout{max-width:40ch;font-size:var(--fs-callout);line-height:1.35}
+@media (min-width:1024px){#qualify .callout{max-width:none}}
+.nw{white-space:nowrap}
+#qualify h1{margin-top:var(--s4);font-size:clamp(23px,calc(10px + 2.3vw),36px);line-height:1.2;max-width:var(--max);text-wrap:balance}
+#qualify h1 em{font-style:normal;color:var(--accent-ink)}
+.without{margin-top:var(--s6);font-size:clamp(17px,1.4vw,20px);font-weight:500;line-height:1.45;color:var(--ink);max-width:46ch;text-wrap:balance}
+.instr{margin-top:var(--s7);font-size:var(--fs-body);color:var(--body);text-wrap:balance}
+.btn-big{margin-top:var(--s4);min-height:64px;min-width:300px;padding:0 var(--s8);font-size:var(--fs-body)}
+@media (max-width:480px){.btn-big{width:100%;min-width:0}.instr{margin-top:var(--s6)}#qualify h1{text-wrap:pretty}}
 
 /* the popup */
 .modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:var(--s4)}
