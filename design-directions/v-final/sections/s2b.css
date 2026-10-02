@@ -1,94 +1,64 @@
-/* S2b bonuses: H + sub + who-gets-what key left, filing drawer right (each pack name shown once), 13-row folder index below.
-   Default styles = the FINISHED frame. .armed (JS, motion allowed) holds the start frame until .go. */
-#s2b{--tab:calc(var(--s5) + var(--s1));--lip:var(--s7)}
-@media (min-width:1024px){#s2b .grid{align-items:start}}
+/* S2b skill packs: paper ground. Thirteen folders in three tier bands (2, 4, 7) read top to bottom; an ink rail wraps
+   all 13 folders and ends on "all 13", the Accelerator's line.
+   Default styles = the FINISHED frame. .s2b-arm (JS, only when below the fold) holds frame 0; .s2b-go plays it. */
+#s2b{background:var(--paper);border-top:0}
 #s2b .s2b-hd>*+*{margin-top:var(--s4)}
-#s2b .s2b-hd .s2b-key{margin-top:var(--s6)}
 
-/* tags */
-#s2b .s2b-tg{display:inline-block;font-family:var(--mono);font-size:var(--fs-label);line-height:1.5;letter-spacing:.06em;white-space:nowrap;
-  color:var(--ink);border:1px solid var(--ink);border-radius:var(--r-sm);padding:0 var(--s2)}
-#s2b .s2b-tg.s2b-call{background:var(--ink);color:var(--canvas)}
-#s2b .s2b-key{list-style:none;display:grid;gap:var(--s3)}
-#s2b .s2b-key li{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s3);font-size:var(--fs-sm);color:var(--body)}
+#s2b .s2b-tiers{position:relative;display:grid;gap:var(--s5);padding-left:var(--s6)}
+#s2b .s2b-col{display:flex;flex-direction:column;gap:var(--s2)}
+#s2b .s2b-tag{font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+#s2b .s2b-sub{font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1.2;color:var(--ink)}
+#s2b .s2b-yours{color:var(--accent-ink)}
+#s2b .s2b-c2 .s2b-sub{order:2;margin-left:calc(var(--s3) - var(--s6) + var(--s1));font-size:var(--fs-lg)}   /* "all 13" sits on the rail's foot, after the last folder */
+#s2b .s2b-files{list-style:none;display:grid;gap:var(--s1);margin-top:var(--s1)}
 
-/* viz */
-#s2b .s2b-viz{display:grid;gap:var(--s5);padding:var(--s4)}
-@media (min-width:768px){#s2b .s2b-viz{padding:var(--s6)}}
+/* a folder row: body drawn as a pseudo-element, so every name sits on readable paper even mid-motion */
+#s2b .s2b-files li{--bw:1px;--edge:var(--quiet-line);position:relative;isolation:isolate;display:flex;align-items:baseline;gap:var(--s2);min-width:0;
+  padding:var(--s2) var(--s3);font-family:var(--mono);font-size:var(--fs-sm);line-height:1.3;color:var(--ink);overflow-wrap:anywhere}
+#s2b .s2b-files li::before{content:'';position:absolute;inset:0;z-index:-1;background:var(--canvas);border:var(--bw) solid var(--edge);border-radius:var(--r-sm);transform-origin:0 50%}
+#s2b .s2b-files b{flex:none;font-weight:700;color:var(--quiet)}
 
-/* drawer: 11 folders standing in a tilted drawer, tabs staggered, slightly fanned */
-#s2b .s2b-cab{perspective:1200px}
-#s2b .s2b-stk{position:relative;height:calc(11 * var(--tab) + var(--s2) + var(--lip));transform:rotateX(10deg);transform-origin:50% 100%}
-#s2b .s2b-f{position:absolute;bottom:0;top:calc((var(--k) + 1) * var(--tab));
-  left:calc((10 - var(--k)) * var(--s1) / 2);right:calc((10 - var(--k)) * var(--s1) / 2);
-  background:var(--paper);border:1px solid var(--paper-edge);border-radius:0 var(--r-sm) 0 0;
-  transform:rotate(calc((var(--k) - 5) * .25deg));transform-origin:50% 100%}
-#s2b .s2b-tab{font-family:var(--mono);font-size:var(--fs-label);color:var(--paper-ink);white-space:nowrap;
-  height:var(--tab);line-height:calc(var(--tab) - 1px);padding:0 var(--s3);
-  background:var(--paper);border:1px solid var(--paper-edge);border-bottom:0;border-radius:var(--r-sm) var(--r-sm) 0 0}
-#s2b .s2b-f .s2b-tab{position:absolute;bottom:100%;font-size:var(--fs-sm)} /* 14px: the drawer tilt shrinks back tabs ~5%, keep them over 12px rendered */
-#s2b .s2b-f .s2b-p0{left:var(--s4)}
-#s2b .s2b-f .s2b-p1{left:50%;transform:translateX(-50%)}
-#s2b .s2b-f .s2b-p2{right:var(--s4)}
-#s2b .s2b-lip{position:absolute;left:calc(var(--s2) * -1);right:calc(var(--s2) * -1);bottom:0;height:var(--lip);
-  background:var(--elevated);border:1px solid var(--line);border-radius:var(--r-sm);display:grid;place-items:center}
-#s2b .s2b-lip i{width:var(--s9);height:var(--s3);border-radius:999px;background:var(--canvas);border:1px solid var(--quiet-line)}
+/* the two that are yours after the call: bigger, inked 2px */
+#s2b .s2b-c0 .s2b-files li{--bw:2px;--edge:var(--ink);padding:var(--s3) var(--s4);font-size:var(--fs-lg);font-weight:700}
+#s2b .s2b-c0 .s2b-files b{color:var(--ink)}
+#s2b .s2b-c1 .s2b-files li{--edge:var(--ink)}
 
-/* the two call folders, pulled out in front of the drawer */
-#s2b .s2b-out{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin-top:calc(var(--lip) * -.3)}
-#s2b .s2b-po{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
-#s2b .s2b-po .s2b-tab{position:relative;z-index:1;margin-left:var(--s3);margin-bottom:-1px}
-#s2b .s2b-pb{align-self:stretch;display:grid;justify-items:start;gap:var(--s2);padding:var(--s4);
-  background:var(--paper);border:1px solid var(--paper-edge);border-radius:0 var(--r-sm) var(--r-sm) var(--r-sm);box-shadow:0 var(--s3) var(--s5) rgba(18,18,18,.10)}
-@media (max-width:767px){#s2b .s2b-pb{padding:var(--s3)}}
-#s2b .s2b-po0{z-index:2;transform:rotate(-1.5deg)}
-#s2b .s2b-po1{transform:translateY(var(--s3)) rotate(1.2deg)}
-#s2b .s2b-pn{font-family:var(--mono);font-weight:700;font-size:var(--fs-num);line-height:1;color:var(--ink)}
-#s2b .s2b-po0 .s2b-pn{color:var(--accent-ink)} /* the one teal on this section: the front folder's number */
-#s2b .s2b-pt{font-family:var(--mono);font-weight:700;font-size:var(--fs-lg);line-height:1.25;color:var(--ink)}
-#s2b .s2b-ink{white-space:nowrap;font-size:var(--fs-label);font-weight:600;line-height:1.5;color:var(--canvas);background:var(--ink);border-radius:var(--r-sm);padding:var(--s1) var(--s2)}
+/* the rail: wraps every folder, ends on "all 13" */
+#s2b .s2b-br{position:absolute;left:0;top:var(--s1);bottom:var(--s3);width:var(--s3);display:block;border:2px solid var(--ink);border-right:0;border-radius:var(--s1) 0 0 var(--s1);transform-origin:50% 0}
 
-/* index: 13 folders, tab on top, body readable without interaction */
-#s2b .s2b-idx{list-style:none;display:grid;gap:var(--s3);margin-top:var(--s4)}
-#s2b .s2b-r{display:flex;flex-direction:column;align-items:flex-start}
-#s2b .s2b-r .s2b-tab{position:relative;z-index:1;margin-bottom:-1px}
-#s2b .s2b-r.s2b-p0 .s2b-tab{margin-left:var(--s4)}
-#s2b .s2b-r.s2b-p1 .s2b-tab{margin-left:var(--s7)}
-#s2b .s2b-r.s2b-p2 .s2b-tab{margin-left:var(--s9)}
-#s2b .s2b-rb{align-self:stretch;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:var(--s4);row-gap:var(--s3);
-  padding:var(--s4);background:var(--paper);border:1px solid var(--paper-edge);border-radius:var(--r-sm)}
-#s2b .s2b-rb>*:not(.s2b-n){grid-column:2}
-#s2b .s2b-n{grid-row:1/4;font-family:var(--mono);font-weight:700;font-size:var(--fs-lg);line-height:1.25;color:var(--quiet)}
-#s2b .s2b-nm h3{font-size:var(--fs-lg);line-height:1.25;color:var(--ink)}
-#s2b .s2b-nm p{margin-top:var(--s1);font-size:var(--fs-body);line-height:1.45;color:var(--body)}
-#s2b .s2b-lb{font-family:var(--mono);font-size:var(--fs-label);line-height:1.6;color:var(--quiet)}
-#s2b .s2b-tgs{display:flex;flex-wrap:wrap;gap:var(--s2)}
+@media (min-width:720px){
+  #s2b .s2b-files{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s3)}
+}
 @media (min-width:1024px){
-  #s2b .s2b-r.s2b-p1 .s2b-tab{margin-left:var(--s10)}
-  #s2b .s2b-r.s2b-p2 .s2b-tab{margin-left:calc(var(--s10) * 2)}
-  #s2b .s2b-rb{grid-template-columns:auto minmax(0,5fr) minmax(0,4fr) minmax(0,3fr);column-gap:var(--s5);align-items:start;padding:var(--s4) var(--s5)}
-  #s2b .s2b-rb>*:not(.s2b-n){grid-column:auto}
-  #s2b .s2b-n{grid-row:auto}
-  #s2b .s2b-lb{padding-top:var(--s1)}
-  #s2b .s2b-tgs{justify-content:flex-end}
+  /* each band: tier label in a fixed left column, the rail in the gutter, folders on the right; numbers move into folder tabs */
+  #s2b .s2b-tiers{--lab:calc(var(--s10) + var(--s9));gap:var(--s6);padding-left:0}
+  #s2b .s2b-col{display:grid;grid-template-columns:var(--lab) minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:var(--s8);row-gap:var(--s2)}
+  #s2b .s2b-tag{grid-column:1;grid-row:1;padding-top:var(--s5)}
+  #s2b .s2b-sub{grid-column:1;grid-row:2}
+  #s2b .s2b-c2 .s2b-sub{grid-row:3;align-self:end;justify-self:end;margin-left:0;margin-bottom:calc(var(--s3) * -1);font-size:var(--fs-h3)}
+  #s2b .s2b-files{grid-column:2;grid-row:1/4;margin-top:0;column-gap:var(--s4);row-gap:var(--s2)}
+  #s2b .s2b-files li{--th:var(--s5);margin-top:var(--th);padding:var(--s3) var(--s4);font-size:var(--fs-body)}
+  #s2b .s2b-files li::before{border-radius:0 var(--r-sm) var(--r-sm) var(--r-sm)}
+  #s2b .s2b-files li::after{content:'';position:absolute;left:0;bottom:calc(100% - var(--bw));z-index:-1;width:var(--s8);height:calc(var(--th) + var(--bw));
+    background:var(--canvas);border:var(--bw) solid var(--edge);border-bottom:0;border-radius:var(--s1) var(--s1) 0 0;transform-origin:50% 100%}
+  #s2b .s2b-files b{position:absolute;left:var(--s3);bottom:100%;line-height:var(--s5);font-size:var(--fs-sm)}
+  #s2b .s2b-c0 .s2b-files li{font-size:var(--fs-h3);padding:var(--s4)}
+  #s2b .s2b-br{left:calc(var(--lab) + var(--s5));top:var(--s1);bottom:var(--s1);width:var(--s4)}
+  /* the foot runs left until it touches "all 13" */
+  #s2b .s2b-br::after{content:'';position:absolute;right:100%;bottom:-2px;width:calc(var(--s5) - var(--s1));border-top:2px solid var(--ink)}
+}
+@media (min-width:1024px) and (max-width:1199px){
+  #s2b .s2b-files li{font-size:var(--fs-sm)}
+  #s2b .s2b-c0 .s2b-files li{font-size:var(--fs-lg)}
 }
 
-/* motion: one viz timeline (about 3.9 s, paused until in view), each index row slides out of its tab as it enters view */
-#s2b.armed .s2b-lip{animation:s2b-lip 500ms var(--ease) 200ms both}
-#s2b.armed .s2b-f{animation:s2b-drop 600ms var(--ease) both;animation-delay:calc(400ms + var(--k) * 110ms)}
-#s2b.armed .s2b-po1{animation:s2b-pull 900ms var(--ease) 2200ms both}
-#s2b.armed .s2b-po0{animation:s2b-pull 900ms var(--ease) 2450ms both}
-#s2b.armed .s2b-po1 .s2b-ink{animation:s2b-stamp 400ms var(--ease) 3100ms both}
-#s2b.armed .s2b-po0 .s2b-ink{animation:s2b-stamp 400ms var(--ease) 3350ms both}
-#s2b.armed:not(.go) .s2b-viz *,#s2b.paused .s2b-viz *{animation-play-state:paused!important}
-@keyframes s2b-lip{from{opacity:0;transform:translateY(var(--s4))}}
-@keyframes s2b-drop{from{opacity:0;transform:translateY(calc(var(--s7) * -1))}}
-@keyframes s2b-pull{0%{opacity:0;transform:translateY(calc(var(--lip) * -1.6))}25%{opacity:1;transform:translateY(calc(var(--lip) * -1.6))}}
-@keyframes s2b-stamp{from{opacity:0;transform:scale(1.3)}}
-
-#s2b.armed .s2b-r:not(.in) .s2b-tab{opacity:0}
-#s2b.armed .s2b-r:not(.in) .s2b-rb{clip-path:inset(0 0 100% 0)}
-#s2b.armed .s2b-r:not(.in) .s2b-lb,#s2b.armed .s2b-r:not(.in) .s2b-tgs{opacity:0;transform:translateX(calc(var(--s5) * -1))}
-#s2b.armed .s2b-r .s2b-tab{transition:opacity var(--d-ui) var(--ease)}
-#s2b.armed .s2b-r .s2b-rb{transition:clip-path 700ms var(--ease) 150ms}
-#s2b.armed .s2b-r .s2b-lb,#s2b.armed .s2b-r .s2b-tgs{transition:opacity 500ms var(--ease) 550ms,transform 700ms var(--ease) 550ms}
+/* motion: three beats, one per tier: that band's folders sweep open left to right under their names, tabs close on
+   them, then the rail draws down all 13 to "all 13". Only surfaces and the rail scale (from .08); names never move or fade. */
+#s2b .s2b-arm *,#s2b .s2b-arm *::before,#s2b .s2b-arm *::after{animation-play-state:paused!important}
+#s2b .s2b-arm.s2b-go *,#s2b .s2b-arm.s2b-go *::before,#s2b .s2b-arm.s2b-go *::after{animation-play-state:running!important}
+#s2b .s2b-arm .s2b-files li::before{animation:s2b-fill .45s var(--ease) calc(.1s + var(--b) * .4s) both}
+#s2b .s2b-arm .s2b-files li::after{animation:s2b-land .3s var(--ease) calc(.25s + var(--b) * .4s) both}
+#s2b .s2b-arm .s2b-br{animation:s2b-grow .7s var(--ease) 1.3s both}
+@keyframes s2b-fill{from{transform:scaleX(.5)}to{transform:none}}
+@keyframes s2b-land{from{transform:scaleY(.08)}to{transform:none}}
+@keyframes s2b-grow{from{transform:scaleY(.08)}to{transform:none}}
