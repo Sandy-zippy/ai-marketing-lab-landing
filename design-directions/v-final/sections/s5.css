@@ -23,24 +23,32 @@
 #s5 .s5-key svg{width:var(--s8);height:auto;fill:none;stroke:var(--ink);stroke-width:5;stroke-linecap:round}
 #s5 .s5-key span{font-family:var(--mono);font-size:var(--fs-h3);font-weight:700;color:var(--ink)}
 
-/* comparison strip: static, no cards */
+/* the real photo: Sandy across the desk from a client, B&W, both faces kept in frame at every width */
+#s5 .s5-ph{margin:0}
+#s5 .s5-ph img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:50% 55%;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--elevated)}
+#s5 .s5-ph figcaption,#s5 .s5-cmp figcaption{margin-top:var(--s3);font-size:var(--fs-label);line-height:1.4;color:var(--quiet);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
+
+/* comparison strip: the same two rooms, small. Group at the whiteboard, one to one at the desk */
 #s5 .s5-cmps{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5)}
-#s5 .s5-cmp{display:flex;flex-direction:column;gap:var(--s3)}
-#s5 .s5-cmp svg{width:100%;max-width:200px;height:auto}
-#s5 .s5-cmp p{font-size:var(--fs-body);line-height:1.45;color:var(--body)}
+#s5 .s5-cmp{margin:0}
+#s5 .s5-cmp img{width:100%;max-width:240px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-sm);border:1px solid var(--line)}
+#s5 .s5-cmp img[src*="board"]{object-position:20% 50%}
+#s5 .s5-cmp figcaption{font-family:var(--sans);text-transform:none;letter-spacing:0;font-size:var(--fs-body);line-height:1.45;color:var(--body)}
 #s5 .s5-cmp b{font-weight:600;color:var(--ink)}
-#s5 .s5-sil{fill:var(--quiet-line)}
-#s5 .s5-lap{fill:var(--ink)}
-#s5 .s5-tbl{fill:var(--low)}
 
 /* desktop: copy left, seats and the comparison right; below a full-width rule, ONE rail of eight weeks
    ending in the key. The two lists dissolve into a single 9-column grid: captions / numbers / track / labels. */
 @media (min-width:1024px){
-  #s5 .s5-head{grid-row:1/3}
-  #s5 .s5-seats{grid-row:1}
-  #s5 .s5-cmps{grid-column:6/13;grid-row:2;align-self:end;margin-top:var(--s5)}
-  #s5 .s5-seats{padding-top:var(--s1)}
-  #s5 .s5-rail{grid-row:3;grid-template-columns:repeat(8,minmax(0,1fr)) auto;grid-template-rows:auto auto var(--s2) auto;column-gap:var(--s1);row-gap:var(--s3);
+  #s5 .s5-head{grid-row:1}
+  #s5 .s5-seats{grid-row:1;align-self:start;padding-top:var(--s6)}
+  /* the photo is a full-width band straight under the offer: wide crop, both heads in the middle band */
+  #s5 .s5-ph{grid-row:2}
+  #s5 .s5-ph img{aspect-ratio:21/9;object-position:50% 75%}
+  /* the two rooms, small, under the photo */
+  #s5 .s5-cmps{grid-row:3;grid-template-columns:repeat(2,minmax(0,360px));margin-top:calc(var(--s3) * -1)}
+  #s5 .s5-cmp{display:grid;grid-template-columns:120px 1fr;column-gap:var(--s4);align-items:center}
+  #s5 .s5-cmp figcaption{margin-top:0}
+  #s5 .s5-rail{grid-row:4;grid-template-columns:repeat(8,minmax(0,1fr)) auto;grid-template-rows:auto auto var(--s2) auto;column-gap:var(--s1);row-gap:var(--s3);
     margin-top:var(--s5)}
   #s5 .s5-grp,#s5 .s5-wk{display:contents}
   #s5 .s5-gh{grid-row:1;grid-column:1/5;border-bottom:1px solid var(--quiet-line)}
@@ -72,9 +80,11 @@
   #s5 .s5-wk span{padding-block:var(--s1);padding-right:0}
   #s5 .s5-key svg{width:var(--s7)}
   #s5 .s5-key span{font-size:var(--fs-lg)}
-  #s5 .s5-cmps{gap:var(--s4);padding-top:var(--s4);border-top:1px solid var(--line)}
-  #s5 .s5-cmp svg{max-width:150px}
-  #s5 .s5-cmp p{font-size:var(--fs-sm)}
+  #s5 .s5-cmps{gap:var(--s4)}
+  #s5 .s5-cmp figcaption{font-size:var(--fs-sm)}
+  #s5 .s5-ph{margin-inline:calc(var(--gutter) * -1)}
+  #s5 .s5-ph img{border-radius:0;border-inline:0}
+  #s5 .s5-ph figcaption{padding-inline:var(--gutter)}
 }
 
 /* motion: armed only when below the fold at load; shapes move, text never does */

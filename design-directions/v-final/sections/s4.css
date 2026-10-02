@@ -63,11 +63,29 @@
   #s4 .s4-ev{width:28px}
   #s4 .s4-ppl{width:96px}
 }
-/* desktop: copy and the week lines in c-1-5, the building in c-6-12 */
+
+/* the real photo: biggest thing in the section, kept B&W; the face sits left in the frame, so anchor left */
+#s4 .s4-ph{margin:0}
+#s4 .s4-ph img{width:100%;height:auto;aspect-ratio:5/4;object-fit:cover;object-position:12% 40%;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--elevated)}
+#s4 .s4-ph figcaption{margin-top:var(--s3);font-size:var(--fs-label);line-height:1.4;color:var(--quiet);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
+/* phone: a full-bleed band under the heading */
+@media (max-width:767px){
+  #s4 .s4-ph{margin-inline:calc(var(--gutter) * -1)}
+  #s4 .s4-ph img{aspect-ratio:4/3;object-position:30% 40%;border-radius:0;border-inline:0}
+  #s4 .s4-ph figcaption{padding-inline:var(--gutter)}
+}
+
+/* desktop: the photo is the section; copy, the week lines and the compact calendar sit in c-1-5 beside it */
 @media (min-width:1024px){
-  #s4 .s4-head{grid-row:1;align-self:end}
-  #s4 .s4-weeks{grid-row:2;align-self:start}
-  #s4 .s4-viz{grid-row:1/3;align-self:center;--bw:370px}
+  #s4 .s4-head{grid-row:1;align-self:start}
+  #s4 .s4-weeks{grid-row:2;align-self:start;padding-top:var(--s5);border-top:1px solid var(--paper-edge)}
+  #s4 .s4-ph{grid-row:1/3}
+  #s4 .s4-ph img{aspect-ratio:16/9}
+  /* the calendar: a compact strip under the photo */
+  #s4 .s4-viz{grid-row:3;margin-top:calc(var(--s5) * -1);--bw:280px;--fh:44px;--sky:44px;--pw:32px;--dy:-2px}
+  #s4 .s4-b b{left:var(--s2);top:var(--s1);font-size:var(--fs-sm)}
+  #s4 .s4-ev{width:24px}
+  #s4 .s4-ppl{width:80px}
 }
 
 /* motion: plays once, only if the visual was below the fold when the script ran (js adds .armed, then .go on view) */
