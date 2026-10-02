@@ -88,10 +88,14 @@
 </div>
 
 <!-- SCREEN 2: the video (state B): logo, one ICP line, the VSL, nothing else above the reveal -->
-<section class="scr" id="watch" data-reveal="watch" aria-label="The 8-minute training">
+<section class="scr" id="watch" data-reveal="watch" aria-labelledby="w-h1">
   <div class="wrap">
     <div class="grid">
-      <p class="label wline">For marketing agency owners, high-ticket coaches and B2B service businesses</p>
+      <div class="whead">
+        <p class="callout">For marketing agency owners, <span class="nw">high-ticket</span> coaches and B2B service businesses</p>
+        <h1 id="w-h1">Watch this before you book anything.</h1>
+        <p class="lede">The booking button appears once you've seen the system.</p>
+      </div>
       <div class="player" id="player">
         <video id="vsl" playsinline preload="none" poster="assets/still.jpg" controlslist="nodownload noplaybackrate" disablepictureinpicture controls><source src="{{ROOT}}call/vsl/aiml-vsl.mp4" type="video/mp4" /></video>
         <button class="vtap" type="button" id="vtap" aria-label="Pause or play the video" hidden></button>
