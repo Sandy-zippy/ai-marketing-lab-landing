@@ -84,8 +84,35 @@ function stateB() {
 function stateDQ() {
   document.body.dataset.state = 'dq';
   document.getElementById('qform').hidden = true;
-  var d = document.getElementById('dq'); d.hidden = false; d.focus();
+  var d = document.getElementById('dq'); d.hidden = false;
+  openModal(); d.focus();
 }
+
+/* ---- the popup: Get started opens it; Esc, the backdrop or the cross close it; Tab stays inside ---- */
+var modal = document.getElementById('qmodal'), modalBox = modal.querySelector('.modal-box'), opener = document.getElementById('qopen');
+function focusables() { return [].filter.call(modalBox.querySelectorAll('button:not([disabled]),input:not([disabled]),a[href],[tabindex="-1"]'), function (e) { return e.offsetParent !== null && !e.closest('.hp'); }); }
+function openModal() {
+  if (!modal.hidden) return;
+  modal.hidden = false; document.body.classList.add('modal-open');
+  var f = focusables().filter(function (e) { return e.tabIndex >= 0; }); (f[1] || f[0] || modalBox).focus({ preventScroll: true });   /* f[0] is the close cross */
+}
+function closeModal() {
+  if (modal.hidden) return;
+  modal.hidden = true; document.body.classList.remove('modal-open');
+  if (document.body.dataset.state === 'a') opener.focus();
+}
+opener.addEventListener('click', function () { custom('QualifyOpen'); openModal(); });
+document.getElementById('qclose').addEventListener('click', closeModal);
+document.getElementById('qmodal-bg').addEventListener('click', closeModal);
+document.addEventListener('keydown', function (e) {
+  if (modal.hidden) return;
+  if (e.key === 'Escape') { e.preventDefault(); return closeModal(); }
+  if (e.key !== 'Tab') return;
+  var f = focusables().filter(function (x) { return x.tabIndex >= 0; }); if (!f.length) return;
+  var first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && (document.activeElement === first || !modalBox.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && (document.activeElement === last || !modalBox.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+});
 
 /* ---- screen 1: qualify ---- */
 (function () {
@@ -142,7 +169,7 @@ function stateDQ() {
     /* the message sits directly under the field it is about */
     if (bad) { bad[0].setAttribute('aria-invalid', 'true'); bad[0].setAttribute('aria-describedby', 'qerr'); bad[0].parentNode.after(err); err.textContent = bad[1]; err.hidden = false; bad[0].focus(); return; }
     err.hidden = true;
-    if (f.company.value) return stateB();                     /* honeypot: bots see the video, nothing is sent */
+    if (f.company.value) { closeModal(); return stateB(); }   /* honeypot: bots see the video, nothing is sent */
     var id = 'lead_' + (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '_' + Math.random().toString(36).slice(2));
     pixelReady(function () {                                   /* same event_id in the beacon (CAPI) and the pixel = Meta dedups */
       var row = base(); row.ok = true; row.first_name = fn; row.email = em; row.whatsapp = ph; row.event_id = id;
@@ -153,7 +180,7 @@ function stateDQ() {
       }
     });
     lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2, ok: true, fn: fn, ts: Date.now() }));
-    stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
+    closeModal(); stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
   });
 })();
 

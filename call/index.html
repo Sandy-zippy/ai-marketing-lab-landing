@@ -134,14 +134,30 @@ html.js [data-reveal].on{animation:in var(--d-ui) var(--ease) both}
 }
 
 /* Shell: header, screen 1 (qualify only), screen 2 (player), footer. Tokens only. */
-.top{padding-block:var(--s5)}
+.top{padding-block:var(--s5);display:flex;justify-content:center}
 .top img{height:22px;width:auto}
 .scr{padding-block:var(--s6) var(--s8)}
 html.js body[data-state="b"] #qualify{display:none}
 
-/* qualify form: screen 1 is the questions and nothing else (no video, no still). Copy c-1-7, questions c-8-12 beside it on desktop. */
-#qualify .grid{align-items:start}
-.qlabel{margin-bottom:var(--s4)}
+/* screen 1: uAbility's opt-in shape. One centred column: callout, promise, without-line, instruction, one button. */
+.one{display:grid;justify-items:center;text-align:center;row-gap:var(--s5)}
+#qualify .callout{max-width:none;font-size:var(--fs-lg)}
+#qualify h1{font-size:clamp(20px,1.75vw,25px);line-height:1.35;max-width:none;text-wrap:balance}
+.without{font-family:var(--mono);font-weight:700;font-size:var(--fs-lg);line-height:1.4;color:var(--accent-ink);max-width:60ch}
+.instr{font-size:var(--fs-lg);color:var(--body)}
+.btn-big{min-height:64px;padding:0 var(--s8);font-size:var(--fs-body)}
+@media (max-width:480px){.btn-big{width:100%}}
+
+/* the popup */
+.modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:var(--s4)}
+.modal-bg{position:absolute;inset:0;background:rgba(18,18,18,.55)}
+.modal-box{position:relative;width:min(560px,100%);max-height:calc(100dvh - 2 * var(--s4));overflow:auto;background:var(--canvas);border-radius:var(--r-lg);padding:var(--s7) var(--s5) var(--s5);box-shadow:0 var(--s5) var(--s8) rgba(18,18,18,.25)}
+@media (min-width:600px){.modal-box{padding:var(--s7) var(--s6) var(--s6)}}
+.modal-box h2{font-size:var(--fs-h3);max-width:none;margin-bottom:var(--s5);padding-right:var(--s7)}
+.modal-x{position:absolute;right:var(--s2);top:var(--s2);width:44px;height:44px;display:grid;place-items:center;border-radius:50%;color:var(--quiet)}
+.modal-x:hover{color:var(--ink);background:var(--surface)}
+.modal-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+body.modal-open{overflow:hidden}
 .qform{display:grid;gap:var(--s5)}
 .q{border:0;display:grid;gap:var(--s3)}
 .q[disabled]{display:none}
@@ -162,6 +178,10 @@ html.js body[data-state="b"] #qualify{display:none}
 .dq{display:grid;gap:var(--s4);padding:var(--s6);background:var(--paper);border:1px solid var(--paper-edge);border-radius:var(--r-lg)}
 .dq h2{font-size:var(--fs-h3)}
 .dq .lede{font-size:var(--fs-body)}
+
+/* screen 2: one ICP line above the player, only where it fits on one line */
+.wline{text-align:center;white-space:nowrap}
+@media (max-width:639px){.wline{display:none}}
 
 /* player (same behaviour as call/index.html) */
 .player{position:relative;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;background:var(--ink)}
@@ -191,18 +211,23 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 <div class="wrap"><header class="top"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" /></header></div>
 <main>
 
-<!-- SCREEN 1: qualify (state A). Hidden once a qualified lead exists. -->
+<!-- SCREEN 1: qualify (state A), uAbility's opt-in shape: one centred column, one button, the form in a popup. Hidden once a qualified lead exists. -->
 <section class="scr" id="qualify" aria-labelledby="q-h1">
-  <div class="wrap">
-    <div class="grid">
-      <div class="stack c-1-7">
-        <p class="callout">For agency owners, high-ticket coaches and B2B founders <em>with paying clients</em></p>
-        <h1 id="q-h1">The week you stop pushing, leads stop.</h1>
-        <p class="lede">Free 8-minute training: how I write each step down once, and Claude Code runs it.</p>
-        <p class="note">Running a marketing agency since 2017. 100+ businesses helped.</p>
-      </div>
-      <div class="c-8-12">
-        <p class="label qlabel">Answer 2 questions to watch</p>
+  <div class="wrap one">
+    <p class="callout">For marketing agency owners, high-ticket coaches and B2B service businesses ONLY</p>
+    <h1 id="q-h1">How I Collected $220,000 In 6 Months With Marketing That Runs On Claude Code (And How You Install It: First Client In 90 Days Or Every Rupee Back)</h1>
+    <p class="without">Without sending DMs every evening, chasing follow-ups, or restarting your pipeline every 30 days</p>
+    <p class="instr">Answer 2 questions and watch the free 8-minute training.</p>
+    <button class="btn btn-big" type="button" id="qopen">Get started</button>
+  </div>
+</section>
+
+<!-- the popup: 2 tap questions, then name, email, WhatsApp -->
+<div class="modal" id="qmodal" hidden>
+  <div class="modal-bg" id="qmodal-bg"></div>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="qm-h" tabindex="-1">
+    <button class="modal-x" type="button" id="qclose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <h2 id="qm-h">2 quick questions before you watch the 8-minute training.</h2>
         <form class="qform" id="qform" novalidate>
           <fieldset class="q" data-q="1">
             <legend class="q-t">What do you run?</legend>
@@ -231,9 +256,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
             <label class="fld"><span class="label">WhatsApp</span><input name="ph" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+91" /></label>
             <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
             <p class="err" id="qerr" role="alert" hidden></p>
-            <button class="btn btn-full" type="submit">Watch the 8-minute training</button>
-            <p class="note">I'll send the video and call details by email and WhatsApp.</p>
-            <p class="note fine">Used only to send you the training and call details. <a href="../privacy">Privacy</a></p>
+            <button class="btn btn-full" type="submit">Watch now for free</button>
+            <p class="note fine">By submitting, you agree to receive email and WhatsApp messages from AI Marketing Lab, a ZippyScale brand, about this training and related programs. <a href="../privacy">Privacy</a></p>
           </fieldset>
         </form>
         <div class="dq" id="dq" hidden tabindex="-1">
@@ -241,20 +265,14 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
           <p class="lede">This needs a business with paying clients. I'd rather say so than take your ₹999.</p>
           <p class="note">Free guides: <a href="https://instagram.com/sandymarketinglab" rel="noopener">@sandymarketinglab</a></p>
         </div>
-      </div>
-    </div>
   </div>
-</section>
+</div>
 
-<!-- SCREEN 2: the video (state B) -->
-<section class="scr" id="watch" data-reveal="watch" aria-labelledby="w-h1">
+<!-- SCREEN 2: the video (state B): logo, one ICP line, the VSL, nothing else above the reveal -->
+<section class="scr" id="watch" data-reveal="watch" aria-label="The 8-minute training">
   <div class="wrap">
     <div class="grid">
-      <div class="stack">
-        <p class="callout">For marketing agency owners, high-ticket coaches and B2B service businesses</p>
-        <h1 id="w-h1">Watch this before you book anything.</h1>
-        <p class="lede">The booking button appears once you've seen the system.</p>
-      </div>
+      <p class="label wline">For marketing agency owners, high-ticket coaches and B2B service businesses</p>
       <div class="player" id="player">
         <video id="vsl" playsinline preload="none" poster="assets/still.jpg" controlslist="nodownload noplaybackrate" disablepictureinpicture controls><source src="../call/vsl/aiml-vsl.mp4" type="video/mp4" /></video>
         <button class="vtap" type="button" id="vtap" aria-label="Pause or play the video" hidden></button>
@@ -689,8 +707,35 @@ function stateB() {
 function stateDQ() {
   document.body.dataset.state = 'dq';
   document.getElementById('qform').hidden = true;
-  var d = document.getElementById('dq'); d.hidden = false; d.focus();
+  var d = document.getElementById('dq'); d.hidden = false;
+  openModal(); d.focus();
 }
+
+/* ---- the popup: Get started opens it; Esc, the backdrop or the cross close it; Tab stays inside ---- */
+var modal = document.getElementById('qmodal'), modalBox = modal.querySelector('.modal-box'), opener = document.getElementById('qopen');
+function focusables() { return [].filter.call(modalBox.querySelectorAll('button:not([disabled]),input:not([disabled]),a[href],[tabindex="-1"]'), function (e) { return e.offsetParent !== null && !e.closest('.hp'); }); }
+function openModal() {
+  if (!modal.hidden) return;
+  modal.hidden = false; document.body.classList.add('modal-open');
+  var f = focusables().filter(function (e) { return e.tabIndex >= 0; }); (f[1] || f[0] || modalBox).focus({ preventScroll: true });   /* f[0] is the close cross */
+}
+function closeModal() {
+  if (modal.hidden) return;
+  modal.hidden = true; document.body.classList.remove('modal-open');
+  if (document.body.dataset.state === 'a') opener.focus();
+}
+opener.addEventListener('click', function () { custom('QualifyOpen'); openModal(); });
+document.getElementById('qclose').addEventListener('click', closeModal);
+document.getElementById('qmodal-bg').addEventListener('click', closeModal);
+document.addEventListener('keydown', function (e) {
+  if (modal.hidden) return;
+  if (e.key === 'Escape') { e.preventDefault(); return closeModal(); }
+  if (e.key !== 'Tab') return;
+  var f = focusables().filter(function (x) { return x.tabIndex >= 0; }); if (!f.length) return;
+  var first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && (document.activeElement === first || !modalBox.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && (document.activeElement === last || !modalBox.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+});
 
 /* ---- screen 1: qualify ---- */
 (function () {
@@ -747,7 +792,7 @@ function stateDQ() {
     /* the message sits directly under the field it is about */
     if (bad) { bad[0].setAttribute('aria-invalid', 'true'); bad[0].setAttribute('aria-describedby', 'qerr'); bad[0].parentNode.after(err); err.textContent = bad[1]; err.hidden = false; bad[0].focus(); return; }
     err.hidden = true;
-    if (f.company.value) return stateB();                     /* honeypot: bots see the video, nothing is sent */
+    if (f.company.value) { closeModal(); return stateB(); }   /* honeypot: bots see the video, nothing is sent */
     var id = 'lead_' + (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '_' + Math.random().toString(36).slice(2));
     pixelReady(function () {                                   /* same event_id in the beacon (CAPI) and the pixel = Meta dedups */
       var row = base(); row.ok = true; row.first_name = fn; row.email = em; row.whatsapp = ph; row.event_id = id;
@@ -758,7 +803,7 @@ function stateDQ() {
       }
     });
     lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2, ok: true, fn: fn, ts: Date.now() }));
-    stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
+    closeModal(); stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
   });
 })();
 
