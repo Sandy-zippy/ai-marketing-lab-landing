@@ -9,6 +9,12 @@
         <defs>
           <symbol id="s2-pin" viewBox="0 0 24 32" overflow="visible"><path style="fill:var(--pb);stroke:var(--ps);stroke-width:var(--pw)" d="M12 31C12 31 2 19 2 12a10 10 0 0 1 20 0c0 7-10 19-10 19z"/><circle style="fill:var(--pe);stroke:var(--pes);stroke-width:var(--pw)" cx="12" cy="12" r="4"/></symbol>
           <symbol id="s2-drip" viewBox="0 0 10 14" overflow="visible"><path style="fill:var(--ink)" d="M5 1C5 1 1 6 1 9a4 4 0 0 0 8 0C9 6 5 1 5 1z"/></symbol>
+          <linearGradient id="s2-gl" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style="stop-color:var(--canvas)"/><stop offset="1" style="stop-color:var(--paper)"/></linearGradient>
+          <linearGradient id="s2-gr" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--canvas)"/></linearGradient>
+          <linearGradient id="s2-gm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style="stop-color:var(--paper-edge)"/><stop offset=".5" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--paper-edge)"/></linearGradient>
+          <linearGradient id="s2-gt" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--canvas)"/><stop offset="1" style="stop-color:var(--paper)"/></linearGradient>
+          <linearGradient id="s2-gb" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--canvas)"/></linearGradient>
+          <linearGradient id="s2-gv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--paper-edge)"/><stop offset=".5" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--paper-edge)"/></linearGradient>
           <clipPath id="s2-cw"><path d="M8 60L242 48L478 60L712 48V496L478 508L242 496L8 508Z"/></clipPath>
           <clipPath id="s2-ct"><path d="M4 56L356 46V194L346 208V368L356 382V530L4 540V382L14 368V208L4 194Z"/></clipPath>
         </defs>
@@ -17,28 +23,27 @@
       <!-- wide: an accordion-folded map, Upstream left, Downstream right -->
       <svg class="s2-map s2-wide" viewBox="0 0 720 520" aria-hidden="true" focusable="false">
         <path class="s2-sheet" d="M8 60L242 48L478 60L712 48V496L478 508L242 496L8 508Z"/>
-        <path class="s2-fold" d="M242 48L478 60V508L242 496Z"/>
+        <path fill="url(#s2-gl)" d="M8 60L242 48V496L8 508Z"/><path class="s2-mid" fill="url(#s2-gm)" d="M242 48L478 60V508L242 496Z"/><path fill="url(#s2-gr)" d="M478 60L712 48V496L478 508Z"/>
         <g clip-path="url(#s2-cw)">
           <path class="s2-gridl" d="M8 140L242 128L478 140L712 128M8 220L242 208L478 220L712 208M8 300L242 288L478 300L712 288M8 380L242 368L478 380L712 368M8 460L242 448L478 460L712 448M86 40V520M164 40V520M320 40V520M400 40V520M556 40V520M634 40V520"/>
         </g>
         <path class="s2-crease" d="M242 48V496M478 60V508"/>
-        <path class="s2-divide" d="M360 124V476"/>
         <text class="s2-reg" x="36" y="104">UPSTREAM</text>
         <text class="s2-reg" x="684" y="104" text-anchor="end">DOWNSTREAM</text>
-        <path class="s2-route" pathLength="1" d="M64 300C90 460 300 500 420 440C520 415 600 380 640 300"/>
-        <g transform="translate(64 300)"><g class="s2-drop"><use href="#s2-pin" class="s2-pin-teal" x="-14" y="-38" width="28" height="38"/></g></g>
-        <g transform="translate(420 440)"><g class="s2-drop s2-d2"><use href="#s2-pin" class="s2-pin-ink" x="-14" y="-38" width="28" height="38"/><use href="#s2-drip" x="12" y="-18" width="11" height="15"/></g></g>
-        <g transform="translate(640 300)"><g class="s2-flag"><path class="s2-pole" d="M0 0V-58"/><path class="s2-cloth" d="M1 -58H36L28 -47L36 -36H1Z"/></g></g>
-        <g class="s2-lab"><rect x="86" y="262" width="262" height="38" rx="19"/><text x="217" y="287" text-anchor="middle">Where clients come from</text></g>
-        <g class="s2-lab"><rect x="208" y="402" width="190" height="38" rx="19"/><text x="303" y="427" text-anchor="middle">Where they leak</text></g>
-        <g class="s2-lab"><rect x="400" y="244" width="226" height="38" rx="19"/><text x="513" y="269" text-anchor="middle">What to build first</text></g>
+        <path class="s2-route" pathLength="1" d="M64 220C90 400 300 440 420 380C520 355 600 320 640 240"/>
+        <g transform="translate(64 220)"><g class="s2-drop"><use href="#s2-pin" class="s2-pin-teal" x="-14" y="-38" width="28" height="38"/></g></g>
+        <g transform="translate(420 380)"><g class="s2-drop s2-d2"><use href="#s2-pin" class="s2-pin-ink" x="-14" y="-38" width="28" height="38"/><use href="#s2-drip" class="s2-dr" x="12" y="-24" width="16" height="22"/></g></g>
+        <g transform="translate(640 240)"><g class="s2-flag"><path class="s2-pole" d="M0 0V-58"/><path class="s2-cloth" d="M1 -58H36L28 -47L36 -36H1Z"/></g></g>
+        <g class="s2-lab"><rect x="86" y="182" width="262" height="38" rx="19"/><text x="217" y="207" text-anchor="middle">Where clients come from</text></g>
+        <g class="s2-lab"><rect x="208" y="342" width="190" height="38" rx="19"/><text x="303" y="367" text-anchor="middle">Where they leak</text></g>
+        <g class="s2-lab"><rect x="400" y="184" width="226" height="38" rx="19"/><text x="513" y="209" text-anchor="middle">What to build first</text></g>
         <g class="s2-stamp" transform="translate(664 22) rotate(4)"><g class="s2-stampin"><rect x="-44" y="-16" width="88" height="32" rx="5"/><text x="0" y="6" text-anchor="middle">YOURS</text></g></g>
       </svg>
 
       <!-- phone: folded the other way, Upstream on top, Downstream below -->
       <svg class="s2-map s2-tall" viewBox="0 0 360 560" aria-hidden="true" focusable="false">
         <path class="s2-sheet" d="M4 56L356 46V194L346 208V368L356 382V530L4 540V382L14 368V208L4 194Z"/>
-        <path class="s2-fold" d="M14 208H346V368H14Z"/>
+        <path fill="url(#s2-gt)" d="M4 56L356 46V194L346 208H14L4 194Z"/><path class="s2-mid" fill="url(#s2-gv)" d="M14 208H346V368H14Z"/><path fill="url(#s2-gb)" d="M14 368H346L356 382V530L4 540V382Z"/>
         <g clip-path="url(#s2-ct)">
           <path class="s2-gridl" d="M0 128H360M0 248H360M0 328H360M0 448H360M90 40V560M180 40V560M270 40V560"/>
         </g>
@@ -48,7 +53,7 @@
         <text class="s2-reg" x="24" y="316">DOWNSTREAM</text>
         <path class="s2-route" pathLength="1" d="M40 190C60 290 270 250 300 380C350 440 140 410 70 520"/>
         <g transform="translate(40 190)"><g class="s2-drop"><use href="#s2-pin" class="s2-pin-teal" x="-13" y="-36" width="26" height="36"/></g></g>
-        <g transform="translate(300 380)"><g class="s2-drop s2-d2"><use href="#s2-pin" class="s2-pin-ink" x="-13" y="-36" width="26" height="36"/><use href="#s2-drip" x="11" y="-17" width="10" height="14"/></g></g>
+        <g transform="translate(300 380)"><g class="s2-drop s2-d2"><use href="#s2-pin" class="s2-pin-ink" x="-13" y="-36" width="26" height="36"/><use href="#s2-drip" class="s2-dr" x="11" y="-21" width="14" height="19"/></g></g>
         <g transform="translate(70 520)"><g class="s2-flag"><path class="s2-pole" d="M0 0V-52"/><path class="s2-cloth" d="M1 -52H32L25 -42L32 -32H1Z"/></g></g>
         <g class="s2-lab"><rect x="60" y="155" width="244" height="34" rx="17"/><text x="182" y="177" text-anchor="middle">Where clients come from</text></g>
         <g class="s2-lab"><rect x="106" y="345" width="176" height="34" rx="17"/><text x="194" y="367" text-anchor="middle">Where they leak</text></g>
