@@ -1,99 +1,151 @@
-/* S3 the system: a two-zone tabletop diorama. Base CSS = the FINISHED frame (all awake).
-   .arm (set by JS before play) = the quiet first frame; WAAPI animates between them. */
-#s3 .s3-viz{background:var(--surface)}
-#s3 .s3-scene{position:relative;padding:var(--s4)}
-#s3 .s3-defs{position:absolute;width:0;height:0}
-
-/* agent: Claude Code cursor holding a skill-file card */
+/* S3 the system: one track through all 12 steps. Base CSS is the FINISHED frame: every station drawn in ink and
+   ticked teal, the track teal, the client past the YES stamp, Claude Code parked at the end of the run.
+   .s3-arm (JS, only when the board is below the fold) greys the track, hides the 12 tick discs and check strokes,
+   and moves the two decorative tokens (Claude Code, the client) to their start.
+   Phone (default): a vertical spine. 900px and up: a serpentine over 12 columns.
+   Teal = the track and the ticks (the system working); stations and labels are ink.
+   Layers: track boxes (auto) < trace + Claude Code (1) < stations (2) < YES stamp (3), so the vehicle runs UNDER
+   each station it passes and never hides one. */
+#s3{border-top:0;background:var(--canvas)}
 #s3 h2{max-width:30ch}
-/* Claude Code parks under the last station it woke (Repeat buying) */
-#s3 .s3-park{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s3)}
-#s3 .s3-agent{grid-column:-2/-1;justify-self:center;position:relative;z-index:6;width:calc(var(--s10) + var(--s2));height:var(--s8);will-change:transform}
-#s3 .s3-ptr{position:absolute;left:0;top:0;width:var(--s5);height:auto;overflow:visible}
-#s3 .s3-ptr path{fill:var(--ink);stroke:var(--canvas);stroke-width:1.5;stroke-linejoin:round}
-#s3 .s3-cc{position:absolute;left:var(--s4);top:var(--s5);white-space:nowrap;font-family:var(--mono);font-size:var(--fs-sm);line-height:1;
-  padding:var(--s2) var(--s3);border-radius:999px;background:var(--ink);color:var(--canvas)}
-#s3 .s3-card{position:absolute;left:var(--s4);top:calc(var(--s7) + var(--s2));display:block;overflow:hidden;white-space:nowrap;
-  padding:var(--s2) var(--s3);background:var(--paper);border:1px solid var(--paper-edge);border-radius:var(--r-sm);transform:rotate(-3deg)}
-#s3 .s3-card b{display:block;font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1.2;color:var(--paper-ink);
-  border:1px solid var(--paper-ink);border-radius:var(--s1);padding:0 var(--s1);letter-spacing:.04em}
-#s3 .s3-scan{position:absolute;left:0;right:0;top:0;border-top:2px solid var(--accent);opacity:0}
-#s3 .s3-fly{position:absolute;z-index:7;left:0;top:0;width:var(--s7);height:var(--s6);border-radius:var(--s1);opacity:0;pointer-events:none;
-  background:var(--paper);border:1px solid var(--paper-edge);box-shadow:0 var(--s1) var(--s3) var(--line)}
-#s3 .s3-fly::after{content:"";position:absolute;inset:var(--s2) var(--s3);border:1px solid var(--paper-ink);border-radius:var(--s1)}
 
-/* board: stacked below 1024, zones side by side above */
-#s3 .s3-board{display:grid;grid-template-columns:minmax(0,1fr);row-gap:var(--s4)}
-#s3 .s3-zone{position:relative;padding:var(--s4) var(--s3) var(--s5);background:var(--canvas);border:1px solid var(--line);border-radius:var(--r);
-  background-image:radial-gradient(var(--line) 1px,transparent 1.5px);background-size:var(--s5) var(--s5);
-  transform-origin:50% 100%}
-/* tabletop tilt + slab only side by side; stacked tall zones tilted into ghost edges at 390 */
-@media (min-width:1024px){#s3 .s3-zone{box-shadow:0 var(--s2) 0 var(--elevated),0 var(--s2) 0 1px var(--line);transform:perspective(1800px) rotateX(9deg)}}
-#s3 .s3-zl{color:var(--ink);font-size:var(--fs-sm);text-align:center;margin-bottom:var(--s3)}
-#s3 .s3-sts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4) var(--s2)}
-@media (min-width:600px){#s3 .s3-sts{gap:var(--s4) var(--s3)}}
-@media (min-width:1024px){
-  #s3 .s3-scene{padding:var(--s6)}
-  #s3 .s3-board{grid-template-columns:minmax(0,1fr) calc(var(--s10) + var(--s6)) minmax(0,1fr);column-gap:var(--s3);align-items:stretch}
-}
+/* ---------- board geometry: phone ---------- */
+#s3 .s3-board{--tw:3px;--rail:24px;--aw:112px;--ly:calc(var(--aw) * .5375);--lab:28px;--row:78px;--gate:168px;--park:64px;--r:12px;
+  --sx:calc(var(--rail) + var(--aw) / 2);                                   /* the spine's x */
+  --g0:calc(var(--lab) + var(--row) * 6);                                   /* gate row top */
+  --d0:calc(var(--lab) * 2 + var(--row) * 6 + var(--gate));                 /* Downstream lane top */
+  --ry:calc(var(--d0) + var(--row) * 5 + var(--ly));                        /* Repeat buying's plinth y */
+  position:relative;display:grid;grid-template-columns:var(--rail) var(--aw) minmax(0,1fr);
+  grid-template-rows:var(--lab) calc(var(--row) * 6) var(--gate) var(--lab) calc(var(--row) * 6) var(--park)}
+#s3 .s3-zl{grid-column:2/-1;align-self:center;padding-left:calc(var(--aw) + var(--s2));font-family:var(--mono);font-size:var(--fs-label);line-height:1.3;
+  text-transform:uppercase;color:var(--ink)}
+#s3 .s3-zl-up{grid-row:1}
+#s3 .s3-zl-down{grid-row:4}
+#s3 .s3-lane{list-style:none;position:relative;z-index:2;grid-column:2/-1;display:grid;grid-auto-rows:var(--row)}
+#s3 .s3-up{grid-row:2}
+#s3 .s3-down{grid-row:5}
+#s3 .s3-st{display:grid;grid-template-columns:var(--aw) minmax(0,1fr);align-items:start;min-width:0}
+#s3 .s3-art{display:block;width:var(--aw);height:calc(var(--aw) * .75);transform-origin:50% 100%}
+#s3 .s3-art svg{width:100%;height:100%;overflow:visible;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+#s3 .s3-l{align-self:center;padding-left:var(--s2);font-size:var(--fs-lg);font-weight:600;line-height:1.25;color:var(--ink)}
 
-/* a station */
-#s3 .s3-st{display:flex;flex-direction:column;align-items:center;min-width:0}
-#s3 .s3-art{position:relative;width:100%;max-width:calc(var(--s10) + var(--s8));aspect-ratio:4/3}
-#s3 .s3-art svg{width:100%;height:100%;overflow:visible;stroke-linecap:round;stroke-linejoin:round}
-#s3 .s3-l{font-size:var(--fs-sm);font-weight:600;line-height:1.25;text-align:center;color:var(--ink);margin-top:var(--s1)}
+/* the track: plain boxes with borders, so the finished frame needs no JS. Arrowheads are 12px filled triangles. */
+#s3 .s3-w{position:absolute;display:block;pointer-events:none;border:0 solid var(--accent);transition:border-color var(--d-ui) var(--ease)}
+#s3 .s3-w::before,#s3 .s3-w::after{content:"";position:absolute;width:14px;height:14px;background:var(--accent);
+  clip-path:polygon(0 0,100% 0,50% 100%);transition:background-color var(--d-ui) var(--ease)}
+#s3 .s3-w::before{display:none}
+#s3 .s3-u,#s3 .s3-t1,#s3 .s3-m,#s3 .s3-t3,#s3 .s3-d{display:none}
+/* the spine runs on 24px past Repeat buying: Claude Code parks on that stub */
+#s3 .s3-sp{left:calc(var(--sx) - var(--tw) / 2);top:calc(var(--lab) + var(--ly));border-left-width:var(--tw);height:calc(var(--lab) + var(--row) * 11 + var(--gate) + 24px)}
+#s3 .s3-sp::after{left:-8.5px;top:calc(var(--g0) + 80px - var(--lab) - var(--ly))}
+/* buys again: out of Repeat buying to the right edge, up, and back left into Delivery, bracketing the last three steps */
+#s3 .s3-lp{left:calc(var(--rail) + var(--aw));right:calc(var(--s3) - var(--tw) / 2);
+  top:calc(var(--d0) + var(--row) * 3 + var(--ly) - var(--tw) / 2);height:calc(var(--row) * 2 + var(--tw));
+  border-width:var(--tw) var(--tw) var(--tw) 0;border-radius:0 var(--r) var(--r) 0}
+#s3 .s3-lp::after{left:-12px;top:-8.5px;transform:rotate(90deg)}
+#s3 .s3-lp::before{display:block;left:calc(var(--aw) / -2);bottom:calc(-1 * var(--tw));width:calc(var(--aw) / 2);height:var(--tw);clip-path:none}
+#s3 .s3-again{position:absolute;z-index:2;right:0;top:calc(var(--ry) + 14px);font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1;
+  padding:var(--s1) var(--s3);background:var(--canvas);border:2px solid var(--accent);border-radius:999px;color:var(--ink);white-space:nowrap}
 
-#s3 .pl-t{fill:var(--canvas);stroke:var(--line)}
-#s3 .pl-l{fill:var(--elevated);stroke:var(--line)}
-#s3 .pl-r{fill:var(--line);stroke:var(--line)}
-#s3 .pl-on{fill:var(--accent-soft);stroke:var(--accent);opacity:1}
+/* the Yes gate: a stamp on the track; the client walks out from under it */
+#s3 .s3-yes{position:absolute;z-index:3;left:var(--sx);top:calc(var(--g0) + 112px);translate:-50% -50%;rotate:-4deg;
+  font-family:var(--mono);font-weight:700;font-size:var(--fs-lg);line-height:1;padding:var(--s2) var(--s4);
+  border:2px solid var(--accent);border-radius:var(--r-sm);background:var(--canvas);color:var(--ink);letter-spacing:.06em;text-transform:uppercase}
+#s3 .s3-who{position:absolute;z-index:2;left:var(--sx);top:calc(var(--g0) + 150px);translate:-50% -50%;width:var(--s6);height:var(--s6);overflow:visible}
+#s3 .s3-who circle,#s3 .s3-who path{fill:var(--ink);stroke:var(--canvas);stroke-width:2;paint-order:stroke}
 
-#s3 .q{opacity:0}
-#s3 .q .k,#s3 .q .f,#s3 .q .w,#s3 .q .p{stroke:var(--low)}
-#s3 .q .k{fill:none}#s3 .q .f{fill:var(--elevated)}#s3 .q .w{fill:var(--canvas)}#s3 .q .p{fill:var(--elevated)}
-#s3 .q .s{fill:var(--low)}#s3 .q .t{stroke:var(--line);fill:none}
-#s3 .a .k,#s3 .a .f,#s3 .a .w{stroke:var(--accent-ink)}
-#s3 .a .k{fill:none}#s3 .a .f{fill:var(--accent-soft)}#s3 .a .w{fill:var(--canvas)}
-#s3 .a .s{fill:var(--accent);stroke:none}#s3 .a .t{stroke:var(--accent);fill:none}
+/* Claude Code rides the track: a pill and its skill file, centred on the anchor point. Phone: stacked, riding ON
+   the stations (a 112px station is covered for ~150 ms; under them the words were hidden most of the run), and
+   parked on the spine's stub under Repeat buying. */
+#s3 .s3-run{position:absolute;z-index:3;left:var(--sx);top:calc(var(--ry) + 50px);width:0;height:0;pointer-events:none}
+#s3 .s3-chips{position:absolute;left:0;top:0;translate:-50% -50%;display:flex;flex-direction:column;align-items:center;gap:var(--s1);white-space:nowrap}
+#s3 .s3-cc{display:flex;align-items:center;gap:var(--s2);font-family:var(--mono);font-size:var(--fs-label);line-height:1;padding:var(--s2) var(--s3);
+  border-radius:999px;background:var(--ink);color:var(--canvas);box-shadow:0 0 0 3px var(--canvas)}
+#s3 .s3-ptr{width:10px;max-width:none;height:auto;flex:none}
+#s3 .s3-ptr path{fill:var(--canvas)}
+#s3 .s3-file{font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1;padding:var(--s2);border-radius:var(--s1);
+  background:var(--paper);border:1px solid var(--paper-ink);color:var(--paper-ink);transform:rotate(-3deg)}
+
+/* ---------- station art: ink line drawings on a plinth ---------- */
+#s3 .pl-t{fill:var(--canvas);stroke:var(--ink);stroke-width:1.5}
+#s3 .pl-l,#s3 .pl-r{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+#s3 .a .k,#s3 .a .f,#s3 .a .w{stroke:var(--ink)}
+#s3 .a .k{fill:none}
+#s3 .a .f{fill:var(--paper)}
+#s3 .a .w{fill:var(--canvas)}
+#s3 .a .s{fill:var(--ink);stroke:none}
+#s3 .a .t{stroke:var(--quiet-line);fill:none}
 #s3 .a .p{fill:var(--ink);stroke:var(--ink)}
-#s3 .a .ln{fill:none;stroke:var(--accent);stroke-width:3;stroke-dasharray:1;stroke-dashoffset:0}
-#s3 .a .ck{fill:none;stroke:var(--accent-ink);stroke-width:4;stroke-dasharray:1;stroke-dashoffset:0}
-#s3 .x-phone{transform-box:fill-box;transform-origin:50% 50%}
-#s3 .x-lid{transform-origin:49px 50px}
-#s3 .x-bar{transform-box:fill-box;transform-origin:50% 100%}
-#s3 .x-orb{transform-origin:80px 48px}
+#s3 .a .ln{fill:none;stroke:var(--ink);stroke-width:2.5}
+#s3 .a .ck{fill:none;stroke:var(--ink);stroke-width:3.5}
+/* the tick each station gets as Claude Code passes */
+#s3 .s3-br{fill:var(--canvas);stroke:var(--accent);stroke-width:2.5}
+#s3 .s3-bd{fill:var(--accent);transform-box:fill-box;transform-origin:50% 50%}
+#s3 .s3-ck{fill:none;stroke:var(--canvas);stroke-width:3.5;stroke-dasharray:1;stroke-dashoffset:0}
 
-/* sales call card: CSS 3D flip, back face reads "held" */
-#s3 .s3-flip{position:absolute;left:32%;top:8%;width:36%;height:56%;perspective:600px}
-#s3 .s3-flip-in{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(180deg)}
-#s3 .s3-ff,#s3 .s3-fb{position:absolute;inset:0;display:grid;place-items:center;border-radius:var(--r-sm);backface-visibility:hidden;-webkit-backface-visibility:hidden}
-#s3 .s3-ff{background:var(--canvas);border:1px solid var(--low)}
-#s3 .s3-ff svg{width:40%;fill:var(--low)}
-#s3 .s3-fb{transform:rotateY(180deg);background:var(--accent-ink);color:var(--canvas);font-family:var(--mono);font-weight:700;font-size:var(--fs-sm)}
+/* ---------- board geometry: 900px and up, a serpentine over 12 columns ---------- */
+@media (min-width:900px){
+  #s3{padding-bottom:var(--s8)}
+  #s3 .s3-board{--rail:40px;--aw:112px;--lab:40px;--rh:calc(var(--aw) * .75 + 48px);--mid:72px;--loop:52px;--r:24px;
+    --cw:calc((100% - var(--rail) * 2) / 6);--d0:calc(var(--lab) * 2 + var(--rh) + var(--mid));
+    --my:calc(var(--lab) + var(--rh) + var(--mid) / 2);                    /* the return row's y */
+    --c6:calc(var(--rail) + var(--cw) * 5.5);                              /* column 6 centre: under Landing page */
+    --xb:calc(var(--rail) + var(--cw) * 3);                                /* where the loop rejoins, before Delivery */
+    --loopy:calc(var(--d0) + var(--rh) + 26px);                            /* the loop's bottom run */
+    grid-template-columns:var(--rail) repeat(6,minmax(0,1fr)) var(--rail);
+    grid-template-rows:var(--lab) var(--rh) var(--mid) var(--lab) var(--rh) var(--loop);
+    /* the rails sit in the page gutter, so the station columns and labels start on the headline's left edge */
+    margin-inline:calc(-1 * var(--rail))}
+  #s3 .s3-zl{grid-column:2/8;padding-left:0;letter-spacing:.04em}
+  #s3 .s3-zl-down{grid-row:4}
+  #s3 .s3-lane{grid-column:2/8;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:auto}
+  #s3 .s3-up{grid-row:2}
+  #s3 .s3-down{grid-row:5}
+  #s3 .s3-st{display:flex;flex-direction:column;align-items:center}
+  #s3 .s3-l{padding:var(--s2) 0 0;text-align:center;font-size:var(--fs-body)}
 
-/* repeat buying tag */
-#s3 .s3-tag{position:absolute;left:50%;top:80%;transform:translate(-50%,-50%);white-space:nowrap;font-family:var(--mono);font-size:var(--fs-sm);line-height:1;
-  padding:var(--s1) var(--s2);background:var(--canvas);border:1px solid var(--accent);border-radius:999px;color:var(--accent-ink)}
+  #s3 .s3-sp{display:none}
+  #s3 .s3-u,#s3 .s3-t1,#s3 .s3-m,#s3 .s3-t3,#s3 .s3-d{display:block}
+  #s3 .s3-u{left:calc(var(--rail) + var(--cw) / 2);width:calc(var(--cw) * 5);top:calc(var(--lab) + var(--ly) - var(--tw) / 2);border-top-width:var(--tw)}
+  #s3 .s3-t1{left:var(--c6);right:calc(var(--rail) / 2 - var(--tw) / 2);top:calc(var(--lab) + var(--ly) - var(--tw) / 2);
+    height:calc(var(--rh) + var(--mid) / 2 - var(--ly) + var(--tw));border-width:var(--tw) var(--tw) var(--tw) 0;border-radius:0 var(--r) var(--r) 0}
+  #s3 .s3-m{left:calc(var(--rail) / 2 + var(--r));right:calc(var(--rail) + var(--cw) / 2);top:calc(var(--my) - var(--tw) / 2);border-top-width:var(--tw)}
+  #s3 .s3-t3{left:calc(var(--rail) / 2 - var(--tw) / 2);width:calc(var(--rail) / 2 + var(--cw) / 2 + var(--tw) / 2);top:calc(var(--my) - var(--tw) / 2);
+    height:calc(var(--mid) / 2 + var(--lab) + var(--ly) + var(--tw));border-width:var(--tw) 0 var(--tw) var(--tw);border-radius:var(--r) 0 0 var(--r)}
+  #s3 .s3-d{left:calc(var(--rail) + var(--cw) / 2);width:calc(var(--cw) * 5);top:calc(var(--d0) + var(--ly) - var(--tw) / 2);border-top-width:var(--tw)}
+  /* arrowheads only where the track turns: down both drops, and up where the loop rejoins */
+  #s3 .s3-u::after,#s3 .s3-d::after,#s3 .s3-m::after{display:none}
+  #s3 .s3-t1::after{right:-8.5px;top:calc(50% - 7px)}
+  #s3 .s3-t3::after{left:-8.5px;top:calc(50% - 7px)}
+  /* buys again: out of Repeat buying, round the right rail, back along the bottom and up into the track before Delivery */
+  #s3 .s3-lp{left:calc(var(--xb) - var(--tw) / 2);right:calc(var(--rail) / 2 - var(--tw) / 2);width:auto;
+    top:calc(var(--d0) + var(--ly) - var(--tw) / 2);height:calc(var(--loopy) - var(--d0) - var(--ly) + var(--tw));border-width:var(--tw);border-radius:0 var(--r) var(--r) 0}
+  #s3 .s3-lp::before{display:none}
+  #s3 .s3-lp::after{right:auto;left:-8.5px;top:var(--s3);transform:rotate(180deg)}
+  #s3 .s3-again{left:var(--c6);right:auto;top:var(--loopy);translate:-50% -50%}
+  #s3 .s3-zl{font-size:var(--fs-sm)}
 
-/* Yes gate */
-#s3 .s3-gate{display:grid;place-items:center}
-#s3 .s3-gart{position:relative;width:calc(var(--s10) + var(--s6))}
-#s3 .s3-gart svg{width:100%;height:auto;overflow:visible;stroke-linecap:round}
-#s3 .g-path{fill:none;stroke:var(--low);stroke-dasharray:3 6}
-#s3 .g-post{fill:none;stroke-width:6}
-#s3 .g-q .g-post{stroke:var(--low)}#s3 .g-a .g-post{stroke:var(--accent-ink)}
-#s3 .g-q .g-bar{fill:var(--elevated);stroke:var(--low);stroke-linejoin:round}
-#s3 .g-a .g-bar{fill:var(--accent);stroke:var(--accent-ink);stroke-linejoin:round}
-#s3 .g-q{opacity:0}
-#s3 .g-tok{fill:var(--ink);stroke:var(--ink)}
-#s3 .s3-yes{position:absolute;left:50%;top:25%;transform:translate(-50%,-50%);overflow:hidden;font-family:var(--mono);font-weight:700;font-size:var(--fs-label);
-  line-height:1;padding:var(--s1) var(--s2);border-radius:var(--s1);background:var(--canvas);border:1px solid var(--low);color:var(--ink)}
-#s3 .s3-yes i{position:absolute;inset:0;background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent);border-radius:var(--s1);z-index:-1}
-#s3 .s3-yes{isolation:isolate}
+  /* the YES stamp sits right under Landing page, where the track turns back */
+  #s3 .s3-yes{left:var(--c6);top:var(--my)}
+  #s3 .s3-who{left:calc(var(--c6) - 92px);top:calc(var(--my) - 4px)}
+  /* parked on the loop's bottom-left corner, where the loop turns up to rejoin the track */
+  #s3 .s3-run{left:var(--xb);top:var(--loopy);z-index:1}
+  #s3 .s3-chips{flex-direction:row}
+}
+@media (min-width:1200px){#s3 .s3-board{--aw:152px}}
 
-/* armed = quiet first frame, before the scene plays */
-#s3 .arm .q,#s3 .arm .g-q{opacity:1}
-#s3 .arm .a,#s3 .arm .pl-on,#s3 .arm .g-a,#s3 .arm .s3-yes i,#s3 .arm .s3-tag{opacity:0}
-#s3 .arm .s3-l{opacity:.5}
-#s3 .arm .s3-flip-in{transform:none}
-#s3 .arm .g-tok{opacity:0}
+/* ---------- armed: the first frame before the run (JS adds it only below the fold) ---------- */
+#s3 .s3-arm .s3-w{border-color:var(--line)}
+#s3 .s3-arm .s3-w::before,#s3 .s3-arm .s3-w::after{background:var(--line)}
+#s3 .s3-arm .s3-bd{opacity:0;transform:scale(.5)}
+#s3 .s3-arm .s3-ck{stroke-dashoffset:1}
+#s3 .s3-arm .s3-who{transform:translateY(-36px)}
+#s3 .s3-arm:not(.s3-go) .s3-run{left:var(--sx);top:calc(var(--lab) + var(--ly))}
+/* the teal trace + glowing beam head JS draws: above the grey track, under the stations */
+#s3 .s3-trace{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible;pointer-events:none}
+#s3 .s3-trace path{fill:none;stroke:var(--accent);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+#s3 .s3-trace .s3-beam{stroke-width:5;filter:drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 2px var(--accent))}
+@media (min-width:900px){
+  #s3 .s3-arm .s3-who{transform:translateX(92px)}
+  #s3 .s3-arm:not(.s3-go) .s3-run{left:calc(var(--rail) + var(--cw) / 2)}
+}

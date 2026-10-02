@@ -1,124 +1,154 @@
-/* S3: Claude Code reads a skill file, the card flies to a station, the station wakes.
-   Base CSS is the finished frame; .arm is the quiet first frame. Everything moves with WAAPI,
-   so pause/play is one getAnimations() call and the end state is the plain CSS (= reduced motion). */
+/* S3: Claude Code rides the track with a skill file. Each station ticks as it passes, the Yes stamp lands and the
+   client walks out from under it, and the track runs on into the "buys again" loop. Base CSS is the finished frame;
+   JS arms only when the board is below the fold, and only strokes, the tick discs and the two decorative tokens.
+   900px+: one run (~3.2 s) once the whole board is on screen. Phone: two legs (Upstream, then gate + Downstream +
+   loop), each starting when its own lane scrolls in, so nothing plays below the fold.
+   Pacing is per segment, not per pixel: a station hop and a long connector cost about the same. */
 var root = document.getElementById('s3');
-if (!root) return;
-var viz = root.querySelector('.s3-viz'), scene = root.querySelector('.s3-scene');
-if (!AIML.REDUCE) scene.classList.add('arm');
-AIML.onView(root, function () { if (!AIML.REDUCE) play(); });
+if (!root || AIML.REDUCE) return;
+var board = root.querySelector('.s3-board');
+var NS = 'http://www.w3.org/2000/svg';
 
-function play() {
-  var E = 'cubic-bezier(.16,1,.3,1)', S = 560, T0 = 300;
-  var $ = function (el, s) { return el.querySelector(s); }, $$ = function (el, s) { return [].slice.call(el.querySelectorAll(s)); };
-  function A(el, kf, delay, dur, o) {
-    if (!el) return null;
-    o = o || {};
-    return el.animate(kf, { delay: delay, duration: dur, easing: o.easing || E, fill: o.fill || 'both' });
+function decide() {
+  if (board.getBoundingClientRect().top < innerHeight) return;   /* already in view: leave it finished */
+  board.classList.add('s3-arm');
+  var wide = matchMedia('(min-width:900px)').matches, ready = null;
+  function watch(el, i, opt) {
+    new IntersectionObserver(function (es, io) {
+      if (!es.some(function (e) { return e.isIntersecting; })) return;
+      io.disconnect();
+      if (!ready) ready = build();
+      ready.go(i);
+    }, opt).observe(el);
   }
-  var op = function (a, b) { return [{ opacity: a }, { opacity: b }]; };
-  var from = function (t) { return [{ opacity: 0, transform: t }, { opacity: 1, transform: 'none' }]; };
-  var dash = [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }];
+  /* desktop: fire when (nearly) all of the board is visible, so the loop and the parking happen on screen */
+  if (wide) watch(board, 0, { threshold: Math.min(0.98, (innerHeight - 24) / board.offsetHeight) });
+  else {
+    watch(board.querySelector('.s3-up'), 0, { rootMargin: '0px 0px -30% 0px' });
+    watch(board.querySelector('.s3-down'), 1, { rootMargin: '0px 0px -30% 0px' });
+  }
+}
+if (board.offsetParent !== null) decide();
+else document.addEventListener('aiml:reveal', function f() {
+  if (board.offsetParent === null) return;
+  document.removeEventListener('aiml:reveal', f);
+  decide();
+});
 
-  /* each station's tiny action, delays relative to its wake */
-  var ACT = {
-    offer: function (a, w) { A($(a, '.x-sheet'), [{ transform: 'translateY(46px)' }, { transform: 'none' }], w + 80, 700); },
-    content: function (a, w) { [1, 2, 3].forEach(function (n, i) { A($(a, '.x-t' + n), from('translate(-16px,10px)'), w + 80 + i * 100, 450); }); },
-    email: function (a, w) {
-      A($(a, '.x-e1'), from('translate(-46px,30px)'), w + 80, 650);
-      A($(a, '.x-e2'), from('translate(-66px,4px)'), w + 220, 650);
-    },
-    linkedin: function (a, w) { A($(a, '.x-line'), dash, w + 80, 600); A($(a, '.x-dot'), op(0, 1), w + 450, 250); },
-    ads: function (a, w) { [1, 2, 3].forEach(function (n, i) { A($(a, '.x-t' + n), from('translateY(-24px)'), w + 60 + i * 120, 420); }); },
-    page: function (a, w) { [1, 2, 3, 4].forEach(function (n, i) { A($(a, '.x-b' + n), from('translateX(-12px)'), w + 60 + i * 90, 380); }); },
-    callback: function (a, w) {
-      A($(a, '.x-phone'), [0, -12, 12, -10, 10, -5, 0].map(function (d) { return { transform: 'rotate(' + d + 'deg)' }; }), w + 40, 700, { easing: 'linear' });
-      A($(a, '.x-ring'), [{ opacity: 0 }, { opacity: 1, offset: .3 }, { opacity: .35, offset: .6 }, { opacity: 1 }], w + 40, 700, { easing: 'linear' });
-    },
-    followup: function (a, w) { [1, 2, 3].forEach(function (n, i) { A($(a, '.x-b' + n), from('translateY(10px)'), w + 60 + i * 150, 380); }); },
-    sales: function (a, w, st) { A($(st, '.s3-flip-in'), [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(180deg)' }], w + 120, 700); },
-    delivery: function (a, w) {
-      A($(a, '.x-lid'), [{ transform: 'rotate(-38deg)' }, { transform: 'none' }], w + 60, 600);
-      A($(a, '.x-check'), dash, w + 500, 300);
-    },
-    report: function (a, w) {
-      A($(a, '.x-sheet'), [{ transform: 'translateY(50px)' }, { transform: 'none' }], w + 60, 600);
-      $$(a, '.x-bar').forEach(function (b, i) { A(b, [{ transform: 'scaleY(0)' }, { transform: 'none' }], w + 420 + i * 80, 350); });
-    },
-    repeat: function (a, w, st) {
-      A($(a, '.x-loop'), dash, w + 60, 700, { easing: 'cubic-bezier(.4,0,.2,1)' });
-      A($(a, '.x-orb'), [{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], w + 60, 760, { easing: 'cubic-bezier(.4,0,.2,1)' });
-      A($(a, '.x-head'), op(0, 1), w + 640, 200);
-      A($(st, '.s3-tag'), op(0, 1), w + 660, 300);
-    }
+/* geometry is measured once, at the first trigger; legs then play in order, never overlapping */
+function build() {
+  var B = board.getBoundingClientRect();
+  var $ = function (s) { return board.querySelector(s); };
+  var R = function (el) { var r = el.getBoundingClientRect(); return { l: r.left - B.left, t: r.top - B.top, r: r.right - B.left, b: r.bottom - B.top, w: r.width, h: r.height }; };
+  var sts = [].slice.call(board.querySelectorAll('.s3-st'));
+  var plinth = function (st) { var a = R(st.querySelector('.s3-art')); return [a.l + a.w / 2, a.t + a.h * 86 / 120]; };
+  var wide = matchMedia('(min-width:900px)').matches;
+
+  /* pts = the track the trace draws; the runner follows pts up to restAt, then (phone) steps off to its parking spot */
+  var pts = [], marks = [], restAt, cut;
+  function add(p, m) { pts.push(p); if (m) marks.push({ i: pts.length - 1, m: m }); }
+  var y = R($('.s3-yes')), gc = [y.l + y.w / 2, y.t + y.h / 2];
+  board.classList.add('s3-go');                      /* the runner's parked spot */
+  var run = $('.s3-run'), rr = R(run), rest = [rr.l, rr.t];
+  var h = (parseFloat(getComputedStyle(board).getPropertyValue('--tw')) || 3) / 2;   /* half the track width: border centre lines */
+  if (wide) {
+    var t1 = R($('.s3-t1')), t3 = R($('.s3-t3')), lp = R($('.s3-lp'));
+    sts.slice(0, 6).forEach(function (st) { add(plinth(st), st); });
+    var uy = pts[0][1];
+    add([t1.r - h, uy]); add([t1.r - h, t1.b - h]); add([gc[0], t1.b - h], 'gate'); add([t3.l + h, t3.t + h]); add([t3.l + h, t3.b - h]);
+    sts.slice(6).forEach(function (st) { add(plinth(st), st); });
+    var dy = pts[pts.length - 1][1];
+    /* the loop; Claude Code parks on its bottom-left corner, the trace runs on up into the track */
+    add([lp.r - h, dy]); add([lp.r - h, lp.b - h]); add([lp.l + h, lp.b - h]); restAt = pts.length - 1;
+    add([lp.l + h, dy]);
+    cut = [0, pts.length - 1];
+  } else {
+    var l2 = R($('.s3-lp')), g0 = R($('.s3-up')).b;
+    sts.slice(0, 6).forEach(function (st) { add(plinth(st), st); });
+    add([pts[0][0], g0 + 50]); var park1 = pts.length - 1;     /* leg 1 parks in the empty band above the stamp */
+    add([pts[0][0], gc[1]], 'gate');
+    sts.slice(6).forEach(function (st) { add(plinth(st), st); });
+    restAt = pts.length - 1;
+    var ry = pts[restAt][1];
+    add([l2.r - h, ry]); add([l2.r - h, l2.t + h]); add([l2.l, l2.t + h]);   /* the loop, round the right edge */
+    cut = [0, park1, pts.length - 1];
+  }
+
+  /* the trace path: corners as true circular arcs so it lies exactly on the rounded track underneath.
+     cum = distance along the REAL path (an arc corner is (2 - pi/2) * r shorter than the polyline). */
+  var RAD = wide ? 24 : 12, f = function (p) { return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }, d = 'M' + f(pts[0]);
+  var cum = [0], saved = 0, tm = [0];
+  for (var j = 1; j < pts.length; j++) {
+    var a = pts[j - 1], p = pts[j], b = pts[j + 1], la = Math.hypot(p[0] - a[0], p[1] - a[1]);
+    var lb = b ? Math.hypot(b[0] - p[0], b[1] - p[1]) : 0, cross = b ? (p[0] - a[0]) * (b[1] - p[1]) - (p[1] - a[1]) * (b[0] - p[0]) : 0;
+    var r = Math.min(RAD, la / 2, lb / 2), corner = b && la && lb && Math.abs(cross) > 1e-3 * la * lb;
+    cum.push(cum[j - 1] + la - (corner ? (2 - Math.PI / 2) * r / 2 : 0) - saved);
+    saved = corner ? (2 - Math.PI / 2) * r / 2 : 0;
+    tm.push(tm[j - 1] + Math.max(150, Math.min(260, 50 + la * 0.5)));  /* ms for this segment: never a flicker */
+    if (!corner) { d += 'L' + f(p); continue; }
+    d += 'L' + f([p[0] - (p[0] - a[0]) / la * r, p[1] - (p[1] - a[1]) / la * r]) +
+         'A' + r + ' ' + r + ' 0 0 ' + (cross > 0 ? 1 : 0) + ' ' + f([p[0] + (b[0] - p[0]) / lb * r, p[1] + (b[1] - p[1]) / lb * r]);
+  }
+  var LEN = cum[cum.length - 1];
+  var svg = document.createElementNS(NS, 'svg'), path = document.createElementNS(NS, 'path'), beam = document.createElementNS(NS, 'path');
+  svg.setAttribute('class', 's3-trace'); svg.setAttribute('aria-hidden', 'true');
+  [path, beam].forEach(function (q) { q.setAttribute('d', d); q.setAttribute('pathLength', LEN.toFixed(1)); svg.appendChild(q); });
+  path.style.strokeDasharray = LEN + ' ' + LEN; path.style.strokeDashoffset = LEN;
+  beam.setAttribute('class', 's3-beam'); beam.style.strokeDasharray = '72 ' + (LEN * 2); beam.style.strokeDashoffset = 72;
+  board.insertBefore(svg, board.firstChild);
+
+  var E = 'cubic-bezier(.16,1,.3,1)', who = $('.s3-who'), whoFrom = getComputedStyle(who).transform, stamp = $('.s3-yes');
+  var played = 0, busy = Promise.resolve(), nLegs = cut.length - 1, runAnim = null;
+  var kf = function (A, Z, val) {   /* keyframes A..Z on the leg's own clock */
+    return pts.slice(A, Z + 1).map(function (q, n) { return { offset: Z > A ? (tm[A + n] - tm[A]) / (tm[Z] - tm[A]) : 1, v: val(A + n, q) }; });
   };
 
-  var sr = scene.getBoundingClientRect();
-  var agent = $(scene, '.s3-agent'), card = $(scene, '.s3-card'), scan = $(scene, '.s3-scan');
-  var ar = agent.getBoundingClientRect(), cr = card.getBoundingClientRect();
-  var sts = $$(scene, '.s3-st'), gart = $(scene, '.s3-gart'), gr = gart.getBoundingClientRect();
-  var path = [[0, 0, 0]], fly = [];
-  var G = T0 + 6 * S, D = G + 900, last = 0;
-
-  sts.forEach(function (st, i) {
-    var t = i < 6 ? T0 + i * S : D + (i - 6) * S, w = t + 600, r = $(st, '.s3-art').getBoundingClientRect();
-    var px = r.right - r.width * .14 - ar.left, py = r.top + r.height * .02 - ar.top;
-    path.push([t + 300, px, py], [t + S, px, py]);
-    /* read: a teal scan line passes over the held card */
-    A(scan, [{ opacity: 0, transform: 'translateY(0)' }, { opacity: 1, offset: .2 }, { opacity: 0, transform: 'translateY(' + cr.height + 'px)' }], t + 160, 220, { fill: 'none', easing: 'linear' });
-    /* the card peels off and flies into the station's plinth */
-    var f = document.createElement('i'); f.className = 's3-fly'; scene.appendChild(f); fly.push(f);
-    var fx = cr.left - sr.left, fy = cr.top - sr.top;
-    f.style.left = fx + 'px'; f.style.top = fy + 'px';
-    var tx = r.left + r.width * .5 - sr.left - fx - f.offsetWidth / 2, ty = r.top + r.height * .7 - sr.top - fy - f.offsetHeight / 2;
-    A(f, [{ opacity: 1, transform: 'translate(' + px + 'px,' + py + 'px) rotate(-3deg)' },
-          { opacity: 1, offset: .75, transform: 'translate(' + tx + 'px,' + ty + 'px) rotateX(55deg) scale(.55)' },
-          { opacity: 0, transform: 'translate(' + tx + 'px,' + (ty + 6) + 'px) rotateX(70deg) scale(.4)' }], t + 330, 320, { fill: 'none' });
-    /* wake */
-    var a = $(st, '.a');
-    A($(st, '.q'), op(1, 0), w, 300);
-    A(a, op(0, 1), w, 300);
-    A($(st, '.pl-on'), op(0, 1), w, 450);
-    A($(st, '.s3-l'), op(.5, 1), w, 300);
-    A($(st, '.s3-art'), [{ transform: 'translateY(6px)' }, { transform: 'none' }], w, 500);
-    ACT[st.dataset.k](a, w, st);
-    last = w;
-  });
-
-  /* the Yes gate: Claude Code hovers, a person token walks through, the gate lights */
-  var gx = gr.left + gr.width * .62 - ar.left, gy = gr.top + gr.height * .08 - ar.top;
-  path.splice(13, 0, [G + 300, gx, gy], [D, gx, gy]);
-  A($(gart, '.g-tok'), [{ opacity: 0, transform: 'translate(-74px,-43px)' }, { opacity: 1, offset: .2, transform: 'translate(-58px,-34px)' }, { opacity: 1, transform: 'none' }], G + 150, 900, { easing: 'cubic-bezier(.3,0,.2,1)' });
-  $$(gart, '.g-q').forEach(function (g) { A(g, op(1, 0), G + 600, 300); });
-  $$(gart, '.g-a').forEach(function (g) { A(g, op(0, 1), G + 600, 300); });
-  A($(gart, '.s3-yes i'), op(0, 1), G + 600, 300);
-
-  /* Claude Code parks under Repeat buying once the last station is awake.
-     The agent lives in the tilted Downstream tray, so screen deltas are corrected by measuring. */
-  path.push([last + 100, path[path.length - 1][1], path[path.length - 1][2]], [last + 600, 0, 0]);
-  path[0] = [0, path[1][1], path[1][2]];
-  path.forEach(function (p) {
-    var dx = p[1], dy = p[2], x = ar.left + p[1], y = ar.top + p[2], r;
-    if (dx || dy) for (var k = 0; k < 2; k++) {
-      agent.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
-      r = agent.getBoundingClientRect(); dx += x - r.left; dy += y - r.top;
+  function leg(k) {
+    var A = cut[k], Z = cut[k + 1], dur = tm[Z] - tm[A], end = dur;
+    path.animate(kf(A, Z, function (i) { return LEN - cum[i]; }).map(function (x) { return { offset: x.offset, strokeDashoffset: x.v }; }), { duration: dur, fill: 'forwards' });
+    beam.animate(kf(A, Z, function (i) { return 72 - cum[i]; }).map(function (x) { return { offset: x.offset, strokeDashoffset: x.v }; }), { duration: dur, fill: 'forwards' });
+    var rz = Math.min(Z, restAt);
+    if (rz > A) {
+      var frames = kf(A, rz, function (i, q) { return 'translate(' + (q[0] - rest[0]) + 'px,' + (q[1] - rest[1]) + 'px)'; })
+        .map(function (x) { return { offset: x.offset, transform: x.v }; }), rdur = tm[rz] - tm[A];
+      if (rz === restAt && (pts[restAt][0] !== rest[0] || pts[restAt][1] !== rest[1])) {   /* phone: step off the track into the park row */
+        frames.forEach(function (x) { x.offset = x.offset * rdur / (rdur + 220); });
+        frames.push({ offset: 1, transform: 'none' }); rdur += 220;
+      }
+      /* one runner animation at a time: a replaced fill-forward animation comes back when its successor is cancelled */
+      if (runAnim) runAnim.cancel();
+      runAnim = run.animate(frames, { duration: rdur, easing: 'linear', fill: 'both' });
     }
-    p[1] = dx; p[2] = dy;
-  });
-  agent.style.transform = '';
-  var TOTAL = last + 800;
-  A(agent, path.map(function (p) { return { offset: p[0] / TOTAL, transform: 'translate(' + p[1] + 'px,' + p[2] + 'px)', easing: E }; })
-    .concat([{ offset: 1, transform: 'none' }]), 0, TOTAL, { easing: 'linear' });
-  A(agent, op(0, 1), 0, 250, { fill: 'backwards' });
-
-  var master = scene.animate([{ opacity: 1 }, { opacity: 1 }], { duration: TOTAL }), paused = [];
-  var btn = AIML.pauseBtn(viz, {
-    pause: function () { paused = scene.getAnimations({ subtree: true }).filter(function (x) { return x.playState === 'running'; }); paused.forEach(function (x) { x.pause(); }); },
-    play: function () { paused.forEach(function (x) { x.play(); }); paused = []; }
-  });
-  master.finished.then(function () {
-    scene.classList.remove('arm');
-    scene.getAnimations({ subtree: true }).forEach(function (x) { x.cancel(); });
-    fly.forEach(function (f) { f.remove(); });
-    btn.hidden = true;
-  });
+    marks.forEach(function (m) {
+      if (m.i < A || m.i > Z || (m.i === A && A > 0)) return;
+      var t = tm[m.i] - tm[A];
+      if (m.m === 'gate') {
+        stamp.animate([{ transform: 'scale(1.5)' }, { transform: 'scale(.94)', offset: .6 }, { transform: 'none' }], { delay: t - 60, duration: 360, easing: 'ease-out' });
+        who.animate([{ transform: whoFrom }, { transform: 'none' }], { delay: t + 120, duration: 520, easing: E, fill: 'both' });
+        end = Math.max(end, t + 640);
+        return;
+      }
+      m.m.querySelector('.s3-bd').animate([{ opacity: 0, transform: 'scale(.5)' }, { opacity: 1, transform: 'scale(1)' }], { delay: t, duration: 260, easing: E, fill: 'both' });
+      m.m.querySelector('.s3-ck').animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { delay: t + 90, duration: 240, easing: 'ease-out', fill: 'both' });
+      m.m.querySelector('.s3-art').animate([{ transform: 'none' }, { transform: 'translateY(-6px)', offset: .35 }, { transform: 'none' }], { delay: t, duration: 380, easing: 'ease-out' });
+      end = Math.max(end, t + 400);
+    });
+    return new Promise(function (res) { setTimeout(res, end); });
+  }
+  function finish() {
+    board.classList.remove('s3-arm', 's3-go');
+    board.getAnimations({ subtree: true }).forEach(function (x) { if (x.effect.target !== path && x.effect.target !== beam) x.cancel(); });
+    beam.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' });
+    setTimeout(function () { svg.remove(); }, 400);   /* the track's own teal fades in under the trace first */
+  }
+  return {
+    go: function (k) {
+      busy = busy.then(function () {
+        /* a later leg that triggers first (fast scroll) plays every leg before it */
+        var chain = Promise.resolve();
+        while (played <= k) { (function (n) { chain = chain.then(function () { return leg(n); }); })(played); played++; }
+        return chain.then(function () { if (played === nLegs) finish(); });
+      });
+    }
+  };
 }

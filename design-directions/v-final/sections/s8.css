@@ -1,37 +1,61 @@
-#s8{--u:1px}
-@media (min-width:1024px){#s8{--u:1.6px}}
-#s8 .s8-viz{padding:var(--s5)}
-#s8 .s8-scene{position:relative}
-#s8 .s8-bases{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--s5);row-gap:var(--s6)}
-/* stage = tallest object (60u) + the block (40u) + a little air, so the frame has no dead headroom */
-#s8 .s8-stage{height:calc(108 * var(--u));display:flex;align-items:flex-end;justify-content:center;border-bottom:1px solid var(--line)}
-#s8 .s8-cap{padding-top:var(--s3);font-size:var(--fs-sm);line-height:1.4;color:var(--body);text-align:center;text-wrap:balance}
-#s8 .s8-yes .s8-cap{font-family:var(--mono);font-weight:700;color:var(--accent-ink)}
+/* S8 not for: white ground. Three starting points, each a base the skill-file block bounces off, struck out as it does;
+   under them a solid ink base, "paying clients", that the block lands on and holds.
+   Default styles = the FINISHED frame (block seated, rows struck). .s8-arm (JS, only when below the fold) holds frame 0. */
+#s8{border-top:0;--icw:88px;--ich:61px;--bkw:56px;--bkh:40px}
+#s8 .s8-scene{position:relative;display:grid;gap:var(--s5)}
 
-#s8 .s8-blk{position:absolute;left:0;top:0;z-index:2;width:calc(54 * var(--u));height:calc(40 * var(--u));display:flex;flex-direction:column;justify-content:center;gap:calc(4 * var(--u));padding:0 calc(10 * var(--u));background:var(--canvas);border:1px solid var(--accent);border-radius:var(--s1);will-change:transform}
-#s8 .s8-blk i{height:calc(4 * var(--u));border-radius:var(--s1);background:var(--accent-soft)}
+/* not for: a ruled list; each base drawn big enough for the block to land on */
+#s8 .s8-nots{list-style:none}
+#s8 .s8-nots li{display:grid;grid-template-columns:var(--icw) minmax(0,1fr);align-items:end;column-gap:var(--s4);padding-block:var(--s4);border-bottom:1px solid var(--line)}
+#s8 .s8-ic{width:var(--icw);height:var(--ich);overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#s8 .s8-ln{stroke:var(--body);stroke-width:2.5}
+#s8 .s8-thin{stroke:var(--quiet-line);stroke-width:2.5}
+#s8 .s8-soil{fill:var(--elevated);stroke:var(--body);stroke-width:2.5}
+#s8 .s8-crack{stroke:var(--body);stroke-width:2}
+/* struck per line, so a wrapped row is crossed out line by line */
+#s8 .s8-t{justify-self:start;padding-bottom:var(--s1);font-size:var(--fs-lg);font-weight:500;line-height:1.3;color:var(--body);
+  text-decoration:line-through 2px var(--ink);text-decoration-skip-ink:none}
+
+/* for: a solid base, the block seated on its top edge above the column of bases it bounced off */
+#s8 .s8-yes{display:flex;flex-direction:column;align-items:flex-start}
+#s8 .s8-blk{position:relative;z-index:2;margin-left:calc((var(--icw) - var(--bkw)) / 2);width:var(--bkw);height:var(--bkh);display:flex;flex-direction:column;justify-content:center;gap:var(--s1);padding:0 var(--s2);
+  background:var(--canvas);border:2px solid var(--accent);border-radius:var(--s1);will-change:transform}
+#s8 .s8-blk i{height:4px;border-radius:2px;background:var(--accent-soft)}
 #s8 .s8-blk i:first-child{width:60%;background:var(--accent)}
 #s8 .s8-blk i:last-child{width:75%}
-#s8 .s8-blk::after{content:'';position:absolute;inset:-5px;border-radius:var(--r-sm);border:1px solid var(--accent);opacity:0;transition:opacity var(--d-ui) var(--ease)}
+#s8 .s8-slab{position:relative;display:flex;align-items:center;padding:var(--s5);background:var(--ink);border-radius:var(--r-sm)}
+#s8 .s8-slab::before{content:'';position:absolute;left:0;right:0;top:0;height:6px;border-radius:var(--r-sm) var(--r-sm) 0 0;background:var(--accent);transform-origin:0 50%}
+#s8 .s8-st{font-family:var(--mono);font-weight:700;font-size:var(--fs-h1);line-height:1.1;letter-spacing:-.02em;color:var(--canvas)}
+@media (max-width:767px){#s8 .s8-nots{padding-top:var(--s5)}}
 
-#s8 .s8-ground{width:calc(120 * var(--u));height:calc(22 * var(--u));overflow:visible}
-#s8 .s8-soil{fill:var(--elevated);stroke:var(--quiet);stroke-width:1;stroke-linejoin:round}
-#s8 .s8-crack{fill:none;stroke:var(--quiet);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
-#s8 .s8-lap{display:flex;flex-direction:column;align-items:center}
-#s8 .s8-scr{width:calc(104 * var(--u));height:calc(56 * var(--u));display:flex;align-items:center;justify-content:center;border:1px solid var(--quiet);border-bottom:0;border-radius:var(--s1) var(--s1) 0 0;background:var(--canvas)}
-#s8 .s8-tag{font-size:var(--fs-label);line-height:1;color:var(--body);padding:var(--s1) var(--s2);border:1px solid var(--line);border-radius:var(--s1);white-space:nowrap}
-#s8 .s8-kb{width:calc(124 * var(--u));height:calc(4 * var(--u));border-radius:0 0 var(--s1) var(--s1);background:var(--quiet)}
-#s8 .s8-sign{display:flex;flex-direction:column;align-items:center}
-#s8 .s8-board{min-width:calc(104 * var(--u));text-align:center;padding:var(--s2) var(--s3);font-size:var(--fs-label);line-height:1.2;color:var(--body);white-space:nowrap;background:var(--canvas);border:1px solid var(--quiet);border-radius:var(--s1);transform:rotate(-4deg)}
-#s8 .s8-post{width:calc(4 * var(--u));height:calc(30 * var(--u));background:var(--quiet)}
-#s8 .s8-slab{position:relative;width:calc(112 * var(--u));height:calc(40 * var(--u));background:var(--elevated);border:1px solid var(--ink);border-bottom:0;border-radius:var(--s1) var(--s1) 0 0}
-#s8 .s8-slab::before{content:'';position:absolute;left:-1px;right:-1px;top:-1px;height:4px;border-radius:var(--s1) var(--s1) 0 0;background:var(--accent);opacity:0;transition:opacity var(--d-ui) var(--ease)}
-#s8 .s8-on .s8-slab::before,#s8 .s8-on .s8-blk::after{opacity:1}
-
+@media (min-width:768px){
+  #s8{--icw:120px;--ich:84px;--bkw:72px;--bkh:50px}
+  #s8 .s8-nots li{column-gap:var(--s6)}
+  #s8 .s8-t{font-size:var(--fs-callout)}
+  #s8 .s8-slab{padding:var(--s6) var(--s7)}
+  #s8 .s8-blk{gap:var(--s2);padding:0 var(--s3)}
+  #s8 .s8-blk i{height:5px}
+}
 @media (min-width:1024px){
-  #s8 .s8-tag,#s8 .s8-board{font-size:var(--fs-sm)}
+  /* four across: three bases with their struck labels under them, then the ink base the block locks onto */
+  #s8{--bkw:80px;--bkh:56px}
+  #s8 .s8-scene{grid-template-columns:1fr 1fr 1fr 1.6fr;column-gap:var(--s7);align-items:end;padding-top:var(--s7)}
+  #s8 .s8-nots{display:contents}
+  #s8 .s8-nots li{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s4);padding:0;border:0}
+  #s8 .s8-ic{width:100%;max-width:200px;height:auto;aspect-ratio:132/92}
+  #s8 .s8-t{font-size:var(--fs-lg);line-height:1.3;min-height:calc(2 * 1.3em);text-wrap:balance}
+  #s8 .s8-yes{grid-column:4}
+  #s8 .s8-blk{margin-left:var(--s6)}
+  #s8 .s8-slab{align-self:stretch;min-height:calc(var(--s10) + var(--s4));align-items:flex-end;padding:var(--s5) var(--s6)}
+  #s8 .s8-st{font-size:var(--fs-num)}
 }
-@media (max-width:639px){
-  #s8 .s8-viz{padding:var(--s4)}
-  #s8 .s8-bases{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s4)}
-}
+@media (min-width:1280px){#s8 .s8-t{font-size:var(--fs-callout)}}
+
+/* motion: the block (JS, transform only) lands on each base and bounces off; each row's strike line draws as it does;
+   the block drops onto the ink base and the base's teal edge fills. Text never moves or fades. */
+#s8 .s8-arm *,#s8 .s8-arm *::before{animation-play-state:paused!important}
+#s8 .s8-arm.s8-go *,#s8 .s8-arm.s8-go *::before{animation-play-state:running!important}
+#s8 .s8-arm .s8-t{animation:s8-stamp .2s var(--ease) calc(.85s + var(--i) * .95s) both}
+#s8 .s8-arm .s8-slab::before{animation:s8-fill .5s var(--ease) 3.3s both}
+@keyframes s8-stamp{from{text-decoration-color:transparent}to{text-decoration-color:var(--ink)}}
+@keyframes s8-fill{from{transform:scaleX(.08)}to{transform:none}}
