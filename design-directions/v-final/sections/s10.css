@@ -6,7 +6,7 @@
 #s10 .s10-art svg{width:100%;height:auto;overflow:visible}
 @media (min-width:1024px){
   #s10 .s10-cta{grid-column:1/6}
-  #s10 .s10-art{grid-column:6/13;max-width:560px;justify-self:start}
+  #s10 .s10-art{grid-column:6/13;max-width:none}
 }
 #s10 .s10-tilt{transform:rotate(-3deg);transform-origin:200px 160px}
 #s10 .s10-sheet{fill:var(--canvas);stroke:var(--paper-edge);stroke-width:1.5;filter:drop-shadow(0 8px 16px rgba(42,42,42,.10))}
@@ -15,6 +15,12 @@
 #s10 .s10-river{fill:none;stroke:var(--line);stroke-width:16}
 #s10 .s10-route{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-dasharray:2 8}
 #s10 .s10-flap{fill:var(--paper-edge);stroke:var(--paper-edge);stroke-width:1.5;stroke-linejoin:round}
+#s10 .s10-flapedge{fill:none;stroke:var(--quiet-line);stroke-width:1;filter:drop-shadow(-2px 2px 2px rgba(42,42,42,.18))}
+#s10 .s10-leak{filter:drop-shadow(0 2px 2px rgba(18,18,18,.15))}
+#s10 .s10-leak path{fill:var(--canvas);stroke:var(--ink);stroke-width:2}
+#s10 .s10-leak circle{fill:none;stroke:var(--ink);stroke-width:2}
+#s10 .s10-pole{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+#s10 .s10-cloth{fill:var(--ink)}
 #s10 .s10-reg{font-family:var(--mono);font-weight:700;font-size:16px;letter-spacing:.08em;fill:var(--ink)}
 #s10 .s10-pin{filter:drop-shadow(0 3px 3px rgba(18,18,18,.2))}
 #s10 .s10-pin path{fill:var(--accent);stroke:var(--accent-ink);stroke-width:1.5}
