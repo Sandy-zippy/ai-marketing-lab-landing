@@ -26,21 +26,19 @@ if (root && !AIML.REDUCE) {
 /* ---- s2b ---- */
 ;(function(){
 var root = document.getElementById('s2b');
-if (root && !AIML.REDUCE) {
-  root.classList.add('armed');
-  var viz = root.querySelector('.s2b-viz');
-  AIML.onView(viz, function () {
-    root.classList.add('go');
-    var btn = AIML.pauseBtn(viz, {
-      pause: function () { root.classList.add('paused'); },
-      play: function () { root.classList.remove('paused'); }
-    });
-    root.querySelector('.s2b-po0 .s2b-ink').addEventListener('animationend', function () { btn.remove(); });
+if (!root || AIML.REDUCE || !('IntersectionObserver' in window)) return;
+/* Arms only if the stacks are not on screen yet; plays when 15% of them are in view. Only folder surfaces and the
+   bracket move (scale from .08); every pack name stays readable on the paper the whole time. */
+var v = root.querySelector('.s2b-tiers');
+if (v.offsetParent !== null && v.getBoundingClientRect().top < innerHeight) return;
+v.classList.add('s2b-arm');
+new IntersectionObserver(function (es, io) {
+  es.forEach(function (e) {
+    if (!e.isIntersecting) return;
+    io.disconnect(); v.classList.add('s2b-go');
+    setTimeout(function () { v.classList.remove('s2b-arm', 's2b-go'); }, 2400);
   });
-  root.querySelectorAll('.s2b-r').forEach(function (r) {
-    AIML.onView(r, function () { r.classList.add('in'); });
-  });
-}
+}, { threshold: 0.15 }).observe(v);
 
 })();
 /* ---- s3 ---- */
