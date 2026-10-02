@@ -33,7 +33,8 @@ function custom(ev, p) { pixelReady(function () { if (window.fbq) fbq('trackCust
 /* Shared helpers for section partials (js/sections.js). */
 window.AIML = {
   REDUCE: REDUCE,
-  /* fn(root) runs ONCE, when root has been revealed and is at least 30% on screen. */
+  /* fn(root) runs ONCE, when root has been revealed and its top is 15% into the viewport (a 30% threshold never fired on
+     sections taller than ~3 viewports, e.g. s6 at 2,031px desktop / 3,294px mobile: BUGS-2026-10-02 #3). */
   onView: function (root, fn) {
     if (!root) return;
     var done = false;
@@ -41,7 +42,7 @@ window.AIML = {
     if (!('IntersectionObserver' in window)) return go();
     new IntersectionObserver(function (es, io) {
       es.forEach(function (e) { if (e.isIntersecting && e.target.offsetParent !== null) { io.disconnect(); go(); } });
-    }, { threshold: 0.3 }).observe(root);
+    }, { threshold: 0, rootMargin: '0px 0px -15% 0px' }).observe(root);
   },
   /* Adds the shared pause button to a .viz. ctl = {pause(), play()}. */
   pauseBtn: function (viz, ctl) {
