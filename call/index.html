@@ -140,13 +140,20 @@ html.js [data-reveal].on{animation:in var(--d-ui) var(--ease) both}
 html.js body[data-state="b"] #qualify{display:none}
 
 /* screen 1: uAbility's opt-in shape. One centred column: callout, promise, without-line, instruction, one button. */
-.one{display:grid;justify-items:center;text-align:center;row-gap:var(--s5)}
-#qualify .callout{max-width:none;font-size:var(--fs-lg)}
-#qualify h1{font-size:clamp(20px,1.75vw,25px);line-height:1.35;max-width:none;text-wrap:balance}
-.without{font-family:var(--mono);font-weight:700;font-size:var(--fs-lg);line-height:1.4;color:var(--accent-ink);max-width:60ch}
-.instr{font-size:var(--fs-lg);color:var(--body)}
-.btn-big{min-height:64px;padding:0 var(--s8);font-size:var(--fs-body)}
-@media (max-width:480px){.btn-big{width:100%}}
+/* State A fills the first screen: grey band (uAbility's), content centred, footer below the fold. */
+body[data-state="a"]{background:var(--surface)}
+body[data-state="a"] footer{background:var(--canvas);margin-top:0}
+body[data-state="a"] #qualify{min-height:calc(100svh - 70px);display:grid;align-content:center;padding-block:var(--s6) var(--s10)}
+.one{display:grid;justify-items:center;text-align:center}
+#qualify .callout{max-width:40ch;font-size:var(--fs-callout);line-height:1.35}
+@media (min-width:1024px){#qualify .callout{max-width:none}}
+.nw{white-space:nowrap}
+#qualify h1{margin-top:var(--s4);font-size:clamp(23px,calc(10px + 2.3vw),36px);line-height:1.2;max-width:var(--max);text-wrap:balance}
+#qualify h1 em{font-style:normal;color:var(--accent-ink)}
+.without{margin-top:var(--s6);font-size:clamp(17px,1.4vw,20px);font-weight:500;line-height:1.45;color:var(--ink);max-width:46ch;text-wrap:balance}
+.instr{margin-top:var(--s7);font-size:var(--fs-body);color:var(--body);text-wrap:balance}
+.btn-big{margin-top:var(--s4);min-height:64px;min-width:300px;padding:0 var(--s8);font-size:var(--fs-body)}
+@media (max-width:480px){.btn-big{width:100%;min-width:0}.instr{margin-top:var(--s6)}#qualify h1{text-wrap:pretty}}
 
 /* the popup */
 .modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:var(--s4)}
@@ -214,10 +221,10 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 <!-- SCREEN 1: qualify (state A), uAbility's opt-in shape: one centred column, one button, the form in a popup. Hidden once a qualified lead exists. -->
 <section class="scr" id="qualify" aria-labelledby="q-h1">
   <div class="wrap one">
-    <p class="callout">For marketing agency owners, high-ticket coaches and B2B service businesses ONLY</p>
-    <h1 id="q-h1">How I Collected $220,000 In 6 Months With Marketing That Runs On Claude Code (And How You Install It: First Client In 90 Days Or Every Rupee Back)</h1>
-    <p class="without">Without sending DMs every evening, chasing follow-ups, or restarting your pipeline every 30 days</p>
-    <p class="instr">Answer 2 questions and watch the free 8-minute training.</p>
+    <p class="callout">For marketing agency owners, <span class="nw">high-ticket</span> coaches and B2B service businesses ONLY</p>
+    <h1 id="q-h1">How I Collected <em>$220,000</em> In 6 Months With Marketing That Runs On Claude Code (And How You Install It: First Client In 90 Days Or Every Rupee Back)</h1>
+    <p class="without">Without sending DMs every evening, chasing <span class="nw">follow-ups</span>, or restarting your pipeline every 30 days</p>
+    <p class="instr">Answer 2 questions and watch the free <span class="nw">8-minute</span> training.</p>
     <button class="btn btn-big" type="button" id="qopen">Get started</button>
   </div>
 </section>
@@ -227,7 +234,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
   <div class="modal-bg" id="qmodal-bg"></div>
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="qm-h" tabindex="-1">
     <button class="modal-x" type="button" id="qclose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <h2 id="qm-h">2 quick questions before you watch the 8-minute training.</h2>
+    <h2 id="qm-h">2 quick questions before you watch the <span class="nw">8-minute</span> training.</h2>
         <form class="qform" id="qform" novalidate>
           <fieldset class="q" data-q="1">
             <legend class="q-t">What do you run?</legend>
@@ -525,38 +532,44 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
       <h2 id="s7-h">First client, or every rupee back</h2>
       <p class="lede">Execute the progress sheet we share.</p>
       <p class="lede">No closed client in 90 days? <strong class="accent">Full refund.</strong></p>
-      <p class="label s7-both">Both programs</p>
-      <a class="btn js-pay" href="#">Map my business</a>
+      <p class="s7-both">Both programs</p>
     </div>
-    <div class="c-6-12 viz s7-viz" role="img" aria-label="A shared progress sheet whose steps, Offer, Lead magnet, Page, Backend and 100 messages out, tick from mapped to done. A 90 day track then forks: it lights client closed first; the faint fallback path sends rupee notes back into a wallet marked full refund.">
-      <div class="s7-sheet">
-        <ol class="s7-rows">
-          <li style="--i:0"><span class="s7-box"><svg viewBox="0 0 18 18"><path pathLength="1" d="M4.5 9.4l3 3 6-6.6"/></svg></span><span class="s7-step">Offer</span><span class="s7-st"><span class="m">mapped</span><span class="d">done</span></span></li>
-          <li style="--i:1"><span class="s7-box"><svg viewBox="0 0 18 18"><path pathLength="1" d="M4.5 9.4l3 3 6-6.6"/></svg></span><span class="s7-step">Lead magnet</span><span class="s7-st"><span class="m">mapped</span><span class="d">done</span></span></li>
-          <li style="--i:2"><span class="s7-box"><svg viewBox="0 0 18 18"><path pathLength="1" d="M4.5 9.4l3 3 6-6.6"/></svg></span><span class="s7-step">Page</span><span class="s7-st"><span class="m">mapped</span><span class="d">done</span></span></li>
-          <li style="--i:3"><span class="s7-box"><svg viewBox="0 0 18 18"><path pathLength="1" d="M4.5 9.4l3 3 6-6.6"/></svg></span><span class="s7-step">Backend</span><span class="s7-st"><span class="m">mapped</span><span class="d">done</span></span></li>
-          <li style="--i:4"><span class="s7-box"><svg viewBox="0 0 18 18"><path pathLength="1" d="M4.5 9.4l3 3 6-6.6"/></svg></span><span class="s7-step">100 messages out</span><span class="s7-st"><span class="m">mapped</span><span class="d">done</span></span></li>
-        </ol>
+    <div class="c-6-12 s7-sheet" role="img" aria-label="The shared progress sheet: Offer, Lead magnet, Page, Backend and 100 messages out, each ticked from mapped to done.">
+      <ol class="s7-rows">
+        <li style="--i:0"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Offer</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+        <li style="--i:1"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Lead magnet</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+        <li style="--i:2"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Page</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+        <li style="--i:3"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Backend</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+        <li style="--i:4"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">100 messages out</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+      </ol>
+    </div>
+    <div class="s7-fork" role="img" aria-label="A 90 day track runs to a fork. One path ends at client closed. The other ends at a wallet with rupee notes back in it: full refund.">
+      <svg class="s7-lines s7-ld" viewBox="0 0 1120 320">
+        <path class="s7-g" d="M8 160H477"/><path class="s7-tk" d="M164 150v20M320 150v20"/>
+        <path class="s7-g" d="M477 160C577 160 577 64 677 64"/><path class="s7-g" d="M477 160C577 160 577 256 677 256"/>
+        <path class="s7-t s7-t0" pathLength="1" d="M8 160H477"/><path class="s7-t s7-t1" pathLength="1" d="M477 160C577 160 577 64 677 64"/><path class="s7-t s7-t2" pathLength="1" d="M477 160C577 160 577 256 677 256"/>
+        <circle class="s7-dot" cx="8" cy="160" r="6"/><circle class="s7-node" cx="477" cy="160" r="8"/>
+      </svg>
+      <svg class="s7-lines s7-lm" viewBox="0 0 358 280">
+        <path class="s7-g" d="M6 140H120"/><path class="s7-tk" d="M44 135v10M82 135v10"/>
+        <path class="s7-g" d="M120 140C143 140 143 44 165 44"/><path class="s7-g" d="M120 140C143 140 143 236 165 236"/>
+        <path class="s7-t s7-t0" pathLength="1" d="M6 140H120"/><path class="s7-t s7-t1" pathLength="1" d="M120 140C143 140 143 44 165 44"/><path class="s7-t s7-t2" pathLength="1" d="M120 140C143 140 143 236 165 236"/>
+        <circle class="s7-dot" cx="6" cy="140" r="5"/><circle class="s7-node" cx="120" cy="140" r="6"/>
+      </svg>
+      <span class="s7-days">90 days</span>
+      <div class="s7-out s7-up">
+        <svg class="s7-ring" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19"/><path pathLength="1" d="M12 20.6l5.4 5.4L28.4 14"/></svg>
+        <b class="s7-oh">Client closed<i class="s7-ul"></i></b>
       </div>
-      <div class="s7-run">
-        <div class="s7-lines">
-          <svg class="s7-svg">
-            <path class="s7-g" data-p="T"/><path class="s7-g" data-p="U"/><path class="s7-g" data-p="L"/><path class="s7-tk" data-p="K"/>
-            <path class="s7-o s7-ot" data-p="T" pathLength="1"/><path class="s7-o s7-ou" data-p="U" pathLength="1"/><path class="s7-o s7-ol" data-p="L" pathLength="1"/>
-            <circle class="s7-dot" r="4"/><circle class="s7-fk" r="4"/>
-          </svg>
-          <span class="s7-days">90 days</span>
-        </div>
-        <div class="s7-win"><span class="s7-ring"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5"/></svg></span><span>client closed</span><span class="s7-lit"><span class="s7-ring"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5"/><path pathLength="1" d="M6 10.4l2.7 2.7 5.3-5.8"/></svg></span><span>client closed</span></span></div>
-        <div class="s7-wal">
-          <div class="s7-purse">
-            <span class="s7-back"></span>
-            <i class="s7-note" style="--n:0;--r:-6deg;--x:10px">&#8377;</i><i class="s7-note" style="--n:1;--r:2deg;--x:60px">&#8377;</i><i class="s7-note" style="--n:2;--r:7deg;--x:110px">&#8377;</i>
-            <span class="s7-front"><svg viewBox="0 0 164 62" preserveAspectRatio="none"><path class="s7-wb" d="M1 9Q82 22 163 9V53a8 8 0 0 1-8 8H9a8 8 0 0 1-8-8Z"/><path class="s7-ws" d="M7 17Q82 29 157 17V51a5 5 0 0 1-5 5H12a5 5 0 0 1-5-5Z"/><rect class="s7-wb" x="118" y="24" width="45" height="22" rx="6"/><circle class="s7-wk" cx="138" cy="35" r="3"/></svg><span class="s7-wl">full refund</span></span>
-          </div>
-        </div>
+      <div class="s7-out s7-lo">
+        <span class="s7-wal">
+          <i class="s7-note" style="--n:0;--r:-8deg;--x:0%">&#8377;</i><i class="s7-note" style="--n:1;--r:0deg;--x:28%">&#8377;</i><i class="s7-note" style="--n:2;--r:8deg;--x:56%">&#8377;</i>
+          <svg class="s7-pocket" viewBox="0 0 88 48" preserveAspectRatio="none"><path class="s7-wb" d="M1 6Q44 16 87 6V40a7 7 0 0 1-7 7H8a7 7 0 0 1-7-7Z"/><path class="s7-ws" d="M7 13Q44 22 81 13V37a4 4 0 0 1-4 4H11a4 4 0 0 1-4-4Z"/></svg>
+        </span>
+        <b class="s7-oh">Full refund<i class="s7-ul"></i></b>
       </div>
     </div>
+    <div class="c-1-5 s7-cta"><a class="btn js-pay" href="#">Map my business</a></div>
   </div></div>
 </section>
 
