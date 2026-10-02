@@ -36,24 +36,20 @@ new IntersectionObserver(function (es, io) {
 })();
 /* ---- s2b ---- */
 ;(function(){
-var root = document.getElementById('s2b');
-if (!root || AIML.REDUCE || !('IntersectionObserver' in window)) return;
-/* Arms only if the stacks are not on screen yet; plays when 15% of them are in view. Only folder surfaces and the
-   bracket move (scale from .08); every pack name stays readable on the paper the whole time. */
-var v = root.querySelector('.s2b-tiers');
-if (v.offsetParent !== null && v.getBoundingClientRect().top < innerHeight) return;
-v.classList.add('s2b-arm');
-new IntersectionObserver(function (es, io) {
-  es.forEach(function (e) {
-    if (!e.isIntersecting) return;
-    io.disconnect(); v.classList.add('s2b-go');
-    setTimeout(function () { v.classList.remove('s2b-arm', 's2b-go'); }, 2400);
-  });
-}, { threshold: 0.15 }).observe(v);
 
 })();
 /* ---- s3 ---- */
 ;(function(){
+/* S3 proof terminal: types the four output lines once when it scrolls in. Arms only if below the fold. */
+(function () {
+  var t = document.querySelector('#s3 .s3-tw');
+  if (!t || AIML.REDUCE || !('IntersectionObserver' in window) || t.getBoundingClientRect().top < innerHeight) return;
+  t.classList.add('s3-typ');
+  new IntersectionObserver(function (es, io) {
+    if (!es[0].isIntersecting) return;
+    io.disconnect(); t.classList.add('s3-go');
+  }, { threshold: 0.6 }).observe(t);
+})();
 /* S3: Claude Code rides the track with a skill file. Each station ticks as it passes, the Yes stamp lands and the
    client walks out from under it, and the track runs on into the "buys again" loop. Base CSS is the finished frame;
    JS arms only when the board is below the fold, and only strokes, the tick discs and the two decorative tokens.

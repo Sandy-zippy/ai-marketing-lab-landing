@@ -156,70 +156,29 @@
 @keyframes s2-stamp{to{transform:none}}
 
 /* ---- s2b ---- */
-/* S2b skill packs: paper ground. Thirteen folders in three tier bands (2, 4, 7) read top to bottom; an ink rail wraps
-   all 13 folders and ends on "all 13", the Accelerator's line.
-   Default styles = the FINISHED frame. .s2b-arm (JS, only when below the fold) holds frame 0; .s2b-go plays it. */
-#s2b{background:var(--paper);border-top:0}
-#s2b .s2b-hd>*+*{margin-top:var(--s4)}
-
-#s2b .s2b-tiers{position:relative;display:grid;gap:var(--s5);padding-left:var(--s6)}
-#s2b .s2b-col{display:flex;flex-direction:column;gap:var(--s2)}
-#s2b .s2b-tag{font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
-#s2b .s2b-sub{font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1.2;color:var(--ink)}
-#s2b .s2b-yours{color:var(--accent-ink)}
-#s2b .s2b-c2 .s2b-sub{order:2;margin-left:calc(var(--s3) - var(--s6) + var(--s1));font-size:var(--fs-lg)}   /* "all 13" sits on the rail's foot, after the last folder */
-#s2b .s2b-files{list-style:none;display:grid;gap:var(--s1);margin-top:var(--s1)}
-
-/* a folder row: body drawn as a pseudo-element, so every name sits on readable paper even mid-motion */
-#s2b .s2b-files li{--bw:1px;--edge:var(--quiet-line);position:relative;isolation:isolate;display:flex;align-items:baseline;gap:var(--s2);min-width:0;
-  padding:var(--s2) var(--s3);font-family:var(--mono);font-size:var(--fs-sm);line-height:1.3;color:var(--ink);overflow-wrap:anywhere}
-#s2b .s2b-files li::before{content:'';position:absolute;inset:0;z-index:-1;background:var(--canvas);border:var(--bw) solid var(--edge);border-radius:var(--r-sm);transform-origin:0 50%}
-#s2b .s2b-files b{flex:none;font-weight:700;color:var(--quiet)}
-
-/* the two that are yours after the call: bigger, inked 2px */
-#s2b .s2b-c0 .s2b-files li{--bw:2px;--edge:var(--ink);padding:var(--s3) var(--s4);font-size:var(--fs-lg);font-weight:700}
-#s2b .s2b-c0 .s2b-files b{color:var(--ink)}
-#s2b .s2b-c1 .s2b-files li{--edge:var(--ink)}
-
-/* the rail: wraps every folder, ends on "all 13" */
-#s2b .s2b-br{position:absolute;left:0;top:var(--s1);bottom:var(--s3);width:var(--s3);display:block;border:2px solid var(--ink);border-right:0;border-radius:var(--s1) 0 0 var(--s1);transform-origin:50% 0}
-
-@media (min-width:720px){
-  #s2b .s2b-files{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s3)}
-}
+/* S2b skill packs: compact. Headline + lede, then the 13 pack names as small chips in three tier rows
+   (On the call 2, Sprint adds 4, Accelerator 7). Static: no motion, nothing to wait for. */
+#s2b{background:var(--paper);border-top:0;padding-block:var(--s8)}
+#s2b .s2b-hd>*+*{margin-top:var(--s3)}
+#s2b .s2b-tiers{display:grid;gap:var(--s4)}
+#s2b .s2b-g{display:grid;gap:var(--s2)}
+#s2b .s2b-tag{font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1.3;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+#s2b .s2b-tag span{margin-left:var(--s2);letter-spacing:0;text-transform:none;color:var(--quiet)}
+#s2b .s2b-c0 .s2b-tag span{color:var(--accent-ink)}
+#s2b .s2b-chips{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2)}
+#s2b .s2b-chips li{display:inline-flex;align-items:baseline;gap:var(--s2);padding:var(--s1) var(--s3);font-size:var(--fs-sm);line-height:1.5;font-weight:500;
+  color:var(--ink);background:var(--canvas);border:1px solid var(--paper-edge);border-radius:999px;white-space:nowrap}
+#s2b .s2b-chips b{font-family:var(--mono);font-size:var(--fs-label);font-weight:700;color:var(--quiet)}
+/* the two that are yours after the call: inked */
+#s2b .s2b-c0 .s2b-chips li{background:var(--ink);border-color:var(--ink);color:var(--canvas);font-weight:700}
+#s2b .s2b-c0 .s2b-chips b{color:var(--low)}
 @media (min-width:1024px){
-  /* each band: tier label in a fixed left column, the rail in the gutter, folders on the right; numbers move into folder tabs */
-  #s2b .s2b-tiers{--lab:calc(var(--s10) + var(--s9));gap:var(--s6);padding-left:0}
-  #s2b .s2b-col{display:grid;grid-template-columns:var(--lab) minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:var(--s8);row-gap:var(--s2)}
-  #s2b .s2b-tag{grid-column:1;grid-row:1;padding-top:var(--s5)}
-  #s2b .s2b-sub{grid-column:1;grid-row:2}
-  #s2b .s2b-c2 .s2b-sub{grid-row:3;align-self:end;justify-self:end;margin-left:0;margin-bottom:calc(var(--s3) * -1);font-size:var(--fs-h3)}
-  #s2b .s2b-files{grid-column:2;grid-row:1/4;margin-top:0;column-gap:var(--s4);row-gap:var(--s2)}
-  #s2b .s2b-files li{--th:var(--s5);margin-top:var(--th);padding:var(--s3) var(--s4);font-size:var(--fs-body)}
-  #s2b .s2b-files li::before{border-radius:0 var(--r-sm) var(--r-sm) var(--r-sm)}
-  #s2b .s2b-files li::after{content:'';position:absolute;left:0;bottom:calc(100% - var(--bw));z-index:-1;width:var(--s8);height:calc(var(--th) + var(--bw));
-    background:var(--canvas);border:var(--bw) solid var(--edge);border-bottom:0;border-radius:var(--s1) var(--s1) 0 0;transform-origin:50% 100%}
-  #s2b .s2b-files b{position:absolute;left:var(--s3);bottom:100%;line-height:var(--s5);font-size:var(--fs-sm)}
-  #s2b .s2b-c0 .s2b-files li{font-size:var(--fs-h3);padding:var(--s4)}
-  #s2b .s2b-br{left:calc(var(--lab) + var(--s5));top:var(--s1);bottom:var(--s1);width:var(--s4)}
-  /* the foot runs left until it touches "all 13" */
-  #s2b .s2b-br::after{content:'';position:absolute;right:100%;bottom:-2px;width:calc(var(--s5) - var(--s1));border-top:2px solid var(--ink)}
+  #s2b .grid{align-items:center}
+  #s2b .s2b-hd{grid-column:1/6}
+  #s2b .s2b-tiers{grid-column:6/13;gap:var(--s4)}
+  #s2b .s2b-g{grid-template-columns:calc(var(--s10) + var(--s6)) minmax(0,1fr);column-gap:var(--s4);align-items:baseline}
+  #s2b .s2b-tag span{display:block;margin:var(--s1) 0 0}
 }
-@media (min-width:1024px) and (max-width:1199px){
-  #s2b .s2b-files li{font-size:var(--fs-sm)}
-  #s2b .s2b-c0 .s2b-files li{font-size:var(--fs-lg)}
-}
-
-/* motion: three beats, one per tier: that band's folders sweep open left to right under their names, tabs close on
-   them, then the rail draws down all 13 to "all 13". Only surfaces and the rail scale (from .08); names never move or fade. */
-#s2b .s2b-arm *,#s2b .s2b-arm *::before,#s2b .s2b-arm *::after{animation-play-state:paused!important}
-#s2b .s2b-arm.s2b-go *,#s2b .s2b-arm.s2b-go *::before,#s2b .s2b-arm.s2b-go *::after{animation-play-state:running!important}
-#s2b .s2b-arm .s2b-files li::before{animation:s2b-fill .45s var(--ease) calc(.1s + var(--b) * .4s) both}
-#s2b .s2b-arm .s2b-files li::after{animation:s2b-land .3s var(--ease) calc(.25s + var(--b) * .4s) both}
-#s2b .s2b-arm .s2b-br{animation:s2b-grow .7s var(--ease) 1.3s both}
-@keyframes s2b-fill{from{transform:scaleX(.5)}to{transform:none}}
-@keyframes s2b-land{from{transform:scaleY(.08)}to{transform:none}}
-@keyframes s2b-grow{from{transform:scaleY(.08)}to{transform:none}}
 
 /* ---- s3 ---- */
 /* S3 the system: one track through all 12 steps. Base CSS is the FINISHED frame: every station drawn in ink and
@@ -374,6 +333,36 @@
   #s3 .s3-arm:not(.s3-go) .s3-run{left:calc(var(--rail) + var(--cw) / 2)}
 }
 
+/* ---------- proof: the real terminal (lines copied from session-clean.cast, 29 Sep 2026) ----------
+   Board = the system; terminal = it running, full width right under it (phone: after the board). Every line is
+   visible at all times. .s3-typ (JS, only when below the fold) sends a teal caret along the four output lines once,
+   as Claude Code writes them; the caret covers one character at a time and never hides a line. */
+#s3 .s3-term{display:grid;gap:var(--s3);margin-top:var(--s4)}
+#s3 .s3-cap{font-family:var(--mono);font-size:var(--fs-label);line-height:1.5;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+#s3 .s3-tw{background:var(--ink);border-radius:var(--r-lg);overflow:hidden;font-family:var(--mono);font-size:var(--fs-label);line-height:1.6;color:var(--line)}
+#s3 .s3-tb{display:flex;flex-wrap:wrap;gap:0 var(--s2);align-items:baseline;padding:var(--s3) var(--s4);border-bottom:1px solid var(--body);font-size:var(--fs-label);color:var(--low)}
+#s3 .s3-tb b{color:var(--canvas)}
+#s3 .s3-tb span{margin-left:auto}
+#s3 .s3-tx{padding:var(--s4) var(--s4) var(--s5);display:grid;gap:var(--s3)}
+#s3 .s3-tx p{white-space:pre-wrap;overflow-wrap:anywhere;max-width:76ch}
+#s3 .s3-tx i{font-style:normal;color:var(--accent)}
+#s3 .s3-pr{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:1ch;color:var(--canvas)}
+#s3 .s3-pr em{font-style:normal;color:var(--accent)}
+#s3 .s3-ln{position:relative;padding-left:calc(var(--in) * 1ch + 2ch);text-indent:-2ch}   /* cast indent kept; wrapped rows hang */
+#s3 .s3-ln+.s3-ln{margin-top:calc(var(--s3) * -1)}
+#s3 .s3-dim{color:var(--low)}
+@media (min-width:768px){
+  #s3 .s3-tw{font-size:var(--fs-sm)}
+  #s3 .s3-tx{padding:var(--s5) var(--s6) var(--s6)}
+}
+@media (min-width:1024px){#s3 .s3-tw{font-size:var(--fs-body)}}
+@media (min-width:900px){#s3 .s3-term{margin-top:0}#s3 .s3-tw{max-width:calc(78ch + 2 * var(--s6))}}   /* panel hugs the 76ch text: no dead black */
+/* caret: a 1ch teal block walks each output line in character steps, one line after another (~2.5 s), then is gone */
+#s3 .s3-typ .s3-ln::after{content:"";position:absolute;top:.15em;left:calc(var(--in) * 1ch);width:1ch;height:1.2em;background:var(--accent);opacity:0}
+#s3 .s3-typ.s3-go .s3-ln::after{animation:s3-walk calc(var(--n) * 20ms) steps(var(--n)) calc(.2s + var(--k) * .8s),s3-show calc(var(--n) * 20ms) linear calc(.2s + var(--k) * .8s)}
+@keyframes s3-walk{from{transform:none}to{transform:translateX(calc(var(--n) * 1ch))}}
+@keyframes s3-show{from,to{opacity:1}}
+
 /* ---- s4 ---- */
 /* S4: paper ground. 15 bricks = 15 live sessions, each carrying its date; three courses over a Mon to Fri axis; the week 2
    Friday door sends 100 out; a Demo day flag over 13 Nov. The natural styles below ARE the finished frame. When armed,
@@ -440,11 +429,29 @@
   #s4 .s4-ev{width:28px}
   #s4 .s4-ppl{width:96px}
 }
-/* desktop: copy and the week lines in c-1-5, the building in c-6-12 */
+
+/* the real photo: biggest thing in the section, kept B&W; the face sits left in the frame, so anchor left */
+#s4 .s4-ph{margin:0}
+#s4 .s4-ph img{width:100%;height:auto;aspect-ratio:5/4;object-fit:cover;object-position:12% 40%;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--elevated)}
+#s4 .s4-ph figcaption{margin-top:var(--s3);font-size:var(--fs-label);line-height:1.4;color:var(--quiet);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
+/* phone: a full-bleed band under the heading */
+@media (max-width:767px){
+  #s4 .s4-ph{margin-inline:calc(var(--gutter) * -1)}
+  #s4 .s4-ph img{aspect-ratio:4/3;object-position:30% 40%;border-radius:0;border-inline:0}
+  #s4 .s4-ph figcaption{padding-inline:var(--gutter)}
+}
+
+/* desktop: the photo is the section; copy, the week lines and the compact calendar sit in c-1-5 beside it */
 @media (min-width:1024px){
-  #s4 .s4-head{grid-row:1;align-self:end}
-  #s4 .s4-weeks{grid-row:2;align-self:start}
-  #s4 .s4-viz{grid-row:1/3;align-self:center;--bw:370px}
+  #s4 .s4-head{grid-row:1;align-self:start}
+  #s4 .s4-weeks{grid-row:2;align-self:start;padding-top:var(--s5);border-top:1px solid var(--paper-edge)}
+  #s4 .s4-ph{grid-row:1/3}
+  #s4 .s4-ph img{aspect-ratio:16/9}
+  /* the calendar: a compact strip under the photo */
+  #s4 .s4-viz{grid-row:3;margin-top:calc(var(--s5) * -1);--bw:280px;--fh:44px;--sky:44px;--pw:32px;--dy:-2px}
+  #s4 .s4-b b{left:var(--s2);top:var(--s1);font-size:var(--fs-sm)}
+  #s4 .s4-ev{width:24px}
+  #s4 .s4-ppl{width:80px}
 }
 
 /* motion: plays once, only if the visual was below the fold when the script ran (js adds .armed, then .go on view) */
@@ -492,24 +499,32 @@
 #s5 .s5-key svg{width:var(--s8);height:auto;fill:none;stroke:var(--ink);stroke-width:5;stroke-linecap:round}
 #s5 .s5-key span{font-family:var(--mono);font-size:var(--fs-h3);font-weight:700;color:var(--ink)}
 
-/* comparison strip: static, no cards */
+/* the real photo: Sandy across the desk from a client, B&W, both faces kept in frame at every width */
+#s5 .s5-ph{margin:0}
+#s5 .s5-ph img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:50% 55%;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--elevated)}
+#s5 .s5-ph figcaption,#s5 .s5-cmp figcaption{margin-top:var(--s3);font-size:var(--fs-label);line-height:1.4;color:var(--quiet);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
+
+/* comparison strip: the same two rooms, small. Group at the whiteboard, one to one at the desk */
 #s5 .s5-cmps{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5)}
-#s5 .s5-cmp{display:flex;flex-direction:column;gap:var(--s3)}
-#s5 .s5-cmp svg{width:100%;max-width:200px;height:auto}
-#s5 .s5-cmp p{font-size:var(--fs-body);line-height:1.45;color:var(--body)}
+#s5 .s5-cmp{margin:0}
+#s5 .s5-cmp img{width:100%;max-width:240px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-sm);border:1px solid var(--line)}
+#s5 .s5-cmp img[src*="board"]{object-position:20% 50%}
+#s5 .s5-cmp figcaption{font-family:var(--sans);text-transform:none;letter-spacing:0;font-size:var(--fs-body);line-height:1.45;color:var(--body)}
 #s5 .s5-cmp b{font-weight:600;color:var(--ink)}
-#s5 .s5-sil{fill:var(--quiet-line)}
-#s5 .s5-lap{fill:var(--ink)}
-#s5 .s5-tbl{fill:var(--low)}
 
 /* desktop: copy left, seats and the comparison right; below a full-width rule, ONE rail of eight weeks
    ending in the key. The two lists dissolve into a single 9-column grid: captions / numbers / track / labels. */
 @media (min-width:1024px){
-  #s5 .s5-head{grid-row:1/3}
-  #s5 .s5-seats{grid-row:1}
-  #s5 .s5-cmps{grid-column:6/13;grid-row:2;align-self:end;margin-top:var(--s5)}
-  #s5 .s5-seats{padding-top:var(--s1)}
-  #s5 .s5-rail{grid-row:3;grid-template-columns:repeat(8,minmax(0,1fr)) auto;grid-template-rows:auto auto var(--s2) auto;column-gap:var(--s1);row-gap:var(--s3);
+  #s5 .s5-head{grid-row:1}
+  #s5 .s5-seats{grid-row:1;align-self:start;padding-top:var(--s6)}
+  /* the photo is a full-width band straight under the offer: wide crop, both heads in the middle band */
+  #s5 .s5-ph{grid-row:2}
+  #s5 .s5-ph img{aspect-ratio:21/9;object-position:50% 75%}
+  /* the two rooms, small, under the photo */
+  #s5 .s5-cmps{grid-row:3;grid-template-columns:repeat(2,minmax(0,360px));margin-top:calc(var(--s3) * -1)}
+  #s5 .s5-cmp{display:grid;grid-template-columns:120px 1fr;column-gap:var(--s4);align-items:center}
+  #s5 .s5-cmp figcaption{margin-top:0}
+  #s5 .s5-rail{grid-row:4;grid-template-columns:repeat(8,minmax(0,1fr)) auto;grid-template-rows:auto auto var(--s2) auto;column-gap:var(--s1);row-gap:var(--s3);
     margin-top:var(--s5)}
   #s5 .s5-grp,#s5 .s5-wk{display:contents}
   #s5 .s5-gh{grid-row:1;grid-column:1/5;border-bottom:1px solid var(--quiet-line)}
@@ -541,9 +556,11 @@
   #s5 .s5-wk span{padding-block:var(--s1);padding-right:0}
   #s5 .s5-key svg{width:var(--s7)}
   #s5 .s5-key span{font-size:var(--fs-lg)}
-  #s5 .s5-cmps{gap:var(--s4);padding-top:var(--s4);border-top:1px solid var(--line)}
-  #s5 .s5-cmp svg{max-width:150px}
-  #s5 .s5-cmp p{font-size:var(--fs-sm)}
+  #s5 .s5-cmps{gap:var(--s4)}
+  #s5 .s5-cmp figcaption{font-size:var(--fs-sm)}
+  #s5 .s5-ph{margin-inline:calc(var(--gutter) * -1)}
+  #s5 .s5-ph img{border-radius:0;border-inline:0}
+  #s5 .s5-ph figcaption{padding-inline:var(--gutter)}
 }
 
 /* motion: armed only when below the fold at load; shapes move, text never does */
@@ -570,56 +587,59 @@
 @keyframes s5-slide{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
 
 /* ---- s6 ---- */
-/* S6 Proof: a ledger on the white ground (rules and value columns after 21st.dev "Paired Bars"; the bar itself after
-   "Partition Bar"). One row per client: who + what we built on the left; on the right ONE bar the full width of the
-   column: the whole bar is what they made (ink), the teal piece at its left is what they paid us, out of it.
-   Paid us numeral sits over the teal end, Made numeral over the ink end. Then the sieve (pure CSS dots, so it reads with
-   no JS), then the wall. The finished frame is the default; JS only arms the bars (scaleX from .08) and the sieve's
-   dot colours and flying tokens. */
+/* S6 Proof (v2): each ledger row leads with the real artefact (the page we built, or the client's own site), the
+   biggest thing in the row, in a plain browser bar. Beside it: who, what we built, and the money bar (whole bar = what
+   they made, ink; the teal piece at its left = what they paid us). Desktop alternates the artefact side; phone stacks
+   artefact first, full width. Then the sieve (pure CSS dots, reads with no JS), then the wall. The finished frame is
+   the default; JS only arms the bars (scaleX from .08) and the sieve's dot colours and flying tokens. */
 @property --dot{syntax:'<color>';inherits:true;initial-value:#121212}
 #s6{border-top:0;background:var(--canvas)}
 
-/* shared label: 14px mono caps, body ink (11:1 on white) */
-#s6 .k{font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--body);line-height:1.4}
+/* shared label: mono caps, body ink */
+#s6 .k{font-family:var(--mono);font-size:var(--fs-label);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--body);line-height:1.4}
 
 /* ledger: ink rule top and bottom, hairlines between rows, no cards */
 #s6 .ledger{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
-#s6 .row{display:grid;gap:var(--s5);padding-block:var(--s5)}
+#s6 .row{display:grid;gap:var(--s3);padding-block:var(--s4)}
 #s6 .row+.row{border-top:1px solid var(--line)}
+#s6 .info,#s6 .txt,#s6 .art{min-width:0}
+#s6 .info{display:grid;gap:var(--s3);align-content:center}
+#s6 .nm{font-size:var(--fs-h3);line-height:1.2;margin-bottom:var(--s1)}
+#s6 .txt .k{display:inline;margin-right:var(--s2)}
+#s6 .v{display:inline;font-size:var(--fs-body);color:var(--body);line-height:1.45}
 
-#s6 .who,#s6 .txt{min-width:0}
-#s6 .nm{font-size:var(--fs-h3);line-height:1.25;margin-bottom:var(--s2)}
-#s6 .v{font-size:var(--fs-body);color:var(--body);line-height:1.45}
+/* the artefact: a screenshot in a plain browser bar, 1px line, large radius */
+#s6 .art{display:grid;gap:var(--s2)}
+#s6 .win{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--surface)}
+#s6 .chrome{display:block;flex:none;height:18px;border-bottom:1px solid var(--line);background-color:var(--surface);background-size:10px 10px;background-repeat:no-repeat;
+  background-image:radial-gradient(circle,var(--low) 3px,transparent 3.6px),radial-gradient(circle,var(--low) 3px,transparent 3.6px),radial-gradient(circle,var(--low) 3px,transparent 3.6px);
+  background-position:12px 50%,26px 50%,40px 50%}
+#s6 .win img{display:block;width:100%;height:auto}
+/* phone: trim the screenshots a little (top kept) so three rows fit the section's height budget */
+#s6 .win .m169{aspect-ratio:16/9;object-fit:cover;object-position:top}
+#s6 .win .m21{aspect-ratio:2/1;object-fit:cover;object-position:top}
+#s6 .cap{font-size:var(--fs-label);line-height:1.4;color:var(--quiet)}
 
-/* the station that did the work: a small ink icon, not the hero */
-#s6 .stns{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s3)}
-#s6 .stn{display:inline-flex;align-items:center;gap:var(--s2);font-size:var(--fs-sm);font-weight:600;color:var(--body)}
-#s6 .stn svg{width:32px;height:32px;flex:none;fill:none;stroke:var(--body);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-#s6 .stn .w{fill:var(--canvas)}
-#s6 .stn .f{fill:var(--line)}
-#s6 .stn .s{fill:var(--body);stroke:none}
-
-/* Sami's video lives inside the Scale Your Results row, as the right column of its name block, caption under it */
-#s6 .has-vid .who{display:grid;grid-template-columns:minmax(0,1fr) 104px;column-gap:var(--s4);row-gap:var(--s2)}
-#s6 .has-vid .txt{grid-column:1;grid-row:1 / span 2}
-#s6 .vid{display:contents}
-#s6 .vid-box{position:relative;grid-column:2;grid-row:1;aspect-ratio:9/16;border-radius:var(--r-sm);overflow:hidden;background:var(--ink)}
-#s6 .vid-box video{width:100%;height:100%;object-fit:cover}
+/* Scale Your Results: funnel screenshot and Sami's video side by side, same height */
+#s6 .pair{grid-template-columns:minmax(0,3fr) minmax(0,2fr);column-gap:var(--s2);align-items:stretch}
+#s6 .pair .win{display:flex;flex-direction:column}
+#s6 .pair .cap{grid-column:1 / -1}
+#s6 .vid-box{position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--ink);min-height:0}
+#s6 .vid-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 /* play glyph, JS only (.tap): the native controls wait for the first tap, so this is the one play icon; kept off his face */
-#s6 .vid-box.tap::after{content:"";position:absolute;left:var(--s2);bottom:var(--s2);width:40px;height:40px;border-radius:50%;pointer-events:none;
+#s6 .vid-box.tap::after{content:"";position:absolute;left:var(--s2);bottom:var(--s2);width:44px;height:44px;border-radius:50%;pointer-events:none;
   background:rgba(255,255,255,.92) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6.5v11l9-5.5z' fill='%23121212'/%3E%3C/svg%3E") center/20px no-repeat}
 #s6 .vid-box.on::after{display:none}
 #s6 .vid-box.tap{cursor:pointer}
-#s6 .cap{grid-column:2;grid-row:2;align-self:start;font-size:var(--fs-sm);line-height:1.35;color:var(--quiet)}
 
 /* money: Paid us (left) and Made (right) over one bar; the caption says what Made counts */
-#s6 .money{display:grid;row-gap:var(--s2);align-content:center;min-width:0}
+#s6 .money{display:grid;row-gap:var(--s1);min-width:0}
 #s6 .tops{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s4)}
 #s6 .md{text-align:right}
-#s6 .n{font-family:var(--mono);font-weight:700;font-size:max(var(--s6),var(--fs-num));line-height:1.25;margin-top:var(--s2);letter-spacing:-.03em;white-space:nowrap;color:var(--ink)}
-#s6 .bar{position:relative;display:block;height:20px;background:var(--ink);transform-origin:0 50%}
+#s6 .n{font-family:var(--mono);font-weight:700;font-size:var(--fs-num);line-height:1.15;margin-top:var(--s1);letter-spacing:-.03em;white-space:nowrap;color:var(--ink)}
+#s6 .bar{position:relative;display:block;height:16px;background:var(--ink);transform-origin:0 50%}
 /* the fee, out of what they made; a share too thin to see (Medico, 1.7%) still draws 8px, its numeral is right above it */
-#s6 .bar::after{content:"";position:absolute;left:0;top:0;bottom:0;width:max(8px,calc(100% * var(--w)));background:var(--accent);border-right:2px solid var(--canvas);transform-origin:0 50%}
+#s6 .bar::after{content:"";position:absolute;left:0;top:0;bottom:0;width:max(12px,calc(100% * var(--w)));background:var(--accent);border-right:2px solid var(--canvas);transform-origin:0 50%}
 #s6 .c{font-size:var(--fs-sm);color:var(--body);line-height:1.4;text-align:right}
 
 /* motion: an armed bar starts at .08 and fills (what they made), then the teal share grows in from the left */
@@ -629,15 +649,16 @@
 @keyframes s6-fill{from{transform:scaleX(.08)}to{transform:none}}
 
 /* sieve: 300 grey dots, 50 ink, 10 teal; CSS dot grids, finished with no JS. --t (tile) and --c (columns) are read by s6.js */
-#s6 .sg{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:var(--s5);row-gap:var(--s5);margin-top:var(--s4)}
+#s6 .sieve{margin-top:calc(-1 * var(--s3))}
+#s6 .sg{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:var(--s5);row-gap:var(--s4);margin-top:var(--s3)}
 #s6 .s300{grid-row:span 2}
 #s6 .s50,#s6 .s10{padding-left:var(--s5);border-left:1px solid var(--line)}
-#s6 .dots{display:block;--dot:var(--ink);--t:9px;--r:2.7px;--c:10;width:calc(var(--t) * var(--c));background:radial-gradient(circle,var(--dot) var(--r),transparent calc(var(--r) + .6px)) 0 0/var(--t) var(--t);transition:--dot 400ms var(--ease)}
+#s6 .dots{display:block;--dot:var(--ink);--t:8px;--r:2.4px;--c:10;width:calc(var(--t) * var(--c));background:radial-gradient(circle,var(--dot) var(--r),transparent calc(var(--r) + .6px)) 0 0/var(--t) var(--t);transition:--dot 400ms var(--ease)}
 #s6 .s300 .dots{--dot:var(--quiet-line);--c:20;height:calc(var(--t) * 15)}
 #s6 .s50 .dots{height:calc(var(--t) * 5)}
 #s6 .s10 .dots{--dot:var(--accent);--t:12px;--r:4px;--c:5;height:calc(var(--t) * 2)}
 #s6 .sl{position:relative;z-index:3;margin-top:var(--s2);font-family:var(--mono);font-size:var(--fs-sm);line-height:1.35;color:var(--ink)}
-#s6 .sl b{display:block;font-size:max(var(--s6),var(--fs-num));line-height:1.1}
+#s6 .sl b{display:block;font-size:var(--fs-num);line-height:1.1}
 #s6 .sl .acc{color:var(--accent-ink)}
 /* armed: the 300 are all ink and the 50 / 10 slots wait in light grey until the flying dots land */
 #s6 .sieve.a300 .s300 .dots{--dot:var(--ink)}
@@ -648,19 +669,29 @@
 #s6 .fly .w{fill:var(--accent)}
 
 /* client wall: names only, plain Inter, quiet */
-#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2) var(--s5);padding-top:var(--s5);border-top:1px solid var(--line);color:var(--quiet);font-size:var(--fs-sm)}
-#s6 .wall-l{flex-basis:100%}
+#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s1) var(--s4);padding-top:var(--s4);border-top:1px solid var(--line);color:var(--quiet);font-size:var(--fs-sm)}
 
 @media (min-width:768px){
-  #s6 .row{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:var(--s7);padding-block:var(--s6)}
-  #s6 .has-vid .who{grid-template-columns:minmax(0,1fr) 96px}
+  /* artefact 7 : info 5, the artefact side alternates row to row */
+  #s6 .row{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--s7);padding-block:var(--s7);align-items:start}
+  #s6 .row.flip{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+  #s6 .row.flip .art{order:2}
+  /* Rumor: their own site, not our work, so it never outweighs the two pages we built */
+  #s6 .row.demo{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+  #s6 .info{gap:var(--s5);padding-top:var(--s6)}
+  #s6 .money{row-gap:var(--s2)}
+  #s6 .win .m169,#s6 .win .m21{aspect-ratio:auto}
+  #s6 .txt .k{display:block;margin:var(--s2) 0 0}
+  #s6 .v{display:block}
+  #s6 .chrome{height:28px;background-position:16px 50%,30px 50%,44px 50%}
+  #s6 .cap{font-size:var(--fs-sm)}
+  #s6 .sieve{margin-top:0}
+  #s6 .sg{row-gap:var(--s5);margin-top:var(--s4)}
   #s6 .dots{--t:12px;--r:3.6px}
   #s6 .s10 .dots{--t:16px;--r:5.3px}
-  #s6 .wall{font-size:var(--fs-body)}
-  #s6 .wall-l{flex-basis:auto}
+  #s6 .wall{font-size:var(--fs-body);gap:var(--s2) var(--s5);padding-top:var(--s5)}
 }
 @media (min-width:1024px){
-  #s6 .has-vid .who{grid-template-columns:minmax(0,1fr) 124px;column-gap:var(--s5)}
   #s6 .bar{height:24px}
   /* sieve goes three-across, 300 as 30 x 10, everything sitting on one baseline */
   #s6 .sg{grid-template-columns:repeat(3,auto);justify-content:space-between;align-items:end;column-gap:var(--s6)}
@@ -671,7 +702,7 @@
   #s6 .s10 .dots{--t:22px;--r:6.6px}
 }
 @media (min-width:1200px){
-  #s6 .row{grid-template-columns:minmax(0,9fr) minmax(0,15fr)}
+  #s6 .n{font-size:calc(var(--fs-num) * 1.25);line-height:1.3;margin-top:var(--s2)}
   #s6 .dots{--t:20px;--r:5.6px}
   #s6 .s10 .dots{--t:28px;--r:8.4px}
 }
@@ -733,6 +764,9 @@
 #s7 .s7-pocket{position:absolute;left:0;bottom:0;width:100%;height:var(--ph);overflow:visible}
 #s7 .s7-wb{fill:var(--canvas);stroke:var(--ink);stroke-width:3;vector-effect:non-scaling-stroke}
 #s7 .s7-ws{fill:none;stroke:var(--quiet-line);stroke-width:2;stroke-dasharray:4 4;vector-effect:non-scaling-stroke}
+
+/* tablet: the 44px label ran past the right edge at 768 (gates.py offscreen, 2 Oct) */
+@media (min-width:768px) and (max-width:1023px){#s7 .s7-oh{font-size:var(--fs-h3)}}
 
 @media (max-width:767px){
   #s7 .s7-rows li{padding:var(--s3) var(--s4)}
