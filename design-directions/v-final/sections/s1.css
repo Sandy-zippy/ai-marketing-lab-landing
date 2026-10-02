@@ -52,7 +52,7 @@
 #s1 .s1-price{display:inline-flex;align-items:center;font-family:var(--mono);font-weight:700;font-size:calc(var(--fs-num) * 1.5);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
 /* ponytail: the brand mono subset has no ₹ (U+20B9), so the glyph falls back to Courier; draw it at the mono's weight instead */
 #s1 .s1-rs{width:auto;height:.76em;margin-right:.02em;flex:none}
-#s1 .s1-cr{font-size:var(--fs-lg);line-height:1.3;color:var(--ink)}
+#s1 .s1-cr{margin-top:var(--s4);font-size:var(--fs-lg);line-height:1.3;color:var(--ink)}
 @media (min-width:768px){
   #s1 .s1-stub{--seam:radial-gradient(circle var(--h) at 0 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
     --tf:translate(var(--s3),var(--s4)) rotate(4deg);flex:0 0 26%;flex-direction:column;justify-content:center;align-items:flex-start;gap:var(--s3);

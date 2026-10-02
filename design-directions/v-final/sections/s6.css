@@ -44,7 +44,7 @@
 #s6 .money{display:grid;row-gap:var(--s2);align-content:center;min-width:0}
 #s6 .tops{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s4)}
 #s6 .md{text-align:right}
-#s6 .n{font-family:var(--mono);font-weight:700;font-size:max(var(--s6),var(--fs-num));line-height:1.05;letter-spacing:-.03em;white-space:nowrap;color:var(--ink)}
+#s6 .n{font-family:var(--mono);font-weight:700;font-size:max(var(--s6),var(--fs-num));line-height:1.25;margin-top:var(--s2);letter-spacing:-.03em;white-space:nowrap;color:var(--ink)}
 #s6 .bar{position:relative;display:block;height:20px;background:var(--ink);transform-origin:0 50%}
 /* the fee, out of what they made; a share too thin to see (Medico, 1.7%) still draws 8px, its numeral is right above it */
 #s6 .bar::after{content:"";position:absolute;left:0;top:0;bottom:0;width:max(8px,calc(100% * var(--w)));background:var(--accent);border-right:2px solid var(--canvas);transform-origin:0 50%}
