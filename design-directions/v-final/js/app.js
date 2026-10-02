@@ -7,6 +7,10 @@ var PAY_LINK = 'https://rzp.io/rzp/aimarketinglab-call';
    0 = show at once (the "show everything" kill switch). */
 var REVEAL_SOFT = {{REVEAL_SOFT}}, PITCH = {{PITCH}}, CTA_SPOKEN = {{CTA_SPOKEN}};
 var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* Two pages, one funnel (Sandy, 2 Oct): 'home' = aimarketinglabs.in, the opt-in only; 'call' = /call, the training.
+   The form on home sends the lead to /call; /call without an opt-in sends the visitor back to home. utm/fbclid ride along. */
+var PAGE = '{{PAGE}}';
+function toTraining() { location.href = '/call/' + location.search + location.hash; }
 
 function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 function lsPut(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -76,6 +80,7 @@ function reveal(stage) {
   document.dispatchEvent(new CustomEvent('aiml:reveal', { detail: { stage: stage } }));
 }
 function stateB() {
+  if (PAGE === 'home') return toTraining();
   document.body.dataset.state = 'b';
   reveal('watch');
   if (lsGet('aiml_vsl_seen') === '1') { reveal('soft'); reveal('pitch'); }
@@ -119,6 +124,7 @@ document.addEventListener('keydown', function (e) {
 (function () {
   var form = document.getElementById('qform'), err = document.getElementById('qerr');
   var lead = null; try { lead = JSON.parse(lsGet('aiml_lead') || 'null'); } catch (e) {}
+  if (PAGE === 'call' && !(lead && lead.ok)) return location.replace('/' + location.search + location.hash);
   if (lead && lead.ok) return stateB();
   if (lead && lead.ok === false) return stateDQ();
   document.body.dataset.state = 'a';
@@ -179,8 +185,14 @@ document.addEventListener('keydown', function (e) {
         fbq('init', META_PIXEL_ID, { em: em, fn: fn.toLowerCase(), ph: phd });   /* advanced matching, pixel hashes */
         fbq('track', 'Lead', { content_name: 'AIML VSL optin' }, { eventID: id });
       }
+      /* leave only after the Lead is on its way: the stub only queues it until fbevents.js has loaded (fbq.callMethod),
+         and a queue dies with the page. Wait for the real pixel, 3 s cap, then 400 ms for the request to go. */
+      if (PAGE === 'home') { var t0 = Date.now(); (function wait() {
+        if ((window.fbq && window.fbq.callMethod) || Date.now() - t0 > 3000) return setTimeout(toTraining, 400);
+        setTimeout(wait, 100); })(); }
     });
     lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2, ok: true, fn: fn, ts: Date.now() }));
+    if (PAGE === 'home') { var sb = form.querySelector('[type=submit]'); sb.disabled = true; sb.textContent = 'Opening the training...'; return; }
     closeModal(); stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
   });
 })();
@@ -190,6 +202,7 @@ document.addEventListener('keydown', function (e) {
   var v = document.getElementById('vsl'), HLS = '{{ROOT}}call/vsl/hls/master.m3u8', MP4 = '{{ROOT}}call/vsl/aiml-vsl.mp4';
   var play = document.getElementById('play'), playL = document.getElementById('play-l'), tap = document.getElementById('vtap');
   var bar = document.getElementById('vbar');
+  if (!v) return;   /* home carries no player */
   var KT = 'aiml_vsl_t', saved = parseFloat(lsGet(KT)) || 0, live = false, max = 0, half = false, nudged = false;
   v.controls = false; play.hidden = false;
   if (saved > 10) playL.textContent = 'Continue where you left off';

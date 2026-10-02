@@ -36,12 +36,21 @@ for k, v in sub.items(): page = page.replace('{{%s}}' % k, v)
 page = (page.replace('{{RELAY_URL}}', env('~/.secrets/aiml-tracking.env').get('APPS_SCRIPT_URL', ''))
             .replace('{{REVEAL_SOFT}}', str(soft)).replace('{{PITCH}}', str(pitch)).replace('{{CTA_SPOKEN}}', str(cta))
             .replace('{{ROOT}}', ROOT))
-# --home: the same page served at aimarketinglabs.in/ (Sandy, 2 Oct: the funnel IS the homepage, no jump to /call).
-# Its files stay in /call/; <base> resolves every page-local path and ../ link exactly as on /call.
-if '--home' in sys.argv:
+# Sandy, 2 Oct: aimarketinglabs.in is the opt-in, the form sends the lead to /call (the training).
+#   --home : opt-in only (no player, no sections), served at /. Files stay in /call/; <base> resolves them.
+#   --call : the training page; app.js sends anyone without an opt-in back to /.
+#   neither: local preview, no redirects (agents' shots and gates load it straight).
+PAGE = 'home' if '--home' in sys.argv else 'call' if '--call' in sys.argv else 'preview'
+page = page.replace('{{PAGE}}', PAGE)
+if PAGE == 'home':
+    a, b = page.index('<!-- SCREEN 2'), page.index('</main>')
+    page = page[:a] + page[b:]
+    page = re.sub(r'<link rel="stylesheet" href="css/sections.css"[^>]*/>\n<noscript>.*?</noscript>\n', '', page)
+    page = re.sub(r'<script>/\* section scenes.*?</script>\n', '', page, flags=re.S)
     page = (page.replace('<meta charset="UTF-8" />', '<meta charset="UTF-8" />\n<base href="/call/" />', 1)
                 .replace('<meta name="robots" content="noindex" />', '<meta name="robots" content="index,follow" />'))
-# both URLs name the homepage as the one to index
+    assert 'id="watch"' not in page and "s.src = 'js/sections.js'" not in page and 'href="css/sections.css"' not in page, 'home kept training parts'
+# the homepage is the URL to index
 page = page.replace('https://aimarketinglabs.in/call/"', 'https://aimarketinglabs.in/"')
 left = re.findall(r'\{\{[A-Z0-9_]+\}\}', page)
 assert not left, f'unfilled slots: {left}'
