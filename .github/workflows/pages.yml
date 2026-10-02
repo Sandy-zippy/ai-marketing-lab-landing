@@ -110,6 +110,9 @@ jobs:
           node --check _site/assets/analytics.js
           node --check _site/assets/meta-pixel.js
           ! grep -RniE 'REPLACE_WITH|aimarketinglab\.club|37 of 100|#book|This Thursday|Lorem ipsum' _site
+          # Clean URLs only: no visitor may ever land on a ".html" address (Sandy, 2 Oct 2026).
+          # Pages serves /call/booked for booked.html, so every link and redirect stays extensionless.
+          ! grep -RnoE --include='*.html' --include='*.js' --exclude='*.min.js' "(href|src|action)=[\"'][^\"'#?]*\.html\b|location(\.href)?[ ]*=[ ]*[\"'\`][^\"'\`]*\.html\b|location\.(replace|assign)\([ ]*[\"'\`][^\"'\`]*\.html\b" _site
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
