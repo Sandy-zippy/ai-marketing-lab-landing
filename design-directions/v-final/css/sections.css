@@ -1,145 +1,159 @@
 /* ---- s1 ---- */
-#s1 .s1-viz{padding:var(--s5)}
-#s1 .s1-sc{width:calc(var(--s10) * 3);max-width:100%;margin-inline:auto}
+/* s1: white ground. The call ticket IS the section: big, Sandy's photo printed into the paper, a body printed as a map
+   (a dashed route out of the photo, past s2's leak pins, to s2's flag: the map you leave with), and a paper stub
+   (₹999, credited if you join) torn off and landed. Default = the finished frame: stub torn and resting. */
+#s1{border-top:0}
+#s1 .grid{align-items:center}
+#s1 .lede{text-wrap:balance}
+/* the landed stub hangs below the ticket on phones; its transform reserves no layout, so the section does */
+@media (max-width:767px){#s1{padding-bottom:calc(var(--sec-pad) + var(--s4))}}
+@media (min-width:1024px){
+  #s1 .s1-tx{grid-column:1/4}
+  #s1 .s1-vc{grid-column:4/13}
+}
 
-/* ticket: Sandy's photo dominates; the bottom edge is the perforation the stub tears from */
-#s1 .s1-tk{display:flex;height:calc(var(--s10) + var(--s8) + var(--s2));background:var(--paper);border:1px solid var(--paper-edge);border-bottom:1px dashed var(--quiet);border-radius:var(--r-sm) var(--r-sm) 0 0;overflow:hidden}
-#s1 .s1-ph{width:calc(var(--s10) + var(--s5));height:100%;object-fit:cover;flex:none}
-#s1 .s1-bd{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:var(--s2);padding:0 var(--s4);color:var(--paper-ink)}
-#s1 .s1-bd b{font-family:var(--mono);font-size:var(--fs-h2);line-height:1.1;letter-spacing:-.02em}
-#s1 .s1-bd span{font-size:var(--fs-body);color:var(--body)}
+/* ticket: one landscape object at every width (photo beside the map body); the stub sits below it on phones and to
+   its right from 768. One soft shadow on the whole ticket so body and stub read as one torn piece of paper. */
+#s1 .s1-tk{--n:var(--s4);--h:3.5px;display:flex;flex-direction:column;filter:drop-shadow(0 var(--s1) var(--s2) rgba(18,18,18,.12))}
+@media (min-width:768px){#s1 .s1-tk{--n:var(--s5);flex-direction:row;margin-right:var(--s7)}}
 
-/* wallet: the stub lands in the pocket with the price still showing */
-#s1 .s1-wal{position:relative;margin-top:var(--s6);height:var(--s9)}
-#s1 .s1-back{position:absolute;inset:0;background:var(--body);border-radius:var(--r-sm)}
-#s1 .s1-strip{position:absolute;top:var(--s3);left:0;right:0;height:var(--s7);background:var(--paper);border:1px solid var(--paper-edge);border-top:1px dashed var(--quiet);border-radius:0 0 var(--r-sm) var(--r-sm);
-  display:flex;justify-content:center;padding-top:var(--s1);transform-origin:0 0}
-#s1 .s1-strip b{font-family:var(--mono);font-size:var(--fs-h3);line-height:1.2;color:var(--accent-ink)}
-#s1 .s1-front{position:absolute;left:0;right:0;bottom:0;height:var(--s7);background:var(--ink);border-radius:0 0 var(--r-sm) var(--r-sm);
-  display:flex;align-items:center;justify-content:center;border-top:1px dashed var(--quiet)}
-#s1 .s1-front span{font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.08em;text-transform:uppercase;color:var(--canvas)}
+/* ticket silhouette: every corner of both pieces is notched (like an admission ticket), intersected with a row of
+   half-holes along the seam, so after the tear the perforation IS the edge on both pieces. */
+#s1 .s1-main,#s1 .s1-stub{
+  -webkit-mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
+    radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),var(--seam);
+          mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
+    radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),var(--seam);
+  -webkit-mask-composite:source-in,source-in,source-in,source-in;mask-composite:intersect;
+  background:var(--paper);border:1px solid var(--paper-edge)}
 
-/* motion: the stub starts attached under the ticket, tears, drops into the pocket (plays once, 2.9 s) */
-#s1.armed .s1-strip{transform:translateY(calc(-1 * (var(--s6) + var(--s3))))}
-#s1.go .s1-strip{animation:s1-tear 2.4s var(--ease) .5s both}
+/* main body: ONE paper surface the art fills edge to edge; seam along its bottom on phones, its right from 768 */
+#s1 .s1-main{--seam:radial-gradient(circle var(--h) at 50% 100%,#0000 98%,#000) 0 0/var(--s3) 100% repeat-x;
+  position:relative;display:grid;grid-template-columns:44% 1fr;border-bottom:0;overflow:hidden}
+/* printed into the paper: assets/s1-sandy-print.jpg is Sandy cut out of the studio (Apple Vision subject mask),
+   greyscale, multiplied onto the paper colour, so photo and map are one printed sheet */
+#s1 .s1-ph{width:100%;height:100%;min-height:calc(var(--s10) * 2);object-fit:cover;object-position:50% 0}
+#s1 .s1-bd{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:var(--s4)}
+#s1 .s1-map{position:absolute;inset:0;width:100%;height:100%}
+#s1 .s1-min{position:relative;display:flex;align-items:center;gap:var(--s2);font-family:var(--mono);font-weight:700;font-size:var(--fs-num);line-height:1;letter-spacing:-.03em;color:var(--ink)}
+#s1 .s1-clk{width:.62em;height:.62em;flex:none}
+#s1 .s1-with{position:relative;margin-top:var(--s2);font-size:var(--fs-lg);color:var(--quiet)}
+@media (min-width:768px){
+  #s1 .s1-main{--seam:radial-gradient(circle var(--h) at 100% 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
+    flex:1;min-width:0;grid-template-columns:48% 1fr;border-bottom:1px solid var(--paper-edge);border-right:0}
+  #s1 .s1-ph{min-height:calc(var(--s10) * 3)}
+  #s1 .s1-bd{padding:var(--s6)}
+}
+
+/* stub: same paper, same seam. ₹999 is the section's one teal numeral, always level.
+   Finished frame = torn off, dropped and tilted, resting just apart from the ticket. */
+#s1 .s1-stub{--seam:radial-gradient(circle var(--h) at 50% 0,#0000 98%,#000) 0 0/var(--s3) 100% repeat-x;
+  --tf:translate(0,var(--s4)) rotate(3deg);position:relative;display:flex;align-items:center;gap:var(--s4);
+  padding:var(--s5);border-top:0;transform:var(--tf);transform-origin:0 0}
+#s1 .s1-price{display:inline-flex;align-items:center;font-family:var(--mono);font-weight:700;font-size:calc(var(--fs-num) * 1.5);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
+/* ponytail: the brand mono subset has no ₹ (U+20B9), so the glyph falls back to Courier; draw it at the mono's weight instead */
+#s1 .s1-rs{width:auto;height:.76em;margin-right:.02em;flex:none}
+#s1 .s1-cr{margin-top:var(--s4);font-size:var(--fs-lg);line-height:1.3;color:var(--ink)}
+@media (min-width:768px){
+  #s1 .s1-stub{--seam:radial-gradient(circle var(--h) at 0 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
+    --tf:translate(var(--s3),var(--s4)) rotate(4deg);flex:0 0 26%;flex-direction:column;justify-content:center;align-items:flex-start;gap:var(--s3);
+    padding:var(--s5) var(--s5) var(--s5) var(--s6);border-top:1px solid var(--paper-edge);border-left:0;transform-origin:0 100%}
+  #s1 .s1-price{font-size:calc(var(--fs-num) * 1.5)}
+  #s1 .s1-cr{max-width:11ch;font-size:var(--fs-h3)}
+}
+
+/* motion (JS arms it only on reveal or while the stub is below the fold): the intact ticket holds a beat, the torn
+   edge hinges open from the far end with the near corner still holding (pivot on the seam), the stub releases and
+   lands, settling 4px back up onto its resting frame (it never rises more). Done by 2.4 s. Text is never hidden;
+   only the stub moves. */
+#s1.armed .s1-stub{transform:none}
+#s1.go .s1-stub{animation:s1-tear 2.2s .2s both}
 @keyframes s1-tear{
-  0%{transform:translateY(calc(-1 * (var(--s6) + var(--s3)))) rotate(0)}
-  30%{transform:translate(var(--s2),calc(-1 * var(--s6))) rotate(4deg)}
-  100%{transform:none}
+  0%{transform:none;animation-timing-function:linear}
+  10%{transform:none;animation-timing-function:cubic-bezier(.45,0,.55,1)}
+  48%{transform:rotate(9deg);animation-timing-function:cubic-bezier(.4,0,.2,1)}
+  74%{transform:translate(var(--s3),calc(var(--s4) + var(--s1))) rotate(4.5deg);animation-timing-function:var(--ease)}
+  100%{transform:var(--tf)}
+}
+@media (max-width:767px){
+  @keyframes s1-tear{
+    0%{transform:none;animation-timing-function:linear}
+    10%{transform:none;animation-timing-function:cubic-bezier(.45,0,.55,1)}
+    48%{transform:rotate(6deg);animation-timing-function:cubic-bezier(.4,0,.2,1)}
+    74%{transform:translate(0,calc(var(--s4) + var(--s1))) rotate(3.4deg);animation-timing-function:var(--ease)}
+    100%{transform:var(--tf)}
+  }
 }
 
 /* ---- s2 ---- */
-/* layout: H + legend + line on the left (c-1-5), the map on the right (c-6-12), top aligned; stacked below 1024 */
+/* S2: the map of "your business" IS the section. Drawn straight on the paper ground, no wrapper card.
+   An accordion-folded paper map: wide (Upstream | Downstream) from 768px, folded the other way and stacked
+   (Upstream over Downstream) below it. Each label pill sits on the row of its own pin.
+   Base CSS is the finished frame. JS arms only the route stroke and the position of pins, flag and stamp. */
+#s2{background:var(--paper);border-top:0;overflow:clip}
+#s2 .s2-tx{display:grid;gap:var(--s4);align-content:start}
+#s2 .lede{font-size:var(--fs-lg);color:var(--body)}
+#s2 .s2-art{position:relative}
+#s2 .s2-defs{position:absolute;width:0;height:0;overflow:hidden}
+#s2 .s2-map{width:100%;height:auto;overflow:visible}
+#s2 .s2-wide{display:none}
+@media (min-width:768px){
+  #s2 .s2-wide{display:block}
+  #s2 .s2-tall{display:none}
+}
 @media (min-width:1024px){
-  #s2 .grid{grid-template-rows:auto 1fr;align-items:start}
-  #s2 .s2-hd{grid-row:1}
-  #s2 .s2-tx{grid-row:2}
-  #s2 .s2-vc{grid-row:1/3}
+  #s2 .grid{align-items:center}
+  #s2 .s2-tx{grid-column:1/5}
+  #s2 .s2-art{grid-column:5/13}
 }
-#s2 .s2-lg{list-style:none;display:grid;gap:var(--s4)}
-#s2 .s2-lg li{display:flex;align-items:center;gap:var(--s3);font-size:var(--fs-lg);font-weight:500;color:var(--ink)}
-#s2 .s2-lg svg{width:var(--s6);height:var(--s6);flex:none}
-#s2 .s2-tx .lede{margin-top:var(--s6)}
 
-/* stage */
-#s2 .s2-viz{aspect-ratio:1/1;background:var(--surface)}
-@media (min-width:768px){#s2 .s2-viz{aspect-ratio:4/3}}
-#s2 .s2-stage{position:absolute;inset:0;overflow:hidden;perspective:1100px;perspective-origin:50% 30%}
-#s2 .s2-mw{position:absolute;left:50%;top:46%;width:86%;aspect-ratio:16/10;transform:translate(-50%,-50%);transform-style:preserve-3d}
-@media (min-width:768px){#s2 .s2-mw{width:80%}}
+/* folded paper */
+#s2 .s2-sheet{fill:var(--canvas);filter:drop-shadow(0 12px 22px rgba(42,42,42,.12)) drop-shadow(0 1px 2px rgba(42,42,42,.10))}
+#s2 .s2-gridl{fill:none;stroke:var(--paper-edge);stroke-width:1}
+#s2 .s2-crease{fill:none;stroke:var(--paper-edge);stroke-width:2}
+#s2 .s2-divide{fill:none;stroke:var(--quiet-line);stroke-width:1.5;stroke-dasharray:6 6}
+#s2 .s2-dr{transform-box:fill-box}
+#s2 .s2-reg{font-family:var(--mono);font-weight:700;font-size:16px;letter-spacing:.08em;fill:var(--ink)}
+#s2 .s2-tall .s2-reg{font-size:14px}
 
-/* the map: 4 panels, each a quarter of one drawing, gate-folded (outer quarters fold in over the middle,
-   so the folded map sits centred and the map box never moves sideways). Default = finished frame. */
-#s2 .s2-map{position:absolute;inset:0;transform-style:preserve-3d;transform:translateY(-12%)}
-#s2 .s2-p{position:absolute;top:0;height:100%;width:100%;transform-style:preserve-3d}
-#s2 .s2-p2{left:25%;width:25%}
-#s2 .s2-p1{left:-100%;transform-origin:100% 50%;transform:rotateY(178deg)}
-#s2 .s2-p3{left:100%;transform-origin:0 50%}
-#s2 .s2-p4{left:100%;transform-origin:0 50%;transform:rotateY(-178deg)}
-#s2 .s2-f,#s2 .s2-b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--paper-edge)}
-#s2 .s2-f{background:var(--paper) url(../assets/s2-map.svg) 0 0/400% 100% no-repeat}
-#s2 .s2-p2>.s2-f{background-position:33.333% 0}
-#s2 .s2-p3>.s2-f{background-position:66.667% 0}
-#s2 .s2-p4>.s2-f{background-position:100% 0}
-#s2 .s2-b{transform:rotateY(180deg);background:var(--paper)}
+/* route, pins, flag */
+#s2 .s2-route{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+/* pin colours reach the shared symbol through custom properties (a selector cannot enter a use shadow tree) */
+#s2 .s2-pin-teal{--pb:var(--accent);--ps:var(--accent-ink);--pe:var(--canvas);--pes:none;--pw:1.5px}
+#s2 .s2-pin-ink{--pb:var(--canvas);--ps:var(--ink);--pe:none;--pes:var(--ink);--pw:2.2px}
+#s2 .s2-drop{filter:drop-shadow(0 3px 3px rgba(18,18,18,.18))}
+#s2 .s2-pole{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+#s2 .s2-cloth{fill:var(--ink)}
 
-/* cover = backs of p1 (left half) + p4 (right half); "your | business" reads across the fold */
-#s2 .s2-cv{display:flex;align-items:flex-end;padding:0 var(--s1) 28%;background:var(--paper) url(../assets/s2-cover0.svg) 0 0/200% 100% no-repeat}
-#s2 .s2-cvl{justify-content:flex-end}
-#s2 .s2-cvr{background-position:100% 0}
-#s2 .s2-pinned{position:absolute;inset:0;background:url(../assets/s2-cover.svg) 0 0/200% 100% no-repeat}
-#s2 .s2-cvr .s2-pinned{background-position:100% 0}
-#s2 .s2-cv span{position:relative;font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1.3;text-transform:uppercase;color:var(--paper-ink);background:var(--paper);padding:var(--s1);opacity:0}
+/* labels: pills on their pin's row, Space Mono, never animated */
+#s2 .s2-lab rect{fill:var(--canvas);stroke:var(--ink);stroke-width:1.5}
+#s2 .s2-lab text{font-family:var(--mono);font-weight:700;font-size:16px;fill:var(--ink)}
+#s2 .s2-tall .s2-lab text{font-size:14px}
 
-/* terrain layer: hills, signs, pins. Never put opacity on .s2-ter itself (it flattens 3D); each leaf fades on its own. */
-#s2 .s2-ter{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}
-#s2 .s2-hill{position:absolute;transform-style:preserve-3d}
-#s2 .s2-ha{left:5%;top:58.4%;width:27.5%;height:31.2%}
-#s2 .s2-hb{left:73.75%;top:18%;width:25%;height:32%}
-#s2 .s2-hill i{position:absolute;border-radius:50%;background:var(--paper);border:1px solid var(--paper-edge);inset:calc(var(--z) * 12%);opacity:0}
-#s2 .s2-hill i:last-child{border-color:var(--low)}
+/* the "yours" stamp, off the sheet's top corner */
+#s2 .s2-stamp rect{fill:var(--canvas);stroke:var(--ink);stroke-width:2}
+#s2 .s2-stamp text{font-family:var(--mono);font-weight:700;font-size:16px;letter-spacing:.14em;fill:var(--ink)}
+#s2 .s2-tall .s2-stamp text{font-size:14px}
 
-/* signs and pins: real-sized boxes standing up on their base point */
-#s2 .s2-sign,#s2 .s2-pin{position:absolute;translate:-50% -100%;transform-origin:50% 100%;transform:rotateX(-52deg);opacity:0}
-#s2 .s2-sign{white-space:nowrap;font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.08em;text-transform:uppercase;line-height:1.4;
-  color:var(--paper-ink);background:var(--canvas);border:1px solid var(--paper-edge);border-radius:var(--r-sm);padding:var(--s1) var(--s2)}
-#s2 .s2-su{left:25%;top:94%}
-#s2 .s2-sd{left:75%;top:94%}
-#s2 .s2-pin{width:36px;height:38px;translate:-13px -100%;transform-origin:13px 100%}
-#s2 .s2-pin svg{width:100%;height:100%}
-#s2 .s2-fl{width:34px;height:41px;translate:-5px -100%;transform-origin:5px 100%}
-#s2 .s2-pt{left:12%;top:19.2%}
-#s2 .s2-pl1{left:33.75%;top:67.2%}
-#s2 .s2-pl2{left:63.1%;top:36.8%}
-#s2 .s2-fl{left:37.25%;top:45.6%}
-
-/* sleeve, in front of the folded map; the map rests half pulled out of it */
-#s2 .s2-slv{position:absolute;left:17%;width:66%;top:36%;height:86%;transform:translateZ(var(--s5));background:var(--paper-edge);border:1px solid var(--low);border-radius:var(--r-sm);
-  -webkit-mask:radial-gradient(circle at 50% 0,transparent var(--s5),#000 calc(var(--s5) + 1px));mask:radial-gradient(circle at 50% 0,transparent var(--s5),#000 calc(var(--s5) + 1px));
-  display:flex;align-items:center;justify-content:center}
-#s2 .s2-slv b{font-family:var(--mono);font-weight:700;font-size:var(--fs-h3);letter-spacing:.12em;text-transform:uppercase;color:var(--ink);border:2px solid var(--ink);border-radius:var(--r-sm);padding:var(--s2) var(--s4);transform:rotate(-8deg)}
-
-/* motion: one 6 s timeline (paused until in view); every keyframe set ends on the default finished frame above */
-#s2.armed .s2-map{animation:s2-map 6s var(--ease) both}
-#s2.armed .s2-p1{animation:s2-p1 6s var(--ease) both}
-#s2.armed .s2-p4{animation:s2-p4 6s var(--ease) both}
-#s2.armed .s2-pinned{animation:s2-pins 6s var(--ease) both}
-#s2.armed .s2-cv span{animation:s2-title 6s var(--ease) both}
-#s2.armed .s2-hill i{animation:s2-hill 6s var(--ease) both}
-#s2.armed .s2-sign{animation:s2-sign 6s var(--ease) both}
-#s2.armed .s2-pt{animation:s2-drop 6s var(--ease) both}
-#s2.armed .s2-pl1{animation:s2-drop1 6s var(--ease) both}
-#s2.armed .s2-pl2{animation:s2-drop2 6s var(--ease) both}
-#s2.armed .s2-fl{animation:s2-drop3 6s var(--ease) both}
-#s2.armed .s2-slv{animation:s2-slv 6s var(--ease) both}
-#s2.armed .s2-slv b{animation:s2-stamp 6s var(--ease) both}
-#s2.armed .s2-l1{animation:s2-l1 6s var(--ease) both}
-#s2.armed .s2-l2{animation:s2-l2 6s var(--ease) both}
-#s2.armed .s2-l3{animation:s2-l3 6s var(--ease) both}
-#s2.armed:not(.go) *,#s2.paused *{animation-play-state:paused!important}
-
-@keyframes s2-map{
-  0%,18%{transform:translateY(0) rotateX(0)}
-  25%,70%{transform:translateY(6%) rotateX(52deg)}
-  77%,84%{transform:translateY(0) rotateX(0)}
-  91%{transform:translateY(18%) rotateX(0)}
-  99%,100%{transform:translateY(-12%) rotateX(0)}
-}
-@keyframes s2-p1{0%,6%{transform:rotateY(178deg)}18%,77%{transform:rotateY(0)}84%,100%{transform:rotateY(178deg)}}
-@keyframes s2-p4{0%,6%{transform:rotateY(-178deg)}18%,77%{transform:rotateY(0)}84%,100%{transform:rotateY(-178deg)}}
-@keyframes s2-pins{0%,78%{opacity:0}84%,100%{opacity:1}}
-@keyframes s2-title{0%,78%{opacity:1}84%,100%{opacity:0}}
-@keyframes s2-hill{0%,16%{transform:translateZ(0);opacity:0}19%{opacity:1}28%,68%{transform:translateZ(calc(var(--z) * 9px));opacity:1}72%,100%{transform:translateZ(0);opacity:0}}
-@keyframes s2-sign{0%,21%{transform:rotateX(0);opacity:0}28%,66%{transform:rotateX(-52deg);opacity:1}70%,100%{transform:rotateX(-52deg);opacity:0}}
-@keyframes s2-drop{0%,25%{transform:translateZ(110px) rotateX(-52deg);opacity:0}26%{opacity:1}32%,66%{transform:translateZ(0) rotateX(-52deg);opacity:1}70%,100%{transform:translateZ(0) rotateX(-52deg);opacity:0}}
-@keyframes s2-drop1{0%,32%{transform:translateZ(110px) rotateX(-52deg);opacity:0}33%{opacity:1}38%,66%{transform:translateZ(0) rotateX(-52deg);opacity:1}70%,100%{transform:translateZ(0) rotateX(-52deg);opacity:0}}
-@keyframes s2-drop2{0%,35%{transform:translateZ(110px) rotateX(-52deg);opacity:0}36%{opacity:1}42%,66%{transform:translateZ(0) rotateX(-52deg);opacity:1}70%,100%{transform:translateZ(0) rotateX(-52deg);opacity:0}}
-@keyframes s2-drop3{0%,42%{transform:translateZ(110px) rotateX(-52deg);opacity:0}43%{opacity:1}49%,66%{transform:translateZ(0) rotateX(-52deg);opacity:1}70%,100%{transform:translateZ(0) rotateX(-52deg);opacity:0}}
-@keyframes s2-slv{0%,81%{opacity:0;transform:translateZ(var(--s5)) translateY(12%)}87%,100%{opacity:1;transform:translateZ(var(--s5))}}
-@keyframes s2-stamp{0%,93%{opacity:0;transform:rotate(-8deg) scale(1.8)}98%,100%{opacity:1;transform:rotate(-8deg) scale(1)}}
-@keyframes s2-l1{0%,25%{opacity:0;transform:translateX(calc(-1 * var(--s2)))}31%,100%{opacity:1;transform:none}}
-@keyframes s2-l2{0%,32%{opacity:0;transform:translateX(calc(-1 * var(--s2)))}38%,100%{opacity:1;transform:none}}
-@keyframes s2-l3{0%,42%{opacity:0;transform:translateX(calc(-1 * var(--s2)))}48%,100%{opacity:1;transform:none}}
+/* armed: only strokes and decorative token positions. Played once by .s2-go, finished by ~3 s. */
+#s2 .s2-drop,#s2 .s2-flag,#s2 .s2-stampin{transform-box:fill-box}
+#s2 .s2-flag{transform-origin:0 100%}
+#s2 .s2-stampin{transform-origin:50% 50%}
+#s2 .s2-art.s2-arm .s2-route{stroke-dasharray:1 1;stroke-dashoffset:1;stroke-linecap:butt}
+#s2 .s2-art.s2-arm .s2-dr{transform:translateY(-10px)}
+#s2 .s2-art.s2-arm .s2-drop{transform:translateY(-48px)}
+#s2 .s2-art.s2-arm .s2-flag{transform:scaleY(.08);opacity:0}
+#s2 .s2-art.s2-arm .s2-stampin{transform:scale(1.5) rotate(-8deg)}
+#s2 .s2-art.s2-go .s2-route{animation:s2-draw 1.5s var(--ease) .45s forwards}
+#s2 .s2-art.s2-go .s2-drop{animation:s2-land .55s var(--ease) forwards}
+#s2 .s2-art.s2-go .s2-d2{animation-delay:1s}
+#s2 .s2-art.s2-go .s2-flag{animation:s2-plant .5s var(--ease) 1.75s forwards}
+#s2 .s2-art.s2-go .s2-dr{animation:s2-land .5s var(--ease) 1.6s forwards}
+#s2 .s2-art.s2-go .s2-stampin{animation:s2-stamp .35s var(--ease) 2.35s forwards}
+@keyframes s2-draw{to{stroke-dashoffset:0}}
+@keyframes s2-land{to{transform:none}}
+@keyframes s2-plant{to{transform:none;opacity:1}}
+@keyframes s2-stamp{to{transform:none}}
 
 /* ---- s2b ---- */
 /* S2b skill packs: paper ground. Thirteen folders in three tier bands (2, 4, 7) read top to bottom; an ink rail wraps
@@ -208,357 +222,458 @@
 @keyframes s2b-grow{from{transform:scaleY(.08)}to{transform:none}}
 
 /* ---- s3 ---- */
-/* S3 the system: a two-zone tabletop diorama. Base CSS = the FINISHED frame (all awake).
-   .arm (set by JS before play) = the quiet first frame; WAAPI animates between them. */
-#s3 .s3-viz{background:var(--surface)}
-#s3 .s3-scene{position:relative;padding:var(--s4)}
-#s3 .s3-defs{position:absolute;width:0;height:0}
-
-/* agent: Claude Code cursor holding a skill-file card */
+/* S3 the system: one track through all 12 steps. Base CSS is the FINISHED frame: every station drawn in ink and
+   ticked teal, the track teal, the client past the YES stamp, Claude Code parked at the end of the run.
+   .s3-arm (JS, only when the board is below the fold) greys the track, hides the 12 tick discs and check strokes,
+   and moves the two decorative tokens (Claude Code, the client) to their start.
+   Phone (default): a vertical spine. 900px and up: a serpentine over 12 columns.
+   Teal = the track and the ticks (the system working); stations and labels are ink.
+   Layers: track boxes (auto) < trace + Claude Code (1) < stations (2) < YES stamp (3), so the vehicle runs UNDER
+   each station it passes and never hides one. */
+#s3{border-top:0;background:var(--canvas)}
 #s3 h2{max-width:30ch}
-/* Claude Code parks under the last station it woke (Repeat buying) */
-#s3 .s3-park{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s3)}
-#s3 .s3-agent{grid-column:-2/-1;justify-self:center;position:relative;z-index:6;width:calc(var(--s10) + var(--s2));height:var(--s8);will-change:transform}
-#s3 .s3-ptr{position:absolute;left:0;top:0;width:var(--s5);height:auto;overflow:visible}
-#s3 .s3-ptr path{fill:var(--ink);stroke:var(--canvas);stroke-width:1.5;stroke-linejoin:round}
-#s3 .s3-cc{position:absolute;left:var(--s4);top:var(--s5);white-space:nowrap;font-family:var(--mono);font-size:var(--fs-sm);line-height:1;
-  padding:var(--s2) var(--s3);border-radius:999px;background:var(--ink);color:var(--canvas)}
-#s3 .s3-card{position:absolute;left:var(--s4);top:calc(var(--s7) + var(--s2));display:block;overflow:hidden;white-space:nowrap;
-  padding:var(--s2) var(--s3);background:var(--paper);border:1px solid var(--paper-edge);border-radius:var(--r-sm);transform:rotate(-3deg)}
-#s3 .s3-card b{display:block;font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1.2;color:var(--paper-ink);
-  border:1px solid var(--paper-ink);border-radius:var(--s1);padding:0 var(--s1);letter-spacing:.04em}
-#s3 .s3-scan{position:absolute;left:0;right:0;top:0;border-top:2px solid var(--accent);opacity:0}
-#s3 .s3-fly{position:absolute;z-index:7;left:0;top:0;width:var(--s7);height:var(--s6);border-radius:var(--s1);opacity:0;pointer-events:none;
-  background:var(--paper);border:1px solid var(--paper-edge);box-shadow:0 var(--s1) var(--s3) var(--line)}
-#s3 .s3-fly::after{content:"";position:absolute;inset:var(--s2) var(--s3);border:1px solid var(--paper-ink);border-radius:var(--s1)}
 
-/* board: stacked below 1024, zones side by side above */
-#s3 .s3-board{display:grid;grid-template-columns:minmax(0,1fr);row-gap:var(--s4)}
-#s3 .s3-zone{position:relative;padding:var(--s4) var(--s3) var(--s5);background:var(--canvas);border:1px solid var(--line);border-radius:var(--r);
-  background-image:radial-gradient(var(--line) 1px,transparent 1.5px);background-size:var(--s5) var(--s5);
-  transform-origin:50% 100%}
-/* tabletop tilt + slab only side by side; stacked tall zones tilted into ghost edges at 390 */
-@media (min-width:1024px){#s3 .s3-zone{box-shadow:0 var(--s2) 0 var(--elevated),0 var(--s2) 0 1px var(--line);transform:perspective(1800px) rotateX(9deg)}}
-#s3 .s3-zl{color:var(--ink);font-size:var(--fs-sm);text-align:center;margin-bottom:var(--s3)}
-#s3 .s3-sts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4) var(--s2)}
-@media (min-width:600px){#s3 .s3-sts{gap:var(--s4) var(--s3)}}
-@media (min-width:1024px){
-  #s3 .s3-scene{padding:var(--s6)}
-  #s3 .s3-board{grid-template-columns:minmax(0,1fr) calc(var(--s10) + var(--s6)) minmax(0,1fr);column-gap:var(--s3);align-items:stretch}
-}
+/* ---------- board geometry: phone ---------- */
+#s3 .s3-board{--tw:3px;--rail:24px;--aw:112px;--ly:calc(var(--aw) * .5375);--lab:28px;--row:78px;--gate:168px;--park:64px;--r:12px;
+  --sx:calc(var(--rail) + var(--aw) / 2);                                   /* the spine's x */
+  --g0:calc(var(--lab) + var(--row) * 6);                                   /* gate row top */
+  --d0:calc(var(--lab) * 2 + var(--row) * 6 + var(--gate));                 /* Downstream lane top */
+  --ry:calc(var(--d0) + var(--row) * 5 + var(--ly));                        /* Repeat buying's plinth y */
+  position:relative;display:grid;grid-template-columns:var(--rail) var(--aw) minmax(0,1fr);
+  grid-template-rows:var(--lab) calc(var(--row) * 6) var(--gate) var(--lab) calc(var(--row) * 6) var(--park)}
+#s3 .s3-zl{grid-column:2/-1;align-self:center;padding-left:calc(var(--aw) + var(--s2));font-family:var(--mono);font-size:var(--fs-label);line-height:1.3;
+  text-transform:uppercase;color:var(--ink)}
+#s3 .s3-zl-up{grid-row:1}
+#s3 .s3-zl-down{grid-row:4}
+#s3 .s3-lane{list-style:none;position:relative;z-index:2;grid-column:2/-1;display:grid;grid-auto-rows:var(--row)}
+#s3 .s3-up{grid-row:2}
+#s3 .s3-down{grid-row:5}
+#s3 .s3-st{display:grid;grid-template-columns:var(--aw) minmax(0,1fr);align-items:start;min-width:0}
+#s3 .s3-art{display:block;width:var(--aw);height:calc(var(--aw) * .75);transform-origin:50% 100%}
+#s3 .s3-art svg{width:100%;height:100%;overflow:visible;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+#s3 .s3-l{align-self:center;padding-left:var(--s2);font-size:var(--fs-lg);font-weight:600;line-height:1.25;color:var(--ink)}
 
-/* a station */
-#s3 .s3-st{display:flex;flex-direction:column;align-items:center;min-width:0}
-#s3 .s3-art{position:relative;width:100%;max-width:calc(var(--s10) + var(--s8));aspect-ratio:4/3}
-#s3 .s3-art svg{width:100%;height:100%;overflow:visible;stroke-linecap:round;stroke-linejoin:round}
-#s3 .s3-l{font-size:var(--fs-sm);font-weight:600;line-height:1.25;text-align:center;color:var(--ink);margin-top:var(--s1)}
+/* the track: plain boxes with borders, so the finished frame needs no JS. Arrowheads are 12px filled triangles. */
+#s3 .s3-w{position:absolute;display:block;pointer-events:none;border:0 solid var(--accent);transition:border-color var(--d-ui) var(--ease)}
+#s3 .s3-w::before,#s3 .s3-w::after{content:"";position:absolute;width:14px;height:14px;background:var(--accent);
+  clip-path:polygon(0 0,100% 0,50% 100%);transition:background-color var(--d-ui) var(--ease)}
+#s3 .s3-w::before{display:none}
+#s3 .s3-u,#s3 .s3-t1,#s3 .s3-m,#s3 .s3-t3,#s3 .s3-d{display:none}
+/* the spine runs on 24px past Repeat buying: Claude Code parks on that stub */
+#s3 .s3-sp{left:calc(var(--sx) - var(--tw) / 2);top:calc(var(--lab) + var(--ly));border-left-width:var(--tw);height:calc(var(--lab) + var(--row) * 11 + var(--gate) + 24px)}
+#s3 .s3-sp::after{left:-8.5px;top:calc(var(--g0) + 80px - var(--lab) - var(--ly))}
+/* buys again: out of Repeat buying to the right edge, up, and back left into Delivery, bracketing the last three steps */
+#s3 .s3-lp{left:calc(var(--rail) + var(--aw));right:calc(var(--s3) - var(--tw) / 2);
+  top:calc(var(--d0) + var(--row) * 3 + var(--ly) - var(--tw) / 2);height:calc(var(--row) * 2 + var(--tw));
+  border-width:var(--tw) var(--tw) var(--tw) 0;border-radius:0 var(--r) var(--r) 0}
+#s3 .s3-lp::after{left:-12px;top:-8.5px;transform:rotate(90deg)}
+#s3 .s3-lp::before{display:block;left:calc(var(--aw) / -2);bottom:calc(-1 * var(--tw));width:calc(var(--aw) / 2);height:var(--tw);clip-path:none}
+#s3 .s3-again{position:absolute;z-index:2;right:0;top:calc(var(--ry) + 14px);font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1;
+  padding:var(--s1) var(--s3);background:var(--canvas);border:2px solid var(--accent);border-radius:999px;color:var(--ink);white-space:nowrap}
 
-#s3 .pl-t{fill:var(--canvas);stroke:var(--line)}
-#s3 .pl-l{fill:var(--elevated);stroke:var(--line)}
-#s3 .pl-r{fill:var(--line);stroke:var(--line)}
-#s3 .pl-on{fill:var(--accent-soft);stroke:var(--accent);opacity:1}
+/* the Yes gate: a stamp on the track; the client walks out from under it */
+#s3 .s3-yes{position:absolute;z-index:3;left:var(--sx);top:calc(var(--g0) + 112px);translate:-50% -50%;rotate:-4deg;
+  font-family:var(--mono);font-weight:700;font-size:var(--fs-lg);line-height:1;padding:var(--s2) var(--s4);
+  border:2px solid var(--accent);border-radius:var(--r-sm);background:var(--canvas);color:var(--ink);letter-spacing:.06em;text-transform:uppercase}
+#s3 .s3-who{position:absolute;z-index:2;left:var(--sx);top:calc(var(--g0) + 150px);translate:-50% -50%;width:var(--s6);height:var(--s6);overflow:visible}
+#s3 .s3-who circle,#s3 .s3-who path{fill:var(--ink);stroke:var(--canvas);stroke-width:2;paint-order:stroke}
 
-#s3 .q{opacity:0}
-#s3 .q .k,#s3 .q .f,#s3 .q .w,#s3 .q .p{stroke:var(--low)}
-#s3 .q .k{fill:none}#s3 .q .f{fill:var(--elevated)}#s3 .q .w{fill:var(--canvas)}#s3 .q .p{fill:var(--elevated)}
-#s3 .q .s{fill:var(--low)}#s3 .q .t{stroke:var(--line);fill:none}
-#s3 .a .k,#s3 .a .f,#s3 .a .w{stroke:var(--accent-ink)}
-#s3 .a .k{fill:none}#s3 .a .f{fill:var(--accent-soft)}#s3 .a .w{fill:var(--canvas)}
-#s3 .a .s{fill:var(--accent);stroke:none}#s3 .a .t{stroke:var(--accent);fill:none}
+/* Claude Code rides the track: a pill and its skill file, centred on the anchor point. Phone: stacked, riding ON
+   the stations (a 112px station is covered for ~150 ms; under them the words were hidden most of the run), and
+   parked on the spine's stub under Repeat buying. */
+#s3 .s3-run{position:absolute;z-index:3;left:var(--sx);top:calc(var(--ry) + 50px);width:0;height:0;pointer-events:none}
+#s3 .s3-chips{position:absolute;left:0;top:0;translate:-50% -50%;display:flex;flex-direction:column;align-items:center;gap:var(--s1);white-space:nowrap}
+#s3 .s3-cc{display:flex;align-items:center;gap:var(--s2);font-family:var(--mono);font-size:var(--fs-label);line-height:1;padding:var(--s2) var(--s3);
+  border-radius:999px;background:var(--ink);color:var(--canvas);box-shadow:0 0 0 3px var(--canvas)}
+#s3 .s3-ptr{width:10px;max-width:none;height:auto;flex:none}
+#s3 .s3-ptr path{fill:var(--canvas)}
+#s3 .s3-file{font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1;padding:var(--s2);border-radius:var(--s1);
+  background:var(--paper);border:1px solid var(--paper-ink);color:var(--paper-ink);transform:rotate(-3deg)}
+
+/* ---------- station art: ink line drawings on a plinth ---------- */
+#s3 .pl-t{fill:var(--canvas);stroke:var(--ink);stroke-width:1.5}
+#s3 .pl-l,#s3 .pl-r{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+#s3 .a .k,#s3 .a .f,#s3 .a .w{stroke:var(--ink)}
+#s3 .a .k{fill:none}
+#s3 .a .f{fill:var(--paper)}
+#s3 .a .w{fill:var(--canvas)}
+#s3 .a .s{fill:var(--ink);stroke:none}
+#s3 .a .t{stroke:var(--quiet-line);fill:none}
 #s3 .a .p{fill:var(--ink);stroke:var(--ink)}
-#s3 .a .ln{fill:none;stroke:var(--accent);stroke-width:3;stroke-dasharray:1;stroke-dashoffset:0}
-#s3 .a .ck{fill:none;stroke:var(--accent-ink);stroke-width:4;stroke-dasharray:1;stroke-dashoffset:0}
-#s3 .x-phone{transform-box:fill-box;transform-origin:50% 50%}
-#s3 .x-lid{transform-origin:49px 50px}
-#s3 .x-bar{transform-box:fill-box;transform-origin:50% 100%}
-#s3 .x-orb{transform-origin:80px 48px}
+#s3 .a .ln{fill:none;stroke:var(--ink);stroke-width:2.5}
+#s3 .a .ck{fill:none;stroke:var(--ink);stroke-width:3.5}
+/* the tick each station gets as Claude Code passes */
+#s3 .s3-br{fill:var(--canvas);stroke:var(--accent);stroke-width:2.5}
+#s3 .s3-bd{fill:var(--accent);transform-box:fill-box;transform-origin:50% 50%}
+#s3 .s3-ck{fill:none;stroke:var(--canvas);stroke-width:3.5;stroke-dasharray:1;stroke-dashoffset:0}
 
-/* sales call card: CSS 3D flip, back face reads "held" */
-#s3 .s3-flip{position:absolute;left:32%;top:8%;width:36%;height:56%;perspective:600px}
-#s3 .s3-flip-in{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(180deg)}
-#s3 .s3-ff,#s3 .s3-fb{position:absolute;inset:0;display:grid;place-items:center;border-radius:var(--r-sm);backface-visibility:hidden;-webkit-backface-visibility:hidden}
-#s3 .s3-ff{background:var(--canvas);border:1px solid var(--low)}
-#s3 .s3-ff svg{width:40%;fill:var(--low)}
-#s3 .s3-fb{transform:rotateY(180deg);background:var(--accent-ink);color:var(--canvas);font-family:var(--mono);font-weight:700;font-size:var(--fs-sm)}
+/* ---------- board geometry: 900px and up, a serpentine over 12 columns ---------- */
+@media (min-width:900px){
+  #s3{padding-bottom:var(--s8)}
+  #s3 .s3-board{--rail:40px;--aw:112px;--lab:40px;--rh:calc(var(--aw) * .75 + 48px);--mid:72px;--loop:52px;--r:24px;
+    --cw:calc((100% - var(--rail) * 2) / 6);--d0:calc(var(--lab) * 2 + var(--rh) + var(--mid));
+    --my:calc(var(--lab) + var(--rh) + var(--mid) / 2);                    /* the return row's y */
+    --c6:calc(var(--rail) + var(--cw) * 5.5);                              /* column 6 centre: under Landing page */
+    --xb:calc(var(--rail) + var(--cw) * 3);                                /* where the loop rejoins, before Delivery */
+    --loopy:calc(var(--d0) + var(--rh) + 26px);                            /* the loop's bottom run */
+    grid-template-columns:var(--rail) repeat(6,minmax(0,1fr)) var(--rail);
+    grid-template-rows:var(--lab) var(--rh) var(--mid) var(--lab) var(--rh) var(--loop);
+    /* the rails sit in the page gutter, so the station columns and labels start on the headline's left edge */
+    margin-inline:calc(-1 * var(--rail))}
+  #s3 .s3-zl{grid-column:2/8;padding-left:0;letter-spacing:.04em}
+  #s3 .s3-zl-down{grid-row:4}
+  #s3 .s3-lane{grid-column:2/8;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:auto}
+  #s3 .s3-up{grid-row:2}
+  #s3 .s3-down{grid-row:5}
+  #s3 .s3-st{display:flex;flex-direction:column;align-items:center}
+  #s3 .s3-l{padding:var(--s2) 0 0;text-align:center;font-size:var(--fs-body)}
 
-/* repeat buying tag */
-#s3 .s3-tag{position:absolute;left:50%;top:80%;transform:translate(-50%,-50%);white-space:nowrap;font-family:var(--mono);font-size:var(--fs-sm);line-height:1;
-  padding:var(--s1) var(--s2);background:var(--canvas);border:1px solid var(--accent);border-radius:999px;color:var(--accent-ink)}
+  #s3 .s3-sp{display:none}
+  #s3 .s3-u,#s3 .s3-t1,#s3 .s3-m,#s3 .s3-t3,#s3 .s3-d{display:block}
+  #s3 .s3-u{left:calc(var(--rail) + var(--cw) / 2);width:calc(var(--cw) * 5);top:calc(var(--lab) + var(--ly) - var(--tw) / 2);border-top-width:var(--tw)}
+  #s3 .s3-t1{left:var(--c6);right:calc(var(--rail) / 2 - var(--tw) / 2);top:calc(var(--lab) + var(--ly) - var(--tw) / 2);
+    height:calc(var(--rh) + var(--mid) / 2 - var(--ly) + var(--tw));border-width:var(--tw) var(--tw) var(--tw) 0;border-radius:0 var(--r) var(--r) 0}
+  #s3 .s3-m{left:calc(var(--rail) / 2 + var(--r));right:calc(var(--rail) + var(--cw) / 2);top:calc(var(--my) - var(--tw) / 2);border-top-width:var(--tw)}
+  #s3 .s3-t3{left:calc(var(--rail) / 2 - var(--tw) / 2);width:calc(var(--rail) / 2 + var(--cw) / 2 + var(--tw) / 2);top:calc(var(--my) - var(--tw) / 2);
+    height:calc(var(--mid) / 2 + var(--lab) + var(--ly) + var(--tw));border-width:var(--tw) 0 var(--tw) var(--tw);border-radius:var(--r) 0 0 var(--r)}
+  #s3 .s3-d{left:calc(var(--rail) + var(--cw) / 2);width:calc(var(--cw) * 5);top:calc(var(--d0) + var(--ly) - var(--tw) / 2);border-top-width:var(--tw)}
+  /* arrowheads only where the track turns: down both drops, and up where the loop rejoins */
+  #s3 .s3-u::after,#s3 .s3-d::after,#s3 .s3-m::after{display:none}
+  #s3 .s3-t1::after{right:-8.5px;top:calc(50% - 7px)}
+  #s3 .s3-t3::after{left:-8.5px;top:calc(50% - 7px)}
+  /* buys again: out of Repeat buying, round the right rail, back along the bottom and up into the track before Delivery */
+  #s3 .s3-lp{left:calc(var(--xb) - var(--tw) / 2);right:calc(var(--rail) / 2 - var(--tw) / 2);width:auto;
+    top:calc(var(--d0) + var(--ly) - var(--tw) / 2);height:calc(var(--loopy) - var(--d0) - var(--ly) + var(--tw));border-width:var(--tw);border-radius:0 var(--r) var(--r) 0}
+  #s3 .s3-lp::before{display:none}
+  #s3 .s3-lp::after{right:auto;left:-8.5px;top:var(--s3);transform:rotate(180deg)}
+  #s3 .s3-again{left:var(--c6);right:auto;top:var(--loopy);translate:-50% -50%}
+  #s3 .s3-zl{font-size:var(--fs-sm)}
 
-/* Yes gate */
-#s3 .s3-gate{display:grid;place-items:center}
-#s3 .s3-gart{position:relative;width:calc(var(--s10) + var(--s6))}
-#s3 .s3-gart svg{width:100%;height:auto;overflow:visible;stroke-linecap:round}
-#s3 .g-path{fill:none;stroke:var(--low);stroke-dasharray:3 6}
-#s3 .g-post{fill:none;stroke-width:6}
-#s3 .g-q .g-post{stroke:var(--low)}#s3 .g-a .g-post{stroke:var(--accent-ink)}
-#s3 .g-q .g-bar{fill:var(--elevated);stroke:var(--low);stroke-linejoin:round}
-#s3 .g-a .g-bar{fill:var(--accent);stroke:var(--accent-ink);stroke-linejoin:round}
-#s3 .g-q{opacity:0}
-#s3 .g-tok{fill:var(--ink);stroke:var(--ink)}
-#s3 .s3-yes{position:absolute;left:50%;top:25%;transform:translate(-50%,-50%);overflow:hidden;font-family:var(--mono);font-weight:700;font-size:var(--fs-label);
-  line-height:1;padding:var(--s1) var(--s2);border-radius:var(--s1);background:var(--canvas);border:1px solid var(--low);color:var(--ink)}
-#s3 .s3-yes i{position:absolute;inset:0;background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent);border-radius:var(--s1);z-index:-1}
-#s3 .s3-yes{isolation:isolate}
+  /* the YES stamp sits right under Landing page, where the track turns back */
+  #s3 .s3-yes{left:var(--c6);top:var(--my)}
+  #s3 .s3-who{left:calc(var(--c6) - 92px);top:calc(var(--my) - 4px)}
+  /* parked on the loop's bottom-left corner, where the loop turns up to rejoin the track */
+  #s3 .s3-run{left:var(--xb);top:var(--loopy);z-index:1}
+  #s3 .s3-chips{flex-direction:row}
+}
+@media (min-width:1200px){#s3 .s3-board{--aw:152px}}
 
-/* armed = quiet first frame, before the scene plays */
-#s3 .arm .q,#s3 .arm .g-q{opacity:1}
-#s3 .arm .a,#s3 .arm .pl-on,#s3 .arm .g-a,#s3 .arm .s3-yes i,#s3 .arm .s3-tag{opacity:0}
-#s3 .arm .s3-l{opacity:.5}
-#s3 .arm .s3-flip-in{transform:none}
-#s3 .arm .g-tok{opacity:0}
+/* ---------- armed: the first frame before the run (JS adds it only below the fold) ---------- */
+#s3 .s3-arm .s3-w{border-color:var(--line)}
+#s3 .s3-arm .s3-w::before,#s3 .s3-arm .s3-w::after{background:var(--line)}
+#s3 .s3-arm .s3-bd{opacity:0;transform:scale(.5)}
+#s3 .s3-arm .s3-ck{stroke-dashoffset:1}
+#s3 .s3-arm .s3-who{transform:translateY(-36px)}
+#s3 .s3-arm:not(.s3-go) .s3-run{left:var(--sx);top:calc(var(--lab) + var(--ly))}
+/* the teal trace + glowing beam head JS draws: above the grey track, under the stations */
+#s3 .s3-trace{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible;pointer-events:none}
+#s3 .s3-trace path{fill:none;stroke:var(--accent);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+#s3 .s3-trace .s3-beam{stroke-width:5;filter:drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 2px var(--accent))}
+@media (min-width:900px){
+  #s3 .s3-arm .s3-who{transform:translateX(92px)}
+  #s3 .s3-arm:not(.s3-go) .s3-run{left:calc(var(--rail) + var(--cw) / 2)}
+}
 
 /* ---- s4 ---- */
-/* S4: 15 bricks = 15 sessions, three floors, a dusk sky, the date ribbon. Natural styles = the finished frame. */
-#s4 .grid{row-gap:var(--s5)}
-#s4 .s4-wk1,#s4 .s4-wk2,#s4 .s4-wk3{color:var(--body);max-width:52ch}
-#s4 .s4-wk1 strong,#s4 .s4-wk2 strong,#s4 .s4-wk3 strong{color:var(--ink);font-weight:600}
+/* S4: paper ground. 15 bricks = 15 live sessions, each carrying its date; three courses over a Mon to Fri axis; the week 2
+   Friday door sends 100 out; a Demo day flag over 13 Nov. The natural styles below ARE the finished frame. When armed,
+   every label stays put (the dates are outlined so they read on the paper); bricks are laid course by course under
+   them, the mail leaves the door and lands on the people, then the roof is laid and the flag goes up. */
+#s4{background:var(--paper);border-top:0}
+#s4 .grid{row-gap:var(--s6)}
 
-#s4 .s4-viz{display:grid;grid-template-rows:var(--s9) var(--s8) var(--s8) var(--s9) auto;--bx:var(--s3);--bw:70%}
-#s4 .s4-viz>div{position:relative;min-width:0}
+#s4 .s4-weeks{display:grid;gap:var(--s3)}
+#s4 .s4-weeks p{color:var(--body);max-width:52ch}
+#s4 .s4-weeks strong{color:var(--ink);font-weight:600}
 
-/* sky: one quiet dusk band, a low sun on the horizon */
-#s4 .s4-sky{background:linear-gradient(180deg,transparent 10%,var(--elevated) 70%,transparent 100%)}
-#s4 .s4-f1{border-bottom:1px solid var(--ink)}
+/* scene: [week label] [building] [what leaves the door]; rows: sky, roof, floor 3, floor 2, floor 1, ground, weekdays.
+   Thin mortar between courses (2px), wider joints between bricks, so the floors read as courses. */
+#s4 .s4-viz{--fnw:46px;--bw:196px;--fh:52px;--sky:40px;--gap:3px;--pw:28px;--dy:0px;--bk:calc((var(--bw) - 4 * var(--gap)) / 5)}
+#s4 .s4-scene{display:grid;grid-template-columns:var(--fnw) var(--bw) minmax(0,1fr);column-gap:var(--s2);
+  grid-template-rows:var(--sky) var(--s2) var(--fh) var(--fh) var(--fh) 2px auto;row-gap:2px}
 
-/* building */
-#s4 .s4-br,#s4 .s4-rooms,#s4 .s4-wins{position:absolute;left:var(--bx);width:var(--bw);top:0;bottom:0;display:flex}
-#s4 .s4-rooms,#s4 .s4-wins{left:calc(var(--bx) + var(--bw) / 5);width:calc(var(--bw) * .8)}
-#s4 .s4-wt{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;font-family:var(--mono);font-size:var(--fs-label);line-height:1.1;letter-spacing:.04em;text-transform:uppercase;color:var(--low)}
-#s4 .s4-wt b{font-size:var(--fs-h3);color:var(--canvas)}
-#s4 .s4-br i{position:relative;flex:1;font-style:normal;background:var(--ink);border:1px solid var(--surface)}
-#s4 .s4-wins{width:calc(var(--bw) * .6);align-items:center}
-#s4 .s4-w{flex:1;min-width:0;text-align:center}
-#s4 .s4-w em{max-width:calc(100% - var(--s1))}
-#s4 .s4-rooms span{flex:1;display:grid;justify-items:center;align-content:center;gap:var(--s1);text-align:center}
-#s4 .s4-rooms em,#s4 .s4-w em{font-style:normal;letter-spacing:-.02em;font-size:var(--fs-label);line-height:1.15;color:var(--canvas)}
-#s4 .s4-rooms svg{width:var(--s5);height:var(--s5);fill:none;stroke:var(--canvas);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-/* week 2: the four channel rooms, one of which the buyer picks; the Friday door sits at the far right of the floor */
-#s4 .s4-ch em{white-space:nowrap}
-#s4 .s4-ch span:last-child{padding-right:var(--s2)}
-#s4 .s4-w{display:grid;justify-items:center;gap:var(--s1)}
-#s4 .s4-w b{position:relative;width:var(--s6);height:var(--s5);display:grid;place-items:center;background:var(--accent);box-shadow:0 0 0 var(--s1) var(--accent-soft)}
-#s4 .s4-w svg{width:var(--s4);height:var(--s4);fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-#s4 .s4-roof{position:absolute;bottom:0;left:calc(var(--bx) - var(--s1));width:calc(var(--bw) + var(--s2));height:var(--s2);background:var(--ink)}
-#s4 .s4-pole{position:absolute;bottom:var(--s2);left:calc(var(--bx) + var(--bw) * .9);height:var(--s8);border-left:1px solid var(--ink);border-right:1px solid var(--ink);transform-origin:bottom}
-#s4 .s4-flag{position:absolute;top:0;left:0;transform-origin:left;white-space:nowrap;background:var(--accent-ink);color:var(--canvas);
-  font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1;letter-spacing:.06em;text-transform:uppercase;
-  padding:var(--s2) var(--s5) var(--s2) var(--s3);clip-path:polygon(0 0,100% 0,88% 50%,100% 100%,0 100%)}
+/* sky: the pole stands on the roof over Friday 13 Nov; the pennant and its label fly to the right of it */
+#s4 .s4-sky{grid-column:2;grid-row:1;position:relative}
+#s4 .s4-pole{position:absolute;bottom:-2px;right:calc(var(--bk) / 2 - 1px);width:2px;height:calc(100% + 2px);background:var(--ink);transform-origin:bottom}
+#s4 .s4-pen{position:absolute;top:0;left:calc(var(--bw) - var(--bk) / 2 + 1px);width:var(--pw);height:auto;fill:var(--accent);stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round;transform-origin:left center}
+#s4 .s4-dd{position:absolute;top:calc(var(--pw) * 13 / 44 - .6em);left:calc(var(--bw) - var(--bk) / 2 + var(--pw) + var(--s2));
+  font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1.2;color:var(--ink);white-space:nowrap}
+#s4 .s4-roof{grid-column:2;grid-row:2;display:block;margin-inline:-6px;background:var(--ink);border-radius:2px;transform-origin:left}
 
-/* floor 2: the Friday door opens, envelopes pour out under the tag */
-#s4 .s4-door{position:absolute;left:76%;right:-1px;bottom:0;height:72%;background:var(--accent);perspective:160px}
-#s4 .s4-leaf{position:absolute;inset:0;background:var(--body);border:1px solid var(--quiet);transform-origin:left center;transform:rotateY(-72deg)}
-#s4 .s4-stream{position:absolute;left:calc(var(--bx) + var(--bw) + var(--s2));right:var(--s3);bottom:8%;height:150%;z-index:1}
-#s4 .s4-ppl{position:absolute;right:0;bottom:0;width:32%}
-#s4 .s4-ppl svg{width:100%;height:auto;fill:var(--canvas);stroke:var(--ink);stroke-width:1.5;stroke-linecap:round}
-#s4 .s4-ev{position:absolute;inset:0}
-#s4 .s4-ev svg{position:absolute;left:calc(var(--x) * 1%);bottom:calc(var(--y) * 1%);width:var(--s4);height:var(--s3);fill:var(--canvas);stroke:var(--ink);stroke-width:1;stroke-linejoin:round}
-#s4 .s4-tag{position:absolute;left:0;bottom:calc(100% + var(--s1));background:var(--ink);color:var(--canvas);font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1;padding:var(--s2) var(--s3);border-radius:var(--r-sm);white-space:nowrap}
+/* floors: "Week n" and the month at the row head, one weight */
+#s4 .s4-fn{grid-column:1;display:grid;align-content:center;justify-items:start;gap:2px;font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1.2;color:var(--ink)}
+#s4 .s4-fn span{text-transform:uppercase;white-space:nowrap}
+#s4 .s4-fn em{font-style:normal;color:var(--quiet)}
+#s4 .s4-n3,#s4 .s4-r3{grid-row:3}
+#s4 .s4-n2,#s4 .s4-r2{grid-row:4}
+#s4 .s4-n1,#s4 .s4-r1{grid-row:5}
+#s4 .s4-row{grid-column:2;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gap)}
 
-/* date ribbon: 15 weekdays, 26 Oct to 13 Nov */
-#s4 .s4-rib{padding:var(--s4) var(--s4) var(--s5)}
-#s4 .s4-days,#s4 .s4-mo{display:flex;gap:var(--s3)}
-#s4 .s4-wk,#s4 .s4-mo span{flex:1;display:flex}
-#s4 .s4-wk{border-top:1px solid var(--line);padding-top:var(--s2)}
-#s4 .s4-d{flex:1;display:grid;justify-items:center;gap:var(--s1);font-family:var(--mono);font-size:var(--fs-label);line-height:1.2;color:var(--ink)}
-#s4 .s4-d b{display:block;width:var(--s2);height:var(--s2);background:var(--ink)}
-#s4 .s4-last{color:var(--accent-ink);font-weight:700}
-#s4 .s4-last b{background:var(--accent)}
-#s4 .s4-mo{margin-top:var(--s2);font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.08em;text-transform:uppercase;color:var(--quiet)}
+/* a brick: the ink block, its session date set on it in white; the ink outline keeps the date readable on the paper
+   while its brick is still on the way */
+#s4 .s4-b{position:relative;display:block;font-style:normal}
+#s4 .s4-b::before{content:"";position:absolute;inset:0;background:var(--ink);border-radius:2px}
+#s4 .s4-b b{position:absolute;left:6px;top:var(--s1);z-index:1;font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1.2;color:var(--canvas);
+  text-shadow:1px 0 var(--ink),-1px 0 var(--ink),0 1px var(--ink),0 -1px var(--ink)}
+/* week 2 Friday: the lit doorway, square, standing on the floor */
+#s4 .s4-door s{position:absolute;right:14%;bottom:0;width:40%;height:60%;z-index:1;background:var(--accent);transform-origin:bottom;text-decoration:none}
 
-/* desktop: copy c-1-5, building c-6-12; each week line sits beside its floor (shared rows via subgrid) */
+/* what leaves the door: the tag level with it, pointer on the wall; four envelopes leave and land on the people */
+#s4 .s4-out{grid-column:3;grid-row:4/6;position:relative;container-type:size}
+#s4 .s4-tag{position:absolute;left:calc(6px - var(--s2));top:calc(var(--fh) * .4 - 2px);font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1;
+  color:var(--canvas);background:var(--ink);padding:var(--s2);border-radius:var(--s1);white-space:nowrap}
+#s4 .s4-tag::before{content:"";position:absolute;left:-6px;top:50%;margin-top:-6px;border:6px solid transparent;border-left:0;border-right-color:var(--ink)}
+#s4 .s4-ev{position:absolute;z-index:1;left:calc(var(--x) * 1%);top:calc(var(--y) * 1% + var(--dy));width:20px;height:auto;transform:rotate(var(--r));
+  fill:var(--canvas);stroke:var(--ink);stroke-width:2;stroke-linejoin:round}
+#s4 .s4-ppl{position:absolute;right:6px;bottom:0;width:64px;height:auto;fill:var(--ink);stroke:var(--paper);stroke-width:1.5}
+#s4 .s4-ppl g{transform-box:fill-box;transform-origin:50% 100%}
+#s4 .s4-ground{grid-column:2/-1;grid-row:6;display:block;margin:-2px 0 0 -6px;background:var(--ink)}
+
+/* weekday axis under the building, one per brick column */
+#s4 .s4-days{grid-column:2;grid-row:7;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gap);margin-top:var(--s1);
+  font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1.2;text-align:center;color:var(--quiet)}
+
 @media (min-width:768px){
-  #s4 .s4-viz{--bx:var(--s6);--bw:58%;grid-template-rows:var(--s9) var(--s8) var(--s8) var(--s9) auto}
-  #s4 .s4-ev svg{width:var(--s5);height:var(--s4)}
+  #s4 .s4-viz{--fnw:var(--s9);--bw:300px;--fh:64px;--sky:64px;--gap:4px;--pw:44px;--dy:-4px}
+  #s4 .s4-fn,#s4 .s4-days{font-size:var(--fs-sm)}
+  #s4 .s4-b b{left:var(--s3);top:var(--s2);font-size:var(--fs-body)}
+  #s4 .s4-ev{width:28px}
+  #s4 .s4-ppl{width:96px}
 }
-/* desktop: copy c-1-5 top-aligned (head, then weeks 1 to 3), building c-6-12 */
+/* desktop: copy and the week lines in c-1-5, the building in c-6-12 */
 @media (min-width:1024px){
-  #s4 .grid{grid-template-rows:repeat(4,auto) 1fr;row-gap:var(--s4)}
-  #s4 .s4-head{grid-row:1;padding-bottom:var(--s3)}
-  #s4 .s4-viz{grid-row:1/6;align-self:start}
-  #s4 .s4-wk1{grid-row:2}#s4 .s4-wk2{grid-row:3}#s4 .s4-wk3{grid-row:4}
-  #s4 .s4-wk1,#s4 .s4-wk2,#s4 .s4-wk3{grid-column:1/6}
-  #s4 .s4-w b{width:var(--s7);height:var(--s6)}
+  #s4 .s4-head{grid-row:1;align-self:end}
+  #s4 .s4-weeks{grid-row:2;align-self:start}
+  #s4 .s4-viz{grid-row:1/3;align-self:center;--bw:370px}
 }
 
-/* motion: plays once on .go, holds the natural (finished) styles above */
-#s4 .armed:not(.go) .a{opacity:0}
-#s4 .go .s4-br i{animation:s4-lay .5s var(--ease) var(--t) both}
-#s4 .go .s4-rooms span{animation:s4-pop .5s var(--ease) var(--t) both}
-#s4 .go .s4-wins,#s4 .go .s4-roof,#s4 .go .s4-tag,#s4 .go .s4-ppl,#s4 .go .s4-d b{animation:s4-fade .4s var(--ease) var(--t) both}
-#s4 .go .s4-w b{animation:s4-fade .6s var(--ease) var(--t) both}
-#s4 .go .s4-leaf{animation:s4-open .7s var(--ease) var(--t) both}
-#s4 .go .s4-ev{animation:s4-pour 1s var(--ease) var(--t) both}
-#s4 .go .s4-pole{animation:s4-up .4s var(--ease) var(--t) both}
-#s4 .go .s4-flag{animation:s4-unfurl .5s var(--ease) var(--t) both}
-#s4 .paused *,#s4 .paused *::before{animation-play-state:paused!important}
-@keyframes s4-lay{from{opacity:0;transform:translateY(calc(var(--s6) * -1))}}
-@keyframes s4-pop{from{opacity:0;transform:translateY(var(--s2)) scale(.6)}}
-@keyframes s4-fade{from{opacity:0}}
-@keyframes s4-open{from{transform:none}}
-@keyframes s4-pour{from{opacity:0;transform:translate(calc(var(--x) * -1%),calc((var(--y) - 20) * 1%)) scale(.4)}}
-@keyframes s4-up{from{transform:scaleY(0)}}
-@keyframes s4-unfurl{from{transform:scaleX(0)}}
+/* motion: plays once, only if the visual was below the fold when the script ran (js adds .armed, then .go on view) */
+#s4 .armed .s4-b::before{animation:s4-lay .32s var(--ease) var(--t) both}
+#s4 .armed .s4-door s{animation:s4-grow .4s var(--ease) var(--t) both}
+#s4 .armed .s4-ev{animation:s4-pour .55s var(--ease) var(--t) both}
+#s4 .armed .s4-ppl g{animation:s4-grow .25s var(--ease) var(--t) both}
+#s4 .armed .s4-roof{animation:s4-span .3s var(--ease) var(--t) both}
+#s4 .armed .s4-pole{animation:s4-raise .2s var(--ease) var(--t) both}
+#s4 .armed .s4-pen{animation:s4-land .45s var(--ease) var(--t) both}
+/* .s4-viz.armed out-ranks the shorthands above, which would otherwise reset play-state to running */
+#s4 .s4-viz.armed:not(.go) *,#s4 .s4-viz.armed:not(.go) *::before{animation-play-state:paused}
+/* a brick drops onto its course: solid the moment it appears, no grey fade */
+@keyframes s4-lay{0%{opacity:0;transform:translateY(-20px)}1%{opacity:1}}
+@keyframes s4-grow{0%{opacity:0;transform:scale(.08)}1%{opacity:1}}
+/* each envelope starts inside the doorway (just left of this column, at door height) */
+@keyframes s4-pour{0%{opacity:0;transform:translate(calc(var(--x) * -1cqw - var(--bk) * .4 - var(--s2)),calc((40 - var(--y)) * 1cqh)) rotate(0) scale(.4)}10%{opacity:1}}
+@keyframes s4-span{0%{opacity:0;transform:scaleX(.08)}1%{opacity:1}}
+@keyframes s4-raise{0%{opacity:0;transform:scaleY(.08)}1%{opacity:1}}
+@keyframes s4-land{from{opacity:0;transform:translateY(calc(var(--s5) * -1)) scaleX(.2)}}
 
 /* ---- s5 ---- */
-#s5 .s5-urgent{color:var(--urgent);font-weight:700}
+#s5{border-top:0}
 
-/* comparison strip (static), right column, top-aligned */
-#s5 .s5-cmps{align-self:start;display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
-#s5 .s5-cmp{display:flex;flex-direction:column;gap:var(--s4);padding:var(--s5);border:1px solid var(--line);border-radius:var(--r-lg)}
-#s5 .s5-cmp svg{width:100%;max-width:240px;height:auto}
-#s5 .s5-cmp p{font-size:var(--fs-body);color:var(--body)}
-#s5 .s5-cmp b{font-family:var(--mono);color:var(--ink)}
-#s5 .s5-sil{fill:var(--quiet)}
+/* ten seats: the section's one urgency element, drawn straight on the white ground */
+#s5 .s5-n{font-family:var(--mono);font-weight:700;font-size:max(var(--fs-h3),calc(var(--fs-h2) * .75));line-height:1;letter-spacing:-.02em;color:var(--urgent)}
+#s5 .s5-room{position:relative;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:var(--s3);max-width:560px;margin-top:var(--s4)}
+#s5 .s5-seat{position:relative;display:flex;flex-direction:column;align-items:center}
+#s5 .s5-seat svg{width:100%;height:auto;fill:none;stroke:var(--quiet);stroke-width:2.5;stroke-linecap:round}
+#s5 .s5-you svg{fill:var(--accent);stroke:var(--accent)}
+#s5 .s5-halo{position:absolute;left:50%;top:0;width:150%;aspect-ratio:1;margin-left:-75%;margin-top:-25%;border-radius:50%;background:var(--accent-soft);z-index:-1}
+#s5 .s5-you{z-index:0}
+#s5 .s5-you b{margin-top:var(--s1);font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;line-height:1.2;color:var(--accent-ink)}
+
+/* the eight week rail (tablet: two halves stacked) */
+#s5 .s5-rail{display:grid;grid-template-columns:1fr;row-gap:var(--s6)}
+#s5 .s5-grp{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--s1);row-gap:var(--s3)}
+#s5 .s5-gh{grid-column:1/-1;font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;color:var(--ink);padding-bottom:var(--s2)}
+#s5 .s5-wk{display:grid;grid-template-rows:auto var(--s2) auto;align-content:start;row-gap:var(--s3);min-width:0}
+#s5 .s5-wk em{font-family:var(--mono);font-style:normal;font-weight:700;font-size:var(--fs-h3);line-height:1;color:var(--ink)}
+#s5 .s5-seg{display:block;border-radius:var(--s1);background:var(--line);overflow:hidden}
+#s5 .s5-seg b{display:block;width:100%;height:100%;background:var(--accent);transform-origin:left center}
+#s5 .s5-wk span{font-size:var(--fs-sm);line-height:1.4;color:var(--body);padding-right:var(--s3)}
+#s5 .s5-key{display:flex;align-items:center;gap:var(--s3)}
+#s5 .s5-key svg{width:var(--s8);height:auto;fill:none;stroke:var(--ink);stroke-width:5;stroke-linecap:round}
+#s5 .s5-key span{font-family:var(--mono);font-size:var(--fs-h3);font-weight:700;color:var(--ink)}
+
+/* comparison strip: static, no cards */
+#s5 .s5-cmps{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5)}
+#s5 .s5-cmp{display:flex;flex-direction:column;gap:var(--s3)}
+#s5 .s5-cmp svg{width:100%;max-width:200px;height:auto}
+#s5 .s5-cmp p{font-size:var(--fs-body);line-height:1.45;color:var(--body)}
+#s5 .s5-cmp b{font-weight:600;color:var(--ink)}
+#s5 .s5-sil{fill:var(--quiet-line)}
 #s5 .s5-lap{fill:var(--ink)}
 #s5 .s5-tbl{fill:var(--low)}
 
-/* the frame. Finished frame = plain CSS; JS only animates FROM a start state, so height never changes */
-#s5 .s5-viz{padding:var(--s5)}
-
-/* header band: ten seats from above, there for the whole scene */
-#s5 .s5-band{perspective:1000px}
-#s5 .s5-room{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:var(--s3);transform-origin:50% 100%}
-#s5 .s5-seat{position:relative;display:flex;flex-direction:column;align-items:center;gap:var(--s1)}
-#s5 .s5-seat i:first-child{display:block;width:100%;height:var(--s6);border:1px solid var(--low);border-radius:var(--r-sm);background:var(--elevated)}
-#s5 .s5-seat i:nth-child(2){display:block;width:46%;height:var(--s5);border:1px solid var(--low);border-radius:var(--s3);background:var(--elevated)}
-#s5 .s5-lit i:first-child,#s5 .s5-lit i:nth-child(2){border:2px solid var(--accent);background:var(--accent-soft)}
-#s5 .s5-card{position:absolute;left:50%;top:var(--s1);transform:translateX(-50%);font-family:var(--mono);font-size:var(--fs-label);font-weight:700;line-height:1.5;
-  color:var(--canvas);background:var(--ink);padding:0 var(--s2);border-radius:var(--s1)}
-
-/* the desk */
-#s5 .s5-desk{display:flex;flex-direction:column;gap:var(--s5);margin-top:var(--s5);padding-top:var(--s5);border-top:1px solid var(--line);transform-origin:50% 0}
-#s5 .s5-rail{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
-#s5 .s5-grp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--s3);row-gap:var(--s3);align-content:start;
-  padding:var(--s3);background:var(--canvas);border:1px solid var(--line);border-radius:var(--r)}
-#s5 .s5-gh{grid-column:1/-1;grid-row:1;font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
-#s5 .s5-wk{display:contents}
-#s5 .s5-seg{grid-row:2;display:block;height:var(--s2);border-radius:var(--s1);background:var(--line);overflow:hidden}
-#s5 .s5-seg b{display:block;width:100%;height:100%;background:var(--accent);transform-origin:left center}
-#s5 .s5-wl{grid-row:3;font-size:var(--fs-label);line-height:1.35;color:var(--body)}
-#s5 .s5-wl em{font-style:normal;font-family:var(--mono);font-weight:700;color:var(--ink)}
-#s5 .s5-wk:nth-of-type(1)>*{grid-column:1}
-#s5 .s5-wk:nth-of-type(2)>*{grid-column:2}
-#s5 .s5-wk:nth-of-type(3)>*{grid-column:3}
-#s5 .s5-wk:nth-of-type(4)>*{grid-column:4}
-
-/* your system: the tray each week drops its stations into */
-#s5 .s5-tray{grid-row:4;grid-column:1/-1;display:block;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm)}
-#s5 .s5-tks{grid-row:4;position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2);padding:var(--s3) var(--s1);min-width:0}
-#s5 .s5-tk{display:inline-flex;align-items:center;gap:var(--s1);max-width:100%;padding:var(--s1) var(--s2);font-size:var(--fs-label);line-height:1.3;
-  color:var(--ink);background:var(--canvas);border:1px solid var(--ink);border-radius:var(--r-sm)}
-#s5 .s5-tk::before{content:"";flex:none;width:var(--s2);height:var(--s2);border-radius:50%;background:var(--accent)}
-
-/* closing beat: the key */
-#s5 .s5-foot{display:flex;align-items:center}
-#s5 .s5-key{display:flex;align-items:center;gap:var(--s4)}
-#s5 .s5-key svg{width:var(--s10);height:auto;fill:none;stroke:var(--ink);stroke-width:4;stroke-linecap:round}
-#s5 .s5-tag{font-family:var(--mono);font-size:var(--fs-h3);font-weight:700;color:var(--ink);padding:var(--s2) var(--s4);background:var(--paper);border:1px solid var(--paper-edge);border-radius:var(--r-sm)}
-
-/* tablet: the two halves stack, weeks still side by side */
-@media (max-width:1023px){
-  #s5 .s5-rail{grid-template-columns:1fr}
+/* desktop: copy left, seats and the comparison right; below a full-width rule, ONE rail of eight weeks
+   ending in the key. The two lists dissolve into a single 9-column grid: captions / numbers / track / labels. */
+@media (min-width:1024px){
+  #s5 .s5-head{grid-row:1/3}
+  #s5 .s5-seats{grid-row:1}
+  #s5 .s5-cmps{grid-column:6/13;grid-row:2;align-self:end;margin-top:var(--s5)}
+  #s5 .s5-seats{padding-top:var(--s1)}
+  #s5 .s5-rail{grid-row:3;grid-template-columns:repeat(8,minmax(0,1fr)) auto;grid-template-rows:auto auto var(--s2) auto;column-gap:var(--s1);row-gap:var(--s3);
+    margin-top:var(--s5)}
+  #s5 .s5-grp,#s5 .s5-wk{display:contents}
+  #s5 .s5-gh{grid-row:1;grid-column:1/5;border-bottom:1px solid var(--quiet-line)}
+  #s5 .s5-grp+.s5-grp .s5-gh{grid-column:5/9}
+  #s5 .s5-wk em{grid-row:2;padding-top:var(--s2)}
+  #s5 .s5-seg{grid-row:3}
+  #s5 .s5-wk span{grid-row:4}
+  #s5 .s5-grp:first-child .s5-wk:nth-child(2)>*{grid-column:1}
+  #s5 .s5-grp:first-child .s5-wk:nth-child(3)>*{grid-column:2}
+  #s5 .s5-grp:first-child .s5-wk:nth-child(4)>*{grid-column:3}
+  #s5 .s5-grp:first-child .s5-wk:nth-child(5)>*{grid-column:4}
+  #s5 .s5-grp+.s5-grp .s5-wk:nth-child(2)>*{grid-column:5}
+  #s5 .s5-grp+.s5-grp .s5-wk:nth-child(3)>*{grid-column:6}
+  #s5 .s5-grp+.s5-grp .s5-wk:nth-child(4)>*{grid-column:7}
+  #s5 .s5-grp+.s5-grp .s5-wk:nth-child(5)>*{grid-column:8}
+  #s5 .s5-key{grid-column:9;grid-row:3;align-self:center;margin-left:var(--s4)}
 }
-/* phone: two rows of seats; the rail runs down the left, each week a row with its own tray */
+/* phone: seats stay one row of ten; the rail runs down the left edge, one segment per week */
 @media (max-width:767px){
-  #s5 .s5-cmps{grid-template-columns:1fr}
-  #s5 .s5-viz{padding:var(--s4)}
-  #s5 .s5-room{grid-template-columns:repeat(5,minmax(0,1fr));row-gap:var(--s4)}
-  #s5 .s5-grp{grid-template-columns:1fr;row-gap:var(--s4)}
-  #s5 .s5-gh{grid-row:auto}
-  #s5 .s5-tray{display:none}
-  #s5 .s5-wk{display:grid;grid-template-columns:var(--s2) minmax(0,1fr);column-gap:var(--s3);row-gap:var(--s2)}
-  #s5 .s5-grp .s5-wk>*{grid-column:2}
-  #s5 .s5-grp .s5-wk>.s5-seg{grid-column:1;grid-row:1/span 2;width:var(--s2);height:auto;align-self:stretch}
+  #s5 .s5-grid{row-gap:var(--s5)}
+  #s5 .s5-room{gap:var(--s2);margin-top:var(--s3)}
+  #s5 .s5-you b{font-size:var(--fs-label)}
+  #s5 .s5-rail{row-gap:var(--s4)}
+  #s5 .s5-grp{grid-template-columns:1fr;row-gap:0}
+  #s5 .s5-wk{grid-template-rows:none;grid-template-columns:var(--s5) var(--s2) minmax(0,1fr);column-gap:var(--s3);align-items:center}
+  #s5 .s5-wk em{font-size:var(--fs-body)}
+  #s5 .s5-seg{align-self:stretch;border-radius:var(--s1);border-bottom:var(--s1) solid var(--canvas);background-clip:padding-box}
   #s5 .s5-seg b{transform-origin:center top}
-  #s5 .s5-wl{grid-row:1;font-size:var(--fs-sm)}
-  #s5 .s5-tks{grid-row:2;flex-direction:row;flex-wrap:wrap;padding:var(--s2);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm)}
+  #s5 .s5-wk span{padding-block:var(--s1);padding-right:0}
+  #s5 .s5-key svg{width:var(--s7)}
+  #s5 .s5-key span{font-size:var(--fs-lg)}
+  #s5 .s5-cmps{gap:var(--s4);padding-top:var(--s4);border-top:1px solid var(--line)}
+  #s5 .s5-cmp svg{max-width:150px}
+  #s5 .s5-cmp p{font-size:var(--fs-sm)}
 }
+
+/* motion: armed only when below the fold at load; shapes move, text never does */
+#s5 .s5-room.armed .s5-seat svg{opacity:0;transform:translateY(-12px)}
+#s5 .s5-room.armed .s5-halo{transform:scale(.08)}
+#s5 .s5-room.go .s5-seat svg{animation:s5-land 500ms var(--ease) calc(var(--i) * 70ms) both}
+#s5 .s5-room.armed .s5-you svg{opacity:1}
+#s5 .s5-room.armed .s5-you b{transform:translateY(-12px)}
+#s5 .s5-room.go .s5-you svg,#s5 .s5-room.go .s5-you b{animation:s5-drop 500ms var(--ease) 490ms both}
+#s5 .s5-room.go .s5-halo{animation:s5-light 700ms var(--ease) 900ms both}
+#s5 .s5-rail.armed .s5-seg b{transform:scaleX(.08)}
+#s5 .s5-rail.armed .s5-key svg{opacity:0;transform:translateX(-32px)}
+#s5 .s5-rail.go .s5-seg b{animation:s5-fill 380ms var(--ease) calc(300ms + var(--i) * 320ms) both}
+#s5 .s5-rail.go .s5-key svg{animation:s5-slide 600ms var(--ease) 3000ms both}
+@media (max-width:767px){
+  #s5 .s5-rail.armed .s5-seg b{transform:scaleY(.08)}
+  #s5 .s5-rail.go .s5-seg b{animation-name:s5-fill-y}
+}
+@keyframes s5-land{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+@keyframes s5-drop{from{transform:translateY(-12px)}to{transform:none}}
+@keyframes s5-light{from{transform:scale(.08)}to{transform:none}}
+@keyframes s5-fill{from{transform:scaleX(.08)}to{transform:none}}
+@keyframes s5-fill-y{from{transform:scaleY(.08)}to{transform:none}}
+@keyframes s5-slide{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
 
 /* ---- s6 ---- */
-/* S6 Proof: three cutaways (Built / Made / Paid us trays), the sieve, a quiet client wall. Finished frame is the default; .arm is the pre-play state. */
-#s6 .cuts{display:grid;gap:var(--s5)}
-#s6 .cut{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s3);padding:var(--s3);align-items:start}
-#s6 .cut-n{grid-column:1/-1;padding:var(--s2) var(--s2) 0}
-#s6 .tray{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2);padding:var(--s4);background:var(--canvas);border:1px solid var(--line);border-radius:var(--r-sm);min-width:0}
-#s6 .v{font-size:var(--fs-body);color:var(--body)}
+/* S6 Proof: a ledger on the white ground (rules and value columns after 21st.dev "Paired Bars"; the bar itself after
+   "Partition Bar"). One row per client: who + what we built on the left; on the right ONE bar the full width of the
+   column: the whole bar is what they made (ink), the teal piece at its left is what they paid us, out of it.
+   Paid us numeral sits over the teal end, Made numeral over the ink end. Then the sieve (pure CSS dots, so it reads with
+   no JS), then the wall. The finished frame is the default; JS only arms the bars (scaleX from .08) and the sieve's
+   dot colours and flying tokens. */
+@property --dot{syntax:'<color>';inherits:true;initial-value:#121212}
+#s6{border-top:0;background:var(--canvas)}
 
-/* the S3 station that did the work, awake */
-#s6 .stns{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s2)}
-#s6 .stn{display:flex;flex-direction:column;align-items:center;width:var(--s9)}
-#s6 .stn svg{width:100%;height:auto;overflow:visible;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-#s6 .stn span{font-size:var(--fs-sm);font-weight:600;line-height:1.25;text-align:center;color:var(--accent-ink);transition:color 600ms var(--ease) 200ms}
-#s6 .stn .pl-l{fill:var(--elevated);stroke:var(--line)}
-#s6 .stn .pl-r{fill:var(--line);stroke:var(--line)}
-#s6 .stn .pl-t{fill:var(--accent-soft);stroke:var(--accent)}
-#s6 .stn .k,#s6 .stn .f,#s6 .stn .w{stroke:var(--accent-ink)}
-#s6 .stn .k{fill:none}
-#s6 .stn .f{fill:var(--accent-soft)}
+/* shared label: 14px mono caps, body ink (11:1 on white) */
+#s6 .k{font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--body);line-height:1.4}
+
+/* ledger: ink rule top and bottom, hairlines between rows, no cards */
+#s6 .ledger{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+#s6 .row{display:grid;gap:var(--s5);padding-block:var(--s5)}
+#s6 .row+.row{border-top:1px solid var(--line)}
+
+#s6 .who,#s6 .txt{min-width:0}
+#s6 .nm{font-size:var(--fs-h3);line-height:1.25;margin-bottom:var(--s2)}
+#s6 .v{font-size:var(--fs-body);color:var(--body);line-height:1.45}
+
+/* the station that did the work: a small ink icon, not the hero */
+#s6 .stns{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s3)}
+#s6 .stn{display:inline-flex;align-items:center;gap:var(--s2);font-size:var(--fs-sm);font-weight:600;color:var(--body)}
+#s6 .stn svg{width:32px;height:32px;flex:none;fill:none;stroke:var(--body);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 #s6 .stn .w{fill:var(--canvas)}
-#s6 .stn .s{fill:var(--accent);stroke:none}
-#s6 .stn .t,#s6 .stn .ln{stroke:var(--accent);fill:none}
-#s6 .stn .ln{stroke-width:3}
-#s6 .stn *{transition:fill 600ms var(--ease) 200ms,stroke 600ms var(--ease) 200ms}
+#s6 .stn .f{fill:var(--line)}
+#s6 .stn .s{fill:var(--body);stroke:none}
 
-/* money: two labelled rows per case on that case's own scale. Made fills the width; Paid us is drawn
-   under it at its real share of Made (never below 6px, so a 1.7% fee still shows as a sliver). */
-#s6 .t-money{align-items:stretch}
-#s6 .bar{--d:8px;position:relative;height:calc(var(--s7) - var(--s2));margin:var(--s2) var(--d) var(--s2) 0}
-#s6 .slab{position:absolute;left:0;bottom:0;height:calc(100% - var(--d));width:max(6px,calc(100% * var(--w)));background:var(--ink);transform-origin:0 50%;
-  transition:transform 1200ms var(--ease) calc(300ms + var(--i) * 600ms)}
-#s6 .slab::before{content:"";position:absolute;left:0;bottom:100%;width:100%;height:var(--d);background:var(--quiet);transform:skewX(-45deg);transform-origin:0 100%}
-#s6 .slab::after{content:"";position:absolute;left:100%;top:0;width:var(--d);height:100%;background:var(--body);transform:skewY(-45deg);transform-origin:0 0}
-#s6 .bar:has(.paid){height:var(--s5)}
-#s6 .slab.paid{--d:5px;background:var(--accent)}
-#s6 .slab.paid::before{background:var(--accent-ink)}
-#s6 .slab.paid::after{background:var(--accent-ink)}
-#s6 .amt{font-family:var(--mono);font-weight:700;font-size:var(--fs-body);line-height:var(--lh-head);letter-spacing:-.01em;transition:opacity 600ms var(--ease) calc(700ms + var(--i) * 600ms)}
-#s6 .pl{margin-top:var(--s3)}
-#s6 .pa{--i:1;color:var(--body)}
-#s6 .cut:nth-child(2) .pa{--i:2}
-
-/* pre-play */
-#s6 .cut.arm *{transition:none}
-#s6 .cut.arm .slab{transform:scaleX(0)}
-#s6 .cut.arm .amt{opacity:0}
-#s6 .cut.arm .stn span{color:var(--quiet)}
-#s6 .cut.arm .stn .pl-t{fill:var(--canvas);stroke:var(--line)}
-#s6 .cut.arm .stn .k,#s6 .cut.arm .stn .f,#s6 .cut.arm .stn .w,#s6 .cut.arm .stn .t,#s6 .cut.arm .stn .ln{stroke:var(--low)}
-#s6 .cut.arm .stn .f{fill:var(--elevated)}
-#s6 .cut.arm .stn .s{fill:var(--low)}
-
-/* sieve */
-#s6 .sieve{padding:var(--s5)}
-#s6 .sv{width:100%;margin-top:var(--s4);overflow:visible}
-#s6 .sv text{font-family:var(--mono);font-size:var(--fs-sm);fill:var(--ink)}
-#s6 .sv [data-b]{font-weight:700;font-size:var(--fs-lg)}
-#s6 .sv [data-b="acc"]{fill:var(--accent-ink)}
-#s6 .sv text{transition:opacity 600ms var(--ease)}
-#s6 .sv .mesh{stroke:var(--quiet);stroke-width:2;stroke-dasharray:2 5}
-#s6 .sv .g{fill:var(--ink);transition:fill 900ms var(--ease)}
-#s6 .sv .g.off{fill:var(--low)}
-#s6 .sv .m{fill:var(--ink)}
-#s6 .sv .w{fill:var(--accent)}
-
-/* client wall: names only, plain Inter, ink so they read */
-#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s3) var(--s6);padding-top:var(--s5);border-top:1px solid var(--line);color:var(--ink);font-size:var(--fs-body)}
-#s6 .wall-l{flex-basis:100%}
-@media (min-width:768px){#s6 .wall-l{flex-basis:auto}}
-
-/* Sami's testimonial: 9:16, click to play, beside Scale Your Results on desktop, under it on mobile */
-#s6 .vid{width:min(100%,calc(var(--s10) * 2 + var(--s5) + var(--s2)))}
-#s6 .vid-box{aspect-ratio:9/16;border-radius:var(--r);overflow:hidden;background:var(--ink);border:1px solid var(--line)}
+/* Sami's video lives inside the Scale Your Results row, as the right column of its name block, caption under it */
+#s6 .has-vid .who{display:grid;grid-template-columns:minmax(0,1fr) 104px;column-gap:var(--s4);row-gap:var(--s2)}
+#s6 .has-vid .txt{grid-column:1;grid-row:1 / span 2}
+#s6 .vid{display:contents}
+#s6 .vid-box{position:relative;grid-column:2;grid-row:1;aspect-ratio:9/16;border-radius:var(--r-sm);overflow:hidden;background:var(--ink)}
 #s6 .vid-box video{width:100%;height:100%;object-fit:cover}
-#s6 .vid .note{margin-top:var(--s2)}
+/* play glyph, JS only (.tap): the native controls wait for the first tap, so this is the one play icon; kept off his face */
+#s6 .vid-box.tap::after{content:"";position:absolute;left:var(--s2);bottom:var(--s2);width:40px;height:40px;border-radius:50%;pointer-events:none;
+  background:rgba(255,255,255,.92) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6.5v11l9-5.5z' fill='%23121212'/%3E%3C/svg%3E") center/20px no-repeat}
+#s6 .vid-box.on::after{display:none}
+#s6 .vid-box.tap{cursor:pointer}
+#s6 .cap{grid-column:2;grid-row:2;align-self:start;font-size:var(--fs-sm);line-height:1.35;color:var(--quiet)}
+
+/* money: Paid us (left) and Made (right) over one bar; the caption says what Made counts */
+#s6 .money{display:grid;row-gap:var(--s2);align-content:center;min-width:0}
+#s6 .tops{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s4)}
+#s6 .md{text-align:right}
+#s6 .n{font-family:var(--mono);font-weight:700;font-size:max(var(--s6),var(--fs-num));line-height:1.25;margin-top:var(--s2);letter-spacing:-.03em;white-space:nowrap;color:var(--ink)}
+#s6 .bar{position:relative;display:block;height:20px;background:var(--ink);transform-origin:0 50%}
+/* the fee, out of what they made; a share too thin to see (Medico, 1.7%) still draws 8px, its numeral is right above it */
+#s6 .bar::after{content:"";position:absolute;left:0;top:0;bottom:0;width:max(8px,calc(100% * var(--w)));background:var(--accent);border-right:2px solid var(--canvas);transform-origin:0 50%}
+#s6 .c{font-size:var(--fs-sm);color:var(--body);line-height:1.4;text-align:right}
+
+/* motion: an armed bar starts at .08 and fills (what they made), then the teal share grows in from the left */
+#s6 .row.arm .bar,#s6 .row.arm .bar::after{transform:scaleX(.08)}
+#s6 .row.go .bar{animation:s6-fill 1100ms var(--ease) both}
+#s6 .row.go .bar::after{animation:s6-fill 700ms var(--ease) 900ms both}
+@keyframes s6-fill{from{transform:scaleX(.08)}to{transform:none}}
+
+/* sieve: 300 grey dots, 50 ink, 10 teal; CSS dot grids, finished with no JS. --t (tile) and --c (columns) are read by s6.js */
+#s6 .sg{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:var(--s5);row-gap:var(--s5);margin-top:var(--s4)}
+#s6 .s300{grid-row:span 2}
+#s6 .s50,#s6 .s10{padding-left:var(--s5);border-left:1px solid var(--line)}
+#s6 .dots{display:block;--dot:var(--ink);--t:9px;--r:2.7px;--c:10;width:calc(var(--t) * var(--c));background:radial-gradient(circle,var(--dot) var(--r),transparent calc(var(--r) + .6px)) 0 0/var(--t) var(--t);transition:--dot 400ms var(--ease)}
+#s6 .s300 .dots{--dot:var(--quiet-line);--c:20;height:calc(var(--t) * 15)}
+#s6 .s50 .dots{height:calc(var(--t) * 5)}
+#s6 .s10 .dots{--dot:var(--accent);--t:12px;--r:4px;--c:5;height:calc(var(--t) * 2)}
+#s6 .sl{position:relative;z-index:3;margin-top:var(--s2);font-family:var(--mono);font-size:var(--fs-sm);line-height:1.35;color:var(--ink)}
+#s6 .sl b{display:block;font-size:max(var(--s6),var(--fs-num));line-height:1.1}
+#s6 .sl .acc{color:var(--accent-ink)}
+/* armed: the 300 are all ink and the 50 / 10 slots wait in light grey until the flying dots land */
+#s6 .sieve.a300 .s300 .dots{--dot:var(--ink)}
+#s6 .sieve.a50 .s50 .dots,#s6 .sieve.a10 .s10 .dots{--dot:var(--low);transition:none}
+#s6 .fly{position:absolute;z-index:2;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;transition:opacity 150ms var(--ease)}
+#s6 .fly.out{opacity:0}
+#s6 .fly .m{fill:var(--ink)}
+#s6 .fly .w{fill:var(--accent)}
+
+/* client wall: names only, plain Inter, quiet */
+#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2) var(--s5);padding-top:var(--s5);border-top:1px solid var(--line);color:var(--quiet);font-size:var(--fs-sm)}
+#s6 .wall-l{flex-basis:100%}
 
 @media (min-width:768px){
-  #s6 .cut{grid-template-columns:3fr 7fr;padding:var(--s4)}
-  #s6 .amt{font-size:var(--fs-lg)}
+  #s6 .row{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:var(--s7);padding-block:var(--s6)}
+  #s6 .has-vid .who{grid-template-columns:minmax(0,1fr) 96px}
+  #s6 .dots{--t:12px;--r:3.6px}
+  #s6 .s10 .dots{--t:16px;--r:5.3px}
+  #s6 .wall{font-size:var(--fs-body)}
+  #s6 .wall-l{flex-basis:auto}
 }
 @media (min-width:1024px){
-  #s6 .cuts{grid-template-columns:minmax(0,1fr) auto;align-items:start}
-  #s6 .cuts>.cut:first-child{grid-column:1/-1}
-  #s6 .vid{grid-column:2;grid-row:2/span 2;width:calc(var(--s10) * 2 + var(--s5) + var(--s2))}
+  #s6 .has-vid .who{grid-template-columns:minmax(0,1fr) 124px;column-gap:var(--s5)}
+  #s6 .bar{height:24px}
+  /* sieve goes three-across, 300 as 30 x 10, everything sitting on one baseline */
+  #s6 .sg{grid-template-columns:repeat(3,auto);justify-content:space-between;align-items:end;column-gap:var(--s6)}
+  #s6 .s300{grid-row:auto}
+  #s6 .s50,#s6 .s10{padding-left:var(--s6)}
+  #s6 .dots{--t:16px;--r:4.5px}
+  #s6 .s300 .dots{--c:30;height:calc(var(--t) * 10)}
+  #s6 .s10 .dots{--t:22px;--r:6.6px}
+}
+@media (min-width:1200px){
+  #s6 .row{grid-template-columns:minmax(0,9fr) minmax(0,15fr)}
+  #s6 .dots{--t:20px;--r:5.6px}
+  #s6 .s10 .dots{--t:28px;--r:8.4px}
 }
 
 /* ---- s7 ---- */
@@ -658,43 +773,67 @@
 @keyframes s7-land{from{transform:translate(-96px,-56px) rotate(-30deg)}to{transform:rotate(var(--r))}}
 
 /* ---- s8 ---- */
-#s8{--u:1px}
-@media (min-width:1024px){#s8{--u:1.6px}}
-#s8 .s8-viz{padding:var(--s5)}
-#s8 .s8-scene{position:relative}
-#s8 .s8-bases{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--s5);row-gap:var(--s6)}
-/* stage = tallest object (60u) + the block (40u) + a little air, so the frame has no dead headroom */
-#s8 .s8-stage{height:calc(108 * var(--u));display:flex;align-items:flex-end;justify-content:center;border-bottom:1px solid var(--line)}
-#s8 .s8-cap{padding-top:var(--s3);font-size:var(--fs-sm);line-height:1.4;color:var(--body);text-align:center;text-wrap:balance}
-#s8 .s8-yes .s8-cap{font-family:var(--mono);font-weight:700;color:var(--accent-ink)}
+/* S8 not for: white ground. Three starting points, each a base the skill-file block bounces off, struck out as it does;
+   under them a solid ink base, "paying clients", that the block lands on and holds.
+   Default styles = the FINISHED frame (block seated, rows struck). .s8-arm (JS, only when below the fold) holds frame 0. */
+#s8{border-top:0;--icw:88px;--ich:61px;--bkw:56px;--bkh:40px}
+#s8 .s8-scene{position:relative;display:grid;gap:var(--s5)}
 
-#s8 .s8-blk{position:absolute;left:0;top:0;z-index:2;width:calc(54 * var(--u));height:calc(40 * var(--u));display:flex;flex-direction:column;justify-content:center;gap:calc(4 * var(--u));padding:0 calc(10 * var(--u));background:var(--canvas);border:1px solid var(--accent);border-radius:var(--s1);will-change:transform}
-#s8 .s8-blk i{height:calc(4 * var(--u));border-radius:var(--s1);background:var(--accent-soft)}
+/* not for: a ruled list; each base drawn big enough for the block to land on */
+#s8 .s8-nots{list-style:none}
+#s8 .s8-nots li{display:grid;grid-template-columns:var(--icw) minmax(0,1fr);align-items:end;column-gap:var(--s4);padding-block:var(--s4);border-bottom:1px solid var(--line)}
+#s8 .s8-ic{width:var(--icw);height:var(--ich);overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#s8 .s8-ln{stroke:var(--body);stroke-width:2.5}
+#s8 .s8-thin{stroke:var(--quiet-line);stroke-width:2.5}
+#s8 .s8-soil{fill:var(--elevated);stroke:var(--body);stroke-width:2.5}
+#s8 .s8-crack{stroke:var(--body);stroke-width:2}
+/* struck per line, so a wrapped row is crossed out line by line */
+#s8 .s8-t{justify-self:start;padding-bottom:var(--s1);font-size:var(--fs-lg);font-weight:500;line-height:1.3;color:var(--body);
+  text-decoration:line-through 2px var(--ink);text-decoration-skip-ink:none}
+
+/* for: a solid base, the block seated on its top edge above the column of bases it bounced off */
+#s8 .s8-yes{display:flex;flex-direction:column;align-items:flex-start}
+#s8 .s8-blk{position:relative;z-index:2;margin-left:calc((var(--icw) - var(--bkw)) / 2);width:var(--bkw);height:var(--bkh);display:flex;flex-direction:column;justify-content:center;gap:var(--s1);padding:0 var(--s2);
+  background:var(--canvas);border:2px solid var(--accent);border-radius:var(--s1);will-change:transform}
+#s8 .s8-blk i{height:4px;border-radius:2px;background:var(--accent-soft)}
 #s8 .s8-blk i:first-child{width:60%;background:var(--accent)}
 #s8 .s8-blk i:last-child{width:75%}
-#s8 .s8-blk::after{content:'';position:absolute;inset:-5px;border-radius:var(--r-sm);border:1px solid var(--accent);opacity:0;transition:opacity var(--d-ui) var(--ease)}
+#s8 .s8-slab{position:relative;display:flex;align-items:center;padding:var(--s5);background:var(--ink);border-radius:var(--r-sm)}
+#s8 .s8-slab::before{content:'';position:absolute;left:0;right:0;top:0;height:6px;border-radius:var(--r-sm) var(--r-sm) 0 0;background:var(--accent);transform-origin:0 50%}
+#s8 .s8-st{font-family:var(--mono);font-weight:700;font-size:var(--fs-h1);line-height:1.1;letter-spacing:-.02em;color:var(--canvas)}
+@media (max-width:767px){#s8 .s8-nots{padding-top:var(--s5)}}
 
-#s8 .s8-ground{width:calc(120 * var(--u));height:calc(22 * var(--u));overflow:visible}
-#s8 .s8-soil{fill:var(--elevated);stroke:var(--quiet);stroke-width:1;stroke-linejoin:round}
-#s8 .s8-crack{fill:none;stroke:var(--quiet);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
-#s8 .s8-lap{display:flex;flex-direction:column;align-items:center}
-#s8 .s8-scr{width:calc(104 * var(--u));height:calc(56 * var(--u));display:flex;align-items:center;justify-content:center;border:1px solid var(--quiet);border-bottom:0;border-radius:var(--s1) var(--s1) 0 0;background:var(--canvas)}
-#s8 .s8-tag{font-size:var(--fs-label);line-height:1;color:var(--body);padding:var(--s1) var(--s2);border:1px solid var(--line);border-radius:var(--s1);white-space:nowrap}
-#s8 .s8-kb{width:calc(124 * var(--u));height:calc(4 * var(--u));border-radius:0 0 var(--s1) var(--s1);background:var(--quiet)}
-#s8 .s8-sign{display:flex;flex-direction:column;align-items:center}
-#s8 .s8-board{min-width:calc(104 * var(--u));text-align:center;padding:var(--s2) var(--s3);font-size:var(--fs-label);line-height:1.2;color:var(--body);white-space:nowrap;background:var(--canvas);border:1px solid var(--quiet);border-radius:var(--s1);transform:rotate(-4deg)}
-#s8 .s8-post{width:calc(4 * var(--u));height:calc(30 * var(--u));background:var(--quiet)}
-#s8 .s8-slab{position:relative;width:calc(112 * var(--u));height:calc(40 * var(--u));background:var(--elevated);border:1px solid var(--ink);border-bottom:0;border-radius:var(--s1) var(--s1) 0 0}
-#s8 .s8-slab::before{content:'';position:absolute;left:-1px;right:-1px;top:-1px;height:4px;border-radius:var(--s1) var(--s1) 0 0;background:var(--accent);opacity:0;transition:opacity var(--d-ui) var(--ease)}
-#s8 .s8-on .s8-slab::before,#s8 .s8-on .s8-blk::after{opacity:1}
-
+@media (min-width:768px){
+  #s8{--icw:120px;--ich:84px;--bkw:72px;--bkh:50px}
+  #s8 .s8-nots li{column-gap:var(--s6)}
+  #s8 .s8-t{font-size:var(--fs-callout)}
+  #s8 .s8-slab{padding:var(--s6) var(--s7)}
+  #s8 .s8-blk{gap:var(--s2);padding:0 var(--s3)}
+  #s8 .s8-blk i{height:5px}
+}
 @media (min-width:1024px){
-  #s8 .s8-tag,#s8 .s8-board{font-size:var(--fs-sm)}
+  /* four across: three bases with their struck labels under them, then the ink base the block locks onto */
+  #s8{--bkw:80px;--bkh:56px}
+  #s8 .s8-scene{grid-template-columns:1fr 1fr 1fr 1.6fr;column-gap:var(--s7);align-items:end;padding-top:var(--s7)}
+  #s8 .s8-nots{display:contents}
+  #s8 .s8-nots li{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s4);padding:0;border:0}
+  #s8 .s8-ic{width:100%;max-width:200px;height:auto;aspect-ratio:132/92}
+  #s8 .s8-t{font-size:var(--fs-lg);line-height:1.3;min-height:calc(2 * 1.3em);text-wrap:balance}
+  #s8 .s8-yes{grid-column:4}
+  #s8 .s8-blk{margin-left:var(--s6)}
+  #s8 .s8-slab{align-self:stretch;min-height:calc(var(--s10) + var(--s4));align-items:flex-end;padding:var(--s5) var(--s6)}
+  #s8 .s8-st{font-size:var(--fs-num)}
 }
-@media (max-width:639px){
-  #s8 .s8-viz{padding:var(--s4)}
-  #s8 .s8-bases{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s4)}
-}
+@media (min-width:1280px){#s8 .s8-t{font-size:var(--fs-callout)}}
+
+/* motion: the block (JS, transform only) lands on each base and bounces off; each row's strike line draws as it does;
+   the block drops onto the ink base and the base's teal edge fills. Text never moves or fades. */
+#s8 .s8-arm *,#s8 .s8-arm *::before{animation-play-state:paused!important}
+#s8 .s8-arm.s8-go *,#s8 .s8-arm.s8-go *::before{animation-play-state:running!important}
+#s8 .s8-arm .s8-t{animation:s8-stamp .2s var(--ease) calc(.85s + var(--i) * .95s) both}
+#s8 .s8-arm .s8-slab::before{animation:s8-fill .5s var(--ease) 3.3s both}
+@keyframes s8-stamp{from{text-decoration-color:transparent}to{text-decoration-color:var(--ink)}}
+@keyframes s8-fill{from{transform:scaleX(.08)}to{transform:none}}
 
 /* ---- s9 ---- */
 #s9 .faq{border-top:1px solid var(--line)}
@@ -712,16 +851,34 @@
 @keyframes s9-open{from{opacity:0;transform:translateY(calc(-1 * var(--s2)))}to{opacity:1;transform:none}}
 
 /* ---- s10 ---- */
-/* static: S2's final frame (the map half out of its sleeve) returns, with one labelled pin */
-/* room above the sleeve for the pin label, which sits clear of the map's own pins */
-#s10 .sheet{position:relative;margin-top:var(--s7);width:calc(var(--s10) * 2 + var(--s6))}
-@media (min-width:768px){#s10 .sheet{margin-inline:auto}}
-@media (min-width:1024px){#s10 .sheet{width:calc(var(--s10) * 2 + var(--s8))}}
-#s10 .sheet img{width:100%;height:auto}
-/* tip of the sleeve's own teal pin: 84.25/330, 35.5/420 */
-#s10 .pin{position:absolute;left:25.53%;top:8.45%}
-#s10 .pin svg{position:absolute;left:0;bottom:0;width:var(--s6);max-width:none;height:auto;transform:translateX(-50%);filter:drop-shadow(0 var(--s1) var(--s1) rgba(18,18,18,.18))}
-#s10 .pin path{fill:var(--accent);stroke:var(--accent-ink);stroke-width:1.5}
-#s10 .pin circle{fill:var(--canvas)}
-#s10 .pin b{position:absolute;left:var(--s5);top:calc(-1 * var(--s7));padding:var(--s1) var(--s2);border-radius:var(--r-sm);background:var(--canvas);border:1px solid var(--line);
-  font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1.3;color:var(--ink);white-space:nowrap}
+/* S10: a deliberate callback to S2. The same map, static, folded to one corner: tilted, dog-eared, cropped to
+   Upstream, one teal pin labelled "your business", the route running off the sheet, the "yours" stamp. */
+#s10{background:var(--paper);border-top:0}
+#s10 .grid{align-items:center}
+#s10 .s10-art{max-width:440px;width:100%}
+#s10 .s10-art svg{width:100%;height:auto;overflow:visible}
+@media (min-width:1024px){
+  #s10 .s10-cta{grid-column:1/6}
+  #s10 .s10-art{grid-column:6/13;max-width:none}
+}
+#s10 .s10-tilt{transform:rotate(-3deg);transform-origin:200px 160px}
+#s10 .s10-sheet{fill:var(--canvas);stroke:var(--paper-edge);stroke-width:1.5;filter:drop-shadow(0 8px 16px rgba(42,42,42,.10))}
+#s10 .s10-gridl{fill:none;stroke:var(--paper-edge);stroke-width:1;opacity:.7}
+#s10 .s10-crease{fill:none;stroke:var(--paper-edge);stroke-width:2}
+#s10 .s10-river{fill:none;stroke:var(--line);stroke-width:16}
+#s10 .s10-route{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-dasharray:2 8}
+#s10 .s10-flap{fill:var(--paper-edge);stroke:var(--paper-edge);stroke-width:1.5;stroke-linejoin:round}
+#s10 .s10-flapedge{fill:none;stroke:var(--quiet-line);stroke-width:1;filter:drop-shadow(-2px 2px 2px rgba(42,42,42,.18))}
+#s10 .s10-leak{filter:drop-shadow(0 2px 2px rgba(18,18,18,.15))}
+#s10 .s10-leak path{fill:var(--canvas);stroke:var(--ink);stroke-width:2}
+#s10 .s10-leak circle{fill:none;stroke:var(--ink);stroke-width:2}
+#s10 .s10-pole{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+#s10 .s10-cloth{fill:var(--ink)}
+#s10 .s10-reg{font-family:var(--mono);font-weight:700;font-size:16px;letter-spacing:.08em;fill:var(--ink)}
+#s10 .s10-pin{filter:drop-shadow(0 3px 3px rgba(18,18,18,.2))}
+#s10 .s10-pin path{fill:var(--accent);stroke:var(--accent-ink);stroke-width:1.5}
+#s10 .s10-pin circle{fill:var(--canvas)}
+#s10 .s10-lab rect{fill:var(--canvas);stroke:var(--ink);stroke-width:1.5}
+#s10 .s10-lab text{font-family:var(--mono);font-weight:700;font-size:18px;fill:var(--ink)}
+#s10 .s10-stamp rect{fill:var(--canvas);stroke:var(--ink);stroke-width:2.5}
+#s10 .s10-stamp text{font-family:var(--mono);font-weight:700;font-size:18px;letter-spacing:.14em;fill:var(--ink)}

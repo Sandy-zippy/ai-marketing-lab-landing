@@ -293,23 +293,42 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 <div data-reveal="soft">
 <section id="s1" class="sec" aria-labelledby="s1-h">
   <div class="wrap"><div class="grid">
-    <div class="c-1-5 stack">
+    <div class="s1-tx stack">
       <h2 id="s1-h">Want me to map yours?</h2>
       <p class="lede">45 minutes with me. ₹999, credited if you join.</p>
       <a class="btn js-pay js-nudge" href="#">Map my business</a>
     </div>
-    <div class="c-6-12">
-      <div class="viz s1-viz" role="img" aria-label="A call ticket with Sandy's photo: 45 min with Sandy. Its ₹999 stub tears off and slides into a wallet marked credited if you join.">
-        <div class="s1-sc">
-          <div class="s1-tk">
-            <img class="s1-ph" src="assets/s1-sandy.jpg" alt="" width="320" height="420" loading="lazy" />
-            <div class="s1-bd"><b>45 min</b><span>with Sandy</span></div>
+    <div class="s1-vc">
+      <div class="s1-tk" role="img" aria-label="Call ticket with Sandy's photo: 45 min with Sandy. ₹999, credited if you join.">
+        <div class="s1-main">
+          <img loading="lazy" class="s1-ph" src="assets/s1-sandy-print.jpg" alt="" width="600" height="728" />
+          <div class="s1-bd">
+            <!-- ponytail: the ticket body IS a map (contours + a dashed route from Sandy past s2's leak pins to its flag): the s2 map's idea, so the ask reads "you leave with a map" with no new words.
+                 Body is portrait at every width; keep pins and flag inside x 60-245, y 30-190, and nothing behind the label block (y over 195) so slice never crops them. -->
+            <svg class="s1-map" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <g fill="none" stroke="var(--ink)" stroke-opacity=".2" stroke-width="1.1">
+                <path d="M112 74C120 30 176 8 226 18S306 44 304 92 262 158 214 156 104 118 112 74Z"/>
+                <path d="M146 82C150 52 186 38 220 44S270 64 268 94 240 134 210 130 142 112 146 82Z"/>
+                <path d="M178 88C180 70 200 62 218 66S242 80 240 96 224 116 206 112 176 104 178 88Z"/>
+                <path d="M-20 22C6 4 50 -4 78 12S96 52 70 66 20 74 -4 64-40 40-20 22Z"/>
+                <path d="M-8 30C10 20 36 16 52 26S60 48 44 54 6 58-4 50-24 40-8 30Z"/>
+                <path d="M-10 112C30 100 64 120 92 112S130 92 150 104"/>
+              </g>
+              <!-- the route: a start dot, past two of s2's leak pins, to s2's flag -->
+              <circle cx="62" cy="190" r="4.5" fill="var(--ink)"/>
+              <path d="M62 190C76 192 80 184 90 178S132 128 158 131S192 110 206 96" fill="none" stroke="var(--ink)" stroke-width="2.25" stroke-dasharray="6 7" stroke-linecap="round"/>
+              <g transform="translate(75.7 137.7) scale(1.3)"><path d="M11 31C11 31 2 18 2 11a9 9 0 0 1 18 0c0 7-9 20-9 20z" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/><circle cx="11" cy="11" r="3.5" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M23 19c0 0-3.5 4.5-3.5 7a3.5 3.5 0 0 0 7 0c0-2.5-3.5-7-3.5-7z" fill="var(--ink)"/></g>
+              <g transform="translate(143.7 90.7) scale(1.3)"><path d="M11 31C11 31 2 18 2 11a9 9 0 0 1 18 0c0 7-9 20-9 20z" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/><circle cx="11" cy="11" r="3.5" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M23 19c0 0-3.5 4.5-3.5 7a3.5 3.5 0 0 0 7 0c0-2.5-3.5-7-3.5-7z" fill="var(--ink)"/></g>
+              <!-- s2's "what to build first" flag, same glyph: the route ends where the map says to start -->
+              <g transform="translate(200.4 47) scale(1.4)"><path d="M4 35V2" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/><path d="M5 3h19l-5 6 5 6H5z" fill="var(--ink)"/></g>
+            </svg>
+            <b class="s1-min"><svg class="s1-clk" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12 6.5V12l3.5 2.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>45 min</b>
+            <span class="s1-with">with Sandy</span>
           </div>
-          <div class="s1-wal">
-            <div class="s1-back"></div>
-            <div class="s1-strip"><b>₹999</b></div>
-            <div class="s1-front"><span>credited if you join</span></div>
-          </div>
+        </div>
+        <div class="s1-stub">
+          <b class="s1-price"><svg class="s1-rs" viewBox="0 0 22 32" aria-hidden="true"><path d="M3 4.5H19M3 11.5H19M3 4.5H8.5a6.5 6.5 0 0 1 0 13H3L15 30" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linejoin="round"/></svg>999</b>
+          <span class="s1-cr">credited if you join</span>
         </div>
       </div>
     </div>
@@ -320,57 +339,96 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 <div data-reveal="pitch">
 <section id="s2" class="sec" aria-labelledby="s2-h">
   <div class="wrap"><div class="grid">
-    <div class="c-1-5 s2-hd"><h2 id="s2-h">Find where your clients leak out</h2></div>
-    <div class="c-6-12 s2-vc">
-      <div class="viz s2-viz" role="img" aria-label="A paper map of your business unfolds into terrain with two regions, Upstream and Downstream. A teal pin drops where clients come from, hollow ink pins with drips drop where they leak, a flag plants on what to build first, then the map folds into a sleeve stamped yours, pulled half out so the pins still show.">
-        <div class="s2-stage">
-          <div class="s2-mw">
-            <div class="s2-map">
-              <div class="s2-p s2-p2"><i class="s2-f"></i><i class="s2-b"></i>
-                <div class="s2-p s2-p1"><i class="s2-f"></i><i class="s2-b s2-cv s2-cvl"><i class="s2-pinned"></i><span>your</span></i></div>
-                <div class="s2-p s2-p3"><i class="s2-f"></i><i class="s2-b"></i>
-                  <div class="s2-p s2-p4"><i class="s2-f"></i><i class="s2-b s2-cv s2-cvr"><i class="s2-pinned"></i><span>business</span></i></div>
-                </div>
-              </div>
-              <div class="s2-ter">
-                <div class="s2-hill s2-ha"><i style="--z:1"></i><i style="--z:2"></i><i style="--z:3"></i></div>
-                <div class="s2-hill s2-hb"><i style="--z:1"></i><i style="--z:2"></i><i style="--z:3"></i></div>
-                <div class="s2-sign s2-su">Upstream</div>
-                <div class="s2-sign s2-sd">Downstream</div>
-                <div class="s2-pin s2-pt"><svg viewBox="0 0 30 32" aria-hidden="true"><path d="M11 31C11 31 2 18 2 11a9 9 0 0 1 18 0c0 7-9 20-9 20z" fill="var(--accent)" stroke="var(--accent-ink)" stroke-width="1.5"/><circle cx="11" cy="11" r="3.5" fill="var(--canvas)"/></svg></div>
-                <div class="s2-pin s2-pl1"><svg viewBox="0 0 30 32" aria-hidden="true"><path d="M11 31C11 31 2 18 2 11a9 9 0 0 1 18 0c0 7-9 20-9 20z" fill="var(--canvas)" stroke="var(--ink)" stroke-width="2"/><circle cx="11" cy="11" r="3.5" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M23 19c0 0-3.5 4.5-3.5 7a3.5 3.5 0 0 0 7 0c0-2.5-3.5-7-3.5-7z" fill="var(--ink)"/></svg></div>
-                <div class="s2-pin s2-pl2"><svg viewBox="0 0 30 32" aria-hidden="true"><path d="M11 31C11 31 2 18 2 11a9 9 0 0 1 18 0c0 7-9 20-9 20z" fill="var(--canvas)" stroke="var(--ink)" stroke-width="2"/><circle cx="11" cy="11" r="3.5" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M23 19c0 0-3.5 4.5-3.5 7a3.5 3.5 0 0 0 7 0c0-2.5-3.5-7-3.5-7z" fill="var(--ink)"/></svg></div>
-                <div class="s2-pin s2-fl"><svg viewBox="0 0 30 36" aria-hidden="true"><path d="M4 35V2" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/><path d="M5 3h19l-5 6 5 6H5z" fill="var(--ink)"/></svg></div>
-              </div>
-            </div>
-            <div class="s2-slv"><b>yours</b></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="c-1-5 s2-tx">
-      <ul class="s2-lg">
-        <li class="s2-l1"><svg viewBox="0 0 30 32" aria-hidden="true"><path d="M11 31C11 31 2 18 2 11a9 9 0 0 1 18 0c0 7-9 20-9 20z" fill="var(--accent)" stroke="var(--accent-ink)" stroke-width="1.5"/><circle cx="11" cy="11" r="3.5" fill="var(--canvas)"/></svg><span>Where clients come from</span></li>
-        <li class="s2-l2"><svg viewBox="0 0 30 32" aria-hidden="true"><path d="M11 31C11 31 2 18 2 11a9 9 0 0 1 18 0c0 7-9 20-9 20z" fill="var(--canvas)" stroke="var(--ink)" stroke-width="2"/><circle cx="11" cy="11" r="3.5" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M23 19c0 0-3.5 4.5-3.5 7a3.5 3.5 0 0 0 7 0c0-2.5-3.5-7-3.5-7z" fill="var(--ink)"/></svg><span>Where they leak</span></li>
-        <li class="s2-l3"><svg viewBox="0 0 30 36" aria-hidden="true"><path d="M4 35V2" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/><path d="M5 3h19l-5 6 5 6H5z" fill="var(--ink)"/></svg><span>What to build first</span></li>
-      </ul>
+    <div class="s2-tx">
+      <h2 id="s2-h">Find where your clients leak out</h2>
       <p class="lede">You keep the map either way.</p>
+    </div>
+    <div class="s2-art" role="img" aria-label="A folded paper map of your business in two regions, Upstream and Downstream. A teal pin marks where clients come from, an ink pin marks where they leak, and a flag marks what to build first. The map is stamped yours.">
+      <svg class="s2-defs" aria-hidden="true" focusable="false" width="0" height="0">
+        <defs>
+          <symbol id="s2-pin" viewBox="0 0 24 32" overflow="visible"><path style="fill:var(--pb);stroke:var(--ps);stroke-width:var(--pw)" d="M12 31C12 31 2 19 2 12a10 10 0 0 1 20 0c0 7-10 19-10 19z"/><circle style="fill:var(--pe);stroke:var(--pes);stroke-width:var(--pw)" cx="12" cy="12" r="4"/></symbol>
+          <symbol id="s2-drip" viewBox="0 0 10 14" overflow="visible"><path style="fill:var(--ink)" d="M5 1C5 1 1 6 1 9a4 4 0 0 0 8 0C9 6 5 1 5 1z"/></symbol>
+          <linearGradient id="s2-gl" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style="stop-color:var(--canvas)"/><stop offset="1" style="stop-color:var(--paper)"/></linearGradient>
+          <linearGradient id="s2-gr" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--canvas)"/></linearGradient>
+          <linearGradient id="s2-gm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style="stop-color:var(--paper-edge)"/><stop offset=".5" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--paper-edge)"/></linearGradient>
+          <linearGradient id="s2-gt" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--canvas)"/><stop offset="1" style="stop-color:var(--paper)"/></linearGradient>
+          <linearGradient id="s2-gb" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--canvas)"/></linearGradient>
+          <linearGradient id="s2-gv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--paper-edge)"/><stop offset=".5" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--paper-edge)"/></linearGradient>
+          <clipPath id="s2-cw"><path d="M8 60L242 48L478 60L712 48V496L478 508L242 496L8 508Z"/></clipPath>
+          <clipPath id="s2-ct"><path d="M4 56L356 46V194L346 208V368L356 382V530L4 540V382L14 368V208L4 194Z"/></clipPath>
+        </defs>
+      </svg>
+
+      <!-- wide: an accordion-folded map, Upstream left, Downstream right -->
+      <svg class="s2-map s2-wide" viewBox="0 0 720 520" aria-hidden="true" focusable="false">
+        <path class="s2-sheet" d="M8 60L242 48L478 60L712 48V496L478 508L242 496L8 508Z"/>
+        <path fill="url(#s2-gl)" d="M8 60L242 48V496L8 508Z"/><path class="s2-mid" fill="url(#s2-gm)" d="M242 48L478 60V508L242 496Z"/><path fill="url(#s2-gr)" d="M478 60L712 48V496L478 508Z"/>
+        <g clip-path="url(#s2-cw)">
+          <path class="s2-gridl" d="M8 140L242 128L478 140L712 128M8 220L242 208L478 220L712 208M8 300L242 288L478 300L712 288M8 380L242 368L478 380L712 368M8 460L242 448L478 460L712 448M86 40V520M164 40V520M320 40V520M400 40V520M556 40V520M634 40V520"/>
+        </g>
+        <path class="s2-crease" d="M242 48V496M478 60V508"/>
+        <text class="s2-reg" x="36" y="104">UPSTREAM</text>
+        <text class="s2-reg" x="684" y="104" text-anchor="end">DOWNSTREAM</text>
+        <path class="s2-route" pathLength="1" d="M64 220C90 400 300 440 420 380C520 355 600 320 640 240"/>
+        <g transform="translate(64 220)"><g class="s2-drop"><use href="#s2-pin" class="s2-pin-teal" x="-14" y="-38" width="28" height="38"/></g></g>
+        <g transform="translate(420 380)"><g class="s2-drop s2-d2"><use href="#s2-pin" class="s2-pin-ink" x="-14" y="-38" width="28" height="38"/><use href="#s2-drip" class="s2-dr" x="-16" y="30" width="32" height="44"/></g></g>
+        <g transform="translate(640 240)"><g class="s2-flag"><path class="s2-pole" d="M0 0V-58"/><path class="s2-cloth" d="M1 -58H36L28 -47L36 -36H1Z"/></g></g>
+        <g class="s2-lab"><rect x="86" y="182" width="262" height="38" rx="19"/><text x="217" y="207" text-anchor="middle">Where clients come from</text></g>
+        <g class="s2-lab"><rect x="208" y="342" width="190" height="38" rx="19"/><text x="303" y="367" text-anchor="middle">Where they leak</text></g>
+        <g class="s2-lab"><rect x="400" y="184" width="226" height="38" rx="19"/><text x="513" y="209" text-anchor="middle">What to build first</text></g>
+        <g class="s2-stamp" transform="translate(664 22) rotate(4)"><g class="s2-stampin"><rect x="-44" y="-16" width="88" height="32" rx="5"/><text x="0" y="6" text-anchor="middle">YOURS</text></g></g>
+      </svg>
+
+      <!-- phone: folded the other way, Upstream on top, Downstream below -->
+      <svg class="s2-map s2-tall" viewBox="0 0 360 560" aria-hidden="true" focusable="false">
+        <path class="s2-sheet" d="M4 56L356 46V194L346 208V368L356 382V530L4 540V382L14 368V208L4 194Z"/>
+        <path fill="url(#s2-gt)" d="M4 56L356 46V194L346 208H14L4 194Z"/><path class="s2-mid" fill="url(#s2-gv)" d="M14 208H346V368H14Z"/><path fill="url(#s2-gb)" d="M14 368H346L356 382V530L4 540V382Z"/>
+        <g clip-path="url(#s2-ct)">
+          <path class="s2-gridl" d="M0 128H360M0 248H360M0 328H360M0 448H360M90 40V560M180 40V560M270 40V560"/>
+        </g>
+        <path class="s2-crease" d="M14 208H346M14 368H346"/>
+        <text class="s2-reg" x="24" y="96">UPSTREAM</text>
+        <text class="s2-reg" x="24" y="316">DOWNSTREAM</text>
+        <path class="s2-route" pathLength="1" d="M40 190C60 290 270 250 300 380C350 440 40 440 70 520"/>
+        <g transform="translate(40 190)"><g class="s2-drop"><use href="#s2-pin" class="s2-pin-teal" x="-13" y="-36" width="26" height="36"/></g></g>
+        <g transform="translate(300 380)"><g class="s2-drop s2-d2"><use href="#s2-pin" class="s2-pin-ink" x="-13" y="-36" width="26" height="36"/><use href="#s2-drip" class="s2-dr" x="18" y="-34" width="26" height="36"/></g></g>
+        <g transform="translate(70 520)"><g class="s2-flag"><path class="s2-pole" d="M0 0V-52"/><path class="s2-cloth" d="M1 -52H32L25 -42L32 -32H1Z"/></g></g>
+        <g class="s2-lab"><rect x="60" y="155" width="244" height="34" rx="17"/><text x="182" y="177" text-anchor="middle">Where clients come from</text></g>
+        <g class="s2-lab"><rect x="106" y="345" width="176" height="34" rx="17"/><text x="194" y="367" text-anchor="middle">Where they leak</text></g>
+        <g class="s2-lab"><rect x="112" y="469" width="208" height="34" rx="17"/><text x="216" y="491" text-anchor="middle">What to build first</text></g>
+        <g class="s2-stamp" transform="translate(312 22) rotate(4)"><g class="s2-stampin"><rect x="-40" y="-15" width="80" height="30" rx="5"/><text x="0" y="5" text-anchor="middle">YOURS</text></g></g>
+      </svg>
     </div>
   </div></div>
 </section>
 
 <section id="s3" class="sec" aria-labelledby="s3-h">
   <div class="wrap"><div class="grid">
-    <h2 id="s3-h">Write each marketing step <span class="accent">once</span>. Claude Code runs it.</h2>
-    <div class="viz s3-viz">
-      <div class="s3-scene" role="img" aria-label="Claude Code reads a skill file for each marketing step and runs it. Upstream, getting clients in: Offer, Content, Cold email, LinkedIn, Ads, Landing page. A Yes gate. Downstream, after the yes: Fast callback, Follow-up, Sales call, Delivery, Reporting, Repeat buying. Every station ends awake.">
-        <svg width="0" height="0" aria-hidden="true" class="s3-defs"><clipPath id="s3c-offer"><rect width="160" height="62"/></clipPath><clipPath id="s3c-report"><rect width="160" height="64"/></clipPath></svg>
-        <div class="s3-board">
-          <div class="s3-zone s3-up"><p class="label s3-zl">Upstream (getting clients in)</p><div class="s3-sts"><div class="s3-st" data-k="offer"><div class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true" stroke-width="2.5"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><path class="pl-on" d="M80 64l56 22-56 22-56-22z"/></g><g class="q"><g ></g><rect class="f" x="46" y="56" width="68" height="28" rx="5"/><path class="k" d="M56 62h48"/><circle class="s" cx="104" cy="74" r="3"/></g><g class="a"><g clip-path="url(#s3c-offer)"><g class="x x-sheet"><rect class="w" x="60" y="16" width="40" height="46" rx="3"/><path class="t" d="M67 26h26M67 33h18M67 40h22"/><circle class="s" cx="88" cy="52" r="5"/></g></g><rect class="f" x="46" y="56" width="68" height="28" rx="5"/><path class="k" d="M56 62h48"/><circle class="s" cx="104" cy="74" r="3"/></g></svg></div><span class="s3-l">Offer</span></div><div class="s3-st" data-k="content"><div class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true" stroke-width="2.5"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><path class="pl-on" d="M80 64l56 22-56 22-56-22z"/></g><g class="q"><rect class="w" x="56" y="16" width="44" height="68" rx="7"/><rect class="f" x="61" y="24" width="34" height="38" rx="3"/><path class="s" d="M74 36l12 7-12 7z"/><path class="t" d="M62 70h24M62 76h16"/></g><g class="a"><rect class="w" x="56" y="16" width="44" height="68" rx="7"/><rect class="f" x="61" y="24" width="34" height="38" rx="3"/><path class="s" d="M74 36l12 7-12 7z"/><path class="t" d="M62 70h24M62 76h16"/><g class="x x-t1"><rect class="s" x="108" y="18" width="16" height="16" rx="3"/></g><g class="x x-t2"><rect class="w" x="114" y="40" width="16" height="16" rx="3"/></g><g class="x x-t3"><rect class="w" x="106" y="62" width="16" height="16" rx="3"/></g></g></svg></div><span class="s3-l">Content</span></div><div class="s3-st" data-k="email"><div class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true" stroke-width="2.5"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><path class="pl-on" d="M80 64l56 22-56 22-56-22z"/></g><g class="q"><rect class="w" x="40" y="46" width="58" height="38" rx="4"/><path class="k" d="M40 50l29 18 29-18"/></g><g class="a"><rect class="w" x="40" y="46" width="58" height="38" rx="4"/><path class="k" d="M40 50l29 18 29-18"/><g class="x x-e1"><rect class="w" x="96" y="18" width="32" height="22" rx="3"/><path class="k" d="M96 21l16 10 16-10"/></g><g class="x x-e2"><rect class="w" x="114" y="48" width="26" height="18" rx="3"/><path class="k" d="M114 51l13 8 13-8"/></g></g></svg></div><span class="s3-l">Cold email</span></div><div class="s3-st" data-k="linkedin"><div class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true" stroke-width="2.5"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><path class="pl-on" d="M80 64l56 22-56 22-56-22z"/></g><g class="q"><circle class="w" cx="48" cy="55" r="7"/><path class="w" d="M36 78a12 12 0 0 1 24 0z"/><circle class="w" cx="112" cy="55" r="7"/><path class="w" d="M100 78a12 12 0 0 1 24 0z"/></g><g class="a"><circle class="w" cx="48" cy="55" r="7"/><path class="w" d="M36 78a12 12 0 0 1 24 0z"/><circle class="w" cx="112" cy="55" r="7"/><path class="w" d="M100 78a12 12 0 0 1 24 0z"/><path class="x x-line ln" d="M58 44Q80 22 102 44" pathLength="1"/><circle class="x s x-dot" cx="80" cy="33" r="4"/></g></svg></div><span class="s3-l">LinkedIn</span></div><div class="s3-st" data-k="ads"><div class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true" stroke-width="2.5"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><path class="pl-on" d="M80 64l56 22-56 22-56-22z"/></g><g class="q"><rect class="k qo" x="52" y="58" width="56" height="26" rx="4" stroke-dasharray="4 5"/></g><g class="a"><g class="x x-t1"><rect class="w" x="50" y="58" width="56" height="26" rx="4"/><path class="t" d="M58 66h28M58 73h18"/></g><g class="x x-t2"><rect class="w" x="57" y="44" width="56" height="26" rx="4"/><path class="t" d="M65 52h28M65 59h18"/></g><g class="x x-t3"><rect class="w" x="64" y="30" width="56" height="26" rx="4"/><rect class="f" x="69" y="35" width="16" height="16" rx="2"/><path class="t" d="M90 39h22M90 46h14"/></g></g></svg></div><span class="s3-l">Ads</span></div><div class="s3-st" data-k="page"><div class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true" stroke-width="2.5"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><path class="pl-on" d="M80 64l56 22-56 22-56-22z"/></g><g class="q"><rect class="w" x="42" y="14" width="76" height="72" rx="5"/><path class="k" d="M42 25h76"/><circle class="s" cx="49" cy="19.5" r="2"/><circle class="s" cx="56" cy="19.5" r="2"/></g><g class="a"><rect class="w" x="42" y="14" width="76" height="72" rx="5"/><path class="k" d="M42 25h76"/><circle class="s" cx="49" cy="19.5" r="2"/><circle class="s" cx="56" cy="19.5" r="2"/><g class="x x-b1"><rect class="s" x="50" y="32" width="44" height="7" rx="2"/></g><g class="x x-b2"><path class="t" d="M50 46h58M50 52h40"/></g><g class="x x-b3"><rect class="f" x="50" y="58" width="30" height="20" rx="2"/></g><g class="x x-b4"><rect class="s" x="86" y="66" width="24" height="10" rx="5"/></g></g></svg></div><span class="s3-l">Landing page</span></div></div></div>
-          <div class="s3-gate"><div class="s3-gart"><svg viewBox="0 0 120 120" aria-hidden="true" stroke-width="2.5"><path class="g-path" d="M2 46L118 113"/><g class="g-q"><path class="g-post" d="M81 68V14"/></g><g class="g-a"><path class="g-post" d="M81 68V14"/></g><g class="g-tok"><circle cx="91" cy="85" r="6"/><path d="M81 104a10 10 0 0 1 20 0z"/></g><g class="g-q"><path class="g-post" d="M39 92V38"/><path class="g-bar" d="M33 41L87 10v9L33 50z"/></g><g class="g-a"><path class="g-post" d="M39 92V38"/><path class="g-bar" d="M33 41L87 10v9L33 50z"/></g></svg><span class="s3-yes"><i></i>Yes</span></div></div>
-          <div class="s3-zone s3-down"><p class="label s3-zl">Downstream (after the yes)</p><div class="s3-sts"><div class="s3-st" data-k="callback"><div class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true" stroke-width="2.5"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><path class="pl-on" d="M80 64l56 22-56 22-56-22z"/></g><g class="q"><g class="x-phone"><rect class="w" x="66" y="20" width="28" height="60" rx="6"/><rect class="f" x="70" y="30" width="20" height="34" rx="2"/><path class="k" d="M76 25h8"/><circle class="s" cx="80" cy="72" r="3"/></g></g><g class="a"><g class="x-phone"><rect class="w" x="66" y="20" width="28" height="60" rx="6"/><rect class="f" x="70" y="30" width="20" height="34" rx="2"/><path class="k" d="M76 25h8"/><circle class="s" cx="80" cy="72" r="3"/></g><g class="x x-ring"><path class="k" d="M58 36a16 16 0 0 0 0 28M50 30a26 26 0 0 0 0 40M102 36a16 16 0 0 1 0 28M110 30a26 26 0 0 1 0 40"/></g></g></svg></div><span class="s3-l">Fast callback</span></div><div class="s3-st" data-k="followup"><div class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true" stroke-width="2.5"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><path class="pl-on" d="M80 64l56 22-56 22-56-22z"/></g><g class="q"><rect class="k qo" x="38" y="22" width="56" height="20" rx="8" stroke-dasharray="4 5"/></g><g class="a"><g class="x x-b1"><path class="w" d="M46 20h42a8 8 0 0 1 8 8v6a8 8 0 0 1-8 8H54l-8 7v-7a8 8 0 0 1-8-8v-6a8 8 0 0 1 8-8z"/></g><g class="x x-b2"><path class="s" d="M72 46h42a8 8 0 0 1 8 8v6a8 8 0 0 1-8 8h-2v7l-8-7H72a8 8 0 0 1-8-8v-6a8 8 0 0 1 8-8z"/></g><g class="x x-b3"><path class="w" d="M46 70h30a8 8 0 0 1 8 8v0a8 8 0 0 1-8 8H46a8 8 0 0 1-8-8v0a8 8 0 0 1 8-8z"/></g></g></svg></div><span class="s3-l">Follow-up</span></div><div class="s3-st" data-k="sales"><div class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true" stroke-width="2.5"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><path class="pl-on" d="M80 64l56 22-56 22-56-22z"/></g><g class="q"><rect class="f" x="56" y="78" width="48" height="8" rx="2"/></g><g class="a"><rect class="f" x="56" y="78" width="48" height="8" rx="2"/></g></svg><div class="s3-flip"><div class="s3-flip-in"><span class="s3-ff"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.6 3.6a1 1 0 0 1-.25 1z"/></svg></span><span class="s3-fb">held</span></div></div></div><span class="s3-l">Sales call</span></div><div class="s3-st" data-k="delivery"><div class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true" stroke-width="2.5"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><path class="pl-on" d="M80 64l56 22-56 22-56-22z"/></g><g class="q"><rect class="f" x="52" y="48" width="56" height="36" rx="3"/><path class="t" d="M80 54v24"/><g transform="rotate(-38 49 50)"><rect class="w" x="49" y="40" width="62" height="10" rx="2"/></g></g><g class="a"><rect class="f" x="52" y="48" width="56" height="36" rx="3"/><path class="t" d="M80 54v24"/><g class="x-lid"><rect class="w" x="49" y="40" width="62" height="10" rx="2"/></g><path class="x x-check ck" d="M70 64l7 7 13-13" pathLength="1"/></g></svg></div><span class="s3-l">Delivery</span></div><div class="s3-st" data-k="report"><div class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true" stroke-width="2.5"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><path class="pl-on" d="M80 64l56 22-56 22-56-22z"/></g><g class="q"><g ></g><rect class="f" x="44" y="58" width="72" height="26" rx="5"/><path class="k" d="M56 64h48"/><rect class="s" x="54" y="74" width="10" height="4" rx="2"/><rect class="s" x="68" y="74" width="10" height="4" rx="2"/></g><g class="a"><g clip-path="url(#s3c-report)"><g class="x x-sheet"><rect class="w" x="58" y="10" width="44" height="54" rx="3"/><path class="t" d="M65 17h22"/><rect class="s x-bar" x="65" y="38" width="7" height="18"/><rect class="s x-bar" x="76" y="30" width="7" height="26"/><rect class="s x-bar" x="87" y="22" width="7" height="34"/></g></g><rect class="f" x="44" y="58" width="72" height="26" rx="5"/><path class="k" d="M56 64h48"/><rect class="s" x="54" y="74" width="10" height="4" rx="2"/><rect class="s" x="68" y="74" width="10" height="4" rx="2"/></g></svg></div><span class="s3-l">Reporting</span></div><div class="s3-st" data-k="repeat"><div class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true" stroke-width="2.5"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><path class="pl-on" d="M80 64l56 22-56 22-56-22z"/></g><g class="q"><circle class="p" cx="80" cy="43" r="7"/><path class="p" d="M68 66a12 12 0 0 1 24 0z"/></g><g class="a"><circle class="p" cx="80" cy="43" r="7"/><path class="p" d="M68 66a12 12 0 0 1 24 0z"/><path class="x x-loop ln" d="M80 18a30 30 0 1 1-21.2 8.8" pathLength="1"/><path class="x s x-head" d="M53 20l11 1-4 10z"/><g class="x x-orb"><circle class="s" cx="80" cy="18" r="4"/></g></g></svg><span class="s3-tag">buys again</span></div><span class="s3-l">Repeat buying</span></div></div><div class="s3-park"><div class="s3-agent"><svg class="s3-ptr" viewBox="0 0 20 24" aria-hidden="true"><path d="M2 2l15 11-6.5 1.2L14 21.5l-3 1.3-3.4-7.3L2 19.8z"/></svg><span class="s3-cc">Claude Code</span><span class="s3-card"><b>skill file</b><i class="s3-scan"></i></span></div></div></div>
-        </div>
-      </div>
+    <h2 id="s3-h">Write each marketing step <span class="accent">once</span>. Claude&nbsp;Code runs it.</h2>
+    <div class="s3-board" role="img" aria-label="One track runs through every marketing step. Upstream, getting clients in: Offer, Content, Cold email, LinkedIn, Ads, Landing page. Then a Yes gate. Downstream, after the yes: Fast callback, Follow-up, Sales call, Delivery, Reporting, Repeat buying, which loops back as buys again. Claude Code carries a skill file along the track and ticks off each step.">
+      <i class="s3-w s3-u"></i><i class="s3-w s3-t1"></i><i class="s3-w s3-m"></i><i class="s3-w s3-t3"></i><i class="s3-w s3-d"></i><i class="s3-w s3-sp"></i><i class="s3-w s3-lp"></i>
+      <p class="s3-zl s3-zl-up">Upstream (getting clients in)</p>
+      <ol class="s3-lane s3-up">
+        <li class="s3-st"><span class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/></g><g class="a"><path class="w" d="M64 20h32a6 6 0 0 1 6 6v36L80 82 58 62V26a6 6 0 0 1 6-6z" transform="rotate(-12 80 50)"/><circle class="s" cx="80" cy="32" r="5" transform="rotate(-12 80 50)"/><path class="t" d="M68 46h24M70 54h20" transform="rotate(-12 80 50)"/></g><g class="s3-tk"><circle class="s3-br" cx="138" cy="24" r="12"/><circle class="s3-bd" cx="138" cy="24" r="12"/><path class="s3-ck" d="M132.5 24l4 4 7-7" pathLength="1"/></g></svg></span><span class="s3-l">Offer</span></li>
+        <li class="s3-st"><span class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/></g><g class="a"><rect class="w" x="56" y="16" width="44" height="68" rx="7"/><rect class="f" x="61" y="24" width="34" height="38" rx="3"/><path class="s" d="M74 36l12 7-12 7z"/><path class="t" d="M62 70h24M62 76h16"/></g><g class="s3-tk"><circle class="s3-br" cx="138" cy="24" r="12"/><circle class="s3-bd" cx="138" cy="24" r="12"/><path class="s3-ck" d="M132.5 24l4 4 7-7" pathLength="1"/></g></svg></span><span class="s3-l">Content</span></li>
+        <li class="s3-st"><span class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/></g><g class="a"><rect class="w" x="34" y="46" width="58" height="38" rx="4"/><path class="k" d="M34 50l29 18 29-18"/><rect class="w" x="76" y="28" width="32" height="22" rx="3"/><path class="k" d="M76 31l16 10 16-10"/></g><g class="s3-tk"><circle class="s3-br" cx="138" cy="24" r="12"/><circle class="s3-bd" cx="138" cy="24" r="12"/><path class="s3-ck" d="M132.5 24l4 4 7-7" pathLength="1"/></g></svg></span><span class="s3-l">Cold email</span></li>
+        <li class="s3-st"><span class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/></g><g class="a"><circle class="w" cx="48" cy="55" r="7"/><path class="w" d="M36 78a12 12 0 0 1 24 0z"/><circle class="w" cx="112" cy="55" r="7"/><path class="w" d="M100 78a12 12 0 0 1 24 0z"/><path class="ln" d="M58 44Q80 22 102 44"/><circle class="s" cx="80" cy="33" r="4"/></g><g class="s3-tk"><circle class="s3-br" cx="138" cy="24" r="12"/><circle class="s3-bd" cx="138" cy="24" r="12"/><path class="s3-ck" d="M132.5 24l4 4 7-7" pathLength="1"/></g></svg></span><span class="s3-l">LinkedIn</span></li>
+        <li class="s3-st"><span class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/></g><g class="a"><rect class="w" x="44" y="58" width="56" height="26" rx="4"/><path class="t" d="M52 66h28M52 73h18"/><rect class="w" x="51" y="44" width="56" height="26" rx="4"/><path class="t" d="M59 52h28M59 59h18"/><rect class="w" x="58" y="30" width="56" height="26" rx="4"/><rect class="f" x="63" y="35" width="16" height="16" rx="2"/><path class="t" d="M84 39h22M84 46h14"/></g><g class="s3-tk"><circle class="s3-br" cx="138" cy="24" r="12"/><circle class="s3-bd" cx="138" cy="24" r="12"/><path class="s3-ck" d="M132.5 24l4 4 7-7" pathLength="1"/></g></svg></span><span class="s3-l">Ads</span></li>
+        <li class="s3-st"><span class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/></g><g class="a"><rect class="w" x="36" y="14" width="76" height="72" rx="5"/><path class="k" d="M36 25h76"/><circle class="s" cx="43" cy="19.5" r="2"/><circle class="s" cx="50" cy="19.5" r="2"/><rect class="s" x="44" y="32" width="44" height="7" rx="2"/><path class="t" d="M44 46h58M44 52h40"/><rect class="f" x="44" y="58" width="30" height="20" rx="2"/><rect class="s" x="80" y="66" width="24" height="10" rx="5"/></g><g class="s3-tk"><circle class="s3-br" cx="138" cy="24" r="12"/><circle class="s3-bd" cx="138" cy="24" r="12"/><path class="s3-ck" d="M132.5 24l4 4 7-7" pathLength="1"/></g></svg></span><span class="s3-l">Landing page</span></li>
+      </ol>
+      <b class="s3-yes">Yes</b>
+      <svg class="s3-who" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6" r="4.5"/><path d="M1.5 19.5a8.5 8.5 0 0 1 17 0z"/></svg>
+      <p class="s3-zl s3-zl-down">Downstream (after the yes)</p>
+      <ol class="s3-lane s3-down">
+        <li class="s3-st"><span class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/></g><g class="a"><rect class="w" x="62" y="20" width="28" height="60" rx="6"/><rect class="f" x="66" y="30" width="20" height="34" rx="2"/><path class="k" d="M72 25h8"/><circle class="s" cx="76" cy="72" r="3"/><path class="k" d="M54 36a16 16 0 0 0 0 28M46 30a26 26 0 0 0 0 40M98 36a16 16 0 0 1 0 28"/></g><g class="s3-tk"><circle class="s3-br" cx="138" cy="24" r="12"/><circle class="s3-bd" cx="138" cy="24" r="12"/><path class="s3-ck" d="M132.5 24l4 4 7-7" pathLength="1"/></g></svg></span><span class="s3-l">Fast callback</span></li>
+        <li class="s3-st"><span class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/></g><g class="a"><g transform="translate(0 -6)"><path class="w" d="M42 20h42a8 8 0 0 1 8 8v6a8 8 0 0 1-8 8H50l-8 7v-7a8 8 0 0 1-8-8v-6a8 8 0 0 1 8-8z"/><path class="w" d="M68 46h42a8 8 0 0 1 8 8v6a8 8 0 0 1-8 8h-2v7l-8-7H68a8 8 0 0 1-8-8v-6a8 8 0 0 1 8-8z"/></g></g><g class="s3-tk"><circle class="s3-br" cx="138" cy="24" r="12"/><circle class="s3-bd" cx="138" cy="24" r="12"/><path class="s3-ck" d="M132.5 24l4 4 7-7" pathLength="1"/></g></svg></span><span class="s3-l">Follow-up</span></li>
+        <li class="s3-st"><span class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/></g><g class="a"><rect class="w" x="52" y="16" width="52" height="56" rx="6"/><path class="s" transform="translate(64 30) scale(1.2)" d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.6 3.6a1 1 0 0 1-.25 1z"/><rect class="f" x="54" y="78" width="48" height="8" rx="2"/></g><g class="s3-tk"><circle class="s3-br" cx="138" cy="24" r="12"/><circle class="s3-bd" cx="138" cy="24" r="12"/><path class="s3-ck" d="M132.5 24l4 4 7-7" pathLength="1"/></g></svg></span><span class="s3-l">Sales call</span></li>
+        <li class="s3-st"><span class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/></g><g class="a"><rect class="f" x="50" y="48" width="56" height="36" rx="3"/><path class="t" d="M78 54v24"/><rect class="w" x="47" y="40" width="62" height="10" rx="2"/><path class="ck" d="M66 64l7 7 13-13"/></g><g class="s3-tk"><circle class="s3-br" cx="138" cy="24" r="12"/><circle class="s3-bd" cx="138" cy="24" r="12"/><path class="s3-ck" d="M132.5 24l4 4 7-7" pathLength="1"/></g></svg></span><span class="s3-l">Delivery</span></li>
+        <li class="s3-st"><span class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/></g><g class="a"><rect class="w" x="56" y="10" width="44" height="54" rx="3"/><path class="t" d="M63 17h22"/><rect class="s" x="63" y="38" width="7" height="18"/><rect class="s" x="74" y="30" width="7" height="26"/><rect class="s" x="85" y="22" width="7" height="34"/><rect class="f" x="42" y="58" width="72" height="26" rx="5"/><path class="k" d="M54 64h48"/></g><g class="s3-tk"><circle class="s3-br" cx="138" cy="24" r="12"/><circle class="s3-bd" cx="138" cy="24" r="12"/><path class="s3-ck" d="M132.5 24l4 4 7-7" pathLength="1"/></g></svg></span><span class="s3-l">Reporting</span></li>
+        <li class="s3-st"><span class="s3-art"><svg viewBox="0 0 160 120" aria-hidden="true"><g class="pl"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/></g><g class="a"><circle class="p" cx="80" cy="38" r="7"/><path class="p" d="M68 61a12 12 0 0 1 24 0z"/><path class="ln" d="M52 30a30 30 0 0 1 52-4"/><path class="s" d="M98 16l9 9-11 4z"/></g><g class="s3-tk"><circle class="s3-br" cx="138" cy="24" r="12"/><circle class="s3-bd" cx="138" cy="24" r="12"/><path class="s3-ck" d="M132.5 24l4 4 7-7" pathLength="1"/></g></svg></span><span class="s3-l">Repeat buying</span></li>
+      </ol>
+      <b class="s3-again">buys again</b>
+      <span class="s3-run"><span class="s3-chips"><span class="s3-cc"><svg class="s3-ptr" viewBox="0 0 20 24" aria-hidden="true"><path d="M2 2l15 11-6.5 1.2L14 21.5l-3 1.3-3.4-7.3L2 19.8z"/></svg>Claude Code</span><span class="s3-file">skill file</span></span></span>
     </div>
   </div></div>
 </section>
@@ -380,35 +438,99 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
     <div class="s4-head c-1-5 stack">
       <p class="label">The 21 Day Sprint</p>
       <h2 id="s4-h">Build it on your business, live</h2>
-      <p class="lede"><span class="accent">15</span> live sessions, weekdays 7 to 8:30 pm IST. Mon 26 Oct to demo day, Fri 13 Nov.</p>
+      <p class="lede"><span class="accent">15</span> live sessions, weekdays 7 to 8:30 pm IST. Mon&nbsp;26&nbsp;Oct to demo day, Fri&nbsp;13&nbsp;Nov.</p>
     </div>
-    <div class="viz s4-viz c-6-12" role="group" aria-label="Fifteen bricks, one for each live session from Monday 26 October to Friday 13 November, build a three floor building. Week 1 lays floor 1: offer, lead magnet, page, backend. On Friday of week 2 the floor 2 door opens and envelopes pour out to a group of people under a tag reading 100 out. Week 3 lights the floor 3 windows: follow-up, sales call, numbers. A Demo day flag goes on the roof.">
-      <div class="s4-sky" aria-hidden="true">
-        <span class="s4-roof a" style="--t:4.75s"></span>
-        <span class="s4-pole a" style="--t:5.3s"><span class="s4-flag a" style="--t:5.55s">Demo day</span></span>
+
+    <div class="s4-viz c-6-12" role="img" aria-label="A building of fifteen bricks, one for each live session, Monday to Friday, each brick carrying its date. Week 1 is the ground floor, 26 to 30 October. Week 2 is the middle floor, 2 to 6 November; on Friday 6 November its door is open, a tag reads 100 out and a stream of envelopes pours out onto a group of people. Week 3 is the top floor, 9 to 13 November, and a Demo day flag flies over Friday 13 November.">
+      <div class="s4-scene" aria-hidden="true">
+        <div class="s4-sky">
+          <span class="s4-dd">Demo day</span>
+          <i class="s4-pole" style="--t:2.55s"></i>
+          <svg class="s4-pen" style="--t:2.75s" viewBox="0 0 44 26"><path d="M.75.75h42l-10 12.25 10 12.25h-42z"/></svg>
+        </div>
+        <i class="s4-roof" style="--t:2.4s"></i>
+
+        <span class="s4-fn s4-n3"><span>Week <b>3</b></span><em>Nov</em></span>
+        <div class="s4-row s4-r3">
+          <i class="s4-b" style="--t:1.6s"><b>9</b></i><i class="s4-b" style="--t:1.72s"><b>10</b></i><i class="s4-b" style="--t:1.84s"><b>11</b></i><i class="s4-b" style="--t:1.96s"><b>12</b></i><i class="s4-b" style="--t:2.08s"><b>13</b></i>
+        </div>
+
+        <span class="s4-fn s4-n2"><span>Week <b>2</b></span><em>Nov</em></span>
+        <div class="s4-row s4-r2">
+          <i class="s4-b" style="--t:.7s"><b>2</b></i><i class="s4-b" style="--t:.82s"><b>3</b></i><i class="s4-b" style="--t:.94s"><b>4</b></i><i class="s4-b" style="--t:1.06s"><b>5</b></i><i class="s4-b s4-door" style="--t:1.18s"><b>6</b><s style="--t:1.4s"></s></i>
+        </div>
+
+        <span class="s4-fn s4-n1"><span>Week <b>1</b></span><em>Oct</em></span>
+        <div class="s4-row s4-r1">
+          <i class="s4-b" style="--t:0s"><b>26</b></i><i class="s4-b" style="--t:.12s"><b>27</b></i><i class="s4-b" style="--t:.24s"><b>28</b></i><i class="s4-b" style="--t:.36s"><b>29</b></i><i class="s4-b" style="--t:.48s"><b>30</b></i>
+        </div>
+
+        <div class="s4-out">
+          <span class="s4-tag">100 out</span>
+          <svg class="s4-ev" style="--t:1.50s;--x:2;--y:48;--r:-5deg" viewBox="0 0 24 16"><rect x=".75" y=".75" width="22.5" height="14.5" rx="1.5"/><path d="M2 2.5 12 9.5 22 2.5"/></svg>
+          <svg class="s4-ev" style="--t:1.64s;--x:20;--y:47;--r:4deg" viewBox="0 0 24 16"><rect x=".75" y=".75" width="22.5" height="14.5" rx="1.5"/><path d="M2 2.5 12 9.5 22 2.5"/></svg>
+          <svg class="s4-ev" style="--t:1.78s;--x:40;--y:48;--r:-3deg" viewBox="0 0 24 16"><rect x=".75" y=".75" width="22.5" height="14.5" rx="1.5"/><path d="M2 2.5 12 9.5 22 2.5"/></svg>
+          <svg class="s4-ev" style="--t:1.92s;--x:58;--y:52;--r:5deg" viewBox="0 0 24 16"><rect x=".75" y=".75" width="22.5" height="14.5" rx="1.5"/><path d="M2 2.5 12 9.5 22 2.5"/></svg>
+          <svg class="s4-ppl" viewBox="0 0 64 48"><g style="--t:2.05s"><circle cx="12" cy="18" r="4.5"/><path d="M3.9 31v-0.9a8.1 8.1 0 0 1 16.2 0v0.9z"/></g><g style="--t:2.12s"><circle cx="32" cy="18" r="4.5"/><path d="M23.9 31v-0.9a8.1 8.1 0 0 1 16.2 0v0.9z"/></g><g style="--t:2.19s"><circle cx="52" cy="18" r="4.5"/><path d="M43.9 31v-0.9a8.1 8.1 0 0 1 16.2 0v0.9z"/></g><g style="--t:2.26s"><circle cx="22" cy="32" r="5.5"/><path d="M12.1 48v-1.1a9.9 9.9 0 0 1 19.8 0v1.1z"/></g><g style="--t:2.33s"><circle cx="42" cy="32" r="5.5"/><path d="M32.1 48v-1.1a9.9 9.9 0 0 1 19.8 0v1.1z"/></g></svg>
+        </div>
+        <i class="s4-ground"></i>
+        <div class="s4-days"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span></div>
       </div>
-      <div class="s4-fl s4-f3" aria-hidden="true"><div class="s4-br"><i class="a" style="--t:3.7s"><span class="s4-wt">Week<b>3</b></span></i><i class="a" style="--t:3.92s"></i><i class="a" style="--t:4.14s"></i><i class="a" style="--t:4.36s"></i><i class="a" style="--t:4.58s"></i></div><div class="s4-wins a" style="--t:4.6s"><span class="s4-w"><b class="a" style="--t:4.9s"><svg viewBox="0 0 24 24"><path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 0 1 4-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 0 1-4 4H4"/></svg></b><em>follow-up</em></span><span class="s4-w"><b class="a" style="--t:5.05s"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg></b><em>sales call</em></span><span class="s4-w"><b class="a" style="--t:5.2s"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M3 20h18"/></svg></b><em>numbers</em></span></div></div>
-      <div class="s4-fl s4-f2" aria-hidden="true"><div class="s4-br"><i class="a" style="--t:2.0s"><span class="s4-wt">Week<b>2</b></span></i><i class="a" style="--t:2.22s"></i><i class="a" style="--t:2.44s"></i><i class="a" style="--t:2.66s"></i><i class="a" style="--t:2.88s"><span class="s4-door"><span class="s4-leaf" style="--t:3.1s"></span></span></i></div><div class="s4-rooms s4-ch"><span class="a" style="--t:2.1s"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><em>email</em></span><span class="a" style="--t:2.32s"><svg viewBox="0 0 24 24"><circle cx="7" cy="9" r="3"/><circle cx="17" cy="9" r="3"/><path d="M2 20a5 5 0 0 1 10 0M12 20a5 5 0 0 1 10 0M9 6q3-4 6 0"/></svg><em>LinkedIn</em></span><span class="a" style="--t:2.54s"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 9l5 3-5 3z"/></svg><em>content</em></span><span class="a" style="--t:2.76s"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="14" height="10" rx="2"/><rect x="7" y="4" width="14" height="10" rx="2"/></svg><em>ads</em></span></div><div class="s4-stream"><span class="s4-tag a" style="--t:3.6s">100 out</span><span class="s4-ev a" style="--t:3.25s;--x:58;--y:30"><svg viewBox="0 0 24 16"><rect x=".5" y=".5" width="23" height="15" rx="1.5"/><path d="M1 1.5 12 9 23 1.5"/></svg></span><span class="s4-ev a" style="--t:3.37s;--x:48;--y:42"><svg viewBox="0 0 24 16"><rect x=".5" y=".5" width="23" height="15" rx="1.5"/><path d="M1 1.5 12 9 23 1.5"/></svg></span><span class="s4-ev a" style="--t:3.49s;--x:38;--y:48"><svg viewBox="0 0 24 16"><rect x=".5" y=".5" width="23" height="15" rx="1.5"/><path d="M1 1.5 12 9 23 1.5"/></svg></span><span class="s4-ev a" style="--t:3.61s;--x:28;--y:48"><svg viewBox="0 0 24 16"><rect x=".5" y=".5" width="23" height="15" rx="1.5"/><path d="M1 1.5 12 9 23 1.5"/></svg></span><span class="s4-ev a" style="--t:3.73s;--x:18;--y:42"><svg viewBox="0 0 24 16"><rect x=".5" y=".5" width="23" height="15" rx="1.5"/><path d="M1 1.5 12 9 23 1.5"/></svg></span><span class="s4-ev a" style="--t:3.85s;--x:8;--y:32"><svg viewBox="0 0 24 16"><rect x=".5" y=".5" width="23" height="15" rx="1.5"/><path d="M1 1.5 12 9 23 1.5"/></svg></span><span class="s4-ppl a" style="--t:3.9s"><svg viewBox="0 0 40 34"><circle cx="20" cy="7" r="5"/><path d="M11 22a9 9 0 0 1 18 0"/><circle cx="8" cy="17" r="4.5"/><path d="M1 32a7 7 0 0 1 14 0"/><circle cx="32" cy="17" r="4.5"/><path d="M25 32a7 7 0 0 1 14 0"/></svg></span></div></div>
-      <div class="s4-fl s4-f1" aria-hidden="true"><div class="s4-br"><i class="a" style="--t:0.3s"><span class="s4-wt">Week<b>1</b></span></i><i class="a" style="--t:0.52s"></i><i class="a" style="--t:0.74s"></i><i class="a" style="--t:0.96s"></i><i class="a" style="--t:1.18s"></i></div><div class="s4-rooms"><span class="a" style="--t:1.4s"><svg viewBox="0 0 24 24"><path d="M3 12 12 3h9v9l-9 9Z"/><circle cx="16.5" cy="7.5" r="1.5"/></svg><em>offer</em></span><span class="a" style="--t:1.52s"><svg viewBox="0 0 24 24"><path d="M6 3v9a6 6 0 0 0 12 0V3"/><path d="M6 7h4M14 7h4"/></svg><em>lead magnet</em></span><span class="a" style="--t:1.64s"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><em>page</em></span><span class="a" style="--t:1.76s"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="6" rx="1"/><rect x="4" y="14" width="16" height="6" rx="1"/><path d="M8 7h.01M8 17h.01"/></svg><em>backend</em></span></div></div>
-      <div class="s4-rib" aria-hidden="true"><div class="s4-days"><span class="s4-wk"><span class="s4-d"><b class="a" style="--t:0.3s"></b>26</span><span class="s4-d"><b class="a" style="--t:0.52s"></b>27</span><span class="s4-d"><b class="a" style="--t:0.74s"></b>28</span><span class="s4-d"><b class="a" style="--t:0.96s"></b>29</span><span class="s4-d"><b class="a" style="--t:1.18s"></b>30</span></span><span class="s4-wk"><span class="s4-d"><b class="a" style="--t:2.0s"></b>2</span><span class="s4-d"><b class="a" style="--t:2.22s"></b>3</span><span class="s4-d"><b class="a" style="--t:2.44s"></b>4</span><span class="s4-d"><b class="a" style="--t:2.66s"></b>5</span><span class="s4-d"><b class="a" style="--t:2.88s"></b>6</span></span><span class="s4-wk"><span class="s4-d"><b class="a" style="--t:3.7s"></b>9</span><span class="s4-d"><b class="a" style="--t:3.92s"></b>10</span><span class="s4-d"><b class="a" style="--t:4.14s"></b>11</span><span class="s4-d"><b class="a" style="--t:4.36s"></b>12</span><span class="s4-d s4-last"><b class="a" style="--t:5.55s"></b>13</span></span></div><div class="s4-mo"><span>Oct</span><span>Nov</span><span></span></div></div>
     </div>
-    <p class="s4-wk1"><strong>Week 1, build what you sell:</strong> offer, lead magnet, page, backend</p>
-    <p class="s4-wk2"><strong>Week 2, get clients in:</strong> one channel, first 100 messages out Friday</p>
-    <p class="s4-wk3"><strong>Week 3, after the yes:</strong> follow-up, sales call, numbers</p>
+
+    <div class="s4-weeks c-1-5">
+      <p><strong>Week 1, build what you sell:</strong> offer, lead magnet, page, backend</p>
+      <p><strong>Week 2, get clients in:</strong> one channel, first 100 messages out Friday</p>
+      <p><strong>Week 3, after the yes:</strong> follow-up, sales call, numbers</p>
+    </div>
   </div></div>
 </section>
 
 <section id="s5" class="sec" aria-labelledby="s5-h">
-  <div class="wrap"><div class="grid">
-    <div class="c-1-5 stack">
+  <div class="wrap"><div class="grid s5-grid">
+    <div class="c-1-5 stack s5-head">
       <p class="label">The Accelerator</p>
       <h2 id="s5-h">Eight weeks, one to one with me</h2>
       <p class="lede">The systems I charged clients tens of thousands of dollars for, installed in your business.</p>
-      <p class="label s5-urgent">10 seats</p>
       <p class="note">Plus every skill file, all 15 Sprint sessions, a handover pack for every system</p>
     </div>
 
-    <div class="c-6-12 s5-cmps">
+    <div class="c-6-12 s5-seats">
+      <p class="s5-n">10 seats</p>
+      <div class="s5-room" role="img" aria-label="Ten seats. Nine are empty, one is marked you.">
+        <svg aria-hidden="true" style="position:absolute;width:0;height:0"><symbol id="s5-chair" viewBox="0 0 40 48"><rect x="7" y="2" width="26" height="22" rx="6"/><rect x="3" y="26" width="34" height="8" rx="3"/><path d="M8 34v12M32 34v12"/></symbol></svg>
+        <span class="s5-seat" style="--i:0"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
+        <span class="s5-seat" style="--i:1"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
+        <span class="s5-seat" style="--i:2"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
+        <span class="s5-seat" style="--i:3"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
+        <span class="s5-seat" style="--i:4"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
+        <span class="s5-seat" style="--i:5"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
+        <span class="s5-seat" style="--i:6"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
+        <span class="s5-seat s5-you" style="--i:7"><i class="s5-halo"></i><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg><b>you</b></span>
+        <span class="s5-seat" style="--i:8"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
+        <span class="s5-seat" style="--i:9"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
+      </div>
+    </div>
+
+    <div class="s5-rail">
+      <ol class="s5-grp">
+        <li class="s5-gh">Weeks 1 to 4: Upstream installed.</li>
+        <li class="s5-wk" style="--i:0"><em>1</em><i class="s5-seg"><b></b></i><span>Teardown, offer</span></li>
+        <li class="s5-wk" style="--i:1"><em>2</em><i class="s5-seg"><b></b></i><span>Page, lead magnet, backend</span></li>
+        <li class="s5-wk" style="--i:2"><em>3</em><i class="s5-seg"><b></b></i><span>Outreach live</span></li>
+        <li class="s5-wk" style="--i:3"><em>4</em><i class="s5-seg"><b></b></i><span>Content, ads</span></li>
+      </ol>
+      <ol class="s5-grp" start="5">
+        <li class="s5-gh">Weeks 5 to 8: Downstream installed.</li>
+        <li class="s5-wk" style="--i:4"><em>5</em><i class="s5-seg"><b></b></i><span>Callback, follow&#8209;up</span></li>
+        <li class="s5-wk" style="--i:5"><em>6</em><i class="s5-seg"><b></b></i><span>Sales call, scripts</span></li>
+        <li class="s5-wk" style="--i:6"><em>7</em><i class="s5-seg"><b></b></i><span>Delivery, onboarding</span></li>
+        <li class="s5-wk" style="--i:7"><em>8</em><i class="s5-seg"><b></b></i><span>Reporting, repeat buying, handover</span></li>
+      </ol>
+      <p class="s5-key"><svg viewBox="0 0 160 56" aria-hidden="true"><circle cx="28" cy="28" r="20"/><circle cx="28" cy="28" r="7"/><path d="M48 28h104M124 28v16M140 28v11"/></svg><span>yours</span></p>
+    </div>
+
+    <div class="s5-cmps">
       <div class="s5-cmp">
         <svg viewBox="0 0 240 72" aria-hidden="true">
           <g class="s5-sil"><circle cx="30" cy="20" r="8"/><path d="M16 50a14 14 0 0 1 28 0z"/><circle cx="90" cy="20" r="8"/><path d="M76 50a14 14 0 0 1 28 0z"/><circle cx="150" cy="20" r="8"/><path d="M136 50a14 14 0 0 1 28 0z"/><circle cx="210" cy="20" r="8"/><path d="M196 50a14 14 0 0 1 28 0z"/></g>
@@ -424,41 +546,6 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
           <g class="s5-lap"><rect x="107" y="40" width="26" height="18" rx="2"/></g>
         </svg>
         <p><b>Accelerator:</b> I install it with you.</p>
-      </div>
-    </div>
-
-    <div class="viz s5-viz" role="img" aria-label="Ten seats seen from above, nine dim and one lit with a card reading you. The view drops to that desk, where an eight week rail fills. Weeks 1 to 4: Upstream installed. Week 1 teardown and offer, week 2 page, lead magnet and backend, week 3 outreach live, week 4 content and ads. Weeks 5 to 8: Downstream installed. Week 5 callback and follow-up, week 6 sales call and scripts, week 7 delivery and onboarding, week 8 reporting, repeat buying and handover. Each week drops its stations into your own system: Offer, Landing page, Cold email, LinkedIn, Content, Ads, Fast callback, Follow-up, Sales call, Delivery, Reporting, Repeat buying. A key tagged yours slides across the desk.">
-      <div class="s5-band" aria-hidden="true">
-        <div class="s5-room">
-          <span class="s5-seat"><i></i><i></i></span><span class="s5-seat"><i></i><i></i></span><span class="s5-seat"><i></i><i></i></span><span class="s5-seat"><i></i><i></i></span><span class="s5-seat"><i></i><i></i></span>
-          <span class="s5-seat"><i></i><i></i></span><span class="s5-seat"><i></i><i></i></span><span class="s5-seat s5-lit"><i></i><i></i><b class="s5-card">you</b></span><span class="s5-seat"><i></i><i></i></span><span class="s5-seat"><i></i><i></i></span>
-        </div>
-      </div>
-      <div class="s5-desk" aria-hidden="true">
-        <div class="s5-rail">
-          <div class="s5-grp">
-            <p class="s5-gh">Weeks 1 to 4: Upstream installed.</p>
-            <i class="s5-tray"></i>
-            <div class="s5-wk"><i class="s5-seg"><b></b></i><span class="s5-wl"><em>1</em> Teardown, offer</span><span class="s5-tks"><span class="s5-tk">Offer</span></span></div>
-            <div class="s5-wk"><i class="s5-seg"><b></b></i><span class="s5-wl"><em>2</em> Page, lead magnet, backend</span><span class="s5-tks"><span class="s5-tk">Landing page</span></span></div>
-            <div class="s5-wk"><i class="s5-seg"><b></b></i><span class="s5-wl"><em>3</em> Outreach live</span><span class="s5-tks"><span class="s5-tk">Cold email</span><span class="s5-tk">LinkedIn</span></span></div>
-            <div class="s5-wk"><i class="s5-seg"><b></b></i><span class="s5-wl"><em>4</em> Content, ads</span><span class="s5-tks"><span class="s5-tk">Content</span><span class="s5-tk">Ads</span></span></div>
-          </div>
-          <div class="s5-grp">
-            <p class="s5-gh">Weeks 5 to 8: Downstream installed.</p>
-            <i class="s5-tray"></i>
-            <div class="s5-wk"><i class="s5-seg"><b></b></i><span class="s5-wl"><em>5</em> Callback, follow‑up</span><span class="s5-tks"><span class="s5-tk">Fast callback</span><span class="s5-tk">Follow‑up</span></span></div>
-            <div class="s5-wk"><i class="s5-seg"><b></b></i><span class="s5-wl"><em>6</em> Sales call, scripts</span><span class="s5-tks"><span class="s5-tk">Sales call</span></span></div>
-            <div class="s5-wk"><i class="s5-seg"><b></b></i><span class="s5-wl"><em>7</em> Delivery, onboarding</span><span class="s5-tks"><span class="s5-tk">Delivery</span></span></div>
-            <div class="s5-wk"><i class="s5-seg"><b></b></i><span class="s5-wl"><em>8</em> Reporting, repeat buying, handover</span><span class="s5-tks"><span class="s5-tk">Reporting</span><span class="s5-tk">Repeat buying</span></span></div>
-          </div>
-        </div>
-        <div class="s5-foot">
-          <div class="s5-key">
-            <svg viewBox="0 0 160 56"><circle cx="28" cy="28" r="20"/><circle cx="28" cy="28" r="7"/><path d="M48 28h104M124 28v16M140 28v11"/></svg>
-            <span class="s5-tag">yours</span>
-          </div>
-        </div>
       </div>
     </div>
   </div></div>
@@ -513,35 +600,65 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
       <p class="lede">Since 2017. 100+ businesses. $220,000 collected from clients in six months in India.</p>
     </div>
 
-    <div class="cuts">
-      <article class="viz cut" role="img" aria-label="Medico Construction. Built: ads, AI calls on every enquiry. Station: Fast callback. Made: ~$6M contracted in 2 years. Paid us: $100k+, a sliver of what they made.">
-        <h3 class="cut-n">Medico Construction</h3>
-        <div class="tray t-built"><p class="label">Built</p><p class="v">ads, AI calls on every enquiry</p><div class="stns"><div class="stn"><svg viewBox="0 0 160 120" aria-hidden="true"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><rect class="w" x="66" y="20" width="28" height="60" rx="6"/><rect class="f" x="70" y="30" width="20" height="34" rx="2"/><path class="k" d="M76 25h8"/><circle class="s" cx="80" cy="72" r="3"/><path class="k" d="M58 36a16 16 0 0 0 0 28M50 30a26 26 0 0 0 0 40M102 36a16 16 0 0 1 0 28M110 30a26 26 0 0 1 0 40"/></svg><span>Fast callback</span></div></div></div>
-        <div class="tray t-money"><p class="label">Made</p><p class="amt" style="--i:0">~$6M contracted in 2 years</p><div class="bar" style="--i:0"><i class="slab made" style="--w:1"></i></div><p class="label pl">Paid us</p><p class="amt pa">$100k+</p><div class="bar" style="--i:1"><i class="slab paid" style="--w:.0167"></i></div></div>
+    <div class="ledger">
+      <article class="row">
+        <div class="who"><div class="txt">
+          <h3 class="nm">Medico Construction</h3>
+          <p class="k">Built</p>
+          <p class="v">ads, AI calls on every enquiry</p>
+          <ul class="stns"><li class="stn"><svg viewBox="0 0 48 48" aria-hidden="true"><rect class="w" x="16" y="8" width="16" height="30" rx="3"/><rect class="f" x="19" y="13" width="10" height="16" rx="1"/><circle class="s" cx="24" cy="33" r="1.6"/><path class="r" d="M11 15a12 12 0 0 0 0 16M6 11a19 19 0 0 0 0 24M37 15a12 12 0 0 1 0 16M42 11a19 19 0 0 1 0 24"/></svg>Fast callback</li></ul>
+        </div></div>
+        <div class="money">
+          <div class="tops"><div class="pd"><p class="k">Paid us</p><p class="n">$100k+</p></div><div class="md"><p class="k">Made</p><p class="n">~$6M</p></div></div>
+          <i class="bar" style="--w:.0167"></i>
+          <p class="c">contracted in 2 years</p>
+        </div>
       </article>
-      <article class="viz cut" role="img" aria-label="Scale Your Results. Built: ads, funnel, qualification. Station: Ads. Made: $20k ad spend returned ~$30k, now $30k returns ~$85k. Paid us: ~$12k, a small part of what they made.">
-        <h3 class="cut-n">Scale Your Results</h3>
-        <div class="tray t-built"><p class="label">Built</p><p class="v">ads, funnel, qualification</p><div class="stns"><div class="stn"><svg viewBox="0 0 160 120" aria-hidden="true"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><rect class="w" x="50" y="58" width="56" height="26" rx="4"/><path class="t" d="M58 66h28M58 73h18"/><rect class="w" x="57" y="44" width="56" height="26" rx="4"/><path class="t" d="M65 52h28M65 59h18"/><rect class="w" x="64" y="30" width="56" height="26" rx="4"/><rect class="f" x="69" y="35" width="16" height="16" rx="2"/><path class="t" d="M90 39h22M90 46h14"/></svg><span>Ads</span></div></div></div>
-        <div class="tray t-money"><p class="label">Made</p><p class="amt" style="--i:0">$20k ad spend returned ~$30k,</p><div class="bar" style="--i:0"><i class="slab made" style="--w:.353"></i></div><p class="amt" style="--i:1">now $30k returns ~$85k</p><div class="bar" style="--i:1"><i class="slab made" style="--w:1"></i></div><p class="label pl">Paid us</p><p class="amt pa">~$12k</p><div class="bar" style="--i:2"><i class="slab paid" style="--w:.141"></i></div></div>
+
+      <article class="row has-vid">
+        <div class="who"><div class="txt">
+          <h3 class="nm">Scale Your Results</h3>
+          <p class="k">Built</p>
+          <p class="v">ads, funnel, qualification</p>
+          <ul class="stns"><li class="stn"><svg viewBox="0 0 48 48" aria-hidden="true"><rect class="w" x="6" y="22" width="26" height="16" rx="2"/><rect class="w" x="11" y="15" width="26" height="16" rx="2"/><rect class="w" x="16" y="8" width="26" height="16" rx="2"/><rect class="f" x="19" y="11" width="8" height="10" rx="1"/><path class="t" d="M30 13h9M30 18h6"/></svg>Ads</li></ul>
+          </div><figure class="vid">
+            <div class="vid-box"><video controls playsinline preload="none" data-poster="media/sami-testimonial-poster.jpg" src="media/sami-testimonial.mp4" aria-label="Sami, Scale Your Results, on video"></video></div>
+            <figcaption class="cap">Sami, Scale Your Results</figcaption>
+          </figure>
+        </div>
+        <div class="money">
+          <div class="tops"><div class="pd"><p class="k">Paid us</p><p class="n">~$12k</p></div><div class="md"><p class="k">Made</p><p class="n">~$85k</p></div></div>
+          <i class="bar" style="--w:.141"></i>
+          <p class="c">$20k ad spend returned ~$30k, now $30k returns</p>
+        </div>
       </article>
-      <figure class="vid">
-        <div class="vid-box"><video controls playsinline preload="none" data-poster="media/sami-testimonial-poster.jpg" src="media/sami-testimonial.mp4"></video></div>
-        <figcaption class="note">Sami, Scale Your Results</figcaption>
-      </figure>
-      <article class="viz cut" role="img" aria-label="Rumor Avenue. Built: LinkedIn and email outreach. Stations: LinkedIn and Cold email. Made: $100k+ in ~3 months. Paid us: $5,000, a small part of what they made.">
-        <h3 class="cut-n">Rumor Avenue</h3>
-        <div class="tray t-built"><p class="label">Built</p><p class="v">LinkedIn and email outreach</p><div class="stns"><div class="stn"><svg viewBox="0 0 160 120" aria-hidden="true"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><circle class="w" cx="48" cy="55" r="7"/><path class="w" d="M36 78a12 12 0 0 1 24 0z"/><circle class="w" cx="112" cy="55" r="7"/><path class="w" d="M100 78a12 12 0 0 1 24 0z"/><path class="ln" d="M58 44Q80 22 102 44"/><circle class="s" cx="80" cy="33" r="4"/></svg><span>LinkedIn</span></div><div class="stn"><svg viewBox="0 0 160 120" aria-hidden="true"><path class="pl-l" d="M24 86L80 108v10L24 96z"/><path class="pl-r" d="M80 108l56-22v10l-56 22z"/><path class="pl-t" d="M80 64l56 22-56 22-56-22z"/><rect class="w" x="40" y="46" width="58" height="38" rx="4"/><path class="k" d="M40 50l29 18 29-18"/><rect class="w" x="96" y="18" width="32" height="22" rx="3"/><path class="k" d="M96 21l16 10 16-10"/><rect class="w" x="114" y="48" width="26" height="18" rx="3"/><path class="k" d="M114 51l13 8 13-8"/></svg><span>Cold email</span></div></div></div>
-        <div class="tray t-money"><p class="label">Made</p><p class="amt" style="--i:0">$100k+ in ~3 months</p><div class="bar" style="--i:0"><i class="slab made" style="--w:1"></i></div><p class="label pl">Paid us</p><p class="amt pa">$5,000</p><div class="bar" style="--i:1"><i class="slab paid" style="--w:.05"></i></div></div>
+
+      <article class="row">
+        <div class="who"><div class="txt">
+          <h3 class="nm">Rumor Avenue</h3>
+          <p class="k">Built</p>
+          <p class="v">LinkedIn and email outreach</p>
+          <ul class="stns"><li class="stn"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="w" cx="12" cy="24" r="4"/><path class="w" d="M5 38a7 7 0 0 1 14 0z"/><circle class="w" cx="36" cy="24" r="4"/><path class="w" d="M29 38a7 7 0 0 1 14 0z"/><path class="t" d="M17 16Q24 6 31 16"/><circle class="s" cx="24" cy="11" r="2.2"/></svg>LinkedIn</li><li class="stn"><svg viewBox="0 0 48 48" aria-hidden="true"><rect class="w" x="5" y="18" width="28" height="20" rx="2"/><path class="r" d="M5 20l14 9 14-9"/><rect class="w" x="27" y="7" width="16" height="11" rx="2"/><path class="r" d="M27 9l8 5 8-5"/></svg>Cold email</li></ul>
+        </div></div>
+        <div class="money">
+          <div class="tops"><div class="pd"><p class="k">Paid us</p><p class="n">$5,000</p></div><div class="md"><p class="k">Made</p><p class="n">$100k+</p></div></div>
+          <i class="bar" style="--w:.05"></i>
+          <p class="c">in ~3 months</p>
+        </div>
       </article>
     </div>
 
-    <div class="viz sieve" role="img" aria-label="Our own offer: 300 leads, 50 qualified, 10+ closed at ₹1.5L">
-      <p class="label">Our own offer</p>
-      <svg class="sv" aria-hidden="true"></svg>
+    <div class="sieve">
+      <p class="k">Our own offer</p>
+      <div class="sg">
+        <div class="st s300"><i class="dots" aria-hidden="true"></i><p class="sl"><b>300</b> leads</p></div>
+        <div class="st s50"><i class="dots" aria-hidden="true"></i><p class="sl"><b>50</b> qualified</p></div>
+        <div class="st s10"><i class="dots" aria-hidden="true"></i><p class="sl"><b class="acc">10+</b> closed at ₹1.5L</p></div>
+      </div>
     </div>
 
     <ul class="wall" aria-label="Also built for">
-      <li class="label wall-l">Also built for</li><li>Agent Lions Den</li><li>The Oberoi Group</li><li>Riarh Group</li><li>Celestial Luxury Resorts</li><li>Walk Again Rehab</li><li>Swathi Veldandi Studio</li>
+      <li class="k wall-l">Also built for</li><li>Agent Lions Den</li><li>The Oberoi Group</li><li>Riarh Group</li><li>Celestial Luxury Resorts</li><li>Walk Again Rehab</li><li>Swathi Veldandi Studio</li>
     </ul>
   </div></div>
 </section>
@@ -596,15 +713,15 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 <section id="s8" class="sec" aria-labelledby="s8-h">
   <div class="wrap"><div class="grid">
     <h2 id="s8-h" class="c-1-8">Not for starting from zero</h2>
-    <div class="viz s8-viz" role="img" aria-label="A skill-file block tries three bases and bounces off each: bare cracked ground, no paying clients yet; a laptop tagged first project, freelancers after a first project; a sign reading coach, someday, coaches who aren't coaching yet. It locks onto a slab labelled paying clients.">
-      <div class="s8-scene">
-        <div class="s8-blk"><i></i><i></i><i></i></div>
-        <ul class="s8-bases">
-          <li><div class="s8-stage"><svg class="s8-obj s8-ground" viewBox="0 0 120 22"><path class="s8-soil" d="M2 21L10 5Q60 -1 110 5L118 21Z"/><path class="s8-crack" d="M30 6l6 5-3 4 5 6M64 4l-4 6 5 3-2 8M88 6l5 4-2 5"/></svg></div><p class="s8-cap">No paying clients yet</p></li>
-          <li><div class="s8-stage"><div class="s8-obj s8-lap"><span class="s8-scr"><span class="s8-tag">first project</span></span><span class="s8-kb"></span></div></div><p class="s8-cap">Freelancers after a first project</p></li>
-          <li><div class="s8-stage"><div class="s8-obj s8-sign"><span class="s8-board">coach, someday</span><span class="s8-post"></span></div></div><p class="s8-cap">Coaches who aren't coaching yet</p></li>
-          <li class="s8-yes"><div class="s8-stage"><div class="s8-obj s8-slab"></div></div><p class="s8-cap">paying clients</p></li>
-        </ul>
+    <div class="s8-scene" role="img" aria-label="A skill-file block tries three bases and bounces off each: no paying clients yet, freelancers after a first project, coaches who aren't coaching yet. Each is struck out. It locks onto a solid base labelled paying clients.">
+      <ol class="s8-nots">
+        <li style="--i:0"><svg class="s8-ic" data-top=".24" viewBox="0 0 132 92"><path class="s8-soil" d="M6 88L22 36Q66 22 110 36L126 88Z"/><path class="s8-crack" d="M46 32l9 14-6 11 8 20M74 29l-7 15 9 10-4 24M100 36l7 12-4 11"/></svg><span class="s8-t">No paying clients yet</span></li>
+        <li style="--i:1"><svg class="s8-ic" data-top=".29" viewBox="0 0 132 92"><rect class="s8-ln" x="22" y="28" width="88" height="54" rx="5"/><path class="s8-ln" d="M6 88h120"/><path class="s8-thin" d="M40 46h34M40 60h50"/></svg><span class="s8-t">Freelancers after a first project</span></li>
+        <li style="--i:2"><svg class="s8-ic" data-top=".2" viewBox="0 0 132 92"><path class="s8-ln" d="M54 52v36"/><rect class="s8-ln" x="8" y="22" width="92" height="30" rx="3" transform="rotate(-6 54 37)"/><path class="s8-ln" d="M28 88h52"/></svg><span class="s8-t">Coaches who aren't coaching yet</span></li>
+      </ol>
+      <div class="s8-yes">
+        <span class="s8-blk"><i></i><i></i><i></i></span>
+        <div class="s8-slab"><span class="s8-st">paying clients</span></div>
       </div>
     </div>
   </div></div>
@@ -627,22 +744,30 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 
 <section id="s10" class="sec" aria-labelledby="s10-h">
   <div class="wrap"><div class="grid">
-    <div class="cta c-1-5 stack-lg">
+    <div class="s10-cta stack-lg">
       <h2 id="s10-h">Map this to your business.</h2>
       <div class="stack">
         <a class="btn js-pay" href="#">Map my business</a>
         <p class="note">45 minutes with me. ₹999, credited if you join.</p>
       </div>
     </div>
-    <div class="map c-6-12" role="img" aria-label="The folded map from earlier, back in its sleeve stamped yours, with one teal pin labelled your business">
-      <div class="sheet">
-        <img loading="lazy" src="assets/s2-sleeve.svg" alt="" width="330" height="420" />
-        <!-- ponytail: pin tip sits on the sleeve's own teal pin (84.25,35.5 of 330x420); re-measure if s2-sleeve.svg geometry changes -->
-        <span class="pin" aria-hidden="true">
-          <svg viewBox="0 0 24 32"><path d="M12 31C12 31 2 18.5 2 11.5a10 10 0 0 1 20 0C22 18.5 12 31 12 31Z"/><circle cx="12" cy="11.5" r="4"/></svg>
-          <b>your business</b>
-        </span>
-      </div>
+    <div class="s10-art" role="img" aria-label="The map from earlier, folded and stamped yours, with one teal pin labelled your business">
+      <svg viewBox="0 0 400 320" aria-hidden="true" focusable="false">
+        <g class="s10-tilt">
+          <path class="s10-sheet" d="M24 20H346L376 50V300H24Z"/>
+          <path class="s10-gridl" d="M24 60H376M24 100H376M24 140H376M24 180H376M24 220H376M24 260H376M64 20V300M104 20V300M144 20V300M184 20V300M224 20V300M264 20V300M304 20V300M344 20V300"/>
+          <text class="s10-reg" x="44" y="58">UPSTREAM</text>
+          <text class="s10-reg" x="206" y="58">DOWNSTREAM</text>
+          <path class="s10-route" d="M150 196C196 238 262 258 332 250"/>
+          <path class="s10-flap" d="M346 20V50H376Z"/>
+          <path class="s10-flapedge" d="M346 20L376 50"/>
+          <g transform="translate(223 242)"><g class="s10-leak"><path d="M0 0C0 0-11-14-11-22a11 11 0 0 1 22 0C11-14 0 0 0 0z"/><circle cx="0" cy="-22" r="4"/></g></g>
+          <g transform="translate(332 250)"><path class="s10-pole" d="M0 0V-44"/><path class="s10-cloth" d="M1 -44H28L22 -36L28 -28H1Z"/></g>
+          <g class="s10-stamp" transform="translate(96 272) rotate(-6)"><rect x="-54" y="-19" width="108" height="38" rx="6"/><text x="0" y="7" text-anchor="middle">YOURS</text></g>
+          <g transform="translate(150 196)"><g class="s10-pin"><path d="M0 0C0 0-19-24-19-37a19 19 0 0 1 38 0C19-24 0 0 0 0z"/><circle cx="0" cy="-37" r="7.5"/></g></g>
+          <g class="s10-lab"><rect x="174" y="138" width="172" height="40" rx="20"/><text x="260" y="164" text-anchor="middle">your business</text></g>
+        </g>
+      </svg>
     </div>
   </div></div>
 </section>
@@ -663,6 +788,10 @@ var PAY_LINK = 'https://rzp.io/rzp/aimarketinglab-call';
    0 = show at once (the "show everything" kill switch). */
 var REVEAL_SOFT = 444, PITCH = 475, CTA_SPOKEN = 481;
 var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* Two pages, one funnel (Sandy, 2 Oct): 'home' = aimarketinglabs.in, the opt-in only; 'call' = /call, the training.
+   The form on home sends the lead to /call; /call without an opt-in sends the visitor back to home. utm/fbclid ride along. */
+var PAGE = 'call';
+function toTraining() { location.href = '/call/' + location.search + location.hash; }
 
 function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 function lsPut(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -732,6 +861,7 @@ function reveal(stage) {
   document.dispatchEvent(new CustomEvent('aiml:reveal', { detail: { stage: stage } }));
 }
 function stateB() {
+  if (PAGE === 'home') return toTraining();
   document.body.dataset.state = 'b';
   reveal('watch');
   if (lsGet('aiml_vsl_seen') === '1') { reveal('soft'); reveal('pitch'); }
@@ -775,6 +905,7 @@ document.addEventListener('keydown', function (e) {
 (function () {
   var form = document.getElementById('qform'), err = document.getElementById('qerr');
   var lead = null; try { lead = JSON.parse(lsGet('aiml_lead') || 'null'); } catch (e) {}
+  if (PAGE === 'call' && !(lead && lead.ok)) return location.replace('/' + location.search + location.hash);
   if (lead && lead.ok) return stateB();
   if (lead && lead.ok === false) return stateDQ();
   document.body.dataset.state = 'a';
@@ -835,8 +966,14 @@ document.addEventListener('keydown', function (e) {
         fbq('init', META_PIXEL_ID, { em: em, fn: fn.toLowerCase(), ph: phd });   /* advanced matching, pixel hashes */
         fbq('track', 'Lead', { content_name: 'AIML VSL optin' }, { eventID: id });
       }
+      /* leave only after the Lead is on its way: the stub only queues it until fbevents.js has loaded (fbq.callMethod),
+         and a queue dies with the page. Wait for the real pixel, 3 s cap, then 400 ms for the request to go. */
+      if (PAGE === 'home') { var t0 = Date.now(); (function wait() {
+        if ((window.fbq && window.fbq.callMethod) || Date.now() - t0 > 3000) return setTimeout(toTraining, 400);
+        setTimeout(wait, 100); })(); }
     });
     lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2, ok: true, fn: fn, ts: Date.now() }));
+    if (PAGE === 'home') { var sb = form.querySelector('[type=submit]'); sb.disabled = true; sb.textContent = 'Opening the training...'; return; }
     closeModal(); stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
   });
 })();
@@ -846,6 +983,7 @@ document.addEventListener('keydown', function (e) {
   var v = document.getElementById('vsl'), HLS = '../call/vsl/hls/master.m3u8', MP4 = '../call/vsl/aiml-vsl.mp4';
   var play = document.getElementById('play'), playL = document.getElementById('play-l'), tap = document.getElementById('vtap');
   var bar = document.getElementById('vbar');
+  if (!v) return;   /* home carries no player */
   var KT = 'aiml_vsl_t', saved = parseFloat(lsGet(KT)) || 0, live = false, max = 0, half = false, nudged = false;
   v.controls = false; play.hidden = false;
   if (saved > 10) playL.textContent = 'Continue where you left off';
