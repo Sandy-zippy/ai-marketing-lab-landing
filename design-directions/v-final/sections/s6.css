@@ -1,53 +1,56 @@
-/* S6 Proof: a ledger on the white ground (rules and value columns after 21st.dev "Paired Bars"; the bar itself after
-   "Partition Bar"). One row per client: who + what we built on the left; on the right ONE bar the full width of the
-   column: the whole bar is what they made (ink), the teal piece at its left is what they paid us, out of it.
-   Paid us numeral sits over the teal end, Made numeral over the ink end. Then the sieve (pure CSS dots, so it reads with
-   no JS), then the wall. The finished frame is the default; JS only arms the bars (scaleX from .08) and the sieve's
-   dot colours and flying tokens. */
+/* S6 Proof (v2): each ledger row leads with the real artefact (the page we built, or the client's own site), the
+   biggest thing in the row, in a plain browser bar. Beside it: who, what we built, and the money bar (whole bar = what
+   they made, ink; the teal piece at its left = what they paid us). Desktop alternates the artefact side; phone stacks
+   artefact first, full width. Then the sieve (pure CSS dots, reads with no JS), then the wall. The finished frame is
+   the default; JS only arms the bars (scaleX from .08) and the sieve's dot colours and flying tokens. */
 @property --dot{syntax:'<color>';inherits:true;initial-value:#121212}
 #s6{border-top:0;background:var(--canvas)}
 
-/* shared label: 14px mono caps, body ink (11:1 on white) */
-#s6 .k{font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--body);line-height:1.4}
+/* shared label: mono caps, body ink */
+#s6 .k{font-family:var(--mono);font-size:var(--fs-label);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--body);line-height:1.4}
 
 /* ledger: ink rule top and bottom, hairlines between rows, no cards */
 #s6 .ledger{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
-#s6 .row{display:grid;gap:var(--s5);padding-block:var(--s5)}
+#s6 .row{display:grid;gap:var(--s3);padding-block:var(--s4)}
 #s6 .row+.row{border-top:1px solid var(--line)}
+#s6 .info,#s6 .txt,#s6 .art{min-width:0}
+#s6 .info{display:grid;gap:var(--s3);align-content:center}
+#s6 .nm{font-size:var(--fs-h3);line-height:1.2;margin-bottom:var(--s1)}
+#s6 .txt .k{display:inline;margin-right:var(--s2)}
+#s6 .v{display:inline;font-size:var(--fs-body);color:var(--body);line-height:1.45}
 
-#s6 .who,#s6 .txt{min-width:0}
-#s6 .nm{font-size:var(--fs-h3);line-height:1.25;margin-bottom:var(--s2)}
-#s6 .v{font-size:var(--fs-body);color:var(--body);line-height:1.45}
+/* the artefact: a screenshot in a plain browser bar, 1px line, large radius */
+#s6 .art{display:grid;gap:var(--s2)}
+#s6 .win{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--surface)}
+#s6 .chrome{display:block;flex:none;height:18px;border-bottom:1px solid var(--line);background-color:var(--surface);background-size:10px 10px;background-repeat:no-repeat;
+  background-image:radial-gradient(circle,var(--low) 3px,transparent 3.6px),radial-gradient(circle,var(--low) 3px,transparent 3.6px),radial-gradient(circle,var(--low) 3px,transparent 3.6px);
+  background-position:12px 50%,26px 50%,40px 50%}
+#s6 .win img{display:block;width:100%;height:auto}
+/* phone: trim the screenshots a little (top kept) so three rows fit the section's height budget */
+#s6 .win .m169{aspect-ratio:16/9;object-fit:cover;object-position:top}
+#s6 .win .m21{aspect-ratio:2/1;object-fit:cover;object-position:top}
+#s6 .cap{font-size:var(--fs-label);line-height:1.4;color:var(--quiet)}
 
-/* the station that did the work: a small ink icon, not the hero */
-#s6 .stns{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s3)}
-#s6 .stn{display:inline-flex;align-items:center;gap:var(--s2);font-size:var(--fs-sm);font-weight:600;color:var(--body)}
-#s6 .stn svg{width:32px;height:32px;flex:none;fill:none;stroke:var(--body);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-#s6 .stn .w{fill:var(--canvas)}
-#s6 .stn .f{fill:var(--line)}
-#s6 .stn .s{fill:var(--body);stroke:none}
-
-/* Sami's video lives inside the Scale Your Results row, as the right column of its name block, caption under it */
-#s6 .has-vid .who{display:grid;grid-template-columns:minmax(0,1fr) 104px;column-gap:var(--s4);row-gap:var(--s2)}
-#s6 .has-vid .txt{grid-column:1;grid-row:1 / span 2}
-#s6 .vid{display:contents}
-#s6 .vid-box{position:relative;grid-column:2;grid-row:1;aspect-ratio:9/16;border-radius:var(--r-sm);overflow:hidden;background:var(--ink)}
-#s6 .vid-box video{width:100%;height:100%;object-fit:cover}
+/* Scale Your Results: funnel screenshot and Sami's video side by side, same height */
+#s6 .pair{grid-template-columns:minmax(0,3fr) minmax(0,2fr);column-gap:var(--s2);align-items:stretch}
+#s6 .pair .win{display:flex;flex-direction:column}
+#s6 .pair .cap{grid-column:1 / -1}
+#s6 .vid-box{position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--ink);min-height:0}
+#s6 .vid-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 /* play glyph, JS only (.tap): the native controls wait for the first tap, so this is the one play icon; kept off his face */
-#s6 .vid-box.tap::after{content:"";position:absolute;left:var(--s2);bottom:var(--s2);width:40px;height:40px;border-radius:50%;pointer-events:none;
+#s6 .vid-box.tap::after{content:"";position:absolute;left:var(--s2);bottom:var(--s2);width:44px;height:44px;border-radius:50%;pointer-events:none;
   background:rgba(255,255,255,.92) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6.5v11l9-5.5z' fill='%23121212'/%3E%3C/svg%3E") center/20px no-repeat}
 #s6 .vid-box.on::after{display:none}
 #s6 .vid-box.tap{cursor:pointer}
-#s6 .cap{grid-column:2;grid-row:2;align-self:start;font-size:var(--fs-sm);line-height:1.35;color:var(--quiet)}
 
 /* money: Paid us (left) and Made (right) over one bar; the caption says what Made counts */
-#s6 .money{display:grid;row-gap:var(--s2);align-content:center;min-width:0}
+#s6 .money{display:grid;row-gap:var(--s1);min-width:0}
 #s6 .tops{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s4)}
 #s6 .md{text-align:right}
-#s6 .n{font-family:var(--mono);font-weight:700;font-size:max(var(--s6),var(--fs-num));line-height:1.25;margin-top:var(--s2);letter-spacing:-.03em;white-space:nowrap;color:var(--ink)}
-#s6 .bar{position:relative;display:block;height:20px;background:var(--ink);transform-origin:0 50%}
+#s6 .n{font-family:var(--mono);font-weight:700;font-size:var(--fs-num);line-height:1.15;margin-top:var(--s1);letter-spacing:-.03em;white-space:nowrap;color:var(--ink)}
+#s6 .bar{position:relative;display:block;height:16px;background:var(--ink);transform-origin:0 50%}
 /* the fee, out of what they made; a share too thin to see (Medico, 1.7%) still draws 8px, its numeral is right above it */
-#s6 .bar::after{content:"";position:absolute;left:0;top:0;bottom:0;width:max(8px,calc(100% * var(--w)));background:var(--accent);border-right:2px solid var(--canvas);transform-origin:0 50%}
+#s6 .bar::after{content:"";position:absolute;left:0;top:0;bottom:0;width:max(12px,calc(100% * var(--w)));background:var(--accent);border-right:2px solid var(--canvas);transform-origin:0 50%}
 #s6 .c{font-size:var(--fs-sm);color:var(--body);line-height:1.4;text-align:right}
 
 /* motion: an armed bar starts at .08 and fills (what they made), then the teal share grows in from the left */
@@ -57,15 +60,16 @@
 @keyframes s6-fill{from{transform:scaleX(.08)}to{transform:none}}
 
 /* sieve: 300 grey dots, 50 ink, 10 teal; CSS dot grids, finished with no JS. --t (tile) and --c (columns) are read by s6.js */
-#s6 .sg{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:var(--s5);row-gap:var(--s5);margin-top:var(--s4)}
+#s6 .sieve{margin-top:calc(-1 * var(--s3))}
+#s6 .sg{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:var(--s5);row-gap:var(--s4);margin-top:var(--s3)}
 #s6 .s300{grid-row:span 2}
 #s6 .s50,#s6 .s10{padding-left:var(--s5);border-left:1px solid var(--line)}
-#s6 .dots{display:block;--dot:var(--ink);--t:9px;--r:2.7px;--c:10;width:calc(var(--t) * var(--c));background:radial-gradient(circle,var(--dot) var(--r),transparent calc(var(--r) + .6px)) 0 0/var(--t) var(--t);transition:--dot 400ms var(--ease)}
+#s6 .dots{display:block;--dot:var(--ink);--t:8px;--r:2.4px;--c:10;width:calc(var(--t) * var(--c));background:radial-gradient(circle,var(--dot) var(--r),transparent calc(var(--r) + .6px)) 0 0/var(--t) var(--t);transition:--dot 400ms var(--ease)}
 #s6 .s300 .dots{--dot:var(--quiet-line);--c:20;height:calc(var(--t) * 15)}
 #s6 .s50 .dots{height:calc(var(--t) * 5)}
 #s6 .s10 .dots{--dot:var(--accent);--t:12px;--r:4px;--c:5;height:calc(var(--t) * 2)}
 #s6 .sl{position:relative;z-index:3;margin-top:var(--s2);font-family:var(--mono);font-size:var(--fs-sm);line-height:1.35;color:var(--ink)}
-#s6 .sl b{display:block;font-size:max(var(--s6),var(--fs-num));line-height:1.1}
+#s6 .sl b{display:block;font-size:var(--fs-num);line-height:1.1}
 #s6 .sl .acc{color:var(--accent-ink)}
 /* armed: the 300 are all ink and the 50 / 10 slots wait in light grey until the flying dots land */
 #s6 .sieve.a300 .s300 .dots{--dot:var(--ink)}
@@ -76,19 +80,29 @@
 #s6 .fly .w{fill:var(--accent)}
 
 /* client wall: names only, plain Inter, quiet */
-#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2) var(--s5);padding-top:var(--s5);border-top:1px solid var(--line);color:var(--quiet);font-size:var(--fs-sm)}
-#s6 .wall-l{flex-basis:100%}
+#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s1) var(--s4);padding-top:var(--s4);border-top:1px solid var(--line);color:var(--quiet);font-size:var(--fs-sm)}
 
 @media (min-width:768px){
-  #s6 .row{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:var(--s7);padding-block:var(--s6)}
-  #s6 .has-vid .who{grid-template-columns:minmax(0,1fr) 96px}
+  /* artefact 7 : info 5, the artefact side alternates row to row */
+  #s6 .row{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--s7);padding-block:var(--s7);align-items:start}
+  #s6 .row.flip{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+  #s6 .row.flip .art{order:2}
+  /* Rumor: their own site, not our work, so it never outweighs the two pages we built */
+  #s6 .row.demo{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+  #s6 .info{gap:var(--s5);padding-top:var(--s6)}
+  #s6 .money{row-gap:var(--s2)}
+  #s6 .win .m169,#s6 .win .m21{aspect-ratio:auto}
+  #s6 .txt .k{display:block;margin:var(--s2) 0 0}
+  #s6 .v{display:block}
+  #s6 .chrome{height:28px;background-position:16px 50%,30px 50%,44px 50%}
+  #s6 .cap{font-size:var(--fs-sm)}
+  #s6 .sieve{margin-top:0}
+  #s6 .sg{row-gap:var(--s5);margin-top:var(--s4)}
   #s6 .dots{--t:12px;--r:3.6px}
   #s6 .s10 .dots{--t:16px;--r:5.3px}
-  #s6 .wall{font-size:var(--fs-body)}
-  #s6 .wall-l{flex-basis:auto}
+  #s6 .wall{font-size:var(--fs-body);gap:var(--s2) var(--s5);padding-top:var(--s5)}
 }
 @media (min-width:1024px){
-  #s6 .has-vid .who{grid-template-columns:minmax(0,1fr) 124px;column-gap:var(--s5)}
   #s6 .bar{height:24px}
   /* sieve goes three-across, 300 as 30 x 10, everything sitting on one baseline */
   #s6 .sg{grid-template-columns:repeat(3,auto);justify-content:space-between;align-items:end;column-gap:var(--s6)}
@@ -99,7 +113,7 @@
   #s6 .s10 .dots{--t:22px;--r:6.6px}
 }
 @media (min-width:1200px){
-  #s6 .row{grid-template-columns:minmax(0,9fr) minmax(0,15fr)}
+  #s6 .n{font-size:calc(var(--fs-num) * 1.25);line-height:1.3;margin-top:var(--s2)}
   #s6 .dots{--t:20px;--r:5.6px}
   #s6 .s10 .dots{--t:28px;--r:8.4px}
 }
