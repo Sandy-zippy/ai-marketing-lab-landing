@@ -22,13 +22,25 @@ const MIN = { 'index.html': 8, 'call/index.html': 8, 'sprint/index.html': 6 };  
 const CHROME = process.env.CHROME_BIN
   || globSync('/Users/sandy/.cache/puppeteer/chrome/mac_arm-*/chrome-mac-arm64/*.app/Contents/MacOS/*').sort().pop();
 if (!CHROME) { console.error('no chrome build found under ~/.cache/puppeteer/chrome'); process.exit(1); }
+// Pages load over http, as a visitor gets them: the homepage copy uses <base href="/call/">, which
+// file:// resolves to the disk root, so its fonts 404 and every heading falsely fails (2 Oct 2026).
+const { createServer } = await import('node:http');
+const { readFile } = await import('node:fs/promises');
+const TYPES = { html: 'text/html', css: 'text/css', js: 'text/javascript', woff2: 'font/woff2', svg: 'image/svg+xml', jpg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
+const srv = createServer(async (q, s) => {
+  let path = decodeURIComponent(q.url.split('?')[0]); if (path.endsWith('/')) path += 'index.html';
+  let body; try { body = await readFile(ROOT + path); } catch { s.writeHead(404); return s.end(); }
+  s.writeHead(200, { 'content-type': TYPES[path.split('.').pop()] || 'application/octet-stream' }); s.end(body);
+}).listen(0, '127.0.0.1');
+await new Promise(r => srv.once('listening', r));
+const BASE = `http://127.0.0.1:${srv.address().port}`;
 const b = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox'] });
 let bad = 0;
 for (const f of PAGES) {
   for (const vw of [1440, 390]) {
     const p = await b.newPage(); await p.setCacheEnabled(false);
     await p.setViewport({ width: vw, height: 900 });
-    await p.goto(`file://${ROOT}/${f}`, { waitUntil: 'load', timeout: 30000 });
+    await p.goto(`${BASE}/${f}`, { waitUntil: "load", timeout: 30000 });
     await p.evaluate(() => document.fonts.ready);
     const r = await p.evaluate(() => {
       const els = [...document.querySelectorAll('h1,h2,h3,.callout')];
@@ -45,5 +57,5 @@ for (const f of PAGES) {
     await p.close();
   }
 }
-await b.close();
+await b.close(); srv.close();
 process.exit(bad ? 1 : 0);
