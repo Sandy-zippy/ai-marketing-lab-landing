@@ -1,3 +1,13 @@
+/* S3 proof terminal: types the four output lines once when it scrolls in. Arms only if below the fold. */
+(function () {
+  var t = document.querySelector('#s3 .s3-tw');
+  if (!t || AIML.REDUCE || !('IntersectionObserver' in window) || t.getBoundingClientRect().top < innerHeight) return;
+  t.classList.add('s3-typ');
+  new IntersectionObserver(function (es, io) {
+    if (!es[0].isIntersecting) return;
+    io.disconnect(); t.classList.add('s3-go');
+  }, { threshold: 0.6 }).observe(t);
+})();
 /* S3: Claude Code rides the track with a skill file. Each station ticks as it passes, the Yes stamp lands and the
    client walks out from under it, and the track runs on into the "buys again" loop. Base CSS is the finished frame;
    JS arms only when the board is below the fold, and only strokes, the tick discs and the two decorative tokens.

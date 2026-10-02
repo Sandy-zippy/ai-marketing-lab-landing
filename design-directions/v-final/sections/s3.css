@@ -149,3 +149,33 @@
   #s3 .s3-arm .s3-who{transform:translateX(92px)}
   #s3 .s3-arm:not(.s3-go) .s3-run{left:calc(var(--rail) + var(--cw) / 2)}
 }
+
+/* ---------- proof: the real terminal (lines copied from session-clean.cast, 29 Sep 2026) ----------
+   Board = the system; terminal = it running, full width right under it (phone: after the board). Every line is
+   visible at all times. .s3-typ (JS, only when below the fold) sends a teal caret along the four output lines once,
+   as Claude Code writes them; the caret covers one character at a time and never hides a line. */
+#s3 .s3-term{display:grid;gap:var(--s3);margin-top:var(--s4)}
+#s3 .s3-cap{font-family:var(--mono);font-size:var(--fs-label);line-height:1.5;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+#s3 .s3-tw{background:var(--ink);border-radius:var(--r-lg);overflow:hidden;font-family:var(--mono);font-size:var(--fs-label);line-height:1.6;color:var(--line)}
+#s3 .s3-tb{display:flex;flex-wrap:wrap;gap:0 var(--s2);align-items:baseline;padding:var(--s3) var(--s4);border-bottom:1px solid var(--body);font-size:var(--fs-label);color:var(--low)}
+#s3 .s3-tb b{color:var(--canvas)}
+#s3 .s3-tb span{margin-left:auto}
+#s3 .s3-tx{padding:var(--s4) var(--s4) var(--s5);display:grid;gap:var(--s3)}
+#s3 .s3-tx p{white-space:pre-wrap;overflow-wrap:anywhere;max-width:76ch}
+#s3 .s3-tx i{font-style:normal;color:var(--accent)}
+#s3 .s3-pr{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:1ch;color:var(--canvas)}
+#s3 .s3-pr em{font-style:normal;color:var(--accent)}
+#s3 .s3-ln{position:relative;padding-left:calc(var(--in) * 1ch + 2ch);text-indent:-2ch}   /* cast indent kept; wrapped rows hang */
+#s3 .s3-ln+.s3-ln{margin-top:calc(var(--s3) * -1)}
+#s3 .s3-dim{color:var(--low)}
+@media (min-width:768px){
+  #s3 .s3-tw{font-size:var(--fs-sm)}
+  #s3 .s3-tx{padding:var(--s5) var(--s6) var(--s6)}
+}
+@media (min-width:1024px){#s3 .s3-tw{font-size:var(--fs-body)}}
+@media (min-width:900px){#s3 .s3-term{margin-top:0}#s3 .s3-tw{max-width:calc(78ch + 2 * var(--s6))}}   /* panel hugs the 76ch text: no dead black */
+/* caret: a 1ch teal block walks each output line in character steps, one line after another (~2.5 s), then is gone */
+#s3 .s3-typ .s3-ln::after{content:"";position:absolute;top:.15em;left:calc(var(--in) * 1ch);width:1ch;height:1.2em;background:var(--accent);opacity:0}
+#s3 .s3-typ.s3-go .s3-ln::after{animation:s3-walk calc(var(--n) * 20ms) steps(var(--n)) calc(.2s + var(--k) * .8s),s3-show calc(var(--n) * 20ms) linear calc(.2s + var(--k) * .8s)}
+@keyframes s3-walk{from{transform:none}to{transform:translateX(calc(var(--n) * 1ch))}}
+@keyframes s3-show{from,to{opacity:1}}
