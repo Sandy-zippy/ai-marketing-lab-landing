@@ -69,6 +69,17 @@ document.querySelectorAll('.js-pay').forEach(function (b) {
   b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); });
 });
 
+/* Phone sticky bar: slides away while any other booking button is on screen (no two asks at once). */
+(function () {
+  var bar = document.querySelector('.stick'); if (!bar || !('IntersectionObserver' in window)) return;
+  var seen = new Set();
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); });
+    bar.classList.toggle('away', seen.size > 0);
+  });
+  document.querySelectorAll('.js-pay').forEach(function (b) { if (!bar.contains(b)) io.observe(b); });
+})();
+
 /* ---- state + reveals ---- */
 var shown = {};
 function reveal(stage) {

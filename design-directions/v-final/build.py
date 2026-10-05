@@ -25,7 +25,7 @@ if os.path.exists(tp):
 # lead's ruling 1 Oct from vsl/edit/final/CHAPTERS-v3.txt: 7:24 "The call" = book block, 7:55 sections, 8:01 CTA pulse
 pitch = int(T.get('pitch_s', 475)); cta = int(T.get('final_cta_s', 481)); soft = int(T.get('soft_cta_s', 444))
 
-secs = ['s1', 's1b', 's2', 's2b'] + [f's{i}' for i in range(3, 11)] + ['s5b']   # v3: s1b who-I-am, s5b Sprint vs Accelerator
+secs = ['s1', 's1b', 's2b'] + [f's{i}' for i in range(3, 11)] + ['s5b']   # v3: s1b who-I-am, s5b Sprint vs Accelerator; s2 (leak map) cut 5 Oct, files kept
 page = rd('shell.html')
 sub = {'TOKENS': rd('DESIGN-TOKENS.css'), 'SHELL_CSS': rd('css/shell.css'), 'APP_JS': rd('js/app.js')}
 for s in secs:

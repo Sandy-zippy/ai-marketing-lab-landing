@@ -71,6 +71,15 @@ body.modal-open{overflow:hidden}
 .vprog{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.18);z-index:3}
 .vprog i{display:block;height:100%;background:var(--accent);transform-origin:left;transform:scaleX(0)}
 
+/* sticky booking bar, phones only */
+.stick{display:none}
+@media (max-width:767px){
+  html.js .stick.on{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--gutter) calc(var(--s3) + env(safe-area-inset-bottom));background:var(--canvas);border-top:1px solid var(--line);transition:transform var(--d-ui) var(--ease)}
+  .stick .btn{flex:none;min-height:48px;padding:0 var(--s4);font-size:var(--fs-sm)}
+  .stick span{font-size:var(--fs-label);line-height:1.35;color:var(--body)}
+  html.js .stick.on.away{transform:translateY(110%)}
+  body:has(.stick.on){padding-bottom:76px}
+}
 footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(--s8)}
 .frow{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:center;justify-content:space-between}
 .frow nav{display:flex;flex-wrap:wrap;gap:var(--s4);font-size:var(--fs-sm);color:var(--quiet)}
