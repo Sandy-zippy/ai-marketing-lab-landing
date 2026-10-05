@@ -85,6 +85,47 @@
   }
 }
 
+/* ---- s1b ---- */
+/* S1B: who you'll be talking to. The short story, a quiet ledger of three facts (numeral and line on one row, hairlines,
+   no cards), then two real photos as one strip at equal height: teaching founders, and a client table.
+   Phone: story, teaching photo (square crop: Sandy and the board) edge to edge, ledger, client photo. Static on purpose: no motion, nothing to pause. */
+#s1b .grid{row-gap:var(--s6)}
+#s1b .s1b-tx p:not(.label):not(.lede){color:var(--body);max-width:56ch}
+
+#s1b .s1b-ph{margin:0;min-width:0}
+#s1b .s1b-ph img{width:100%;height:auto;object-fit:cover;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--elevated)}
+#s1b .s1b-teach img{aspect-ratio:1/1;object-position:50% 30%}
+#s1b .s1b-meet img{aspect-ratio:3/2;object-position:40% 50%}
+#s1b .s1b-ph figcaption{margin-top:var(--s3);font-family:var(--mono);font-size:var(--fs-label);line-height:1.4;letter-spacing:.04em;text-transform:uppercase;color:var(--quiet)}
+
+#s1b .s1b-led{display:grid;border-top:1px solid var(--line);align-self:start}
+#s1b .s1b-led>div{display:grid;grid-template-columns:minmax(0,8.75rem) minmax(0,1fr);align-items:baseline;column-gap:var(--s4);padding-block:var(--s4);border-bottom:1px solid var(--line)}
+#s1b .s1b-led dt{font-size:var(--fs-num);line-height:1.1;white-space:nowrap}
+#s1b .s1b-led dd{font-size:var(--fs-sm);line-height:1.45;color:var(--body)}
+
+@media (max-width:1023px){
+  /* the strip dissolves so the ledger can sit between the two photos */
+  #s1b .s1b-strip{display:contents}
+  #s1b .s1b-strip>*{grid-column:1/-1}
+  #s1b .s1b-tx{order:1}
+  #s1b .s1b-teach{order:2}
+  #s1b .s1b-led{order:3}
+  #s1b .s1b-meet{order:4}
+}
+@media (max-width:767px){
+  #s1b .s1b-teach{margin-inline:calc(var(--gutter) * -1)}
+  #s1b .s1b-teach img{border-radius:0;border-inline:0}
+  #s1b .s1b-teach figcaption{padding-inline:var(--gutter)}
+}
+@media (min-width:1024px){
+  #s1b .s1b-tx{grid-column:1/7}
+  #s1b .s1b-led{grid-column:8/13;margin-top:var(--s6)}
+  #s1b .s1b-led>div{grid-template-columns:minmax(0,calc(var(--fs-num) * 5)) minmax(0,1fr);padding-block:var(--s4)}
+  /* equal height: track widths follow the two aspect ratios (1:1 = 1, 3:2 = 1.5) */
+  #s1b .s1b-strip{grid-column:1/13;display:grid;grid-template-columns:1fr}
+  #s1b .s1b-teach img{aspect-ratio:16/9;object-position:50% 6%}   /* one wide band; the 1:1 client frame moved to s5 only (it repeated s5) */
+}
+
 /* ---- s2 ---- */
 /* S2: the map of "your business" IS the section. Drawn straight on the paper ground, no wrapper card.
    An accordion-folded paper map: wide (Upstream | Downstream) from 768px, folded the other way and stacked
@@ -156,20 +197,21 @@
 @keyframes s2-stamp{to{transform:none}}
 
 /* ---- s2b ---- */
-/* S2b skill packs: compact. Headline + lede, then the 13 pack names as small chips in three tier rows
-   (On the call 2, Sprint adds 4, Accelerator 7). Static: no motion, nothing to wait for. */
+/* S2b skill packs: compact. Headline + lede, then the 13 packs as small chips in three tier rows
+   (Free with the call 2, Sprint adds 4, Accelerator 7). Each chip = number + a plain caption, never the folder slug.
+   Static: no motion, nothing to wait for. */
 #s2b{background:var(--paper);border-top:0;padding-block:var(--s8)}
 #s2b .s2b-hd>*+*{margin-top:var(--s3)}
 #s2b .s2b-tiers{display:grid;gap:var(--s4)}
 #s2b .s2b-g{display:grid;gap:var(--s2)}
 #s2b .s2b-tag{font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1.3;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
 #s2b .s2b-tag span{margin-left:var(--s2);letter-spacing:0;text-transform:none;color:var(--quiet)}
-#s2b .s2b-c0 .s2b-tag span{color:var(--accent-ink)}
+#s2b .s2b-c0 .s2b-tag{color:var(--accent-ink)}
 #s2b .s2b-chips{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2)}
 #s2b .s2b-chips li{display:inline-flex;align-items:baseline;gap:var(--s2);padding:var(--s1) var(--s3);font-size:var(--fs-sm);line-height:1.5;font-weight:500;
   color:var(--ink);background:var(--canvas);border:1px solid var(--paper-edge);border-radius:999px;white-space:nowrap}
 #s2b .s2b-chips b{font-family:var(--mono);font-size:var(--fs-label);font-weight:700;color:var(--quiet)}
-/* the two that are yours after the call: inked */
+/* the two that are free with the call: inked */
 #s2b .s2b-c0 .s2b-chips li{background:var(--ink);border-color:var(--ink);color:var(--canvas);font-weight:700}
 #s2b .s2b-c0 .s2b-chips b{color:var(--low)}
 @media (min-width:1024px){
@@ -429,29 +471,11 @@
   #s4 .s4-ev{width:28px}
   #s4 .s4-ppl{width:96px}
 }
-
-/* the real photo: biggest thing in the section, kept B&W; the face sits left in the frame, so anchor left */
-#s4 .s4-ph{margin:0}
-#s4 .s4-ph img{width:100%;height:auto;aspect-ratio:5/4;object-fit:cover;object-position:12% 40%;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--elevated)}
-#s4 .s4-ph figcaption{margin-top:var(--s3);font-size:var(--fs-label);line-height:1.4;color:var(--quiet);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
-/* phone: a full-bleed band under the heading */
-@media (max-width:767px){
-  #s4 .s4-ph{margin-inline:calc(var(--gutter) * -1)}
-  #s4 .s4-ph img{aspect-ratio:4/3;object-position:30% 40%;border-radius:0;border-inline:0}
-  #s4 .s4-ph figcaption{padding-inline:var(--gutter)}
-}
-
-/* desktop: the photo is the section; copy, the week lines and the compact calendar sit in c-1-5 beside it */
+/* desktop: copy and the week lines in c-1-5, the building in c-6-12 */
 @media (min-width:1024px){
-  #s4 .s4-head{grid-row:1;align-self:start}
-  #s4 .s4-weeks{grid-row:2;align-self:start;padding-top:var(--s5);border-top:1px solid var(--paper-edge)}
-  #s4 .s4-ph{grid-row:1/3}
-  #s4 .s4-ph img{aspect-ratio:16/9}
-  /* the calendar: a compact strip under the photo */
-  #s4 .s4-viz{grid-row:3;margin-top:calc(var(--s5) * -1);--bw:280px;--fh:44px;--sky:44px;--pw:32px;--dy:-2px}
-  #s4 .s4-b b{left:var(--s2);top:var(--s1);font-size:var(--fs-sm)}
-  #s4 .s4-ev{width:24px}
-  #s4 .s4-ppl{width:80px}
+  #s4 .s4-head{grid-row:1;align-self:end}
+  #s4 .s4-weeks{grid-row:2;align-self:start}
+  #s4 .s4-viz{grid-row:1/3;align-self:center;--bw:370px}
 }
 
 /* motion: plays once, only if the visual was below the fold when the script ran (js adds .armed, then .go on view) */
@@ -476,55 +500,35 @@
 /* ---- s5 ---- */
 #s5{border-top:0}
 
-/* ten seats: the section's one urgency element, drawn straight on the white ground */
+/* ten seats: the page's one urgency element, set as type (v3: the chair drawing is gone, one idiom fewer) */
 #s5 .s5-n{font-family:var(--mono);font-weight:700;font-size:max(var(--fs-h3),calc(var(--fs-h2) * .75));line-height:1;letter-spacing:-.02em;color:var(--urgent)}
-#s5 .s5-room{position:relative;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:var(--s3);max-width:560px;margin-top:var(--s4)}
-#s5 .s5-seat{position:relative;display:flex;flex-direction:column;align-items:center}
-#s5 .s5-seat svg{width:100%;height:auto;fill:none;stroke:var(--quiet);stroke-width:2.5;stroke-linecap:round}
-#s5 .s5-you svg{fill:var(--accent);stroke:var(--accent)}
-#s5 .s5-halo{position:absolute;left:50%;top:0;width:150%;aspect-ratio:1;margin-left:-75%;margin-top:-25%;border-radius:50%;background:var(--accent-soft);z-index:-1}
-#s5 .s5-you{z-index:0}
-#s5 .s5-you b{margin-top:var(--s1);font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;line-height:1.2;color:var(--accent-ink)}
+#s5 .s5-why{margin-top:var(--s3);font-size:var(--fs-lg);line-height:1.5;color:var(--body);max-width:34ch}
 
-/* the eight week rail (tablet: two halves stacked) */
+/* the eight week rail (tablet: two halves stacked). Upstream weeks fill teal, downstream weeks fill ink, so the halves read apart */
 #s5 .s5-rail{display:grid;grid-template-columns:1fr;row-gap:var(--s6)}
 #s5 .s5-grp{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--s1);row-gap:var(--s3)}
-#s5 .s5-gh{grid-column:1/-1;font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;color:var(--ink);padding-bottom:var(--s2)}
+#s5 .s5-gh{grid-column:1/-1;font-family:var(--mono);font-size:var(--fs-label);font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet);padding-bottom:var(--s2)}
+#s5 .s5-gh b{display:block;margin-top:var(--s1);font-size:var(--fs-sm);font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink)}
 #s5 .s5-wk{display:grid;grid-template-rows:auto var(--s2) auto;align-content:start;row-gap:var(--s3);min-width:0}
 #s5 .s5-wk em{font-family:var(--mono);font-style:normal;font-weight:700;font-size:var(--fs-h3);line-height:1;color:var(--ink)}
 #s5 .s5-seg{display:block;border-radius:var(--s1);background:var(--line);overflow:hidden}
 #s5 .s5-seg b{display:block;width:100%;height:100%;background:var(--accent);transform-origin:left center}
+#s5 .s5-grp+.s5-grp .s5-seg b{background:var(--ink)}
 #s5 .s5-wk span{font-size:var(--fs-sm);line-height:1.4;color:var(--body);padding-right:var(--s3)}
-#s5 .s5-key{display:flex;align-items:center;gap:var(--s3)}
-#s5 .s5-key svg{width:var(--s8);height:auto;fill:none;stroke:var(--ink);stroke-width:5;stroke-linecap:round}
-#s5 .s5-key span{font-family:var(--mono);font-size:var(--fs-h3);font-weight:700;color:var(--ink)}
 
-/* the real photo: Sandy across the desk from a client, B&W, both faces kept in frame at every width */
+/* the real photo: Sandy across the table from a client, B&W, both faces kept in frame at every width */
 #s5 .s5-ph{margin:0}
 #s5 .s5-ph img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:50% 55%;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--elevated)}
-#s5 .s5-ph figcaption,#s5 .s5-cmp figcaption{margin-top:var(--s3);font-size:var(--fs-label);line-height:1.4;color:var(--quiet);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
+#s5 .s5-ph figcaption{margin-top:var(--s3);font-size:var(--fs-label);line-height:1.4;color:var(--quiet);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
 
-/* comparison strip: the same two rooms, small. Group at the whiteboard, one to one at the desk */
-#s5 .s5-cmps{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5)}
-#s5 .s5-cmp{margin:0}
-#s5 .s5-cmp img{width:100%;max-width:240px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-sm);border:1px solid var(--line)}
-#s5 .s5-cmp img[src*="board"]{object-position:20% 50%}
-#s5 .s5-cmp figcaption{font-family:var(--sans);text-transform:none;letter-spacing:0;font-size:var(--fs-body);line-height:1.45;color:var(--body)}
-#s5 .s5-cmp b{font-weight:600;color:var(--ink)}
-
-/* desktop: copy left, seats and the comparison right; below a full-width rule, ONE rail of eight weeks
-   ending in the key. The two lists dissolve into a single 9-column grid: captions / numbers / track / labels. */
+/* desktop: copy left, seats right; the photo as a full-width band; below it ONE rail of eight weeks.
+   The two lists dissolve into a single 8-column grid: captions / numbers / track / labels. */
 @media (min-width:1024px){
   #s5 .s5-head{grid-row:1}
-  #s5 .s5-seats{grid-row:1;align-self:start;padding-top:var(--s6)}
-  /* the photo is a full-width band straight under the offer: wide crop, both heads in the middle band */
+  #s5 .s5-seats{grid-row:1;align-self:end;padding-left:var(--s7)}
   #s5 .s5-ph{grid-row:2}
   #s5 .s5-ph img{aspect-ratio:21/9;object-position:50% 75%}
-  /* the two rooms, small, under the photo */
-  #s5 .s5-cmps{grid-row:3;grid-template-columns:repeat(2,minmax(0,360px));margin-top:calc(var(--s3) * -1)}
-  #s5 .s5-cmp{display:grid;grid-template-columns:120px 1fr;column-gap:var(--s4);align-items:center}
-  #s5 .s5-cmp figcaption{margin-top:0}
-  #s5 .s5-rail{grid-row:4;grid-template-columns:repeat(8,minmax(0,1fr)) auto;grid-template-rows:auto auto var(--s2) auto;column-gap:var(--s1);row-gap:var(--s3);
+  #s5 .s5-rail{grid-row:3;grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:auto auto var(--s2) auto;column-gap:var(--s1);row-gap:var(--s3);
     margin-top:var(--s5)}
   #s5 .s5-grp,#s5 .s5-wk{display:contents}
   #s5 .s5-gh{grid-row:1;grid-column:1/5;border-bottom:1px solid var(--quiet-line)}
@@ -540,13 +544,10 @@
   #s5 .s5-grp+.s5-grp .s5-wk:nth-child(3)>*{grid-column:6}
   #s5 .s5-grp+.s5-grp .s5-wk:nth-child(4)>*{grid-column:7}
   #s5 .s5-grp+.s5-grp .s5-wk:nth-child(5)>*{grid-column:8}
-  #s5 .s5-key{grid-column:9;grid-row:3;align-self:center;margin-left:var(--s4)}
 }
-/* phone: seats stay one row of ten; the rail runs down the left edge, one segment per week */
+/* phone: the rail runs down the left edge, one segment per week */
 @media (max-width:767px){
   #s5 .s5-grid{row-gap:var(--s5)}
-  #s5 .s5-room{gap:var(--s2);margin-top:var(--s3)}
-  #s5 .s5-you b{font-size:var(--fs-label)}
   #s5 .s5-rail{row-gap:var(--s4)}
   #s5 .s5-grp{grid-template-columns:1fr;row-gap:0}
   #s5 .s5-wk{grid-template-rows:none;grid-template-columns:var(--s5) var(--s2) minmax(0,1fr);column-gap:var(--s3);align-items:center}
@@ -554,37 +555,20 @@
   #s5 .s5-seg{align-self:stretch;border-radius:var(--s1);border-bottom:var(--s1) solid var(--canvas);background-clip:padding-box}
   #s5 .s5-seg b{transform-origin:center top}
   #s5 .s5-wk span{padding-block:var(--s1);padding-right:0}
-  #s5 .s5-key svg{width:var(--s7)}
-  #s5 .s5-key span{font-size:var(--fs-lg)}
-  #s5 .s5-cmps{gap:var(--s4)}
-  #s5 .s5-cmp figcaption{font-size:var(--fs-sm)}
   #s5 .s5-ph{margin-inline:calc(var(--gutter) * -1)}
   #s5 .s5-ph img{border-radius:0;border-inline:0}
   #s5 .s5-ph figcaption{padding-inline:var(--gutter)}
 }
 
-/* motion: armed only when below the fold at load; shapes move, text never does */
-#s5 .s5-room.armed .s5-seat svg{opacity:0;transform:translateY(-12px)}
-#s5 .s5-room.armed .s5-halo{transform:scale(.08)}
-#s5 .s5-room.go .s5-seat svg{animation:s5-land 500ms var(--ease) calc(var(--i) * 70ms) both}
-#s5 .s5-room.armed .s5-you svg{opacity:1}
-#s5 .s5-room.armed .s5-you b{transform:translateY(-12px)}
-#s5 .s5-room.go .s5-you svg,#s5 .s5-room.go .s5-you b{animation:s5-drop 500ms var(--ease) 490ms both}
-#s5 .s5-room.go .s5-halo{animation:s5-light 700ms var(--ease) 900ms both}
+/* motion: armed only when below the fold at load; the track fills week by week, text never moves */
 #s5 .s5-rail.armed .s5-seg b{transform:scaleX(.08)}
-#s5 .s5-rail.armed .s5-key svg{opacity:0;transform:translateX(-32px)}
 #s5 .s5-rail.go .s5-seg b{animation:s5-fill 380ms var(--ease) calc(300ms + var(--i) * 320ms) both}
-#s5 .s5-rail.go .s5-key svg{animation:s5-slide 600ms var(--ease) 3000ms both}
 @media (max-width:767px){
   #s5 .s5-rail.armed .s5-seg b{transform:scaleY(.08)}
   #s5 .s5-rail.go .s5-seg b{animation-name:s5-fill-y}
 }
-@keyframes s5-land{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
-@keyframes s5-drop{from{transform:translateY(-12px)}to{transform:none}}
-@keyframes s5-light{from{transform:scale(.08)}to{transform:none}}
 @keyframes s5-fill{from{transform:scaleX(.08)}to{transform:none}}
 @keyframes s5-fill-y{from{transform:scaleY(.08)}to{transform:none}}
-@keyframes s5-slide{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
 
 /* ---- s6 ---- */
 /* S6 Proof (v2): each ledger row leads with the real artefact (the page we built, or the client's own site), the
@@ -807,67 +791,26 @@
 @keyframes s7-land{from{transform:translate(-96px,-56px) rotate(-30deg)}to{transform:rotate(var(--r))}}
 
 /* ---- s8 ---- */
-/* S8 not for: white ground. Three starting points, each a base the skill-file block bounces off, struck out as it does;
-   under them a solid ink base, "paying clients", that the block lands on and holds.
-   Default styles = the FINISHED frame (block seated, rows struck). .s8-arm (JS, only when below the fold) holds frame 0. */
-#s8{border-top:0;--icw:88px;--ich:61px;--bkw:56px;--bkh:40px}
-#s8 .s8-scene{position:relative;display:grid;gap:var(--s5)}
-
-/* not for: a ruled list; each base drawn big enough for the block to land on */
-#s8 .s8-nots{list-style:none}
-#s8 .s8-nots li{display:grid;grid-template-columns:var(--icw) minmax(0,1fr);align-items:end;column-gap:var(--s4);padding-block:var(--s4);border-bottom:1px solid var(--line)}
-#s8 .s8-ic{width:var(--icw);height:var(--ich);overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
-#s8 .s8-ln{stroke:var(--body);stroke-width:2.5}
-#s8 .s8-thin{stroke:var(--quiet-line);stroke-width:2.5}
-#s8 .s8-soil{fill:var(--elevated);stroke:var(--body);stroke-width:2.5}
-#s8 .s8-crack{stroke:var(--body);stroke-width:2}
-/* struck per line, so a wrapped row is crossed out line by line */
-#s8 .s8-t{justify-self:start;padding-bottom:var(--s1);font-size:var(--fs-lg);font-weight:500;line-height:1.3;color:var(--body);
-  text-decoration:line-through 2px var(--ink);text-decoration-skip-ink:none}
-
-/* for: a solid base, the block seated on its top edge above the column of bases it bounced off */
-#s8 .s8-yes{display:flex;flex-direction:column;align-items:flex-start}
-#s8 .s8-blk{position:relative;z-index:2;margin-left:calc((var(--icw) - var(--bkw)) / 2);width:var(--bkw);height:var(--bkh);display:flex;flex-direction:column;justify-content:center;gap:var(--s1);padding:0 var(--s2);
-  background:var(--canvas);border:2px solid var(--accent);border-radius:var(--s1);will-change:transform}
-#s8 .s8-blk i{height:4px;border-radius:2px;background:var(--accent-soft)}
-#s8 .s8-blk i:first-child{width:60%;background:var(--accent)}
-#s8 .s8-blk i:last-child{width:75%}
-#s8 .s8-slab{position:relative;display:flex;align-items:center;padding:var(--s5);background:var(--ink);border-radius:var(--r-sm)}
-#s8 .s8-slab::before{content:'';position:absolute;left:0;right:0;top:0;height:6px;border-radius:var(--r-sm) var(--r-sm) 0 0;background:var(--accent);transform-origin:0 50%}
-#s8 .s8-st{font-family:var(--mono);font-weight:700;font-size:var(--fs-h1);line-height:1.1;letter-spacing:-.02em;color:var(--canvas)}
-@media (max-width:767px){#s8 .s8-nots{padding-top:var(--s5)}}
-
+/* S8 not for: typographic, after Remy's comparison card. Two ruled cards side by side (stacked on phone): what it isn't for
+   (grey tag, grey crosses), what it is for (teal-outlined tag, teal ticks: the section's one accent). No drawings, no motion. */
+#s8{border-top:0}
+#s8 .lede{text-wrap:pretty}
+#s8 .s8-cmp{display:grid;gap:var(--s4)}
+#s8 .s8-col{padding:var(--s5);border:1px solid var(--line);border-radius:var(--r)}
+#s8 .s8-tag{display:inline-block;padding:var(--s1) var(--s3);font-family:var(--mono);font-size:var(--fs-label);font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.5;
+  color:var(--quiet);background:var(--elevated);border:1px solid var(--elevated);border-radius:var(--s1)}
+#s8 .s8-yes .s8-tag{color:var(--accent-ink);background:var(--canvas);border-color:var(--accent)}
+#s8 ul{list-style:none;margin-top:var(--s5);display:grid;gap:var(--s4)}
+#s8 li{position:relative;padding-left:calc(var(--s5) + var(--s3));font-size:var(--fs-lg);line-height:1.4;color:var(--body)}
+#s8 .s8-yes li{color:var(--ink)}
+#s8 li::before{position:absolute;left:0;top:.15em;width:var(--s5);height:var(--s5);display:flex;align-items:center;justify-content:center;border-radius:50%;
+  font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;line-height:1}
+#s8 .s8-no li::before{content:'\00D7';background:var(--elevated);color:var(--quiet)}
+#s8 .s8-yes li::before{content:'\2713';background:var(--accent-soft);color:var(--accent-ink)}
 @media (min-width:768px){
-  #s8{--icw:120px;--ich:84px;--bkw:72px;--bkh:50px}
-  #s8 .s8-nots li{column-gap:var(--s6)}
-  #s8 .s8-t{font-size:var(--fs-callout)}
-  #s8 .s8-slab{padding:var(--s6) var(--s7)}
-  #s8 .s8-blk{gap:var(--s2);padding:0 var(--s3)}
-  #s8 .s8-blk i{height:5px}
+  #s8 .s8-cmp{grid-template-columns:1fr 1fr;gap:var(--s5)}
+  #s8 .s8-col{padding:var(--s6)}
 }
-@media (min-width:1024px){
-  /* four across: three bases with their struck labels under them, then the ink base the block locks onto */
-  #s8{--bkw:80px;--bkh:56px}
-  #s8 .s8-scene{grid-template-columns:1fr 1fr 1fr 1.6fr;column-gap:var(--s7);align-items:end;padding-top:var(--s7)}
-  #s8 .s8-nots{display:contents}
-  #s8 .s8-nots li{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s4);padding:0;border:0}
-  #s8 .s8-ic{width:100%;max-width:200px;height:auto;aspect-ratio:132/92}
-  #s8 .s8-t{font-size:var(--fs-lg);line-height:1.3;min-height:calc(2 * 1.3em);text-wrap:balance}
-  #s8 .s8-yes{grid-column:4}
-  #s8 .s8-blk{margin-left:var(--s6)}
-  #s8 .s8-slab{align-self:stretch;min-height:calc(var(--s10) + var(--s4));align-items:flex-end;padding:var(--s5) var(--s6)}
-  #s8 .s8-st{font-size:var(--fs-num)}
-}
-@media (min-width:1280px){#s8 .s8-t{font-size:var(--fs-callout)}}
-
-/* motion: the block (JS, transform only) lands on each base and bounces off; each row's strike line draws as it does;
-   the block drops onto the ink base and the base's teal edge fills. Text never moves or fades. */
-#s8 .s8-arm *,#s8 .s8-arm *::before{animation-play-state:paused!important}
-#s8 .s8-arm.s8-go *,#s8 .s8-arm.s8-go *::before{animation-play-state:running!important}
-#s8 .s8-arm .s8-t{animation:s8-stamp .2s var(--ease) calc(.85s + var(--i) * .95s) both}
-#s8 .s8-arm .s8-slab::before{animation:s8-fill .5s var(--ease) 3.3s both}
-@keyframes s8-stamp{from{text-decoration-color:transparent}to{text-decoration-color:var(--ink)}}
-@keyframes s8-fill{from{transform:scaleX(.08)}to{transform:none}}
 
 /* ---- s9 ---- */
 #s9 .faq{border-top:1px solid var(--line)}
@@ -916,3 +859,34 @@
 #s10 .s10-lab text{font-family:var(--mono);font-weight:700;font-size:18px;fill:var(--ink)}
 #s10 .s10-stamp rect{fill:var(--canvas);stroke:var(--ink);stroke-width:2.5}
 #s10 .s10-stamp text{font-family:var(--mono);font-weight:700;font-size:18px;letter-spacing:.14em;fill:var(--ink)}
+
+/* ---- s5b ---- */
+/* S5b Sprint vs Accelerator: typography only. One ruled table, Remy's comparison-card tags on the two column heads,
+   the Accelerator tag outlined in teal (the section's one accent). Phone keeps all three columns; labels stay >= 12px. */
+#s5b table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:var(--fs-body);line-height:1.45}
+#s5b thead td{width:22%}
+#s5b th,#s5b td{text-align:left;vertical-align:top;padding:var(--s4) var(--s4) var(--s4) 0;border-bottom:1px solid var(--line)}
+#s5b thead th,#s5b thead td{border-bottom:1px solid var(--ink);padding-bottom:var(--s3)}
+#s5b tbody th{font-family:var(--mono);font-size:var(--fs-label);font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet);padding-top:calc(var(--s4) + 3px)}
+#s5b tbody td{color:var(--body)}
+#s5b tbody td.s5b-acc{color:var(--ink)}
+#s5b .s5b-tag{display:inline-block;padding:var(--s1) var(--s3);font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;letter-spacing:.02em;line-height:1.4;
+  color:var(--body);background:var(--elevated);border:1px solid var(--elevated);border-radius:var(--s1)}
+#s5b th.s5b-acc .s5b-tag{color:var(--accent-ink);background:var(--canvas);border-color:var(--accent)}
+#s5b .s5b-g td{color:var(--ink);font-weight:600}
+#s5b .s5b-g th,#s5b .s5b-g td{border-bottom:0}
+@media (min-width:1024px){
+  #s5b table{font-size:var(--fs-lg)}
+  #s5b thead td{width:24%}
+  #s5b th,#s5b td{padding:var(--s5) var(--s6) var(--s5) 0}
+  #s5b thead th,#s5b thead td{padding-bottom:var(--s4)}
+  #s5b tbody th{padding-top:calc(var(--s5) + 5px)}
+}
+@media (max-width:767px){
+  #s5b table{font-size:var(--fs-sm);line-height:1.4}
+  #s5b thead td{width:29%}
+  #s5b th,#s5b td{padding:var(--s3) var(--s3) var(--s3) 0}
+  #s5b tbody th{padding-top:calc(var(--s3) + 2px);letter-spacing:.04em}
+  #s5b .s5b-tag{font-size:var(--fs-label);padding:var(--s1) var(--s2)}
+  #s5b .s5b-cta .btn{width:100%}
+}

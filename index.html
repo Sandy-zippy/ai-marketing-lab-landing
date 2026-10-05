@@ -11,7 +11,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://aimarketinglabs.in/" />
 <meta property="og:title" content="The week you stop pushing, leads stop." />
-<meta property="og:description" content="Watch how I write each step down once, and Claude Code runs it." />
+<meta property="og:description" content="Watch how I write each step down once. Claude Code drafts it, you approve it." />
 <meta property="og:image" content="https://aimarketinglabs.in/assets/og/call-og.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml" />
@@ -191,7 +191,7 @@ body.modal-open{overflow:hidden}
 /* screen 2: one ICP line above the player, only where it fits on one line */
 /* screen 2 head (LP-COPY-v2 "Screen 2"): ICP callout, why to watch, then the player. Centred like screen 1. */
 .whead{display:grid;justify-items:center;text-align:center;margin-bottom:var(--s6)}
-.whead h1{margin-top:var(--s3);font-size:clamp(26px,calc(12px + 2.4vw),44px);max-width:22ch}
+.whead h1{margin-top:var(--s3);font-size:clamp(26px,calc(12px + 2.4vw),44px);max-width:32ch}
 .whead .lede{margin-top:var(--s3);color:var(--body)}
 #watch{padding-bottom:var(--s7)}
 @media (max-width:767px){.whead{margin-bottom:var(--s5)}#watch{padding-bottom:var(--s5)}}
@@ -226,11 +226,11 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 <!-- SCREEN 1: qualify (state A), uAbility's opt-in shape: one centred column, one button, the form in a popup. Hidden once a qualified lead exists. -->
 <section class="scr" id="qualify" aria-labelledby="q-h1">
   <div class="wrap one">
-    <p class="callout">For marketing agency owners, <span class="nw">high-ticket</span> coaches and B2B service businesses ONLY</p>
-    <h1 id="q-h1">How I Collected <em>$220,000</em> In 6 Months With Marketing That Runs On Claude Code (And How You Install It: First Client In 90 Days Or Every Rupee Back)</h1>
-    <p class="without">Without sending DMs every evening, chasing <span class="nw">follow-ups</span>, or restarting your pipeline every 30 days</p>
-    <p class="instr">Answer 2 questions and watch the free <span class="nw">8-minute</span> training.</p>
-    <button class="btn btn-big" type="button" id="qopen">Get started</button>
+    <p class="callout">For agency owners, <span class="nw">high-ticket</span> coaches and B2B founders</p>
+    <h1 id="q-h1">The week you stop pushing, the leads stop. Here's the system I built so they don't.</h1>
+    <p class="without"><span class="nw">$220,000</span> in six months in India. You install the same system. First client in 90 days, or every rupee back.</p>
+    <p class="instr">Free <span class="nw">8-minute</span> training.</p>
+    <button class="btn btn-big" type="button" id="qopen">Answer 2 questions</button>
   </div>
 </section>
 
@@ -239,7 +239,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
   <div class="modal-bg" id="qmodal-bg"></div>
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="qm-h" tabindex="-1">
     <button class="modal-x" type="button" id="qclose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <h2 id="qm-h">2 quick questions before you watch the <span class="nw">8-minute</span> training.</h2>
+    <h2 id="qm-h">2 questions, then the training.</h2>
         <form class="qform" id="qform" novalidate>
           <fieldset class="q" data-q="1">
             <legend class="q-t">What do you run?</legend>

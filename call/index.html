@@ -10,7 +10,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://aimarketinglabs.in/" />
 <meta property="og:title" content="The week you stop pushing, leads stop." />
-<meta property="og:description" content="Watch how I write each step down once, and Claude Code runs it." />
+<meta property="og:description" content="Watch how I write each step down once. Claude Code drafts it, you approve it." />
 <meta property="og:image" content="https://aimarketinglabs.in/assets/og/call-og.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml" />
@@ -190,7 +190,7 @@ body.modal-open{overflow:hidden}
 /* screen 2: one ICP line above the player, only where it fits on one line */
 /* screen 2 head (LP-COPY-v2 "Screen 2"): ICP callout, why to watch, then the player. Centred like screen 1. */
 .whead{display:grid;justify-items:center;text-align:center;margin-bottom:var(--s6)}
-.whead h1{margin-top:var(--s3);font-size:clamp(26px,calc(12px + 2.4vw),44px);max-width:22ch}
+.whead h1{margin-top:var(--s3);font-size:clamp(26px,calc(12px + 2.4vw),44px);max-width:32ch}
 .whead .lede{margin-top:var(--s3);color:var(--body)}
 #watch{padding-bottom:var(--s7)}
 @media (max-width:767px){.whead{margin-bottom:var(--s5)}#watch{padding-bottom:var(--s5)}}
@@ -227,11 +227,11 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 <!-- SCREEN 1: qualify (state A), uAbility's opt-in shape: one centred column, one button, the form in a popup. Hidden once a qualified lead exists. -->
 <section class="scr" id="qualify" aria-labelledby="q-h1">
   <div class="wrap one">
-    <p class="callout">For marketing agency owners, <span class="nw">high-ticket</span> coaches and B2B service businesses ONLY</p>
-    <h1 id="q-h1">How I Collected <em>$220,000</em> In 6 Months With Marketing That Runs On Claude Code (And How You Install It: First Client In 90 Days Or Every Rupee Back)</h1>
-    <p class="without">Without sending DMs every evening, chasing <span class="nw">follow-ups</span>, or restarting your pipeline every 30 days</p>
-    <p class="instr">Answer 2 questions and watch the free <span class="nw">8-minute</span> training.</p>
-    <button class="btn btn-big" type="button" id="qopen">Get started</button>
+    <p class="callout">For agency owners, <span class="nw">high-ticket</span> coaches and B2B founders</p>
+    <h1 id="q-h1">The week you stop pushing, the leads stop. Here's the system I built so they don't.</h1>
+    <p class="without"><span class="nw">$220,000</span> in six months in India. You install the same system. First client in 90 days, or every rupee back.</p>
+    <p class="instr">Free <span class="nw">8-minute</span> training.</p>
+    <button class="btn btn-big" type="button" id="qopen">Answer 2 questions</button>
   </div>
 </section>
 
@@ -240,7 +240,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
   <div class="modal-bg" id="qmodal-bg"></div>
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="qm-h" tabindex="-1">
     <button class="modal-x" type="button" id="qclose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <h2 id="qm-h">2 quick questions before you watch the <span class="nw">8-minute</span> training.</h2>
+    <h2 id="qm-h">2 questions, then the training.</h2>
         <form class="qform" id="qform" novalidate>
           <fieldset class="q" data-q="1">
             <legend class="q-t">What do you run?</legend>
@@ -286,9 +286,9 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
   <div class="wrap">
     <div class="grid">
       <div class="whead">
-        <p class="callout">For marketing agency owners, <span class="nw">high-ticket</span> coaches and B2B service businesses</p>
-        <h1 id="w-h1">Watch this before you book anything.</h1>
-        <p class="lede">The booking button appears once you've seen the system.</p>
+        <p class="callout">For agency owners, <span class="nw">high-ticket</span> coaches and B2B founders</p>
+        <h1 id="w-h1">Busy delivering this month. Nothing booked for next month.</h1>
+        <p class="lede">8 minutes on why it happens, and the system I run so it doesn't.</p>
       </div>
       <div class="player" id="player">
         <video id="vsl" playsinline preload="none" poster="assets/still.jpg" controlslist="nodownload noplaybackrate" disablepictureinpicture controls><source src="../call/vsl/aiml-vsl.mp4" type="video/mp4" /></video>
@@ -304,8 +304,10 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 <section id="s1" class="sec" aria-labelledby="s1-h">
   <div class="wrap"><div class="grid">
     <div class="s1-tx stack">
-      <h2 id="s1-h">Want me to map yours?</h2>
-      <p class="lede">45 minutes with me. ₹999, credited if you join.</p>
+      <h2 id="s1-h">Let me map your business.</h2>
+      <p class="lede">45 minutes with me on where your clients leak.</p>
+      <p class="lede">You'll leave knowing where it breaks and what I'd fix first.</p>
+      <p class="lede">₹999, credited if you join.</p>
       <a class="btn js-pay js-nudge" href="#">Map my business</a>
     </div>
     <div class="s1-vc">
@@ -347,11 +349,35 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 
 </div>
 <div data-reveal="pitch">
+<section id="s1b" class="sec" aria-labelledby="s1b-h">
+  <div class="wrap"><div class="grid">
+    <div class="s1b-tx stack">
+      <p class="label">Who you'll be talking to</p>
+      <h2 id="s1b-h">I teach what I run</h2>
+      <p class="lede">I'm Sandy. Since 2017 I've run a marketing agency, ZippyScale, out of Vancouver. Our clients were in Canada and the US. This year I moved our operations to India.</p>
+      <p>We built every result by hand for clients first. Today the repeatable steps are skill files Claude Code runs. I still take every call myself.</p>
+    </div>
+
+    <dl class="s1b-led">
+      <div><dt class="num">2017</dt><dd>Agency started in Vancouver</dd></div>
+      <div><dt class="num accent">100+</dt><dd>Businesses helped in Canada, the US and India</dd></div>
+      <div><dt class="num">$220,000</dt><dd>Collected from clients in 6 months in India</dd></div>
+    </dl>
+
+    <div class="s1b-strip">
+      <figure class="s1b-ph s1b-teach">
+        <img src="assets/s1b-teach.webp" alt="Sandy at a whiteboard by a pool, teaching founders the 5 M's: money, market, model, manpower, metrics, split into sales and operations" width="1200" height="1200" loading="lazy" decoding="async" />
+        <figcaption>Teaching founders at Founder's House Bootcamp, India</figcaption>
+      </figure>
+    </div>
+  </div></div>
+</section>
+
 <section id="s2" class="sec" aria-labelledby="s2-h">
   <div class="wrap"><div class="grid">
     <div class="s2-tx">
-      <h2 id="s2-h">Find where your clients leak out</h2>
-      <p class="lede">You keep the map either way.</p>
+      <h2 id="s2-h">An enquiry came in. What happened next?</h2>
+      <p class="lede">You replied late, or once, or not at all. The lead you paid for went quiet, and you never found out if it was a client.</p>
     </div>
     <div class="s2-art" role="img" aria-label="A folded paper map of your business in two regions, Upstream and Downstream. A teal pin marks where clients come from, an ink pin marks where they leak, and a flag marks what to build first. The map is stamped yours.">
       <svg class="s2-defs" aria-hidden="true" focusable="false" width="0" height="0">
@@ -414,7 +440,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 
 <section id="s3" class="sec" aria-labelledby="s3-h">
   <div class="wrap"><div class="grid">
-    <h2 id="s3-h">Write each marketing step <span class="accent">once</span>. Claude&nbsp;Code runs it.</h2>
+    <h2 id="s3-h">Write each step <span class="accent">once</span>.</h2>
+    <p class="lede s3-sub">Claude&nbsp;Code drafts it. You approve it.</p>
     <div class="s3-board" role="img" aria-label="One track runs through every marketing step. Upstream, getting clients in: Offer, Content, Cold email, LinkedIn, Ads, Landing page. Then a Yes gate. Downstream, after the yes: Fast callback, Follow-up, Sales call, Delivery, Reporting, Repeat buying, which loops back as buys again. Claude Code carries a skill file along the track and ticks off each step.">
       <i class="s3-w s3-u"></i><i class="s3-w s3-t1"></i><i class="s3-w s3-m"></i><i class="s3-w s3-t3"></i><i class="s3-w s3-d"></i><i class="s3-w s3-sp"></i><i class="s3-w s3-lp"></i>
       <p class="s3-zl s3-zl-up">Upstream (getting clients in)</p>
@@ -456,18 +483,83 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
   </div></div>
 </section>
 
+<section id="s6" class="sec" aria-labelledby="s6-h">
+  <div class="wrap"><div class="grid">
+    <div class="c-1-8 stack">
+      <h2 id="s6-h">What they made. What they paid us.</h2>
+      <p class="lede">Since 2017. 100+ businesses. $220,000 in six months in India. We built these by hand for clients first. Today the repeatable steps are skill files Claude Code runs.</p>
+    </div>
+
+    <div class="ledger">
+      <article class="row">
+        <figure class="art">
+          <div class="win"><i class="chrome" aria-hidden="true"></i><img class="m169" src="assets/s6-medico-lp.webp" width="1440" height="900" loading="lazy" alt="Medico Construction landing page: headline 'Build your medical clinic with a team that specializes in healthcare' beside a six-step clinic enquiry form"></div>
+          <figcaption class="cap">Medico Construction landing page, built by us</figcaption>
+        </figure>
+        <div class="info">
+          <div class="txt"><h3 class="nm">Medico Construction</h3><p class="k">Built</p><p class="v">ads, AI calls on every enquiry</p></div>
+          <div class="money">
+            <div class="tops"><div class="pd"><p class="k">Paid us</p><p class="n">~$100k</p></div><div class="md"><p class="k">Made</p><p class="n">~$6M</p></div></div>
+            <i class="bar" style="--w:.0167"></i>
+            <p class="c">contracted in 2 years</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="row flip">
+        <figure class="art pair">
+          <div class="win"><i class="chrome" aria-hidden="true"></i><img src="assets/s6-sami-funnel.webp" width="900" height="1033" loading="lazy" alt="Scale Your Results funnel page: 'Get More Qualified Clients' headline, a Book a FREE Demo button and four agent testimonials"></div>
+          <div class="vid-box"><video controls playsinline preload="none" data-poster="media/sami-testimonial-poster.jpg" src="media/sami-testimonial.mp4" aria-label="Sami, Scale Your Results, on video"></video></div>
+          <figcaption class="cap">Funnel, built by us. Video: Sami</figcaption>
+        </figure>
+        <div class="info">
+          <div class="txt"><h3 class="nm">Scale Your Results</h3><p class="k">Built</p><p class="v">ads, funnel, qualification</p></div>
+          <div class="money">
+            <div class="tops"><div class="pd"><p class="k">Paid us once</p><p class="n">~$12k</p></div><div class="md"><p class="k">Made</p><p class="n">~$85k</p></div></div>
+            <i class="bar" style="--w:.141"></i>
+            <p class="c">on $30k of ads. Before, $20k made ~$30k.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="row demo">
+        <figure class="art">
+          <div class="win"><i class="chrome" aria-hidden="true"></i><img class="m21" src="assets/s6-rumor-site.webp" width="1600" height="900" loading="lazy" alt="Rumor Avenue's website: the Rumor wordmark over a brick building facade with a 'One day...' billboard"></div>
+          <figcaption class="cap">Rumor Avenue's website (theirs). We ran their outreach.</figcaption>
+        </figure>
+        <div class="info">
+          <div class="txt"><h3 class="nm">Rumor Avenue</h3><p class="k">Built</p><p class="v">LinkedIn and email outreach</p></div>
+          <div class="money">
+            <div class="tops"><div class="pd"><p class="k">Setup fee</p><p class="n">$5,000</p></div><div class="md"><p class="k">Made</p><p class="n">$100k+</p></div></div>
+            <i class="bar" style="--w:.05"></i>
+            <p class="c">in ~3 months</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="sieve">
+      <p class="k">Our own offer</p>
+      <div class="sg">
+        <div class="st s300"><i class="dots" aria-hidden="true"></i><p class="sl"><b>300</b> leads</p></div>
+        <div class="st s50"><i class="dots" aria-hidden="true"></i><p class="sl"><b>50</b> qualified</p></div>
+        <div class="st s10"><i class="dots" aria-hidden="true"></i><p class="sl"><b class="acc">10+</b> closed at ₹1.5L</p></div>
+      </div>
+    </div>
+
+    <ul class="wall" aria-label="Also built for">
+      <li class="k wall-l">Also built for</li><li>Agent Lions Den</li><li>Jas Oberoi</li><li>Riarh Group</li><li>Celestial Luxury Resorts</li><li>Walk Again Rehab</li><li>Swathi Veldandi Studio</li>
+    </ul>
+  </div></div>
+</section>
+
 <section id="s4" class="sec" aria-labelledby="s4-h">
   <div class="wrap"><div class="grid">
     <div class="s4-head c-1-5 stack">
       <p class="label">The 21 Day Sprint</p>
-      <h2 id="s4-h">Build it on your business, live</h2>
+      <h2 id="s4-h">Built live, on your business</h2>
       <p class="lede"><span class="accent">15</span> live sessions, weekdays 7 to 8:30 pm IST. Mon&nbsp;26&nbsp;Oct to demo day, Fri&nbsp;13&nbsp;Nov.</p>
     </div>
-
-    <figure class="s4-ph c-6-12">
-      <img src="assets/s4-board.webp" alt="Sandy at a whiteboard, teaching the 5 M's: Money, then Leads, beside Operations and Back-end" width="1600" height="899" loading="lazy" decoding="async" />
-      <figcaption>Sandy at the whiteboard</figcaption>
-    </figure>
 
     <div class="s4-viz c-6-12" role="img" aria-label="A building of fifteen bricks, one for each live session, Monday to Friday, each brick carrying its date. Week 1 is the ground floor, 26 to 30 October. Week 2 is the middle floor, 2 to 6 November; on Friday 6 November its door is open, a tag reads 100 out and a stream of envelopes pours out onto a group of people. Week 3 is the top floor, 9 to 13 November, and a Demo day flag flies over Friday 13 November.">
       <div class="s4-scene" aria-hidden="true">
@@ -507,9 +599,9 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
     </div>
 
     <div class="s4-weeks c-1-5">
-      <p><strong>Week 1, build what you sell:</strong> offer, lead magnet, page, backend</p>
-      <p><strong>Week 2, get clients in:</strong> one channel, first 100 messages out Friday</p>
-      <p><strong>Week 3, after the yes:</strong> follow-up, sales call, numbers</p>
+      <p><strong>Fri 30 Oct:</strong> offer, lead magnet and page built. Every enquiry gets caught.</p>
+      <p><strong>Fri 6 Nov:</strong> your first 100 messages go out.</p>
+      <p><strong>Fri 13 Nov:</strong> follow-up and sales call set. You show what you've booked.</p>
     </div>
   </div></div>
 </section>
@@ -519,61 +611,65 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
     <div class="c-1-5 stack s5-head">
       <p class="label">The Accelerator</p>
       <h2 id="s5-h">Eight weeks, one to one with me</h2>
-      <p class="lede">The systems I charged clients tens of thousands of dollars for, installed in your business.</p>
+      <p class="lede">Clients paid us about $12k to $100k for these systems. I install them in yours.</p>
       <p class="note">Plus every skill file, all 15 Sprint sessions, a handover pack for every system</p>
     </div>
 
     <figure class="s5-ph">
-      <img src="assets/s5-desk.webp" alt="Sandy across a desk from a client, explaining with both hands while the client listens" width="1600" height="899" loading="lazy" decoding="async" />
+      <img src="assets/s5-desk.webp" alt="Sandy across the table from a client, explaining with both hands while the client listens" width="1600" height="899" loading="lazy" decoding="async" />
       <figcaption>Sandy, one to one with a client</figcaption>
     </figure>
 
     <div class="c-6-12 s5-seats">
       <p class="s5-n">10 seats</p>
-      <div class="s5-room" role="img" aria-label="Ten seats. Nine are empty, one is marked you.">
-        <svg aria-hidden="true" style="position:absolute;width:0;height:0"><symbol id="s5-chair" viewBox="0 0 40 48"><rect x="7" y="2" width="26" height="22" rx="6"/><rect x="3" y="26" width="34" height="8" rx="3"/><path d="M8 34v12M32 34v12"/></symbol></svg>
-        <span class="s5-seat" style="--i:0"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
-        <span class="s5-seat" style="--i:1"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
-        <span class="s5-seat" style="--i:2"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
-        <span class="s5-seat" style="--i:3"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
-        <span class="s5-seat" style="--i:4"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
-        <span class="s5-seat" style="--i:5"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
-        <span class="s5-seat" style="--i:6"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
-        <span class="s5-seat s5-you" style="--i:7"><i class="s5-halo"></i><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg><b>you</b></span>
-        <span class="s5-seat" style="--i:8"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
-        <span class="s5-seat" style="--i:9"><svg viewBox="0 0 40 48"><use href="#s5-chair"/></svg></span>
-      </div>
-    </div>
-
-    <div class="s5-cmps">
-      <figure class="s5-cmp">
-        <img src="assets/s5-cmp-board.webp" alt="Sandy teaching at a whiteboard" width="480" height="270" loading="lazy" decoding="async" />
-        <figcaption><b>Sprint:</b> you build it in a group.</figcaption>
-      </figure>
-      <figure class="s5-cmp">
-        <img src="assets/s5-cmp-desk.webp" alt="Sandy across a desk from a client" width="480" height="270" loading="lazy" decoding="async" />
-        <figcaption><b>Accelerator:</b> I install it with you.</figcaption>
-      </figure>
+      <p class="s5-why">I'm on every one of those calls, and I can't do more than ten properly.</p>
     </div>
 
     <div class="s5-rail">
       <ol class="s5-grp">
-        <li class="s5-gh">Weeks 1 to 4: Upstream installed.</li>
+        <li class="s5-gh">Weeks 1 to 4 <b>Upstream installed: getting clients in</b></li>
         <li class="s5-wk" style="--i:0"><em>1</em><i class="s5-seg"><b></b></i><span>Teardown, offer</span></li>
-        <li class="s5-wk" style="--i:1"><em>2</em><i class="s5-seg"><b></b></i><span>Page, lead magnet, backend</span></li>
+        <li class="s5-wk" style="--i:1"><em>2</em><i class="s5-seg"><b></b></i><span>Page, lead magnet, booking flow</span></li>
         <li class="s5-wk" style="--i:2"><em>3</em><i class="s5-seg"><b></b></i><span>Outreach live</span></li>
         <li class="s5-wk" style="--i:3"><em>4</em><i class="s5-seg"><b></b></i><span>Content, ads</span></li>
       </ol>
       <ol class="s5-grp" start="5">
-        <li class="s5-gh">Weeks 5 to 8: Downstream installed.</li>
+        <li class="s5-gh">Weeks 5 to 8 <b>Downstream installed: after the yes</b></li>
         <li class="s5-wk" style="--i:4"><em>5</em><i class="s5-seg"><b></b></i><span>Callback, follow&#8209;up</span></li>
         <li class="s5-wk" style="--i:5"><em>6</em><i class="s5-seg"><b></b></i><span>Sales call, scripts</span></li>
         <li class="s5-wk" style="--i:6"><em>7</em><i class="s5-seg"><b></b></i><span>Delivery, onboarding</span></li>
         <li class="s5-wk" style="--i:7"><em>8</em><i class="s5-seg"><b></b></i><span>Reporting, repeat buying, handover</span></li>
       </ol>
-      <p class="s5-key"><svg viewBox="0 0 160 56" aria-hidden="true"><circle cx="28" cy="28" r="20"/><circle cx="28" cy="28" r="7"/><path d="M48 28h104M124 28v16M140 28v11"/></svg><span>yours</span></p>
     </div>
 
+  </div></div>
+</section>
+
+<section id="s5b" class="sec" aria-labelledby="s5b-h">
+  <div class="wrap"><div class="grid">
+    <div class="c-1-8 stack s5b-hd">
+      <p class="label">Sprint or Accelerator</p>
+      <h2 id="s5b-h">Two ways to install it</h2>
+    </div>
+    <div class="s5b-t">
+      <table aria-label="The 21 Day Sprint compared with the Accelerator">
+        <thead>
+          <tr><td></td><th scope="col"><span class="s5b-tag">Sprint</span></th><th scope="col" class="s5b-acc"><span class="s5b-tag">Accelerator</span></th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Who builds it</th><td>You build it, live, after I show each step</td><td class="s5b-acc">I build it with you, on every call</td></tr>
+          <tr><th scope="row">Format</th><td>Group, live</td><td class="s5b-acc">One to one with me</td></tr>
+          <tr><th scope="row">Length</th><td>21 days, Mon 26 Oct to Fri 13 Nov</td><td class="s5b-acc">8 weeks</td></tr>
+          <tr><th scope="row">Live sessions</th><td>15, weekdays 7 to 8:30 pm IST</td><td class="s5b-acc">Booked on your calendar</td></tr>
+          <tr><th scope="row">1:1 with me</th><td>None, it's a group</td><td class="s5b-acc">Every call, all 8 weeks</td></tr>
+          <tr><th scope="row">Skill files</th><td>6 packs</td><td class="s5b-acc">All 13 packs</td></tr>
+          <tr><th scope="row">Recordings</th><td>Up the next morning</td><td class="s5b-acc">All 15 Sprint sessions</td></tr>
+          <tr><th scope="row">Seats</th><td>Open</td><td class="s5b-acc">10</td></tr>
+          <tr class="s5b-g"><th scope="row">Guarantee</th><td colspan="2">Both: first client in 90 days, or every rupee back. You execute the progress sheet we share.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="s5b-cta"><a class="btn js-pay" href="#">Map my business</a></div>
   </div></div>
 </section>
 
@@ -585,104 +681,34 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
     </div>
     <div class="s2b-tiers">
       <div class="s2b-g s2b-c0">
-        <p class="s2b-tag">On the call <span>Yours after the call</span></p>
+        <p class="s2b-tag">Free with the call</p>
         <ul class="s2b-chips">
-          <li><b>00</b>Install kit</li>
-          <li><b>01</b>Offer forge</li>
+          <li><b>00</b>Setup</li>
+          <li><b>01</b>Offer</li>
         </ul>
       </div>
       <div class="s2b-g s2b-c1">
         <p class="s2b-tag">Sprint adds</p>
         <ul class="s2b-chips">
-          <li><b>02</b>Hot pipeline kit</li>
-          <li><b>03</b>Copy engine room</li>
-          <li><b>04</b>Page and VSL factory</li>
-          <li><b>10</b>Follow-up and close kit</li>
+          <li><b>02</b>Outreach</li>
+          <li><b>03</b>Copy</li>
+          <li><b>04</b>Landing page</li>
+          <li><b>10</b>Follow-up</li>
         </ul>
       </div>
       <div class="s2b-g s2b-c2">
         <p class="s2b-tag">Accelerator <span>all 13</span></p>
         <ul class="s2b-chips">
-          <li><b>05</b>Ad creative studio</li>
-          <li><b>06</b>Paid media cockpit</li>
-          <li><b>07</b>Content flywheel</li>
-          <li><b>08</b>Reel and video edit suite</li>
-          <li><b>09</b>Numbers room</li>
-          <li><b>11</b>Client delivery desk</li>
-          <li><b>12</b>AI shortlist engine</li>
+          <li><b>05</b>Ad design</li>
+          <li><b>06</b>Paid ads</li>
+          <li><b>07</b>Content</li>
+          <li><b>08</b>Video</li>
+          <li><b>09</b>Your numbers</li>
+          <li><b>11</b>Client delivery</li>
+          <li><b>12</b>AI search</li>
         </ul>
       </div>
     </div>
-  </div></div>
-</section>
-
-<section id="s6" class="sec" aria-labelledby="s6-h">
-  <div class="wrap"><div class="grid">
-    <div class="c-1-8 stack">
-      <h2 id="s6-h">What they made. What they paid us.</h2>
-      <p class="lede">Since 2017. 100+ businesses. $220,000 collected from clients in six months in India.</p>
-    </div>
-
-    <div class="ledger">
-      <article class="row">
-        <figure class="art">
-          <div class="win"><i class="chrome" aria-hidden="true"></i><img class="m169" src="assets/s6-medico-lp.webp" width="1440" height="900" loading="lazy" alt="Medico Construction landing page: headline 'Build your medical clinic with a team that specializes in healthcare' beside a six-step clinic enquiry form"></div>
-          <figcaption class="cap">Medico Construction landing page, built by us</figcaption>
-        </figure>
-        <div class="info">
-          <div class="txt"><h3 class="nm">Medico Construction</h3><p class="k">Built</p><p class="v">ads, AI calls on every enquiry</p></div>
-          <div class="money">
-            <div class="tops"><div class="pd"><p class="k">Paid us</p><p class="n">$100k+</p></div><div class="md"><p class="k">Made</p><p class="n">~$6M</p></div></div>
-            <i class="bar" style="--w:.0167"></i>
-            <p class="c">contracted in 2 years</p>
-          </div>
-        </div>
-      </article>
-
-      <article class="row flip">
-        <figure class="art pair">
-          <div class="win"><i class="chrome" aria-hidden="true"></i><img src="assets/s6-sami-funnel.webp" width="900" height="1033" loading="lazy" alt="Scale Your Results funnel page: 'Get More Qualified Clients' headline, a Book a FREE Demo button and four agent testimonials"></div>
-          <div class="vid-box"><video controls playsinline preload="none" data-poster="media/sami-testimonial-poster.jpg" src="media/sami-testimonial.mp4" aria-label="Sami, Scale Your Results, on video"></video></div>
-          <figcaption class="cap">Funnel, built by us. Video: Sami</figcaption>
-        </figure>
-        <div class="info">
-          <div class="txt"><h3 class="nm">Scale Your Results</h3><p class="k">Built</p><p class="v">ads, funnel, qualification</p></div>
-          <div class="money">
-            <div class="tops"><div class="pd"><p class="k">Paid us</p><p class="n">~$12k</p></div><div class="md"><p class="k">Made</p><p class="n">~$85k</p></div></div>
-            <i class="bar" style="--w:.141"></i>
-            <p class="c">$20k ad spend returned ~$30k, now $30k returns</p>
-          </div>
-        </div>
-      </article>
-
-      <article class="row demo">
-        <figure class="art">
-          <div class="win"><i class="chrome" aria-hidden="true"></i><img class="m21" src="assets/s6-rumor-site.webp" width="1600" height="900" loading="lazy" alt="Rumor Avenue's website: the Rumor wordmark over a brick building facade with a 'One day...' billboard"></div>
-          <figcaption class="cap">Rumor Avenue's website (theirs). We ran their outreach.</figcaption>
-        </figure>
-        <div class="info">
-          <div class="txt"><h3 class="nm">Rumor Avenue</h3><p class="k">Built</p><p class="v">LinkedIn and email outreach</p></div>
-          <div class="money">
-            <div class="tops"><div class="pd"><p class="k">Paid us</p><p class="n">$5,000</p></div><div class="md"><p class="k">Made</p><p class="n">$100k+</p></div></div>
-            <i class="bar" style="--w:.05"></i>
-            <p class="c">in ~3 months</p>
-          </div>
-        </div>
-      </article>
-    </div>
-
-    <div class="sieve">
-      <p class="k">Our own offer</p>
-      <div class="sg">
-        <div class="st s300"><i class="dots" aria-hidden="true"></i><p class="sl"><b>300</b> leads</p></div>
-        <div class="st s50"><i class="dots" aria-hidden="true"></i><p class="sl"><b>50</b> qualified</p></div>
-        <div class="st s10"><i class="dots" aria-hidden="true"></i><p class="sl"><b class="acc">10+</b> closed at ₹1.5L</p></div>
-      </div>
-    </div>
-
-    <ul class="wall" aria-label="Also built for">
-      <li class="k wall-l">Also built for</li><li>Agent Lions Den</li><li>The Oberoi Group</li><li>Riarh Group</li><li>Celestial Luxury Resorts</li><li>Walk Again Rehab</li><li>Swathi Veldandi Studio</li>
-    </ul>
   </div></div>
 </section>
 
@@ -694,12 +720,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
       <p class="lede">No closed client in 90 days? <strong class="accent">Full refund.</strong></p>
       <p class="s7-both">Both programs</p>
     </div>
-    <div class="c-6-12 s7-sheet" role="img" aria-label="The shared progress sheet: Offer, Lead magnet, Page, Backend and 100 messages out, each ticked from mapped to done.">
+    <div class="c-6-12 s7-sheet" role="img" aria-label="The shared progress sheet: Offer, Lead magnet, Page, Booking flow and 100 messages out, each ticked from mapped to done.">
       <ol class="s7-rows">
         <li style="--i:0"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Offer</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
         <li style="--i:1"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Lead magnet</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
         <li style="--i:2"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Page</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
-        <li style="--i:3"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Backend</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+        <li style="--i:3"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Booking flow</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
         <li style="--i:4"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">100 messages out</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
       </ol>
     </div>
@@ -735,16 +761,26 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 
 <section id="s8" class="sec" aria-labelledby="s8-h">
   <div class="wrap"><div class="grid">
-    <h2 id="s8-h" class="c-1-8">Not for starting from zero</h2>
-    <div class="s8-scene" role="img" aria-label="A skill-file block tries three bases and bounces off each: no paying clients yet, freelancers after a first project, coaches who aren't coaching yet. Each is struck out. It locks onto a solid base labelled paying clients.">
-      <ol class="s8-nots">
-        <li style="--i:0"><svg class="s8-ic" data-top=".24" viewBox="0 0 132 92"><path class="s8-soil" d="M6 88L22 36Q66 22 110 36L126 88Z"/><path class="s8-crack" d="M46 32l9 14-6 11 8 20M74 29l-7 15 9 10-4 24M100 36l7 12-4 11"/></svg><span class="s8-t">No paying clients yet</span></li>
-        <li style="--i:1"><svg class="s8-ic" data-top=".29" viewBox="0 0 132 92"><rect class="s8-ln" x="22" y="28" width="88" height="54" rx="5"/><path class="s8-ln" d="M6 88h120"/><path class="s8-thin" d="M40 46h34M40 60h50"/></svg><span class="s8-t">Freelancers after a first project</span></li>
-        <li style="--i:2"><svg class="s8-ic" data-top=".2" viewBox="0 0 132 92"><path class="s8-ln" d="M54 52v36"/><rect class="s8-ln" x="8" y="22" width="92" height="30" rx="3" transform="rotate(-6 54 37)"/><path class="s8-ln" d="M28 88h52"/></svg><span class="s8-t">Coaches who aren't coaching yet</span></li>
-      </ol>
-      <div class="s8-yes">
-        <span class="s8-blk"><i></i><i></i><i></i></span>
-        <div class="s8-slab"><span class="s8-st">paying clients</span></div>
+    <div class="c-1-8 stack s8-hd">
+      <h2 id="s8-h">Not for starting from zero</h2>
+      <p class="lede">You need a business that already exists and an offer people already pay for.</p>
+    </div>
+    <div class="s8-cmp">
+      <div class="s8-col s8-no">
+        <p class="s8-tag">This isn't for</p>
+        <ul>
+          <li>No paying clients yet</li>
+          <li>Freelancers after a first project</li>
+          <li>Coaches who aren't coaching yet</li>
+        </ul>
+      </div>
+      <div class="s8-col s8-yes">
+        <p class="s8-tag">This is for</p>
+        <ul>
+          <li>Agency owners with paying clients</li>
+          <li>High-ticket coaches already coaching</li>
+          <li>B2B founders with an offer that sells</li>
+        </ul>
       </div>
     </div>
   </div></div>
@@ -754,8 +790,9 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
   <div class="wrap"><div class="grid">
     <h2 id="s9-h" class="c-1-8">Questions</h2>
     <div class="faq c-1-8">
-      <details><summary>I'm not technical.</summary><p>You won't write code. The skill files exist. I show the step, then you run it on yours.</p></details>
+      <details><summary>I'm not technical.</summary><p>You won't write code. The skill files are already written. I show the step, then you run it on yours.</p></details>
       <details><summary>I need clients, not automation.</summary><p>That's why week two is all getting clients in. Your first 100 messages go out that Friday.</p></details>
+      <details><summary>I've bought courses and built nothing.</summary><p>That's why every session is live, on your own business.</p></details>
       <details><summary>I don't have time.</summary><p>90 minutes, 15 evenings. Miss one and the recording's up next morning.</p></details>
       <details><summary>My business is different.</summary><p>Less different than you think. A construction firm, a rehab clinic, a couture studio, coaches, realtors and design agencies all had to get clients in and look after them.</p></details>
       <details><summary>Why isn't the price here?</summary><p>The right option depends on what you've already built. I'll tell you on the call.</p></details>
