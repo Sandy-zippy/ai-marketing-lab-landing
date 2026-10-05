@@ -1,39 +1,76 @@
-/* S1B: who you'll be talking to. The short story, a quiet ledger of three facts (numeral and line on one row, hairlines,
-   no cards), then two real photos as one strip at equal height: teaching founders, and a client table.
-   Phone: story, teaching photo (square crop: Sandy and the board) edge to edge, ledger, client photo. Static on purpose: no motion, nothing to pause. */
+/* S1B: who you'll be talking to. LIGHT composition: the only paper section ground. The story and the ledger on the left;
+   on the right ONE stage drawn straight on the paper: a dotted Three.js globe (the persistent actor is the arc of light that
+   leaves Vancouver) with Sandy's teaching photo pinned into the stage's lower left, linked to the India pin when India lands.
+   Phone: story, stage (globe + photo), ledger directly under it so the active row is on screen with the globe.
+   Default (no JS, reduced motion, no WebGL): a finished still of the lit globe, every number final. */
+#s1b{background:var(--paper);border-top:0}
 #s1b .grid{row-gap:var(--s6)}
-#s1b .s1b-tx p:not(.label):not(.lede){color:var(--body);max-width:56ch}
+#s1b .s1b-tx p:not(.label):not(.lede){color:var(--body);max-width:56ch;font-size:var(--t-body)}
+#s1b .lede{font-size:var(--t-lg)}
 
-#s1b .s1b-ph{margin:0;min-width:0}
-#s1b .s1b-ph img{width:100%;height:auto;object-fit:cover;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--elevated)}
-#s1b .s1b-teach img{aspect-ratio:1/1;object-position:50% 30%}
-#s1b .s1b-meet img{aspect-ratio:3/2;object-position:40% 50%}
-#s1b .s1b-ph figcaption{margin-top:var(--s3);font-family:var(--mono);font-size:var(--fs-label);line-height:1.4;letter-spacing:.04em;text-transform:uppercase;color:var(--quiet)}
+/* ledger: hairline track on top of each row; the active row's track fills teal (JS), its numeral turns teal */
+#s1b .s1b-led{display:grid;align-self:start}
+#s1b .s1b-led>div{position:relative;display:grid;grid-template-columns:minmax(0,9.5rem) minmax(0,1fr);align-items:baseline;column-gap:var(--s4);padding-block:var(--s4) var(--s3)}
+#s1b .s1b-bar{position:absolute;left:0;right:0;top:0;height:2px;background:var(--paper-edge);overflow:hidden}
+#s1b .s1b-bar::after{content:"";position:absolute;inset:0;background:var(--accent);transform-origin:0 50%;transform:scaleX(var(--f,0))}
+#s1b .s1b-led dt{font-family:var(--mono);font-weight:700;font-size:var(--t-num);line-height:1.1;letter-spacing:-.03em;white-space:nowrap;color:var(--ink);transition:color var(--d-ui) var(--ease)}
+#s1b .s1b-led dd{font-size:var(--t-sm);line-height:1.45;color:var(--body)}
+#s1b .s1b-led>.on dt{color:var(--accent-ink)}
+#s1b .s1b-led>.on dd{color:var(--ink)}
+/* odometer (JS): each digit is a clipped column; the visually hidden copy is what assistive tech reads */
+#s1b .odo{display:inline-flex;align-items:flex-start;line-height:1.1}
+#s1b .od,#s1b .oc{display:block;height:1.1em;line-height:1.1em;overflow:hidden}
+#s1b .od>span{display:block;will-change:transform}
+#s1b .od>span>b{display:block;height:1.1em;line-height:1.1em;font-weight:inherit}
+#s1b .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-#s1b .s1b-led{display:grid;border-top:1px solid var(--line);align-self:start}
-#s1b .s1b-led>div{display:grid;grid-template-columns:minmax(0,8.75rem) minmax(0,1fr);align-items:baseline;column-gap:var(--s4);padding-block:var(--s4);border-bottom:1px solid var(--line)}
-#s1b .s1b-led dt{font-size:var(--fs-num);line-height:1.1;white-space:nowrap}
-#s1b .s1b-led dd{font-size:var(--fs-sm);line-height:1.45;color:var(--body)}
+/* the stage: square-ish, drawn on the paper, no panel */
+#s1b .s1b-viz{--gw:88%;position:relative;width:100%;aspect-ratio:1/1.08}
+#s1b .s1b-globe{position:absolute;right:0;top:0;width:var(--gw);aspect-ratio:1/1}
+#s1b .s1b-globe::before{content:"";position:absolute;left:14%;right:14%;bottom:3%;height:9%;border-radius:50%;background:radial-gradient(closest-side,rgba(42,42,42,.14),transparent)}
+/* the canvas overhangs the globe box by 8% a side (room for the polar arc and the India dolly); a soft round mask, no hard edge */
+#s1b .s1b-still,#s1b canvas{position:absolute;left:-8%;top:-8%;width:116%;height:116%;max-width:none;
+  -webkit-mask:radial-gradient(closest-side,#000 86%,transparent 100%);mask:radial-gradient(closest-side,#000 86%,transparent 100%)}
+#s1b canvas{opacity:0}
+#s1b .s1b-viz.gl canvas{opacity:1}
+#s1b .s1b-viz.gl .s1b-still{visibility:hidden}
+#s1b .s1b-lead{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+#s1b .s1b-lead path{fill:none;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;opacity:0}
+#s1b .s1b-tag{position:absolute;left:0;top:0;z-index:2;padding:var(--s1) var(--s2);border-radius:999px;background:var(--canvas);border:1px solid var(--paper-edge);
+  font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.3;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);white-space:nowrap;
+  box-shadow:0 6px 16px -10px rgba(42,42,42,.5);opacity:0;visibility:hidden}
+/* finished still (no JS / reduced motion / no WebGL): the two tags sit where the still pose puts them */
+#s1b .s1b-viz:not(.gl) .s1b-tag{opacity:1;visibility:visible}
+#s1b .s1b-viz:not(.gl) #s1b-tv{left:21%;top:23%;transform:translate(-50%,-170%)}
+#s1b .s1b-viz:not(.gl) #s1b-ti{left:90%;top:36.5%;transform:translate(-60%,80%)}
+/* the pause control sits top right, clear of the caption */
+#s1b .s1b-viz .mo-pause{top:0;bottom:auto;right:0}
+#s1b .s1b-note{position:absolute;left:0;top:0;font-family:var(--mono);font-size:var(--t-label);line-height:1.3;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet)}
 
-@media (max-width:1023px){
-  /* the strip dissolves so the ledger can sit between the two photos */
-  #s1b .s1b-strip{display:contents}
-  #s1b .s1b-strip>*{grid-column:1/-1}
-  #s1b .s1b-tx{order:1}
-  #s1b .s1b-teach{order:2}
-  #s1b .s1b-led{order:3}
-  #s1b .s1b-meet{order:4}
-}
+/* the photo: a print pinned into the stage's lower left, caption beside it on the paper */
+#s1b .s1b-ph{position:absolute;left:0;right:0;bottom:0;margin:0;display:grid;grid-template-columns:42% minmax(0,1fr);align-items:end;column-gap:var(--s4);pointer-events:none}
+#s1b .s1b-ph img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:var(--r);border:4px solid var(--canvas);background:var(--elevated);
+  box-shadow:0 18px 40px -22px rgba(42,42,42,.55),0 0 0 0 rgba(0,161,155,0);transition:box-shadow var(--d-ui) var(--ease)}
+#s1b .s1b-ph.hit img{box-shadow:0 18px 40px -22px rgba(42,42,42,.55),0 0 0 2px var(--accent)}
+#s1b .s1b-ph figcaption{padding-bottom:var(--s1);font-family:var(--mono);font-size:var(--t-label);line-height:1.45;letter-spacing:.04em;text-transform:uppercase;color:var(--quiet);max-width:24ch}
+
+/* phone + tablet: story, stage, then the ledger right under the globe */
+@media (max-width:1023px){#s1b .s1b-tx{order:1}#s1b .s1b-viz{order:2}#s1b .s1b-led{order:3}}
+/* phone: the print is a little larger so his face reads */
 @media (max-width:767px){
-  #s1b .s1b-teach{margin-inline:calc(var(--gutter) * -1)}
-  #s1b .s1b-teach img{border-radius:0;border-inline:0}
-  #s1b .s1b-teach figcaption{padding-inline:var(--gutter)}
+  #s1b .s1b-viz{--gw:94%;aspect-ratio:1/1.16}
+  #s1b .s1b-ph{grid-template-columns:50% minmax(0,1fr);column-gap:var(--s3)}
+  #s1b .s1b-led>div{grid-template-columns:minmax(0,8.25rem) minmax(0,1fr)}
+}
+@media (min-width:768px) and (max-width:1023px){
+  #s1b .s1b-viz{max-width:640px}
+  #s1b .s1b-led{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s5)}
+  #s1b .s1b-led>div{grid-template-columns:1fr;row-gap:var(--s2)}
 }
 @media (min-width:1024px){
-  #s1b .s1b-tx{grid-column:1/7}
-  #s1b .s1b-led{grid-column:8/13;margin-top:var(--s6)}
-  #s1b .s1b-led>div{grid-template-columns:minmax(0,calc(var(--fs-num) * 5)) minmax(0,1fr);padding-block:var(--s4)}
-  /* equal height: track widths follow the two aspect ratios (1:1 = 1, 3:2 = 1.5) */
-  #s1b .s1b-strip{grid-column:1/13;display:grid;grid-template-columns:1fr}
-  #s1b .s1b-teach img{aspect-ratio:16/9;object-position:50% 6%}   /* one wide band; the 1:1 client frame moved to s5 only (it repeated s5) */
+  #s1b .grid{grid-template-rows:auto 1fr;align-items:start}
+  #s1b .s1b-tx{grid-column:1/6;grid-row:1}
+  #s1b .s1b-led{grid-column:1/6;grid-row:2;margin-top:var(--s4)}
+  #s1b .s1b-led>div{grid-template-columns:1fr;row-gap:var(--s1);padding-block:var(--s4) var(--s4)}
+  #s1b .s1b-viz{grid-column:6/13;grid-row:1/3;align-self:center}
 }

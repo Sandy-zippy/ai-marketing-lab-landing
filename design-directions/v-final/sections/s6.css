@@ -1,100 +1,142 @@
-/* S6 Proof (v2): each ledger row leads with the real artefact (the page we built, or the client's own site), the
-   biggest thing in the row, in a plain browser bar. Beside it: who, what we built, and the money bar (whole bar = what
-   they made, ink; the teal piece at its left = what they paid us). Desktop alternates the artefact side; phone stacks
-   artefact first, full width. Then our own offer as one typographic row (300, 50, 10+, thin arrows between, teal only
-   on 10+), then the wall. The finished frame is the default; JS only arms the bars (scaleX from .08). */
-#s6{border-top:0;background:var(--canvas)}
+/* S6 Proof, v6: the page's one DARK composition. Full-bleed petrol ground, content on the .wrap.
+   1. The case carousel (business-motion-film: carousel emphasis + selection -> expansion + number ticker): a circular rail
+      of three tabs, one bright; the active tab's thumbnail expands into the real screenshot; Paid us and Made tick up and
+      the paid-vs-made bar draws its true ratio, shaped by each case's own fact (24 months, before vs after, 3 months).
+   2. Sami's video on its own card. 3. "Our own offer" as wall -> one actor: 300 dots collapse to 50, then 10 glow.
+   Without JS the three cases stack as a static ledger; reduced motion shows finished frames. */
+#s6{border-top:0;color:var(--on-petrol);background:radial-gradient(120% 70% at 30% 0%,var(--petrol-2),var(--petrol) 70%)}
+#s6 h2{color:var(--on-petrol)}
+#s6 .lede{color:var(--on-petrol-q);font-size:var(--t-lg)}
+#s6 .grid{row-gap:var(--s7)}
 
-/* shared label: mono caps, body ink */
-#s6 .k{font-family:var(--mono);font-size:var(--fs-label);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--body);line-height:1.4}
+/* shared label: mono caps, quiet on petrol */
+#s6 .k{font-family:var(--mono);font-size:var(--t-label);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--on-petrol-q);line-height:1.4}
 
-/* ledger: ink rule top and bottom, hairlines between rows, no cards */
-#s6 .ledger{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
-#s6 .row{display:grid;gap:var(--s3);padding-block:var(--s4)}
-#s6 .row+.row{border-top:1px solid var(--line)}
-#s6 .info,#s6 .txt,#s6 .art{min-width:0}
-#s6 .info{display:grid;gap:var(--s3);align-content:center}
-#s6 .nm{font-size:var(--fs-h3);line-height:1.2;margin-bottom:var(--s1)}
+/* ---------- the carousel stage (pilot stage language: petrol radial, faint 32px grid, radius 28) ---------- */
+#s6 .s6-car{position:relative;border-radius:28px;padding:var(--s5) var(--s4) var(--s6);overflow:hidden;isolation:isolate;
+  background:radial-gradient(110% 90% at 50% 35%,#13403E,var(--petrol-2) 45%,#0A1F21 100%);border:1px solid var(--petrol-line);box-shadow:0 40px 80px -40px rgba(0,0,0,.6)}
+#s6 .s6-car::before,#s6 .own::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px;
+  -webkit-mask:radial-gradient(70% 65% at 50% 50%,#000,transparent);mask:radial-gradient(70% 65% at 50% 50%,#000,transparent)}
+
+/* tabs: a circular rail placed by JS; the active one bright, neighbours recede */
+#s6 .s6-tabs{position:relative;height:56px;margin-bottom:var(--s5);-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+#s6 .s6-tab{position:absolute;left:50%;top:0;width:var(--tw,240px);height:56px;display:flex;align-items:center;gap:var(--s3);padding:var(--s2) var(--s4) var(--s2) var(--s2);
+  border-radius:14px;background:rgba(234,245,244,.04);border:1px solid var(--petrol-line);color:var(--on-petrol-q);text-align:left;overflow:hidden;
+  transition:border-color var(--d-micro) var(--ease),color var(--d-micro) var(--ease),background-color var(--d-micro) var(--ease)}
+#s6 .s6-tab img{flex:none;width:56px;height:38px;object-fit:cover;object-position:top;border-radius:6px;border:1px solid var(--petrol-line)}
+#s6 .s6-tab span{min-width:0;font-family:var(--sans);font-weight:600;font-size:var(--t-sm);line-height:1.25}
+#s6 .s6-tab i{position:absolute;left:var(--s3);right:var(--s3);bottom:5px;height:2px;border-radius:2px;background:var(--teal-hi);transform-origin:0 50%;transform:scaleX(var(--p,0))}
+#s6 .s6-tab.on{color:var(--on-petrol);background:rgba(63,224,214,.09);border-color:rgba(63,224,214,.55)}
+#s6 .s6-tab:hover{color:var(--on-petrol)}
+
+/* one case: the artefact (left) and its money (right) */
+#s6 .ledger{display:grid}
+#s6 .row{display:grid;gap:var(--s4);min-width:0}
+#s6 .art,#s6 .info,#s6 .txt{min-width:0}
+#s6 .art{margin:0;display:grid;gap:var(--s2)}
+#s6 .box{--bh:200px;height:var(--bh);display:flex;justify-content:center;align-items:flex-start}
+#s6 .win{position:relative;display:flex;flex-direction:column;max-width:100%;border-radius:12px;background:#0E2A2A;border:1px solid rgba(160,230,225,.22);
+  box-shadow:0 30px 60px -30px rgba(0,0,0,.8);transform-origin:50% 50%;will-change:transform}
+#s6 .chrome{display:block;flex:none;height:18px;border-bottom:1px solid var(--petrol-line);border-radius:12px 12px 0 0;background-color:#123634;background-size:10px 10px;background-repeat:no-repeat;
+  background-image:radial-gradient(circle,rgba(234,245,244,.35) 3px,transparent 3.6px),radial-gradient(circle,rgba(234,245,244,.35) 3px,transparent 3.6px),radial-gradient(circle,rgba(234,245,244,.35) 3px,transparent 3.6px);
+  background-position:10px 50%,24px 50%,38px 50%}
+#s6 .win img{display:block;width:auto;height:auto;max-width:100%;max-height:calc(var(--bh) - 20px);border-radius:0 0 11px 11px}
+/* border beam (Magic UI, ported): a short arc of teal light running round the active window */
+#s6 .win::after{content:"";position:absolute;inset:-1px;border-radius:13px;padding:1.5px;pointer-events:none;opacity:var(--bo,0);
+  background:conic-gradient(from var(--a,0deg),transparent 0 72%,rgba(63,224,214,.15) 82%,var(--teal-hi) 92%,transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+#s6 .cap{font-size:var(--t-label);line-height:1.4;color:var(--on-petrol-q);text-align:center}
+
+#s6 .info{display:grid;gap:var(--s4);align-content:center}
+#s6 .nm{font-size:var(--t-h3);line-height:1.2;color:var(--on-petrol)}
 #s6 .txt .k{display:inline;margin-right:var(--s2)}
-#s6 .v{display:inline;font-size:var(--fs-body);color:var(--body);line-height:1.45}
-
-/* the artefact: a screenshot in a plain browser bar, 1px line, large radius */
-#s6 .art{display:grid;gap:var(--s2)}
-#s6 .win{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--surface)}
-#s6 .chrome{display:block;flex:none;height:18px;border-bottom:1px solid var(--line);background-color:var(--surface);background-size:10px 10px;background-repeat:no-repeat;
-  background-image:radial-gradient(circle,var(--low) 3px,transparent 3.6px),radial-gradient(circle,var(--low) 3px,transparent 3.6px),radial-gradient(circle,var(--low) 3px,transparent 3.6px);
-  background-position:12px 50%,26px 50%,40px 50%}
-#s6 .win img{display:block;width:100%;height:auto}
-/* phone: trim the screenshots a little (top kept) so three rows fit the section's height budget */
-#s6 .win .m169{aspect-ratio:16/9;object-fit:cover;object-position:top}
-#s6 .win .m21{aspect-ratio:2/1;object-fit:cover;object-position:top}
-#s6 .cap{font-size:var(--fs-label);line-height:1.4;color:var(--quiet)}
-
-/* Scale Your Results: funnel screenshot and Sami's video side by side, same height */
-#s6 .pair{grid-template-columns:minmax(0,3fr) minmax(0,2fr);column-gap:var(--s2);align-items:stretch}
-#s6 .pair .win{display:flex;flex-direction:column}
-#s6 .pair .cap{grid-column:1 / -1}
-#s6 .vid-box{position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--ink);min-height:0}
-#s6 .vid-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-/* play glyph, JS only (.tap): the native controls wait for the first tap, so this is the one play icon; kept off his face */
-#s6 .vid-box.tap::after{content:"";position:absolute;left:var(--s2);bottom:var(--s2);width:44px;height:44px;border-radius:50%;pointer-events:none;
-  background:rgba(255,255,255,.92) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6.5v11l9-5.5z' fill='%23121212'/%3E%3C/svg%3E") center/20px no-repeat}
-#s6 .vid-box.on::after{display:none}
-#s6 .vid-box.tap{cursor:pointer}
-
-/* money: Paid us (left) and Made (right) over one bar; the caption says what Made counts */
-#s6 .money{display:grid;row-gap:var(--s1);min-width:0}
+#s6 .v{display:inline;font-size:var(--t-sm);color:var(--on-petrol-q);line-height:1.45}
+#s6 .money{display:grid;row-gap:var(--s2);min-width:0}
 #s6 .tops{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s4)}
 #s6 .md{text-align:right}
-#s6 .n{font-family:var(--mono);font-weight:700;font-size:var(--fs-num);line-height:1.15;margin-top:var(--s1);letter-spacing:-.03em;white-space:nowrap;color:var(--ink)}
-#s6 .bar{position:relative;display:block;height:16px;background:var(--ink);transform-origin:0 50%}
-/* the fee, out of what they made; a share too thin to see (Medico, 1.7%) still draws 8px, its numeral is right above it */
-#s6 .bar::after{content:"";position:absolute;left:0;top:0;bottom:0;width:max(12px,calc(100% * var(--w)));background:var(--accent);border-right:2px solid var(--canvas);transform-origin:0 50%}
-#s6 .c{font-size:var(--fs-sm);color:var(--body);line-height:1.4;text-align:right}
+#s6 .n{font-family:var(--mono);font-weight:700;font-size:var(--t-num);line-height:1.1;margin-top:var(--s1);letter-spacing:-.03em;white-space:nowrap;color:var(--on-petrol);font-variant-numeric:tabular-nums}
+#s6 .md .n{color:var(--teal-hi);text-shadow:0 0 24px rgba(63,224,214,.35)}
+#s6 .c{font-size:var(--t-sm);color:var(--on-petrol-q);line-height:1.45}
 
-/* motion: an armed bar starts at .08 and fills (what they made), then the teal share grows in from the left */
-#s6 .row.arm .bar,#s6 .row.arm .bar::after{transform:scaleX(.08)}
-#s6 .row.go .bar{animation:s6-fill 1100ms var(--ease) both}
-#s6 .row.go .bar::after{animation:s6-fill 700ms var(--ease) 900ms both}
-@keyframes s6-fill{from{transform:scaleX(.08)}to{transform:none}}
+/* the paid-vs-made bar: whole bar = what they made (teal light), the white slice at its left = what they paid us (true ratio) */
+#s6 .mb{position:relative;height:18px;border-radius:4px;background:rgba(160,230,225,.08);margin-top:var(--s1)}
+#s6 .mb .made{position:absolute;inset:0;border-radius:4px;background:linear-gradient(90deg,rgba(63,224,214,.45),var(--teal-hi));box-shadow:0 0 18px -2px rgba(63,224,214,.5);
+  clip-path:inset(0 calc(100% - 100% * var(--mm,1)) 0 0 round 4px)}
+#s6 .mb .paid{position:absolute;left:0;top:-3px;bottom:-3px;z-index:2;width:max(6px,calc(100% * var(--w)));border-radius:3px;background:var(--on-petrol);
+  box-shadow:0 0 0 2px var(--petrol);transform-origin:0 50%;transform:scaleX(var(--pp,1))}
+/* Medico: the made bar is 24 months (contracted in 2 years); a taller mark at month 12 */
+#s6 .mb-time .ticks{position:absolute;inset:0;border-radius:4px;pointer-events:none;
+  background:linear-gradient(90deg,transparent calc(50% - 1px),var(--petrol) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px)),
+    repeating-linear-gradient(90deg,transparent 0 calc(100% / 24 - 1px),rgba(11,34,36,.7) calc(100% / 24 - 1px) calc(100% / 24))}
+/* Scale Your Results: the before bar ($20k of ads made ~$30k) under the with-us bar, same scale */
+#s6 .mb-ba{margin-bottom:var(--s5)}
+#s6 .mb-ba .before{position:absolute;left:0;top:calc(100% + 8px);height:8px;width:calc(100% * var(--b));border-radius:3px;border:1px dashed var(--on-petrol-q);opacity:var(--bf,1)}
+#s6 .mb-ba .before em{position:absolute;left:calc(100% + 8px);top:50%;transform:translateY(-50%);font-style:normal;font-family:var(--mono);font-size:var(--t-label);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--on-petrol-q);white-space:nowrap}
+/* Rumor Avenue: the made bar is three months */
+#s6 .mb-mo .made{display:flex;gap:4px;background:none;box-shadow:none}
+#s6 .mb-mo .made i{flex:1;border-radius:3px;background:linear-gradient(90deg,rgba(63,224,214,.5),var(--teal-hi));box-shadow:0 0 14px -2px rgba(63,224,214,.5)}
 
-/* our own offer: three numerals on one row, a thin arrow between each, teal only on 10+. Static.
-   Phone spreads the three across the width; from 768 they sit left with a fixed gap, the arrow centred in it. */
-#s6 .fr{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2);margin-top:var(--s3)}
-#s6 .fr p{min-width:0;font-size:var(--fs-sm);line-height:1.35;color:var(--body)}
-#s6 .fr b{display:block;font-family:var(--mono);font-weight:700;font-size:var(--fs-num);line-height:1.1;letter-spacing:-.03em;color:var(--ink);margin-bottom:var(--s1)}
-#s6 .fr .acc{color:var(--accent-ink)}
-#s6 .ar{--aw:var(--s5);position:relative;flex:none;display:block;width:var(--aw);height:1px;margin-top:calc(var(--fs-num) * .55);background:var(--quiet-line)}
-#s6 .ar::after{content:"";position:absolute;right:0;top:-3px;width:6px;height:6px;border-top:1px solid var(--quiet-line);border-right:1px solid var(--quiet-line);transform:translate(-.5px,.5px) rotate(45deg)}
+/* JS: the carousel. Rows stack in one cell; the tabs show. Without JS every case is visible in turn (static ledger). */
+html.js #s6 .row{grid-area:1/1}
+html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-top:1px solid var(--petrol-line)}
 
-/* client wall: names only, plain Inter, quiet */
-#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s1) var(--s4);padding-top:var(--s4);border-top:1px solid var(--line);color:var(--quiet);font-size:var(--fs-sm)}
+/* ---------- lower band: Sami's own card + our own offer ---------- */
+#s6 .s6-low{display:grid;gap:var(--s6)}
+#s6 .s6-sami{margin:0;display:grid;gap:var(--s3);justify-items:start}
+#s6 .vid-box{position:relative;width:min(100%,260px);aspect-ratio:9/16;border-radius:20px;overflow:hidden;background:#000;border:1px solid var(--petrol-line);box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+#s6 .vid-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* play glyph, JS only (.tap): the native controls wait for the first tap, so this is the one play icon; kept off his face */
+#s6 .vid-box.tap::after{content:"";position:absolute;left:var(--s3);bottom:var(--s3);width:48px;height:48px;border-radius:50%;pointer-events:none;
+  background:var(--teal-hi) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6.5v11l9-5.5z' fill='%230B2224'/%3E%3C/svg%3E") center/22px no-repeat;
+  box-shadow:0 0 0 6px rgba(63,224,214,.18),0 0 24px rgba(63,224,214,.5)}
+#s6 .vid-box.on::after{display:none}
+#s6 .vid-box.tap{cursor:pointer}
+#s6 .s6-sami figcaption{display:grid;gap:var(--s1);font-size:var(--t-sm);color:var(--on-petrol)}
+
+#s6 .own{position:relative;isolation:isolate;border-radius:28px;padding:var(--s5) var(--s4);overflow:hidden;
+  background:radial-gradient(110% 90% at 50% 40%,#13403E,var(--petrol-2) 45%,#0A1F21 100%);border:1px solid var(--petrol-line)}
+#s6 .field{position:relative;width:100%;aspect-ratio:4/3;margin-top:var(--s3)}
+#s6 .field canvas{position:absolute;inset:0;width:100%;height:100%}
+#s6 .fr{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2);margin-top:var(--s4)}
+#s6 .fr p{min-width:0;font-size:var(--t-sm);line-height:1.35;color:var(--on-petrol-q);transition:color var(--d-ui) var(--ease)}
+#s6 .fr b{display:block;font-family:var(--mono);font-weight:700;font-size:var(--t-num);line-height:1.1;letter-spacing:-.03em;color:var(--on-petrol-q);margin-bottom:var(--s1);transition:color var(--d-ui) var(--ease)}
+#s6 .fr p.on{color:var(--on-petrol)}
+#s6 .fr p.on b{color:var(--on-petrol)}
+#s6 .fr p.on b.acc{color:var(--teal-hi);text-shadow:0 0 22px rgba(63,224,214,.45)}
+#s6 .ar{--aw:var(--s5);position:relative;flex:none;display:block;width:var(--aw);height:1px;margin-top:calc(var(--t-num) * .55);background:var(--on-petrol-q)}
+#s6 .ar::after{content:"";position:absolute;right:0;top:-3px;width:6px;height:6px;border-top:1px solid var(--on-petrol-q);border-right:1px solid var(--on-petrol-q);transform:translate(-.5px,.5px) rotate(45deg)}
+
+/* client wall: names only, quiet */
+#s6 .wall{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2) var(--s5);padding-top:var(--s4);border-top:1px solid var(--petrol-line);color:var(--on-petrol-q);font-size:var(--t-sm)}
+#s6 .wall li:not(.k){color:var(--on-petrol)}
+
+/* shared pause control, kept clear of the content */
+#s6 .s6-car .mo-pause,#s6 .own .mo-pause{top:var(--s3);bottom:auto;right:var(--s3)}
 
 @media (min-width:768px){
-  /* artefact 7 : info 5, the artefact side alternates row to row */
-  #s6 .row{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--s7);padding-block:var(--s7);align-items:start}
-  #s6 .row.flip{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
-  #s6 .row.flip .art{order:2}
-  /* Rumor: their own site, not our work, so it never outweighs the two pages we built */
-  #s6 .row.demo{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
-  #s6 .info{gap:var(--s5);padding-top:var(--s6)}
-  #s6 .money{row-gap:var(--s2)}
-  #s6 .win .m169,#s6 .win .m21{aspect-ratio:auto}
+  #s6 .s6-car{padding:var(--s6) var(--s6) var(--s7)}
+  #s6 .s6-tabs{height:60px;margin-bottom:var(--s6)}
+  #s6 .s6-tab{height:60px}
+  #s6 .row{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--s6);align-items:center}
+  #s6 .box{--bh:300px}
+  #s6 .chrome{height:24px;background-position:14px 50%,28px 50%,42px 50%}
+  #s6 .win img{max-height:calc(var(--bh) - 26px)}
+  #s6 .info{gap:var(--s5)}
   #s6 .txt .k{display:block;margin:var(--s2) 0 0}
-  #s6 .v{display:block}
-  #s6 .chrome{height:28px;background-position:16px 50%,30px 50%,44px 50%}
-  #s6 .cap{font-size:var(--fs-sm)}
-  #s6 .fr{justify-content:flex-start;gap:var(--s6);margin-top:var(--s4)}
-  #s6 .fr p{font-size:var(--fs-body)}
-  #s6 .fr b{font-size:calc(var(--fs-num) * 1.5)}
-  #s6 .ar{--aw:var(--s8);margin-top:calc(var(--fs-num) * .8)}
-  #s6 .wall{font-size:var(--fs-body);gap:var(--s2) var(--s5);padding-top:var(--s5)}
+  #s6 .v{display:block;font-size:var(--t-body)}
+  #s6 .mb{height:22px}
+  #s6 .own{padding:var(--s6)}
+  #s6 .field{aspect-ratio:2/1}
+  #s6 .fr{justify-content:flex-start;gap:var(--s6)}
+  #s6 .fr p{font-size:var(--t-body)}
+  #s6 .ar{--aw:var(--s8)}
+  #s6 .wall{font-size:var(--t-body)}
 }
 @media (min-width:1024px){
-  #s6 .bar{height:24px}
-  #s6 .fr{gap:var(--s7)}
-  #s6 .fr p{font-size:var(--fs-lg)}
-}
-@media (min-width:1200px){
-  #s6 .n{font-size:calc(var(--fs-num) * 1.25);line-height:1.3;margin-top:var(--s2)}
+  #s6 .box{--bh:400px}
+  #s6 .win img{max-height:calc(var(--bh) - 26px)}
+  #s6 .s6-low{grid-template-columns:minmax(0,4fr) minmax(0,8fr);column-gap:var(--s6);align-items:stretch}
+  #s6 .vid-box{width:min(100%,300px)}
+  #s6 .fr p{font-size:var(--t-lg)}
 }

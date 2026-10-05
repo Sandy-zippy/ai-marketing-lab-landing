@@ -1,90 +1,112 @@
-/* S4: paper ground. 15 bricks = 15 live sessions, each carrying its date; three courses over a Mon to Fri axis; the week 2
-   Friday door sends 100 out; a Demo day flag over 13 Nov. The natural styles below ARE the finished frame. When armed,
-   every label stays put (the dates are outlined so they read on the paper); bricks are laid course by course under
-   them, the mail leaves the door and lands on the people, then the roof is laid and the flag goes up. */
-#s4{background:var(--paper);border-top:0}
-#s4 .grid{row-gap:var(--s6)}
+/* S4 v6: the Sprint as a structure built in real 3D (CSS 3D, no WebGL). 15 session blocks, Mon to Fri per floor, three floors;
+   each Friday lands its outcome (directory rows), Demo day flag on top. Petrol stage, teal light = what lands and glows.
+   The natural styles below ARE the finished frame (no JS, reduced motion). s4.js drives render(t) through custom props. */
+#s4{border-top:0;background:var(--canvas)}
+#s4 .s4-grid{row-gap:var(--s6)}
+#s4 .lede{font-size:var(--t-lg)}
+#s4 .s4-lede{align-self:end;max-width:40ch}
 
-#s4 .s4-weeks{display:grid;gap:var(--s3)}
-#s4 .s4-weeks p{color:var(--body);max-width:52ch}
-#s4 .s4-weeks strong{color:var(--ink);font-weight:600}
+/* ---------- stage ---------- */
+#s4 .s4-stage{position:relative;container-type:inline-size;border-radius:28px;overflow:hidden;color:var(--on-petrol);
+  background:radial-gradient(120% 90% at 34% 50%,var(--petrol-2),var(--petrol) 72%);box-shadow:0 40px 80px -40px rgba(11,34,36,.55);
+  display:grid;grid-template-rows:auto auto;padding-bottom:calc(var(--s8) + var(--s2))}
+#s4 .s4-stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px;
+  -webkit-mask:radial-gradient(70% 70% at 36% 50%,#000,transparent);mask:radial-gradient(70% 70% at 36% 50%,#000,transparent)}
+#s4 .s4-tick{position:absolute;left:var(--s5);top:var(--s5);z-index:3;font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.3;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--on-petrol-q)}
+#s4 .s4-tick b{color:var(--teal-hi);font-variant-numeric:tabular-nums}
 
-/* scene: [week label] [building] [what leaves the door]; rows: sky, roof, floor 3, floor 2, floor 1, ground, weekdays.
-   Thin mortar between courses (2px), wider joints between bricks, so the floors read as courses. */
-#s4 .s4-viz{--fnw:46px;--bw:196px;--fh:52px;--sky:40px;--gap:3px;--pw:28px;--dy:0px;--bk:calc((var(--bw) - 4 * var(--gap)) / 5)}
-#s4 .s4-scene{display:grid;grid-template-columns:var(--fnw) var(--bw) minmax(0,1fr);column-gap:var(--s2);
-  grid-template-rows:var(--sky) var(--s2) var(--fh) var(--fh) var(--fh) 2px auto;row-gap:2px}
+/* ---------- the 3D scene: camera pitch 38 deg (35 to 55, never top-down), yaw from --y0 plus a slow orbit set by s4.js ---------- */
+#s4 .s4-scene{position:relative;height:84cqw;perspective:1700px;perspective-origin:50% 30%}
+#s4 .s4-cam{position:absolute;left:59%;top:74%;width:0;height:0;transform-style:preserve-3d;
+  --p:38;--y0:18;--y:var(--y0);--bw:13.5cqw;--bh:calc(var(--bw) * .8);--bd:calc(var(--bw) * .95);--g:calc(var(--bw) * .05);
+  transform:rotateX(calc(var(--p) * -1deg)) rotateY(calc(var(--y) * -1deg))}
+#s4 .s4-cam i{display:block;font-style:normal}
+#s4 .s4-plate{position:absolute;left:calc((5 * var(--bw) + 4 * var(--g)) / -2 - var(--bw) * .45);top:calc(var(--bd) * -1.1);
+  width:calc(5 * var(--bw) + 4 * var(--g) + var(--bw) * .9);height:calc(var(--bd) * 2.2);transform:rotateX(90deg);border-radius:6px;
+  background:radial-gradient(60% 60% at 50% 50%,rgba(63,224,214,.16),transparent 75%),
+    linear-gradient(rgba(160,230,225,.12) 1px,transparent 1px) 0 0/calc(var(--bw) + var(--g)) calc(var(--bd) / 2),
+    linear-gradient(90deg,rgba(160,230,225,.12) 1px,transparent 1px) 0 0/calc(var(--bw) + var(--g)) calc(var(--bd) / 2);
+  border:1px solid rgba(160,230,225,.22)}
 
-/* sky: the pole stands on the roof over Friday 13 Nov; the pennant and its label fly to the right of it */
-#s4 .s4-sky{grid-column:2;grid-row:1;position:relative}
-#s4 .s4-pole{position:absolute;bottom:-2px;right:calc(var(--bk) / 2 - 1px);width:2px;height:calc(100% + 2px);background:var(--ink);transform-origin:bottom}
-#s4 .s4-pen{position:absolute;top:0;left:calc(var(--bw) - var(--bk) / 2 + 1px);width:var(--pw);height:auto;fill:var(--accent);stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round;transform-origin:left center}
-#s4 .s4-dd{position:absolute;top:calc(var(--pw) * 13 / 44 - .6em);left:calc(var(--bw) - var(--bk) / 2 + var(--pw) + var(--s2));
-  font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1.2;color:var(--ink);white-space:nowrap}
-#s4 .s4-roof{grid-column:2;grid-row:2;display:block;margin-inline:-6px;background:var(--ink);border-radius:2px;transform-origin:left}
+/* a block: three faces (front, top, right); --o fill opacity, --hot teal-hi heat (landing flash, lit Friday), --dy drop, --lf floor lift.
+   Each floor is one step lighter than the one under it (week 1 darkest), so the three weeks read as three layers. */
+#s4 .s4-box{position:absolute;left:0;top:0;transform-style:preserve-3d;--o:1;--hot:0;--dy:0px;--lf:0px;
+  transform:translate3d(calc((var(--d) - 2) * (var(--bw) + var(--g))),calc(-1 * (var(--bh) / 2 + var(--f) * (var(--bh) + var(--g))) - var(--dy) - var(--lf)),0)}
+#s4 .s4-box.s4-fri{--hot:.3}
+#s4 .s4-box>i{position:absolute;opacity:var(--o);border:1px solid rgba(63,224,214,.55);backface-visibility:hidden;
+  background:color-mix(in srgb,var(--teal-hi) calc(var(--hot) * 100%),color-mix(in srgb,var(--c2) calc(var(--f) * 50%),var(--c)))}
+#s4 .s4-fr{--c:#0E524E;--c2:#1A8079;width:var(--bw);height:var(--bh);left:calc(var(--bw) / -2);top:calc(var(--bh) / -2);transform:translateZ(calc(var(--bd) / 2))}
+#s4 .s4-tp{--c:#1B8780;--c2:#2DB0A7;width:var(--bw);height:var(--bd);left:calc(var(--bw) / -2);top:calc(var(--bd) / -2);transform:rotateX(90deg) translateZ(calc(var(--bh) / 2));border-color:rgba(120,240,232,.7)}
+#s4 .s4-rt{--c:#083634;--c2:#0F5450;width:var(--bd);height:var(--bh);left:calc(var(--bd) / -2);top:calc(var(--bh) / -2);transform:rotateY(90deg) translateZ(calc(var(--bw) / 2))}
+#s4 .s4-fr b{position:absolute;left:var(--s2);top:var(--s1);font-family:var(--mono);font-weight:700;font-size:var(--t-sm);line-height:1.3;color:#fff;
+  font-variant-numeric:tabular-nums}
+#s4 .s4-box.dk .s4-fr b{color:#032220}
+/* ghost slots (cloned by s4.js): the blueprint the blocks fill */
+#s4 .s4-box.s4-gh>i{background:transparent;border:1px dashed rgba(160,230,225,.38)}
+#s4 .s4-box.s4-gh .s4-fr b{color:var(--on-petrol-q)}
 
-/* floors: "Week n" and the month at the row head, one weight */
-#s4 .s4-fn{grid-column:1;display:grid;align-content:center;justify-items:start;gap:2px;font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1.2;color:var(--ink)}
-#s4 .s4-fn span{text-transform:uppercase;white-space:nowrap}
-#s4 .s4-fn em{font-style:normal;color:var(--quiet)}
-#s4 .s4-n3,#s4 .s4-r3{grid-row:3}
-#s4 .s4-n2,#s4 .s4-r2{grid-row:4}
-#s4 .s4-n1,#s4 .s4-r1{grid-row:5}
-#s4 .s4-row{grid-column:2;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gap)}
+/* billboards: stand at a 3D point, always face the camera (inverse of the camera rotation) */
+#s4 .s4-bb{position:absolute;left:0;top:0;white-space:nowrap;--lf:0px;--ax:-50%;--ay:-50%;
+  transform:translate3d(var(--bx),calc(var(--by) - var(--lf)),var(--bz)) rotateY(calc(var(--y) * 1deg)) rotateX(calc(var(--p) * 1deg)) translate(var(--ax),var(--ay))}
+#s4 .s4-wk{--bx:calc(-2 * (var(--bw) + var(--g)) - var(--bw) / 2 - var(--s3));--by:calc(-1 * (var(--bh) / 2 + var(--f) * (var(--bh) + var(--g))));--bz:calc(var(--bd) / 2);--ax:-100%;
+  display:block;text-align:right;font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.25;letter-spacing:.08em;text-transform:uppercase;color:var(--on-petrol)}
+#s4 .s4-wk b{color:var(--teal-hi)}
+#s4 .s4-wk em{display:none;font-style:normal;color:var(--on-petrol-q)}
+@media (min-width:768px){#s4 .s4-wk em{display:block}}
+#s4 .s4-day{--bx:calc((var(--d) - 2) * (var(--bw) + var(--g)));--by:var(--s3);--bz:calc(var(--bd) / 2 + var(--s2));--ay:0%;
+  font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--on-petrol-q)}
+/* 100 out: pinned to the Fri 6 block (floor 2), in front of its right edge; tablet and up (on phones the stream runs to its row) */
+#s4 .s4-out{display:none;position:absolute;left:0;top:0;z-index:3;white-space:nowrap;
+  padding:var(--s1) var(--s2);border-radius:6px;background:var(--teal-hi);color:#032220;font-family:var(--mono);font-weight:700;
+  font-size:var(--t-sm);line-height:1.3;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 0 22px rgba(63,224,214,.55)}
+/* the flag stands on the front right corner of the roof (nothing of the structure in front of it); the pennant is in flow so
+   no part of the flag overflows its own layer. Phone: the pennant flies left over the roof. */
+#s4 .s4-flag{--bx:calc(2 * (var(--bw) + var(--g)) + var(--bw) / 2 - 1px);--by:calc(-3 * var(--bh) - 2 * var(--g));--bz:calc(var(--bd) / 2);
+  --ax:calc(-100% + 1px);--ay:-100%;display:block;height:calc(var(--bw) * 1.5);padding-right:2px}
+#s4 .s4-pole{position:absolute;right:0;bottom:0;width:2px;height:100%;background:var(--on-petrol);transform-origin:bottom}
+#s4 .s4-pen{display:block;padding:var(--s2) var(--s3) var(--s2) var(--s4);background:var(--teal-hi);color:#032220;transform-origin:right center;
+  font-family:var(--mono);font-weight:700;font-size:var(--t-sm);line-height:1.3;letter-spacing:.06em;text-transform:uppercase;
+  clip-path:polygon(0 0,100% 0,100% 100%,0 100%,10px 50%);box-shadow:0 0 22px rgba(63,224,214,.6)}
+#s4 .s4-anc{--bx:calc(2 * (var(--bw) + var(--g)) + var(--bw) / 2 + var(--s2));--by:calc(-1 * (var(--bh) / 2 + var(--f) * (var(--bh) + var(--g))));--bz:0px;width:1px;height:1px}
 
-/* a brick: the ink block, its session date set on it in white; the ink outline keeps the date readable on the paper
-   while its brick is still on the way */
-#s4 .s4-b{position:relative;display:block;font-style:normal}
-#s4 .s4-b::before{content:"";position:absolute;inset:0;background:var(--ink);border-radius:2px}
-#s4 .s4-b b{position:absolute;left:6px;top:var(--s1);z-index:1;font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1.2;color:var(--canvas);
-  text-shadow:1px 0 var(--ink),-1px 0 var(--ink),0 1px var(--ink),0 -1px var(--ink)}
-/* week 2 Friday: the lit doorway, square, standing on the floor */
-#s4 .s4-door s{position:absolute;right:14%;bottom:0;width:40%;height:60%;z-index:1;background:var(--accent);transform-origin:bottom;text-decoration:none}
+/* 320 px phones: shift the structure right so the week tags keep their room on the left */
+@container (max-width:340px){#s4 .s4-cam{left:62%}}
 
-/* what leaves the door: the tag level with it, pointer on the wall; four envelopes leave and land on the people */
-#s4 .s4-out{grid-column:3;grid-row:4/6;position:relative;container-type:size}
-#s4 .s4-tag{position:absolute;left:calc(6px - var(--s2));top:calc(var(--fh) * .4 - 2px);font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1;
-  color:var(--canvas);background:var(--ink);padding:var(--s2);border-radius:var(--s1);white-space:nowrap}
-#s4 .s4-tag::before{content:"";position:absolute;left:-6px;top:50%;margin-top:-6px;border:6px solid transparent;border-left:0;border-right-color:var(--ink)}
-#s4 .s4-ev{position:absolute;z-index:1;left:calc(var(--x) * 1%);top:calc(var(--y) * 1% + var(--dy));width:20px;height:auto;transform:rotate(var(--r));
-  fill:var(--canvas);stroke:var(--ink);stroke-width:2;stroke-linejoin:round}
-#s4 .s4-ppl{position:absolute;right:6px;bottom:0;width:64px;height:auto;fill:var(--ink);stroke:var(--paper);stroke-width:1.5}
-#s4 .s4-ppl g{transform-box:fill-box;transform-origin:50% 100%}
-#s4 .s4-ground{grid-column:2/-1;grid-row:6;display:block;margin:-2px 0 0 -6px;background:var(--ink)}
+/* fx layer (leader lines, the 100-out stream, enquiries caught) */
+#s4 .s4-fx{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible}
 
-/* weekday axis under the building, one per brick column */
-#s4 .s4-days{grid-column:2;grid-row:7;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gap);margin-top:var(--s1);
-  font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1.2;text-align:center;color:var(--quiet)}
+/* ---------- the three Friday outcomes (the real copy), a floor directory ---------- */
+#s4 .s4-weeks{position:relative;z-index:3;display:grid;gap:var(--s4);padding:0 var(--s5)}
+#s4 .s4-weeks p{font-size:var(--t-body);line-height:1.5;color:var(--on-petrol-q);max-width:46ch;transition:color var(--d-ui) var(--ease)}
+#s4 .s4-weeks strong{display:block;font-family:var(--mono);font-weight:700;font-size:var(--t-sm);letter-spacing:.04em;color:var(--on-petrol-q);margin-bottom:var(--s1)}
+#s4 .s4-weeks p.on{color:var(--on-petrol)}
+#s4 .s4-weeks p.on strong{color:var(--teal-hi)}
+#s4 .s4-weeks p.now strong::after{content:"";display:inline-block;width:8px;height:8px;margin-left:var(--s2);border-radius:50%;background:var(--teal-hi);
+  box-shadow:0 0 10px var(--teal-hi);vertical-align:1px}
 
+/* tablet: the same stack, a wider structure; the outcomes in three columns; 100 out beside its block; pennant flies right */
 @media (min-width:768px){
-  #s4 .s4-viz{--fnw:var(--s9);--bw:300px;--fh:64px;--sky:64px;--gap:4px;--pw:44px;--dy:-4px}
-  #s4 .s4-fn,#s4 .s4-days{font-size:var(--fs-sm)}
-  #s4 .s4-b b{left:var(--s3);top:var(--s2);font-size:var(--fs-body)}
-  #s4 .s4-ev{width:28px}
-  #s4 .s4-ppl{width:96px}
+  #s4 .s4-stage{padding-bottom:var(--s8)}
+  #s4 .s4-scene{height:62cqw}
+  #s4 .s4-cam{--y0:24;--bw:11cqw;--bh:calc(var(--bw) * .66);left:52%;top:70%}
+  #s4 .s4-fr b{left:var(--s3);top:var(--s2)}
+  html.js #s4 .s4-out{display:block}
+  #s4 .s4-flag{--ax:-1px;height:calc(var(--bw) * 1.2);padding:0 0 0 2px}
+  #s4 .s4-pole{right:auto;left:0}
+  #s4 .s4-pen{padding:var(--s2) var(--s4) var(--s2) var(--s3);transform-origin:left center;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 50%,100% 100%,0 100%)}
+  #s4 .s4-weeks{grid-template-columns:repeat(3,minmax(0,1fr));padding:0 var(--s6) 0 var(--s6)}
 }
-/* desktop: copy and the week lines in c-1-5, the building in c-6-12 */
+/* desktop: structure left, directory right (Fri 13 on top), leader lines between them */
 @media (min-width:1024px){
-  #s4 .s4-head{grid-row:1;align-self:end}
-  #s4 .s4-weeks{grid-row:2;align-self:start}
-  #s4 .s4-viz{grid-row:1/3;align-self:center;--bw:370px}
+  #s4 .s4-head{grid-row:1}
+  #s4 .s4-lede{grid-row:1}
 }
-
-/* motion: plays once, only if the visual was below the fold when the script ran (js adds .armed, then .go on view) */
-#s4 .armed .s4-b::before{animation:s4-lay .32s var(--ease) var(--t) both}
-#s4 .armed .s4-door s{animation:s4-grow .4s var(--ease) var(--t) both}
-#s4 .armed .s4-ev{animation:s4-pour .55s var(--ease) var(--t) both}
-#s4 .armed .s4-ppl g{animation:s4-grow .25s var(--ease) var(--t) both}
-#s4 .armed .s4-roof{animation:s4-span .3s var(--ease) var(--t) both}
-#s4 .armed .s4-pole{animation:s4-raise .2s var(--ease) var(--t) both}
-#s4 .armed .s4-pen{animation:s4-land .45s var(--ease) var(--t) both}
-/* .s4-viz.armed out-ranks the shorthands above, which would otherwise reset play-state to running */
-#s4 .s4-viz.armed:not(.go) *,#s4 .s4-viz.armed:not(.go) *::before{animation-play-state:paused}
-/* a brick drops onto its course: solid the moment it appears, no grey fade */
-@keyframes s4-lay{0%{opacity:0;transform:translateY(-20px)}1%{opacity:1}}
-@keyframes s4-grow{0%{opacity:0;transform:scale(.08)}1%{opacity:1}}
-/* each envelope starts inside the doorway (just left of this column, at door height) */
-@keyframes s4-pour{0%{opacity:0;transform:translate(calc(var(--x) * -1cqw - var(--bk) * .4 - var(--s2)),calc((40 - var(--y)) * 1cqh)) rotate(0) scale(.4)}10%{opacity:1}}
-@keyframes s4-span{0%{opacity:0;transform:scaleX(.08)}1%{opacity:1}}
-@keyframes s4-raise{0%{opacity:0;transform:scaleY(.08)}1%{opacity:1}}
-@keyframes s4-land{from{opacity:0;transform:translateY(calc(var(--s5) * -1)) scaleX(.2)}}
+@media (min-width:1200px){
+  #s4 .s4-stage{display:block;aspect-ratio:16/8.6;padding:0}
+  #s4 .s4-scene{position:absolute;left:0;top:0;bottom:0;width:64%;height:auto;perspective:2600px}
+  #s4 .s4-cam{--y0:26;--bw:8.8cqw;left:53%;top:68%}
+  #s4 .s4-weeks{position:absolute;right:var(--s6);top:50%;width:28%;transform:translateY(-46%);display:flex;flex-direction:column-reverse;gap:var(--s6);padding:0}
+  #s4 .s4-weeks p{font-size:var(--t-lg)}
+}

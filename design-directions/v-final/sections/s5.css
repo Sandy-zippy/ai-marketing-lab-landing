@@ -1,71 +1,102 @@
-#s5{border-top:0}
+/* S5 v6 (LIGHT, paper ground): the Accelerator. Head; the colour-graded desk photo as a full-width band; a white rail stage
+   overlapping its bottom edge. Persistent rails: Upstream (weeks 1 to 4) runs high and drops to Downstream (weeks 5 to 8); the
+   "1:1" call marker travels them and installs each week's system (node fills teal, tick lands, label goes ink). 10 seat slots.
+   Every state is driven by custom props from s5.js render(t); the defaults below are the finished frame (no JS, reduced motion). */
+#s5{border-top:0;background:var(--paper)}
+#s5 .s5-grid{row-gap:var(--s6)}
+#s5 .lede{font-size:var(--t-lg)}
+#s5 .note{font-size:var(--t-sm)}
 
-/* ten seats: the page's one urgency element, set as type (v3: the chair drawing is gone, one idiom fewer) */
-#s5 .s5-n{font-family:var(--mono);font-weight:700;font-size:max(var(--fs-h3),calc(var(--fs-h2) * .75));line-height:1;letter-spacing:-.02em;color:var(--urgent)}
-#s5 .s5-why{margin-top:var(--s3);font-size:var(--fs-lg);line-height:1.5;color:var(--body);max-width:34ch}
+/* the photo band: Sandy and a client, both faces and Sandy's chin always in frame */
+#s5 .s5-ph{position:relative;margin:0}
+#s5 .s5-ph img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:50% 60%;border-radius:28px;background:var(--paper-edge)}
+#s5 .s5-ph figcaption{position:absolute;left:var(--s4);top:var(--s4);padding:var(--s1) var(--s3);border-radius:999px;background:rgba(255,255,255,.92);
+  font-family:var(--mono);font-size:var(--t-label);line-height:1.5;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
 
-/* the eight week rail (tablet: two halves stacked). Upstream weeks fill teal, downstream weeks fill ink, so the halves read apart */
-#s5 .s5-rail{display:grid;grid-template-columns:1fr;row-gap:var(--s6)}
-#s5 .s5-grp{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--s1);row-gap:var(--s3)}
-#s5 .s5-gh{grid-column:1/-1;font-family:var(--mono);font-size:var(--fs-label);font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet);padding-bottom:var(--s2)}
-#s5 .s5-gh b{display:block;margin-top:var(--s1);font-size:var(--fs-sm);font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink)}
-#s5 .s5-wk{display:grid;grid-template-rows:auto var(--s2) auto;align-content:start;row-gap:var(--s3);min-width:0}
-#s5 .s5-wk em{font-family:var(--mono);font-style:normal;font-weight:700;font-size:var(--fs-h3);line-height:1;color:var(--ink)}
-#s5 .s5-seg{display:block;border-radius:var(--s1);background:var(--line);overflow:hidden}
-#s5 .s5-seg b{display:block;width:100%;height:100%;background:var(--accent);transform-origin:left center}
-#s5 .s5-grp+.s5-grp .s5-seg b{background:var(--ink)}
-#s5 .s5-wk span{font-size:var(--fs-sm);line-height:1.4;color:var(--body);padding-right:var(--s3)}
+/* ---------- the rail stage ---------- */
+#s5 .s5-stage{position:relative;z-index:1;margin-top:calc(var(--s7) * -1);padding:var(--s6) var(--s5) var(--s7);border-radius:28px;background:var(--canvas);
+  border:1px solid var(--paper-edge);box-shadow:0 30px 60px -36px rgba(42,42,42,.28)}
+#s5 .s5-rails{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+#s5 .s5-rails path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+#s5 .s5-rails .r0{stroke:var(--line);stroke-width:4}
+#s5 .s5-rails .r1{stroke:var(--accent);stroke-width:4}
+#s5 .s5-rails .r2{stroke:#B8F4F0;stroke-width:2;stroke-dasharray:3 19}   /* light flowing along the installed rail (period 22 px) */
+#s5 .s5-rails .rm{stroke:#fff;stroke-width:8;fill:none}
+#s5 .s5-rail{position:relative}
+#s5 .s5-grp{list-style:none;display:grid;row-gap:var(--s3)}
+#s5 .s5-down{margin-top:var(--s6)}
 
-/* the real photo: Sandy across the table from a client, B&W, both faces kept in frame at every width */
-#s5 .s5-ph{margin:0}
-#s5 .s5-ph img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:50% 55%;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--elevated)}
-#s5 .s5-ph figcaption{margin-top:var(--s3);font-size:var(--fs-label);line-height:1.4;color:var(--quiet);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
+/* group heads; their tick lands when the half is installed (--k) */
+#s5 .s5-gh{--k:1;font-family:var(--mono);font-size:var(--t-label);font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet);padding-bottom:var(--s2)}
+#s5 .s5-gh b{display:flex;align-items:center;gap:var(--s2);margin-top:var(--s1);font-size:var(--t-sm);font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink)}
+#s5 .s5-hk{position:relative;flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--quiet-line);
+  background:color-mix(in srgb,var(--accent) calc(var(--k) * 100%),var(--canvas));border-color:color-mix(in srgb,var(--accent) calc(var(--k) * 100%),var(--quiet-line))}
+#s5 .s5-hk::after{content:"";position:absolute;left:5px;top:2px;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) scale(var(--k))}
 
-/* desktop: copy left, seats right; the photo as a full-width band; below it ONE rail of eight weeks.
-   The two lists dissolve into a single 8-column grid: captions / numbers / track / labels. */
+/* a week station: number, node on the rail, the system it installs. --k = installed (0..1), --r = the install ring */
+#s5 .s5-wk{--k:1;--r:0;display:grid;grid-template-columns:var(--s6) 24px minmax(0,1fr);column-gap:var(--s3);align-items:center;min-height:var(--s7)}
+#s5 .s5-wk em{font-family:var(--mono);font-style:normal;font-weight:700;font-size:var(--t-sm);line-height:1;text-align:right;
+  color:color-mix(in srgb,var(--ink) calc(var(--k) * 100%),var(--quiet))}
+#s5 .s5-nd{position:relative;display:block;width:24px;height:24px;border-radius:50%;border:2px solid color-mix(in srgb,var(--accent) calc(var(--k) * 100%),var(--quiet-line));
+  background:color-mix(in srgb,var(--accent) calc(var(--k) * 100%),var(--canvas))}
+#s5 .s5-nd::after{content:"";position:absolute;left:7px;top:3px;width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) scale(var(--k))}
+#s5 .s5-nd::before{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--accent);opacity:calc(var(--r) * 1);transform:scale(calc(1 + (1 - var(--r)) * 1.2))}
+#s5 .s5-wk span{font-size:var(--t-body);line-height:1.35;color:color-mix(in srgb,var(--ink) calc(var(--k) * 100%),var(--body))}
+/* phone: one straight vertical rail; the group heads sit in the label column, so the rail never crosses their text */
+#s5 .s5-gh{padding-left:calc(var(--s6) + 24px + 2 * var(--s3))}
+
+/* the moving 1:1 call: an ink chip that rides the rail */
+#s5 .s5-mk{position:absolute;left:0;top:0;z-index:2;display:none;align-items:center;gap:var(--s1);padding:var(--s1) var(--s2);border-radius:999px;background:var(--ink);color:#fff;
+  font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.4;white-space:nowrap;box-shadow:0 0 0 4px var(--accent-soft),0 8px 18px -6px rgba(0,161,155,.6)}
+#s5 .s5-mk svg{width:12px;height:12px;fill:none;stroke:#7FE3DE;stroke-width:1.6;stroke-linecap:round}
+html.js #s5 .s5-mk{display:inline-flex}
+@media (max-width:1023px){#s5 .s5-mk svg{display:none}}   /* vertical rail: the chip must fit the node column, clear of numbers and labels */
+
+/* ten seats: the page's one urgency element in brick; ten identical empty slots (no "taken" count) */
+#s5 .s5-seats{margin-top:var(--s7);padding-top:var(--s6);border-top:1px solid var(--line)}
+#s5 .s5-n{font-family:var(--mono);font-weight:700;font-size:var(--t-num);line-height:1;letter-spacing:-.02em;color:var(--urgent)}
+#s5 .s5-slots{width:100%;max-width:370px;height:auto;margin-top:var(--s4)}
+#s5 .s5-slots rect{fill:var(--canvas);stroke:var(--ink);stroke-width:1.5}
+#s5 .s5-why{margin-top:var(--s4);font-size:var(--t-body);line-height:1.5;color:var(--body);max-width:36ch}
+#s5 .s5-seats.armed .s5-slots rect{stroke-dasharray:130;stroke-dashoffset:130}
+#s5 .s5-seats.draw .s5-slots rect{animation:s5-draw .5s var(--ease) both}
+#s5 .s5-seats.draw .s5-slots rect:nth-child(2){animation-delay:60ms}
+#s5 .s5-seats.draw .s5-slots rect:nth-child(3){animation-delay:120ms}
+#s5 .s5-seats.draw .s5-slots rect:nth-child(4){animation-delay:180ms}
+#s5 .s5-seats.draw .s5-slots rect:nth-child(5){animation-delay:240ms}
+#s5 .s5-seats.draw .s5-slots rect:nth-child(6){animation-delay:300ms}
+#s5 .s5-seats.draw .s5-slots rect:nth-child(7){animation-delay:360ms}
+#s5 .s5-seats.draw .s5-slots rect:nth-child(8){animation-delay:420ms}
+#s5 .s5-seats.draw .s5-slots rect:nth-child(9){animation-delay:480ms}
+#s5 .s5-seats.draw .s5-slots rect:nth-child(10){animation-delay:540ms}
+@keyframes s5-draw{from{stroke-dashoffset:130}to{stroke-dashoffset:0}}
+
+@media (min-width:768px){
+  #s5 .s5-ph img{aspect-ratio:21/9;object-position:50% 78%}
+  #s5 .s5-ph figcaption{left:var(--s5);top:var(--s5)}
+  #s5 .s5-stage{margin:calc(var(--s9) * -1) var(--s6) 0;padding:var(--s7) var(--s6) var(--s6)}
+}
+/* desktop: one composition. Upstream across the top left, Downstream across the bottom right, the drop between them;
+   the ten seats fill the bottom left quadrant the rails leave free. */
 @media (min-width:1024px){
-  #s5 .s5-head{grid-row:1}
-  #s5 .s5-seats{grid-row:1;align-self:end;padding-left:var(--s7)}
-  #s5 .s5-ph{grid-row:2}
-  #s5 .s5-ph img{aspect-ratio:21/9;object-position:50% 75%}
-  #s5 .s5-rail{grid-row:3;grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:auto auto var(--s2) auto;column-gap:var(--s1);row-gap:var(--s3);
-    margin-top:var(--s5)}
-  #s5 .s5-grp,#s5 .s5-wk{display:contents}
-  #s5 .s5-gh{grid-row:1;grid-column:1/5;border-bottom:1px solid var(--quiet-line)}
-  #s5 .s5-grp+.s5-grp .s5-gh{grid-column:5/9}
-  #s5 .s5-wk em{grid-row:2;padding-top:var(--s2)}
-  #s5 .s5-seg{grid-row:3}
-  #s5 .s5-wk span{grid-row:4}
-  #s5 .s5-grp:first-child .s5-wk:nth-child(2)>*{grid-column:1}
-  #s5 .s5-grp:first-child .s5-wk:nth-child(3)>*{grid-column:2}
-  #s5 .s5-grp:first-child .s5-wk:nth-child(4)>*{grid-column:3}
-  #s5 .s5-grp:first-child .s5-wk:nth-child(5)>*{grid-column:4}
-  #s5 .s5-grp+.s5-grp .s5-wk:nth-child(2)>*{grid-column:5}
-  #s5 .s5-grp+.s5-grp .s5-wk:nth-child(3)>*{grid-column:6}
-  #s5 .s5-grp+.s5-grp .s5-wk:nth-child(4)>*{grid-column:7}
-  #s5 .s5-grp+.s5-grp .s5-wk:nth-child(5)>*{grid-column:8}
+  #s5 .s5-stage{margin-inline:var(--s7);display:grid;grid-template-columns:repeat(8,minmax(0,1fr));column-gap:var(--s4);
+    grid-template-rows:auto auto auto;padding:var(--s7) var(--s7) var(--s7)}
+  #s5 .s5-rail,#s5 .s5-grp{display:contents}
+  #s5 .s5-gh{grid-row:1;grid-column:1/5;padding-bottom:var(--s4)}
+  #s5 .s5-down .s5-gh{grid-row:2;grid-column:5/9;align-self:end;padding-bottom:var(--s5)}
+  #s5 .s5-wk{grid-template-columns:none;grid-template-rows:auto 24px auto;row-gap:var(--s3);justify-items:start;align-items:start;align-content:start;padding:0}
+  #s5 .s5-gh{padding-left:0}
+  #s5 .s5-wk em{text-align:left;font-size:var(--t-h3)}
+  #s5 .s5-wk span{font-size:var(--t-sm);padding-right:var(--s2)}
+  #s5 .s5-up .s5-wk{grid-row:2}
+  #s5 .s5-down .s5-wk{grid-row:3;margin-top:var(--s3)}
+  #s5 .s5-up .s5-wk:nth-child(2){grid-column:1}
+  #s5 .s5-up .s5-wk:nth-child(3){grid-column:2}
+  #s5 .s5-up .s5-wk:nth-child(4){grid-column:3}
+  #s5 .s5-up .s5-wk:nth-child(5){grid-column:4}
+  #s5 .s5-down .s5-wk:nth-child(2){grid-column:5}
+  #s5 .s5-down .s5-wk:nth-child(3){grid-column:6}
+  #s5 .s5-down .s5-wk:nth-child(4){grid-column:7}
+  #s5 .s5-down .s5-wk:nth-child(5){grid-column:8}
+  #s5 .s5-seats{grid-row:3;grid-column:1/5;align-self:end;margin:var(--s7) var(--s6) 0 0;padding-top:0;border-top:0}
 }
-/* phone: the rail runs down the left edge, one segment per week */
-@media (max-width:767px){
-  #s5 .s5-grid{row-gap:var(--s5)}
-  #s5 .s5-rail{row-gap:var(--s4)}
-  #s5 .s5-grp{grid-template-columns:1fr;row-gap:0}
-  #s5 .s5-wk{grid-template-rows:none;grid-template-columns:var(--s5) var(--s2) minmax(0,1fr);column-gap:var(--s3);align-items:center}
-  #s5 .s5-wk em{font-size:var(--fs-body)}
-  #s5 .s5-seg{align-self:stretch;border-radius:var(--s1);border-bottom:var(--s1) solid var(--canvas);background-clip:padding-box}
-  #s5 .s5-seg b{transform-origin:center top}
-  #s5 .s5-wk span{padding-block:var(--s1);padding-right:0}
-  #s5 .s5-ph{margin-inline:calc(var(--gutter) * -1)}
-  #s5 .s5-ph img{border-radius:0;border-inline:0}
-  #s5 .s5-ph figcaption{padding-inline:var(--gutter)}
-}
-
-/* motion: armed only when below the fold at load; the track fills week by week, text never moves */
-#s5 .s5-rail.armed .s5-seg b{transform:scaleX(.08)}
-#s5 .s5-rail.go .s5-seg b{animation:s5-fill 380ms var(--ease) calc(300ms + var(--i) * 320ms) both}
-@media (max-width:767px){
-  #s5 .s5-rail.armed .s5-seg b{transform:scaleY(.08)}
-  #s5 .s5-rail.go .s5-seg b{animation-name:s5-fill-y}
-}
-@keyframes s5-fill{from{transform:scaleX(.08)}to{transform:none}}
-@keyframes s5-fill-y{from{transform:scaleY(.08)}to{transform:none}}

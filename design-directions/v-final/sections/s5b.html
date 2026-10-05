@@ -1,26 +1,34 @@
 <section id="s5b" class="sec" aria-labelledby="s5b-h">
-  <div class="wrap"><div class="grid">
-    <div class="c-1-8 stack s5b-hd">
+  <div class="wrap"><div class="grid s5b-grid">
+    <div class="c-1-7 stack s5b-hd">
       <p class="label">Sprint or Accelerator</p>
       <h2 id="s5b-h">Two ways to install it</h2>
     </div>
-    <div class="s5b-t">
-      <table aria-label="The 21 Day Sprint compared with the Accelerator">
+    <!-- v6: a segmented control (s5b.js shows it; no JS / reduced motion = the plain full table). It moves a teal highlight
+         across the rows, one row after another; it never hides an answer. -->
+    <div class="s5b-seg c-8-12" id="s5b-seg" role="radiogroup" aria-label="Highlight a programme in the table" aria-controls="s5b-table" hidden>
+      <i class="s5b-pill" aria-hidden="true"></i>
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-p="0">Sprint</button>
+      <button type="button" role="radio" aria-checked="true" tabindex="0" data-p="1">Accelerator</button>
+    </div>
+    <div class="s5b-t" id="s5b-t">
+      <table id="s5b-table" aria-label="The 21 Day Sprint compared with the Accelerator">
         <thead>
-          <tr><td></td><th scope="col"><span class="s5b-tag">Sprint</span></th><th scope="col" class="s5b-acc"><span class="s5b-tag">Accelerator</span></th></tr>
+          <tr><td></td><th scope="col" class="s5b-spr"><span class="s5b-tag">Sprint</span></th><th scope="col" class="s5b-acc"><span class="s5b-tag">Accelerator</span></th></tr>
         </thead>
         <tbody>
-          <tr><th scope="row">Who builds it</th><td>You build it, live, after I show each step</td><td class="s5b-acc">I build it with you, on every call</td></tr>
-          <tr><th scope="row">Format</th><td>Group, live</td><td class="s5b-acc">One to one with me</td></tr>
-          <tr><th scope="row">Length</th><td>21 days, Mon 26 Oct to Fri 13 Nov</td><td class="s5b-acc">8 weeks</td></tr>
-          <tr><th scope="row">Live sessions</th><td>15, weekdays 7 to 8:30 pm IST</td><td class="s5b-acc">Booked on your calendar</td></tr>
-          <tr><th scope="row">1:1 with me</th><td>None, it's a group</td><td class="s5b-acc">Every call, all 8 weeks</td></tr>
-          <tr><th scope="row">Skill files</th><td>6 packs</td><td class="s5b-acc">All 13 packs</td></tr>
-          <tr><th scope="row">Recordings</th><td>Up the next morning</td><td class="s5b-acc">All 15 Sprint sessions</td></tr>
-          <tr><th scope="row">Seats</th><td>Open</td><td class="s5b-acc">10</td></tr>
+          <tr><th scope="row">Who builds it</th><td class="s5b-spr">You build it, live, after I show each step</td><td class="s5b-acc">I build it with you, on every call</td></tr>
+          <tr><th scope="row">Format</th><td class="s5b-spr">Group, live</td><td class="s5b-acc">One to one with me</td></tr>
+          <tr><th scope="row">Length</th><td class="s5b-spr">21 days, Mon 26 Oct to Fri 13 Nov</td><td class="s5b-acc">8 weeks</td></tr>
+          <tr><th scope="row">Live sessions</th><td class="s5b-spr">15, weekdays 7 to 8:30 pm IST</td><td class="s5b-acc">Booked on your calendar</td></tr>
+          <tr><th scope="row">1:1 with me</th><td class="s5b-spr">None, it's a group</td><td class="s5b-acc">Every call, all 8 weeks</td></tr>
+          <tr><th scope="row">Skill files</th><td class="s5b-spr">6 packs</td><td class="s5b-acc">All 13 packs</td></tr>
+          <tr><th scope="row">Recordings</th><td class="s5b-spr">Up the next morning</td><td class="s5b-acc">All 15 Sprint sessions</td></tr>
+          <tr class="s5b-last"><th scope="row">Seats</th><td class="s5b-spr">Open</td><td class="s5b-acc">10</td></tr>
           <tr class="s5b-g"><th scope="row">Guarantee</th><td colspan="2">Both: first client in 90 days, or every rupee back</td></tr>
         </tbody>
       </table>
+      <div class="s5b-bands" id="s5b-bands" aria-hidden="true"></div>
     </div>
     <div class="s5b-cta"><a class="btn js-pay" href="#">Book my &#8377;999 call</a></div>
   </div></div>

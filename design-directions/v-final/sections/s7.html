@@ -1,22 +1,38 @@
 <section id="s7" class="sec" aria-labelledby="s7-h">
   <div class="wrap"><div class="grid">
-    <div class="c-1-4 stack s7-copy">
+    <div class="stack s7-copy">
       <h2 id="s7-h">First client, or every rupee back</h2>
       <p class="lede">Execute the progress sheet we share.</p>
       <p class="s7-both">Both programs</p>
     </div>
-    <div class="c-5-12 s7-main">
-      <p class="s7-promise">No closed client in 90 days? <strong class="accent">Full refund.</strong></p>
-      <div class="s7-sheet" role="img" aria-label="The shared progress sheet: Offer, Lead magnet, Page, Booking flow and 100 messages out, each ticked from mapped to done.">
-        <ol class="s7-rows">
-          <li style="--i:0"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Offer</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
-          <li style="--i:1"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Lead magnet</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
-          <li style="--i:2"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Page</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
-          <li style="--i:3"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Booking flow</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
-          <li style="--i:4"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">100 messages out</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
-        </ol>
+    <!-- the stage: a white sheet-and-dial panel on the paper ground. Each ticked item sends a pulse to the 90-day dial
+         (one segment per item); at 5 of 5 the "Full refund" seal locks. render(t) in sections/s7.js. -->
+    <div class="s7-stage" id="s7-stage">
+      <div class="s7-scene" id="s7-scene">
+        <p class="s7-promise">No closed client in 90 days? <strong class="accent">Full refund.</strong></p>
+        <p class="s7-ex" aria-hidden="true">Example: your progress sheet</p>
+        <div class="s7-sheet" role="img" aria-label="The shared progress sheet: Offer, Lead magnet, Page, Booking flow and 100 messages out, each ticked from mapped to done. Each tick fills one fifth of a 90-day dial; when all five are done the full refund guarantee locks.">
+          <ol class="s7-rows">
+            <li><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Offer</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+            <li><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Lead magnet</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+            <li><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Page</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+            <li><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Booking flow</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+            <li><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">100 messages out</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+          </ol>
+        </div>
+        <div class="s7-gauge" aria-hidden="true">
+          <div class="s7-dial">
+            <svg viewBox="0 0 200 200"><g class="s7-trk"></g><g class="s7-arc"></g></svg>
+            <div class="s7-read"><b>90</b><span>days</span><em class="s7-cnt">5 of 5</em></div>
+          </div>
+          <div class="s7-seal">
+            <svg class="s7-lock" viewBox="0 0 24 24"><path class="s7-shk" d="M8 11V7.5a4 4 0 0 1 8 0V11"/><rect x="5" y="11" width="14" height="10" rx="2.5"/></svg>
+            <span>Full refund</span>
+          </div>
+        </div>
+        <svg class="s7-beam" aria-hidden="true"><path class="s7-bp"/><path class="s7-bl"/></svg>
       </div>
     </div>
-    <div class="c-1-4 s7-cta"><a class="btn js-pay" href="#">Book my &#8377;999 call</a></div>
+    <div class="s7-cta"><a class="btn js-pay" href="#">Book my &#8377;999 call</a></div>
   </div></div>
 </section>

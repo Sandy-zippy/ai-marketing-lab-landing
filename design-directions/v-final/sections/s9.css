@@ -1,13 +1,56 @@
-#s9 .faq{border-top:1px solid var(--line)}
-#s9 details{border-bottom:1px solid var(--line)}
-#s9 summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
-  min-height:56px;padding-block:var(--s4);font-family:var(--mono);font-weight:700;font-size:var(--fs-body);line-height:1.4;color:var(--ink)}
+/* S9 FAQ: light breather, no stage. Desktop: the heading holds still (sticky) in cols 1-4 while the questions run in
+   cols 5-12. Questions Geist 600 with a Space Mono index; the plus folds into a minus. Open/close animates
+   grid-template-rows 0fr -> 1fr (JS adds .s9-js; without JS the native <details> just opens).
+   The one motion detail: a teal rule draws across the top of the open row, left to right (the s1/s10 rail fill). */
+#s9{border-top:0}
+#s9 .s9-list{border-top:1px solid var(--line)}
+#s9 details{position:relative;border-bottom:1px solid var(--line)}
+#s9 details::before{content:'';position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:0 50%}
+#s9 details[open]::before{transform:none}
+#s9 summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:var(--s6) minmax(0,1fr) auto;align-items:center;column-gap:var(--s4);
+  min-height:56px;padding-block:var(--s4);-webkit-tap-highlight-color:transparent}
 #s9 summary::-webkit-details-marker{display:none}
-/* plus that turns into a cross; teal = the open (active) row */
-#s9 summary::after{content:"+";flex:none;width:var(--s5);text-align:center;font-family:var(--mono);font-weight:400;font-size:var(--fs-h3);line-height:1;
-  color:var(--quiet);transition:transform var(--d-micro) var(--ease),color var(--d-micro) var(--ease)}
-#s9 details[open] summary::after{transform:rotate(45deg);color:var(--accent-ink)}
-#s9 summary:hover::after{color:var(--ink)}
-#s9 details p{padding-bottom:var(--s5);padding-right:var(--s7);color:var(--body);max-width:60ch}
-#s9 details[open] p{animation:s9-open var(--d-micro) var(--ease) both}
-@keyframes s9-open{from{opacity:0;transform:translateY(calc(-1 * var(--s2)))}to{opacity:1;transform:none}}
+#s9 summary i{font-style:normal;font-family:var(--mono);font-weight:700;font-size:var(--t-label);letter-spacing:.06em;color:var(--quiet);
+  transition:color var(--d-micro) var(--ease)}
+#s9 summary span{font-family:var(--sans);font-weight:600;font-size:var(--t-lg);line-height:1.35;letter-spacing:-.01em;color:var(--ink)}
+/* plus -> minus: the vertical bar turns flat; teal on the open row */
+#s9 summary b{position:relative;width:var(--s6);height:var(--s6);border-radius:50%;border:1px solid var(--line);
+  transition:border-color var(--d-micro) var(--ease),transform 160ms var(--ease)}
+#s9 summary b::before,#s9 summary b::after{content:'';position:absolute;left:50%;top:50%;width:var(--s3);height:2px;margin:-1px 0 0 calc(var(--s3) / -2);
+  border-radius:2px;background:var(--ink);transition:transform var(--d-ui) var(--ease),background-color var(--d-micro) var(--ease)}
+#s9 summary b::after{transform:rotate(90deg)}
+#s9 details[open] summary b{border-color:var(--accent)}
+#s9 details[open] summary b::before,#s9 details[open] summary b::after{background:var(--accent-ink)}
+#s9 details[open] summary b::after{transform:rotate(0deg)}
+#s9 details[open] summary i{color:var(--accent-ink)}
+#s9 summary:active b{transform:scale(.92)}
+@media (hover:hover) and (pointer:fine){#s9 summary:hover b{border-color:var(--ink)}}
+
+/* the answer sits under the question text (past the index); grid rows open it */
+#s9 .s9-a{display:grid;grid-template-rows:1fr}
+#s9 .s9-a>div{min-height:0;overflow:hidden}
+#s9 .s9-a p{padding:0 var(--s7) var(--s5) calc(var(--s6) + var(--s4));   /* = index column + gap: answers align with the question text */font-size:var(--t-body);line-height:1.6;color:var(--body);max-width:60ch}
+
+/* JS: .on drives the motion; [open] only exists while the row is open or closing */
+#s9.s9-js details::before{transition:transform 400ms var(--ease)}
+#s9.s9-js details[open]:not(.on)::before{transform:scaleX(0);transition-duration:var(--d-micro)}
+#s9.s9-js .s9-a{transition:grid-template-rows var(--d-ui) var(--ease)}
+#s9.s9-js .s9-a p{transition:transform var(--d-ui) var(--ease),opacity var(--d-ui) var(--ease)}
+#s9.s9-js details:not(.on) .s9-a{grid-template-rows:0fr;transition-duration:var(--d-micro)}
+#s9.s9-js details:not(.on) .s9-a p{transform:translateY(calc(-1 * var(--s2)));opacity:0;transition-duration:var(--d-micro)}
+#s9.s9-js details:not(.on) summary b::after{transform:rotate(90deg)}
+
+@media (min-width:1024px){
+  #s9 .grid{align-items:start}
+  #s9 .s9-hd{grid-column:1/5;position:sticky;top:var(--s8)}
+  #s9 .s9-list{grid-column:5/13}
+  #s9 summary{min-height:64px;padding-block:var(--s5)}
+}
+/* phone: the index sits above the question so the question gets the full width */
+@media (max-width:480px){
+  #s9 summary{grid-template-columns:minmax(0,1fr) auto;row-gap:var(--s1)}
+  #s9 summary i{grid-column:1;grid-row:1}
+  #s9 summary span{grid-column:1;grid-row:2}
+  #s9 summary b{grid-column:2;grid-row:1/3}
+  #s9 .s9-a p{padding:0 0 var(--s5)}
+}

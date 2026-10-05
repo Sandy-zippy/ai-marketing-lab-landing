@@ -1,10 +1,22 @@
-/* S10 final CTA: heading, the button, the micro line, and the s1 ticket stub (₹999, credited if you join) as one
-   static callback. Stub = s1's notched corners and perforated left seam, level, on white so it reads on the paper band.
-   No motion, no drawing. */
-#s10{background:var(--paper);border-top:0}
-#s10 .grid{align-items:center}
-#s10 .s10-stub{--n:var(--s4);--h:3.5px;justify-self:start;display:flex;align-items:center;gap:var(--s4);padding:var(--s5) var(--s6) var(--s5) var(--s7);
-  background:var(--canvas);border:1px solid var(--paper-edge);border-left:0;
+/* S10 final CTA: DARK. One petrol stage holds the ask and the s1 callback. Top: headline + note, and the call ticket
+   (paper, notched, perforated seam, always lit, the js-pay button always readable and clickable). Below: the s1 rail
+   (Ad, Callback, Follow-up, Sales call, Client) with the enquiry card stalled at a leak. The 45-min call drops out of
+   the ticket as a lens, slides along the rail, locks on the leak, the fix lands and the card runs on to Client.
+   Default (no JS / reduced motion) = the fixed end frame. Persistent actor: the enquiry card. */
+#s10{border-top:0}
+#s10 .s10-stage{--sd:52px;position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "tk" "rail";
+  row-gap:var(--s6);padding:var(--s6) var(--s4) var(--s4);border-radius:28px;overflow:hidden;color:var(--on-petrol);
+  background:radial-gradient(120% 90% at 50% 40%,var(--petrol-2),var(--petrol) 72%);box-shadow:0 40px 80px -40px rgba(11,34,36,.55)}
+#s10 .s10-stage::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px;
+  -webkit-mask:radial-gradient(75% 70% at 50% 55%,#000,transparent);mask:radial-gradient(75% 70% at 50% 55%,#000,transparent)}
+#s10 .s10-copy{grid-area:copy}
+#s10 h2{color:var(--on-petrol);max-width:12ch}
+#s10 .note{margin-top:var(--s4);font-size:var(--t-lg);color:var(--on-petrol-q)}
+
+/* the ticket: paper on petrol, notched corners, perforated left seam; glows teal (lit in every frame) */
+#s10 .s10-tk{grid-area:tk;position:relative;z-index:2;justify-self:stretch;filter:drop-shadow(0 0 18px rgba(63,224,214,.35)) drop-shadow(0 18px 24px rgba(0,0,0,.4))}
+#s10 .s10-tkb{--n:var(--s4);--h:3.5px;display:grid;gap:var(--s4);padding:var(--s5) var(--s5) var(--s5) var(--s6);background:var(--paper);color:var(--ink);
   -webkit-mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
     radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),
     radial-gradient(circle var(--h) at 0 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
@@ -12,13 +24,71 @@
     radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),
     radial-gradient(circle var(--h) at 0 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
   -webkit-mask-composite:source-in,source-in,source-in,source-in;mask-composite:intersect}
-#s10 .s10-price{display:inline-flex;align-items:center;font-family:var(--mono);font-weight:700;font-size:calc(var(--fs-num) * 1.25);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
+#s10 .s10-stub{display:flex;align-items:center;gap:var(--s4)}
+#s10 .s10-price{display:inline-flex;align-items:center;font-family:var(--mono);font-weight:700;font-size:var(--t-num);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
 /* ponytail: the brand mono subset has no ₹ (U+20B9), so the glyph is drawn at the mono's weight (same path as s1) */
 #s10 .s10-rs{width:auto;height:.76em;margin-right:.02em;flex:none}
-#s10 .s10-cr{max-width:11ch;font-size:var(--fs-lg);line-height:1.3;color:var(--ink)}
-@media (min-width:1024px){
-  /* stub sits right beside the ask, not out at the far edge */
-  #s10 .s10-cta{grid-column:1/7}
-  #s10 .s10-stub{grid-column:7/13}
-  #s10 .s10-cr{max-width:none;white-space:nowrap}
+#s10 .s10-cr{max-width:11ch;font-size:var(--t-body);line-height:1.3;color:var(--ink)}
+#s10 .s10-tkb .btn{width:100%}
+#s10 .s10-ring{position:absolute;left:0;top:0;z-index:1;border:2px solid var(--teal-hi);border-radius:var(--r-lg);pointer-events:none;opacity:0;
+  box-shadow:0 0 24px rgba(63,224,214,.6),inset 0 0 18px rgba(63,224,214,.25)}
+
+/* the rail layer (the only part that loops) */
+#s10 .s10-scene{grid-area:rail;position:relative;height:236px;transform-origin:50% 60%}
+#s10 .s10-ex{position:absolute;left:0;top:0;font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.3;letter-spacing:.1em;text-transform:uppercase;color:var(--on-petrol-q)}
+#s10 .s10-rail{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#s10 .r0{stroke:rgba(160,230,225,.18);stroke-width:3;fill:none;stroke-linecap:round}
+#s10 .r1{stroke:rgba(234,245,244,.5);stroke-width:3;fill:none;stroke-linecap:round}
+#s10 .r2{stroke:var(--teal-hi);stroke-width:3.5;fill:none;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(63,224,214,.7))}
+#s10 .r3{stroke:#E8FFFD;stroke-width:4;fill:none;stroke-linecap:round;opacity:0;filter:drop-shadow(0 0 8px rgba(63,224,214,.95))}
+#s10 .s10-stn{position:absolute;width:0;height:0}
+#s10 .s10-stn i{position:absolute;left:calc(var(--sd) / -2);top:calc(var(--sd) / -2);width:var(--sd);height:var(--sd);border-radius:50%;display:grid;place-items:center;
+  background:#0E2A2A;border:2px solid rgba(160,230,225,.35);color:var(--on-petrol-q)}
+#s10 .s10-stn i svg{width:42%;height:42%}
+#s10 .s10-stn.on i{border-color:var(--teal-hi);background:var(--teal-hi);color:var(--petrol);box-shadow:0 0 18px rgba(63,224,214,.7)}
+#s10 .s10-stn.leak i{border-color:var(--brick-hi);background:var(--urgent);color:#fff;box-shadow:0 0 0 6px rgba(201,55,43,.18),0 0 22px rgba(201,55,43,.6)}
+#s10 .s10-stn span{position:absolute;left:0;top:calc(var(--sd) / 2 + var(--s3));transform:translateX(-50%);white-space:nowrap;
+  font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1;letter-spacing:.06em;text-transform:uppercase;color:var(--on-petrol-q)}
+#s10 .s10-stn.on span{color:var(--on-petrol)}
+#s10 .s10-stn.leak span{color:var(--brick-hi)}
+#s10 .s10-card{position:absolute;left:0;top:0;z-index:4;width:184px;padding:var(--s3) var(--s4);border-radius:var(--r);background:#123836;border:1.5px solid var(--teal-hi);
+  box-shadow:0 12px 28px -12px rgba(0,0,0,.6),0 0 22px -6px rgba(63,224,214,.6)}
+#s10 .s10-card b{display:block;font-family:var(--sans);font-weight:600;font-size:var(--t-body);line-height:1.25;color:#fff}
+#s10 .s10-card small{display:block;margin-top:var(--s1);font-family:var(--sans);font-weight:500;font-size:var(--t-sm);line-height:1.3;color:var(--on-petrol-q)}
+#s10 .s10-card i{position:absolute;right:var(--s3);top:var(--s3);width:8px;height:8px;border-radius:50%;background:var(--teal-hi)}
+#s10 .s10-card.cold{background:#1A2A2A;border-color:rgba(150,170,168,.55);box-shadow:0 12px 28px -12px rgba(0,0,0,.6)}
+#s10 .s10-card.cold i{background:#7A8A88}
+#s10 .s10-mk,#s10 .s10-stamp{position:absolute;left:0;top:0;z-index:3;padding:var(--s2) var(--s3);border-radius:999px;white-space:nowrap;
+  font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1;letter-spacing:.06em;text-transform:uppercase}
+#s10 .s10-mk{background:var(--urgent);color:#fff}
+#s10 .s10-mk.fix{background:var(--teal-hi);color:var(--petrol);box-shadow:0 10px 26px -10px rgba(63,224,214,.8)}
+#s10 .s10-stamp{background:#0E2C2B;border:1px solid var(--teal-hi);color:var(--teal-hi)}
+/* the 45-min call: a glowing lens */
+#s10 .s10-lens{position:absolute;left:0;top:0;z-index:3;opacity:0;width:calc(var(--sd) + 30px);height:calc(var(--sd) + 30px);border-radius:50%;border:3px solid var(--teal-hi);pointer-events:none;
+  background:radial-gradient(circle,rgba(63,224,214,.22),rgba(63,224,214,.04) 65%,transparent 70%);box-shadow:0 0 0 8px rgba(63,224,214,.1),0 0 40px rgba(63,224,214,.65),inset 0 0 22px rgba(63,224,214,.35)}
+
+@media (min-width:768px){
+  #s10 .s10-stage{padding:var(--s7) var(--s7) var(--s6)}
+  #s10 .s10-tkb{grid-template-columns:auto auto;align-items:center;column-gap:var(--s6)}
+  #s10 .s10-tkb .btn{width:auto}
 }
+@media (min-width:1024px){
+  #s10 .s10-stage{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"copy tk" "rail rail";column-gap:var(--s7);row-gap:var(--s5);align-items:center}
+  #s10 .s10-tk{justify-self:end}
+  #s10 .s10-tkb{grid-template-columns:auto;padding:var(--s6) var(--s6) var(--s6) var(--s7)}
+  #s10 .s10-tkb .btn{width:100%}
+}
+@media (max-width:640px){
+  #s10 .s10-stage{--sd:38px}
+  #s10 .s10-scene{height:220px}
+  #s10 .s10-card{width:156px;padding:var(--s2) var(--s3)}
+}
+/* border beam (Magic UI border-beam, ported): a spark circling the ticket while the end frame holds */
+#s10 .s10-spark{position:absolute;left:0;top:0;z-index:3;border-radius:var(--s5);padding:2px;pointer-events:none;opacity:0;
+  background:conic-gradient(from var(--ba,0deg),transparent 0 74%,#7FE3DE 90%,var(--teal-hi) 95%,transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+#s10 .mo-pause{right:var(--s3);top:var(--s3);bottom:auto;background:rgba(234,245,244,.9);border-color:transparent}
+/* without JS the rail cannot be drawn: the ask stands alone */
+html:not(.js) #s10 .s10-scene{display:none}
+/* desktop: the ticket owns the top-right corner, so the pause control sits bottom-left, under the rail's start */
+@media (min-width:1024px){#s10 .mo-pause{top:auto;bottom:var(--s3);left:var(--s3);right:auto}}

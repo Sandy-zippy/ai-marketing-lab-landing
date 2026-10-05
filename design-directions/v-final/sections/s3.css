@@ -1,183 +1,142 @@
-/* S3 the system: one track through all 12 steps. Base CSS is the FINISHED frame: every station drawn in ink and
-   ticked teal, the track teal, the client past the YES stamp, Claude Code parked at the end of the run.
-   .s3-arm (JS, only when the board is below the fold) greys the track, hides the 12 tick discs and check strokes,
-   and moves the two decorative tokens (Claude Code, the client) to their start.
-   Phone (default): a vertical spine. 900px and up: a serpentine over 12 columns.
-   Teal = the track and the ticks (the system working); stations and labels are ink.
-   Layers: track boxes (auto) < trace + Claude Code (1) < stations (2) < YES stamp (3), so the vehicle runs UNDER
-   each station it passes and never hides one. */
-#s3{border-top:0;background:var(--canvas)}
-#s3 h2{max-width:30ch}
+/* S3 v6 (ART-DIRECTION 5 Oct): DARK petrol stage. Persistent actor = the SKILL.md card. Mechanism = materializing
+   result + request -> confirmation: the card is written, docks into the real recorded Claude Code terminal, the four
+   real output lines run, three real drafts materialise (Magic UI animated-list: newest on top), "You approve" is pressed
+   and each pill flips to Approved (border beam), then the card rides the upstream/downstream loop, re-written once per
+   step. Desktop: terminal | drafts over the loop. Phone (JS): one fixed panel swapping terminal -> drafts -> loop.
+   No JS / reduced motion: the finished frame (everything stacked, drafts approved, loop teal). */
+#s3{--s3-node:18px;--s3-card-w:304px}
+#s3 .s3-hd>*+*{margin-top:var(--s3)}
+#s3 .s3-fig{display:grid;gap:var(--s3)}
+#s3 .s3-cap{font-family:var(--mono);font-size:var(--t-label);line-height:1.5;letter-spacing:.04em;text-transform:uppercase;color:var(--quiet)}
 
-/* ---------- board geometry: phone ---------- */
-#s3 .s3-board{--tw:3px;--rail:24px;--aw:112px;--ly:calc(var(--aw) * .5375);--lab:28px;--row:78px;--gate:168px;--park:64px;--r:12px;
-  --sx:calc(var(--rail) + var(--aw) / 2);                                   /* the spine's x */
-  --g0:calc(var(--lab) + var(--row) * 6);                                   /* gate row top */
-  --d0:calc(var(--lab) * 2 + var(--row) * 6 + var(--gate));                 /* Downstream lane top */
-  --ry:calc(var(--d0) + var(--row) * 5 + var(--ly));                        /* Repeat buying's plinth y */
-  position:relative;display:grid;grid-template-columns:var(--rail) var(--aw) minmax(0,1fr);
-  grid-template-rows:var(--lab) calc(var(--row) * 6) var(--gate) var(--lab) calc(var(--row) * 6) var(--park)}
-#s3 .s3-zl{grid-column:2/-1;align-self:center;padding-left:calc(var(--aw) + var(--s2));font-family:var(--mono);font-size:var(--fs-label);line-height:1.3;
-  text-transform:uppercase;color:var(--ink)}
-#s3 .s3-zl-up{grid-row:1}
-#s3 .s3-zl-down{grid-row:4}
-#s3 .s3-lane{list-style:none;position:relative;z-index:2;grid-column:2/-1;display:grid;grid-auto-rows:var(--row)}
-#s3 .s3-up{grid-row:2}
-#s3 .s3-down{grid-row:5}
-#s3 .s3-st{display:grid;grid-template-columns:var(--aw) minmax(0,1fr);align-items:start;min-width:0}
-#s3 .s3-art{display:block;width:var(--aw);height:calc(var(--aw) * .75);transform-origin:50% 100%}
-#s3 .s3-art svg{width:100%;height:100%;overflow:visible;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-#s3 .s3-l{align-self:center;padding-left:var(--s2);font-size:var(--fs-lg);font-weight:600;line-height:1.25;color:var(--ink)}
+/* the stage */
+#s3 .s3-stage{position:relative;border-radius:28px;overflow:hidden;padding:var(--s5) var(--s4) var(--s4);color:var(--on-petrol);
+  background:radial-gradient(120% 90% at 50% 45%,var(--petrol-2),var(--petrol) 72%);box-shadow:0 40px 80px -40px rgba(11,34,36,.55)}
+#s3 .s3-stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px;
+  -webkit-mask:radial-gradient(75% 70% at 50% 50%,#000,transparent);mask:radial-gradient(75% 70% at 50% 50%,#000,transparent)}
+#s3 .s3-shd{position:relative;z-index:2;display:flex;justify-content:space-between;gap:var(--s3);margin-bottom:var(--s4);
+  font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.3;letter-spacing:.12em;text-transform:uppercase;color:var(--on-petrol-q)}
+#s3 .s3-shd b{color:var(--teal-hi);text-align:right}
+#s3 .s3-scene{position:relative;display:grid;gap:var(--s4);transform-origin:50% 60%}
 
-/* the track: plain boxes with borders, so the finished frame needs no JS. Arrowheads are 12px filled triangles. */
-#s3 .s3-w{position:absolute;display:block;pointer-events:none;border:0 solid var(--accent);transition:border-color var(--d-ui) var(--ease)}
-#s3 .s3-w::before,#s3 .s3-w::after{content:"";position:absolute;width:14px;height:14px;background:var(--accent);
-  clip-path:polygon(0 0,100% 0,50% 100%);transition:background-color var(--d-ui) var(--ease)}
-#s3 .s3-w::before{display:none}
-#s3 .s3-u,#s3 .s3-t1,#s3 .s3-m,#s3 .s3-t3,#s3 .s3-d{display:none}
-/* the spine runs on 24px past Repeat buying: Claude Code parks on that stub */
-#s3 .s3-sp{left:calc(var(--sx) - var(--tw) / 2);top:calc(var(--lab) + var(--ly));border-left-width:var(--tw);height:calc(var(--lab) + var(--row) * 11 + var(--gate) + 24px)}
-#s3 .s3-sp::after{left:-8.5px;top:calc(var(--g0) + 80px - var(--lab) - var(--ly))}
-/* buys again: out of Repeat buying to the right edge, up, and back left into Delivery, bracketing the last three steps */
-#s3 .s3-lp{left:calc(var(--rail) + var(--aw));right:calc(var(--s3) - var(--tw) / 2);
-  top:calc(var(--d0) + var(--row) * 3 + var(--ly) - var(--tw) / 2);height:calc(var(--row) * 2 + var(--tw));
-  border-width:var(--tw) var(--tw) var(--tw) 0;border-radius:0 var(--r) var(--r) 0}
-#s3 .s3-lp::after{left:-12px;top:-8.5px;transform:rotate(90deg)}
-#s3 .s3-lp::before{display:block;left:calc(var(--aw) / -2);bottom:calc(-1 * var(--tw));width:calc(var(--aw) / 2);height:var(--tw);clip-path:none}
-#s3 .s3-again{position:absolute;z-index:2;right:0;top:calc(var(--ry) + 14px);font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1;
-  padding:var(--s1) var(--s3);background:var(--canvas);border:2px solid var(--accent);border-radius:999px;color:var(--ink);white-space:nowrap}
-
-/* the Yes gate: a stamp on the track; the client walks out from under it */
-#s3 .s3-yes{position:absolute;z-index:3;left:var(--sx);top:calc(var(--g0) + 112px);translate:-50% -50%;rotate:-4deg;
-  font-family:var(--mono);font-weight:700;font-size:var(--fs-lg);line-height:1;padding:var(--s2) var(--s4);
-  border:2px solid var(--accent);border-radius:var(--r-sm);background:var(--canvas);color:var(--ink);letter-spacing:.06em;text-transform:uppercase}
-#s3 .s3-who{position:absolute;z-index:2;left:var(--sx);top:calc(var(--g0) + 150px);translate:-50% -50%;width:var(--s6);height:var(--s6);overflow:visible}
-#s3 .s3-who circle,#s3 .s3-who path{fill:var(--ink);stroke:var(--canvas);stroke-width:2;paint-order:stroke}
-
-/* Claude Code rides the track: a pill and its skill file, centred on the anchor point. Phone: stacked, riding ON
-   the stations (a 112px station is covered for ~150 ms; under them the words were hidden most of the run), and
-   parked on the spine's stub under Repeat buying. */
-#s3 .s3-run{position:absolute;z-index:3;left:var(--sx);top:calc(var(--ry) + 50px);width:0;height:0;pointer-events:none}
-#s3 .s3-chips{position:absolute;left:0;top:0;translate:-50% -50%;display:flex;flex-direction:column;align-items:center;gap:var(--s1);white-space:nowrap}
-#s3 .s3-cc{display:flex;align-items:center;gap:var(--s2);font-family:var(--mono);font-size:var(--fs-label);line-height:1;padding:var(--s2) var(--s3);
-  border-radius:999px;background:var(--ink);color:var(--canvas);box-shadow:0 0 0 3px var(--canvas)}
-#s3 .s3-ptr{width:10px;max-width:none;height:auto;flex:none}
-#s3 .s3-ptr path{fill:var(--canvas)}
-#s3 .s3-file{font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1;padding:var(--s2);border-radius:var(--s1);
-  background:var(--paper);border:1px solid var(--paper-ink);color:var(--paper-ink);transform:rotate(-3deg)}
-
-/* ---------- station art: ink line drawings on a plinth ---------- */
-#s3 .pl-t{fill:var(--canvas);stroke:var(--ink);stroke-width:1.5}
-#s3 .pl-l,#s3 .pl-r{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
-#s3 .a .k,#s3 .a .f,#s3 .a .w{stroke:var(--ink)}
-#s3 .a .k{fill:none}
-#s3 .a .f{fill:var(--paper)}
-#s3 .a .w{fill:var(--canvas)}
-#s3 .a .s{fill:var(--ink);stroke:none}
-#s3 .a .t{stroke:var(--quiet-line);fill:none}
-#s3 .a .p{fill:var(--ink);stroke:var(--ink)}
-#s3 .a .ln{fill:none;stroke:var(--ink);stroke-width:2.5}
-#s3 .a .ck{fill:none;stroke:var(--ink);stroke-width:3.5}
-/* the tick each station gets as Claude Code passes */
-#s3 .s3-br{fill:var(--canvas);stroke:var(--accent);stroke-width:2.5}
-#s3 .s3-bd{fill:var(--accent);transform-box:fill-box;transform-origin:50% 50%}
-#s3 .s3-ck{fill:none;stroke:var(--canvas);stroke-width:3.5;stroke-dasharray:1;stroke-dashoffset:0}
-
-/* ---------- board geometry: 900px and up, a serpentine over 12 columns ---------- */
-@media (min-width:900px){
-  #s3{padding-bottom:var(--s8)}
-  #s3 .s3-board{--rail:40px;--aw:112px;--lab:40px;--rh:calc(var(--aw) * .75 + 48px);--mid:72px;--loop:52px;--r:24px;
-    --cw:calc((100% - var(--rail) * 2) / 6);--d0:calc(var(--lab) * 2 + var(--rh) + var(--mid));
-    --my:calc(var(--lab) + var(--rh) + var(--mid) / 2);                    /* the return row's y */
-    --c6:calc(var(--rail) + var(--cw) * 5.5);                              /* column 6 centre: under Landing page */
-    --xb:calc(var(--rail) + var(--cw) * 3);                                /* where the loop rejoins, before Delivery */
-    --loopy:calc(var(--d0) + var(--rh) + 26px);                            /* the loop's bottom run */
-    grid-template-columns:var(--rail) repeat(6,minmax(0,1fr)) var(--rail);
-    grid-template-rows:var(--lab) var(--rh) var(--mid) var(--lab) var(--rh) var(--loop);
-    /* the rails sit in the page gutter, so the station columns and labels start on the headline's left edge */
-    margin-inline:calc(-1 * var(--rail))}
-  #s3 .s3-zl{grid-column:2/8;padding-left:0;letter-spacing:.04em}
-  #s3 .s3-zl-down{grid-row:4}
-  #s3 .s3-lane{grid-column:2/8;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:auto}
-  #s3 .s3-up{grid-row:2}
-  #s3 .s3-down{grid-row:5}
-  #s3 .s3-st{display:flex;flex-direction:column;align-items:center}
-  #s3 .s3-l{padding:var(--s2) 0 0;text-align:center;font-size:var(--fs-body)}
-
-  #s3 .s3-sp{display:none}
-  #s3 .s3-u,#s3 .s3-t1,#s3 .s3-m,#s3 .s3-t3,#s3 .s3-d{display:block}
-  #s3 .s3-u{left:calc(var(--rail) + var(--cw) / 2);width:calc(var(--cw) * 5);top:calc(var(--lab) + var(--ly) - var(--tw) / 2);border-top-width:var(--tw)}
-  #s3 .s3-t1{left:var(--c6);right:calc(var(--rail) / 2 - var(--tw) / 2);top:calc(var(--lab) + var(--ly) - var(--tw) / 2);
-    height:calc(var(--rh) + var(--mid) / 2 - var(--ly) + var(--tw));border-width:var(--tw) var(--tw) var(--tw) 0;border-radius:0 var(--r) var(--r) 0}
-  #s3 .s3-m{left:calc(var(--rail) / 2 + var(--r));right:calc(var(--rail) + var(--cw) / 2);top:calc(var(--my) - var(--tw) / 2);border-top-width:var(--tw)}
-  #s3 .s3-t3{left:calc(var(--rail) / 2 - var(--tw) / 2);width:calc(var(--rail) / 2 + var(--cw) / 2 + var(--tw) / 2);top:calc(var(--my) - var(--tw) / 2);
-    height:calc(var(--mid) / 2 + var(--lab) + var(--ly) + var(--tw));border-width:var(--tw) 0 var(--tw) var(--tw);border-radius:var(--r) 0 0 var(--r)}
-  #s3 .s3-d{left:calc(var(--rail) + var(--cw) / 2);width:calc(var(--cw) * 5);top:calc(var(--d0) + var(--ly) - var(--tw) / 2);border-top-width:var(--tw)}
-  /* arrowheads only where the track turns: down both drops, and up where the loop rejoins */
-  #s3 .s3-u::after,#s3 .s3-d::after,#s3 .s3-m::after{display:none}
-  #s3 .s3-t1::after{right:-8.5px;top:calc(50% - 7px)}
-  #s3 .s3-t3::after{left:-8.5px;top:calc(50% - 7px)}
-  /* buys again: out of Repeat buying, round the right rail, back along the bottom and up into the track before Delivery */
-  #s3 .s3-lp{left:calc(var(--xb) - var(--tw) / 2);right:calc(var(--rail) / 2 - var(--tw) / 2);width:auto;
-    top:calc(var(--d0) + var(--ly) - var(--tw) / 2);height:calc(var(--loopy) - var(--d0) - var(--ly) + var(--tw));border-width:var(--tw);border-radius:0 var(--r) var(--r) 0}
-  #s3 .s3-lp::before{display:none}
-  #s3 .s3-lp::after{right:auto;left:-8.5px;top:var(--s3);transform:rotate(180deg)}
-  #s3 .s3-again{left:var(--c6);right:auto;top:var(--loopy);translate:-50% -50%}
-  #s3 .s3-zl{font-size:var(--fs-sm)}
-
-  /* the YES stamp sits right under Landing page, where the track turns back */
-  #s3 .s3-yes{left:var(--c6);top:var(--my)}
-  #s3 .s3-who{left:calc(var(--c6) - 92px);top:calc(var(--my) - 4px)}
-  /* parked on the loop's bottom-left corner, where the loop turns up to rejoin the track */
-  #s3 .s3-run{left:var(--xb);top:var(--loopy);z-index:1}
-  #s3 .s3-chips{flex-direction:row}
-}
-@media (min-width:1200px){#s3 .s3-board{--aw:152px}}
-
-/* ---------- armed: the first frame before the run (JS adds it only below the fold) ---------- */
-#s3 .s3-arm .s3-w{border-color:var(--line)}
-#s3 .s3-arm .s3-w::before,#s3 .s3-arm .s3-w::after{background:var(--line)}
-#s3 .s3-arm .s3-bd{opacity:0;transform:scale(.5)}
-#s3 .s3-arm .s3-ck{stroke-dashoffset:1}
-#s3 .s3-arm .s3-who{transform:translateY(-36px)}
-#s3 .s3-arm:not(.s3-go) .s3-run{left:var(--sx);top:calc(var(--lab) + var(--ly))}
-/* the teal trace + glowing beam head JS draws: above the grey track, under the stations */
-#s3 .s3-trace{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible;pointer-events:none}
-#s3 .s3-trace path{fill:none;stroke:var(--accent);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
-#s3 .s3-trace .s3-beam{stroke-width:5;filter:drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 2px var(--accent))}
-@media (min-width:900px){
-  #s3 .s3-arm .s3-who{transform:translateX(92px)}
-  #s3 .s3-arm:not(.s3-go) .s3-run{left:calc(var(--rail) + var(--cw) / 2)}
-}
-
-/* ---------- proof: the real terminal (lines copied from session-clean.cast, 29 Sep 2026) ----------
-   Board = the system; terminal = it running, full width right under it (phone: after the board). Every line is
-   visible at all times. .s3-typ (JS, only when below the fold) sends a teal caret along the four output lines once,
-   as Claude Code writes them; the caret covers one character at a time and never hides a line. */
-#s3 .s3-term{display:grid;gap:var(--s3);margin-top:var(--s4)}
-#s3 .s3-cap{font-family:var(--mono);font-size:var(--fs-label);line-height:1.5;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
-#s3 .s3-tw{background:var(--ink);border-radius:var(--r-lg);overflow:hidden;font-family:var(--mono);font-size:var(--fs-label);line-height:1.6;color:var(--line)}
-#s3 .s3-tb{display:flex;flex-wrap:wrap;gap:0 var(--s2);align-items:baseline;padding:var(--s3) var(--s4);border-bottom:1px solid var(--body);font-size:var(--fs-label);color:var(--low)}
-#s3 .s3-tb b{color:var(--canvas)}
+/* terminal: the real recorded session */
+#s3 .s3-tw{background:#071718;border:1px solid rgba(160,230,225,.16);border-radius:var(--r-lg);overflow:hidden;font-family:var(--mono);
+  font-size:var(--t-label);line-height:1.6;color:#C9DAD8;height:100%}
+#s3 .s3-tb{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap;padding:var(--s2) var(--s4);border-bottom:1px solid rgba(160,230,225,.12);color:var(--on-petrol-q)}
+#s3 .s3-tb b{color:var(--on-petrol)}
 #s3 .s3-tb span{margin-left:auto}
-#s3 .s3-tx{padding:var(--s4) var(--s4) var(--s5);display:grid;gap:var(--s3)}
-#s3 .s3-tx p{white-space:pre-wrap;overflow-wrap:anywhere;max-width:76ch}
-#s3 .s3-tx i{font-style:normal;color:var(--accent)}
-#s3 .s3-pr{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:1ch;color:var(--canvas)}
-#s3 .s3-pr em{font-style:normal;color:var(--accent)}
-#s3 .s3-ln{position:relative;padding-left:calc(var(--in) * 1ch + 2ch);text-indent:-2ch}   /* cast indent kept; wrapped rows hang */
-#s3 .s3-ln+.s3-ln{margin-top:calc(var(--s3) * -1)}
-#s3 .s3-dim{color:var(--low)}
-/* phone: the long real prompt is clamped to 4 lines (ellipsis, no words changed); the output lines stay whole (critic, 5 Oct) */
-@media (max-width:767px){#s3 .s3-pr span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;overflow:hidden}}
+#s3 .s3-tx{padding:var(--s3) var(--s4) var(--s4)}
+#s3 .s3-tx>*+*{margin-top:var(--s2)}
+#s3 .s3-dock{height:100px;border:1px dashed rgba(160,230,225,.22);border-radius:var(--r)}
+#s3 .s3-pr{display:flex;gap:var(--s2);color:var(--on-petrol)}
+#s3 .s3-pr i{font-style:normal;color:var(--teal-hi)}
+#s3 .s3-pr em{font-style:normal;color:var(--teal-hi);border-radius:4px;box-shadow:0 0 0 2px rgba(63,224,214,.28);background:rgba(63,224,214,.12)}
+#s3 .s3-ln i{font-style:normal;color:var(--teal-hi)}
+#s3 .s3-dim{color:var(--on-petrol-q)}
+#s3 .s3-in{padding-left:2ch}
+#s3 .s3-in2{padding-left:6ch}
+
+/* drafts: outreach-drafts.md, newest on top */
+#s3 .s3-pa-d{display:flex;flex-direction:column;gap:var(--s3)}
+#s3 .s3-stage:not(.s3-js) .s3-dock{display:none}
+#s3 .s3-dock2{display:none;height:96px;border:1px dashed rgba(160,230,225,.22);border-radius:var(--r)}
+#s3 .s3-dl{font-family:var(--mono);font-weight:700;font-size:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--on-petrol-q)}
+#s3 .s3-list{--h:92px;--g:12px;position:relative;display:grid;grid-template-columns:minmax(0,1fr);grid-auto-rows:var(--h);gap:var(--g)}
+#s3 .s3-sl{position:absolute;left:0;right:0;height:var(--h);border:1px dashed rgba(160,230,225,.2);border-radius:var(--r)}
+#s3 .s3-sl:nth-child(1){top:0}#s3 .s3-sl:nth-child(2){top:calc(var(--h) + var(--g))}#s3 .s3-sl:nth-child(3){top:calc(2 * (var(--h) + var(--g)))}
+#s3 .s3-dr{position:relative;min-width:0;display:grid;align-content:center;gap:var(--s1);padding:0 var(--s4);border-radius:var(--r);background:#123836;
+  border:1px solid rgba(160,230,225,.3);transform-origin:50% 0}
+#s3 .s3-dr::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:2px;pointer-events:none;opacity:var(--bo,0);
+  background:conic-gradient(from var(--ba,0deg),transparent 0 62%,var(--teal-hi) 82%,transparent 96%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+#s3 .s3-dk{font-family:var(--mono);font-size:var(--t-label);line-height:1.3;color:var(--on-petrol-q);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#s3 .s3-sj{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);font-size:var(--t-body);font-weight:600;line-height:1.3;color:#fff}
+#s3 .s3-pill{white-space:nowrap}
+#s3 .s3-sj span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#s3 .s3-pill{position:relative;display:grid;flex:none;font-family:var(--mono);font-size:var(--t-label);font-weight:700;letter-spacing:.04em;line-height:1}
+#s3 .s3-pill i{grid-area:1/1;font-style:normal;padding:6px 10px;border-radius:999px;text-align:center;white-space:nowrap}
+#s3 .s3-pill i:first-child{border:1px solid rgba(160,230,225,.35);color:var(--on-petrol-q);opacity:0}
+#s3 .s3-pill i:last-child{background:var(--teal-hi);color:#032220;border:1px solid var(--teal-hi)}
+#s3 .s3-ok{align-self:flex-start;display:inline-flex;align-items:center;gap:var(--s2);min-height:44px;padding:0 var(--s5);border-radius:999px;
+  font-family:var(--sans);font-weight:600;font-size:var(--t-sm);color:#032220;background:var(--teal-hi);border:1px solid var(--teal-hi);
+  box-shadow:0 10px 26px -10px rgba(63,224,214,.8)}
+#s3 .s3-ok svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* the loop: no-JS fallback is a plain wrapped list; JS (.s3-js) places every station on the track */
+#s3 .s3-pa-l{position:relative}
+#s3 .s3-trk,#s3 .s3-lead,#s3 .s3-bc,#s3 .s3-now{display:none}
+#s3 .s3-zl{font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.3;letter-spacing:.06em;text-transform:uppercase;color:var(--on-petrol-q);white-space:nowrap}
+#s3 .s3-sts{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin:var(--s2) 0}
+#s3 .s3-st{display:flex;align-items:center;gap:var(--s2)}
+#s3 .s3-st i{position:relative;flex:none;width:var(--s3-node);height:var(--s3-node);border-radius:50%;background:var(--teal-hi);border:2px solid var(--teal-hi);
+  box-shadow:0 0 14px rgba(63,224,214,.6)}
+#s3 .s3-st i::after{content:"";position:absolute;left:28%;top:22%;width:28%;height:44%;border:solid #032220;border-width:0 2px 2px 0;transform:rotate(45deg)}
+#s3 .s3-st span{font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1;letter-spacing:.04em;text-transform:uppercase;color:var(--on-petrol);white-space:nowrap}
+#s3 .s3-yes,#s3 .s3-again{display:inline-block;padding:6px 12px;border-radius:999px;font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+#s3 .s3-yes{background:var(--teal-hi);color:#032220}
+#s3 .s3-again{margin-left:var(--s2);border:1px solid rgba(160,230,225,.45);color:var(--teal-hi);background:var(--petrol)}
+
+#s3 .s3-js .s3-pa-l{height:300px}
+#s3 .s3-js .s3-trk{display:block;position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#s3 .s3-trk path{fill:none;stroke-linecap:round}
+#s3 .s3-t0{stroke:rgba(160,230,225,.2);stroke-width:3}
+#s3 .s3-t1{stroke:var(--teal-hi);stroke-width:3.5;filter:drop-shadow(0 0 6px rgba(63,224,214,.7))}
+#s3 .s3-js .s3-zl,#s3 .s3-js .s3-st,#s3 .s3-js .s3-yes,#s3 .s3-js .s3-again,#s3 .s3-js .s3-lead,#s3 .s3-js .s3-bc{position:absolute;left:0;top:0;margin:0}
+#s3 .s3-js .s3-sts{margin:0}
+#s3 .s3-js .s3-st{display:block;width:0;height:0}
+#s3 .s3-js .s3-st i{position:absolute;left:calc(var(--s3-node) / -2);top:calc(var(--s3-node) / -2)}
+#s3 .s3-js .s3-st span{position:absolute;left:0;transform:translateX(-50%)}
+#s3 .s3-js .s3-st.up span{bottom:calc(var(--s3-node) / 2 + 10px)}
+#s3 .s3-js .s3-st.dn span{top:calc(var(--s3-node) / 2 + 10px)}
+#s3 .s3-st.off i{background:#0E2A2A;border-color:rgba(160,230,225,.35);box-shadow:none}
+#s3 .s3-st.off i::after{border-color:transparent}
+#s3 .s3-st.off span{color:var(--on-petrol-q)}
+#s3 .s3-yes.off{background:#0E2A2A;color:var(--on-petrol-q);box-shadow:inset 0 0 0 1px rgba(160,230,225,.35)}
+#s3 .s3-js .s3-lead{display:block;width:2px;background:linear-gradient(var(--teal-hi),rgba(63,224,214,.2))}
+#s3 .s3-js .s3-now{display:grid;justify-items:center;gap:var(--s1);position:absolute;left:0;right:0;top:0;margin:0;text-align:center}
+#s3 .s3-now span{font-family:var(--mono);font-weight:700;font-size:var(--t-label);letter-spacing:.06em;text-transform:uppercase;color:var(--on-petrol-q)}
+#s3 .s3-now b{font-family:var(--mono);font-weight:700;font-size:var(--t-h3);line-height:1.1;letter-spacing:-.01em;text-transform:uppercase;color:var(--teal-hi)}
+#s3 .s3-js .s3-bc{display:block;width:26px;height:26px;border-radius:50%;border:2px solid var(--teal-hi);box-shadow:0 0 0 6px rgba(63,224,214,.12),0 0 22px rgba(63,224,214,.8)}
+
+/* the actor: the SKILL.md card */
+#s3 .s3-card{position:relative;z-index:4;width:var(--s3-card-w);padding:var(--s3) var(--s4);border-radius:var(--r);background:#0F3533;
+  border:1.5px solid var(--teal-hi);box-shadow:0 14px 30px -12px rgba(0,0,0,.65),0 0 24px -6px rgba(63,224,214,.6);margin-top:var(--s4)}
+#s3 .s3-ch{display:flex;align-items:center;gap:var(--s2);font-size:var(--t-sm);line-height:1.2}
+#s3 .s3-ch svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--teal-hi);stroke-width:2;stroke-linejoin:round}
+#s3 .s3-ch b{font-weight:600;color:#fff}
+#s3 .s3-ch span{margin-left:auto;font-family:var(--mono);font-weight:700;font-size:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--on-petrol-q)}
+#s3 .s3-c1,#s3 .s3-c2{margin-top:var(--s2);font-family:var(--mono);font-size:var(--t-label);line-height:1.35;color:var(--on-petrol-q);white-space:nowrap;overflow:hidden}
+#s3 .s3-c1 b{font-weight:700;color:var(--teal-hi)}
+#s3 .s3-c2{position:relative;margin-top:var(--s1)}
+#s3 .s3-cs{position:absolute;left:0;top:0;opacity:0}
+#s3 .s3-cs i{font-style:normal}
+#s3 .s3-cs i:last-child{color:var(--teal-hi)}
+#s3 .s3-js .s3-card{position:absolute;left:0;top:0;margin:0}
+#s3 .s3-ptr{display:none}
+#s3 .s3-js .s3-ptr{display:block;position:absolute;left:0;top:0;z-index:5;width:28px;height:34px;fill:#fff;stroke:#032220;stroke-width:1.2;filter:drop-shadow(0 4px 6px rgba(0,0,0,.5))}
+
 @media (min-width:768px){
-  #s3 .s3-tw{font-size:var(--fs-sm)}
-  #s3 .s3-tx{padding:var(--s5) var(--s6) var(--s6)}
+  #s3 .s3-tw{font-size:var(--t-sm)}
 }
-@media (min-width:1024px){#s3 .s3-tw{font-size:var(--fs-body)}}
-@media (min-width:900px){#s3 .s3-term{margin-top:0}#s3 .s3-tw{max-width:calc(78ch + 2 * var(--s6))}}   /* panel hugs the 76ch text: no dead black */
-/* caret: a 1ch teal block walks each output line in character steps, one line after another (~2.5 s), then is gone */
-#s3 .s3-typ .s3-ln::after{content:"";position:absolute;top:.15em;left:calc(var(--in) * 1ch);width:1ch;height:1.2em;background:var(--accent);opacity:0}
-#s3 .s3-typ.s3-go .s3-ln::after{animation:s3-walk calc(var(--n) * 20ms) steps(var(--n)) calc(.2s + var(--k) * .8s),s3-show calc(var(--n) * 20ms) linear calc(.2s + var(--k) * .8s)}
-@keyframes s3-walk{from{transform:none}to{transform:translateX(calc(var(--n) * 1ch))}}
-@keyframes s3-show{from,to{opacity:1}}
+@media (min-width:900px){
+  #s3 .s3-stage{padding:var(--s6) var(--s6) var(--s5)}
+  #s3 .s3-scene{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);grid-template-areas:"t d" "l l";column-gap:var(--s5);row-gap:var(--s6)}
+  #s3 .s3-pa-t{grid-area:t}#s3 .s3-pa-d{grid-area:d}#s3 .s3-pa-l{grid-area:l}
+}
+@media (max-width:899px){
+  #s3{--s3-node:14px;--s3-card-w:min(296px,100%)}
+  #s3 .s3-js .s3-pa-l{height:250px}
+  #s3 .s3-stage.s3-js{padding-bottom:calc(var(--s4) + 48px)}
+  #s3 .s3-js .s3-zl{visibility:hidden}   /* phone: the zone is printed with the current station inside the loop */
+  #s3 .s3-list{--h:68px}
+  #s3 .s3-sj{font-size:var(--t-sm)}
+  /* phone motion: one fixed panel that swaps terminal -> drafts -> loop; the card is carried across */
+  #s3 .s3-swap .s3-pa{position:absolute;left:0;right:0;top:0}
+  #s3 .s3-swap .s3-dock2{display:block}
+  #s3 .s3-c2{white-space:normal}
+  #s3 .s3-swap .s3-pr span{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+}
+@media (max-width:359px){
+  #s3 .s3-shd b,#s3 .s3-ch span{display:none}
+}
