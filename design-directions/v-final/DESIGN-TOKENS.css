@@ -98,6 +98,24 @@ h3{font-size:var(--fs-h3);line-height:1.3}
 .btn.nudge{animation:nudge 900ms var(--ease) 1}
 @keyframes nudge{30%{box-shadow:0 0 0 10px var(--accent-soft)}100%{box-shadow:0 0 0 0 transparent}}
 
+/* BENTO SYSTEM (5 Oct, direction B picked): tiles of DIFFERENT sizes on a 12-col grid, 14px gap, 22px radius.
+   .tile = white + hairline, .tile.paper = paper, .tile.ink = ink (max ONE ink tile per section, it is the contrast).
+   Screenshots bleed off a tile's right/bottom edge (.bleed). Never same-size tile rows. */
+:root{--tile-r:22px;--tile-gap:14px;--tile-pad:clamp(20px,2.4vw,32px);--on-ink:#FFFFFF;--on-ink-q:#A9A9A9}
+.bento{display:grid;gap:var(--tile-gap);grid-template-columns:repeat(12,minmax(0,1fr))}
+.bento>*{grid-column:1/-1;min-width:0}
+.tile{position:relative;border:1px solid var(--line);border-radius:var(--tile-r);background:var(--canvas);padding:var(--tile-pad);overflow:hidden;min-width:0}
+.tile.paper{background:var(--paper);border-color:var(--paper-edge)}
+.tile.ink{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
+.tile.ink :is(h2,h3,.num){color:var(--on-ink)}
+.tile.ink :is(.label,.note){color:var(--on-ink-q)}
+.tile.ink .accent{color:var(--accent)}
+.tile.flush{padding:0}
+.bleed{margin-right:calc(var(--tile-pad) * -1 - 14%);margin-top:auto}
+.bleed img{width:100%;height:auto;border-radius:12px 0 0 0;border:1px solid var(--line);border-right:0;border-bottom:0;box-shadow:0 18px 40px -24px rgba(18,18,18,.35)}
+.tile-chip{position:absolute;left:var(--s3);bottom:var(--s3);max-width:calc(100% - 24px);background:var(--canvas);color:var(--ink);font-size:13px;line-height:1.35;padding:var(--s2) var(--s3);border-radius:12px}
+.sec.bento-sec{border-top:0}
+
 /* motion visuals: shared frame + pause control */
 .viz{position:relative;width:100%;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden}
 .mo-pause{position:absolute;right:var(--s3);bottom:var(--s3);z-index:3;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;
