@@ -1,28 +1,47 @@
-/* S7 guarantee (v5.1, 5 Oct): full-bleed paper band, no tiles, no loop (the VSL dial read "30 days" under a 90-day
-   promise; impeccable critique #1). The h2 reads as the section label, the promise IS the headline (--t-display)
-   across 12 columns; below it the condition (left) and the progress sheet + button (right). Phone: one column.
-   Static finished frame. Teal = "Full refund." only. */
-#s7{background:var(--paper);border-top:0;padding-block:var(--s9)}
-#s7 .s7-g{row-gap:var(--s6)}
-#s7 .s7-h{max-width:none;color:var(--quiet);font-size:var(--t-label);letter-spacing:.06em;text-transform:uppercase;line-height:1.4}
-#s7 .s7-promise{font-family:var(--mono);font-weight:700;font-size:var(--t-display);line-height:1.02;letter-spacing:-.04em;color:var(--ink);text-wrap:balance;max-width:18ch}
-#s7 .s7-promise strong{display:block;font-weight:700}
-#s7 .s7-both{font-family:var(--mono);font-weight:700;font-size:var(--t-label);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
-#s7 .s7-copy .lede{color:var(--ink)}
-#s7 .s7-cta{padding-top:var(--s6)}
-
+/* S7 guarantee: paper ground. The promise itself is the visual: one large mono statement, then the shared progress
+   sheet it rests on. The section heading steps down so the promise is the only headline-size line.
+   Default styles = the FINISHED frame. .s7-arm (JS, only when the sheet is below the fold) holds frame 0 of the
+   ticks; .s7-go plays them. Text never fades. */
+#s7{background:var(--paper);border-top:0}
+#s7 h2{font-size:max(var(--fs-h3),calc(var(--fs-h2) * .6));line-height:1.25}
+#s7 .s7-both{font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+/* the promise: h2-size mono, "Full refund." always on its own line, the section's one teal phrase;
+   balance keeps "90 days?" together on phones */
+#s7 .s7-promise{font-family:var(--mono);font-weight:700;font-size:var(--fs-h2);line-height:1.12;letter-spacing:-.02em;color:var(--ink);text-wrap:balance;margin-bottom:var(--s5)}
+#s7 .s7-promise strong{display:block}
 @media (min-width:1024px){
-  #s7 .s7-g{row-gap:var(--s5)}
-  #s7 .s7-h,#s7 .s7-promise{grid-column:1/13}
-  #s7 .s7-promise{margin:var(--s4) 0 var(--s7)}   /* Space Mono's em box overhangs a 1.02 line box: room so h2 and promise never touch */
-  #s7 .s7-copy{grid-column:1/6;grid-row:3;align-self:start}
-  #s7 .s7-main{grid-column:7/13;grid-row:3}
+  #s7 .grid{row-gap:var(--s5)}
+  /* left 4 columns: heading, the condition, the label, the button; right 8: the promise on two lines, then the sheet */
+  #s7 .s7-copy{grid-column:1/5;grid-row:1;align-self:start}
+  #s7 .s7-cta{grid-column:1/5;grid-row:2;align-self:end}
+  #s7 .s7-main{grid-column:5/13;grid-row:1/3}
+  #s7 .s7-promise{font-size:calc(var(--fs-h2) * .95);margin-bottom:var(--s4)}
 }
 
-/* the sheet (port of 21st "Checkbox Todo List"): an ink progress rail on top, every row ticked done */
-#s7 .s7-rows{list-style:none;border-top:2px solid var(--ink)}
-#s7 .s7-rows li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;column-gap:var(--s3);padding:var(--s4) 0;border-bottom:1px solid var(--paper-edge)}
-#s7 .s7-box{width:22px;height:22px;border-radius:6px;background:var(--ink)}
-#s7 .s7-box svg{width:22px;height:22px;fill:none;stroke:var(--canvas);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-#s7 .s7-step{font-size:var(--t-lg);line-height:1.3;color:var(--ink)}
-#s7 .s7-done{font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);min-width:5ch;text-align:right}
+/* the sheet: a plain white sheet lying on the paper, its rows fill it edge to edge */
+#s7 .s7-sheet{background:var(--canvas);border-block:1px solid var(--paper-edge)}
+#s7 .s7-rows{list-style:none}
+#s7 .s7-rows li{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;column-gap:var(--s3);padding:var(--s3) var(--s4);border-bottom:1px solid var(--line)}
+#s7 .s7-rows li:last-child{border-bottom:0}
+#s7 .s7-box{position:relative;width:22px;height:22px;border:1.5px solid var(--quiet-line);border-radius:6px}
+#s7 .s7-box::before{content:'';position:absolute;inset:-1.5px;border-radius:6px;background:var(--accent)}
+#s7 .s7-box svg{position:absolute;inset:-1.5px;width:22px;height:22px;fill:none;stroke:var(--canvas);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+#s7 .s7-box path{stroke-dasharray:1;stroke-dashoffset:0}
+#s7 .s7-step{font-size:var(--fs-body);line-height:1.3;color:var(--ink)}
+#s7 .s7-was{position:relative;font-family:var(--mono);font-size:var(--fs-sm);line-height:1;color:var(--quiet)}
+#s7 .s7-was::after{content:'';position:absolute;left:-2px;right:-2px;top:52%;height:1.5px;background:var(--quiet);transform-origin:0 50%}
+#s7 .s7-done{position:relative;isolation:isolate;font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1;color:var(--accent-ink);padding:var(--s1) var(--s3)}
+#s7 .s7-done::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:var(--r-lg);background:var(--accent-soft);transform-origin:0 50%}
+@media (min-width:768px){#s7 .s7-rows li{padding:var(--s2) var(--s5)}}
+
+/* motion: armed = frame 0 held (paused), go = play. Strokes and fills move; no text fades. */
+#s7 .s7-arm *,#s7 .s7-arm *::before,#s7 .s7-arm *::after{animation-play-state:paused!important}
+#s7 .s7-arm.s7-go *,#s7 .s7-arm.s7-go *::before,#s7 .s7-arm.s7-go *::after{animation-play-state:running!important}
+#s7 .s7-arm li{--t:calc(.1s + var(--i) * .28s)}
+#s7 .s7-arm .s7-box::before{animation:s7-fill .3s var(--ease) var(--t) both}
+#s7 .s7-arm .s7-box path{animation:s7-draw .3s var(--ease) calc(var(--t) + .12s) both}
+#s7 .s7-arm .s7-was::after{animation:s7-strike .3s var(--ease) var(--t) both}
+#s7 .s7-arm .s7-done::before{animation:s7-strike .3s var(--ease) calc(var(--t) + .12s) both}
+@keyframes s7-fill{from{transform:scale(.08)}to{transform:none}}
+@keyframes s7-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes s7-strike{from{transform:scaleX(.08)}to{transform:none}}

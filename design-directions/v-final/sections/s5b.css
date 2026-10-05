@@ -1,50 +1,29 @@
-/* S5B Sprint vs Accelerator: a real comparison table (ported from 21st.dev / Hirael comparison-02, see s5b.html).
-   Row labels in the first column, Sprint plain, the Accelerator column lifted on paper with its own hairline frame,
-   rounded at top and bottom, its header a step taller. Teal dot on "Accelerator" = the section's one accent.
-   "10" seats is plain ink mono: brick belongs to s5. Phone (<640): each row's label spans the width above its two
-   values, the paper column stays continuous behind them. */
-#s5b .s5b-hd{display:flex;flex-direction:column;gap:var(--s3);margin-bottom:var(--s7)}
-#s5b .s5b-t{--acc-bg:var(--paper);--acc-edge:var(--paper-edge);width:100%;border-collapse:separate;border-spacing:0;text-align:left}
-#s5b .s5b-t :is(th,td){padding:var(--s4) var(--s5);vertical-align:top;font-size:var(--t-body);line-height:1.45;font-weight:400}
-#s5b tbody :is(th,td){border-top:1px solid var(--line)}
-#s5b tbody th{color:var(--quiet)}
-#s5b tbody td{color:var(--ink)}
-#s5b .s5b-t thead th{padding-top:var(--s5);padding-bottom:var(--s4);vertical-align:bottom}
-#s5b .tag{font-size:var(--t-h3);line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
-/* the lifted column */
-#s5b .t-acc{background:var(--acc-bg);border-left:1px solid var(--acc-edge);border-right:1px solid var(--acc-edge)}
-#s5b tbody td.t-acc{border-top-color:var(--acc-edge)}
-#s5b thead th.t-acc{border-top:1px solid var(--acc-edge);border-radius:var(--r) var(--r) 0 0;padding-top:var(--s7)}
-#s5b tbody tr:last-child td.t-acc{border-bottom:1px solid var(--acc-edge);border-radius:0 0 var(--r) var(--r);padding-bottom:var(--s5)}
-#s5b .t-acc .tag{display:flex;align-items:center;gap:var(--s2)}
-#s5b .t-acc .tag::before{content:"";flex:none;width:var(--s3);height:var(--s3);border-radius:50%;background:var(--accent)}
-#s5b .seats{font-family:var(--mono);font-weight:700;font-size:var(--t-h3);line-height:1;color:var(--ink)}
-/* guarantee + the one button, on the ground under the table */
-#s5b .t-guar{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s3);margin-top:var(--s7);padding-top:var(--s5);border-top:1px solid var(--ink)}
-#s5b .g{font-family:var(--sans);font-weight:600;font-size:var(--t-lg);line-height:1.4;color:var(--ink);max-width:36ch}
-#s5b .t-guar .btn{margin-top:var(--s2)}
-
-@media (max-width:639px){
-  #s5b .s5b-t,#s5b .s5b-t :is(thead,tbody){display:block}
-  #s5b .s5b-t tr{display:grid;grid-template-columns:1fr 1fr}
-  #s5b .s5b-blank{display:none}
-  #s5b .s5b-t :is(th,td){padding:var(--s3) var(--s4)}
-  #s5b thead th{padding-top:var(--s4)}
-  #s5b thead th.t-acc{padding-top:var(--s6)}
-  /* the row label spans both columns; the paper column keeps running behind its right half */
-  #s5b .s5b-t tbody th{grid-column:1/-1;padding-bottom:0;font-size:var(--t-label);
-    background:linear-gradient(90deg,transparent 50%,var(--acc-edge) 50%,var(--acc-edge) calc(50% + 1px),var(--acc-bg) calc(50% + 1px));
-    background-origin:border-box;border-right:1px solid var(--acc-edge)}
-  #s5b .s5b-t tbody td{border-top:0;padding-top:var(--s1)}
-  #s5b .t-guar .btn{width:100%}
-}
-@media (min-width:640px){
-  #s5b .s5b-blank{width:26%}
-  #s5b .t-sprint,#s5b .t-acc{width:37%}
-}
+/* S5b Sprint vs Accelerator: typography only. One ruled table, Remy's comparison-card tags on the two column heads,
+   the Accelerator tag outlined in teal (the section's one accent). Phone keeps all three columns; labels stay >= 12px. */
+#s5b table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:var(--fs-body);line-height:1.45}
+#s5b thead td{width:22%}
+#s5b th,#s5b td{text-align:left;vertical-align:top;padding:var(--s4) var(--s4) var(--s4) 0;border-bottom:1px solid var(--line)}
+#s5b thead th,#s5b thead td{border-bottom:1px solid var(--ink);padding-bottom:var(--s3)}
+#s5b tbody th{font-family:var(--mono);font-size:var(--fs-label);font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet);padding-top:calc(var(--s4) + 3px)}
+#s5b tbody td{color:var(--body)}
+#s5b tbody td.s5b-acc{color:var(--ink)}
+#s5b .s5b-tag{display:inline-block;padding:var(--s1) var(--s3);font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;letter-spacing:.02em;line-height:1.4;
+  color:var(--body);background:var(--elevated);border:1px solid var(--elevated);border-radius:var(--s1)}
+#s5b th.s5b-acc .s5b-tag{color:var(--accent-ink);background:var(--canvas);border-color:var(--accent)}
+#s5b .s5b-g td{color:var(--ink);font-weight:600}
+#s5b .s5b-g th,#s5b .s5b-g td{border-bottom:0}
 @media (min-width:1024px){
-  #s5b .t-guar{display:grid;grid-template-columns:26% minmax(0,1fr) auto;align-items:center;column-gap:0}
-  #s5b .t-guar .k{padding-left:var(--s5)}
-  #s5b .g{padding-left:var(--s5)}
-  #s5b .t-guar .btn{margin:0}
+  #s5b table{font-size:var(--fs-lg)}
+  #s5b thead td{width:24%}
+  #s5b th,#s5b td{padding:var(--s5) var(--s6) var(--s5) 0}
+  #s5b thead th,#s5b thead td{padding-bottom:var(--s4)}
+  #s5b tbody th{padding-top:calc(var(--s5) + 5px)}
+}
+@media (max-width:767px){
+  #s5b table{font-size:var(--fs-sm);line-height:1.4}
+  #s5b thead td{width:29%}
+  #s5b th,#s5b td{padding:var(--s3) var(--s3) var(--s3) 0}
+  #s5b tbody th{padding-top:calc(var(--s3) + 2px);letter-spacing:.04em}
+  #s5b .s5b-tag{font-size:var(--fs-label);padding:var(--s1) var(--s2)}
+  #s5b .s5b-cta .btn{width:100%}
 }

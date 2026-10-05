@@ -1,29 +1,20 @@
-/* S8 not for / for (ported from 21st.dev contentbit Pros & Cons, see s8.html). No cards: two plain columns on the
-   white ground split by one 1px rule (vertical on desktop, horizontal on phone). List items in Inter at --t-lg.
-   Quiet crosses for "isn't for", teal ticks for "is for" (the section's one accent). Icons are CSS masks of the
-   lucide check / x paths, so they take currentColor-like tokens. No motion: this section must read as honest. */
-#s8 .s8-hd{padding-bottom:var(--s3)}
+/* S8 not for: typographic, after Remy's comparison card. Two ruled cards side by side (stacked on phone): what it isn't for
+   (grey tag, grey crosses), what it is for (teal-outlined tag, teal ticks: the section's one accent). No drawings, no motion. */
+#s8{border-top:0}
 #s8 .lede{text-wrap:pretty}
-#s8 .s8-cols{display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--line)}
-#s8 .s8-col{display:flex;flex-direction:column;gap:var(--s5);padding-block:var(--s6)}
-#s8 .s8-col+.s8-col{border-top:1px solid var(--line)}
-#s8 .s8-yes .s8-tag{color:var(--ink)}
-#s8 ul{list-style:none;display:grid;gap:var(--s4)}
-#s8 li{position:relative;padding-left:calc(var(--s5) + var(--s3));font-size:var(--t-lg);line-height:1.45;color:var(--body)}
-#s8 .s8-yes li{color:var(--ink);font-weight:600}
-#s8 li::before{content:"";position:absolute;left:0;top:calc((1.45em - var(--s5)) / 2);width:var(--s5);height:var(--s5);
-  -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
-#s8 .s8-no li::before{background:var(--quiet-line);
-  --ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E")}
-#s8 .s8-yes li::before{background:var(--accent);
-  --ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E")}
-
+#s8 .s8-cmp{display:grid;gap:var(--s4)}
+#s8 .s8-col{padding:var(--s5);border:1px solid var(--line);border-radius:var(--r)}
+#s8 .s8-tag{display:inline-block;padding:var(--s1) var(--s3);font-family:var(--mono);font-size:var(--fs-label);font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.5;
+  color:var(--quiet);background:var(--elevated);border:1px solid var(--elevated);border-radius:var(--s1)}
+#s8 .s8-yes .s8-tag{color:var(--accent-ink);background:var(--canvas);border-color:var(--accent)}
+#s8 ul{list-style:none;margin-top:var(--s5);display:grid;gap:var(--s4)}
+#s8 li{position:relative;padding-left:calc(var(--s5) + var(--s3));font-size:var(--fs-lg);line-height:1.4;color:var(--body)}
+#s8 .s8-yes li{color:var(--ink)}
+#s8 li::before{position:absolute;left:0;top:.15em;width:var(--s5);height:var(--s5);display:flex;align-items:center;justify-content:center;border-radius:50%;
+  font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;line-height:1}
+#s8 .s8-no li::before{content:'\00D7';background:var(--elevated);color:var(--quiet)}
+#s8 .s8-yes li::before{content:'\2713';background:var(--accent-soft);color:var(--accent-ink)}
 @media (min-width:768px){
-  #s8 .s8-cols{grid-template-columns:repeat(2,minmax(0,1fr))}
-  #s8 .s8-col{padding-block:var(--s6) var(--s2)}
-  #s8 .s8-col:first-child{padding-right:var(--s7)}
-  #s8 .s8-col+.s8-col{border-top:0;border-left:1px solid var(--line);padding-left:var(--s7)}
-}
-@media (min-width:1024px){
-  #s8 .s8-hd{grid-column:1/9}
+  #s8 .s8-cmp{grid-template-columns:1fr 1fr;gap:var(--s5)}
+  #s8 .s8-col{padding:var(--s6)}
 }

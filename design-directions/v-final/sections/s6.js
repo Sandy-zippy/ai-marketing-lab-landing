@@ -23,12 +23,12 @@ function watch(el, fn) {
   }, { threshold: 0.15 }).observe(el);
 }
 
-/* case cards: when the ratio line arrives, the ink share (what they paid us) grows in from zero (s6-fill). Text never moves. */
-root.querySelectorAll('.case').forEach(function (m) {
-  var bar = m.querySelector('.bar');
-  if (!bar || !below(bar)) return;
-  m.classList.add('arm');
-  watch(bar, function () { void m.offsetWidth; m.classList.remove('arm'); m.classList.add('go'); });
+/* ledger rows: the bar fills (what they made), then the teal share grows in (s6-fill). Text never moves. */
+root.querySelectorAll('.row').forEach(function (row) {
+  var m = row.querySelector('.money');
+  if (!below(m)) return;
+  row.classList.add('arm');
+  watch(m, function () { void row.offsetWidth; row.classList.remove('arm'); row.classList.add('go'); });
 });
 /* printing: never leave an armed fill on paper */
-addEventListener('beforeprint', function () { root.querySelectorAll('.case.arm').forEach(function (r) { r.classList.remove('arm'); }); });
+addEventListener('beforeprint', function () { root.querySelectorAll('.row.arm').forEach(function (r) { r.classList.remove('arm'); }); });

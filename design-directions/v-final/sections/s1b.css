@@ -1,37 +1,39 @@
-/* S1B Who you'll be talking to (v5): no cards. The teaching photo is the large image and bleeds to the viewport's
-   right edge on desktop (both edges on phone); the story sits beside it on the white ground, starting on the wrap's
-   left edge; the three facts are ONE hairline-divided row of numerals (var(--t-num)) with Inter captions.
-   Teal only on 100+. Static: no motion. */
-#s1b .s1b-g{display:grid;grid-template-columns:minmax(0,1fr);row-gap:var(--s7)}
+/* S1B: who you'll be talking to. The short story, a quiet ledger of three facts (numeral and line on one row, hairlines,
+   no cards), then two real photos as one strip at equal height: teaching founders, and a client table.
+   Phone: story, teaching photo (square crop: Sandy and the board) edge to edge, ledger, client photo. Static on purpose: no motion, nothing to pause. */
+#s1b .grid{row-gap:var(--s6)}
+#s1b .s1b-tx p:not(.label):not(.lede){color:var(--body);max-width:56ch}
 
-#s1b .s1b-photo{margin:0 calc(var(--gutter) * -1)}
-#s1b .s1b-photo img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:50% 40%}
-#s1b .s1b-photo figcaption{font-size:var(--t-label);line-height:1.4;color:var(--quiet);margin-top:var(--s3);padding-inline:var(--gutter)}
+#s1b .s1b-ph{margin:0;min-width:0}
+#s1b .s1b-ph img{width:100%;height:auto;object-fit:cover;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--elevated)}
+#s1b .s1b-teach img{aspect-ratio:1/1;object-position:50% 30%}
+#s1b .s1b-meet img{aspect-ratio:3/2;object-position:40% 50%}
+#s1b .s1b-ph figcaption{margin-top:var(--s3);font-family:var(--mono);font-size:var(--fs-label);line-height:1.4;letter-spacing:.04em;text-transform:uppercase;color:var(--quiet)}
 
-#s1b .s1b-story{display:flex;flex-direction:column;gap:var(--s4);max-width:60ch}
-#s1b .s1b-story h2{font-size:var(--t-h2);margin-bottom:var(--s1)}
-#s1b .s1b-story .lede{color:var(--ink)}
-#s1b .s1b-story p:last-child{color:var(--body)}
+#s1b .s1b-led{display:grid;border-top:1px solid var(--line);align-self:start}
+#s1b .s1b-led>div{display:grid;grid-template-columns:minmax(0,8.75rem) minmax(0,1fr);align-items:baseline;column-gap:var(--s4);padding-block:var(--s4);border-bottom:1px solid var(--line)}
+#s1b .s1b-led dt{font-size:var(--fs-num);line-height:1.1;white-space:nowrap}
+#s1b .s1b-led dd{font-size:var(--fs-sm);line-height:1.45;color:var(--body)}
 
-/* the facts row: phone = three stacked lines, hairline between; tablet up = three columns, hairline between.
-   line-height 1.2 + a 12px gap: Space Mono's em box runs ~.24em past a 1.0 line box and would touch the caption. */
-#s1b .s1b-facts{display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--line)}
-#s1b .s1b-facts>div{display:grid;gap:var(--s3);padding-block:var(--s5);border-bottom:1px solid var(--line)}
-#s1b .s1b-facts dt{font-size:var(--t-num);line-height:1.2;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-#s1b .s1b-facts dd{font-size:var(--t-body);line-height:1.5;color:var(--body);max-width:28ch}
-
-@media (min-width:768px){
-  #s1b .s1b-facts{grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
-  #s1b .s1b-facts>div{border-bottom:0;padding:var(--s6) var(--s5) var(--s6) 0;align-content:start}
-  #s1b .s1b-facts>div+div{border-left:1px solid var(--line);padding-left:var(--s5)}
+@media (max-width:1023px){
+  /* the strip dissolves so the ledger can sit between the two photos */
+  #s1b .s1b-strip{display:contents}
+  #s1b .s1b-strip>*{grid-column:1/-1}
+  #s1b .s1b-tx{order:1}
+  #s1b .s1b-teach{order:2}
+  #s1b .s1b-led{order:3}
+  #s1b .s1b-meet{order:4}
 }
-
+@media (max-width:767px){
+  #s1b .s1b-teach{margin-inline:calc(var(--gutter) * -1)}
+  #s1b .s1b-teach img{border-radius:0;border-inline:0}
+  #s1b .s1b-teach figcaption{padding-inline:var(--gutter)}
+}
 @media (min-width:1024px){
-  /* story cols 1-5 on the wrap edge; photo cols 7-12, bleeding out to the viewport's right edge */
-  #s1b .s1b-g{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col-gap);row-gap:var(--s8);align-items:center}
-  #s1b .s1b-story{grid-column:1/6;grid-row:1}
-  #s1b .s1b-photo{grid-column:7/13;grid-row:1;margin:0 calc((max(0px, (100vw - var(--max)) / 2 - var(--gutter)) + var(--gutter)) * -1) 0 0}
-  #s1b .s1b-photo figcaption{padding-inline:0}
-  #s1b .s1b-facts{grid-column:1/-1}
-  #s1b .s1b-facts>div{padding-block:var(--s7)}
+  #s1b .s1b-tx{grid-column:1/7}
+  #s1b .s1b-led{grid-column:8/13;margin-top:var(--s6)}
+  #s1b .s1b-led>div{grid-template-columns:minmax(0,calc(var(--fs-num) * 5)) minmax(0,1fr);padding-block:var(--s4)}
+  /* equal height: track widths follow the two aspect ratios (1:1 = 1, 3:2 = 1.5) */
+  #s1b .s1b-strip{grid-column:1/13;display:grid;grid-template-columns:1fr}
+  #s1b .s1b-teach img{aspect-ratio:16/9;object-position:50% 6%}   /* one wide band; the 1:1 client frame moved to s5 only (it repeated s5) */
 }

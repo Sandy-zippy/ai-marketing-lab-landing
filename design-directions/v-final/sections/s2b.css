@@ -1,38 +1,24 @@
-/* S2b skill packs (v5): no mosaic, no big "13" (the h2 already says thirteen). ONE ordered index, 00 to 12 in
-   number order: number in Space Mono, name in Inter, one tier mark right-aligned in the caps label style.
-   Hairline under every row, straight on the white ground. Two columns from tablet up (filled down, then across),
-   one on phone. The key above uses the same marks so the reader learns them once. Teal only on "free with the call".
-   Static: no motion. */
-#s2b .s2b-hd{display:flex;flex-direction:column;gap:var(--s4);margin-bottom:var(--s7)}
-#s2b .s2b-hd h2{font-size:var(--t-h2)}
-#s2b .s2b-hd .lede{color:var(--body)}
-
-/* tier marks: the one caps label style */
-#s2b .s2b-key li,#s2b .s2b-list i{font-family:var(--mono);font-weight:400;font-style:normal;font-size:var(--t-label);line-height:1.3;
-  letter-spacing:.06em;text-transform:uppercase;color:var(--quiet)}
-#s2b .s2b-key .t-free,#s2b .s2b-list .t-free{color:var(--accent-ink)}
-
-/* key: plain marks with space between (no separators, so a wrapped line never starts on a stray rule) */
-#s2b .s2b-key{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2) var(--s6);margin-top:var(--s1)}
-#s2b .s2b-key span{color:var(--ink)}
-
-/* the index */
-#s2b .s2b-list{list-style:none;display:grid;grid-template-columns:minmax(0,1fr)}
-#s2b .s2b-list li{display:grid;grid-template-columns:3ch minmax(0,1fr) auto;column-gap:var(--s4);align-items:baseline;
-  padding-block:var(--s4);border-bottom:1px solid var(--line)}
-#s2b .s2b-list li:first-child{border-top:1px solid var(--line)}
-#s2b .s2b-list b{font-family:var(--mono);font-weight:700;font-size:var(--t-body);line-height:1.3;color:var(--quiet);font-variant-numeric:tabular-nums}
-#s2b .s2b-list .nm{font-size:var(--t-lg);line-height:1.35;color:var(--ink)}
-#s2b .s2b-list i{text-align:right}
-
-@media (min-width:768px){
-  #s2b .s2b-list{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(7,auto);grid-auto-flow:column;column-gap:var(--s7)}
-  #s2b .s2b-list li:nth-child(8){border-top:1px solid var(--line)}
-  #s2b .s2b-list li{padding-block:var(--s5)}
-}
+/* S2b skill packs: compact. Headline + lede, then the 13 packs as small chips in three tier rows
+   (Free with the call 2, Sprint adds 4, Accelerator 7). Each chip = number + a plain caption, never the folder slug.
+   Static: no motion, nothing to wait for. */
+#s2b{background:var(--paper);border-top:0;padding-block:var(--s8)}
+#s2b .s2b-hd>*+*{margin-top:var(--s3)}
+#s2b .s2b-tiers{display:grid;gap:var(--s4)}
+#s2b .s2b-g{display:grid;gap:var(--s2)}
+#s2b .s2b-tag{font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1.3;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+#s2b .s2b-tag span{margin-left:var(--s2);letter-spacing:0;text-transform:none;color:var(--quiet)}
+#s2b .s2b-c0 .s2b-tag{color:var(--accent-ink)}
+#s2b .s2b-chips{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2)}
+#s2b .s2b-chips li{display:inline-flex;align-items:baseline;gap:var(--s2);padding:var(--s1) var(--s3);font-size:var(--fs-sm);line-height:1.5;font-weight:500;
+  color:var(--ink);background:var(--canvas);border:1px solid var(--paper-edge);border-radius:999px;white-space:nowrap}
+#s2b .s2b-chips b{font-family:var(--mono);font-size:var(--fs-label);font-weight:700;color:var(--quiet)}
+/* the two that are free with the call: inked */
+#s2b .s2b-c0 .s2b-chips li{background:var(--ink);border-color:var(--ink);color:var(--canvas);font-weight:700}
+#s2b .s2b-c0 .s2b-chips b{color:var(--low)}
 @media (min-width:1024px){
-  /* heading across; lede left and the key right on one line, both sitting on the same baseline above the index */
-  #s2b .s2b-hd{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--s6);row-gap:var(--s4);align-items:baseline}
-  #s2b .s2b-hd h2{grid-column:1/-1;max-width:none}
-  #s2b .s2b-key{margin:0;justify-content:flex-end}
+  #s2b .grid{align-items:center}
+  #s2b .s2b-hd{grid-column:1/6}
+  #s2b .s2b-tiers{grid-column:6/13;gap:var(--s4)}
+  #s2b .s2b-g{grid-template-columns:calc(var(--s10) + var(--s6)) minmax(0,1fr);column-gap:var(--s4);align-items:baseline}
+  #s2b .s2b-tag span{display:block;margin:var(--s1) 0 0}
 }

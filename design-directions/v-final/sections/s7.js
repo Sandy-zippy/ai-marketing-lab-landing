@@ -1,15 +1,15 @@
-/* S7 guarantee loop (same pattern as s3): poster + play only while in view, paused off screen, pause button (loop > 5 s, WCAG 2.2.2).
-   Reduced motion: poster only, never plays. */
-(function (f) {
-  var v = f && f.querySelector('video');
-  if (!v || !('IntersectionObserver' in window)) { if (v && v.dataset.poster) v.poster = v.dataset.poster; return; }
-  var want = !AIML.REDUCE;
-  if (want) AIML.pauseBtn(f, { pause: function () { want = false; v.pause(); }, play: function () { want = true; v.play().catch(function () {}); } });
-  new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (!e.isIntersecting) return v.pause();
-      if (!v.poster && v.dataset.poster) v.poster = v.dataset.poster;
-      if (want) { v.preload = 'auto'; v.play().catch(function () {}); }
-    });
-  }, { threshold: 0.25 }).observe(f);
-})(document.querySelector('#s7 .s7-loop'));
+var root = document.getElementById('s7');
+if (!root || AIML.REDUCE || !('IntersectionObserver' in window)) return;
+/* The sheet arms only if it is not on screen yet, and plays when 15% of it is in view.
+   Nothing here touches text opacity: the armed frame only shrinks fills and shortens strokes. */
+var b = root.querySelector('.s7-sheet');
+if (!b || (b.offsetParent !== null && b.getBoundingClientRect().top < innerHeight)) return;
+b.classList.add('s7-arm');
+new IntersectionObserver(function (es, io) {
+  es.forEach(function (e) {
+    if (!e.isIntersecting) return;
+    io.disconnect(); b.classList.add('s7-go');
+    /* the last row ticks by ~1.7 s; then hand back to the plain finished frame */
+    setTimeout(function () { b.classList.remove('s7-arm', 's7-go'); }, 1900);
+  });
+}, { threshold: 0.15 }).observe(b);

@@ -1,68 +1,41 @@
-/* S5 the Accelerator, no cards (5 Oct v5). Heading and copy straight on the white ground (5 cols), the desk photo
-   (7 cols) carrying the page's ONE brick element, the "10 seats" tag. Under both, the eight week rail as a hairline
-   timeline ported from 21st.dev slide-cn Timeline: week numeral, a dot on one continuous 1px line, the work below.
-   Upstream weeks draw in teal, downstream in ink. Phone: the rail turns vertical, line down the left. */
-#s5 .s5-g{row-gap:var(--s7)}
-#s5 .s5-head{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s4)}
-#s5 .s5-head h2{max-width:14ch}
-#s5 .s5-note{font-size:var(--t-body);line-height:var(--lh-body);color:var(--quiet);max-width:46ch}
-#s5 .s5-why{margin-top:var(--s3);padding-top:var(--s4);border-top:1px solid var(--line);font-size:var(--t-body);font-weight:600;line-height:1.5;color:var(--ink);max-width:40ch}
+#s5{border-top:0}
 
-/* photo: B&W, both faces kept in frame; caption in Inter under it, not a chip on it */
-#s5 .s5-ph{margin:0;display:flex;flex-direction:column;gap:var(--s3)}
-#s5 .s5-img{position:relative;aspect-ratio:4/3;border-radius:var(--r-lg);overflow:hidden;background:var(--elevated)}
-#s5 .s5-img img{width:100%;height:100%;object-fit:cover;object-position:50% 55%}
-#s5 .s5-ph figcaption{font-size:var(--t-label);line-height:1.4;color:var(--quiet)}
-#s5 .s5-n{position:absolute;z-index:1;left:var(--s3);top:var(--s3);font-family:var(--mono);font-weight:700;font-size:var(--t-h3);line-height:1;
-  letter-spacing:-.02em;color:var(--on-ink);background:var(--urgent);padding:var(--s3) var(--s4);border-radius:var(--r-sm)}
+/* ten seats: the page's one urgency element, set as type (v3: the chair drawing is gone, one idiom fewer) */
+#s5 .s5-n{font-family:var(--mono);font-weight:700;font-size:max(var(--fs-h3),calc(var(--fs-h2) * .75));line-height:1;letter-spacing:-.02em;color:var(--urgent)}
+#s5 .s5-why{margin-top:var(--s3);font-size:var(--fs-lg);line-height:1.5;color:var(--body);max-width:34ch}
 
+/* the eight week rail (tablet: two halves stacked). Upstream weeks fill teal, downstream weeks fill ink, so the halves read apart */
+#s5 .s5-rail{display:grid;grid-template-columns:1fr;row-gap:var(--s6)}
+#s5 .s5-grp{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--s1);row-gap:var(--s3)}
+#s5 .s5-gh{grid-column:1/-1;font-family:var(--mono);font-size:var(--fs-label);font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet);padding-bottom:var(--s2)}
+#s5 .s5-gh b{display:block;margin-top:var(--s1);font-size:var(--fs-sm);font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink)}
+#s5 .s5-wk{display:grid;grid-template-rows:auto var(--s2) auto;align-content:start;row-gap:var(--s3);min-width:0}
+#s5 .s5-wk em{font-family:var(--mono);font-style:normal;font-weight:700;font-size:var(--fs-h3);line-height:1;color:var(--ink)}
+#s5 .s5-seg{display:block;border-radius:var(--s1);background:var(--line);overflow:hidden}
+#s5 .s5-seg b{display:block;width:100%;height:100%;background:var(--accent);transform-origin:left center}
+#s5 .s5-grp+.s5-grp .s5-seg b{background:var(--ink)}
+#s5 .s5-wk span{font-size:var(--fs-sm);line-height:1.4;color:var(--body);padding-right:var(--s3)}
+
+/* the real photo: Sandy across the table from a client, B&W, both faces kept in frame at every width */
+#s5 .s5-ph{margin:0}
+#s5 .s5-ph img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:50% 55%;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--elevated)}
+#s5 .s5-ph figcaption{margin-top:var(--s3);font-size:var(--fs-label);line-height:1.4;color:var(--quiet);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
+
+/* desktop: copy left, seats right; the photo as a full-width band; below it ONE rail of eight weeks.
+   The two lists dissolve into a single 8-column grid: captions / numbers / track / labels. */
 @media (min-width:1024px){
-  #s5 .s5-head{grid-column:1/6;align-self:center}
-  #s5 .s5-ph{grid-column:6/13}
-  #s5 .s5-img{aspect-ratio:16/10}
-  #s5 .s5-n{left:var(--s4);top:var(--s4)}
-}
-
-/* ---------- the rail ---------- */
-#s5 .s5-rail{padding-top:var(--s6);border-top:1px solid var(--line);display:grid;row-gap:var(--s6)}
-#s5 .s5-grp{list-style:none}
-#s5 .s5-gh{font-family:var(--mono);font-size:var(--t-label);font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:var(--quiet);padding-bottom:var(--s4)}
-#s5 .s5-gh b{display:block;margin-top:var(--s1);font-family:var(--sans);font-size:var(--t-body);font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink)}
-#s5 .s5-wk em{font-family:var(--mono);font-style:normal;font-weight:700;font-size:var(--t-h3);line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
-#s5 .s5-wk span{font-size:var(--t-body);line-height:1.45;color:var(--body)}
-/* the track: one hairline, a dot where the week starts, a 2px stroke that draws over the hairline */
-#s5 .s5-seg{position:relative;display:block}
-#s5 .s5-seg::before{content:"";position:absolute;background:var(--line)}
-#s5 .s5-seg::after{content:"";position:absolute;z-index:2;width:var(--s3);height:var(--s3);border-radius:50%;background:var(--accent);box-shadow:0 0 0 var(--s1) var(--canvas)}
-#s5 .s5-seg b{position:absolute;z-index:1;display:block;background:var(--accent)}
-#s5 .s5-grp+.s5-grp .s5-seg::after,#s5 .s5-grp+.s5-grp .s5-seg b{background:var(--ink)}
-
-/* phone + tablet: vertical, left aligned (the component's below-md behaviour) */
-@media (max-width:1023px){
-  #s5 .s5-wk{display:grid;grid-template-columns:var(--s6) var(--s3) minmax(0,1fr);column-gap:var(--s4);align-items:start}
-  #s5 .s5-wk em{font-size:var(--t-body);line-height:1.45;text-align:right}
-  #s5 .s5-seg{align-self:stretch;min-height:var(--s7)}
-  #s5 .s5-seg::before{left:50%;top:0;bottom:0;width:1px;transform:translateX(-50%)}
-  #s5 .s5-seg::after{left:0;top:calc(.725em - var(--s3) / 2)}
-  #s5 .s5-seg b{left:50%;top:0;bottom:0;width:2px;transform-origin:center top;margin-left:-1px}
-  #s5 .s5-wk span{padding-bottom:var(--s5)}
-  /* each group's line starts at its first dot and stops at its last */
-  #s5 .s5-gh+.s5-wk .s5-seg::before,#s5 .s5-gh+.s5-wk .s5-seg b{top:.725em}
-  #s5 .s5-wk:last-child .s5-seg::before,#s5 .s5-wk:last-child .s5-seg b{bottom:auto;height:.725em}
-}
-
-/* desktop: ONE horizontal rail of eight weeks; the two lists dissolve into an 8-column grid */
-@media (min-width:1024px){
-  #s5 .s5-rail{grid-column:1/-1;grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:auto auto var(--s4) auto;column-gap:0;row-gap:var(--s3)}
+  #s5 .s5-head{grid-row:1}
+  #s5 .s5-seats{grid-row:1;align-self:end;padding-left:var(--s7)}
+  #s5 .s5-ph{grid-row:2}
+  #s5 .s5-ph img{aspect-ratio:21/9;object-position:50% 75%}
+  #s5 .s5-rail{grid-row:3;grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:auto auto var(--s2) auto;column-gap:var(--s1);row-gap:var(--s3);
+    margin-top:var(--s5)}
   #s5 .s5-grp,#s5 .s5-wk{display:contents}
-  #s5 .s5-gh{grid-row:1;grid-column:1/5;padding-right:var(--s5)}
+  #s5 .s5-gh{grid-row:1;grid-column:1/5;border-bottom:1px solid var(--quiet-line)}
   #s5 .s5-grp+.s5-grp .s5-gh{grid-column:5/9}
-  #s5 .s5-wk em{grid-row:2;padding-top:var(--s3)}
+  #s5 .s5-wk em{grid-row:2;padding-top:var(--s2)}
   #s5 .s5-seg{grid-row:3}
-  #s5 .s5-seg::before{left:0;right:0;top:50%;height:1px}
-  #s5 .s5-seg::after{left:0;top:50%;transform:translateY(-50%)}
-  #s5 .s5-seg b{left:0;right:0;top:50%;height:2px;margin-top:-1px;transform-origin:left center}
-  #s5 .s5-wk span{grid-row:4;padding-right:var(--s5)}
+  #s5 .s5-wk span{grid-row:4}
   #s5 .s5-grp:first-child .s5-wk:nth-child(2)>*{grid-column:1}
   #s5 .s5-grp:first-child .s5-wk:nth-child(3)>*{grid-column:2}
   #s5 .s5-grp:first-child .s5-wk:nth-child(4)>*{grid-column:3}
@@ -72,13 +45,27 @@
   #s5 .s5-grp+.s5-grp .s5-wk:nth-child(4)>*{grid-column:7}
   #s5 .s5-grp+.s5-grp .s5-wk:nth-child(5)>*{grid-column:8}
 }
-
-/* motion (s5.js arms it only when the rail is below the fold): the stroke draws week by week, text never moves */
-#s5 .s5-rail.armed .s5-seg b{transform:scaleY(0)}
-#s5 .s5-rail.go .s5-seg b{animation:s5-fill-y 380ms var(--ease) calc(300ms + var(--i) * 320ms) both}
-@media (min-width:1024px){
-  #s5 .s5-rail.armed .s5-seg b{transform:scaleX(0)}
-  #s5 .s5-rail.go .s5-seg b{animation-name:s5-fill}
+/* phone: the rail runs down the left edge, one segment per week */
+@media (max-width:767px){
+  #s5 .s5-grid{row-gap:var(--s5)}
+  #s5 .s5-rail{row-gap:var(--s4)}
+  #s5 .s5-grp{grid-template-columns:1fr;row-gap:0}
+  #s5 .s5-wk{grid-template-rows:none;grid-template-columns:var(--s5) var(--s2) minmax(0,1fr);column-gap:var(--s3);align-items:center}
+  #s5 .s5-wk em{font-size:var(--fs-body)}
+  #s5 .s5-seg{align-self:stretch;border-radius:var(--s1);border-bottom:var(--s1) solid var(--canvas);background-clip:padding-box}
+  #s5 .s5-seg b{transform-origin:center top}
+  #s5 .s5-wk span{padding-block:var(--s1);padding-right:0}
+  #s5 .s5-ph{margin-inline:calc(var(--gutter) * -1)}
+  #s5 .s5-ph img{border-radius:0;border-inline:0}
+  #s5 .s5-ph figcaption{padding-inline:var(--gutter)}
 }
-@keyframes s5-fill{from{transform:scaleX(0)}to{transform:none}}
-@keyframes s5-fill-y{from{transform:scaleY(0)}to{transform:none}}
+
+/* motion: armed only when below the fold at load; the track fills week by week, text never moves */
+#s5 .s5-rail.armed .s5-seg b{transform:scaleX(.08)}
+#s5 .s5-rail.go .s5-seg b{animation:s5-fill 380ms var(--ease) calc(300ms + var(--i) * 320ms) both}
+@media (max-width:767px){
+  #s5 .s5-rail.armed .s5-seg b{transform:scaleY(.08)}
+  #s5 .s5-rail.go .s5-seg b{animation-name:s5-fill-y}
+}
+@keyframes s5-fill{from{transform:scaleX(.08)}to{transform:none}}
+@keyframes s5-fill-y{from{transform:scaleY(.08)}to{transform:none}}

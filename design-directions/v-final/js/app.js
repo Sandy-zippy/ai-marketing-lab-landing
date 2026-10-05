@@ -223,7 +223,7 @@ document.addEventListener('keydown', function (e) {
     var s = document.createElement('script');
     s.src = '{{ROOT}}assets/vendor/hls.light.min.js';
     s.onload = function () {
-      if (window.Hls && window.Hls.isSupported()) { var h = new window.Hls({ capLevelToPlayerSize: true }); h.loadSource(HLS); h.attachMedia(v); }
+      if (window.Hls && window.Hls.isSupported()) { var h = new window.Hls({ capLevelToPlayerSize: false, startLevel: 0, abrEwmaDefaultEstimate: 8000000 });   /* Sandy 5 Oct "it's not HD": start on the 1080p rung (index 0 in master.m3u8), never cap to the player's CSS size */ h.loadSource(HLS); h.attachMedia(v); }
       else v.src = MP4;
       cb();
     };

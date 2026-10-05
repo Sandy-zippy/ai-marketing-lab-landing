@@ -28,20 +28,12 @@
   --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --mono:'Space Mono','Courier New',monospace;
 
-  /* TYPE SCALE (5 Oct, after the 2/10 audit measured 23 sizes): 7 steps, linear 390 -> 1440. Sections use ONLY
-     these via var(); a raw px font-size in sections/*.css is a gate failure. Mono 700 = display/h2/num/h3/label only. */
-  --t-display:clamp(40px,calc(22px + 4.57vw),88px); /* hero statement: s7 promise, s10 */
-  --t-h2:clamp(30px,calc(22px + 2.1vw),52px);       /* every section heading */
-  --t-num:clamp(36px,calc(25.6px + 2.67vw),64px);   /* proof figures */
-  --t-h3:clamp(20px,calc(18.5px + .38vw),24px);     /* client / program / card titles */
-  --t-lg:clamp(18px,calc(17.3px + .19vw),20px);     /* lede under an h2 */
-  --t-body:clamp(16px,calc(15.6px + .1vw),17px);    /* everything else, FAQ questions in Inter 600 */
-  --t-label:clamp(12px,calc(11.6px + .1vw),13px);   /* one mono caps label style; Inter captions */
-  --fs-h1:clamp(30px,4.4vw,52px);   /* screen H1 (shell, untouched) */
-  --fs-h2:var(--t-h2);
+  /* type scale */
+  --fs-h1:clamp(30px,4.4vw,52px);   /* screen H1 */
+  --fs-h2:clamp(26px,3.4vw,44px);   /* section H (v2, 2 Oct: 38px read small on 1440) */
   --fs-callout:clamp(15px,1.7vw,22px); /* ICP callout, ~0.45 of H1 */
-  --fs-h3:var(--t-h3);--fs-lg:var(--t-lg);--fs-body:var(--t-body);--fs-sm:var(--t-label);--fs-label:var(--t-label);
-  --fs-num:var(--t-num);
+  --fs-h3:20px;--fs-lg:18px;--fs-body:16px;--fs-sm:14px;--fs-label:12px;
+  --fs-num:clamp(28px,3.6vw,44px);  /* proof numerals */
   --lh-tight:1.12;--lh-head:1.2;--lh-body:1.6;
 
   /* spacing, 4px base */
@@ -56,7 +48,7 @@
   --d-micro:200ms;--d-ui:300ms;--d-scene:6s;
 }
 @media (min-width:768px){:root{--gutter:40px;--col-gap:var(--s5);--sec-pad:var(--s9)}}
-@media (min-width:1024px){:root{--sec-pad:calc(var(--s8) + var(--s4))}}   /* 80px section rhythm; body/lg sizes now come from the fluid --t-* scale */
+@media (min-width:1024px){:root{--fs-body:17px;--fs-lg:20px;--sec-pad:calc(var(--s8) + var(--s4))}}   /* v2: bigger reading text, 80px section rhythm */
 
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -105,24 +97,6 @@ h3{font-size:var(--fs-h3);line-height:1.3}
 .btn .price{color:#7FE3DE}
 .btn.nudge{animation:nudge 900ms var(--ease) 1}
 @keyframes nudge{30%{box-shadow:0 0 0 10px var(--accent-soft)}100%{box-shadow:0 0 0 0 transparent}}
-
-/* BENTO SYSTEM (5 Oct, direction B picked): tiles of DIFFERENT sizes on a 12-col grid, 14px gap, 22px radius.
-   .tile = white + hairline, .tile.paper = paper, .tile.ink = ink (max ONE ink tile per section, it is the contrast).
-   Screenshots bleed off a tile's right/bottom edge (.bleed). Never same-size tile rows. */
-:root{--tile-r:22px;--tile-gap:14px;--tile-pad:clamp(20px,2.4vw,32px);--on-ink:#FFFFFF;--on-ink-q:#A9A9A9}
-.bento{display:grid;gap:var(--tile-gap);grid-template-columns:repeat(12,minmax(0,1fr))}
-.bento>*{grid-column:1/-1;min-width:0}
-.tile{position:relative;border:1px solid var(--line);border-radius:var(--tile-r);background:var(--canvas);padding:var(--tile-pad);overflow:hidden;min-width:0}
-.tile.paper{background:var(--paper);border-color:var(--paper-edge)}
-.tile.ink{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
-.tile.ink :is(h2,h3,.num){color:var(--on-ink)}
-.tile.ink :is(.label,.note){color:var(--on-ink-q)}
-.tile.ink .accent{color:var(--accent)}
-.tile.flush{padding:0}
-.bleed{margin-right:calc(var(--tile-pad) * -1 - 14%);margin-top:auto}
-.bleed img{width:100%;height:auto;border-radius:12px 0 0 0;border:1px solid var(--line);border-right:0;border-bottom:0;box-shadow:0 18px 40px -24px rgba(18,18,18,.35)}
-.tile-chip{position:absolute;left:var(--s3);bottom:var(--s3);max-width:calc(100% - 24px);background:var(--canvas);color:var(--ink);font-size:13px;line-height:1.35;padding:var(--s2) var(--s3);border-radius:12px}
-.sec.bento-sec{border-top:0}
 
 /* motion visuals: shared frame + pause control */
 .viz{position:relative;width:100%;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden}

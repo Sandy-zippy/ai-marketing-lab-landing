@@ -1,16 +1,15 @@
-<!-- s10 source: 21st.dev "CTA Section" (cta-section-1) by shadcndesign, https://21st.dev/@shadcndesign/components/cta-section-1
-     (code read from the author's free registry shadcndesign-free.vercel.app/r/cta-section-1.json; 21st get_component
-     quota was spent). Ported: one solid full-width panel, a stack of heading, supporting line, one inverted button
-     (set left, not centred: impeccable polish). The ₹999 credited line is the supporting line; the ticket stub is gone. -->
 <section id="s10" class="sec" aria-labelledby="s10-h">
-  <div class="wrap">
-    <div class="s10-panel">
+  <div class="wrap"><div class="grid">
+    <div class="s10-cta stack-lg">
       <h2 id="s10-h">Map this to your business.</h2>
-      <p class="s10-cr"><b>₹999</b> credited if you join</p>
-      <div class="s10-act">
+      <div class="stack">
         <a class="btn js-pay" href="#">Book my &#8377;999 call</a>
-        <p class="s10-note">45 minutes with me.</p>
+        <p class="note">45 minutes with me.</p>
       </div>
     </div>
-  </div>
+    <div class="s10-stub">
+      <b class="s10-price"><svg class="s10-rs" viewBox="0 0 22 32" aria-hidden="true"><path d="M3 4.5H19M3 11.5H19M3 4.5H8.5a6.5 6.5 0 0 1 0 13H3L15 30" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linejoin="round"/></svg>999</b>
+      <span class="s10-cr">credited if you join</span>
+    </div>
+  </div></div>
 </section>

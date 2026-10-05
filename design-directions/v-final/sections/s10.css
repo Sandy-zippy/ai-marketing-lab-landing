@@ -1,24 +1,24 @@
-/* S10 final CTA (ported from 21st.dev shadcndesign cta-section-1, see s10.html). One ink panel: the heading at
-   --t-display, the ₹999 credited line (teal price = the section's one accent), the white button and its micro line.
-   Phone: one left-set stack. Desktop (critique 5 Oct: the right half was blank): heading left 7 cols, the credited
-   line + button right 5 cols on the heading's bottom edge. No stub, no motion. */
-#s10{border-top:0}
-#s10 .s10-panel{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s5);
-  padding:var(--s7) var(--s5);background:var(--ink);color:var(--on-ink);border-radius:var(--tile-r)}
-#s10 h2{font-size:var(--t-display);line-height:1.02;letter-spacing:-.04em;color:var(--on-ink);max-width:14ch}
-#s10 .s10-cr{font-size:var(--t-lg);line-height:1.45;color:var(--on-ink-q)}
-#s10 .s10-cr b{font-weight:600;color:var(--accent)}
-#s10 .s10-act{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3) var(--s5);margin-top:var(--s3)}
-#s10 .btn{background:var(--canvas);color:var(--ink)}
-#s10 .btn:hover{background:var(--paper)}
-#s10 .btn:focus-visible{outline-color:var(--accent);outline-offset:4px}
-#s10 .s10-note{font-size:var(--t-label);color:var(--on-ink-q)}
-@media (min-width:768px){
-  #s10 .s10-panel{padding:var(--s9) var(--s8)}
-}
+/* S10 final CTA: heading, the button, the micro line, and the s1 ticket stub (₹999, credited if you join) as one
+   static callback. Stub = s1's notched corners and perforated left seam, level, on white so it reads on the paper band.
+   No motion, no drawing. */
+#s10{background:var(--paper);border-top:0}
+#s10 .grid{align-items:center}
+#s10 .s10-stub{--n:var(--s4);--h:3.5px;justify-self:start;display:flex;align-items:center;gap:var(--s4);padding:var(--s5) var(--s6) var(--s5) var(--s7);
+  background:var(--canvas);border:1px solid var(--paper-edge);border-left:0;
+  -webkit-mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
+    radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),
+    radial-gradient(circle var(--h) at 0 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
+          mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
+    radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),
+    radial-gradient(circle var(--h) at 0 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
+  -webkit-mask-composite:source-in,source-in,source-in,source-in;mask-composite:intersect}
+#s10 .s10-price{display:inline-flex;align-items:center;font-family:var(--mono);font-weight:700;font-size:calc(var(--fs-num) * 1.25);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
+/* ponytail: the brand mono subset has no ₹ (U+20B9), so the glyph is drawn at the mono's weight (same path as s1) */
+#s10 .s10-rs{width:auto;height:.76em;margin-right:.02em;flex:none}
+#s10 .s10-cr{max-width:11ch;font-size:var(--fs-lg);line-height:1.3;color:var(--ink)}
 @media (min-width:1024px){
-  #s10 .s10-panel{display:grid;grid-template-columns:7fr 5fr;grid-template-rows:1fr auto;column-gap:var(--s8);row-gap:var(--s4);align-items:end;padding:var(--s9)}
-  #s10 h2{grid-column:1;grid-row:1 / span 2}
-  #s10 .s10-cr{grid-column:2;grid-row:1;align-self:end}
-  #s10 .s10-act{grid-column:2;grid-row:2;margin-top:0}
+  /* stub sits right beside the ask, not out at the far edge */
+  #s10 .s10-cta{grid-column:1/7}
+  #s10 .s10-stub{grid-column:7/13}
+  #s10 .s10-cr{max-width:none;white-space:nowrap}
 }
