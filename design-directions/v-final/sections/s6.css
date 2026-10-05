@@ -1,6 +1,6 @@
 /* S6 Proof (v5): ONE fixed case card per client, the same structure three times so the eye can compare:
    client name, the screenshot at a constant 16:10, then one "Built / Paid us / Made" row on a shared baseline,
-   a ratio line (ink share = what they paid us, against what they made), the context note.
+   the context note. (Ratio line removed 5 Oct: a 4px sliver nobody could read.)
    Sami's video is a small inset inside the Scale Your Results screenshot. Then our own 300 > 50 > 10+ strip on the
    ground between hairlines, then "Also built for" as plain names. Teal only on 10+. Cards allowed here (brief). */
 #s6 .s6-hd{display:flex;flex-direction:column;gap:var(--s4);margin-bottom:var(--s7)}
@@ -12,13 +12,14 @@
 
 /* the case card */
 #s6 .s6-cases{display:grid;gap:var(--s5)}
-#s6 .case{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"nm" "shot" "facts" "bar" "c";
+#s6 .case{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"nm" "shot" "facts" "c";
   border:1px solid var(--line);border-radius:var(--r-lg);background:var(--canvas);padding:var(--s5) var(--s4) var(--s5)}
 #s6 .nm{grid-area:nm;font-size:var(--t-h3);line-height:1.25;margin-bottom:var(--s4)}
 #s6 .case-shot{grid-area:shot;margin:0;min-width:0}
 #s6 .frame{position:relative}
 #s6 .frame>img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:50% 0;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface)}
 #s6 .cap{margin-top:var(--s2)}
+#s6 .c{grid-area:c;margin-top:var(--s3)}
 
 /* Built / Paid us / Made: one row of three, values on a shared (last) baseline, hairline between cells.
    Phone: Built runs across, the two money cells share the row under it. */
@@ -44,17 +45,9 @@
 #s6 .n{font-family:var(--mono);font-weight:700;font-size:var(--t-h3);line-height:1;letter-spacing:-.02em;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
 #s6 .n.big{font-size:var(--t-num);line-height:1.2;letter-spacing:-.04em}/* 1.2: Space Mono's em box would otherwise reach the label above */
 
-/* ratio line: the track is what they made, the ink share is what they paid us. JS grows the share once in view. */
-#s6 .bar{grid-area:bar;display:block;height:4px;border-radius:2px;background:var(--line);margin-top:var(--s4);position:relative;overflow:hidden}
-#s6 .bar::after{content:"";position:absolute;inset:0 auto 0 0;width:max(4px,calc(var(--w) * 100%));background:var(--ink);transform-origin:0 50%}
-#s6 .c{grid-area:c;margin-top:var(--s2)}
-#s6 .case.arm .bar::after{transform:scaleX(0)}
-#s6 .case.go .bar::after{animation:s6-fill 900ms var(--ease) both}
-@keyframes s6-fill{from{transform:scaleX(0)}to{transform:none}}
-
-/* Sami: phone = under the screenshot, half width; tablet up = an inset in the screenshot's corner.
+/* Sami: phone = a 30% inset on the screenshot corner; tablet up = an inset in the screenshot's corner.
    With JS the box is the play button (.tap) until the video has its own controls. */
-#s6 .vid-box{position:relative;width:40%;margin-top:var(--s3);aspect-ratio:9/16;border-radius:var(--r-sm);overflow:hidden;background:var(--ink)}
+#s6 .vid-box{position:absolute;right:var(--s2);bottom:var(--s2);width:30%;aspect-ratio:9/16;border:2px solid var(--canvas);border-radius:var(--r-sm);overflow:hidden;background:var(--ink)}
 #s6 .vid-box video{width:100%;height:100%;object-fit:cover}
 #s6 .vid-box.tap{cursor:pointer}
 #s6 .vid-box.tap::after{content:"";position:absolute;inset:0;margin:auto;width:52px;height:52px;border-radius:50%;pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.3);
@@ -91,6 +84,6 @@
 @media (min-width:1024px){
   /* screenshot left, name + the money row right; the row sits on the screenshot's bottom edge */
   #s6 .case{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s6);
-    grid-template-areas:"shot nm" "shot ." "shot facts" "shot bar" "shot c";grid-template-rows:auto 1fr auto auto auto}
+    grid-template-areas:"shot nm" "shot facts" "shot c";grid-template-rows:auto auto 1fr;align-content:start}   /* critique 5 Oct: no dead row under the name */
   #s6 .facts{margin-top:0}
 }
