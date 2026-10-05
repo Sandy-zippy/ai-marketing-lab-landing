@@ -1,20 +1,21 @@
-/* S8 not for: typographic, after Remy's comparison card. Two ruled cards side by side (stacked on phone): what it isn't for
-   (grey tag, grey crosses), what it is for (teal-outlined tag, teal ticks: the section's one accent). No drawings, no motion. */
-#s8{border-top:0}
+/* S8 not for / for: two tiles of unequal width. "This isn't for" white (5 cols, quiet crosses),
+   "This is for" the ink tile (7 cols, bigger type, teal ticks: the section's one accent). No motion. */
+#s8 .s8-hd{padding-bottom:var(--s3)}
 #s8 .lede{text-wrap:pretty}
-#s8 .s8-cmp{display:grid;gap:var(--s4)}
-#s8 .s8-col{padding:var(--s5);border:1px solid var(--line);border-radius:var(--r)}
-#s8 .s8-tag{display:inline-block;padding:var(--s1) var(--s3);font-family:var(--mono);font-size:var(--fs-label);font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.5;
-  color:var(--quiet);background:var(--elevated);border:1px solid var(--elevated);border-radius:var(--s1)}
-#s8 .s8-yes .s8-tag{color:var(--accent-ink);background:var(--canvas);border-color:var(--accent)}
-#s8 ul{list-style:none;margin-top:var(--s5);display:grid;gap:var(--s4)}
+#s8 .s8-col{display:flex;flex-direction:column;gap:var(--s6)}
+#s8 .s8-tag{font-family:var(--mono);font-size:var(--fs-label);font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;color:var(--quiet)}
+#s8 .s8-yes .s8-tag{color:var(--on-ink-q)}
+#s8 ul{list-style:none;display:grid;gap:var(--s4)}
 #s8 li{position:relative;padding-left:calc(var(--s5) + var(--s3));font-size:var(--fs-lg);line-height:1.4;color:var(--body)}
-#s8 .s8-yes li{color:var(--ink)}
+#s8 .s8-yes ul{gap:var(--s5)}
+#s8 .s8-yes li{font-family:var(--mono);font-weight:700;font-size:clamp(18px,1.9vw,26px);line-height:1.25;letter-spacing:-.02em;color:var(--on-ink);padding-left:calc(var(--s6) + var(--s3))}
 #s8 li::before{position:absolute;left:0;top:.15em;width:var(--s5);height:var(--s5);display:flex;align-items:center;justify-content:center;border-radius:50%;
   font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;line-height:1}
 #s8 .s8-no li::before{content:'\00D7';background:var(--elevated);color:var(--quiet)}
-#s8 .s8-yes li::before{content:'\2713';background:var(--accent-soft);color:var(--accent-ink)}
-@media (min-width:768px){
-  #s8 .s8-cmp{grid-template-columns:1fr 1fr;gap:var(--s5)}
-  #s8 .s8-col{padding:var(--s6)}
+#s8 .s8-yes li::before{content:'\2713';top:0;width:var(--s6);height:var(--s6);background:var(--accent);color:var(--ink);font-size:var(--fs-body)}
+@media (min-width:1024px){
+  #s8 .s8-hd{grid-column:1/9}
+  #s8 .s8-no{grid-column:1/6}
+  #s8 .s8-yes{grid-column:6/13;padding:clamp(28px,3vw,44px)}
+  #s8 .s8-no{padding:clamp(28px,3vw,44px)}
 }

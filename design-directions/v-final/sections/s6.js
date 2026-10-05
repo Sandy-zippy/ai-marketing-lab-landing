@@ -23,12 +23,11 @@ function watch(el, fn) {
   }, { threshold: 0.15 }).observe(el);
 }
 
-/* ledger rows: the bar fills (what they made), then the teal share grows in (s6-fill). Text never moves. */
-root.querySelectorAll('.row').forEach(function (row) {
-  var m = row.querySelector('.money');
+/* money tiles: the bar fills (what they made), then the teal share grows in (s6-fill). Text never moves. */
+root.querySelectorAll('.money').forEach(function (m) {
   if (!below(m)) return;
-  row.classList.add('arm');
-  watch(m, function () { void row.offsetWidth; row.classList.remove('arm'); row.classList.add('go'); });
+  m.classList.add('arm');
+  watch(m, function () { void m.offsetWidth; m.classList.remove('arm'); m.classList.add('go'); });
 });
 /* printing: never leave an armed fill on paper */
-addEventListener('beforeprint', function () { root.querySelectorAll('.row.arm').forEach(function (r) { r.classList.remove('arm'); }); });
+addEventListener('beforeprint', function () { root.querySelectorAll('.money.arm').forEach(function (r) { r.classList.remove('arm'); }); });

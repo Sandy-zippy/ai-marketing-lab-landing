@@ -1,18 +1,34 @@
-/* S4: paper ground. 15 bricks = 15 live sessions, each carrying its date; three courses over a Mon to Fri axis; the week 2
+/* S4 as a bento (5 Oct): heading on a paper tile (4 cols), the brick calendar as a large white tile (8 cols), and
+   the three week outcomes as three tiles of DIFFERENT widths underneath (4/3/5), the demo-day week the ink tile.
+   Calendar: 15 bricks = 15 live sessions, each carrying its date; three courses over a Mon to Fri axis; the week 2
    Friday door sends 100 out; a Demo day flag over 13 Nov. The natural styles below ARE the finished frame. When armed,
-   every label stays put (the dates are outlined so they read on the paper); bricks are laid course by course under
+   every label stays put (the dates are outlined so they read on the tile); bricks are laid course by course under
    them, the mail leaves the door and lands on the people, then the roof is laid and the flag goes up. */
-#s4{background:var(--paper);border-top:0}
-#s4 .grid{row-gap:var(--s6)}
 
-#s4 .s4-weeks{display:grid;gap:var(--s3)}
-#s4 .s4-weeks p{color:var(--body);max-width:52ch}
-#s4 .s4-weeks strong{color:var(--ink);font-weight:600}
+/* ---------- bento ---------- */
+#s4 .s4-head{display:flex;flex-direction:column;gap:var(--s4)}
+#s4 .s4-head h2{font-size:clamp(32px,4vw,52px);line-height:1.04;letter-spacing:-.03em;max-width:12ch}
+#s4 .s4-viz{display:flex;justify-content:center;align-items:center;padding:var(--s6) var(--s3) var(--s5)}
+@media (min-width:768px){#s4 .s4-viz{padding-inline:var(--tile-pad)}}
+#s4 .s4-wk{display:flex;flex-direction:column;gap:var(--s3);color:var(--body);font-size:var(--fs-body);line-height:1.5}
+#s4 .s4-wk strong{font-family:var(--mono);font-weight:700;font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
+#s4 .s4-w3{color:var(--on-ink-q)}
+#s4 .s4-w3 strong{color:var(--on-ink)}
+@media (min-width:768px){
+  #s4 .s4-w1{grid-column:1/5}
+  #s4 .s4-w2{grid-column:5/8}
+  #s4 .s4-w3{grid-column:8/13}
+}
+@media (min-width:1024px){
+  #s4 .s4-head{grid-column:1/5;grid-row:1;justify-content:flex-end;padding:clamp(28px,3vw,44px)}
+  #s4 .s4-viz{grid-column:5/13;grid-row:1;padding-block:var(--s7)}
+  #s4 .s4-wk{min-height:180px;justify-content:space-between}
+}
 
-/* scene: [week label] [building] [what leaves the door]; rows: sky, roof, floor 3, floor 2, floor 1, ground, weekdays.
-   Thin mortar between courses (2px), wider joints between bricks, so the floors read as courses. */
-#s4 .s4-viz{--fnw:46px;--bw:196px;--fh:52px;--sky:40px;--gap:3px;--pw:28px;--dy:0px;--bk:calc((var(--bw) - 4 * var(--gap)) / 5)}
-#s4 .s4-scene{display:grid;grid-template-columns:var(--fnw) var(--bw) minmax(0,1fr);column-gap:var(--s2);
+/* ---------- the calendar scene: [week label] [building] [what leaves the door]; rows: sky, roof, floor 3, floor 2,
+   floor 1, ground, weekdays. Thin mortar between courses (2px), wider joints between bricks. */
+#s4 .s4-viz{--fnw:46px;--bw:188px;--fh:52px;--sky:40px;--gap:3px;--pw:28px;--dy:0px;--bk:calc((var(--bw) - 4 * var(--gap)) / 5)}
+#s4 .s4-scene{display:grid;grid-template-columns:var(--fnw) var(--bw) minmax(0,1fr);column-gap:var(--s2);width:100%;
   grid-template-rows:var(--sky) var(--s2) var(--fh) var(--fh) var(--fh) 2px auto;row-gap:2px}
 
 /* sky: the pole stands on the roof over Friday 13 Nov; the pennant and its label fly to the right of it */
@@ -32,7 +48,7 @@
 #s4 .s4-n1,#s4 .s4-r1{grid-row:5}
 #s4 .s4-row{grid-column:2;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gap)}
 
-/* a brick: the ink block, its session date set on it in white; the ink outline keeps the date readable on the paper
+/* a brick: the ink block, its session date set on it in white; the ink outline keeps the date readable on the tile
    while its brick is still on the way */
 #s4 .s4-b{position:relative;display:block;font-style:normal}
 #s4 .s4-b::before{content:"";position:absolute;inset:0;background:var(--ink);border-radius:2px}
@@ -48,7 +64,7 @@
 #s4 .s4-tag::before{content:"";position:absolute;left:-6px;top:50%;margin-top:-6px;border:6px solid transparent;border-left:0;border-right-color:var(--ink)}
 #s4 .s4-ev{position:absolute;z-index:1;left:calc(var(--x) * 1%);top:calc(var(--y) * 1% + var(--dy));width:20px;height:auto;transform:rotate(var(--r));
   fill:var(--canvas);stroke:var(--ink);stroke-width:2;stroke-linejoin:round}
-#s4 .s4-ppl{position:absolute;right:6px;bottom:0;width:64px;height:auto;fill:var(--ink);stroke:var(--paper);stroke-width:1.5}
+#s4 .s4-ppl{position:absolute;right:6px;bottom:0;width:64px;height:auto;fill:var(--ink);stroke:var(--canvas);stroke-width:1.5}
 #s4 .s4-ppl g{transform-box:fill-box;transform-origin:50% 100%}
 #s4 .s4-ground{grid-column:2/-1;grid-row:6;display:block;margin:-2px 0 0 -6px;background:var(--ink)}
 
@@ -63,12 +79,7 @@
   #s4 .s4-ev{width:28px}
   #s4 .s4-ppl{width:96px}
 }
-/* desktop: copy and the week lines in c-1-5, the building in c-6-12 */
-@media (min-width:1024px){
-  #s4 .s4-head{grid-row:1;align-self:end}
-  #s4 .s4-weeks{grid-row:2;align-self:start}
-  #s4 .s4-viz{grid-row:1/3;align-self:center;--bw:370px}
-}
+@media (min-width:1024px){#s4 .s4-viz{--bw:370px}}
 
 /* motion: plays once, only if the visual was below the fold when the script ran (js adds .armed, then .go on view) */
 #s4 .armed .s4-b::before{animation:s4-lay .32s var(--ease) var(--t) both}

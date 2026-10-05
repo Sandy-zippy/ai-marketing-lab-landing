@@ -1,13 +1,25 @@
-/* S3 the system: one track through all 12 steps. Base CSS is the FINISHED frame: every station drawn in ink and
-   ticked teal, the track teal, the client past the YES stamp, Claude Code parked at the end of the run.
+/* S3 the system, as a bento (5 Oct): the real terminal is a big flush tile (its dark panel IS the section's ink
+   moment) spanning 8 cols beside a tall paper heading tile; the station board is a wide white tile below.
+   Phone order: heading, terminal, board.
+   Board base CSS is the FINISHED frame: every station drawn in ink and ticked teal, the track teal, the client past
+   the YES stamp, Claude Code parked at the end of the run.
    .s3-arm (JS, only when the board is below the fold) greys the track, hides the 12 tick discs and check strokes,
    and moves the two decorative tokens (Claude Code, the client) to their start.
    Phone (default): a vertical spine. 900px and up: a serpentine over 12 columns.
    Teal = the track and the ticks (the system working); stations and labels are ink.
    Layers: track boxes (auto) < trace + Claude Code (1) < stations (2) < YES stamp (3), so the vehicle runs UNDER
    each station it passes and never hides one. */
-#s3{border-top:0;background:var(--canvas)}
-#s3 h2{max-width:30ch}
+
+/* ---------- bento ---------- */
+#s3 .s3-hd{display:flex;flex-direction:column;gap:var(--s4)}
+#s3 .s3-hd h2{font-size:clamp(32px,4vw,52px);line-height:1.04;letter-spacing:-.03em;max-width:12ch}
+#s3 .s3-term{order:1}
+#s3 .s3-bt{order:2;padding-bottom:var(--s7)}
+@media (min-width:1024px){
+  #s3 .s3-term{order:0;grid-column:1/9;grid-row:1}
+  #s3 .s3-hd{grid-column:9/13;grid-row:1;justify-content:space-between;padding:clamp(28px,3vw,44px)}
+  #s3 .s3-bt{grid-row:2}
+}
 
 /* ---------- board geometry: phone ---------- */
 #s3 .s3-board{--tw:3px;--rail:24px;--aw:112px;--ly:calc(var(--aw) * .5375);--lab:28px;--row:78px;--gate:168px;--park:64px;--r:12px;
@@ -16,7 +28,8 @@
   --d0:calc(var(--lab) * 2 + var(--row) * 6 + var(--gate));                 /* Downstream lane top */
   --ry:calc(var(--d0) + var(--row) * 5 + var(--ly));                        /* Repeat buying's plinth y */
   position:relative;display:grid;grid-template-columns:var(--rail) var(--aw) minmax(0,1fr);
-  grid-template-rows:var(--lab) calc(var(--row) * 6) var(--gate) var(--lab) calc(var(--row) * 6) var(--park)}
+  grid-template-rows:var(--lab) calc(var(--row) * 6) var(--gate) var(--lab) calc(var(--row) * 6) var(--park);
+  margin-left:calc(var(--rail) * -1 + var(--s2))}                          /* phone: the spine's left rail sits in the tile padding */
 #s3 .s3-zl{grid-column:2/-1;align-self:center;padding-left:calc(var(--aw) + var(--s2));font-family:var(--mono);font-size:var(--fs-label);line-height:1.3;
   text-transform:uppercase;color:var(--ink)}
 #s3 .s3-zl-up{grid-row:1}
@@ -85,7 +98,8 @@
 
 /* ---------- board geometry: 900px and up, a serpentine over 12 columns ---------- */
 @media (min-width:900px){
-  #s3{padding-bottom:var(--s8)}
+  /* the tile's side padding IS the rail, so the loop runs inside the tile and the stations start on the padding edge */
+  #s3 .s3-bt{padding:var(--s6) 40px var(--s5)}
   #s3 .s3-board{--rail:40px;--aw:112px;--lab:40px;--rh:calc(var(--aw) * .75 + 48px);--mid:72px;--loop:52px;--r:24px;
     --cw:calc((100% - var(--rail) * 2) / 6);--d0:calc(var(--lab) * 2 + var(--rh) + var(--mid));
     --my:calc(var(--lab) + var(--rh) + var(--mid) / 2);                    /* the return row's y */
@@ -94,7 +108,6 @@
     --loopy:calc(var(--d0) + var(--rh) + 26px);                            /* the loop's bottom run */
     grid-template-columns:var(--rail) repeat(6,minmax(0,1fr)) var(--rail);
     grid-template-rows:var(--lab) var(--rh) var(--mid) var(--lab) var(--rh) var(--loop);
-    /* the rails sit in the page gutter, so the station columns and labels start on the headline's left edge */
     margin-inline:calc(-1 * var(--rail))}
   #s3 .s3-zl{grid-column:2/8;padding-left:0;letter-spacing:.04em}
   #s3 .s3-zl-down{grid-row:4}
@@ -151,16 +164,17 @@
 }
 
 /* ---------- proof: the real terminal (lines copied from session-clean.cast, 29 Sep 2026) ----------
-   Board = the system; terminal = it running, full width right under it (phone: after the board). Every line is
-   visible at all times. .s3-typ (JS, only when below the fold) sends a teal caret along the four output lines once,
-   as Claude Code writes them; the caret covers one character at a time and never hides a line. */
-#s3 .s3-term{display:grid;gap:var(--s3);margin-top:var(--s4)}
-#s3 .s3-cap{font-family:var(--mono);font-size:var(--fs-label);line-height:1.5;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
-#s3 .s3-tw{background:var(--ink);border-radius:var(--r-lg);overflow:hidden;font-family:var(--mono);font-size:var(--fs-label);line-height:1.6;color:var(--line)}
-#s3 .s3-tb{display:flex;flex-wrap:wrap;gap:0 var(--s2);align-items:baseline;padding:var(--s3) var(--s4);border-bottom:1px solid var(--body);font-size:var(--fs-label);color:var(--low)}
+   The terminal fills its flush ink tile edge to edge; the caption sits at the tile's foot in the quiet on-ink grey.
+   Every line is visible at all times. .s3-typ (JS, only when below the fold) sends a teal caret along the four
+   output lines once, as Claude Code writes them; the caret covers one character at a time and never hides a line. */
+#s3 .s3-term{display:flex;flex-direction:column;margin:0}
+#s3 .s3-cap{margin-top:auto;padding:var(--s4) var(--tile-pad) var(--tile-pad);font-family:var(--mono);font-size:var(--fs-label);line-height:1.5;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--on-ink-q)}
+#s3 .s3-tw{font-family:var(--mono);font-size:var(--fs-label);line-height:1.6;color:var(--line)}
+#s3 .s3-tb{display:flex;flex-wrap:wrap;gap:0 var(--s2);align-items:baseline;padding:var(--s4) var(--tile-pad);border-bottom:1px solid var(--body);font-size:var(--fs-label);color:var(--low)}
 #s3 .s3-tb b{color:var(--canvas)}
 #s3 .s3-tb span{margin-left:auto}
-#s3 .s3-tx{padding:var(--s4) var(--s4) var(--s5);display:grid;gap:var(--s3)}
+#s3 .s3-tx{padding:var(--s5) var(--tile-pad) var(--s4);display:grid;gap:var(--s3)}
 #s3 .s3-tx p{white-space:pre-wrap;overflow-wrap:anywhere;max-width:76ch}
 #s3 .s3-tx i{font-style:normal;color:var(--accent)}
 #s3 .s3-pr{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:1ch;color:var(--canvas)}
@@ -172,10 +186,10 @@
 @media (max-width:767px){#s3 .s3-pr span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;overflow:hidden}}
 @media (min-width:768px){
   #s3 .s3-tw{font-size:var(--fs-sm)}
-  #s3 .s3-tx{padding:var(--s5) var(--s6) var(--s6)}
+  #s3 .s3-tx{padding:var(--s6) var(--s6) var(--s4)}
+  #s3 .s3-tb{padding-inline:var(--s6)}
+  #s3 .s3-cap{padding:var(--s4) var(--s6) var(--s6)}
 }
-@media (min-width:1024px){#s3 .s3-tw{font-size:var(--fs-body)}}
-@media (min-width:900px){#s3 .s3-term{margin-top:0}#s3 .s3-tw{max-width:calc(78ch + 2 * var(--s6))}}   /* panel hugs the 76ch text: no dead black */
 /* caret: a 1ch teal block walks each output line in character steps, one line after another (~2.5 s), then is gone */
 #s3 .s3-typ .s3-ln::after{content:"";position:absolute;top:.15em;left:calc(var(--in) * 1ch);width:1ch;height:1.2em;background:var(--accent);opacity:0}
 #s3 .s3-typ.s3-go .s3-ln::after{animation:s3-walk calc(var(--n) * 20ms) steps(var(--n)) calc(.2s + var(--k) * .8s),s3-show calc(var(--n) * 20ms) linear calc(.2s + var(--k) * .8s)}
