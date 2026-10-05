@@ -168,6 +168,8 @@
 #s3 .s3-ln{position:relative;padding-left:calc(var(--in) * 1ch + 2ch);text-indent:-2ch}   /* cast indent kept; wrapped rows hang */
 #s3 .s3-ln+.s3-ln{margin-top:calc(var(--s3) * -1)}
 #s3 .s3-dim{color:var(--low)}
+/* phone: the long real prompt is clamped to 4 lines (ellipsis, no words changed); the output lines stay whole (critic, 5 Oct) */
+@media (max-width:767px){#s3 .s3-pr span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;overflow:hidden}}
 @media (min-width:768px){
   #s3 .s3-tw{font-size:var(--fs-sm)}
   #s3 .s3-tx{padding:var(--s5) var(--s6) var(--s6)}
