@@ -208,6 +208,15 @@ body.modal-open{overflow:hidden}
 .vprog{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.18);z-index:3}
 .vprog i{display:block;height:100%;background:var(--accent);transform-origin:left;transform:scaleX(0)}
 
+/* sticky booking bar, phones only */
+.stick{display:none}
+@media (max-width:767px){
+  html.js .stick.on{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--gutter) calc(var(--s3) + env(safe-area-inset-bottom));background:var(--canvas);border-top:1px solid var(--line);transition:transform var(--d-ui) var(--ease)}
+  .stick .btn{flex:none;min-height:48px;padding:0 var(--s4);font-size:var(--fs-sm)}
+  .stick span{font-size:var(--fs-label);line-height:1.35;color:var(--body)}
+  html.js .stick.on.away{transform:translateY(110%)}
+  body:has(.stick.on){padding-bottom:76px}
+}
 footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(--s8)}
 .frow{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:center;justify-content:space-between}
 .frow nav{display:flex;flex-wrap:wrap;gap:var(--s4);font-size:var(--fs-sm);color:var(--quiet)}
@@ -285,6 +294,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
   <div class="frow"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="125" height="18" /><nav><a href="../contact">Contact</a><a href="../privacy">Privacy</a><a href="../terms">Terms</a><a href="../refund">Refunds</a></nav></div>
   <p class="legal">AI Marketing Lab is a brand of ZippyScale. Results vary and depend on the work you put in; <span data-reveal="pitch">the figures above are past client results, not a promise. </span>This site isn't part of Facebook or Meta Platforms, Inc., and isn't endorsed by Meta.</p>
 </div></footer>
+<!-- phone only: the booking button under the thumb once booking opens (soft reveal); hides while another booking button is on screen -->
+<div class="stick" data-reveal="soft"><a class="btn js-pay" href="#">Book my &#8377;999 call</a><span>45 min with Sandy. Credited if you join.</span></div>
 <script>
 /* AIML /call: one page, two states (FUNNEL-FLOW-SPEC-2026-10-01 §2).
    A = qualify, B = watch. No PII in the URL; the lead lives in localStorage only. */
@@ -356,6 +367,17 @@ document.querySelectorAll('.js-pay').forEach(function (b) {
   b.href = PAY_LINK; b.rel = 'noopener';
   b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); });
 });
+
+/* Phone sticky bar: slides away while any other booking button is on screen (no two asks at once). */
+(function () {
+  var bar = document.querySelector('.stick'); if (!bar || !('IntersectionObserver' in window)) return;
+  var seen = new Set();
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); });
+    bar.classList.toggle('away', seen.size > 0);
+  });
+  document.querySelectorAll('.js-pay').forEach(function (b) { if (!bar.contains(b)) io.observe(b); });
+})();
 
 /* ---- state + reveals ---- */
 var shown = {};

@@ -207,6 +207,15 @@ body.modal-open{overflow:hidden}
 .vprog{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.18);z-index:3}
 .vprog i{display:block;height:100%;background:var(--accent);transform-origin:left;transform:scaleX(0)}
 
+/* sticky booking bar, phones only */
+.stick{display:none}
+@media (max-width:767px){
+  html.js .stick.on{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--gutter) calc(var(--s3) + env(safe-area-inset-bottom));background:var(--canvas);border-top:1px solid var(--line);transition:transform var(--d-ui) var(--ease)}
+  .stick .btn{flex:none;min-height:48px;padding:0 var(--s4);font-size:var(--fs-sm)}
+  .stick span{font-size:var(--fs-label);line-height:1.35;color:var(--body)}
+  html.js .stick.on.away{transform:translateY(110%)}
+  body:has(.stick.on){padding-bottom:76px}
+}
 footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(--s8)}
 .frow{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:center;justify-content:space-between}
 .frow nav{display:flex;flex-wrap:wrap;gap:var(--s4);font-size:var(--fs-sm);color:var(--quiet)}
@@ -308,7 +317,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
       <p class="lede">45 minutes with me on where your clients leak.</p>
       <p class="lede">You'll leave knowing where it breaks and what I'd fix first.</p>
       <p class="lede">₹999, credited if you join.</p>
-      <a class="btn js-pay js-nudge" href="#">Map my business</a>
+      <a class="btn js-pay js-nudge" href="#">Book my &#8377;999 call</a>
     </div>
     <div class="s1-vc">
       <div class="s1-tk" role="img" aria-label="Call ticket with Sandy's photo: 45 min with Sandy. ₹999, credited if you join.">
@@ -373,71 +382,6 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
   </div></div>
 </section>
 
-<section id="s2" class="sec" aria-labelledby="s2-h">
-  <div class="wrap"><div class="grid">
-    <div class="s2-tx">
-      <h2 id="s2-h">An enquiry came in. What happened next?</h2>
-      <p class="lede">You replied late, or once, or not at all. The lead you paid for went quiet, and you never found out if it was a client.</p>
-    </div>
-    <div class="s2-art" role="img" aria-label="A folded paper map of your business in two regions, Upstream and Downstream. A teal pin marks where clients come from, an ink pin marks where they leak, and a flag marks what to build first. The map is stamped yours.">
-      <svg class="s2-defs" aria-hidden="true" focusable="false" width="0" height="0">
-        <defs>
-          <symbol id="s2-pin" viewBox="0 0 24 32" overflow="visible"><path style="fill:var(--pb);stroke:var(--ps);stroke-width:var(--pw)" d="M12 31C12 31 2 19 2 12a10 10 0 0 1 20 0c0 7-10 19-10 19z"/><circle style="fill:var(--pe);stroke:var(--pes);stroke-width:var(--pw)" cx="12" cy="12" r="4"/></symbol>
-          <symbol id="s2-drip" viewBox="0 0 10 14" overflow="visible"><path style="fill:var(--ink)" d="M5 1C5 1 1 6 1 9a4 4 0 0 0 8 0C9 6 5 1 5 1z"/></symbol>
-          <linearGradient id="s2-gl" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style="stop-color:var(--canvas)"/><stop offset="1" style="stop-color:var(--paper)"/></linearGradient>
-          <linearGradient id="s2-gr" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--canvas)"/></linearGradient>
-          <linearGradient id="s2-gm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style="stop-color:var(--paper-edge)"/><stop offset=".5" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--paper-edge)"/></linearGradient>
-          <linearGradient id="s2-gt" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--canvas)"/><stop offset="1" style="stop-color:var(--paper)"/></linearGradient>
-          <linearGradient id="s2-gb" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--canvas)"/></linearGradient>
-          <linearGradient id="s2-gv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--paper-edge)"/><stop offset=".5" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--paper-edge)"/></linearGradient>
-          <clipPath id="s2-cw"><path d="M8 60L242 48L478 60L712 48V496L478 508L242 496L8 508Z"/></clipPath>
-          <clipPath id="s2-ct"><path d="M4 56L356 46V194L346 208V368L356 382V530L4 540V382L14 368V208L4 194Z"/></clipPath>
-        </defs>
-      </svg>
-
-      <!-- wide: an accordion-folded map, Upstream left, Downstream right -->
-      <svg class="s2-map s2-wide" viewBox="0 0 720 520" aria-hidden="true" focusable="false">
-        <path class="s2-sheet" d="M8 60L242 48L478 60L712 48V496L478 508L242 496L8 508Z"/>
-        <path fill="url(#s2-gl)" d="M8 60L242 48V496L8 508Z"/><path class="s2-mid" fill="url(#s2-gm)" d="M242 48L478 60V508L242 496Z"/><path fill="url(#s2-gr)" d="M478 60L712 48V496L478 508Z"/>
-        <g clip-path="url(#s2-cw)">
-          <path class="s2-gridl" d="M8 140L242 128L478 140L712 128M8 220L242 208L478 220L712 208M8 300L242 288L478 300L712 288M8 380L242 368L478 380L712 368M8 460L242 448L478 460L712 448M86 40V520M164 40V520M320 40V520M400 40V520M556 40V520M634 40V520"/>
-        </g>
-        <path class="s2-crease" d="M242 48V496M478 60V508"/>
-        <text class="s2-reg" x="36" y="104">UPSTREAM</text>
-        <text class="s2-reg" x="684" y="104" text-anchor="end">DOWNSTREAM</text>
-        <path class="s2-route" pathLength="1" d="M64 220C90 400 300 440 420 380C520 355 600 320 640 240"/>
-        <g transform="translate(64 220)"><g class="s2-drop"><use href="#s2-pin" class="s2-pin-teal" x="-14" y="-38" width="28" height="38"/></g></g>
-        <g transform="translate(420 380)"><g class="s2-drop s2-d2"><use href="#s2-pin" class="s2-pin-ink" x="-14" y="-38" width="28" height="38"/><use href="#s2-drip" class="s2-dr" x="-16" y="30" width="32" height="44"/></g></g>
-        <g transform="translate(640 240)"><g class="s2-flag"><path class="s2-pole" d="M0 0V-58"/><path class="s2-cloth" d="M1 -58H36L28 -47L36 -36H1Z"/></g></g>
-        <g class="s2-lab"><rect x="86" y="182" width="262" height="38" rx="19"/><text x="217" y="207" text-anchor="middle">Where clients come from</text></g>
-        <g class="s2-lab"><rect x="208" y="342" width="190" height="38" rx="19"/><text x="303" y="367" text-anchor="middle">Where they leak</text></g>
-        <g class="s2-lab"><rect x="400" y="184" width="226" height="38" rx="19"/><text x="513" y="209" text-anchor="middle">What to build first</text></g>
-        <g class="s2-stamp" transform="translate(664 22) rotate(4)"><g class="s2-stampin"><rect x="-44" y="-16" width="88" height="32" rx="5"/><text x="0" y="6" text-anchor="middle">YOURS</text></g></g>
-      </svg>
-
-      <!-- phone: folded the other way, Upstream on top, Downstream below -->
-      <svg class="s2-map s2-tall" viewBox="0 0 360 560" aria-hidden="true" focusable="false">
-        <path class="s2-sheet" d="M4 56L356 46V194L346 208V368L356 382V530L4 540V382L14 368V208L4 194Z"/>
-        <path fill="url(#s2-gt)" d="M4 56L356 46V194L346 208H14L4 194Z"/><path class="s2-mid" fill="url(#s2-gv)" d="M14 208H346V368H14Z"/><path fill="url(#s2-gb)" d="M14 368H346L356 382V530L4 540V382Z"/>
-        <g clip-path="url(#s2-ct)">
-          <path class="s2-gridl" d="M0 128H360M0 248H360M0 328H360M0 448H360M90 40V560M180 40V560M270 40V560"/>
-        </g>
-        <path class="s2-crease" d="M14 208H346M14 368H346"/>
-        <text class="s2-reg" x="24" y="96">UPSTREAM</text>
-        <text class="s2-reg" x="24" y="316">DOWNSTREAM</text>
-        <path class="s2-route" pathLength="1" d="M40 190C60 290 270 250 300 380C350 440 40 440 70 520"/>
-        <g transform="translate(40 190)"><g class="s2-drop"><use href="#s2-pin" class="s2-pin-teal" x="-13" y="-36" width="26" height="36"/></g></g>
-        <g transform="translate(300 380)"><g class="s2-drop s2-d2"><use href="#s2-pin" class="s2-pin-ink" x="-13" y="-36" width="26" height="36"/><use href="#s2-drip" class="s2-dr" x="18" y="-34" width="26" height="36"/></g></g>
-        <g transform="translate(70 520)"><g class="s2-flag"><path class="s2-pole" d="M0 0V-52"/><path class="s2-cloth" d="M1 -52H32L25 -42L32 -32H1Z"/></g></g>
-        <g class="s2-lab"><rect x="60" y="155" width="244" height="34" rx="17"/><text x="182" y="177" text-anchor="middle">Where clients come from</text></g>
-        <g class="s2-lab"><rect x="106" y="345" width="176" height="34" rx="17"/><text x="194" y="367" text-anchor="middle">Where they leak</text></g>
-        <g class="s2-lab"><rect x="112" y="469" width="208" height="34" rx="17"/><text x="216" y="491" text-anchor="middle">What to build first</text></g>
-        <g class="s2-stamp" transform="translate(312 22) rotate(4)"><g class="s2-stampin"><rect x="-40" y="-15" width="80" height="30" rx="5"/><text x="0" y="5" text-anchor="middle">YOURS</text></g></g>
-      </svg>
-    </div>
-  </div></div>
-</section>
-
 <section id="s3" class="sec" aria-labelledby="s3-h">
   <div class="wrap"><div class="grid">
     <h2 id="s3-h">Write each step <span class="accent">once</span>.</h2>
@@ -487,7 +431,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
   <div class="wrap"><div class="grid">
     <div class="c-1-8 stack">
       <h2 id="s6-h">What they made. What they paid us.</h2>
-      <p class="lede">Since 2017. 100+ businesses. $220,000 in six months in India. We built these by hand for clients first. Today the repeatable steps are skill files Claude Code runs.</p>
+      <p class="lede">We built these by hand for clients first. Today the repeatable steps are skill files Claude Code runs.</p>
     </div>
 
     <div class="ledger">
@@ -517,7 +461,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
           <div class="money">
             <div class="tops"><div class="pd"><p class="k">Paid us once</p><p class="n">~$12k</p></div><div class="md"><p class="k">Made</p><p class="n">~$85k</p></div></div>
             <i class="bar" style="--w:.141"></i>
-            <p class="c">on $30k of ads. Before, $20k made ~$30k.</p>
+            <p class="c">~$85k from $30k of ads. Before us, $20k of ads made ~$30k.</p>
           </div>
         </div>
       </article>
@@ -538,12 +482,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
       </article>
     </div>
 
-    <div class="sieve">
+    <div class="own">
       <p class="k">Our own offer</p>
-      <div class="sg">
-        <div class="st s300"><i class="dots" aria-hidden="true"></i><p class="sl"><b>300</b> leads</p></div>
-        <div class="st s50"><i class="dots" aria-hidden="true"></i><p class="sl"><b>50</b> qualified</p></div>
-        <div class="st s10"><i class="dots" aria-hidden="true"></i><p class="sl"><b class="acc">10+</b> closed at ₹1.5L</p></div>
+      <div class="fr">
+        <p><b>300</b> leads</p><i class="ar" aria-hidden="true"></i>
+        <p><b>50</b> qualified</p><i class="ar" aria-hidden="true"></i>
+        <p><b class="acc">10+</b> closed at ₹1.5L</p>
       </div>
     </div>
 
@@ -665,11 +609,11 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
           <tr><th scope="row">Skill files</th><td>6 packs</td><td class="s5b-acc">All 13 packs</td></tr>
           <tr><th scope="row">Recordings</th><td>Up the next morning</td><td class="s5b-acc">All 15 Sprint sessions</td></tr>
           <tr><th scope="row">Seats</th><td>Open</td><td class="s5b-acc">10</td></tr>
-          <tr class="s5b-g"><th scope="row">Guarantee</th><td colspan="2">Both: first client in 90 days, or every rupee back. You execute the progress sheet we share.</td></tr>
+          <tr class="s5b-g"><th scope="row">Guarantee</th><td colspan="2">Both: first client in 90 days, or every rupee back</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="s5b-cta"><a class="btn js-pay" href="#">Map my business</a></div>
+    <div class="s5b-cta"><a class="btn js-pay" href="#">Book my &#8377;999 call</a></div>
   </div></div>
 </section>
 
@@ -714,48 +658,24 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 
 <section id="s7" class="sec" aria-labelledby="s7-h">
   <div class="wrap"><div class="grid">
-    <div class="c-1-5 stack s7-copy">
+    <div class="c-1-4 stack s7-copy">
       <h2 id="s7-h">First client, or every rupee back</h2>
       <p class="lede">Execute the progress sheet we share.</p>
-      <p class="lede">No closed client in 90 days? <strong class="accent">Full refund.</strong></p>
       <p class="s7-both">Both programs</p>
     </div>
-    <div class="c-6-12 s7-sheet" role="img" aria-label="The shared progress sheet: Offer, Lead magnet, Page, Booking flow and 100 messages out, each ticked from mapped to done.">
-      <ol class="s7-rows">
-        <li style="--i:0"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Offer</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
-        <li style="--i:1"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Lead magnet</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
-        <li style="--i:2"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Page</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
-        <li style="--i:3"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Booking flow</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
-        <li style="--i:4"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">100 messages out</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
-      </ol>
-    </div>
-    <div class="s7-fork" role="img" aria-label="A 90 day track runs to a fork. One path ends at client closed. The other ends at a wallet with rupee notes back in it: full refund.">
-      <svg class="s7-lines s7-ld" viewBox="0 0 1120 320">
-        <path class="s7-g" d="M8 160H477"/><path class="s7-tk" d="M164 150v20M320 150v20"/>
-        <path class="s7-g" d="M477 160C577 160 577 64 677 64"/><path class="s7-g" d="M477 160C577 160 577 256 677 256"/>
-        <path class="s7-t s7-t0" pathLength="1" d="M8 160H477"/><path class="s7-t s7-t1" pathLength="1" d="M477 160C577 160 577 64 677 64"/><path class="s7-t s7-t2" pathLength="1" d="M477 160C577 160 577 256 677 256"/>
-        <circle class="s7-dot" cx="8" cy="160" r="6"/><circle class="s7-node" cx="477" cy="160" r="8"/>
-      </svg>
-      <svg class="s7-lines s7-lm" viewBox="0 0 358 280">
-        <path class="s7-g" d="M6 140H120"/><path class="s7-tk" d="M44 135v10M82 135v10"/>
-        <path class="s7-g" d="M120 140C143 140 143 44 165 44"/><path class="s7-g" d="M120 140C143 140 143 236 165 236"/>
-        <path class="s7-t s7-t0" pathLength="1" d="M6 140H120"/><path class="s7-t s7-t1" pathLength="1" d="M120 140C143 140 143 44 165 44"/><path class="s7-t s7-t2" pathLength="1" d="M120 140C143 140 143 236 165 236"/>
-        <circle class="s7-dot" cx="6" cy="140" r="5"/><circle class="s7-node" cx="120" cy="140" r="6"/>
-      </svg>
-      <span class="s7-days">90 days</span>
-      <div class="s7-out s7-up">
-        <svg class="s7-ring" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19"/><path pathLength="1" d="M12 20.6l5.4 5.4L28.4 14"/></svg>
-        <b class="s7-oh">Client closed<i class="s7-ul"></i></b>
-      </div>
-      <div class="s7-out s7-lo">
-        <span class="s7-wal">
-          <i class="s7-note" style="--n:0;--r:-8deg;--x:0%">&#8377;</i><i class="s7-note" style="--n:1;--r:0deg;--x:28%">&#8377;</i><i class="s7-note" style="--n:2;--r:8deg;--x:56%">&#8377;</i>
-          <svg class="s7-pocket" viewBox="0 0 88 48" preserveAspectRatio="none"><path class="s7-wb" d="M1 6Q44 16 87 6V40a7 7 0 0 1-7 7H8a7 7 0 0 1-7-7Z"/><path class="s7-ws" d="M7 13Q44 22 81 13V37a4 4 0 0 1-4 4H11a4 4 0 0 1-4-4Z"/></svg>
-        </span>
-        <b class="s7-oh">Full refund<i class="s7-ul"></i></b>
+    <div class="c-5-12 s7-main">
+      <p class="s7-promise">No closed client in 90 days? <strong class="accent">Full refund.</strong></p>
+      <div class="s7-sheet" role="img" aria-label="The shared progress sheet: Offer, Lead magnet, Page, Booking flow and 100 messages out, each ticked from mapped to done.">
+        <ol class="s7-rows">
+          <li style="--i:0"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Offer</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+          <li style="--i:1"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Lead magnet</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+          <li style="--i:2"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Page</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+          <li style="--i:3"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Booking flow</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+          <li style="--i:4"><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">100 messages out</span><span class="s7-was">mapped</span><span class="s7-done">done</span></li>
+        </ol>
       </div>
     </div>
-    <div class="c-1-5 s7-cta"><a class="btn js-pay" href="#">Map my business</a></div>
+    <div class="c-1-4 s7-cta"><a class="btn js-pay" href="#">Book my &#8377;999 call</a></div>
   </div></div>
 </section>
 
@@ -807,27 +727,13 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
     <div class="s10-cta stack-lg">
       <h2 id="s10-h">Map this to your business.</h2>
       <div class="stack">
-        <a class="btn js-pay" href="#">Map my business</a>
-        <p class="note">45 minutes with me. ₹999, credited if you join.</p>
+        <a class="btn js-pay" href="#">Book my &#8377;999 call</a>
+        <p class="note">45 minutes with me.</p>
       </div>
     </div>
-    <div class="s10-art" role="img" aria-label="The map from earlier, folded and stamped yours, with one teal pin labelled your business">
-      <svg viewBox="0 0 400 320" aria-hidden="true" focusable="false">
-        <g class="s10-tilt">
-          <path class="s10-sheet" d="M24 20H346L376 50V300H24Z"/>
-          <path class="s10-gridl" d="M24 60H376M24 100H376M24 140H376M24 180H376M24 220H376M24 260H376M64 20V300M104 20V300M144 20V300M184 20V300M224 20V300M264 20V300M304 20V300M344 20V300"/>
-          <text class="s10-reg" x="44" y="58">UPSTREAM</text>
-          <text class="s10-reg" x="206" y="58">DOWNSTREAM</text>
-          <path class="s10-route" d="M150 196C196 238 262 258 332 250"/>
-          <path class="s10-flap" d="M346 20V50H376Z"/>
-          <path class="s10-flapedge" d="M346 20L376 50"/>
-          <g transform="translate(223 242)"><g class="s10-leak"><path d="M0 0C0 0-11-14-11-22a11 11 0 0 1 22 0C11-14 0 0 0 0z"/><circle cx="0" cy="-22" r="4"/></g></g>
-          <g transform="translate(332 250)"><path class="s10-pole" d="M0 0V-44"/><path class="s10-cloth" d="M1 -44H28L22 -36L28 -28H1Z"/></g>
-          <g class="s10-stamp" transform="translate(96 272) rotate(-6)"><rect x="-54" y="-19" width="108" height="38" rx="6"/><text x="0" y="7" text-anchor="middle">YOURS</text></g>
-          <g transform="translate(150 196)"><g class="s10-pin"><path d="M0 0C0 0-19-24-19-37a19 19 0 0 1 38 0C19-24 0 0 0 0z"/><circle cx="0" cy="-37" r="7.5"/></g></g>
-          <g class="s10-lab"><rect x="174" y="138" width="172" height="40" rx="20"/><text x="260" y="164" text-anchor="middle">your business</text></g>
-        </g>
-      </svg>
+    <div class="s10-stub">
+      <b class="s10-price"><svg class="s10-rs" viewBox="0 0 22 32" aria-hidden="true"><path d="M3 4.5H19M3 11.5H19M3 4.5H8.5a6.5 6.5 0 0 1 0 13H3L15 30" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linejoin="round"/></svg>999</b>
+      <span class="s10-cr">credited if you join</span>
     </div>
   </div></div>
 </section>
@@ -838,6 +744,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
   <div class="frow"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="125" height="18" /><nav><a href="../contact">Contact</a><a href="../privacy">Privacy</a><a href="../terms">Terms</a><a href="../refund">Refunds</a></nav></div>
   <p class="legal">AI Marketing Lab is a brand of ZippyScale. Results vary and depend on the work you put in; <span data-reveal="pitch">the figures above are past client results, not a promise. </span>This site isn't part of Facebook or Meta Platforms, Inc., and isn't endorsed by Meta.</p>
 </div></footer>
+<!-- phone only: the booking button under the thumb once booking opens (soft reveal); hides while another booking button is on screen -->
+<div class="stick" data-reveal="soft"><a class="btn js-pay" href="#">Book my &#8377;999 call</a><span>45 min with Sandy. Credited if you join.</span></div>
 <script>
 /* AIML /call: one page, two states (FUNNEL-FLOW-SPEC-2026-10-01 §2).
    A = qualify, B = watch. No PII in the URL; the lead lives in localStorage only. */
@@ -909,6 +817,17 @@ document.querySelectorAll('.js-pay').forEach(function (b) {
   b.href = PAY_LINK; b.rel = 'noopener';
   b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); });
 });
+
+/* Phone sticky bar: slides away while any other booking button is on screen (no two asks at once). */
+(function () {
+  var bar = document.querySelector('.stick'); if (!bar || !('IntersectionObserver' in window)) return;
+  var seen = new Set();
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); });
+    bar.classList.toggle('away', seen.size > 0);
+  });
+  document.querySelectorAll('.js-pay').forEach(function (b) { if (!bar.contains(b)) io.observe(b); });
+})();
 
 /* ---- state + reveals ---- */
 var shown = {};

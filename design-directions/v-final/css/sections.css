@@ -126,76 +126,6 @@
   #s1b .s1b-teach img{aspect-ratio:16/9;object-position:50% 6%}   /* one wide band; the 1:1 client frame moved to s5 only (it repeated s5) */
 }
 
-/* ---- s2 ---- */
-/* S2: the map of "your business" IS the section. Drawn straight on the paper ground, no wrapper card.
-   An accordion-folded paper map: wide (Upstream | Downstream) from 768px, folded the other way and stacked
-   (Upstream over Downstream) below it. Each label pill sits on the row of its own pin.
-   Base CSS is the finished frame. JS arms only the route stroke and the position of pins, flag and stamp. */
-#s2{background:var(--paper);border-top:0;overflow:clip}
-#s2 .s2-tx{display:grid;gap:var(--s4);align-content:start}
-#s2 .lede{font-size:var(--fs-lg);color:var(--body)}
-#s2 .s2-art{position:relative}
-#s2 .s2-defs{position:absolute;width:0;height:0;overflow:hidden}
-#s2 .s2-map{width:100%;height:auto;overflow:visible}
-#s2 .s2-wide{display:none}
-@media (min-width:768px){
-  #s2 .s2-wide{display:block}
-  #s2 .s2-tall{display:none}
-}
-@media (min-width:1024px){
-  #s2 .grid{align-items:center}
-  #s2 .s2-tx{grid-column:1/5}
-  #s2 .s2-art{grid-column:5/13}
-}
-
-/* folded paper */
-#s2 .s2-sheet{fill:var(--canvas);filter:drop-shadow(0 12px 22px rgba(42,42,42,.12)) drop-shadow(0 1px 2px rgba(42,42,42,.10))}
-#s2 .s2-gridl{fill:none;stroke:var(--paper-edge);stroke-width:1}
-#s2 .s2-crease{fill:none;stroke:var(--paper-edge);stroke-width:2}
-#s2 .s2-divide{fill:none;stroke:var(--quiet-line);stroke-width:1.5;stroke-dasharray:6 6}
-#s2 .s2-dr{transform-box:fill-box}
-#s2 .s2-reg{font-family:var(--mono);font-weight:700;font-size:16px;letter-spacing:.08em;fill:var(--ink)}
-#s2 .s2-tall .s2-reg{font-size:14px}
-
-/* route, pins, flag */
-#s2 .s2-route{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round}
-/* pin colours reach the shared symbol through custom properties (a selector cannot enter a use shadow tree) */
-#s2 .s2-pin-teal{--pb:var(--accent);--ps:var(--accent-ink);--pe:var(--canvas);--pes:none;--pw:1.5px}
-#s2 .s2-pin-ink{--pb:var(--canvas);--ps:var(--ink);--pe:none;--pes:var(--ink);--pw:2.2px}
-#s2 .s2-drop{filter:drop-shadow(0 3px 3px rgba(18,18,18,.18))}
-#s2 .s2-pole{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
-#s2 .s2-cloth{fill:var(--ink)}
-
-/* labels: pills on their pin's row, Space Mono, never animated */
-#s2 .s2-lab rect{fill:var(--canvas);stroke:var(--ink);stroke-width:1.5}
-#s2 .s2-lab text{font-family:var(--mono);font-weight:700;font-size:16px;fill:var(--ink)}
-#s2 .s2-tall .s2-lab text{font-size:14px}
-
-/* the "yours" stamp, off the sheet's top corner */
-#s2 .s2-stamp rect{fill:var(--canvas);stroke:var(--ink);stroke-width:2}
-#s2 .s2-stamp text{font-family:var(--mono);font-weight:700;font-size:16px;letter-spacing:.14em;fill:var(--ink)}
-#s2 .s2-tall .s2-stamp text{font-size:14px}
-
-/* armed: only strokes and decorative token positions. Played once by .s2-go, finished by ~3 s. */
-#s2 .s2-drop,#s2 .s2-flag,#s2 .s2-stampin{transform-box:fill-box}
-#s2 .s2-flag{transform-origin:0 100%}
-#s2 .s2-stampin{transform-origin:50% 50%}
-#s2 .s2-art.s2-arm .s2-route{stroke-dasharray:1 1;stroke-dashoffset:1;stroke-linecap:butt}
-#s2 .s2-art.s2-arm .s2-dr{transform:translateY(-10px)}
-#s2 .s2-art.s2-arm .s2-drop{transform:translateY(-48px)}
-#s2 .s2-art.s2-arm .s2-flag{transform:scaleY(.08);opacity:0}
-#s2 .s2-art.s2-arm .s2-stampin{transform:scale(1.5) rotate(-8deg)}
-#s2 .s2-art.s2-go .s2-route{animation:s2-draw 1.5s var(--ease) .45s forwards}
-#s2 .s2-art.s2-go .s2-drop{animation:s2-land .55s var(--ease) forwards}
-#s2 .s2-art.s2-go .s2-d2{animation-delay:1s}
-#s2 .s2-art.s2-go .s2-flag{animation:s2-plant .5s var(--ease) 1.75s forwards}
-#s2 .s2-art.s2-go .s2-dr{animation:s2-land .5s var(--ease) 1.6s forwards}
-#s2 .s2-art.s2-go .s2-stampin{animation:s2-stamp .35s var(--ease) 2.35s forwards}
-@keyframes s2-draw{to{stroke-dashoffset:0}}
-@keyframes s2-land{to{transform:none}}
-@keyframes s2-plant{to{transform:none;opacity:1}}
-@keyframes s2-stamp{to{transform:none}}
-
 /* ---- s2b ---- */
 /* S2b skill packs: compact. Headline + lede, then the 13 packs as small chips in three tier rows
    (Free with the call 2, Sprint adds 4, Accelerator 7). Each chip = number + a plain caption, never the folder slug.
@@ -393,6 +323,8 @@
 #s3 .s3-ln{position:relative;padding-left:calc(var(--in) * 1ch + 2ch);text-indent:-2ch}   /* cast indent kept; wrapped rows hang */
 #s3 .s3-ln+.s3-ln{margin-top:calc(var(--s3) * -1)}
 #s3 .s3-dim{color:var(--low)}
+/* phone: the long real prompt is clamped to 4 lines (ellipsis, no words changed); the output lines stay whole (critic, 5 Oct) */
+@media (max-width:767px){#s3 .s3-pr span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;overflow:hidden}}
 @media (min-width:768px){
   #s3 .s3-tw{font-size:var(--fs-sm)}
   #s3 .s3-tx{padding:var(--s5) var(--s6) var(--s6)}
@@ -574,9 +506,8 @@
 /* S6 Proof (v2): each ledger row leads with the real artefact (the page we built, or the client's own site), the
    biggest thing in the row, in a plain browser bar. Beside it: who, what we built, and the money bar (whole bar = what
    they made, ink; the teal piece at its left = what they paid us). Desktop alternates the artefact side; phone stacks
-   artefact first, full width. Then the sieve (pure CSS dots, reads with no JS), then the wall. The finished frame is
-   the default; JS only arms the bars (scaleX from .08) and the sieve's dot colours and flying tokens. */
-@property --dot{syntax:'<color>';inherits:true;initial-value:#121212}
+   artefact first, full width. Then our own offer as one typographic row (300, 50, 10+, thin arrows between, teal only
+   on 10+), then the wall. The finished frame is the default; JS only arms the bars (scaleX from .08). */
 #s6{border-top:0;background:var(--canvas)}
 
 /* shared label: mono caps, body ink */
@@ -632,25 +563,14 @@
 #s6 .row.go .bar::after{animation:s6-fill 700ms var(--ease) 900ms both}
 @keyframes s6-fill{from{transform:scaleX(.08)}to{transform:none}}
 
-/* sieve: 300 grey dots, 50 ink, 10 teal; CSS dot grids, finished with no JS. --t (tile) and --c (columns) are read by s6.js */
-#s6 .sieve{margin-top:calc(-1 * var(--s3))}
-#s6 .sg{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:var(--s5);row-gap:var(--s4);margin-top:var(--s3)}
-#s6 .s300{grid-row:span 2}
-#s6 .s50,#s6 .s10{padding-left:var(--s5);border-left:1px solid var(--line)}
-#s6 .dots{display:block;--dot:var(--ink);--t:8px;--r:2.4px;--c:10;width:calc(var(--t) * var(--c));background:radial-gradient(circle,var(--dot) var(--r),transparent calc(var(--r) + .6px)) 0 0/var(--t) var(--t);transition:--dot 400ms var(--ease)}
-#s6 .s300 .dots{--dot:var(--quiet-line);--c:20;height:calc(var(--t) * 15)}
-#s6 .s50 .dots{height:calc(var(--t) * 5)}
-#s6 .s10 .dots{--dot:var(--accent);--t:12px;--r:4px;--c:5;height:calc(var(--t) * 2)}
-#s6 .sl{position:relative;z-index:3;margin-top:var(--s2);font-family:var(--mono);font-size:var(--fs-sm);line-height:1.35;color:var(--ink)}
-#s6 .sl b{display:block;font-size:var(--fs-num);line-height:1.1}
-#s6 .sl .acc{color:var(--accent-ink)}
-/* armed: the 300 are all ink and the 50 / 10 slots wait in light grey until the flying dots land */
-#s6 .sieve.a300 .s300 .dots{--dot:var(--ink)}
-#s6 .sieve.a50 .s50 .dots,#s6 .sieve.a10 .s10 .dots{--dot:var(--low);transition:none}
-#s6 .fly{position:absolute;z-index:2;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;transition:opacity 150ms var(--ease)}
-#s6 .fly.out{opacity:0}
-#s6 .fly .m{fill:var(--ink)}
-#s6 .fly .w{fill:var(--accent)}
+/* our own offer: three numerals on one row, a thin arrow between each, teal only on 10+. Static.
+   Phone spreads the three across the width; from 768 they sit left with a fixed gap, the arrow centred in it. */
+#s6 .fr{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2);margin-top:var(--s3)}
+#s6 .fr p{min-width:0;font-size:var(--fs-sm);line-height:1.35;color:var(--body)}
+#s6 .fr b{display:block;font-family:var(--mono);font-weight:700;font-size:var(--fs-num);line-height:1.1;letter-spacing:-.03em;color:var(--ink);margin-bottom:var(--s1)}
+#s6 .fr .acc{color:var(--accent-ink)}
+#s6 .ar{--aw:var(--s5);position:relative;flex:none;display:block;width:var(--aw);height:1px;margin-top:calc(var(--fs-num) * .55);background:var(--quiet-line)}
+#s6 .ar::after{content:"";position:absolute;right:0;top:-3px;width:6px;height:6px;border-top:1px solid var(--quiet-line);border-right:1px solid var(--quiet-line);transform:translate(-.5px,.5px) rotate(45deg)}
 
 /* client wall: names only, plain Inter, quiet */
 #s6 .wall{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s1) var(--s4);padding-top:var(--s4);border-top:1px solid var(--line);color:var(--quiet);font-size:var(--fs-sm)}
@@ -669,44 +589,46 @@
   #s6 .v{display:block}
   #s6 .chrome{height:28px;background-position:16px 50%,30px 50%,44px 50%}
   #s6 .cap{font-size:var(--fs-sm)}
-  #s6 .sieve{margin-top:0}
-  #s6 .sg{row-gap:var(--s5);margin-top:var(--s4)}
-  #s6 .dots{--t:12px;--r:3.6px}
-  #s6 .s10 .dots{--t:16px;--r:5.3px}
+  #s6 .fr{justify-content:flex-start;gap:var(--s6);margin-top:var(--s4)}
+  #s6 .fr p{font-size:var(--fs-body)}
+  #s6 .fr b{font-size:calc(var(--fs-num) * 1.5)}
+  #s6 .ar{--aw:var(--s8);margin-top:calc(var(--fs-num) * .8)}
   #s6 .wall{font-size:var(--fs-body);gap:var(--s2) var(--s5);padding-top:var(--s5)}
 }
 @media (min-width:1024px){
   #s6 .bar{height:24px}
-  /* sieve goes three-across, 300 as 30 x 10, everything sitting on one baseline */
-  #s6 .sg{grid-template-columns:repeat(3,auto);justify-content:space-between;align-items:end;column-gap:var(--s6)}
-  #s6 .s300{grid-row:auto}
-  #s6 .s50,#s6 .s10{padding-left:var(--s6)}
-  #s6 .dots{--t:16px;--r:4.5px}
-  #s6 .s300 .dots{--c:30;height:calc(var(--t) * 10)}
-  #s6 .s10 .dots{--t:22px;--r:6.6px}
+  #s6 .fr{gap:var(--s7)}
+  #s6 .fr p{font-size:var(--fs-lg)}
 }
 @media (min-width:1200px){
   #s6 .n{font-size:calc(var(--fs-num) * 1.25);line-height:1.3;margin-top:var(--s2)}
-  #s6 .dots{--t:20px;--r:5.6px}
-  #s6 .s10 .dots{--t:28px;--r:8.4px}
 }
 
 /* ---- s7 ---- */
-/* S7 guarantee: paper ground. The sheet ticks, then the 90-day track runs to the fork, which is the hero (full 12 columns).
-   Default styles = the FINISHED frame. .s7-arm (JS, only when the block is below the fold) holds frame 0; .s7-go plays it. */
+/* S7 guarantee: paper ground. The promise itself is the visual: one large mono statement, then the shared progress
+   sheet it rests on. The section heading steps down so the promise is the only headline-size line.
+   Default styles = the FINISHED frame. .s7-arm (JS, only when the sheet is below the fold) holds frame 0 of the
+   ticks; .s7-go plays them. Text never fades. */
 #s7{background:var(--paper);border-top:0}
+#s7 h2{font-size:max(var(--fs-h3),calc(var(--fs-h2) * .6));line-height:1.25}
 #s7 .s7-both{font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+/* the promise: h2-size mono, "Full refund." always on its own line, the section's one teal phrase;
+   balance keeps "90 days?" together on phones */
+#s7 .s7-promise{font-family:var(--mono);font-weight:700;font-size:var(--fs-h2);line-height:1.12;letter-spacing:-.02em;color:var(--ink);text-wrap:balance;margin-bottom:var(--s5)}
+#s7 .s7-promise strong{display:block}
 @media (min-width:1024px){
-  #s7 .s7-copy{grid-row:1;align-self:end}
-  #s7 .s7-cta{grid-row:2;align-self:start;margin-top:calc(var(--s4) - var(--s6))}
-  #s7 .s7-sheet{grid-row:1/3;align-self:center}
-  #s7 .s7-fork{grid-row:3}
+  #s7 .grid{row-gap:var(--s5)}
+  /* left 4 columns: heading, the condition, the label, the button; right 8: the promise on two lines, then the sheet */
+  #s7 .s7-copy{grid-column:1/5;grid-row:1;align-self:start}
+  #s7 .s7-cta{grid-column:1/5;grid-row:2;align-self:end}
+  #s7 .s7-main{grid-column:5/13;grid-row:1/3}
+  #s7 .s7-promise{font-size:calc(var(--fs-h2) * .95);margin-bottom:var(--s4)}
 }
 
 /* the sheet: a plain white sheet lying on the paper, its rows fill it edge to edge */
 #s7 .s7-sheet{background:var(--canvas);border-block:1px solid var(--paper-edge)}
 #s7 .s7-rows{list-style:none}
-#s7 .s7-rows li{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;column-gap:var(--s3);padding:var(--s4) var(--s5);border-bottom:1px solid var(--line)}
+#s7 .s7-rows li{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;column-gap:var(--s3);padding:var(--s3) var(--s4);border-bottom:1px solid var(--line)}
 #s7 .s7-rows li:last-child{border-bottom:0}
 #s7 .s7-box{position:relative;width:22px;height:22px;border:1.5px solid var(--quiet-line);border-radius:6px}
 #s7 .s7-box::before{content:'';position:absolute;inset:-1.5px;border-radius:6px;background:var(--accent)}
@@ -715,80 +637,21 @@
 #s7 .s7-step{font-size:var(--fs-body);line-height:1.3;color:var(--ink)}
 #s7 .s7-was{position:relative;font-family:var(--mono);font-size:var(--fs-sm);line-height:1;color:var(--quiet)}
 #s7 .s7-was::after{content:'';position:absolute;left:-2px;right:-2px;top:52%;height:1.5px;background:var(--quiet);transform-origin:0 50%}
-#s7 .s7-done{position:relative;font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1;color:var(--accent-ink);padding:var(--s1) var(--s3)}
+#s7 .s7-done{position:relative;isolation:isolate;font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1;color:var(--accent-ink);padding:var(--s1) var(--s3)}
 #s7 .s7-done::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:var(--r-lg);background:var(--accent-soft);transform-origin:0 50%}
-#s7 .s7-done{isolation:isolate}
+@media (min-width:768px){#s7 .s7-rows li{padding:var(--s2) var(--s5)}}
 
-/* the fork: lines in SVG (one viewBox per breakpoint), labels in HTML at the branch ends so type never scales */
-#s7 .s7-fork{--node:42.589%;--end:60.446%;position:relative;aspect-ratio:1120/320;margin-top:var(--s5)}
-#s7 .s7-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;fill:none;stroke-linecap:round}
-#s7 .s7-lm{display:none}
-#s7 .s7-g{stroke:var(--paper-edge);stroke-width:4}
-#s7 .s7-tk{stroke:var(--quiet-line);stroke-width:2}
-#s7 .s7-t{stroke:var(--accent);stroke-width:4;stroke-dasharray:1;stroke-dashoffset:0}
-#s7 .s7-t2{stroke:var(--ink);stroke-width:3}
-#s7 .s7-dot{fill:var(--ink);stroke:none}
-#s7 .s7-node{fill:var(--paper);stroke:var(--accent);stroke-width:3}
-#s7 .s7-days{position:absolute;left:0;width:var(--node);top:calc(50% + var(--s4));text-align:center;font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
-
-#s7 .s7-out{position:absolute;left:calc(var(--end) + var(--s4));transform:translateY(-50%);display:flex;align-items:center;gap:var(--s4)}
-#s7 .s7-up{top:20%}
-#s7 .s7-lo{top:80%}
-#s7 .s7-oh{position:relative;display:inline-block;font-family:var(--mono);font-weight:700;font-size:var(--fs-h2);line-height:1.1;letter-spacing:-.02em;color:var(--ink);white-space:nowrap}
-#s7 .s7-ul{position:absolute;left:0;right:0;bottom:calc(var(--s2) * -1);height:3px;border-radius:2px;background:var(--ink);transform-origin:0 50%}
-#s7 .s7-ring{flex:none;width:44px;height:44px;overflow:visible}
-#s7 .s7-ring circle{fill:var(--accent);transform-origin:50% 50%;transform-box:fill-box}
-#s7 .s7-ring path{fill:none;stroke:var(--canvas);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
-
-/* wallet: three rupee notes fanned out of the front pocket */
-#s7 .s7-wal{--ww:116px;--wh:92px;--nw:54px;--nh:32px;--ph:62px;--nb:calc(var(--ph) - var(--s2));position:relative;flex:none;width:var(--ww);height:var(--wh)}
-#s7 .s7-note{position:absolute;left:var(--x);bottom:var(--nb);width:var(--nw);height:var(--nh);display:flex;align-items:center;justify-content:center;
-  font-style:normal;font-weight:700;font-size:var(--fs-lg);line-height:1;color:var(--ink);background:var(--canvas);border:2px solid var(--ink);border-radius:var(--s1);
-  box-shadow:inset 0 0 0 3px var(--canvas),inset 0 0 0 4px var(--quiet-line);transform:rotate(var(--r));transform-origin:50% 100%}
-#s7 .s7-pocket{position:absolute;left:0;bottom:0;width:100%;height:var(--ph);overflow:visible}
-#s7 .s7-wb{fill:var(--canvas);stroke:var(--ink);stroke-width:3;vector-effect:non-scaling-stroke}
-#s7 .s7-ws{fill:none;stroke:var(--quiet-line);stroke-width:2;stroke-dasharray:4 4;vector-effect:non-scaling-stroke}
-
-/* tablet: the 44px label ran past the right edge at 768 (gates.py offscreen, 2 Oct) */
-@media (min-width:768px) and (max-width:1023px){#s7 .s7-oh{font-size:var(--fs-h3)}}
-
-@media (max-width:767px){
-  #s7 .s7-rows li{padding:var(--s3) var(--s4)}
-  #s7 .s7-fork{--node:33.520%;--end:46.089%;aspect-ratio:358/280;margin-top:0}
-  #s7 .s7-ld{display:none}
-  #s7 .s7-lm{display:block}
-  #s7 .s7-out{left:calc(var(--end) + var(--s3));gap:var(--s3)}
-  #s7 .s7-up{top:15.714%}
-  #s7 .s7-lo{top:84.286%}
-  #s7 .s7-oh{white-space:normal;max-width:6ch}
-  #s7 .s7-ring{width:34px;height:34px}
-  #s7 .s7-days{top:calc(50% + var(--s5))}
-  #s7 .s7-wal{--ww:66px;--wh:62px;--nw:30px;--nh:22px;--ph:40px;--nb:calc(var(--ph) - var(--s1))}
-  #s7 .s7-note{font-size:var(--fs-sm);border-width:1.5px;box-shadow:inset 0 0 0 2px var(--canvas),inset 0 0 0 3px var(--quiet-line)}
-}
-
-/* motion: armed = frame 0 held (paused), go = play. Strokes, fills and the decorative notes move; no text fades.
-   When the sheet is also armed the fork waits for it (--d0), so it reads: sheet done, then 90 days, then the fork. */
+/* motion: armed = frame 0 held (paused), go = play. Strokes and fills move; no text fades. */
 #s7 .s7-arm *,#s7 .s7-arm *::before,#s7 .s7-arm *::after{animation-play-state:paused!important}
 #s7 .s7-arm.s7-go *,#s7 .s7-arm.s7-go *::before,#s7 .s7-arm.s7-go *::after{animation-play-state:running!important}
-#s7 .s7-fork.s7-after{--d0:1.5s}
 #s7 .s7-arm li{--t:calc(.1s + var(--i) * .28s)}
 #s7 .s7-arm .s7-box::before{animation:s7-fill .3s var(--ease) var(--t) both}
 #s7 .s7-arm .s7-box path{animation:s7-draw .3s var(--ease) calc(var(--t) + .12s) both}
 #s7 .s7-arm .s7-was::after{animation:s7-strike .3s var(--ease) var(--t) both}
 #s7 .s7-arm .s7-done::before{animation:s7-strike .3s var(--ease) calc(var(--t) + .12s) both}
-#s7 .s7-arm .s7-t0{animation:s7-draw .7s var(--ease) var(--d0,0s) both}
-#s7 .s7-arm .s7-t1{animation:s7-draw .6s var(--ease) calc(var(--d0,0s) + .6s) both}
-#s7 .s7-arm .s7-t2{animation:s7-draw .6s var(--ease) calc(var(--d0,0s) + .75s) both}
-#s7 .s7-arm .s7-ring circle{animation:s7-fill .3s var(--ease) calc(var(--d0,0s) + 1s) both}
-#s7 .s7-arm .s7-ring path{animation:s7-draw .3s var(--ease) calc(var(--d0,0s) + 1.15s) both}
-#s7 .s7-arm .s7-up .s7-ul{animation:s7-strike .45s var(--ease) calc(var(--d0,0s) + 1.35s) both}
-#s7 .s7-arm .s7-note{animation:s7-land .6s var(--ease) calc(var(--d0,0s) + 1.25s + var(--n) * .15s) both}
-#s7 .s7-arm .s7-lo .s7-ul{animation:s7-strike .45s var(--ease) calc(var(--d0,0s) + 1.85s) both}
 @keyframes s7-fill{from{transform:scale(.08)}to{transform:none}}
 @keyframes s7-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @keyframes s7-strike{from{transform:scaleX(.08)}to{transform:none}}
-@keyframes s7-land{from{transform:translate(-96px,-56px) rotate(-30deg)}to{transform:rotate(var(--r))}}
 
 /* ---- s8 ---- */
 /* S8 not for: typographic, after Remy's comparison card. Two ruled cards side by side (stacked on phone): what it isn't for
@@ -828,37 +691,30 @@
 @keyframes s9-open{from{opacity:0;transform:translateY(calc(-1 * var(--s2)))}to{opacity:1;transform:none}}
 
 /* ---- s10 ---- */
-/* S10: a deliberate callback to S2. The same map, static, folded to one corner: tilted, dog-eared, cropped to
-   Upstream, one teal pin labelled "your business", the route running off the sheet, the "yours" stamp. */
+/* S10 final CTA: heading, the button, the micro line, and the s1 ticket stub (₹999, credited if you join) as one
+   static callback. Stub = s1's notched corners and perforated left seam, level, on white so it reads on the paper band.
+   No motion, no drawing. */
 #s10{background:var(--paper);border-top:0}
 #s10 .grid{align-items:center}
-#s10 .s10-art{max-width:440px;width:100%}
-#s10 .s10-art svg{width:100%;height:auto;overflow:visible}
+#s10 .s10-stub{--n:var(--s4);--h:3.5px;justify-self:start;display:flex;align-items:center;gap:var(--s4);padding:var(--s5) var(--s6) var(--s5) var(--s7);
+  background:var(--canvas);border:1px solid var(--paper-edge);border-left:0;
+  -webkit-mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
+    radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),
+    radial-gradient(circle var(--h) at 0 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
+          mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
+    radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),
+    radial-gradient(circle var(--h) at 0 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
+  -webkit-mask-composite:source-in,source-in,source-in,source-in;mask-composite:intersect}
+#s10 .s10-price{display:inline-flex;align-items:center;font-family:var(--mono);font-weight:700;font-size:calc(var(--fs-num) * 1.25);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
+/* ponytail: the brand mono subset has no ₹ (U+20B9), so the glyph is drawn at the mono's weight (same path as s1) */
+#s10 .s10-rs{width:auto;height:.76em;margin-right:.02em;flex:none}
+#s10 .s10-cr{max-width:11ch;font-size:var(--fs-lg);line-height:1.3;color:var(--ink)}
 @media (min-width:1024px){
-  #s10 .s10-cta{grid-column:1/6}
-  #s10 .s10-art{grid-column:6/13;max-width:none}
+  /* stub sits right beside the ask, not out at the far edge */
+  #s10 .s10-cta{grid-column:1/7}
+  #s10 .s10-stub{grid-column:7/13}
+  #s10 .s10-cr{max-width:none;white-space:nowrap}
 }
-#s10 .s10-tilt{transform:rotate(-3deg);transform-origin:200px 160px}
-#s10 .s10-sheet{fill:var(--canvas);stroke:var(--paper-edge);stroke-width:1.5;filter:drop-shadow(0 8px 16px rgba(42,42,42,.10))}
-#s10 .s10-gridl{fill:none;stroke:var(--paper-edge);stroke-width:1;opacity:.7}
-#s10 .s10-crease{fill:none;stroke:var(--paper-edge);stroke-width:2}
-#s10 .s10-river{fill:none;stroke:var(--line);stroke-width:16}
-#s10 .s10-route{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-dasharray:2 8}
-#s10 .s10-flap{fill:var(--paper-edge);stroke:var(--paper-edge);stroke-width:1.5;stroke-linejoin:round}
-#s10 .s10-flapedge{fill:none;stroke:var(--quiet-line);stroke-width:1;filter:drop-shadow(-2px 2px 2px rgba(42,42,42,.18))}
-#s10 .s10-leak{filter:drop-shadow(0 2px 2px rgba(18,18,18,.15))}
-#s10 .s10-leak path{fill:var(--canvas);stroke:var(--ink);stroke-width:2}
-#s10 .s10-leak circle{fill:none;stroke:var(--ink);stroke-width:2}
-#s10 .s10-pole{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
-#s10 .s10-cloth{fill:var(--ink)}
-#s10 .s10-reg{font-family:var(--mono);font-weight:700;font-size:16px;letter-spacing:.08em;fill:var(--ink)}
-#s10 .s10-pin{filter:drop-shadow(0 3px 3px rgba(18,18,18,.2))}
-#s10 .s10-pin path{fill:var(--accent);stroke:var(--accent-ink);stroke-width:1.5}
-#s10 .s10-pin circle{fill:var(--canvas)}
-#s10 .s10-lab rect{fill:var(--canvas);stroke:var(--ink);stroke-width:1.5}
-#s10 .s10-lab text{font-family:var(--mono);font-weight:700;font-size:18px;fill:var(--ink)}
-#s10 .s10-stamp rect{fill:var(--canvas);stroke:var(--ink);stroke-width:2.5}
-#s10 .s10-stamp text{font-family:var(--mono);font-weight:700;font-size:18px;letter-spacing:.14em;fill:var(--ink)}
 
 /* ---- s5b ---- */
 /* S5b Sprint vs Accelerator: typography only. One ruled table, Remy's comparison-card tags on the two column heads,
