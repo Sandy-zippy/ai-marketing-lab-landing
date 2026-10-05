@@ -22,8 +22,8 @@ tp = os.path.join(H, '../../../../offers/accelerator/vsl/live-vsl-transcript-202
 if os.path.exists(tp):
     try: T = json.load(open(tp))
     except Exception: T = {}
-# lead's ruling 1 Oct from vsl/edit/final/CHAPTERS-v3.txt: 7:24 "The call" = book block, 7:55 sections, 8:01 CTA pulse
-pitch = int(T.get('pitch_s', 475)); cta = int(T.get('final_cta_s', 481)); soft = int(T.get('soft_cta_s', 444))
+# VSL v6 (Sandy approved 5 Oct): times from vsl-audit-2026-10-02/AUDIT.md (v4 was 444/475/481)
+pitch = int(T.get('pitch_s', 466)); cta = int(T.get('final_cta_s', 471)); soft = int(T.get('soft_cta_s', 435))
 
 secs = ['s1', 's1b', 's2b'] + [f's{i}' for i in range(3, 11)] + ['s5b']   # v3: s1b who-I-am, s5b Sprint vs Accelerator; s2 (leak map) cut 5 Oct, files kept
 page = rd('shell.html')
