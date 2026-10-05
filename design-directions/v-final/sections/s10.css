@@ -1,31 +1,24 @@
-/* S10: a deliberate callback to S2. The same map, static, folded to one corner: tilted, dog-eared, cropped to
-   Upstream, one teal pin labelled "your business", the route running off the sheet, the "yours" stamp. */
+/* S10 final CTA: heading, the button, the micro line, and the s1 ticket stub (₹999, credited if you join) as one
+   static callback. Stub = s1's notched corners and perforated left seam, level, on white so it reads on the paper band.
+   No motion, no drawing. */
 #s10{background:var(--paper);border-top:0}
 #s10 .grid{align-items:center}
-#s10 .s10-art{max-width:440px;width:100%}
-#s10 .s10-art svg{width:100%;height:auto;overflow:visible}
+#s10 .s10-stub{--n:var(--s4);--h:3.5px;justify-self:start;display:flex;align-items:center;gap:var(--s4);padding:var(--s5) var(--s6) var(--s5) var(--s7);
+  background:var(--canvas);border:1px solid var(--paper-edge);border-left:0;
+  -webkit-mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
+    radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),
+    radial-gradient(circle var(--h) at 0 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
+          mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
+    radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),
+    radial-gradient(circle var(--h) at 0 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
+  -webkit-mask-composite:source-in,source-in,source-in,source-in;mask-composite:intersect}
+#s10 .s10-price{display:inline-flex;align-items:center;font-family:var(--mono);font-weight:700;font-size:calc(var(--fs-num) * 1.25);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
+/* ponytail: the brand mono subset has no ₹ (U+20B9), so the glyph is drawn at the mono's weight (same path as s1) */
+#s10 .s10-rs{width:auto;height:.76em;margin-right:.02em;flex:none}
+#s10 .s10-cr{max-width:11ch;font-size:var(--fs-lg);line-height:1.3;color:var(--ink)}
 @media (min-width:1024px){
-  #s10 .s10-cta{grid-column:1/6}
-  #s10 .s10-art{grid-column:6/13;max-width:none}
+  /* stub sits right beside the ask, not out at the far edge */
+  #s10 .s10-cta{grid-column:1/7}
+  #s10 .s10-stub{grid-column:7/13}
+  #s10 .s10-cr{max-width:none;white-space:nowrap}
 }
-#s10 .s10-tilt{transform:rotate(-3deg);transform-origin:200px 160px}
-#s10 .s10-sheet{fill:var(--canvas);stroke:var(--paper-edge);stroke-width:1.5;filter:drop-shadow(0 8px 16px rgba(42,42,42,.10))}
-#s10 .s10-gridl{fill:none;stroke:var(--paper-edge);stroke-width:1;opacity:.7}
-#s10 .s10-crease{fill:none;stroke:var(--paper-edge);stroke-width:2}
-#s10 .s10-river{fill:none;stroke:var(--line);stroke-width:16}
-#s10 .s10-route{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-dasharray:2 8}
-#s10 .s10-flap{fill:var(--paper-edge);stroke:var(--paper-edge);stroke-width:1.5;stroke-linejoin:round}
-#s10 .s10-flapedge{fill:none;stroke:var(--quiet-line);stroke-width:1;filter:drop-shadow(-2px 2px 2px rgba(42,42,42,.18))}
-#s10 .s10-leak{filter:drop-shadow(0 2px 2px rgba(18,18,18,.15))}
-#s10 .s10-leak path{fill:var(--canvas);stroke:var(--ink);stroke-width:2}
-#s10 .s10-leak circle{fill:none;stroke:var(--ink);stroke-width:2}
-#s10 .s10-pole{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
-#s10 .s10-cloth{fill:var(--ink)}
-#s10 .s10-reg{font-family:var(--mono);font-weight:700;font-size:16px;letter-spacing:.08em;fill:var(--ink)}
-#s10 .s10-pin{filter:drop-shadow(0 3px 3px rgba(18,18,18,.2))}
-#s10 .s10-pin path{fill:var(--accent);stroke:var(--accent-ink);stroke-width:1.5}
-#s10 .s10-pin circle{fill:var(--canvas)}
-#s10 .s10-lab rect{fill:var(--canvas);stroke:var(--ink);stroke-width:1.5}
-#s10 .s10-lab text{font-family:var(--mono);font-weight:700;font-size:18px;fill:var(--ink)}
-#s10 .s10-stamp rect{fill:var(--canvas);stroke:var(--ink);stroke-width:2.5}
-#s10 .s10-stamp text{font-family:var(--mono);font-weight:700;font-size:18px;letter-spacing:.14em;fill:var(--ink)}
