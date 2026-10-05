@@ -1,45 +1,41 @@
 <section id="s1" class="sec" aria-labelledby="s1-h">
-  <div class="wrap"><div class="grid">
-    <div class="s1-tx stack">
-      <h2 id="s1-h">Let me map your business.</h2>
-      <p class="lede">45 minutes with me on where your clients leak.</p>
-      <p class="lede">You'll leave knowing where it breaks and what I'd fix first.</p>
-      <p class="lede">₹999, credited if you join.</p>
-      <a class="btn js-pay js-nudge" href="#">Book my &#8377;999 call</a>
-    </div>
-    <div class="s1-vc">
-      <div class="s1-tk" role="img" aria-label="Call ticket with Sandy's photo: 45 min with Sandy. ₹999, credited if you join.">
-        <div class="s1-main">
-          <img class="s1-ph" src="assets/s1-sandy-print.jpg" alt="" width="600" height="728" />
-          <div class="s1-bd">
-            <!-- ponytail: the ticket body IS a map (contours + a dashed route from Sandy past s2's leak pins to its flag): the s2 map's idea, so the ask reads "you leave with a map" with no new words.
-                 Body is portrait at every width; keep pins and flag inside x 60-245, y 30-190, and nothing behind the label block (y over 195) so slice never crops them. -->
-            <svg class="s1-map" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-              <g fill="none" stroke="var(--ink)" stroke-opacity=".2" stroke-width="1.1">
-                <path d="M112 74C120 30 176 8 226 18S306 44 304 92 262 158 214 156 104 118 112 74Z"/>
-                <path d="M146 82C150 52 186 38 220 44S270 64 268 94 240 134 210 130 142 112 146 82Z"/>
-                <path d="M178 88C180 70 200 62 218 66S242 80 240 96 224 116 206 112 176 104 178 88Z"/>
-                <path d="M-20 22C6 4 50 -4 78 12S96 52 70 66 20 74 -4 64-40 40-20 22Z"/>
-                <path d="M-8 30C10 20 36 16 52 26S60 48 44 54 6 58-4 50-24 40-8 30Z"/>
-                <path d="M-10 112C30 100 64 120 92 112S130 92 150 104"/>
-              </g>
-              <!-- the route: a start dot, past two of s2's leak pins, to s2's flag -->
-              <circle cx="62" cy="190" r="4.5" fill="var(--ink)"/>
-              <path d="M62 190C76 192 80 184 90 178S132 128 158 131S192 110 206 96" fill="none" stroke="var(--ink)" stroke-width="2.25" stroke-dasharray="6 7" stroke-linecap="round"/>
-              <g transform="translate(75.7 137.7) scale(1.3)"><path d="M11 31C11 31 2 18 2 11a9 9 0 0 1 18 0c0 7-9 20-9 20z" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/><circle cx="11" cy="11" r="3.5" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M23 19c0 0-3.5 4.5-3.5 7a3.5 3.5 0 0 0 7 0c0-2.5-3.5-7-3.5-7z" fill="var(--ink)"/></g>
-              <g transform="translate(143.7 90.7) scale(1.3)"><path d="M11 31C11 31 2 18 2 11a9 9 0 0 1 18 0c0 7-9 20-9 20z" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/><circle cx="11" cy="11" r="3.5" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M23 19c0 0-3.5 4.5-3.5 7a3.5 3.5 0 0 0 7 0c0-2.5-3.5-7-3.5-7z" fill="var(--ink)"/></g>
-              <!-- s2's "what to build first" flag, same glyph: the route ends where the map says to start -->
-              <g transform="translate(200.4 47) scale(1.4)"><path d="M4 35V2" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/><path d="M5 3h19l-5 6 5 6H5z" fill="var(--ink)"/></g>
-            </svg>
-            <b class="s1-min"><svg class="s1-clk" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12 6.5V12l3.5 2.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>45 min</b>
-            <span class="s1-with">with Sandy</span>
-          </div>
+<!-- v6 pilot port (approved 5 Oct). business-motion-film ledger: /Users/sandy/proj/work/lp-dir/pilot/LEDGER.md -->
+  <div class="wrap">
+    <div class="s1-g">
+      <div>
+        <span class="lbl">The &#8377;999 call</span>
+        <h2 id="s1-h">Let me map your <em>business.</em></h2>
+        <p class="sub">45 minutes with me on where your clients leak. You'll leave knowing where it breaks and what I'd fix first.</p>
+        <div class="facts">
+          <div><b data-to="2017" data-plain>2017</b><span>Agency started in Vancouver</span></div>
+          <div><b class="acc" data-to="100" data-suf="+">100+</b><span>Businesses helped in Canada, the US and India</span></div>
+          <div><b data-to="220000" data-pre="$">$220,000</b><span>Collected from clients in 6 months in India</span></div>
         </div>
-        <div class="s1-stub">
-          <b class="s1-price"><svg class="s1-rs" viewBox="0 0 22 32" aria-hidden="true"><path d="M3 4.5H19M3 11.5H19M3 4.5H8.5a6.5 6.5 0 0 1 0 13H3L15 30" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linejoin="round"/></svg>999</b>
-          <span class="s1-cr">credited if you join</span>
+        <div class="cta">
+          <a class="btn js-pay js-nudge" href="#">Book my ₹999 call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <p class="cr"><b>₹999</b>, credited if you join.</p>
         </div>
       </div>
+
+      <div class="stage" id="s1-stage" role="img" aria-label="Example: one lead moves through a business. It is called back and asks for details, then nobody follows up for six days, so it leaks. The 45-minute call scans the business, locks onto follow-up and names the first fix: chase three times. The same lead replays with the fix, replies and is signed.">
+        <div class="st-hd"><span>Example: one lead</span><b id="s1-hdR">45-min map</b></div>
+        <div class="scene" id="s1-scene">
+          <svg class="rail" id="s1-rail" aria-hidden="true"><path class="r0" id="s1-r0"/><path class="r1" id="s1-r1"/><path class="r2" id="s1-r2"/></svg>
+          <div id="s1-stns"></div>
+          
+          <div class="lens" id="s1-lens"><span id="s1-lensl">45-MIN CALL</span></div><div class="stem" id="s1-stem"></div>
+          <div class="note" id="s1-note">Fix: chase 3x</div>
+          <div class="ticks" id="s1-ticks"><i>1</i><i>2</i><i>3</i></div>
+          <div class="stamp" id="s1-stamp"></div>
+          <div class="card" id="s1-card"><span class="dot" id="s1-cdot"></span><b>New enquiry</b><small id="s1-csub">from your ad</small></div>
+        </div>
+        
+      </div>
     </div>
-  </div></div>
+
+    <p class="mq-k">Built for</p>
+    <div class="mq" aria-label="Clients: Medico Construction, Scale Your Results, Rumor Avenue, Agent Lions Den, Jas Oberoi, Riarh Group, Celestial Luxury Resorts, Walk Again Rehab, Swathi Veldandi Studio">
+      <div class="mq-t" aria-hidden="true" id="s1-mq"></div>
+    </div>
+  </div>
 </section>

@@ -1,85 +1,85 @@
-/* s1: white ground. The call ticket IS the section: big, Sandy's photo printed into the paper, a body printed as a map
-   (a dashed route out of the photo, past s2's leak pins, to s2's flag: the map you leave with), and a paper stub
-   (₹999, credited if you join) torn off and landed. Default = the finished frame: stub torn and resting. */
+/* s1 "Let me map your business" (v6 pilot, approved by Sandy 5 Oct; business-motion-film Gauntlet ledger:
+   /Users/sandy/proj/work/lp-dir/pilot/LEDGER.md). One persistent actor (the enquiry card) on one rail; the 45-min call
+   is the lens that finds the leak. Deterministic render(t), window.__seek_s1(t). Generated from the pilot by a scoped port. */
 #s1{border-top:0}
-#s1 .grid{align-items:center}
-#s1 .lede{text-wrap:balance}
-/* the landed stub hangs below the ticket on phones; its transform reserves no layout, so the section does */
-@media (max-width:767px){#s1{padding-bottom:calc(var(--sec-pad) + var(--s4))}}
-@media (min-width:1024px){
-  #s1 .s1-tx{grid-column:1/4}
-  #s1 .s1-vc{grid-column:4/13}
-}
+#s1 .lbl{font:700 12px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);display:inline-flex;align-items:center;gap:10px}
+#s1 .lbl::before{content:"";width:22px;height:2px;background:var(--accent)}
+#s1 h2{font-family:var(--head);font-weight:800;font-size:var(--t-h2);line-height:.98;letter-spacing:-.035em;margin:18px 0 20px;font-variation-settings:"opsz" 96}
+#s1 h2 em{font-style:normal;color:var(--accent-ink)}
+#s1 .sub{font-size:clamp(18px,1.5vw,21px);line-height:1.5;color:var(--body);max-width:30ch}
 
-/* ticket: one landscape object at every width (photo beside the map body); the stub sits below it on phones and to
-   its right from 768. One soft shadow on the whole ticket so body and stub read as one torn piece of paper. */
-#s1 .s1-tk{--n:var(--s4);--h:3.5px;display:flex;flex-direction:column;filter:drop-shadow(0 var(--s1) var(--s2) rgba(18,18,18,.12))}
-@media (min-width:768px){#s1 .s1-tk{--n:var(--s5);flex-direction:row;margin-right:var(--s7)}}
+#s1 .s1-g{display:grid;gap:48px}
+@media(min-width:1200px){#s1 .s1-g{grid-template-columns:5fr 7fr;align-items:center;gap:56px}}
+@media(min-width:641px) and (max-width:1199px){#s1 .s1-g>*,#s1 .mq-k,#s1 .mq{width:100%;max-width:720px;margin-inline:auto}}
 
-/* ticket silhouette: every corner of both pieces is notched (like an admission ticket), intersected with a row of
-   half-holes along the seam, so after the tear the perforation IS the edge on both pieces. */
-#s1 .s1-main,#s1 .s1-stub{
-  -webkit-mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
-    radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),var(--seam);
-          mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
-    radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),var(--seam);
-  -webkit-mask-composite:source-in,source-in,source-in,source-in;mask-composite:intersect;
-  background:var(--paper);border:1px solid var(--paper-edge)}
+#s1 .facts{display:grid;grid-template-columns:.8fr 1fr 1.35fr;margin:36px 0 34px;border-top:1px solid var(--line)}
+#s1 .facts div{padding:18px 14px 0 0}
+#s1 .facts div+div{padding-left:14px;border-left:1px solid var(--line)}
+#s1 .facts b{display:block;font:700 clamp(22px,calc(12px + 1.4vw),32px)/1 var(--mono);letter-spacing:-.04em;font-variant-numeric:tabular-nums;white-space:nowrap}
+#s1 .facts b.acc{color:var(--accent-ink)}
+@media(max-width:359px){#s1 .facts{grid-template-columns:1fr 1fr}#s1 .facts div:nth-child(3){grid-column:1/-1;border-left:0;padding-left:0;margin-top:14px;border-top:1px solid var(--line)}}
+#s1 .facts span{display:block;margin-top:8px;font-size:13px;line-height:1.4;color:var(--quiet)}
 
-/* main body: ONE paper surface the art fills edge to edge; seam along its bottom on phones, its right from 768 */
-#s1 .s1-main{--seam:radial-gradient(circle var(--h) at 50% 100%,#0000 98%,#000) 0 0/var(--s3) 100% repeat-x;
-  position:relative;display:grid;grid-template-columns:44% 1fr;border-bottom:0;overflow:hidden}
-/* printed into the paper: assets/s1-sandy-print.jpg is Sandy cut out of the studio (Apple Vision subject mask),
-   greyscale, multiplied onto the paper colour, so photo and map are one printed sheet */
-#s1 .s1-ph{width:100%;height:100%;min-height:calc(var(--s10) * 2);object-fit:cover;object-position:50% 0}
-#s1 .s1-bd{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:var(--s4)}
-#s1 .s1-map{position:absolute;inset:0;width:100%;height:100%}
-#s1 .s1-min{position:relative;display:flex;align-items:center;gap:var(--s2);font-family:var(--mono);font-weight:700;font-size:var(--fs-num);line-height:1;letter-spacing:-.03em;color:var(--ink)}
-#s1 .s1-clk{width:.62em;height:.62em;flex:none}
-#s1 .s1-with{position:relative;margin-top:var(--s2);font-size:var(--fs-lg);color:var(--quiet)}
-@media (min-width:768px){
-  #s1 .s1-main{--seam:radial-gradient(circle var(--h) at 100% 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
-    flex:1;min-width:0;grid-template-columns:48% 1fr;border-bottom:1px solid var(--paper-edge);border-right:0}
-  #s1 .s1-ph{min-height:calc(var(--s10) * 3)}
-  #s1 .s1-bd{padding:var(--s6)}
-}
+#s1 .cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+#s1 .btn{position:relative;display:inline-flex;align-items:center;gap:10px;padding:18px 28px;border-radius:999px;background:var(--ink);color:#fff;
+  font:600 16px/1 var(--sans);text-decoration:none;overflow:hidden;isolation:isolate;transition:transform .2s var(--ease)}
+#s1 .btn:hover{transform:translateY(-1px)}
+#s1 .btn::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 35%,rgba(63,224,214,.45) 50%,transparent 65%);transform:translateX(-120%);animation:s1-sweep 3.2s 1s infinite}
+@keyframes s1-sweep{60%,100%{transform:translateX(120%)}}
+#s1 .btn svg{width:18px;height:18px}
+#s1 .cr{font-size:15px;color:var(--quiet)}#s1 .cr b{color:var(--ink);font-weight:600}
 
-/* stub: same paper, same seam. ₹999 is the section's one teal numeral, always level.
-   Finished frame = torn off, dropped and tilted, resting just apart from the ticket. */
-#s1 .s1-stub{--seam:radial-gradient(circle var(--h) at 50% 0,#0000 98%,#000) 0 0/var(--s3) 100% repeat-x;
-  --tf:translate(0,var(--s4)) rotate(3deg);position:relative;display:flex;align-items:center;gap:var(--s4);
-  padding:var(--s5);border-top:0;transform:var(--tf);transform-origin:0 0}
-#s1 .s1-price{display:inline-flex;align-items:center;font-family:var(--mono);font-weight:700;font-size:calc(var(--fs-num) * 1.5);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
-/* ponytail: the brand mono subset has no ₹ (U+20B9), so the glyph falls back to Courier; draw it at the mono's weight instead */
-#s1 .s1-rs{width:auto;height:.76em;margin-right:.02em;flex:none}
-#s1 .s1-cr{margin-top:var(--s4);font-size:var(--fs-lg);line-height:1.3;color:var(--ink)}
-@media (min-width:768px){
-  #s1 .s1-stub{--seam:radial-gradient(circle var(--h) at 0 50%,#0000 98%,#000) 0 0/100% var(--s3) repeat-y;
-    --tf:translate(var(--s3),var(--s4)) rotate(4deg);flex:0 0 26%;flex-direction:column;justify-content:center;align-items:flex-start;gap:var(--s3);
-    padding:var(--s5) var(--s5) var(--s5) var(--s6);border-top:1px solid var(--paper-edge);border-left:0;transform-origin:0 100%}
-  #s1 .s1-price{font-size:calc(var(--fs-num) * 1.5)}
-  #s1 .s1-cr{max-width:11ch;font-size:var(--fs-h3)}
-}
+#s1 
+.stage{position:relative;border-radius:28px;background:radial-gradient(120% 90% at 50% 45%,var(--petrol-2),var(--petrol) 72%);
+  overflow:hidden;color:var(--on-petrol);box-shadow:0 40px 80px -40px rgba(11,34,36,.55);aspect-ratio:16/10.5}
+#s1 .stage::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px;
+  mask:radial-gradient(75% 70% at 50% 50%,#000,transparent)}
+#s1 .st-hd{position:absolute;left:22px;right:22px;top:20px;display:flex;justify-content:space-between;gap:12px;font:700 11px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--on-petrol-q);z-index:5}
+#s1 .st-hd b{color:var(--teal-hi);white-space:nowrap}
+#s1 .scene{position:absolute;inset:0;transform-origin:50% 55%}
+#s1 .rail{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#s1 .rail .r0{stroke:rgba(160,230,225,.18);stroke-width:3;fill:none;stroke-linecap:round}
+#s1 .rail .r1{stroke:rgba(234,245,244,.55);stroke-width:3;fill:none;stroke-linecap:round}
+#s1 .rail .r2{stroke:var(--teal-hi);stroke-width:3.5;fill:none;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(63,224,214,.7))}
+#s1 .rail .ring{fill:none;stroke:var(--teal-hi);stroke-width:2.5;filter:drop-shadow(0 0 8px rgba(63,224,214,.8))}
+#s1 .stn{position:absolute;width:0;height:0}
+#s1 .stn i{position:absolute;left:calc(var(--sd)/-2);top:calc(var(--sd)/-2);width:var(--sd);height:var(--sd);border-radius:50%;display:grid;place-items:center;background:#0E2A2A;border:2px solid rgba(160,230,225,.35);color:var(--on-petrol-q)}
+#s1 .stn i svg{width:calc(var(--sd)*.42);height:calc(var(--sd)*.42)}
+#s1 .stage{--sd:60px}
+@media(max-width:1199px){#s1 .stage{--sd:54px}}
+@media(max-width:640px){#s1 .stage{--sd:46px}}
+#s1 .stn.on i{border-color:var(--teal-hi);background:var(--teal-hi);color:#032220;box-shadow:0 0 18px rgba(63,224,214,.7)}
+#s1 .stn.leak i{border-color:var(--brick-hi);background:#C9372B;color:#fff;box-shadow:0 0 0 6px rgba(201,55,43,.18),0 0 22px rgba(201,55,43,.6)}
+#s1 .stn.leak span{color:var(--brick-hi)}
+#s1 .stn.fixd span{color:var(--teal-hi)}
+#s1 .stn span{position:absolute;white-space:nowrap;font:700 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--on-petrol-q)}
+#s1 .card{position:absolute;left:0;top:0;z-index:4;width:clamp(210px,36%,264px);padding:16px 18px;border-radius:14px;background:#123836;border:1.5px solid var(--teal-hi);
+  box-shadow:0 12px 28px -12px rgba(0,0,0,.6),0 0 22px -6px rgba(63,224,214,.6)}
+#s1 .card b{display:block;font:600 18px/1.25 var(--sans);color:#fff}
+#s1 .card small{display:block;margin-top:4px;font:500 13px/1.3 var(--sans);color:var(--on-petrol-q)}
+#s1 .card .dot{position:absolute;right:12px;top:14px;width:8px;height:8px;border-radius:50%;background:var(--teal-hi)}
+#s1 .stamp{position:absolute;left:0;top:0;z-index:4;padding:9px 14px;border-radius:999px;font:700 13px/1 var(--mono);letter-spacing:.04em;white-space:nowrap;
+  background:#0E2C2B;border:1px solid rgba(160,230,225,.35);color:var(--on-petrol)}
+#s1 .stamp.bad{border-color:rgba(255,122,110,.75);color:var(--brick-hi)}
+#s1 .stamp.good{border-color:var(--teal-hi);color:var(--teal-hi)}
+#s1 .leak{position:absolute;left:0;top:0;z-index:3;padding:6px 10px;border-radius:8px;font:700 11px/1 var(--mono);letter-spacing:.12em;color:#fff;background:#C9372B;white-space:nowrap}
+#s1 .leak.fixed{background:var(--accent);color:#032220}
+#s1 .lens{position:absolute;left:0;top:0;z-index:5;width:calc(var(--sd) + 34px);height:calc(var(--sd) + 34px);border-radius:50%;border:3px solid var(--teal-hi);
+  background:radial-gradient(circle,rgba(63,224,214,.22),rgba(63,224,214,.04) 65%,transparent 70%);box-shadow:0 0 0 8px rgba(63,224,214,.1),0 0 40px rgba(63,224,214,.65),inset 0 0 22px rgba(63,224,214,.35)}
+#s1 .lens span{position:absolute;left:50%;top:-34px;transform:translateX(-50%);white-space:nowrap;padding:6px 10px;border-radius:999px;background:var(--teal-hi);color:#032220;font:700 12px/1 var(--mono);letter-spacing:.08em}
+#s1 .stem{position:absolute;left:0;top:0;z-index:3;width:2px;background:linear-gradient(var(--teal-hi),rgba(63,224,214,.15))}
+#s1 .note{position:absolute;left:0;top:0;z-index:4;padding:9px 13px;border-radius:12px;background:var(--teal-hi);color:#032220;font:700 13px/1.2 var(--mono);white-space:nowrap;box-shadow:0 10px 26px -10px rgba(63,224,214,.8)}
+#s1 .ticks{position:absolute;left:0;top:0;z-index:4;display:flex;gap:6px}
+#s1 .ticks i{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--teal-hi);color:#032220;font:700 11px/1 var(--mono);font-style:normal}
+#s1 .cap{position:absolute;left:22px;right:22px;bottom:18px;z-index:5;display:flex;justify-content:space-between;font:500 13px/1.3 var(--sans);color:var(--on-petrol-q)}
+#s1 .cap b{color:var(--on-petrol);font-weight:600}
+@media(max-width:640px){#s1 .stage{aspect-ratio:auto;height:480px}#s1 .stn span{font-size:12px}#s1 .card{width:calc(100% - 116px);padding:12px 14px}#s1 .card b{font-size:16px}#s1 .lens span{top:-2px;bottom:auto;left:calc(100% + 8px);transform:none}#s1 .lens{width:calc(var(--sd) + 22px);height:calc(var(--sd) + 22px)}}
 
-/* motion (JS arms it only on reveal or while the stub is below the fold): the intact ticket holds a beat, the torn
-   edge hinges open from the far end with the near corner still holding (pivot on the seam), the stub releases and
-   lands, settling 4px back up onto its resting frame (it never rises more). Done by 2.4 s. Text is never hidden;
-   only the stub moves. */
-#s1.armed .s1-stub{transform:none}
-#s1.go .s1-stub{animation:s1-tear 2.2s .2s both}
-@keyframes s1-tear{
-  0%{transform:none;animation-timing-function:linear}
-  10%{transform:none;animation-timing-function:cubic-bezier(.45,0,.55,1)}
-  48%{transform:rotate(9deg);animation-timing-function:cubic-bezier(.4,0,.2,1)}
-  74%{transform:translate(var(--s3),calc(var(--s4) + var(--s1))) rotate(4.5deg);animation-timing-function:var(--ease)}
-  100%{transform:var(--tf)}
-}
-@media (max-width:767px){
-  @keyframes s1-tear{
-    0%{transform:none;animation-timing-function:linear}
-    10%{transform:none;animation-timing-function:cubic-bezier(.45,0,.55,1)}
-    48%{transform:rotate(6deg);animation-timing-function:cubic-bezier(.4,0,.2,1)}
-    74%{transform:translate(0,calc(var(--s4) + var(--s1))) rotate(3.4deg);animation-timing-function:var(--ease)}
-    100%{transform:var(--tf)}
-  }
-}
+#s1 .mq-k{font:700 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--quiet);margin-top:64px;margin-bottom:14px}
+#s1 .mq{border-block:1px solid var(--line);padding:18px 0;overflow:hidden;mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+#s1 .mq-t{display:flex;gap:44px;padding-right:44px;width:max-content;animation:s1-mq 38s linear infinite}
+#s1 .mq-t span{font:600 clamp(16px,1.5vw,20px)/1 var(--head);letter-spacing:-.01em;color:var(--ink);white-space:nowrap;display:inline-flex;align-items:center;gap:44px}
+#s1 .mq-t span::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+@keyframes s1-mq{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){#s1 .btn::after,#s1 .mq-t{animation:none!important}}
