@@ -1,17 +1,18 @@
-/* S2b skill packs: compact. Headline + lede, then the 13 pack names as small chips in three tier rows
-   (On the call 2, Sprint adds 4, Accelerator 7). Static: no motion, nothing to wait for. */
+/* S2b skill packs: compact. Headline + lede, then the 13 packs as small chips in three tier rows
+   (Free with the call 2, Sprint adds 4, Accelerator 7). Each chip = number + a plain caption, never the folder slug.
+   Static: no motion, nothing to wait for. */
 #s2b{background:var(--paper);border-top:0;padding-block:var(--s8)}
 #s2b .s2b-hd>*+*{margin-top:var(--s3)}
 #s2b .s2b-tiers{display:grid;gap:var(--s4)}
 #s2b .s2b-g{display:grid;gap:var(--s2)}
 #s2b .s2b-tag{font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1.3;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
 #s2b .s2b-tag span{margin-left:var(--s2);letter-spacing:0;text-transform:none;color:var(--quiet)}
-#s2b .s2b-c0 .s2b-tag span{color:var(--accent-ink)}
+#s2b .s2b-c0 .s2b-tag{color:var(--accent-ink)}
 #s2b .s2b-chips{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2)}
 #s2b .s2b-chips li{display:inline-flex;align-items:baseline;gap:var(--s2);padding:var(--s1) var(--s3);font-size:var(--fs-sm);line-height:1.5;font-weight:500;
   color:var(--ink);background:var(--canvas);border:1px solid var(--paper-edge);border-radius:999px;white-space:nowrap}
 #s2b .s2b-chips b{font-family:var(--mono);font-size:var(--fs-label);font-weight:700;color:var(--quiet)}
-/* the two that are yours after the call: inked */
+/* the two that are free with the call: inked */
 #s2b .s2b-c0 .s2b-chips li{background:var(--ink);border-color:var(--ink);color:var(--canvas);font-weight:700}
 #s2b .s2b-c0 .s2b-chips b{color:var(--low)}
 @media (min-width:1024px){

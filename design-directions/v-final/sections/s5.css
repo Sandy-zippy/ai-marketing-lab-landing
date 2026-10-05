@@ -1,54 +1,34 @@
 #s5{border-top:0}
 
-/* ten seats: the section's one urgency element, drawn straight on the white ground */
+/* ten seats: the page's one urgency element, set as type (v3: the chair drawing is gone, one idiom fewer) */
 #s5 .s5-n{font-family:var(--mono);font-weight:700;font-size:max(var(--fs-h3),calc(var(--fs-h2) * .75));line-height:1;letter-spacing:-.02em;color:var(--urgent)}
-#s5 .s5-room{position:relative;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:var(--s3);max-width:560px;margin-top:var(--s4)}
-#s5 .s5-seat{position:relative;display:flex;flex-direction:column;align-items:center}
-#s5 .s5-seat svg{width:100%;height:auto;fill:none;stroke:var(--quiet);stroke-width:2.5;stroke-linecap:round}
-#s5 .s5-you svg{fill:var(--accent);stroke:var(--accent)}
-#s5 .s5-halo{position:absolute;left:50%;top:0;width:150%;aspect-ratio:1;margin-left:-75%;margin-top:-25%;border-radius:50%;background:var(--accent-soft);z-index:-1}
-#s5 .s5-you{z-index:0}
-#s5 .s5-you b{margin-top:var(--s1);font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;line-height:1.2;color:var(--accent-ink)}
+#s5 .s5-why{margin-top:var(--s3);font-size:var(--fs-lg);line-height:1.5;color:var(--body);max-width:34ch}
 
-/* the eight week rail (tablet: two halves stacked) */
+/* the eight week rail (tablet: two halves stacked). Upstream weeks fill teal, downstream weeks fill ink, so the halves read apart */
 #s5 .s5-rail{display:grid;grid-template-columns:1fr;row-gap:var(--s6)}
 #s5 .s5-grp{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--s1);row-gap:var(--s3)}
-#s5 .s5-gh{grid-column:1/-1;font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;color:var(--ink);padding-bottom:var(--s2)}
+#s5 .s5-gh{grid-column:1/-1;font-family:var(--mono);font-size:var(--fs-label);font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet);padding-bottom:var(--s2)}
+#s5 .s5-gh b{display:block;margin-top:var(--s1);font-size:var(--fs-sm);font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink)}
 #s5 .s5-wk{display:grid;grid-template-rows:auto var(--s2) auto;align-content:start;row-gap:var(--s3);min-width:0}
 #s5 .s5-wk em{font-family:var(--mono);font-style:normal;font-weight:700;font-size:var(--fs-h3);line-height:1;color:var(--ink)}
 #s5 .s5-seg{display:block;border-radius:var(--s1);background:var(--line);overflow:hidden}
 #s5 .s5-seg b{display:block;width:100%;height:100%;background:var(--accent);transform-origin:left center}
+#s5 .s5-grp+.s5-grp .s5-seg b{background:var(--ink)}
 #s5 .s5-wk span{font-size:var(--fs-sm);line-height:1.4;color:var(--body);padding-right:var(--s3)}
-#s5 .s5-key{display:flex;align-items:center;gap:var(--s3)}
-#s5 .s5-key svg{width:var(--s8);height:auto;fill:none;stroke:var(--ink);stroke-width:5;stroke-linecap:round}
-#s5 .s5-key span{font-family:var(--mono);font-size:var(--fs-h3);font-weight:700;color:var(--ink)}
 
-/* the real photo: Sandy across the desk from a client, B&W, both faces kept in frame at every width */
+/* the real photo: Sandy across the table from a client, B&W, both faces kept in frame at every width */
 #s5 .s5-ph{margin:0}
 #s5 .s5-ph img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:50% 55%;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--elevated)}
-#s5 .s5-ph figcaption,#s5 .s5-cmp figcaption{margin-top:var(--s3);font-size:var(--fs-label);line-height:1.4;color:var(--quiet);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
+#s5 .s5-ph figcaption{margin-top:var(--s3);font-size:var(--fs-label);line-height:1.4;color:var(--quiet);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
 
-/* comparison strip: the same two rooms, small. Group at the whiteboard, one to one at the desk */
-#s5 .s5-cmps{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5)}
-#s5 .s5-cmp{margin:0}
-#s5 .s5-cmp img{width:100%;max-width:240px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-sm);border:1px solid var(--line)}
-#s5 .s5-cmp img[src*="board"]{object-position:20% 50%}
-#s5 .s5-cmp figcaption{font-family:var(--sans);text-transform:none;letter-spacing:0;font-size:var(--fs-body);line-height:1.45;color:var(--body)}
-#s5 .s5-cmp b{font-weight:600;color:var(--ink)}
-
-/* desktop: copy left, seats and the comparison right; below a full-width rule, ONE rail of eight weeks
-   ending in the key. The two lists dissolve into a single 9-column grid: captions / numbers / track / labels. */
+/* desktop: copy left, seats right; the photo as a full-width band; below it ONE rail of eight weeks.
+   The two lists dissolve into a single 8-column grid: captions / numbers / track / labels. */
 @media (min-width:1024px){
   #s5 .s5-head{grid-row:1}
-  #s5 .s5-seats{grid-row:1;align-self:start;padding-top:var(--s6)}
-  /* the photo is a full-width band straight under the offer: wide crop, both heads in the middle band */
+  #s5 .s5-seats{grid-row:1;align-self:end;padding-left:var(--s7)}
   #s5 .s5-ph{grid-row:2}
   #s5 .s5-ph img{aspect-ratio:21/9;object-position:50% 75%}
-  /* the two rooms, small, under the photo */
-  #s5 .s5-cmps{grid-row:3;grid-template-columns:repeat(2,minmax(0,360px));margin-top:calc(var(--s3) * -1)}
-  #s5 .s5-cmp{display:grid;grid-template-columns:120px 1fr;column-gap:var(--s4);align-items:center}
-  #s5 .s5-cmp figcaption{margin-top:0}
-  #s5 .s5-rail{grid-row:4;grid-template-columns:repeat(8,minmax(0,1fr)) auto;grid-template-rows:auto auto var(--s2) auto;column-gap:var(--s1);row-gap:var(--s3);
+  #s5 .s5-rail{grid-row:3;grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:auto auto var(--s2) auto;column-gap:var(--s1);row-gap:var(--s3);
     margin-top:var(--s5)}
   #s5 .s5-grp,#s5 .s5-wk{display:contents}
   #s5 .s5-gh{grid-row:1;grid-column:1/5;border-bottom:1px solid var(--quiet-line)}
@@ -64,13 +44,10 @@
   #s5 .s5-grp+.s5-grp .s5-wk:nth-child(3)>*{grid-column:6}
   #s5 .s5-grp+.s5-grp .s5-wk:nth-child(4)>*{grid-column:7}
   #s5 .s5-grp+.s5-grp .s5-wk:nth-child(5)>*{grid-column:8}
-  #s5 .s5-key{grid-column:9;grid-row:3;align-self:center;margin-left:var(--s4)}
 }
-/* phone: seats stay one row of ten; the rail runs down the left edge, one segment per week */
+/* phone: the rail runs down the left edge, one segment per week */
 @media (max-width:767px){
   #s5 .s5-grid{row-gap:var(--s5)}
-  #s5 .s5-room{gap:var(--s2);margin-top:var(--s3)}
-  #s5 .s5-you b{font-size:var(--fs-label)}
   #s5 .s5-rail{row-gap:var(--s4)}
   #s5 .s5-grp{grid-template-columns:1fr;row-gap:0}
   #s5 .s5-wk{grid-template-rows:none;grid-template-columns:var(--s5) var(--s2) minmax(0,1fr);column-gap:var(--s3);align-items:center}
@@ -78,34 +55,17 @@
   #s5 .s5-seg{align-self:stretch;border-radius:var(--s1);border-bottom:var(--s1) solid var(--canvas);background-clip:padding-box}
   #s5 .s5-seg b{transform-origin:center top}
   #s5 .s5-wk span{padding-block:var(--s1);padding-right:0}
-  #s5 .s5-key svg{width:var(--s7)}
-  #s5 .s5-key span{font-size:var(--fs-lg)}
-  #s5 .s5-cmps{gap:var(--s4)}
-  #s5 .s5-cmp figcaption{font-size:var(--fs-sm)}
   #s5 .s5-ph{margin-inline:calc(var(--gutter) * -1)}
   #s5 .s5-ph img{border-radius:0;border-inline:0}
   #s5 .s5-ph figcaption{padding-inline:var(--gutter)}
 }
 
-/* motion: armed only when below the fold at load; shapes move, text never does */
-#s5 .s5-room.armed .s5-seat svg{opacity:0;transform:translateY(-12px)}
-#s5 .s5-room.armed .s5-halo{transform:scale(.08)}
-#s5 .s5-room.go .s5-seat svg{animation:s5-land 500ms var(--ease) calc(var(--i) * 70ms) both}
-#s5 .s5-room.armed .s5-you svg{opacity:1}
-#s5 .s5-room.armed .s5-you b{transform:translateY(-12px)}
-#s5 .s5-room.go .s5-you svg,#s5 .s5-room.go .s5-you b{animation:s5-drop 500ms var(--ease) 490ms both}
-#s5 .s5-room.go .s5-halo{animation:s5-light 700ms var(--ease) 900ms both}
+/* motion: armed only when below the fold at load; the track fills week by week, text never moves */
 #s5 .s5-rail.armed .s5-seg b{transform:scaleX(.08)}
-#s5 .s5-rail.armed .s5-key svg{opacity:0;transform:translateX(-32px)}
 #s5 .s5-rail.go .s5-seg b{animation:s5-fill 380ms var(--ease) calc(300ms + var(--i) * 320ms) both}
-#s5 .s5-rail.go .s5-key svg{animation:s5-slide 600ms var(--ease) 3000ms both}
 @media (max-width:767px){
   #s5 .s5-rail.armed .s5-seg b{transform:scaleY(.08)}
   #s5 .s5-rail.go .s5-seg b{animation-name:s5-fill-y}
 }
-@keyframes s5-land{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
-@keyframes s5-drop{from{transform:translateY(-12px)}to{transform:none}}
-@keyframes s5-light{from{transform:scale(.08)}to{transform:none}}
 @keyframes s5-fill{from{transform:scaleX(.08)}to{transform:none}}
 @keyframes s5-fill-y{from{transform:scaleY(.08)}to{transform:none}}
-@keyframes s5-slide{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}

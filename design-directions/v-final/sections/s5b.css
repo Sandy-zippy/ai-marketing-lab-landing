@@ -1,0 +1,29 @@
+/* S5b Sprint vs Accelerator: typography only. One ruled table, Remy's comparison-card tags on the two column heads,
+   the Accelerator tag outlined in teal (the section's one accent). Phone keeps all three columns; labels stay >= 12px. */
+#s5b table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:var(--fs-body);line-height:1.45}
+#s5b thead td{width:22%}
+#s5b th,#s5b td{text-align:left;vertical-align:top;padding:var(--s4) var(--s4) var(--s4) 0;border-bottom:1px solid var(--line)}
+#s5b thead th,#s5b thead td{border-bottom:1px solid var(--ink);padding-bottom:var(--s3)}
+#s5b tbody th{font-family:var(--mono);font-size:var(--fs-label);font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet);padding-top:calc(var(--s4) + 3px)}
+#s5b tbody td{color:var(--body)}
+#s5b tbody td.s5b-acc{color:var(--ink)}
+#s5b .s5b-tag{display:inline-block;padding:var(--s1) var(--s3);font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;letter-spacing:.02em;line-height:1.4;
+  color:var(--body);background:var(--elevated);border:1px solid var(--elevated);border-radius:var(--s1)}
+#s5b th.s5b-acc .s5b-tag{color:var(--accent-ink);background:var(--canvas);border-color:var(--accent)}
+#s5b .s5b-g td{color:var(--ink);font-weight:600}
+#s5b .s5b-g th,#s5b .s5b-g td{border-bottom:0}
+@media (min-width:1024px){
+  #s5b table{font-size:var(--fs-lg)}
+  #s5b thead td{width:24%}
+  #s5b th,#s5b td{padding:var(--s5) var(--s6) var(--s5) 0}
+  #s5b thead th,#s5b thead td{padding-bottom:var(--s4)}
+  #s5b tbody th{padding-top:calc(var(--s5) + 5px)}
+}
+@media (max-width:767px){
+  #s5b table{font-size:var(--fs-sm);line-height:1.4}
+  #s5b thead td{width:29%}
+  #s5b th,#s5b td{padding:var(--s3) var(--s3) var(--s3) 0}
+  #s5b tbody th{padding-top:calc(var(--s3) + 2px);letter-spacing:.04em}
+  #s5b .s5b-tag{font-size:var(--fs-label);padding:var(--s1) var(--s2)}
+  #s5b .s5b-cta .btn{width:100%}
+}
