@@ -34,5 +34,6 @@
   #s1b .s1b-led{grid-column:8/13;margin-top:var(--s6)}
   #s1b .s1b-led>div{grid-template-columns:minmax(0,calc(var(--fs-num) * 5)) minmax(0,1fr);padding-block:var(--s4)}
   /* equal height: track widths follow the two aspect ratios (1:1 = 1, 3:2 = 1.5) */
-  #s1b .s1b-strip{grid-column:1/13;display:grid;grid-template-columns:1fr 1.5fr;column-gap:var(--col-gap)}
+  #s1b .s1b-strip{grid-column:1/13;display:grid;grid-template-columns:1fr}
+  #s1b .s1b-teach img{aspect-ratio:16/9;object-position:50% 6%}   /* one wide band; the 1:1 client frame moved to s5 only (it repeated s5) */
 }
