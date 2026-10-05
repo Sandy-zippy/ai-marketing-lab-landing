@@ -1,42 +1,39 @@
-<section id="s5b" class="sec bento-sec" aria-labelledby="s5b-h">
-  <div class="wrap"><div class="bento s5b-b">
-    <div class="tile paper t-cmp-head">
+<!-- s5b source: 21st.dev "Comparison Table" (comparison-02) by mohammadshehadeh / Hirael,
+     https://21st.dev/@mohammadshehadeh/components/comparison-02 . Code read from the author's free registry
+     hirael.com/r/comparison-02.json (MIT, Mohammad Shehadeh, github.com/MohammadShehadeh/hirael); the 21st
+     get_component quota was spent. Ported: a real <table>, row headers in the first column, the featured column
+     lifted on its own surface with rounded top and bottom, the CTA under it. Prices dropped (call-booking page). -->
+<section id="s5b" class="sec" aria-labelledby="s5b-h">
+  <div class="wrap">
+    <div class="s5b-hd">
       <p class="label">Sprint or Accelerator</p>
       <h2 id="s5b-h">Two ways to install it</h2>
     </div>
 
-    <article class="tile prog t-sprint" aria-labelledby="p-sprint">
-      <h3 id="p-sprint" class="tag">Sprint</h3>
-      <dl>
-        <div><dt>Who builds it</dt><dd>You build it, live, after I show each step</dd></div>
-        <div><dt>Format</dt><dd>Group, live</dd></div>
-        <div><dt>Length</dt><dd>21 days, Mon 26 Oct to Fri 13 Nov</dd></div>
-        <div><dt>Live sessions</dt><dd>15, weekdays 7 to 8:30 pm IST</dd></div>
-        <div><dt>1:1 with me</dt><dd>None, it's a group</dd></div>
-        <div><dt>Skill files</dt><dd>6 packs</dd></div>
-        <div><dt>Recordings</dt><dd>Up the next morning</dd></div>
-        <div><dt>Seats</dt><dd>Open</dd></div>
-      </dl>
-    </article>
+    <table class="s5b-t" aria-labelledby="s5b-h">
+      <thead>
+        <tr>
+          <td class="s5b-blank"></td>
+          <th scope="col" class="t-sprint"><h3 id="p-sprint" class="tag">Sprint</h3></th>
+          <th scope="col" class="t-acc"><h3 id="p-acc" class="tag">Accelerator</h3></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Who builds it</th><td>You build it, live, after I show each step</td><td class="t-acc">I build it with you, on every call</td></tr>
+        <tr><th scope="row">Format</th><td>Group, live</td><td class="t-acc">One to one with me</td></tr>
+        <tr><th scope="row">Length</th><td>21 days, Mon 26 Oct to Fri 13 Nov</td><td class="t-acc">8 weeks</td></tr>
+        <tr><th scope="row">Live sessions</th><td>15, weekdays 7 to 8:30 pm IST</td><td class="t-acc">Booked on your calendar</td></tr>
+        <tr><th scope="row">1:1 with me</th><td>None, it's a group</td><td class="t-acc">Every call, all 8 weeks</td></tr>
+        <tr><th scope="row">Skill files</th><td>6 packs</td><td class="t-acc">All 13 packs</td></tr>
+        <tr><th scope="row">Recordings</th><td>Up the next morning</td><td class="t-acc">All 15 Sprint sessions</td></tr>
+        <tr><th scope="row">Seats</th><td>Open</td><td class="t-acc"><span class="seats">10</span></td></tr>
+      </tbody>
+    </table>
 
-    <article class="tile ink prog t-acc" aria-labelledby="p-acc">
-      <h3 id="p-acc" class="tag">Accelerator</h3>
-      <dl>
-        <div><dt>Who builds it</dt><dd>I build it with you, on every call</dd></div>
-        <div><dt>Format</dt><dd>One to one with me</dd></div>
-        <div><dt>Length</dt><dd>8 weeks</dd></div>
-        <div><dt>Live sessions</dt><dd>Booked on your calendar</dd></div>
-        <div><dt>1:1 with me</dt><dd>Every call, all 8 weeks</dd></div>
-        <div><dt>Skill files</dt><dd>All 13 packs</dd></div>
-        <div><dt>Recordings</dt><dd>All 15 Sprint sessions</dd></div>
-        <div><dt>Seats</dt><dd><span class="seats">10</span></dd></div>
-      </dl>
-    </article>
-
-    <div class="tile t-guar">
-      <p class="k">Guarantee</p>
+    <div class="t-guar">
+      <p class="k label">Guarantee</p>
       <p class="g">Both: first client in 90 days, or every rupee back</p>
       <a class="btn js-pay" href="#">Book my &#8377;999 call</a>
     </div>
-  </div></div>
+  </div>
 </section>

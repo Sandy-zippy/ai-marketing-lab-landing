@@ -1,43 +1,36 @@
-/* S7 guarantee: NO tiles, the page breathes. A full-width paper band; the promise set huge in mono across all 12 columns,
-   then the condition + button left and the progress sheet as a plain hairline list right.
-   Default styles = the FINISHED frame. .s7-arm (JS, only when the list is below the fold) holds frame 0 of the
-   ticks; .s7-go plays them. Text never fades. */
-#s7{background:var(--paper);border-top:0;padding-block:clamp(72px,9vw,128px)}
-#s7 .grid{row-gap:var(--s6)}
-#s7 .s7-h{font-size:var(--fs-label);line-height:1.4;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet);max-width:none}
-#s7 .s7-promise{font-family:var(--mono);font-weight:700;font-size:clamp(34px,6.7vw,96px);line-height:1;letter-spacing:-.04em;color:var(--ink);text-wrap:balance;max-width:18ch}
+/* S7 guarantee (v5, 5 Oct): full-bleed paper band, no tiles. The h2, then the promise huge in mono (--t-display)
+   across 12 columns; below, the guarantee 3D loop in one dark 9:10 frame (left) beside the condition, the progress
+   sheet as a plain hairline list and the button (right). Phone: h2, promise, loop, condition, sheet, button.
+   Static finished frame: the loop is the only motion here. Teal = "Full refund." only. */
+#s7{background:var(--paper);border-top:0;padding-block:var(--s9)}
+#s7 .s7-g{row-gap:var(--s6)}
+#s7 .s7-h{max-width:none;color:var(--quiet);font-size:var(--t-label);letter-spacing:.06em;text-transform:uppercase;line-height:1.4}   /* lead's call: the promise IS the headline here; the h2 reads as the section label (a 52px grey h2 above an 88px promise competed) */
+#s7 .s7-promise{font-family:var(--mono);font-weight:700;font-size:var(--t-display);line-height:1.02;letter-spacing:-.04em;color:var(--ink);text-wrap:balance;max-width:18ch}
 #s7 .s7-promise strong{display:block;font-weight:700}
-#s7 .s7-both{font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+#s7 .s7-both{font-family:var(--mono);font-weight:700;font-size:var(--t-label);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
 #s7 .s7-copy .lede{color:var(--ink)}
-#s7 .s7-cta{padding-top:var(--s2)}
+#s7 .s7-cta{padding-top:var(--s6)}
+
+#s7 .s7-loop{position:relative;aspect-ratio:9/10;border-radius:var(--r-lg);overflow:hidden;background:#070707}
+#s7 .s7-loop video{width:100%;height:100%;object-fit:cover}
+
 @media (min-width:1024px){
-  #s7 .grid{row-gap:var(--s7)}
-  #s7 .s7-copy{grid-column:1/5;align-self:start}
-  #s7 .s7-main{grid-column:6/13}
+  #s7 .s7-g{row-gap:var(--s5);grid-template-rows:auto auto auto 1fr}
+  #s7 .s7-h,#s7 .s7-promise{grid-column:1/13}
+  #s7 .s7-promise{margin:var(--s4) 0 var(--s7)}   /* Space Mono's em box overhangs a 1.02 line box: room so h2 and promise never touch */
+  #s7 .s7-loop{grid-column:1/6;grid-row:3/5}
+  #s7 .s7-copy{grid-column:7/13;grid-row:3}
+  #s7 .s7-main{grid-column:7/13;grid-row:4}
 }
 
-/* the sheet: a plain hairline list on the paper, no card */
-#s7 .s7-rows{list-style:none;border-top:1px solid var(--ink)}
+/* the sheet (port of 21st "Checkbox Todo List"): an ink progress rail on top, every row ticked, the earlier state struck */
+#s7 .s7-rows{list-style:none;border-top:2px solid var(--ink)}
 #s7 .s7-rows li{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;column-gap:var(--s3);padding:var(--s4) 0;border-bottom:1px solid var(--paper-edge)}
-#s7 .s7-box{position:relative;width:22px;height:22px;border:1.5px solid var(--quiet-line);border-radius:6px}
-#s7 .s7-box::before{content:'';position:absolute;inset:-1.5px;border-radius:6px;background:var(--ink)}
-#s7 .s7-box svg{position:absolute;inset:-1.5px;width:22px;height:22px;fill:none;stroke:var(--canvas);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-#s7 .s7-box path{stroke-dasharray:1;stroke-dashoffset:0}
-#s7 .s7-step{font-size:var(--fs-lg);line-height:1.3;color:var(--ink)}
-#s7 .s7-was{position:relative;font-family:var(--mono);font-size:var(--fs-sm);line-height:1;color:var(--quiet)}
-#s7 .s7-was::after{content:'';position:absolute;left:-2px;right:-2px;top:52%;height:1.5px;background:var(--quiet);transform-origin:0 50%}
-#s7 .s7-done{position:relative;isolation:isolate;font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1;color:var(--ink);padding:var(--s1) var(--s3)}
-#s7 .s7-done::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:var(--r-lg);background:var(--canvas);border:1px solid var(--paper-edge);transform-origin:0 50%}
+#s7 .s7-box{width:22px;height:22px;border-radius:6px;background:var(--ink)}
+#s7 .s7-box svg{width:22px;height:22px;fill:none;stroke:var(--canvas);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+#s7 .s7-step{font-size:var(--t-lg);line-height:1.3;color:var(--ink)}
+#s7 .s7-was{font-size:var(--t-label);line-height:1;color:var(--quiet);text-decoration:line-through;text-decoration-thickness:1.5px}
+#s7 .s7-done{font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);min-width:5ch;text-align:right}
 
-/* motion: armed = frame 0 held (paused), go = play. Strokes and fills move; no text fades. */
-#s7 .s7-arm *,#s7 .s7-arm *::before,#s7 .s7-arm *::after{animation-play-state:paused!important}
-#s7 .s7-arm.s7-go *,#s7 .s7-arm.s7-go *::before,#s7 .s7-arm.s7-go *::after{animation-play-state:running!important}
-#s7 .s7-arm li{--t:calc(.1s + var(--i) * .28s)}
-#s7 .s7-arm .s7-box::before{animation:s7-fill .3s var(--ease) var(--t) both}
-#s7 .s7-arm .s7-box path{animation:s7-draw .3s var(--ease) calc(var(--t) + .12s) both}
-#s7 .s7-arm .s7-was::after{animation:s7-strike .3s var(--ease) var(--t) both}
-#s7 .s7-arm .s7-done::before{animation:s7-strike .3s var(--ease) calc(var(--t) + .12s) both}
-@keyframes s7-fill{from{transform:scale(.08)}to{transform:none}}
-@keyframes s7-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-@keyframes s7-strike{from{transform:scaleX(.08)}to{transform:none}}
-@media (prefers-reduced-motion:reduce){#s7 .s7-arm *,#s7 .s7-arm *::before,#s7 .s7-arm *::after{animation:none!important}}
+/* tablet: a full-width 9:10 frame is a screen and a half tall; cap it */
+@media (min-width:768px) and (max-width:1023px){#s7 .s7-loop{max-width:480px}}

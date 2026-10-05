@@ -1,86 +1,96 @@
-/* S6 Proof (bento port of lp-dir/b section 2): one mixed bento. Wide screenshot tiles bleed off the right/bottom edge,
-   number tiles beside them, Sami's video the tall tile, our own offer (300, 50, 10+) the one ink strip, then the
-   "Also built for" pills. Bars: ink = what they made, teal = what they paid us. JS arms each bar to fill once. */
-#s6 .s6-b{grid-template-columns:1fr;grid-template-areas:"hd" "ms" "mn" "sa" "syr" "rs" "rn" "sv" "wl"}
-#s6 .s6-b>*{grid-column:auto}
-#s6 .k{font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1.3;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet)}
-#s6 .tile.ink .k{color:var(--on-ink-q)}
-#s6 .t-head{grid-area:hd;display:flex;flex-direction:column;gap:var(--s3);padding:var(--s1) var(--s1) 10px}
-#s6 .t-head h2{max-width:20ch;font-size:clamp(30px,4.2vw,52px);line-height:1.04;letter-spacing:-.03em}
-#s6 .t-head .lede{max-width:52ch;color:var(--body)}
-#s6 .t-med-shot{grid-area:ms}#s6 .t-med-num{grid-area:mn}#s6 .t-sami{grid-area:sa}#s6 .t-syr{grid-area:syr}
-#s6 .t-rum-shot{grid-area:rs}#s6 .t-rum-num{grid-area:rn}#s6 .t-sieve{grid-area:sv}#s6 .t-wall{grid-area:wl}
+/* S6 Proof (v5): ONE fixed case card per client, the same structure three times so the eye can compare:
+   client name, the screenshot at a constant 16:10, then one "Built / Paid us / Made" row on a shared baseline,
+   a ratio line (ink share = what they paid us, against what they made), the context note.
+   Sami's video is a small inset inside the Scale Your Results screenshot. Then our own 300 > 50 > 10+ strip on the
+   ground between hairlines, then "Also built for" as plain names. Teal only on 10+. Cards allowed here (brief). */
+#s6 .s6-hd{display:flex;flex-direction:column;gap:var(--s4);margin-bottom:var(--s7)}
+#s6 .s6-hd h2{font-size:var(--t-h2)}
+#s6 .s6-hd .lede{color:var(--body)}
 
-#s6 .cap{font-size:13px;line-height:1.4;color:var(--quiet)}
-/* screenshot tiles: caption top-left, the page bleeds off the right and bottom edges */
-#s6 .shot{margin:0;padding-bottom:0;background:var(--paper);border-color:var(--paper-edge);display:flex;flex-direction:column}
-#s6 .shot .cap{margin-bottom:18px}
+#s6 .k,#s6 .facts dt{font-family:var(--mono);font-weight:400;font-size:var(--t-label);line-height:1.3;letter-spacing:.06em;text-transform:uppercase;color:var(--quiet)}
+#s6 .cap,#s6 .c{font-size:var(--t-label);line-height:1.45;color:var(--quiet)}
 
-#s6 .money{display:flex;flex-direction:column}
-#s6 .nm{font-size:20px;line-height:1.2;margin-bottom:var(--s3)}
-#s6 .v{color:var(--ink);margin-top:var(--s1)}
-#s6 .pair{display:flex;flex-wrap:wrap;gap:var(--s4) 28px;align-items:flex-end;margin-top:28px}
-#s6 .n{font-family:var(--mono);font-weight:700;color:var(--ink);font-size:28px;line-height:1;letter-spacing:-.03em;margin-top:6px;white-space:nowrap}
-#s6 .n.big{font-size:clamp(44px,5vw,64px);line-height:1.2;letter-spacing:-.05em;margin-top:var(--s3)}
-#s6 .bar{display:block;height:6px;border-radius:3px;background:var(--ink);margin-top:var(--s4);position:relative;overflow:hidden;transform-origin:0 50%}
-#s6 .bar::after{content:"";position:absolute;inset:0 auto 0 0;width:max(4px,calc(var(--w) * 100%));background:var(--accent);transform-origin:0 50%}
-#s6 .c{font-size:var(--fs-sm);color:var(--quiet);margin-top:10px}
-/* motion: an armed bar starts at .08 and fills (what they made), then the teal share grows in */
-#s6 .money.arm .bar,#s6 .money.arm .bar::after{transform:scaleX(.08)}
-#s6 .money.go .bar{animation:s6-fill 1100ms var(--ease) both}
-#s6 .money.go .bar::after{animation:s6-fill 700ms var(--ease) 900ms both}
-@keyframes s6-fill{from{transform:scaleX(.08)}to{transform:none}}
+/* the case card */
+#s6 .s6-cases{display:grid;gap:var(--s5)}
+#s6 .case{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"nm" "shot" "facts" "bar" "c";
+  border:1px solid var(--line);border-radius:var(--r-lg);background:var(--canvas);padding:var(--s5) var(--s4) var(--s5)}
+#s6 .nm{grid-area:nm;font-size:var(--t-h3);line-height:1.25;margin-bottom:var(--s4)}
+#s6 .case-shot{grid-area:shot;margin:0;min-width:0}
+#s6 .frame{position:relative}
+#s6 .frame>img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:50% 0;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface)}
+#s6 .cap{margin-top:var(--s2)}
 
-/* Sami: the tall ink tile. With JS the box is the play button (.tap) until the video has its own controls */
-#s6 .t-sami{margin:0;padding:0;background:var(--ink);border-color:var(--ink);display:flex;flex-direction:column}
-#s6 .vid-box{position:relative;flex:1;min-height:0;aspect-ratio:9/16}
+/* Built / Paid us / Made: one row of three, values on a shared (last) baseline, hairline between cells.
+   Phone: Built runs across, the two money cells share the row under it. */
+#s6 .facts{grid-area:facts;display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:last baseline;
+  margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--line)}
+#s6 .facts>div{display:contents}
+#s6 .facts dt{grid-row:1;margin-bottom:var(--s3)}
+#s6 .facts dd{grid-row:2}
+#s6 .facts>div:nth-child(1)>*{grid-column:1;padding-right:var(--s2)}
+#s6 .facts>div:nth-child(2)>*{grid-column:2}
+#s6 .facts>div:nth-child(3)>*{grid-column:3}
+#s6 .facts>div:nth-child(n+2)>*{padding-left:var(--s5);margin-left:var(--s5);border-left:1px solid var(--line)}
+@media (max-width:767px){
+  #s6 .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #s6 .facts>div:nth-child(1)>*{grid-column:1/-1;padding-right:0}
+  #s6 .facts>div:nth-child(1)>dd{margin-bottom:var(--s4)}
+  #s6 .facts>div:nth-child(2)>*{grid-column:1;padding-left:0;margin-left:0;border-left:0}
+  #s6 .facts>div:nth-child(3)>*{grid-column:2;margin-left:0}
+  #s6 .facts>div:nth-child(n+2)>dt{grid-row:3}
+  #s6 .facts>div:nth-child(n+2)>dd{grid-row:4}
+}
+#s6 .v{font-size:var(--t-body);line-height:1.45;color:var(--ink)}
+#s6 .n{font-family:var(--mono);font-weight:700;font-size:var(--t-h3);line-height:1;letter-spacing:-.02em;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+#s6 .n.big{font-size:var(--t-num);line-height:1.2;letter-spacing:-.04em}/* 1.2: Space Mono's em box would otherwise reach the label above */
+
+/* ratio line: the track is what they made, the ink share is what they paid us. JS grows the share once in view. */
+#s6 .bar{grid-area:bar;display:block;height:4px;border-radius:2px;background:var(--line);margin-top:var(--s4);position:relative;overflow:hidden}
+#s6 .bar::after{content:"";position:absolute;inset:0 auto 0 0;width:max(4px,calc(var(--w) * 100%));background:var(--ink);transform-origin:0 50%}
+#s6 .c{grid-area:c;margin-top:var(--s2)}
+#s6 .case.arm .bar::after{transform:scaleX(0)}
+#s6 .case.go .bar::after{animation:s6-fill 900ms var(--ease) both}
+@keyframes s6-fill{from{transform:scaleX(0)}to{transform:none}}
+
+/* Sami: phone = under the screenshot, half width; tablet up = an inset in the screenshot's corner.
+   With JS the box is the play button (.tap) until the video has its own controls. */
+#s6 .vid-box{position:relative;width:40%;margin-top:var(--s3);aspect-ratio:9/16;border-radius:var(--r-sm);overflow:hidden;background:var(--ink)}
 #s6 .vid-box video{width:100%;height:100%;object-fit:cover}
 #s6 .vid-box.tap{cursor:pointer}
-#s6 .vid-box.tap::after{content:"";position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;pointer-events:none;box-shadow:0 10px 30px rgba(0,0,0,.35);
-  background:var(--canvas) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z' fill='%23121212'/%3E%3C/svg%3E") 54% 50%/30px no-repeat;
+#s6 .vid-box.tap::after{content:"";position:absolute;inset:0;margin:auto;width:52px;height:52px;border-radius:50%;pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.3);
+  background:var(--canvas) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z' fill='%23121212'/%3E%3C/svg%3E") 55% 50%/22px no-repeat;
   transition:transform var(--d-micro) var(--ease)}
 #s6 .vid-box.tap:hover::after{transform:scale(1.06)}
 #s6 .vid-box.on::after{display:none}
-#s6 .t-sami .cap{position:absolute;left:var(--s3);bottom:var(--s3);background:var(--canvas);color:var(--ink);padding:var(--s2) var(--s3);border-radius:12px}
-#s6 .vid-box.on + .cap{display:none}
 
-#s6 .t-syr{display:grid;gap:20px;padding-bottom:0}
-#s6 .syr-tx{display:flex;flex-direction:column}
-#s6 .bleed.side{margin:0 calc(var(--tile-pad) * -1) 0 0;max-height:280px;overflow:hidden}
+/* our own offer: 300 > 50 > 10+ on the ground, hairline above and below */
+#s6 .s6-sieve{display:flex;flex-direction:column;gap:var(--s4);margin-top:var(--s8);padding-block:var(--s6);border-block:1px solid var(--line)}
+#s6 .fr{display:flex;flex-direction:column;gap:var(--s2)}
+#s6 .fr p{display:flex;align-items:baseline;gap:var(--s3);font-size:var(--t-body);color:var(--body)}
+#s6 .fr b{font-family:var(--mono);font-weight:700;font-size:var(--t-num);line-height:1.1;letter-spacing:-.04em;color:var(--ink);min-width:3.2ch}
+#s6 .fr b.acc{color:var(--accent-ink)}
+#s6 .ar{display:block;width:1px;height:var(--s5);background:var(--quiet-line);margin-left:1.2ch;position:relative}
+#s6 .ar::after{content:"";position:absolute;left:-4px;bottom:0;width:8px;height:8px;border-right:1px solid var(--quiet-line);border-bottom:1px solid var(--quiet-line);transform:rotate(45deg)}
 
-#s6 .t-sieve{display:flex;flex-direction:column;gap:22px}
-#s6 .fr{display:flex;flex-direction:column;gap:6px}
-#s6 .fr p{color:var(--on-ink-q);font-size:15px;display:flex;align-items:baseline;gap:var(--s3)}
-#s6 .fr b{font-family:var(--mono);font-weight:700;color:var(--on-ink);font-size:clamp(40px,6vw,72px);line-height:1.05;letter-spacing:-.04em;min-width:3.1ch}
-#s6 .fr b.acc{color:var(--accent)}
-#s6 .ar{display:block;width:1px;height:18px;background:#4A4A4A;margin-left:1.2ch}
+/* also built for: plain names, a quiet slash AFTER each (a wrapped line never starts on a slash) */
+#s6 .s6-also{display:flex;flex-direction:column;gap:var(--s2);margin-top:var(--s6);font-size:var(--t-body);line-height:1.6;color:var(--ink)}
+#s6 .s6-also .nms span{white-space:nowrap}
+#s6 .s6-also .nms span:not(:last-child)::after{content:"/";color:var(--low);margin-inline:var(--s3)}
 
-#s6 .t-wall{list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2)}
-#s6 .t-wall .k{width:100%;margin-bottom:6px}
-#s6 .t-wall li:not(.k){font-size:var(--fs-sm);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 14px}
-
-@media (min-width:640px){
-  #s6 .s6-b{grid-template-columns:1fr 1fr;grid-template-areas:"hd hd" "ms ms" "mn sa" "syr sa" "rs rs" "rn sv" "wl wl"}
-  #s6 .t-syr .bleed.side{max-height:220px}
-}
-@media (min-width:1024px){
-  #s6 .s6-b{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-areas:
-    "hd hd hd hd hd hd hd hd sa sa sa sa"
-    "ms ms ms ms ms mn mn mn sa sa sa sa"
-    "syr syr syr syr syr syr syr syr sa sa sa sa"
-    "rs rs rs rs rs rs rs rn rn rn rn rn"
-    "sv sv sv sv sv sv sv sv sv sv sv sv"
-    "wl wl wl wl wl wl wl wl wl wl wl wl"}
-  #s6 .t-head{justify-content:flex-end;padding:var(--s2) var(--s2) 20px var(--s1)}
-  #s6 .vid-box{aspect-ratio:auto;height:100%}
-  #s6 .vid-box video{position:absolute;inset:0}
-  #s6 .t-syr{grid-template-columns:1.1fr 1fr}
-  #s6 .syr-tx{padding-bottom:var(--tile-pad)}
-  #s6 .t-syr .bleed.side{max-height:none;align-self:end;margin-top:var(--s2)}
-  #s6 .t-sieve{flex-direction:row;align-items:center;justify-content:space-between;padding:clamp(28px,3vw,44px)}
+@media (min-width:768px){
+  #s6 .case{padding:var(--s6)}
+  #s6 .vid-box{position:absolute;right:var(--s3);bottom:var(--s3);top:var(--s3);width:auto;margin:0;
+    border:3px solid var(--canvas);box-shadow:0 4px 12px -6px rgba(18,18,18,.35)}
   #s6 .fr{flex-direction:row;align-items:center;gap:clamp(16px,2.4vw,40px)}
-  #s6 .fr p{flex-direction:column;gap:2px}
+  #s6 .fr p{flex-direction:column;gap:var(--s1)}
   #s6 .ar{width:clamp(32px,5vw,80px);height:1px;margin:0;position:relative}
-  #s6 .ar::after{content:"";position:absolute;right:0;top:-4px;width:8px;height:8px;border-top:1px solid #6A6A6A;border-right:1px solid #6A6A6A;transform:rotate(45deg)}
-  #s6 .t-wall .k{width:auto;margin:0 10px 0 0}
+  #s6 .ar::after{left:auto;bottom:auto;right:0;top:-4px;border-bottom:0;border-top:1px solid var(--quiet-line)}
+  #s6 .s6-sieve{flex-direction:row;align-items:center;justify-content:space-between}
+}
+
+@media (min-width:1024px){
+  /* screenshot left, name + the money row right; the row sits on the screenshot's bottom edge */
+  #s6 .case{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s6);
+    grid-template-areas:"shot nm" "shot ." "shot facts" "shot bar" "shot c";grid-template-rows:auto 1fr auto auto auto}
+  #s6 .facts{margin-top:0}
 }

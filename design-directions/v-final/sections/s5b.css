@@ -1,40 +1,50 @@
-/* S5B Sprint vs Accelerator (bento port of lp-dir/b section 3): paper heading tile, Sprint white, Accelerator the ink
-   tile (teal dot = the section's one accent), guarantee + button tile under both. From 640px the two program tiles share
-   subgrid rows so they read as a table. "10" seats outlined, not brick: brick is used once per page and s5 owns it. */
-#s5b .s5b-b{grid-template-columns:1fr}
-#s5b .s5b-b>*{grid-column:auto}
-#s5b .t-cmp-head{display:flex;flex-direction:column;gap:var(--s3)}
-#s5b .t-cmp-head h2{font-size:clamp(36px,5vw,64px);line-height:1.04;letter-spacing:-.03em}
-#s5b .prog{display:flex;flex-direction:column}
-#s5b .tag{font-size:22px;letter-spacing:-.02em;padding-bottom:var(--s4)}
-#s5b .prog dl{display:contents}
-#s5b .prog dl>div{border-top:1px solid var(--line);padding:14px 0;display:flex;flex-direction:column;gap:3px}
-#s5b .prog dt{font-size:var(--fs-label);letter-spacing:.06em;text-transform:uppercase;color:var(--quiet);font-weight:600}
-#s5b .prog dd{color:var(--ink);font-size:16px;line-height:1.4}
-#s5b .t-acc dl>div{border-top-color:#2E2E2E}
-#s5b .t-acc dt{color:var(--on-ink-q)}
-#s5b .t-acc dd{color:var(--on-ink)}
-#s5b .t-acc .tag{display:flex;align-items:center;gap:10px}
-#s5b .t-acc .tag::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent)}
-#s5b .seats{display:inline-block;background:transparent;color:var(--on-ink);border:1px solid #4A4A4A;font-family:var(--mono);font-weight:700;font-size:18px;line-height:1;padding:7px 12px;border-radius:var(--r-sm)}
-#s5b .t-guar{display:flex;flex-direction:column;gap:var(--s3);align-items:flex-start}
-#s5b .k{font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1.3;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet)}
-#s5b .g{font-family:var(--mono);font-weight:700;color:var(--ink);font-size:clamp(20px,1.8vw,24px);line-height:1.25;letter-spacing:-.02em;max-width:30ch}
-#s5b .t-guar .btn{white-space:nowrap}
-@media (max-width:639px){#s5b .t-guar .btn{width:100%}}
+/* S5B Sprint vs Accelerator: a real comparison table (ported from 21st.dev / Hirael comparison-02, see s5b.html).
+   Row labels in the first column, Sprint plain, the Accelerator column lifted on paper with its own hairline frame,
+   rounded at top and bottom, its header a step taller. Teal dot on "Accelerator" = the section's one accent.
+   "10" seats is plain ink mono: brick belongs to s5. Phone (<640): each row's label spans the width above its two
+   values, the paper column stays continuous behind them. */
+#s5b .s5b-hd{display:flex;flex-direction:column;gap:var(--s3);margin-bottom:var(--s7)}
+#s5b .s5b-t{--acc-bg:var(--paper);--acc-edge:var(--paper-edge);width:100%;border-collapse:separate;border-spacing:0;text-align:left}
+#s5b .s5b-t :is(th,td){padding:var(--s4) var(--s5);vertical-align:top;font-size:var(--t-body);line-height:1.45;font-weight:400}
+#s5b tbody :is(th,td){border-top:1px solid var(--line)}
+#s5b tbody th{color:var(--quiet)}
+#s5b tbody td{color:var(--ink)}
+#s5b .s5b-t thead th{padding-top:var(--s5);padding-bottom:var(--s4);vertical-align:bottom}
+#s5b .tag{font-size:var(--t-h3);line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
+/* the lifted column */
+#s5b .t-acc{background:var(--acc-bg);border-left:1px solid var(--acc-edge);border-right:1px solid var(--acc-edge)}
+#s5b tbody td.t-acc{border-top-color:var(--acc-edge)}
+#s5b thead th.t-acc{border-top:1px solid var(--acc-edge);border-radius:var(--r) var(--r) 0 0;padding-top:var(--s7)}
+#s5b tbody tr:last-child td.t-acc{border-bottom:1px solid var(--acc-edge);border-radius:0 0 var(--r) var(--r);padding-bottom:var(--s5)}
+#s5b .t-acc .tag{display:flex;align-items:center;gap:var(--s2)}
+#s5b .t-acc .tag::before{content:"";flex:none;width:var(--s3);height:var(--s3);border-radius:50%;background:var(--accent)}
+#s5b .seats{font-family:var(--mono);font-weight:700;font-size:var(--t-h3);line-height:1;color:var(--ink)}
+/* guarantee + the one button, on the ground under the table */
+#s5b .t-guar{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s3);margin-top:var(--s7);padding-top:var(--s5);border-top:1px solid var(--ink)}
+#s5b .g{font-family:var(--sans);font-weight:600;font-size:var(--t-lg);line-height:1.4;color:var(--ink);max-width:36ch}
+#s5b .t-guar .btn{margin-top:var(--s2)}
 
+@media (max-width:639px){
+  #s5b .s5b-t,#s5b .s5b-t :is(thead,tbody){display:block}
+  #s5b .s5b-t tr{display:grid;grid-template-columns:1fr 1fr}
+  #s5b .s5b-blank{display:none}
+  #s5b .s5b-t :is(th,td){padding:var(--s3) var(--s4)}
+  #s5b thead th{padding-top:var(--s4)}
+  #s5b thead th.t-acc{padding-top:var(--s6)}
+  /* the row label spans both columns; the paper column keeps running behind its right half */
+  #s5b .s5b-t tbody th{grid-column:1/-1;padding-bottom:0;font-size:var(--t-label);
+    background:linear-gradient(90deg,transparent 50%,var(--acc-edge) 50%,var(--acc-edge) calc(50% + 1px),var(--acc-bg) calc(50% + 1px));
+    background-origin:border-box;border-right:1px solid var(--acc-edge)}
+  #s5b .s5b-t tbody td{border-top:0;padding-top:var(--s1)}
+  #s5b .t-guar .btn{width:100%}
+}
 @media (min-width:640px){
-  #s5b .s5b-b{grid-template-columns:1fr 1fr;grid-template-rows:auto repeat(9,auto) auto}
-  #s5b .t-cmp-head{grid-column:1 / -1;grid-row:1}
-  #s5b .prog{display:grid;grid-template-rows:subgrid;row-gap:0;grid-row:2 / span 9}
-  #s5b .t-sprint{grid-column:1}#s5b .t-acc{grid-column:2}
-  #s5b .t-guar{grid-column:1 / -1;grid-row:11;flex-direction:row;align-items:center;justify-content:space-between}
+  #s5b .s5b-blank{width:26%}
+  #s5b .t-sprint,#s5b .t-acc{width:37%}
 }
 @media (min-width:1024px){
-  #s5b .s5b-b{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(9,auto) auto}
-  #s5b .t-cmp-head{grid-column:1 / span 4;grid-row:1 / span 10;justify-content:flex-start;padding:clamp(28px,3vw,44px)}
-  #s5b .t-cmp-head h2{font-size:clamp(40px,4.2vw,60px);line-height:1.02}
-  #s5b .t-sprint{grid-column:5 / span 4}#s5b .t-acc{grid-column:9 / span 4}
-  #s5b .t-sprint,#s5b .t-acc{grid-row:1 / span 9}
-  #s5b .t-guar{grid-column:5 / -1;grid-row:10}
+  #s5b .t-guar{display:grid;grid-template-columns:26% minmax(0,1fr) auto;align-items:center;column-gap:0}
+  #s5b .t-guar .k{padding-left:var(--s5)}
+  #s5b .g{padding-left:var(--s5)}
+  #s5b .t-guar .btn{margin:0}
 }

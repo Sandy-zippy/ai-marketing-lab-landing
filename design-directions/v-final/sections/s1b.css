@@ -1,25 +1,37 @@
-/* S1B Authority (bento port of lp-dir/b section 1): the teaching photo is the 2x3 anchor, the story a paper tile,
-   each fact its own tile, $220,000 the one ink tile. Teal only on 100+. Static: no motion. */
-#s1b .s1b-b{grid-template-columns:1fr 1fr;grid-template-areas:"story story" "photo photo" "f17 f100" "f220 f220"}
-#s1b .s1b-b>*{grid-column:auto}
-#s1b .facts{display:contents}
-#s1b .t-story{grid-area:story;display:flex;flex-direction:column;gap:var(--s3)}
-#s1b .t-story h2{font-size:clamp(36px,5.4vw,68px);line-height:1.04;letter-spacing:-.03em;margin:var(--s1) 0 var(--s2)}
-#s1b .t-story .lede{color:var(--ink)}
-#s1b .t-story p:last-child{max-width:52ch;color:var(--body)}
-#s1b .t-photo{grid-area:photo;margin:0;aspect-ratio:1/1}
-#s1b .t-photo img{width:100%;height:100%;object-fit:cover}
-#s1b .tile-chip{right:auto;width:fit-content}
-#s1b .t-f{display:flex;flex-direction:column;justify-content:space-between;gap:28px}
-#s1b .t-2017{grid-area:f17}#s1b .t-100{grid-area:f100}#s1b .t-220{grid-area:f220}
-#s1b .t-f .num{font-size:clamp(34px,4vw,52px);line-height:1;letter-spacing:-.04em}
-#s1b .t-f dd{font-size:15px;line-height:1.4;max-width:24ch;color:var(--body)}
-#s1b .t-220 .num{font-size:clamp(44px,6vw,84px)}
-#s1b .t-220 dd{color:var(--on-ink)}
+/* S1B Who you'll be talking to (v5): no cards. The teaching photo is the large image and bleeds to the viewport's
+   right edge on desktop (both edges on phone); the story sits beside it on the white ground, starting on the wrap's
+   left edge; the three facts are ONE hairline-divided row of numerals (var(--t-num)) with Inter captions.
+   Teal only on 100+. Static: no motion. */
+#s1b .s1b-g{display:grid;grid-template-columns:minmax(0,1fr);row-gap:var(--s7)}
+
+#s1b .s1b-photo{margin:0 calc(var(--gutter) * -1)}
+#s1b .s1b-photo img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:50% 40%}
+#s1b .s1b-photo figcaption{font-size:var(--t-label);line-height:1.4;color:var(--quiet);margin-top:var(--s3);padding-inline:var(--gutter)}
+
+#s1b .s1b-story{display:flex;flex-direction:column;gap:var(--s4);max-width:60ch}
+#s1b .s1b-story h2{font-size:var(--t-h2);margin-bottom:var(--s1)}
+#s1b .s1b-story .lede{color:var(--ink)}
+#s1b .s1b-story p:last-child{color:var(--body)}
+
+/* the facts row: phone = three stacked lines, hairline between; tablet up = three columns, hairline between.
+   line-height 1.2 + a 12px gap: Space Mono's em box runs ~.24em past a 1.0 line box and would touch the caption. */
+#s1b .s1b-facts{display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--line)}
+#s1b .s1b-facts>div{display:grid;gap:var(--s3);padding-block:var(--s5);border-bottom:1px solid var(--line)}
+#s1b .s1b-facts dt{font-size:var(--t-num);line-height:1.2;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+#s1b .s1b-facts dd{font-size:var(--t-body);line-height:1.5;color:var(--body);max-width:28ch}
+
+@media (min-width:768px){
+  #s1b .s1b-facts{grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
+  #s1b .s1b-facts>div{border-bottom:0;padding:var(--s6) var(--s5) var(--s6) 0;align-content:start}
+  #s1b .s1b-facts>div+div{border-left:1px solid var(--line);padding-left:var(--s5)}
+}
+
 @media (min-width:1024px){
-  #s1b .s1b-b{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto auto auto;
-    grid-template-areas:"photo photo story story" "photo photo f17 f100" "photo photo f220 f220"}
-  #s1b .t-photo{aspect-ratio:auto;min-height:100%}
-  #s1b .t-photo img{position:absolute;inset:0}
-  #s1b .t-story{padding:clamp(28px,3vw,44px)}
+  /* story cols 1-5 on the wrap edge; photo cols 7-12, bleeding out to the viewport's right edge */
+  #s1b .s1b-g{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col-gap);row-gap:var(--s8);align-items:center}
+  #s1b .s1b-story{grid-column:1/6;grid-row:1}
+  #s1b .s1b-photo{grid-column:7/13;grid-row:1;margin:0 calc((max(0px, (100vw - var(--max)) / 2 - var(--gutter)) + var(--gutter)) * -1) 0 0}
+  #s1b .s1b-photo figcaption{padding-inline:0}
+  #s1b .s1b-facts{grid-column:1/-1}
+  #s1b .s1b-facts>div{padding-block:var(--s7)}
 }

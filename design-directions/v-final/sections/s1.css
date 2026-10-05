@@ -1,23 +1,28 @@
-/* s1 bento: ONE wide ink tile, the page's first ink moment. Sandy's print sits flush on one half (the paper print
-   against the ink reads as a ticket torn in two), the ask on the other: heading, three lines, white button.
-   Phone: print on top (face kept), ask below. 768+: print left 5/12, ask right. Static: nothing to pause. */
-#s1 .s1-t{display:grid;grid-template-columns:minmax(0,1fr)}
-#s1 .s1-ph{position:relative;margin:0;background:var(--paper);aspect-ratio:16/10;overflow:hidden}   /* phone: a band, not a full screen of face before the ask */
-#s1 .s1-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
-#s1 .s1-tx{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s5);padding:var(--s6) var(--tile-pad) var(--tile-pad)}
-#s1 h2{font-size:clamp(32px,5vw,64px);line-height:1.04;letter-spacing:-.03em;max-width:13ch}
+/* s1 book the call (ported from 21st.dev cta-section-with-gallery, see s1.html). The section's one ink moment:
+   one ink panel, the ask on the left (tagline label, h2, three lines, white button), the paper print flush right.
+   Phone: the print is a short band above the ask so the face lands first and the button stays in the first screen. */
+#s1{border-top:0}
+#s1 .s1-panel{display:grid;grid-template-columns:minmax(0,1fr);background:var(--ink);color:var(--on-ink);border-radius:var(--tile-r);overflow:hidden}
+#s1 .s1-ph{order:-1;margin:0;background:var(--paper);aspect-ratio:16/10;overflow:hidden}
+#s1 .s1-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+#s1 .s1-tx{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s5);padding:var(--s6) var(--s5) var(--s7)}
+#s1 .s1-tag{color:var(--on-ink-q)}
+#s1 h2{color:var(--on-ink);max-width:14ch}
 #s1 .s1-ln{display:grid;gap:var(--s2)}
-#s1 .s1-ln p{font-size:var(--fs-lg);line-height:1.45;color:var(--on-ink-q);max-width:40ch}
+#s1 .s1-ln p{font-size:var(--t-lg);line-height:1.5;color:var(--on-ink-q);max-width:40ch}
 #s1 .s1-ln p:first-child{color:var(--on-ink)}
-#s1 .s1-pr{font-weight:700;color:var(--accent)}
-#s1 .btn{background:var(--canvas);color:var(--ink);margin-top:var(--s2)}
+#s1 .s1-pr{font-weight:600;color:var(--accent)}
+#s1 .btn{background:var(--canvas);color:var(--ink);margin-top:var(--s3)}
 #s1 .btn:hover{background:var(--paper)}
 #s1 .btn:focus-visible{outline-color:var(--accent);outline-offset:4px}
 
 @media (min-width:768px){
-  #s1 .s1-t{grid-template-columns:5fr 7fr;min-height:440px}
-  #s1 .s1-ph{aspect-ratio:auto}
+  #s1 .s1-panel{grid-template-columns:7fr 5fr}
+  #s1 .s1-ph{order:0;aspect-ratio:auto;position:relative;min-height:100%}
   #s1 .s1-ph img{position:absolute;inset:0}
-  #s1 .s1-tx{justify-content:center;padding:var(--s7) clamp(32px,5vw,72px)}
+  #s1 .s1-tx{justify-content:center;padding:var(--s8) var(--s7)}
 }
-@media (min-width:1024px){#s1 .s1-t{min-height:520px}}
+@media (min-width:1024px){
+  #s1 .s1-panel{min-height:520px}
+  #s1 .s1-tx{padding:var(--s8) var(--s9) var(--s8) var(--s8)}
+}

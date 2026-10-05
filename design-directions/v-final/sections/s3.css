@@ -1,180 +1,36 @@
-/* S3 the system, as a bento (5 Oct): the real terminal is a big flush tile (its dark panel IS the section's ink
-   moment) spanning 8 cols beside a tall paper heading tile; the station board is a wide white tile below.
-   Phone order: heading, terminal, board.
-   Board base CSS is the FINISHED frame: every station drawn in ink and ticked teal, the track teal, the client past
-   the YES stamp, Claude Code parked at the end of the run.
-   .s3-arm (JS, only when the board is below the fold) greys the track, hides the 12 tick discs and check strokes,
-   and moves the two decorative tokens (Claude Code, the client) to their start.
-   Phone (default): a vertical spine. 900px and up: a serpentine over 12 columns.
-   Teal = the track and the ticks (the system working); stations and labels are ink.
-   Layers: track boxes (auto) < trace + Claude Code (1) < stations (2) < YES stamp (3), so the vehicle runs UNDER
-   each station it passes and never hides one. */
+/* S3 the system (v5, 5 Oct): no tiles, no station diagram. White ground; the system 3D loop in one dark 9:10 frame is
+   the visual; the real Claude Code terminal (a product window, not a card) overlaps the loop's lower right corner on
+   desktop (heading left on the wrap edge, loop right) with a white ring cut between them. Phone: heading, loop, terminal.
+   Teal = the one accent word in the h2 (the loop and terminal carry their own teal). */
+#s3 .s3-g{row-gap:var(--s6)}
+#s3 .s3-hd>*+*{margin-top:var(--s4)}
 
-/* ---------- bento ---------- */
-#s3 .s3-hd{display:flex;flex-direction:column;gap:var(--s4)}
-#s3 .s3-hd h2{font-size:clamp(32px,4vw,52px);line-height:1.04;letter-spacing:-.03em;max-width:12ch}
-#s3 .s3-term{order:1}
-#s3 .s3-bt{order:2;padding-bottom:var(--s7)}
+/* loop frame: the section's ink moment */
+#s3 .s3-loop{position:relative;aspect-ratio:9/10;border-radius:var(--r-lg);overflow:hidden;background:#0B1414}
+#s3 .s3-loop video{width:100%;height:100%;object-fit:cover}
+/* polish: the terminal overlaps the loop's lower left corner, so its pause control lives top right, clear of it */
+#s3 .s3-loop .mo-pause{top:var(--s3);bottom:auto}
+
 @media (min-width:1024px){
-  #s3 .s3-term{order:0;grid-column:1/9;grid-row:1}
-  #s3 .s3-hd{grid-column:9/13;grid-row:1;justify-content:space-between;padding:clamp(28px,3vw,44px)}
-  #s3 .s3-bt{grid-row:2}
-}
-
-/* ---------- board geometry: phone ---------- */
-#s3 .s3-board{--tw:3px;--rail:24px;--aw:112px;--ly:calc(var(--aw) * .5375);--lab:28px;--row:78px;--gate:168px;--park:64px;--r:12px;
-  --sx:calc(var(--rail) + var(--aw) / 2);                                   /* the spine's x */
-  --g0:calc(var(--lab) + var(--row) * 6);                                   /* gate row top */
-  --d0:calc(var(--lab) * 2 + var(--row) * 6 + var(--gate));                 /* Downstream lane top */
-  --ry:calc(var(--d0) + var(--row) * 5 + var(--ly));                        /* Repeat buying's plinth y */
-  position:relative;display:grid;grid-template-columns:var(--rail) var(--aw) minmax(0,1fr);
-  grid-template-rows:var(--lab) calc(var(--row) * 6) var(--gate) var(--lab) calc(var(--row) * 6) var(--park);
-  margin-left:calc(var(--rail) * -1 + var(--s2))}                          /* phone: the spine's left rail sits in the tile padding */
-#s3 .s3-zl{grid-column:2/-1;align-self:center;padding-left:calc(var(--aw) + var(--s2));font-family:var(--mono);font-size:var(--fs-label);line-height:1.3;
-  text-transform:uppercase;color:var(--ink)}
-#s3 .s3-zl-up{grid-row:1}
-#s3 .s3-zl-down{grid-row:4}
-#s3 .s3-lane{list-style:none;position:relative;z-index:2;grid-column:2/-1;display:grid;grid-auto-rows:var(--row)}
-#s3 .s3-up{grid-row:2}
-#s3 .s3-down{grid-row:5}
-#s3 .s3-st{display:grid;grid-template-columns:var(--aw) minmax(0,1fr);align-items:start;min-width:0}
-#s3 .s3-art{display:block;width:var(--aw);height:calc(var(--aw) * .75);transform-origin:50% 100%}
-#s3 .s3-art svg{width:100%;height:100%;overflow:visible;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-#s3 .s3-l{align-self:center;padding-left:var(--s2);font-size:var(--fs-lg);font-weight:600;line-height:1.25;color:var(--ink)}
-
-/* the track: plain boxes with borders, so the finished frame needs no JS. Arrowheads are 12px filled triangles. */
-#s3 .s3-w{position:absolute;display:block;pointer-events:none;border:0 solid var(--accent);transition:border-color var(--d-ui) var(--ease)}
-#s3 .s3-w::before,#s3 .s3-w::after{content:"";position:absolute;width:14px;height:14px;background:var(--accent);
-  clip-path:polygon(0 0,100% 0,50% 100%);transition:background-color var(--d-ui) var(--ease)}
-#s3 .s3-w::before{display:none}
-#s3 .s3-u,#s3 .s3-t1,#s3 .s3-m,#s3 .s3-t3,#s3 .s3-d{display:none}
-/* the spine runs on 24px past Repeat buying: Claude Code parks on that stub */
-#s3 .s3-sp{left:calc(var(--sx) - var(--tw) / 2);top:calc(var(--lab) + var(--ly));border-left-width:var(--tw);height:calc(var(--lab) + var(--row) * 11 + var(--gate) + 24px)}
-#s3 .s3-sp::after{left:-8.5px;top:calc(var(--g0) + 80px - var(--lab) - var(--ly))}
-/* buys again: out of Repeat buying to the right edge, up, and back left into Delivery, bracketing the last three steps */
-#s3 .s3-lp{left:calc(var(--rail) + var(--aw));right:calc(var(--s3) - var(--tw) / 2);
-  top:calc(var(--d0) + var(--row) * 3 + var(--ly) - var(--tw) / 2);height:calc(var(--row) * 2 + var(--tw));
-  border-width:var(--tw) var(--tw) var(--tw) 0;border-radius:0 var(--r) var(--r) 0}
-#s3 .s3-lp::after{left:-12px;top:-8.5px;transform:rotate(90deg)}
-#s3 .s3-lp::before{display:block;left:calc(var(--aw) / -2);bottom:calc(-1 * var(--tw));width:calc(var(--aw) / 2);height:var(--tw);clip-path:none}
-#s3 .s3-again{position:absolute;z-index:2;right:0;top:calc(var(--ry) + 14px);font-family:var(--mono);font-weight:700;font-size:var(--fs-sm);line-height:1;
-  padding:var(--s1) var(--s3);background:var(--canvas);border:2px solid var(--accent);border-radius:999px;color:var(--ink);white-space:nowrap}
-
-/* the Yes gate: a stamp on the track; the client walks out from under it */
-#s3 .s3-yes{position:absolute;z-index:3;left:var(--sx);top:calc(var(--g0) + 112px);translate:-50% -50%;rotate:-4deg;
-  font-family:var(--mono);font-weight:700;font-size:var(--fs-lg);line-height:1;padding:var(--s2) var(--s4);
-  border:2px solid var(--accent);border-radius:var(--r-sm);background:var(--canvas);color:var(--ink);letter-spacing:.06em;text-transform:uppercase}
-#s3 .s3-who{position:absolute;z-index:2;left:var(--sx);top:calc(var(--g0) + 150px);translate:-50% -50%;width:var(--s6);height:var(--s6);overflow:visible}
-#s3 .s3-who circle,#s3 .s3-who path{fill:var(--ink);stroke:var(--canvas);stroke-width:2;paint-order:stroke}
-
-/* Claude Code rides the track: a pill and its skill file, centred on the anchor point. Phone: stacked, riding ON
-   the stations (a 112px station is covered for ~150 ms; under them the words were hidden most of the run), and
-   parked on the spine's stub under Repeat buying. */
-#s3 .s3-run{position:absolute;z-index:3;left:var(--sx);top:calc(var(--ry) + 50px);width:0;height:0;pointer-events:none}
-#s3 .s3-chips{position:absolute;left:0;top:0;translate:-50% -50%;display:flex;flex-direction:column;align-items:center;gap:var(--s1);white-space:nowrap}
-#s3 .s3-cc{display:flex;align-items:center;gap:var(--s2);font-family:var(--mono);font-size:var(--fs-label);line-height:1;padding:var(--s2) var(--s3);
-  border-radius:999px;background:var(--ink);color:var(--canvas);box-shadow:0 0 0 3px var(--canvas)}
-#s3 .s3-ptr{width:10px;max-width:none;height:auto;flex:none}
-#s3 .s3-ptr path{fill:var(--canvas)}
-#s3 .s3-file{font-family:var(--mono);font-weight:700;font-size:var(--fs-label);line-height:1;padding:var(--s2);border-radius:var(--s1);
-  background:var(--paper);border:1px solid var(--paper-ink);color:var(--paper-ink);transform:rotate(-3deg)}
-
-/* ---------- station art: ink line drawings on a plinth ---------- */
-#s3 .pl-t{fill:var(--canvas);stroke:var(--ink);stroke-width:1.5}
-#s3 .pl-l,#s3 .pl-r{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
-#s3 .a .k,#s3 .a .f,#s3 .a .w{stroke:var(--ink)}
-#s3 .a .k{fill:none}
-#s3 .a .f{fill:var(--paper)}
-#s3 .a .w{fill:var(--canvas)}
-#s3 .a .s{fill:var(--ink);stroke:none}
-#s3 .a .t{stroke:var(--quiet-line);fill:none}
-#s3 .a .p{fill:var(--ink);stroke:var(--ink)}
-#s3 .a .ln{fill:none;stroke:var(--ink);stroke-width:2.5}
-#s3 .a .ck{fill:none;stroke:var(--ink);stroke-width:3.5}
-/* the tick each station gets as Claude Code passes */
-#s3 .s3-br{fill:var(--canvas);stroke:var(--accent);stroke-width:2.5}
-#s3 .s3-bd{fill:var(--accent);transform-box:fill-box;transform-origin:50% 50%}
-#s3 .s3-ck{fill:none;stroke:var(--canvas);stroke-width:3.5;stroke-dasharray:1;stroke-dashoffset:0}
-
-/* ---------- board geometry: 900px and up, a serpentine over 12 columns ---------- */
-@media (min-width:900px){
-  /* the tile's side padding IS the rail, so the loop runs inside the tile and the stations start on the padding edge */
-  #s3 .s3-bt{padding:var(--s6) 40px var(--s5)}
-  #s3 .s3-board{--rail:40px;--aw:112px;--lab:40px;--rh:calc(var(--aw) * .75 + 48px);--mid:72px;--loop:52px;--r:24px;
-    --cw:calc((100% - var(--rail) * 2) / 6);--d0:calc(var(--lab) * 2 + var(--rh) + var(--mid));
-    --my:calc(var(--lab) + var(--rh) + var(--mid) / 2);                    /* the return row's y */
-    --c6:calc(var(--rail) + var(--cw) * 5.5);                              /* column 6 centre: under Landing page */
-    --xb:calc(var(--rail) + var(--cw) * 3);                                /* where the loop rejoins, before Delivery */
-    --loopy:calc(var(--d0) + var(--rh) + 26px);                            /* the loop's bottom run */
-    grid-template-columns:var(--rail) repeat(6,minmax(0,1fr)) var(--rail);
-    grid-template-rows:var(--lab) var(--rh) var(--mid) var(--lab) var(--rh) var(--loop);
-    margin-inline:calc(-1 * var(--rail))}
-  #s3 .s3-zl{grid-column:2/8;padding-left:0;letter-spacing:.04em}
-  #s3 .s3-zl-down{grid-row:4}
-  #s3 .s3-lane{grid-column:2/8;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:auto}
-  #s3 .s3-up{grid-row:2}
-  #s3 .s3-down{grid-row:5}
-  #s3 .s3-st{display:flex;flex-direction:column;align-items:center}
-  #s3 .s3-l{padding:var(--s2) 0 0;text-align:center;font-size:var(--fs-body)}
-
-  #s3 .s3-sp{display:none}
-  #s3 .s3-u,#s3 .s3-t1,#s3 .s3-m,#s3 .s3-t3,#s3 .s3-d{display:block}
-  #s3 .s3-u{left:calc(var(--rail) + var(--cw) / 2);width:calc(var(--cw) * 5);top:calc(var(--lab) + var(--ly) - var(--tw) / 2);border-top-width:var(--tw)}
-  #s3 .s3-t1{left:var(--c6);right:calc(var(--rail) / 2 - var(--tw) / 2);top:calc(var(--lab) + var(--ly) - var(--tw) / 2);
-    height:calc(var(--rh) + var(--mid) / 2 - var(--ly) + var(--tw));border-width:var(--tw) var(--tw) var(--tw) 0;border-radius:0 var(--r) var(--r) 0}
-  #s3 .s3-m{left:calc(var(--rail) / 2 + var(--r));right:calc(var(--rail) + var(--cw) / 2);top:calc(var(--my) - var(--tw) / 2);border-top-width:var(--tw)}
-  #s3 .s3-t3{left:calc(var(--rail) / 2 - var(--tw) / 2);width:calc(var(--rail) / 2 + var(--cw) / 2 + var(--tw) / 2);top:calc(var(--my) - var(--tw) / 2);
-    height:calc(var(--mid) / 2 + var(--lab) + var(--ly) + var(--tw));border-width:var(--tw) 0 var(--tw) var(--tw);border-radius:var(--r) 0 0 var(--r)}
-  #s3 .s3-d{left:calc(var(--rail) + var(--cw) / 2);width:calc(var(--cw) * 5);top:calc(var(--d0) + var(--ly) - var(--tw) / 2);border-top-width:var(--tw)}
-  /* arrowheads only where the track turns: down both drops, and up where the loop rejoins */
-  #s3 .s3-u::after,#s3 .s3-d::after,#s3 .s3-m::after{display:none}
-  #s3 .s3-t1::after{right:-8.5px;top:calc(50% - 7px)}
-  #s3 .s3-t3::after{left:-8.5px;top:calc(50% - 7px)}
-  /* buys again: out of Repeat buying, round the right rail, back along the bottom and up into the track before Delivery */
-  #s3 .s3-lp{left:calc(var(--xb) - var(--tw) / 2);right:calc(var(--rail) / 2 - var(--tw) / 2);width:auto;
-    top:calc(var(--d0) + var(--ly) - var(--tw) / 2);height:calc(var(--loopy) - var(--d0) - var(--ly) + var(--tw));border-width:var(--tw);border-radius:0 var(--r) var(--r) 0}
-  #s3 .s3-lp::before{display:none}
-  #s3 .s3-lp::after{right:auto;left:-8.5px;top:var(--s3);transform:rotate(180deg)}
-  #s3 .s3-again{left:var(--c6);right:auto;top:var(--loopy);translate:-50% -50%}
-  #s3 .s3-zl{font-size:var(--fs-sm)}
-
-  /* the YES stamp sits right under Landing page, where the track turns back */
-  #s3 .s3-yes{left:var(--c6);top:var(--my)}
-  #s3 .s3-who{left:calc(var(--c6) - 92px);top:calc(var(--my) - 4px)}
-  /* parked on the loop's bottom-left corner, where the loop turns up to rejoin the track */
-  #s3 .s3-run{left:var(--xb);top:var(--loopy);z-index:1}
-  #s3 .s3-chips{flex-direction:row}
-}
-@media (min-width:1200px){#s3 .s3-board{--aw:152px}}
-
-/* ---------- armed: the first frame before the run (JS adds it only below the fold) ---------- */
-#s3 .s3-arm .s3-w{border-color:var(--line)}
-#s3 .s3-arm .s3-w::before,#s3 .s3-arm .s3-w::after{background:var(--line)}
-#s3 .s3-arm .s3-bd{opacity:0;transform:scale(.5)}
-#s3 .s3-arm .s3-ck{stroke-dashoffset:1}
-#s3 .s3-arm .s3-who{transform:translateY(-36px)}
-#s3 .s3-arm:not(.s3-go) .s3-run{left:var(--sx);top:calc(var(--lab) + var(--ly))}
-/* the teal trace + glowing beam head JS draws: above the grey track, under the stations */
-#s3 .s3-trace{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible;pointer-events:none}
-#s3 .s3-trace path{fill:none;stroke:var(--accent);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
-#s3 .s3-trace .s3-beam{stroke-width:5;filter:drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 2px var(--accent))}
-@media (min-width:900px){
-  #s3 .s3-arm .s3-who{transform:translateX(92px)}
-  #s3 .s3-arm:not(.s3-go) .s3-run{left:calc(var(--rail) + var(--cw) / 2)}
+  #s3 .s3-g{grid-template-rows:auto 1fr;row-gap:var(--s5)}
+  #s3 .s3-loop{grid-column:7/13;grid-row:1/3}
+  #s3 .s3-hd{grid-column:1/6;grid-row:1;padding-top:var(--s7)}
+  #s3 .s3-term{grid-column:1/8;grid-row:2;align-self:end;margin-bottom:var(--s7);position:relative;z-index:2;
+    box-shadow:0 0 0 var(--s2) var(--canvas)}
 }
 
 /* ---------- proof: the real terminal (lines copied from session-clean.cast, 29 Sep 2026) ----------
-   The terminal fills its flush ink tile edge to edge; the caption sits at the tile's foot in the quiet on-ink grey.
    Every line is visible at all times. .s3-typ (JS, only when below the fold) sends a teal caret along the four
    output lines once, as Claude Code writes them; the caret covers one character at a time and never hides a line. */
-#s3 .s3-term{display:flex;flex-direction:column;margin:0}
-#s3 .s3-cap{margin-top:auto;padding:var(--s4) var(--tile-pad) var(--tile-pad);font-family:var(--mono);font-size:var(--fs-label);line-height:1.5;letter-spacing:.04em;
-  text-transform:uppercase;color:var(--on-ink-q)}
+#s3 .s3-term{display:flex;flex-direction:column;margin:0;background:var(--ink);color:var(--on-ink);border-radius:var(--r)}
+#s3 .s3-cap{margin-top:auto;padding:var(--s4) var(--s5) var(--s5);font-family:var(--sans);font-size:var(--fs-label);line-height:1.5;color:var(--on-ink-q)}
 #s3 .s3-tw{font-family:var(--mono);font-size:var(--fs-label);line-height:1.6;color:var(--line)}
-#s3 .s3-tb{display:flex;flex-wrap:wrap;gap:0 var(--s2);align-items:baseline;padding:var(--s4) var(--tile-pad);border-bottom:1px solid var(--body);font-size:var(--fs-label);color:var(--low)}
+#s3 .s3-tb{display:flex;flex-wrap:wrap;gap:0 var(--s2);align-items:center;padding:var(--s3) var(--s5);border-bottom:1px solid #2E2E2E;font-size:var(--fs-label);color:var(--low)}
 #s3 .s3-tb b{color:var(--canvas)}
-#s3 .s3-tb span{margin-left:auto}
-#s3 .s3-tx{padding:var(--s5) var(--tile-pad) var(--s4);display:grid;gap:var(--s3)}
+#s3 .s3-tb>span:last-child{margin-left:auto}
+#s3 .s3-dots{display:inline-flex;gap:6px;margin-right:var(--s2)}
+#s3 .s3-dots i{width:8px;height:8px;border-radius:50%;background:#3A3A3A}
+#s3 .s3-tx{padding:var(--s5) var(--s5) var(--s3);display:grid;gap:var(--s3)}
 #s3 .s3-tx p{white-space:pre-wrap;overflow-wrap:anywhere;max-width:76ch}
 #s3 .s3-tx i{font-style:normal;color:var(--accent)}
 #s3 .s3-pr{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:1ch;color:var(--canvas)}
@@ -182,16 +38,18 @@
 #s3 .s3-ln{position:relative;padding-left:calc(var(--in) * 1ch + 2ch);text-indent:-2ch}   /* cast indent kept; wrapped rows hang */
 #s3 .s3-ln+.s3-ln{margin-top:calc(var(--s3) * -1)}
 #s3 .s3-dim{color:var(--low)}
-/* phone: the long real prompt is clamped to 4 lines (ellipsis, no words changed); the output lines stay whole (critic, 5 Oct) */
+/* phone: the long real prompt is clamped to 4 lines (ellipsis, no words changed); the output lines stay whole */
 @media (max-width:767px){#s3 .s3-pr span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;overflow:hidden}}
 @media (min-width:768px){
-  #s3 .s3-tw{font-size:var(--fs-sm)}
-  #s3 .s3-tx{padding:var(--s6) var(--s6) var(--s4)}
+  #s3 .s3-tx{padding:var(--s5) var(--s6) var(--s3)}
   #s3 .s3-tb{padding-inline:var(--s6)}
-  #s3 .s3-cap{padding:var(--s4) var(--s6) var(--s6)}
+  #s3 .s3-cap{padding:var(--s4) var(--s6) var(--s5)}
 }
 /* caret: a 1ch teal block walks each output line in character steps, one line after another (~2.5 s), then is gone */
 #s3 .s3-typ .s3-ln::after{content:"";position:absolute;top:.15em;left:calc(var(--in) * 1ch);width:1ch;height:1.2em;background:var(--accent);opacity:0}
 #s3 .s3-typ.s3-go .s3-ln::after{animation:s3-walk calc(var(--n) * 20ms) steps(var(--n)) calc(.2s + var(--k) * .8s),s3-show calc(var(--n) * 20ms) linear calc(.2s + var(--k) * .8s)}
 @keyframes s3-walk{from{transform:none}to{transform:translateX(calc(var(--n) * 1ch))}}
 @keyframes s3-show{from,to{opacity:1}}
+
+/* tablet: a full-width 9:10 frame is a screen and a half tall; cap it */
+@media (min-width:768px) and (max-width:1023px){#s3 .s3-loop{max-width:480px}}
