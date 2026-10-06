@@ -1,9 +1,11 @@
 /* S6 Proof, v6: the page's one DARK composition. Full-bleed petrol ground, content on the .wrap.
    1. The case carousel (business-motion-film: carousel emphasis + selection -> expansion): a circular rail of three tabs,
-      one bright; the active tab's thumbnail expands into the real screenshot over the outgoing one; Paid us and Made
-      always show the copy's own figures, and the paid-vs-made bar draws the true ratio, shaped by each case's own fact
-      (24 months, before vs after, 3 months).
-   2. Sami's video on its own card. 3. "Our own offer" as wall -> one actor: 300 dots collapse to 50, then 10 glow.
+      one bright; the active tab's thumbnail expands into the real screenshot over the outgoing one. Each screenshot fills
+      its window at full width, 1:1, and scrolls vertically like a person reading the page (only as far as the page goes);
+      Paid us and Made always show the copy's own figures, and the paid-vs-made bar draws the true ratio, shaped by each
+      case's own fact (24 months, before vs after, 3 months).
+   2. Sami's video on its own card. 3. "Our own offer" as wall -> one actor: 300 dots collapse to 50, then 10 glow and
+      breathe; the next wall crossfades in (a 5.6 s loop with a pause control).
    Type: sizes only from tokens; Space Mono 700, Bricolage 700/800, Geist for UI text.
    Without JS the three cases stack as a static ledger; reduced motion shows finished frames. */
 #s6{border-top:0;color:var(--on-petrol);background:radial-gradient(120% 70% at 30% 0%,var(--petrol-2),var(--petrol) 70%)}
@@ -38,15 +40,18 @@
 #s6 .row{display:grid;gap:var(--s4);min-width:0;align-content:start}
 #s6 .art,#s6 .info,#s6 .txt{min-width:0}
 #s6 .art{margin:0;display:grid;gap:var(--s2)}
-#s6 .box{--bh:200px;height:var(--bh);display:flex;justify-content:center;align-items:center}
-#s6 .win{position:relative;display:flex;flex-direction:column;max-width:100%;border-radius:12px;background:#0E2A2A;border:1px solid rgba(160,230,225,.22);
+/* the window's frame: --bh caps its height; the window always takes the column's full width */
+#s6 .box{--bh:200px;--ch:18px;height:var(--bh);display:flex;justify-content:center;align-items:center}
+#s6 .win{position:relative;display:flex;flex-direction:column;width:100%;overflow:hidden;border-radius:12px;background:#0E2A2A;border:1px solid rgba(160,230,225,.22);
   box-shadow:0 30px 60px -30px rgba(0,0,0,.8);transform-origin:50% 50%;will-change:transform}
-#s6 .chrome{display:block;flex:none;height:18px;border-bottom:1px solid var(--petrol-line);border-radius:12px 12px 0 0;background-color:#123634;background-size:10px 10px;background-repeat:no-repeat;
+#s6 .chrome{position:relative;z-index:1;display:block;flex:none;height:var(--ch);border-bottom:1px solid var(--petrol-line);background-color:#123634;background-size:10px 10px;background-repeat:no-repeat;
   background-image:radial-gradient(circle,rgba(234,245,244,.35) 3px,transparent 3.6px),radial-gradient(circle,rgba(234,245,244,.35) 3px,transparent 3.6px),radial-gradient(circle,rgba(234,245,244,.35) 3px,transparent 3.6px);
   background-position:10px 50%,24px 50%,38px 50%}
-#s6 .win img{display:block;width:auto;height:auto;max-width:100%;max-height:calc(var(--bh) - 20px);border-radius:0 0 11px 11px}
+/* the page in its window: full width at 1:1; a page taller than the window scrolls by --sc (JS) as --py runs 0..1 */
+#s6 .vp{overflow:hidden;max-height:calc(var(--bh) - var(--ch) - 2px)}
+#s6 .win img{display:block;width:100%;height:auto;transform:translateY(calc(var(--py,0) * var(--sc,0px) * -1))}
 /* border beam (Magic UI, ported): a short arc of teal light running round the active window */
-#s6 .win::after{content:"";position:absolute;inset:-1px;border-radius:13px;padding:1.5px;pointer-events:none;opacity:var(--bo,0);
+#s6 .win::after{content:"";position:absolute;inset:0;z-index:2;border-radius:12px;padding:1.5px;pointer-events:none;opacity:var(--bo,0);
   background:conic-gradient(from var(--a,0deg),transparent 0 72%,rgba(63,224,214,.15) 82%,var(--teal-hi) 92%,transparent 100%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
 #s6 .cap{font-size:var(--t-label);line-height:1.4;color:var(--on-petrol-q);text-align:center}
@@ -104,9 +109,10 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
 /* our own offer: a column; beside Sami's card the dot field takes all the height the card gives it (no empty floor) */
 #s6 .own{position:relative;isolation:isolate;display:flex;flex-direction:column;border-radius:28px;padding:var(--s5) var(--s4);overflow:hidden;
   background:radial-gradient(110% 90% at 50% 40%,#13403E,var(--petrol-2) 45%,#0A1F21 100%);border:1px solid var(--petrol-line)}
-#s6 .field{position:relative;width:100%;aspect-ratio:4/3;margin-top:var(--s3)}
+#s6 .own>.k{align-self:flex-start}   /* sized to its text, so it never runs under the pause control */
+#s6 .field{position:relative;width:100%;aspect-ratio:3/2;margin-top:var(--s3)}
 #s6 .field canvas{position:absolute;inset:0;width:100%;height:100%}
-#s6 .fr{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2);margin-top:var(--s4)}
+#s6 .fr{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2);margin-top:var(--s2)}
 #s6 .fr p{min-width:0;font-size:var(--t-sm);line-height:1.35;color:var(--on-petrol-q);white-space:nowrap;transition:color var(--d-ui) var(--ease)}
 #s6 .fr b{display:block;font-family:var(--mono);font-weight:700;font-size:var(--t-num);line-height:1.1;letter-spacing:-.03em;color:var(--on-petrol-q);margin-bottom:var(--s1);transition:color var(--d-ui) var(--ease)}
 #s6 .fr p.on{color:var(--on-petrol)}
@@ -128,13 +134,7 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
   #s6 .s6-car{padding-bottom:calc(var(--s8) + var(--s2))}
   #s6 .cap{min-height:calc(2 * 1.4em)}
   #s6 .vid-box{aspect-ratio:4/5}
-  /* every screenshot fills the same frame on a phone (top kept), so the portrait funnel is never a thumbnail */
-  #s6 .win{width:100%}
   #s6 .box{--bh:210px}
-  #s6 .win img{width:100%;height:calc(var(--bh) - 20px);max-height:none;object-fit:cover;object-position:top}
-  /* the portrait funnel ends cleanly under its Book a FREE Demo button (source rows 0 to 675) */
-  #s6 #s6-c1 .win{width:auto}
-  #s6 #s6-c1 .win img{width:auto;aspect-ratio:900/675}
 }
 /* smallest phones: the funnel row keeps one line per label and a clear gap round each arrow */
 @media (max-width:360px){
@@ -150,9 +150,8 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
   /* the text column is centred against the screenshot's frame */
   #s6 .row{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--s6);align-items:center}
   #s6 .info{gap:var(--s5)}
-  #s6 .box{--bh:300px}
-  #s6 .chrome{height:24px;background-position:14px 50%,28px 50%,42px 50%}
-  #s6 .win img{max-height:calc(var(--bh) - 26px)}
+  #s6 .box{--bh:300px;--ch:24px}
+  #s6 .chrome{background-position:14px 50%,28px 50%,42px 50%}
   #s6 .txt .k{display:block;margin:var(--s2) 0 0}
   #s6 .v{display:block;font-size:var(--t-body)}
   #s6 .mb{height:22px}
@@ -160,12 +159,12 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
   #s6 .s6-low{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:var(--s5);align-items:stretch}
   #s6 .own{padding:var(--s5)}
   #s6 .field{flex:1;aspect-ratio:auto;min-height:220px}
+  #s6 .fr{margin-top:var(--s4)}
   #s6 .fr p{font-size:var(--t-body)}
   #s6 .wall{font-size:var(--t-body)}
 }
 @media (min-width:1024px){
   #s6 .box{--bh:400px}
-  #s6 .win img{max-height:calc(var(--bh) - 26px)}
   #s6 .s6-low{grid-template-columns:minmax(0,4fr) minmax(0,8fr);column-gap:var(--s6)}
   #s6 .vid-box{width:min(100%,300px)}
   #s6 .own{padding:var(--s6)}
