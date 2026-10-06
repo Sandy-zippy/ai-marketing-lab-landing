@@ -1,34 +1,26 @@
 <section id="s10" class="sec" aria-labelledby="s10-h">
-  <div class="wrap">
-    <!-- one petrol stage holds the whole close: the ask (headline + the call ticket, always lit and clickable) and the s1
-         rail replayed below it. The 45-min call (a lens) drops out of the ticket, finds the leak, the fix lands, the lead
-         becomes a client. render(t) in sections/s10.js; only the rail layer animates, the ticket never fades or moves. -->
-    <div class="s10-stage" id="s10-stage">
-      <div class="s10-copy">
-        <h2 id="s10-h">Map this to your business.</h2>
-        <p class="note">45 minutes with me.</p>
+  <div class="wrap"><div class="grid">
+    <!-- v2 (6 Oct): light ground, one paper call ticket. While its counter runs to 45:00, four tangled lines on the
+         ticket straighten into one route to a flag (a mess becoming a map); then the ₹999 stub tears off and rests.
+         render(t) in sections/s10.js. The button never moves or fades. -->
+    <h2 id="s10-h" class="s10-h">Map this to your business.</h2>
+    <p class="note s10-note">45 minutes with me.</p>
+    <div class="s10-tk" id="s10-tk" role="img" aria-label="A call ticket: in 45 minutes a tangle of lines straightens into one route to a flag, your business mapped. The ₹999 stub tears off: credited if you join.">
+      <div class="s10-body">
+        <div class="s10-lay"><div class="s10-time" aria-hidden="true"><b class="s10-clock">45:00</b><i class="s10-bar"><i></i></i></div>
+        <svg class="s10-map" viewBox="0 0 400 220" aria-hidden="true">
+          <g class="s10-tangle"><path/><path/><path/><path/></g>
+          <path class="s10-route" pathLength="1" d="M30 180C90 180 110 130 160 125C210 120 240 95 280 80C310 70 330 62 352 60"/>
+          <path class="s10-run" pathLength="1" d="M30 180C90 180 110 130 160 125C210 120 240 95 280 80C310 70 330 62 352 60"/>
+          <circle class="s10-start" cx="30" cy="180" r="7"/>
+          <g class="s10-flag" transform="translate(352 60)"><path class="s10-pole" d="M0 0V-44"/><path class="s10-pen" d="M1 -44H30L22 -35L30 -26H1Z"/><path class="s10-pen s10-on" d="M1 -44H30L22 -35L30 -26H1Z"/></g>
+        </svg></div>
       </div>
-      <div class="s10-tk" id="s10-tk">
-        <div class="s10-tkb">
-          <div class="s10-stub">
-            <b class="s10-price"><svg class="s10-rs" viewBox="0 0 22 32" aria-hidden="true"><path d="M3 4.5H19M3 11.5H19M3 4.5H8.5a6.5 6.5 0 0 1 0 13H3L15 30" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linejoin="round"/></svg>999</b>
-            <span class="s10-cr">credited if you join</span>
-          </div>
-          <a class="btn js-pay" href="#">Book my &#8377;999 call</a>
-        </div>
+      <div class="s10-stub">
+        <b class="s10-price"><svg class="s10-rs" viewBox="0 0 22 32" aria-hidden="true"><path d="M3 4.5H19M3 11.5H19M3 4.5H8.5a6.5 6.5 0 0 1 0 13H3L15 30" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linejoin="round"/></svg>999</b>
+        <span class="s10-cr">credited if you join</span>
       </div>
-      <div class="s10-scene" id="s10-scene" role="img" aria-label="Example: one lead goes cold at follow-up. The 45-minute call drops onto the line, finds that leak and names the fix: chase three times. The lead replies, books a sales call and is signed.">
-        <p class="s10-ex">Example: one lead</p>
-        <svg class="s10-rail" aria-hidden="true"><path class="r0"/><path class="r1"/><path class="r2"/><path class="r3"/></svg>
-        <div class="s10-stns" aria-hidden="true"></div>
-        <div class="s10-mk" aria-hidden="true">Leak</div>
-        <div class="s10-stamp" aria-hidden="true">Signed</div>
-        <div class="s10-card" aria-hidden="true"><i></i><b>New enquiry</b><small>gone cold</small></div>
-      </div>
-      <div class="s10-lens" aria-hidden="true"><span>45-min call</span></div>
-      <i class="s10-cn" aria-hidden="true"></i>
-      <div class="s10-ring" aria-hidden="true"></div>
-      <div class="s10-spark" aria-hidden="true"></div>
     </div>
-  </div>
+    <div class="s10-cta"><a class="btn js-pay" href="#">Book my &#8377;999 call</a></div>
+  </div></div>
 </section>

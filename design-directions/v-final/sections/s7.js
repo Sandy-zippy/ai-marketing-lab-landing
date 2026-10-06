@@ -1,10 +1,10 @@
-/* S7: deterministic render(t), t in [0,6.2). Seek with window.__seek_s7(t). Reduced motion / no JS = the finished frame.
+/* S7: deterministic render(t), t in [0,5.9). Seek with window.__seek_s7(t). Reduced motion / no JS = the finished frame.
    Row 1 ticks at full pace, rows 2-5 cascade; each tick sends a dot along a solid line (Magic UI animated-beam,
    ported) into the dial, and the dot's landing fills one of the five segments. At 5 of 5 the stamp drops and locks (shackle
-   closes, one teal flash); the locked ring breathes. Loop: fade out, swap to frame 0 unseen, fade in. */
+   closes, one teal flash); the locked ring breathes. Loop: element-wise crossfade to frame 0. */
 var stage = document.getElementById('s7-stage'), scene = document.getElementById('s7-scene');
 if (!stage || !scene) return;
-var D = 6.2, RM = AIML.REDUCE, END = 4.4, NS = 'http://www.w3.org/2000/svg';
+var D = 5.8, RM = AIML.REDUCE, END = 4.4, NS = 'http://www.w3.org/2000/svg';
 function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
 function k(t, a, b) { return cl((t - a) / (b - a)); }
 function eo(x) { return 1 - Math.pow(1 - x, 4); }
@@ -56,19 +56,22 @@ function layout() {
 
 function render(t) {
   t = ((t % D) + D) % D;
-  /* seam: fade the panel contents out on the end state, swap to frame 0 while invisible, fade back in (no doubled text) */
-  var lay = 1;
-  if (t >= 5.1 && t < 5.45) { lay = 1 - sm(k(t, 5.1, 5.4)); t = 5.1; } else if (t >= 5.45) { lay = sm(k(t, 5.5, 5.85)); t = 0; }
-  /* only the progress fades (ticks, states, teal segments, count, stamp); the promise, labels, item names and the
-     "90 days" dial stay on screen, so the card is never empty */
-  rows.forEach(function (li) { li.querySelector('.s7-box').style.opacity = li.querySelector('.s7-st').style.opacity = lay; });
-  arcG.style.opacity = cnt.style.opacity = seal.style.opacity = lay;
+  /* seam (5.1 -> 5.6): a true crossfade from the end state to frame 0, element by element. Nothing blanks: the
+     ticks and teal segments fade while "mapped" fades back in under "done", the count and the stamp swap at the
+     midpoint. Then frame 0 holds a beat before the first tick. */
+  var X = t >= 5.1 ? k(t, 5.1, 5.6) : 0, seam = t >= 5.1 && t < 5.6;
+  var OUT = 1 - sm(k(X, 0, 0.42)), IN = sm(k(X, 0.58, 1));   /* old state fully out before the new one comes in */
+  if (t >= 5.6) t = 0; else if (seam) t = 5.1;
+  arcG.style.opacity = 1 - sm(X);
   var done = 0, glow = 0, bOn = -1, bP = 0;
   rows.forEach(function (li, i) {
     var s = st(i), m = pace(i), B = beamT(i);
     li.style.setProperty('--f', eo(k(t, s, s + 0.2 * m)).toFixed(3));
     li.style.setProperty('--c', eo(k(t, s + 0.1 * m, s + 0.35 * m)).toFixed(3));
-    li.style.setProperty('--d', eo(k(t, s + 0.15 * m, s + 0.4 * m)).toFixed(3));
+    var dd = eo(k(t, s + 0.15 * m, s + 0.4 * m));
+    li.style.setProperty('--d', dd.toFixed(3)); li.style.setProperty('--wy', (seam ? 0 : dd).toFixed(3));
+    li.style.setProperty('--wo', (seam ? IN : cl(1 - dd * 2.2)).toFixed(3)); li.style.setProperty('--do', (seam ? OUT : cl(dd * 2.2 - 1.2)).toFixed(3));
+    li.style.setProperty('--fo', (seam ? 1 - sm(X) : 1).toFixed(3));
     li.style.setProperty('--a', (sm(k(t, s - 0.05, s + 0.1)) * (1 - sm(k(t, B[1], B[1] + 0.3)))).toFixed(3));
     if (t >= B[0] && t < B[1] + 0.12) { bOn = i; bP = k(t, B[0], B[1]); }
     var a = eo(k(t, B[1] - 0.04, B[1] + 0.3 * m));
@@ -76,7 +79,7 @@ function render(t) {
     if (a > 0 && a < 1) glow = Math.max(glow, 7);
     if (a >= 0.5) done++;
   });
-  cnt.textContent = done + ' of 5';
+  cnt.textContent = (seam && X >= 0.5 ? 0 : done) + ' of 5'; cnt.style.opacity = seam ? (X < 0.5 ? OUT : IN) : 1;
   glow = Math.max(glow, 12 * sm(k(t, 2.95, 3.1)) * (1 - sm(k(t, 3.2, 3.8))));
   if (t >= 3.8) glow = Math.max(glow, 3 + 4 * (0.5 - 0.5 * Math.cos((t - 3.8) * 4.2)));   /* locked: the ring breathes */
   arcG.style.setProperty('--glow', glow.toFixed(1) + 'px');
@@ -90,7 +93,8 @@ function render(t) {
     dot.style.opacity = bP < 1 ? 1 : 0; beam.style.opacity = 1;
   } else beam.style.opacity = 0;
   /* the lock: the shackle drops, the stamp lands (from 1.25x, tilting to -3deg) and flashes teal once */
-  var locked = t >= 3.15;
+  var locked = t >= 3.15 && !(seam && X >= 0.5);
+  seal.style.opacity = seam ? (X < 0.5 ? OUT : IN) : 1;
   seal.classList.toggle('open', !locked);
   seal.style.setProperty('--sh', (-5 * (1 - sm(k(t, 3.15, 3.3)))).toFixed(2) + 'px');
   var land = eo(k(t, 3.15, 3.5));

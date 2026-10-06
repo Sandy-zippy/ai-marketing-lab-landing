@@ -1,9 +1,9 @@
-/* S8 who it's for: DARK petrol stage. Mechanism: wall -> one actor / a filter. The six real list items are the chips.
-   They wait in a fanned deck; one at a time a chip enters the gate (its header asks "Offer people already pay for?"),
-   a scan beam sweeps it, a verdict stamps (tick or cross), and it leaves: through the right wall into "This is for"
-   (teal), or it recoils and drops out left into "This isn't for" (brick). Persistent actor: the gate.
+/* S8 who it's for: DARK petrol stage on the white section. Mechanism: a filter. Frame 0 is finished: the six real
+   list items already sorted into "This isn't for" (brick) and "This is for" (teal), the gate between them (its header
+   asks "Offer people already pay for?"). One at a time each chip is pulled back through the gate: neutral under the
+   scan beam, then the verdict stamps and it returns home. Persistent actor: the gate.
    No JS: the two lists sit side by side, already sorted. JS adds .s8-live and places everything from render(t). */
-#s8{border-top:0}
+#s8{border-top:0;background:var(--canvas)}
 #s8 .lede{text-wrap:pretty}
 #s8 .s8-stage{position:relative;border-radius:28px;overflow:hidden;color:var(--on-petrol);isolation:isolate;
   background:radial-gradient(120% 90% at 50% 40%,var(--petrol-2),var(--petrol) 72%);box-shadow:0 24px 48px -32px rgba(11,34,36,.5)}
@@ -19,17 +19,16 @@
 #s8 .s8-yes .s8-tag{color:var(--teal-hi)}
 #s8 .s8-no .s8-tag{color:var(--brick-hi)}
 
-/* chips (the li); text sits in a span so the deck can hide the cards behind the front one */
+/* chips (the li) */
 #s8 ul{list-style:none}
 #s8 li{position:relative;display:flex;align-items:center;padding:var(--s3) var(--s4) var(--s3) calc(var(--s4) + var(--s5) + var(--s3));border-radius:var(--r);
   font-family:var(--sans);font-weight:500;font-size:var(--t-body);line-height:1.35;color:var(--on-petrol);
   background:#123432;border:1.5px solid rgba(160,230,225,.3);box-shadow:0 12px 28px -14px rgba(0,0,0,.65)}
 #s8 li::before{content:'';position:absolute;left:var(--s4);top:50%;width:var(--s5);height:var(--s5);margin-top:calc(var(--s5) / -2);border-radius:50%;
   display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:var(--t-sm);line-height:1;border:1.5px solid rgba(160,230,225,.4)}
-#s8 li.bk::before{opacity:0}
 /* passed: teal light */
 #s8 .s8-stage:not(.s8-live) .s8-yes li,#s8 li.ok{border-color:var(--teal-hi);background:#0F3A38;
-  box-shadow:0 12px 28px -14px rgba(0,0,0,.65),0 0 var(--g,22px) -6px rgba(63,224,214,.7)}
+  box-shadow:0 12px 28px -14px rgba(0,0,0,.65),0 0 22px -6px rgba(63,224,214,.7)}
 #s8 .s8-stage:not(.s8-live) .s8-yes li::before,#s8 li.ok::before{content:'\2713';border-color:var(--teal-hi);background:var(--teal-hi);color:var(--petrol)}
 /* bounced: brick */
 #s8 .s8-stage:not(.s8-live) .s8-no li,#s8 li.no{border-color:rgba(255,122,110,.6);background:#2A1E1D;color:#E9D3D0}
@@ -44,11 +43,13 @@
 /* live: every piece is placed by JS (transform and opacity only) */
 #s8 .s8-live .s8-scene{padding:0}
 #s8 .s8-live .s8-tag,#s8 .s8-live li,#s8 .s8-live .s8-gate,#s8 .s8-live .s8-scan,#s8 .s8-live .s8-vd{position:absolute;left:0;top:0;margin:0}
-#s8 .s8-live li{transform-origin:50% 100%}
 #s8 .s8-live li span{display:block}
+/* the empty home slot while a chip is in the gate */
+#s8 .s8-slot{display:none}
+#s8 .s8-live .s8-slot{display:block;position:absolute;left:0;top:0;z-index:0;border:1.5px dashed rgba(160,230,225,.22);border-radius:var(--r);opacity:0}
 /* phones: chips one line where they can, so the whole filter fits about one screen */
 #s8 .s8-narrow li{font-size:var(--t-sm);padding-block:var(--s2)}
-#s8 .s8-narrow .s8-q{letter-spacing:.02em}   /* the whole question fits the gate down to 320px */
+#s8 .s8-narrow .s8-q{letter-spacing:.02em}
 
 /* the gate: a lit frame whose header carries the question; it flashes teal on a pass, brick on a bounce */
 #s8 .s8-gate{z-index:3;pointer-events:none;border-radius:calc(var(--r) + var(--s2));border:1.5px solid rgba(63,224,214,.45);background:#0D2B2A;
@@ -62,9 +63,7 @@
 /* the scan beam: a full-height bar of light that sweeps across the chip */
 #s8 .s8-scan{z-index:7;width:4px;border-radius:4px;pointer-events:none;opacity:0;background:#E8FFFD;
   box-shadow:0 0 12px 3px rgba(63,224,214,.9),0 0 36px 10px rgba(63,224,214,.35)}
-/* the verdict stamp */
-#s8 .s8-vd{z-index:8;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;pointer-events:none;opacity:0;
-  font-family:var(--mono);font-weight:700;font-size:var(--t-lg);line-height:1}
-#s8 .s8-vd.ok{background:var(--teal-hi);color:var(--petrol);box-shadow:0 0 24px rgba(63,224,214,.9)}
-#s8 .s8-vd.no{background:var(--urgent);color:#fff;box-shadow:0 0 24px rgba(255,122,110,.7)}
-#s8 .s8-live .s8-yes .s8-tag.lit{text-shadow:0 0 12px rgba(63,224,214,.8)}
+/* the verdict stamp: a ring that lands round the chip's own badge (one tick or cross, never two) */
+#s8 .s8-vd{z-index:8;width:40px;height:40px;border-radius:50%;pointer-events:none;opacity:0;border:3px solid transparent}
+#s8 .s8-vd.ok{border-color:var(--teal-hi);box-shadow:0 0 18px rgba(63,224,214,.9),inset 0 0 10px rgba(63,224,214,.5)}
+#s8 .s8-vd.no{border-color:var(--brick-hi);box-shadow:0 0 18px rgba(255,122,110,.75),inset 0 0 10px rgba(255,122,110,.4)}
