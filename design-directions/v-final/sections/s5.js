@@ -16,7 +16,7 @@ function k(t, a, b) { return cl((t - a) / (b - a)); }
 function sm(x) { return x * x * x * (x * (6 * x - 15) + 10); }
 
 /* timeline: TT[j] = when the marker reaches waypoint j (0 = rail start, 1..8 = stations, 9 = rail end) */
-var TT = [0.15, 0.85, 1.75, 2.65, 3.55, 4.65, 5.55, 6.45, 7.35, 7.95], X0 = 8.2;
+var TT = [0.15, 0.6, 1.75, 2.65, 3.55, 4.65, 5.55, 6.45, 7.35, 7.95], X0 = 8.2;
 function A(i) { return TT[i + 1]; }
 
 var G = null;
@@ -33,7 +33,7 @@ function layout() {
     /* the step down from Upstream to Downstream, drawn with rounded corners */
     if (vert) { var ym = b.y - 22;
       segs.push('L' + f({ x: a.x, y: ym - r }) + 'Q' + f({ x: a.x, y: ym }) + ' ' + f({ x: a.x + r, y: ym }) + 'L' + f({ x: b.x - r, y: ym }) + 'Q' + f({ x: b.x, y: ym }) + ' ' + f({ x: b.x, y: ym + r }) + 'L' + f(b)); }
-    else { var xm = b.x - 14 - 16 - 32;   /* the middle of the 64 px gutter column (node centre - half node - column gap - half gutter) */
+    else { var xm = b.x - nds[0].offsetWidth / 2 - 16 - 32;   /* the middle of the 64 px gutter column (node centre - half node - column gap - half gutter) */
       segs.push('L' + f({ x: xm - r, y: a.y }) + 'Q' + f({ x: xm, y: a.y }) + ' ' + f({ x: xm, y: a.y + r }) + 'L' + f({ x: xm, y: b.y - r }) + 'Q' + f({ x: xm, y: b.y }) + ' ' + f({ x: xm + r, y: b.y }) + 'L' + f(b)); }
   }
   segs.push('L' + f(e));

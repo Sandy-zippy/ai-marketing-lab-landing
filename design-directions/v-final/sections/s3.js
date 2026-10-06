@@ -265,7 +265,12 @@ function play() { if (running || RM || paused || !inView) return; if (!laid && !
 function stop() { if (!running) return; base = now(); running = false; cancelAnimationFrame(raf); }
 window.__seek_s3 = function (t) { seekT = t; if (!laid) layout(); render(t); };
 function relayout() { if (!layout()) return; render(seekT !== null ? seekT : RM ? END : now()); }
-function boot() { if (laid || !stage.clientWidth) return; if (layout()) render(RM ? END : 0); }
+function boot() {
+  if (laid || !stage.clientWidth) return;
+  if (!layout()) return;
+  if (!G.swap && !RM) base = 3.9;   /* desktop: the viewer's first frame is a finished state (three drafts written, Not sent, about to be approved); the loop runs on from there */
+  render(RM ? END : base);
+}
 boot();
 document.addEventListener('aiml:reveal', function () { setTimeout(boot, 0); });
 addEventListener('resize', function () { if (laid) relayout(); });

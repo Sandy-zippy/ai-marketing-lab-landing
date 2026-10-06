@@ -7,7 +7,6 @@ if (!st) return;
 var RM = window.AIML && AIML.REDUCE, D = 14.6, NS = 'http://www.w3.org/2000/svg';
 var cam = document.getElementById('s4-cam'), fx = document.getElementById('s4-fx'), nEl = document.getElementById('s4-n');
 var boxes = [].slice.call(cam.querySelectorAll('.s4-box'));
-var fri6n = boxes.filter(function (b) { return b.querySelector('.s4-fr b').textContent.trim() === '6'; })[0].querySelector('.s4-fr b');   /* the Fri 6 date numeral the phone tag sits under */
 var wks = [].slice.call(cam.querySelectorAll('.s4-wk')), ancs = [].slice.call(cam.querySelectorAll('.s4-anc'));
 var out = document.getElementById('s4-out'), flag = document.getElementById('s4-flag');
 var pole = flag.querySelector('.s4-pole'), pen = flag.querySelector('.s4-pen');
@@ -30,24 +29,16 @@ var FRI = [land(4), land(9), land(14)];
 /* fx: three leader lines, the 100-out stream, the enquiries that get caught */
 var leads = [0, 1, 2].map(function () { var p = document.createElementNS(NS, 'path'); p.setAttribute('fill', 'none'); p.setAttribute('stroke', '#3FE0D6'); p.setAttribute('stroke-width', '1.5'); fx.appendChild(p); return p; });
 function dots(n, cls) { var a = []; for (var i = 0; i < n; i++) { var r = document.createElementNS(NS, 'rect'); r.setAttribute('class', cls); fx.appendChild(r); a.push(r); } return a; }
+/* phones: the 100 OUT tag sits under the structure (below FRI) and a leader climbs the stack's right side into Fri 6 */
+var tagLead = document.createElementNS(NS, 'path'); tagLead.setAttribute('fill', 'none'); tagLead.setAttribute('stroke', '#3FE0D6'); tagLead.setAttribute('stroke-width', '1.5'); fx.appendChild(tagLead);
+var tagEnd = document.createElementNS(NS, 'circle'); tagEnd.setAttribute('r', 3); tagEnd.setAttribute('fill', '#3FE0D6'); fx.appendChild(tagEnd);
+var dayFri = cam.querySelectorAll('.s4-day')[4];
 var pulse = document.createElementNS(NS, 'circle'); pulse.setAttribute('r', 3.5); pulse.setAttribute('fill', '#3FE0D6'); pulse.style.filter = 'drop-shadow(0 0 6px #3FE0D6)'; fx.appendChild(pulse);
 var mail = dots(30, 'm'), inq = dots(7, 'q');
 mail.forEach(function (r) { r.setAttribute('width', 11); r.setAttribute('height', 8); r.setAttribute('rx', 1.5); r.setAttribute('fill', '#0B2224'); r.setAttribute('stroke', '#3FE0D6'); r.setAttribute('stroke-width', 1.2); });
 inq.forEach(function (r) { r.setAttribute('width', 14); r.setAttribute('height', 10); r.setAttribute('rx', 2); r.setAttribute('fill', '#3FE0D6'); r.setAttribute('stroke', '#0B2224'); r.setAttribute('stroke-width', 1.2); });
 
 var S = null;   /* stage rect, refreshed per render */
-/* phones: the tag sits in the gap between the Fri 13 and Fri 6 date numerals (above Fri 6) so neither date is covered;
-   before floor 3 has landed it sits about 7 px above the Fri 6 date */
-var fri13n = boxes.filter(function (b) { return b.querySelector('.s4-fr b').textContent.trim() === '13'; })[0].querySelector('.s4-fr b');
-function num(n) { return boxes.filter(function (b) { return b.querySelector('.s4-fr b').textContent.trim() === n; })[0].querySelector('.s4-fr b'); }
-var n5 = num('5'), n30 = num('30');
-function phoneTagY() {
-  /* the gap between Fri 13's LANDED date and Fri 6's date; 13's landed spot = Fri 6's date one floor pitch up (pitch from Fri 30) */
-  var r6 = fri6n.getBoundingClientRect(), a = r6.top - S.top, h = out.offsetHeight, bx = fri13n.parentNode.parentNode;
-  var top = r6.bottom - S.top - (n30.getBoundingClientRect().top - r6.top);
-  if (+getComputedStyle(fri13n.parentNode).opacity > 0.3 && Math.abs(parseFloat(bx.style.getPropertyValue('--dy') || 0)) < 0.5) top = Math.max(top, fri13n.getBoundingClientRect().bottom - S.top);
-  return (top + a) / 2 - h / 2;
-}
 function ctr(el) { var r = el.getBoundingClientRect(); return { x: r.left + r.width / 2 - S.left, y: r.top + r.height / 2 - S.top, r: r }; }
 function show(el, o) { el.style.opacity = o; el.style.visibility = o <= 0.001 ? 'hidden' : 'visible'; }
 
@@ -94,16 +85,21 @@ function render(t) {
 
   /* 100 out tag on Fri 6, Demo day flag on Fri 13 */
   var oo = t < 1.0 ? 1 - drain : sm(k(t, FRI[1] + 0.05, FRI[1] + 0.25));
+  var clamped = false;
   if (out.offsetParent !== null) {
-    var an = ctr(ancs[1]), ox = Math.min(an.x + 2, S.width - out.offsetWidth - 14), clamped = ox < an.x + 2;
-    if (clamped) {
-      ox = Math.min(Math.max(ox, n5.getBoundingClientRect().right - S.left + 5), S.width - out.offsetWidth - 12);   /* 4+ px clear of the Fri-5 date, 12 px inside the edge */
+    var an = ctr(ancs[1]), ox = an.x + 2, oy = an.y - out.offsetHeight * 0.85;
+    clamped = ox > S.width - out.offsetWidth - 14;
+    if (clamped) {   /* no room beside Fri 6: below the structure, under FRI, 14 px inside the edge, with a leader up the stack's right side */
+      var rt6 = boxes[9].children[2].getBoundingClientRect(), rt30 = boxes[4].children[2].getBoundingClientRect(), df = dayFri.getBoundingClientRect();
+      ox = S.width - out.offsetWidth - 14; oy = df.bottom - S.top + 8;
+      var gx = Math.min(S.width - 8, Math.max(rt6.right, rt30.right) - S.left + 6), ey = rt6.top + rt6.height / 2 - S.top, ex = rt6.right - S.left - 3;
+      tagLead.setAttribute('d', 'M' + gx.toFixed(1) + ' ' + oy.toFixed(1) + 'V' + ey.toFixed(1) + 'H' + ex.toFixed(1));
+      tagEnd.setAttribute('cx', ex.toFixed(1)); tagEnd.setAttribute('cy', ey.toFixed(1));
     }
-    var oy = an.y - out.offsetHeight * 0.85;
-    if (clamped) { var r5 = n5.getBoundingClientRect(); oy = phoneTagY(); if (ox < r5.right - S.left + 4.5) oy = Math.min(oy, r5.top - S.top - 5 - out.offsetHeight); }   /* no room beside the Fri-5 date: sit 4+ px above it */
     out.style.transform = 'translate(' + ox.toFixed(1) + 'px,' + oy.toFixed(1) + 'px)';
   }
-  show(out, oo);   /* clamped (phones): sits just above the Fri 6 date numeral (lower half of block 13, whose date is at its top) so the date stays readable */   /* pinned to Fri 6, never closer than 14 px to the stage edge */   /* 2D tag pinned to Fri 6 (floor 2) */
+  tagLead.style.opacity = tagEnd.style.opacity = clamped ? oo.toFixed(3) : 0;
+  show(out, oo);   /* 2D tag pinned to Fri 6 (floor 2): beside it on wide layouts, under the structure with a leader on phones */
   var fo = t < 1.0 ? 1 - drain : sm(k(t, 10.9, 11.0));
   show(flag, fo);
   var up = t < 1.0 ? 1 : sm(k(t, 10.9, 11.25)), un = t < 1.0 ? 1 : sm(k(t, 11.15, 11.55));
@@ -149,7 +145,8 @@ function render(t) {
   mail.forEach(function (r, j) {
     if (j >= 6) { r.style.opacity = 0; return; }
     var s0 = FRI[1] + 0.1 + j * 0.12, q = k(t, s0, s0 + 0.8), e = eo(q), x, y;
-    if (up) { x = Math.min(S.width - 32, o6 ? o6.left - S.left + o6.width / 2 : src.x) + (j % 2 ? 9 : -9);   /* >= 12 px inside the edge */ y = src.y - 10 - e * Math.min(90, src.y - 70); }
+    if (clamped && o6) { x = o6.left - S.left - 10 - e * Math.max(0, o6.left - S.left - 50); y = src.y; }   /* phones: the row of messages leaves the tag leftwards, under the day labels, outside the stack */
+    else if (up) { x = Math.min(S.width - 32, o6 ? o6.left - S.left + o6.width / 2 : src.x) + (j % 2 ? 9 : -9);   /* >= 12 px inside the edge */ y = src.y - 10 - e * Math.min(90, src.y - 70); }
     else { x = src.x + 6 + e * Math.max(0, room - 18); y = src.y; }
     r.setAttribute('x', (x - 5.5).toFixed(1)); r.setAttribute('y', (y - 4).toFixed(1)); r.style.opacity = q > 0 && q < 1 ? (q > 0.65 ? (1 - q) / 0.35 : 1).toFixed(2) : 0;
   });
