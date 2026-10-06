@@ -78,6 +78,7 @@ document.querySelectorAll('.js-pay').forEach(function (b) {
     bar.classList.toggle('away', seen.size > 0);
   });
   document.querySelectorAll('.js-pay').forEach(function (b) { if (!bar.contains(b)) io.observe(b); });
+  var pl = document.getElementById('player'); if (pl) io.observe(pl);   /* 6 Oct: never cover the video (it covered "Watch with sound" at 320) */
 })();
 
 /* ---- state + reveals ---- */
