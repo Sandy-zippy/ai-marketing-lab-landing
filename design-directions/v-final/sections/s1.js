@@ -2,6 +2,8 @@
 var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var names=['Medico Construction','Scale Your Results','Rumor Avenue','Agent Lions Den','Jas Oberoi','Riarh Group','Celestial Luxury Resorts','Walk Again Rehab','Swathi Veldandi Studio'];
   document.getElementById('s1-mq').innerHTML = names.concat(names).map(function(n){return '<span>'+n+'</span>'}).join('');
+  /* WCAG 2.2.2: the names strip moves for more than 5 s, so it gets the page's pause control */
+  if (window.AIML && AIML.pauseBtn) AIML.pauseBtn(document.querySelector('#s1 .mq-w'), { pause: function () { document.getElementById('s1-mq').style.animationPlayState = 'paused'; }, play: function () { document.getElementById('s1-mq').style.animationPlayState = ''; } });
 
   /* ---------- everything below is a pure function of t (business-motion-film rule 4) ---------- */
   var D=12, $=function(i){return document.getElementById('s1-'+i)};
