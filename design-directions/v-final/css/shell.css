@@ -54,11 +54,11 @@ body.modal-open{overflow:hidden}
 /* screen 2: one ICP line above the player, only where it fits on one line */
 /* screen 2 head (LP-COPY-v2 "Screen 2"): ICP callout, why to watch, then the player. Centred like screen 1. */
 .whead{display:grid;justify-items:center;text-align:center;margin-bottom:var(--s6)}
-.whead h1{margin-top:var(--s3);font-size:clamp(26px,calc(12px + 2.4vw),44px);max-width:32ch}
-.whead .lede{margin-top:var(--s3);color:var(--body)}
+.whead h1{margin-top:var(--s3);font-family:var(--head);font-weight:800;font-size:clamp(40px,calc(20px + 3.6vw),72px);line-height:1;letter-spacing:-.035em;max-width:30ch}   /* 6 Oct (Sandy): the video page heading outranks every section h2 (--t-h2 tops out at 62px) */
+.whead .lede{margin-top:var(--s4);color:var(--body);font-size:var(--t-lg)}
 #watch{padding-bottom:var(--s7)}
 @media (max-width:767px){.whead{margin-bottom:var(--s5)}#watch{padding-bottom:var(--s5)}}
-@media (min-width:1024px){.whead{margin-bottom:var(--s5)}.whead .callout{max-width:none}#watch .player{width:100%;max-width:clamp(560px,calc((100svh - 372px) * 16 / 9),960px);justify-self:center;margin-inline:auto}}   /* whole player above a 900px fold */
+@media (min-width:1024px){.whead{margin-bottom:var(--s5)}.whead .callout{max-width:none}#watch .player{width:100%;max-width:clamp(560px,calc((100svh - 432px) * 16 / 9),960px);justify-self:center;margin-inline:auto}}   /* whole player above a 900px fold */
 
 /* player (same behaviour as call/index.html) */
 .player{position:relative;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;background:var(--ink)}
