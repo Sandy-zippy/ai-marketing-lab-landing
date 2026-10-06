@@ -65,10 +65,10 @@
   clip-path:inset(0 calc(100% - 100% * var(--mm,1)) 0 0 round 4px)}
 #s6 .mb .paid{position:absolute;left:0;top:-3px;bottom:-3px;z-index:2;width:max(6px,calc(100% * var(--w)));border-radius:3px;background:var(--on-petrol);
   box-shadow:0 0 0 2px var(--petrol);transform-origin:0 50%;transform:scaleX(var(--pp,1))}
-/* Medico: the made bar is 24 months (contracted in 2 years); a taller mark at month 12 */
 /* a band of light sweeps the made bar while the case is read (JS sets --sw; clipped by the made fill) */
 #s6 .mb .made::after{content:"";position:absolute;top:0;bottom:0;left:calc(var(--sw,-1) * 100%);width:18%;pointer-events:none;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent)}
+/* Medico: the made bar is 24 months (contracted in 2 years); a taller mark at month 12 */
 #s6 .mb-time .ticks{position:absolute;inset:0;border-radius:4px;pointer-events:none;
   background:linear-gradient(90deg,transparent calc(50% - 1px),var(--petrol) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px)),
     repeating-linear-gradient(90deg,transparent 0 calc(100% / 24 - 1px),rgba(11,34,36,.7) calc(100% / 24 - 1px) calc(100% / 24))}
@@ -86,9 +86,10 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
 
 /* ---------- lower band: Sami's own card + our own offer ---------- */
 #s6 .s6-low{display:grid;gap:var(--s6)}
-#s6 .s6-sami{margin:0;display:grid;gap:var(--s3);justify-items:start}
-#s6 .vid-box{position:relative;width:min(100%,260px);aspect-ratio:9/16;border-radius:20px;overflow:hidden;background:#000;border:1px solid var(--petrol-line);box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
-#s6 .vid-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#s6 .s6-sami{margin:0;display:grid;gap:var(--s3);align-content:start}
+#s6 .vid-box{position:relative;width:100%;aspect-ratio:9/16;border-radius:20px;overflow:hidden;background:#000;border:1px solid var(--petrol-line);box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+/* object-position top: his whole head is always in frame, whatever the box's crop */
+#s6 .vid-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
 /* play glyph, JS only (.tap): the native controls wait for the first tap, so this is the one play icon; kept off his face */
 #s6 .vid-box.tap::after{content:"";position:absolute;left:var(--s3);bottom:var(--s3);width:48px;height:48px;border-radius:50%;pointer-events:none;
   background:var(--teal-hi) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6.5v11l9-5.5z' fill='%230B2224'/%3E%3C/svg%3E") center/22px no-repeat;
@@ -97,12 +98,13 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
 #s6 .vid-box.tap{cursor:pointer}
 #s6 .s6-sami figcaption{display:grid;gap:var(--s1);font-size:var(--t-sm);color:var(--on-petrol)}
 
-#s6 .own{position:relative;isolation:isolate;border-radius:28px;padding:var(--s5) var(--s4);overflow:hidden;
+/* our own offer: a column; beside Sami's card the dot field takes all the height the card gives it (no empty floor) */
+#s6 .own{position:relative;isolation:isolate;display:flex;flex-direction:column;border-radius:28px;padding:var(--s5) var(--s4);overflow:hidden;
   background:radial-gradient(110% 90% at 50% 40%,#13403E,var(--petrol-2) 45%,#0A1F21 100%);border:1px solid var(--petrol-line)}
 #s6 .field{position:relative;width:100%;aspect-ratio:4/3;margin-top:var(--s3)}
 #s6 .field canvas{position:absolute;inset:0;width:100%;height:100%}
 #s6 .fr{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2);margin-top:var(--s4)}
-#s6 .fr p{min-width:0;font-size:var(--t-sm);line-height:1.35;color:var(--on-petrol-q);transition:color var(--d-ui) var(--ease)}
+#s6 .fr p{min-width:0;font-size:var(--t-sm);line-height:1.35;color:var(--on-petrol-q);white-space:nowrap;transition:color var(--d-ui) var(--ease)}
 #s6 .fr b{display:block;font-family:var(--mono);font-weight:700;font-size:var(--t-num);line-height:1.1;letter-spacing:-.03em;color:var(--on-petrol-q);margin-bottom:var(--s1);transition:color var(--d-ui) var(--ease)}
 #s6 .fr p.on{color:var(--on-petrol)}
 #s6 .fr p.on b{color:var(--on-petrol)}
@@ -114,25 +116,27 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
 #s6 .wall{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2) var(--s5);padding-top:var(--s4);border-top:1px solid var(--petrol-line);color:var(--on-petrol-q);font-size:var(--t-sm)}
 #s6 .wall li:not(.k){color:var(--on-petrol)}
 
-/* shared pause control, kept clear of the content */
-#s6 .s6-car .mo-pause,#s6 .own .mo-pause{top:var(--s3);bottom:auto;right:var(--s3)}
-/* phone: the pause sits in the stage's bottom padding, clear of the peeking tab; captions reserve two lines so the
-   money block never jumps between cases; Sami's card is a row (video + caption) on the full width */
-#s6 .s6-car .mo-pause{top:auto;bottom:var(--s4)}
+/* shared pause control, kept clear of the content: the offer's top right, the carousel's bottom padding */
+#s6 .own .mo-pause{top:var(--s3);bottom:auto;right:var(--s3)}
+#s6 .s6-car .mo-pause{top:auto;bottom:var(--s4);right:var(--s3)}
+
+/* phone: captions reserve two lines so the money block never jumps between cases; Sami full width at 4:5 (head at the top) */
 @media (max-width:767px){
   #s6 .s6-car{padding-bottom:calc(var(--s8) + var(--s2))}
   #s6 .cap{min-height:calc(2 * 1.4em)}
-  #s6 .vid-box{width:100%;aspect-ratio:4/5}   /* full width; 4:5 keeps his face and the play button on one screen */
+  #s6 .vid-box{aspect-ratio:4/5}
   /* every screenshot fills the same frame on a phone (top kept), so the portrait funnel is never a thumbnail */
   #s6 .win{width:100%}
+  #s6 .box{--bh:210px}
   #s6 .win img{width:100%;height:calc(var(--bh) - 20px);max-height:none;object-fit:cover;object-position:top}
+  /* the portrait funnel ends cleanly under its Book a FREE Demo button (source rows 0 to 675) */
+  #s6 #s6-c1 .win{width:auto}
+  #s6 #s6-c1 .win img{width:auto;aspect-ratio:900/675}
 }
-
 /* smallest phones: the funnel row keeps one line per label and a clear gap round each arrow */
 @media (max-width:360px){
   #s6 .own{padding-inline:var(--s3)}
-  #s6 .fr{gap:var(--s2)}
-  #s6 .fr p{font-size:var(--t-label);white-space:nowrap}
+  #s6 .fr p{font-size:var(--t-label)}
   #s6 .ar{--aw:var(--s3)}
 }
 @media (min-width:768px){
@@ -140,25 +144,27 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
   #s6 .s6-tabs{height:60px;margin-bottom:var(--s6)}
   #s6 .s6-tab{height:60px}
   #s6 .row{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--s6);align-items:start}
-  #s6 .info{padding-top:var(--s7)}
+  #s6 .info{padding-top:var(--s6);gap:var(--s5)}   /* one constant top for every case, so the money row never jumps */
   #s6 .box{--bh:300px}
   #s6 .chrome{height:24px;background-position:14px 50%,28px 50%,42px 50%}
   #s6 .win img{max-height:calc(var(--bh) - 26px)}
-  #s6 .info{gap:var(--s5)}
   #s6 .txt .k{display:block;margin:var(--s2) 0 0}
   #s6 .v{display:block;font-size:var(--t-body)}
   #s6 .mb{height:22px}
-  #s6 .own{padding:var(--s6)}
-  #s6 .field{aspect-ratio:2.3/1}
-  #s6 .fr{justify-content:flex-start;gap:var(--s6)}
-  #s6 .fr p{font-size:var(--t-body)}
-  #s6 .ar{--aw:var(--s8)}
+  /* Sami beside the offer from tablet up: two columns, same height; the field fills the offer column */
+  #s6 .s6-low{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:var(--s5);align-items:stretch}
+  #s6 .own{padding:var(--s5)}
+  #s6 .field{flex:1;aspect-ratio:auto;min-height:220px}
   #s6 .wall{font-size:var(--t-body)}
 }
 @media (min-width:1024px){
   #s6 .box{--bh:400px}
+  #s6 .info{padding-top:calc(var(--s8) + var(--s4))}   /* centres the tallest case's text against the 400px window */
   #s6 .win img{max-height:calc(var(--bh) - 26px)}
-  #s6 .s6-low{grid-template-columns:minmax(0,4fr) minmax(0,8fr);column-gap:var(--s6);align-items:stretch}
+  #s6 .s6-low{grid-template-columns:minmax(0,4fr) minmax(0,8fr);column-gap:var(--s6)}
   #s6 .vid-box{width:min(100%,300px)}
+  #s6 .own{padding:var(--s6)}
+  #s6 .fr{justify-content:flex-start;gap:var(--s6)}
   #s6 .fr p{font-size:var(--t-lg)}
+  #s6 .ar{--aw:var(--s8)}
 }

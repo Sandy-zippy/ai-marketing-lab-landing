@@ -78,7 +78,7 @@ function renderCar(t) {
       if (!old) return;
       var oo = 1 - sm(k(u, 0, .15));     /* fully out before the incoming window is visible */
       vis(r.win, oo); r.win.style.transform = 'scale(' + (1.035 - .05 * sm(k(u, 0, .3))).toFixed(4) + ')';
-      vis(r.info, 1 - sm(k(u, 0, .15))); vis(r.cap, 1 - sm(k(u, 0, .15))); return;
+      vis(r.info, 1 - sm(k(u, 0, .07))); vis(r.cap, 1 - sm(k(u, 0, .15))); return;   /* the text hands over in ~0.1 s: a name and numbers are always on screen, never two names */
     }
     /* selection -> expansion: the window grows out of the active tab's thumbnail */
     var e = eo(k(u, .15, .75)), push = 1 + .035 * k(u, .7, CASE);
@@ -89,12 +89,12 @@ function renderCar(t) {
     r.win.style.transform = 'translate(' + (dx * (1 - e)).toFixed(1) + 'px,' + (dy * (1 - e)).toFixed(1) + 'px) scale(' + ((s0 + (1 - s0) * e) * push).toFixed(4) + ')';
     vis(r.win, sm(k(u, .15, .32)));
     r.win.style.setProperty('--a', (u * 75 % 360).toFixed(1) + 'deg'); r.win.style.setProperty('--bo', sm(k(u, .7, 1.1)).toFixed(3));
-    vis(r.info, sm(k(u, .18, .45))); r.info.style.transform = 'none';   /* dissolves into the outgoing block on the same baseline */
+    vis(r.info, sm(k(u, .05, .13))); r.info.style.transform = 'none';   /* dissolves into the outgoing block on the same baseline */
     vis(r.cap, sm(k(u, .6, .9)));
     /* the ratio: the paid slice lands, then what they made grows out of it. Number and bar share ONE eased value,
        and Made counts up from the paid amount (never from zero). */
     var pp = eo(k(u, .35, .65)), xm = k(u, .5, 3.8), em = 1 - (1 - xm) * (1 - xm), w = parseFloat(r.mb.style.getPropertyValue('--w')) || 0;
-    setN(r, 'pd', 1); setN(r, 'md', em);
+    setN(r, 'pd', 1); setN(r, 'md', 1);   /* the figures are always the copy's own; the motion is the bar and the window */
     r.md.style.opacity = sm(k(u, .5, .75)).toFixed(3);   /* Made fades in on the same ramp in every case as it starts to count */
     r.mb.style.setProperty('--pp', pp.toFixed(3));
     r.mb.style.setProperty('--mm', (w * pp + (1 - w) * em).toFixed(4));
@@ -122,8 +122,8 @@ function render2(t) {
   frs.forEach(function (p, i) { p.classList.toggle('on', i === a); });
   cx.setTransform(DPR, 0, 0, DPR, 0, 0); cx.clearRect(0, 0, FW, FH);
   var cols = 25, rws = 12, mx = FW * .04, my = FH * .08, cw = (FW - 2 * mx) / cols, ch = (FH - 2 * my) / rws, cell = Math.min(cw, ch), r0 = cell * .22;
-  var bs = cell * 1.6, bx = FW / 2 - 4.5 * bs, by = FH * .36 - 2 * bs;     /* the block of 50: 10 x 5 */
-  var rs = Math.min(FW * .075, cell * 2.8), rx = FW / 2 - 5.5 * rs, ry = FH * .84;   /* the row of 10 (+) */
+  var bs = cell * 1.6, bx = FW / 2 - 4.5 * bs, by = my + bs * .5;   /* the 50 settle at the top of the field */     /* the block of 50: 10 x 5 */
+  var rs = Math.min(FW * .075, cell * 2.8), rx = FW / 2 - 5.5 * rs, ry = Math.min(FH * .84, by + 4 * bs + Math.max(cell * 3, FH * .22));   /* the 10 sit just under them, never a wide gap */   /* the row of 10 (+) */
   for (var i = 0; i < 300; i++) {
     var c = i % cols, rr = Math.floor(i / cols), x0 = mx + (c + .5) * cw, y0 = my + (rr + .5) * ch, q = QUAL[i];
     var x = x0, y = y0, r = r0, al = .42, teal = 0, glow = 0;
