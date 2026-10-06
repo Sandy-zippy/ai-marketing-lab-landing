@@ -32,7 +32,7 @@ function dots(n, cls) { var a = []; for (var i = 0; i < n; i++) { var r = docume
 var pulse = document.createElementNS(NS, 'circle'); pulse.setAttribute('r', 3.5); pulse.setAttribute('fill', '#3FE0D6'); pulse.style.filter = 'drop-shadow(0 0 6px #3FE0D6)'; fx.appendChild(pulse);
 var mail = dots(30, 'm'), inq = dots(7, 'q');
 mail.forEach(function (r) { r.setAttribute('width', 11); r.setAttribute('height', 8); r.setAttribute('rx', 1.5); r.setAttribute('fill', '#0B2224'); r.setAttribute('stroke', '#3FE0D6'); r.setAttribute('stroke-width', 1.2); });
-inq.forEach(function (r) { r.setAttribute('width', 10); r.setAttribute('height', 7); r.setAttribute('rx', 1.5); r.setAttribute('fill', '#3FE0D6'); });
+inq.forEach(function (r) { r.setAttribute('width', 14); r.setAttribute('height', 10); r.setAttribute('rx', 2); r.setAttribute('fill', '#3FE0D6'); r.setAttribute('stroke', '#0B2224'); r.setAttribute('stroke-width', 1.2); });
 
 var S = null;   /* stage rect, refreshed per render */
 function ctr(el) { var r = el.getBoundingClientRect(); return { x: r.left + r.width / 2 - S.left, y: r.top + r.height / 2 - S.top, r: r }; }
@@ -48,7 +48,8 @@ function render(t) {
   var y0 = parseFloat(getComputedStyle(cam).getPropertyValue('--y0')) || 26;
   var yaw = y0 + 3 * Math.sin(2 * Math.PI * t / D) - 10 * Math.pow(Math.sin(Math.PI * k(t, 11.8, 13.6)), 2);
   cam.style.setProperty('--y', yaw.toFixed(3));
-  var lf = [0, 1, 2].map(function (f) { return (br * f * 0.55 * bh).toFixed(2) + 'px'; });
+  var lift = getComputedStyle(rows[0].parentNode).position === 'absolute' ? 0.55 : 0.3;   /* stacked layouts keep the lifted flag inside the stage */
+  var lf = [0, 1, 2].map(function (f) { return (br * f * lift * bh).toFixed(2) + 'px'; });
 
   /* blocks: fall from above (fast start, slowing landing), flash teal-hi on landing; Fridays stay lit */
   var count = 0;
@@ -78,7 +79,7 @@ function render(t) {
   /* 100 out tag on Fri 6, Demo day flag on Fri 13 */
   var oo = t < 1.0 ? 1 - drain : sm(k(t, FRI[1] + 0.05, FRI[1] + 0.25));
   show(out, oo);
-  if (out.offsetParent !== null) { var an = ctr(ancs[1]); out.style.transform = 'translate(' + (an.x + 2).toFixed(1) + 'px,' + (an.y - out.offsetHeight / 2).toFixed(1) + 'px)'; }   /* 2D tag pinned to Fri 6 (floor 2) */
+  if (out.offsetParent !== null) { var an = ctr(ancs[1]); out.style.transform = 'translate(' + (an.x + 2).toFixed(1) + 'px,' + (an.y - out.offsetHeight * 0.85).toFixed(1) + 'px)'; }   /* 2D tag pinned to Fri 6 (floor 2) */
   var fo = t < 1.0 ? 1 - drain : sm(k(t, 10.9, 11.0));
   show(flag, fo);
   var up = t < 1.0 ? 1 : sm(k(t, 10.9, 11.25)), un = t < 1.0 ? 1 : sm(k(t, 11.15, 11.55));
@@ -97,6 +98,7 @@ function render(t) {
     if (!on) { p.style.opacity = 0; return; }
     var a = f === 1 ? (function () { var r = out.getBoundingClientRect(); return { x: r.right - S.left + 4, y: r.top + r.height / 2 - S.top }; })() : ctr(ancs[f]);
     var rr = rows[f].firstChild.getBoundingClientRect(), ex = rr.left - S.left - 14, ey = rr.top + rr.height / 2 - S.top, mx = (a.x + ex) / 2;
+    if (f === 0 && out.offsetParent !== null && +out.style.opacity > 0.05) { var orr = out.getBoundingClientRect(); mx = Math.max(mx, orr.right - S.left + 12); }   /* Fri 30's line rises only past the 100 OUT tag */
     p.setAttribute('d', 'M' + a.x.toFixed(1) + ' ' + a.y.toFixed(1) + 'C' + mx.toFixed(1) + ' ' + a.y.toFixed(1) + ' ' + mx.toFixed(1) + ' ' + ey.toFixed(1) + ' ' + ex.toFixed(1) + ' ' + ey.toFixed(1));
     var L = p.getTotalLength(), dr = t < 1.0 ? 1 : sm(k(t, FRI[f], FRI[f] + 0.4));
     p.style.strokeDasharray = L + ' ' + L; p.style.strokeDashoffset = (L * (1 - dr)).toFixed(1);
@@ -110,17 +112,21 @@ function render(t) {
   var top = ctr(boxes[4].children[1]), SH = st.querySelector('.s4-scene').offsetHeight;
   inq.forEach(function (r, j) {
     var s0 = FRI[0] + 0.05 + j * 0.11, q = k(t, s0, s0 + 0.75), e = sm(q);
-    var x0 = 6 + rnd(j) * 24, y0 = SH * (0.3 + rnd(j + 5) * 0.3), cx = (x0 + top.x) / 2, cy = Math.min(y0, top.y) - 60 - rnd(j + 9) * 40;
+    var x0 = top.x - 40 - rnd(j) * 120, y0 = side ? 10 : 56,   /* inside the stage; stacked: below the session counter */ cx = (x0 + top.x) / 2 + 20, cy = top.y * 0.35;   /* drop in from above the structure, clear of the week tags */
     var x = (1 - e) * (1 - e) * x0 + 2 * (1 - e) * e * cx + e * e * top.x, y = (1 - e) * (1 - e) * y0 + 2 * (1 - e) * e * cy + e * e * top.y;
-    r.setAttribute('x', (x - 5).toFixed(1)); r.setAttribute('y', (y - 3.5).toFixed(1)); r.style.opacity = q > 0 && q < 1 ? (q > 0.85 ? (1 - q) / 0.15 : 1).toFixed(2) : 0;
+    r.setAttribute('x', (x - 7).toFixed(1)); r.setAttribute('y', (y - 5).toFixed(1)); r.style.opacity = q > 0 && q < 1 ? Math.min(1, q / 0.12, q > 0.85 ? (1 - q) / 0.15 : 1).toFixed(2) : 0;
   });
-  /* Fri 6: a stream too dense to count leaves the block and runs to its outcome row ("your first 100 messages go out") */
-  var src = ctr(boxes[9].children[2]), lp = leads[1], LL = side && t >= FRI[1] ? lp.getTotalLength() : 0;
+  /* Fri 6: the messages go out as one spaced row of chips leaving the 100 OUT tag to the right ("your first 100 messages go
+     out"); it fades 16 px before the directory text, and stacked layouts with no room on the right send it up instead */
+  var o6 = out.offsetParent !== null ? out.getBoundingClientRect() : null, src = o6 ? { x: o6.right - S.left + 8, y: o6.top + o6.height / 2 - S.top } : ctr(boxes[9].children[2]);
+  var side2 = getComputedStyle(rows[0].parentNode).position === 'absolute', wall = side2 ? rows[1].getBoundingClientRect().left - S.left - 16 : S.width - 16;
+  var room = wall - src.x, up = room < 70;
   mail.forEach(function (r, j) {
-    var s0 = FRI[1] + 0.1 + j * 0.035, q = k(t, s0, s0 + 0.9), e = eo(q), jx = (rnd(j + 3) - 0.5) * 14, jy = (rnd(j + 7) - 0.5) * 14, x, y;
-    if (LL) { var pt = lp.getPointAtLength(LL * e * 0.94); x = pt.x + jx * (1 - e * 0.5); y = pt.y + jy * (1 - e * 0.5); }
-    else { /* stacked layout: the stream leaves out of the top of the stage */ var ex = src.x - 10 + rnd(j + 3) * 36, cx = src.x + 14, cy = src.y - 40; x = (1 - e) * (1 - e) * src.x + 2 * (1 - e) * e * cx + e * e * ex; y = (1 - e) * (1 - e) * src.y + 2 * (1 - e) * e * cy + e * e * -20; }
-    r.setAttribute('x', (x - 5.5).toFixed(1)); r.setAttribute('y', (y - 4).toFixed(1)); r.style.opacity = q > 0 && q < 1 ? (q > 0.8 ? (1 - q) / 0.2 : 1).toFixed(2) : 0;
+    if (j >= 6) { r.style.opacity = 0; return; }
+    var s0 = FRI[1] + 0.1 + j * 0.12, q = k(t, s0, s0 + 0.8), e = eo(q), x, y;
+    if (up) { x = Math.min(S.width - 32, o6 ? o6.left - S.left + o6.width / 2 : src.x) + (j % 2 ? 9 : -9);   /* >= 12 px inside the edge */ y = src.y - 10 - e * Math.min(90, src.y - 70); }
+    else { x = src.x + 6 + e * Math.max(0, room - 18); y = src.y; }
+    r.setAttribute('x', (x - 5.5).toFixed(1)); r.setAttribute('y', (y - 4).toFixed(1)); r.style.opacity = q > 0 && q < 1 ? (q > 0.65 ? (1 - q) / 0.35 : 1).toFixed(2) : 0;
   });
 }
 
@@ -135,7 +141,7 @@ function redraw() { render(seekT !== null ? seekT : RM ? 0.2 : now()); }
 render(RM ? 0.2 : 0);
 if ('ResizeObserver' in window) new ResizeObserver(redraw).observe(st); else addEventListener('resize', redraw);
 if (document.fonts) document.fonts.ready.then(redraw);
-if (RM) return;
+if (RM) { addEventListener('load', redraw); if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) redraw(); }); }).observe(st); return; }   /* the still frame is drawn again once the stage is laid out */
 if (window.AIML && AIML.pauseBtn) AIML.pauseBtn(st, { pause: function () { paused = true; stop(); }, play: function () { paused = false; if (inView) play(); } });
 if ('IntersectionObserver' in window) new IntersectionObserver(function (es) {
   es.forEach(function (e) { inView = e.isIntersecting && st.offsetParent !== null; if (inView && seekT === null) { redraw(); play(); } else stop(); });

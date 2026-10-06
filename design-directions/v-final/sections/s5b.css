@@ -9,7 +9,8 @@
 #s5b th,#s5b td{text-align:left;vertical-align:top;padding:var(--s4) var(--s4);border-bottom:1px solid var(--line)}
 #s5b thead td{width:20%}
 #s5b thead th,#s5b thead td{border-bottom:1px solid var(--ink);padding-top:var(--s5);padding-bottom:var(--s3)}
-#s5b tbody th{font-family:var(--mono);font-size:var(--t-sm);font-weight:400;letter-spacing:.02em;color:var(--body);padding-left:0;padding-top:calc(var(--s4) + 2px)}
+/* row heads: Space Mono 700, ink at 70%, so they read as heads next to the answers */
+#s5b tbody th{font-family:var(--mono);font-size:var(--t-sm);font-weight:700;letter-spacing:0;color:rgba(18,18,18,.7);padding-left:0;padding-top:calc(var(--s4) + 2px)}
 #s5b tbody td{color:var(--body)}
 #s5b .s5b-acc{background:var(--accent-soft);color:var(--ink)}
 #s5b tbody td.s5b-acc{color:var(--ink);border-bottom-color:rgba(0,161,155,.22)}
@@ -18,21 +19,22 @@
 #s5b .s5b-tag{display:inline-block;padding:var(--s1) var(--s3);font-family:var(--mono);font-size:var(--t-sm);font-weight:700;letter-spacing:.02em;line-height:1.4;
   color:var(--body);background:var(--elevated);border:1px solid var(--elevated);border-radius:999px}
 #s5b th.s5b-acc .s5b-tag{color:var(--accent-ink);background:var(--canvas);border-color:var(--accent)}
-/* the guarantee: one framed strip under both programmes */
-#s5b .s5b-g th,#s5b .s5b-g td{border-bottom:0;padding-top:var(--s5)}
-#s5b .s5b-g td{position:relative;color:var(--ink);font-weight:600}
-#s5b .s5b-g td::before{content:"";position:absolute;inset:var(--s3) 0 calc(var(--s3) * -1) 0;z-index:-1;border-radius:14px;background:var(--paper);border:1px solid var(--paper-edge)}
-#s5b .s5b-g td{padding-left:var(--s5)}
+/* the guarantee: one framed strip under both programmes, text centred in it */
+#s5b .s5b-g th,#s5b .s5b-g td{border-bottom:0}
+#s5b .s5b-g th{padding-top:calc(var(--s6) + 3px)}
+#s5b .s5b-g td{position:relative;padding:calc(var(--s4) + 2 * var(--s3)) var(--s5) var(--s4);color:var(--ink);font-weight:600}   /* strip starts s3 down: equal space above and below the text inside it */
+#s5b .s5b-g td::before{content:"";position:absolute;inset:var(--s3) 0 0 0;z-index:-1;border-radius:14px;background:var(--paper);border:1px solid var(--paper-edge)}
 
 /* the motion layer sits UNDER the table text: the elevated Accelerator card, the row tints, the settled frame */
 #s5b .s5b-bands{position:absolute;inset:0;z-index:0;pointer-events:none}
 #s5b .s5b-bands i{position:absolute;left:0;top:0;display:block}
-#s5b .s5b-card{border-radius:16px;background:var(--canvas);border:1px solid var(--line);box-shadow:0 24px 48px -24px rgba(0,161,155,.35)}
-#s5b .s5b-band{background:rgba(0,161,155,.13)}
-#s5b .s5b-band:first-child+.s5b-band{border-radius:14px 14px 0 0}
-#s5b .s5b-band:nth-last-child(2){border-radius:0 0 14px 14px}
+#s5b .s5b-card{border-radius:16px;background:var(--canvas);border:1px solid rgba(0,161,155,.3);
+  box-shadow:0 1px 2px rgba(18,18,18,.06),0 20px 40px -20px rgba(0,161,155,.32)}
+#s5b .s5b-band{background:rgba(0,161,155,.15);border-radius:6px}
+#s5b .s5b-band:first-child+.s5b-band{border-radius:14px 14px 6px 6px}
+#s5b .s5b-band:nth-last-child(2){border-radius:6px 6px 14px 14px}
 #s5b .s5b-frame{border:2px solid var(--accent);border-radius:16px;box-shadow:0 0 0 5px var(--accent-soft)}
-/* with JS on wide screens the column backgrounds come from the layer, so the table cells go transparent */
+/* with JS the column backgrounds come from the layer, so the table cells go transparent */
 #s5b.s5b-js:not(.s5b-stk) .s5b-acc{background:transparent}
 
 /* the segmented control */
@@ -47,13 +49,14 @@
 @media (min-width:1024px){
   #s5b table{font-size:var(--t-lg)}
   #s5b th,#s5b td{padding:var(--s5) var(--s6) var(--s5) var(--s5)}
-  #s5b tbody th{padding-left:0;padding-top:calc(var(--s5) + 4px)}
-  #s5b .s5b-g td{padding-left:var(--s6)}
+  #s5b tbody th{padding-left:0;padding-top:calc(var(--s5) + 4px);font-size:var(--t-body)}
+  #s5b .s5b-g th{padding-top:calc(var(--s6) + var(--s1) + 4px)}
+  #s5b .s5b-g td{padding:calc(var(--s5) + var(--s3)) var(--s6) var(--s5)}
   #s5b .s5b-hd{grid-row:1}
   #s5b .s5b-seg{grid-row:1;justify-self:end}
 }
 
-/* phone: stacked rows (label, then the Sprint answer, then the Accelerator answer on its tinted strip); works with no JS */
+/* phone: stacked rows (label, then the Sprint answer, then the Accelerator answer); works with no JS */
 @media (max-width:767px){
   #s5b table,#s5b tbody,#s5b tr,#s5b th,#s5b td{display:block;width:auto}
   #s5b thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -67,7 +70,9 @@
   #s5b tbody td.s5b-acc::before{content:"Accelerator";color:var(--accent-ink)}
   #s5b tbody td.s5b-acc{margin-top:var(--s1)}
   #s5b tr.s5b-last td.s5b-acc{border-radius:10px}
-  #s5b .s5b-band{border-radius:10px}
+  /* with JS: no resting tint; the Accelerator keeps its teal label and a teal hairline, the moving tint shows the choice */
+  #s5b.s5b-js tbody td.s5b-acc{background:transparent;box-shadow:inset 0 0 0 1px rgba(0,161,155,.35)}
+  #s5b .s5b-band,#s5b .s5b-band:first-child+.s5b-band,#s5b .s5b-band:nth-last-child(2){border-radius:10px;background:rgba(0,161,155,.24)}
   #s5b .s5b-card,#s5b .s5b-frame{display:none!important}
   #s5b .s5b-g{border-bottom:0}
   #s5b .s5b-g td{padding:var(--s4)}

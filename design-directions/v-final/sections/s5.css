@@ -1,9 +1,10 @@
 /* S5 v6 (LIGHT, paper ground): the Accelerator. Head with the ten seats beside it; the colour-graded desk photo as a band;
-   a white rail stage tucked 24px under its bottom edge. Persistent rails as a staircase: Upstream (weeks 1 to 4) runs high and
-   steps down to Downstream (weeks 5 to 8); the "1:1" call marker travels them and installs each week's system (node fills teal,
-   tick lands, label goes ink, installed rail carries flowing light). Every state is driven by custom props from s5.js render(t);
-   the defaults below are the finished frame (no JS, reduced motion). */
+   a white rail stage tucked under its bottom edge. Persistent rails as a staircase: Upstream (weeks 1 to 4) runs high and
+   steps down through a gutter to Downstream (weeks 5 to 8); the "1:1" call marker travels them and installs each week's system
+   (node fills teal, tick lands, label goes ink). Every state is driven by custom props from s5.js render(t); the defaults
+   below are the finished frame (no JS, reduced motion). */
 #s5{border-top:0;background:var(--paper)}
+@media (max-width:767px){#s5{padding-bottom:calc(var(--sec-pad) + var(--s5))}}   /* phones: the stage's last row clears the page's sticky booking bar */
 #s5 .s5-grid{row-gap:var(--s6)}
 #s5 .lede{font-size:var(--t-lg)}
 #s5 .note{font-size:var(--t-sm)}
@@ -27,20 +28,19 @@
 #s5 .s5-seats.draw .s5-slots rect:nth-child(10){animation-delay:540ms}
 @keyframes s5-draw{from{stroke-dashoffset:132}to{stroke-dashoffset:0}}
 
-/* the photo: Sandy and a client, warm duotone grade; both heads and both chins always in frame */
+/* the photo: Sandy and a client, warm duotone grade; both whole heads and both chins in frame at every width */
 #s5 .s5-ph{position:relative;margin:0}
-#s5 .s5-ph img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:50% 85%;border-radius:28px;background:var(--paper-edge)}
+#s5 .s5-ph img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:40% 50%;border-radius:28px;background:var(--paper-edge)}
 #s5 .s5-ph figcaption{margin-top:var(--s3);font-family:var(--mono);font-size:var(--t-label);line-height:1.5;letter-spacing:.06em;text-transform:uppercase;color:var(--quiet)}
 
 /* ---------- the rail stage ---------- */
-#s5 .s5-stage{position:relative;z-index:1;padding:var(--s6) var(--s5) var(--s8);border-radius:28px;background:var(--canvas);
+#s5 .s5-stage{position:relative;z-index:1;padding:var(--s6) var(--s4) var(--s8);border-radius:28px;background:var(--canvas);
   border:1px solid var(--paper-edge);box-shadow:0 30px 60px -36px rgba(42,42,42,.28)}
 #s5 .s5-rails{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 #s5 .s5-rails path{fill:none;stroke-linecap:round;stroke-linejoin:round}
 #s5 .s5-rails .r0{stroke:var(--line);stroke-width:6}
 #s5 .s5-rails .r1{stroke:var(--accent);stroke-width:6}
-#s5 .s5-rails .r2{stroke:#C8F7F3;stroke-width:2;stroke-dasharray:4 18}   /* light flowing along the installed rail (period 22 px) */
-#s5 .s5-rails .rm{stroke:#fff;stroke-width:10}
+#s5 .s5-rails .r2{display:none}   /* the installed rail stays solid */
 #s5 .s5-rail{position:relative}
 #s5 .s5-grp{list-style:none;display:grid;row-gap:var(--s3)}
 #s5 .s5-down{margin-top:var(--s6)}
@@ -49,7 +49,7 @@
 #s5 .s5-gh{--k:1;padding:0 0 var(--s2) calc(var(--s6) + 28px + 2 * var(--s3));font-family:var(--mono);font-size:var(--t-label);font-weight:400;
   letter-spacing:.08em;text-transform:uppercase;color:var(--quiet)}
 #s5 .s5-down .s5-gh{padding-left:calc(var(--s6) + 28px + 2 * var(--s3) + var(--s6))}
-#s5 .s5-gh b{display:flex;align-items:center;gap:var(--s2);margin-top:var(--s1);font-size:var(--t-sm);font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink)}
+#s5 .s5-gh b{display:flex;align-items:flex-start;gap:var(--s2);text-wrap:balance;margin-top:var(--s1);font-size:var(--t-label);font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink)}
 #s5 .s5-hk{position:relative;flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--accent) calc(var(--k) * 100%),var(--quiet-line));
   background:color-mix(in srgb,var(--accent) calc(var(--k) * 100%),var(--canvas))}
 #s5 .s5-hk::after{content:"";position:absolute;left:5px;top:2px;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) scale(var(--k))}
@@ -65,9 +65,10 @@
 #s5 .s5-nd::before{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--accent);opacity:var(--r);transform:scale(calc(1 + (1 - var(--r)) * 1.4))}
 #s5 .s5-wk span{font-size:var(--t-body);line-height:1.35;color:color-mix(in srgb,var(--ink) calc(var(--k) * 100%),var(--body))}
 
-/* the moving 1:1 call: an ink chip that rides the rail */
+/* the moving 1:1 call: an ink chip that rides the rail (it shrinks to ride the step down, s5.js) */
 #s5 .s5-mk{position:absolute;left:0;top:0;z-index:2;display:none;align-items:center;gap:var(--s1);padding:var(--s1) var(--s2);border-radius:999px;background:var(--ink);color:#fff;
-  font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.4;white-space:nowrap;box-shadow:0 0 0 5px var(--accent-soft),0 10px 22px -8px rgba(0,161,155,.7)}
+  font-family:var(--mono);font-weight:700;font-size:var(--t-sm);line-height:1.4;white-space:nowrap;transform-origin:center;
+  box-shadow:0 0 0 5px var(--accent-soft),0 10px 22px -8px rgba(0,161,155,.7)}
 #s5 .s5-mk svg{display:none;width:14px;height:14px;fill:none;stroke:#7FE3DE;stroke-width:1.6;stroke-linecap:round}
 html.js #s5 .s5-mk{display:inline-flex}
 
@@ -75,16 +76,18 @@ html.js #s5 .s5-mk{display:inline-flex}
   #s5 .s5-ph img{aspect-ratio:21/9;object-position:50% 100%}
   #s5 .s5-ph figcaption{position:absolute;left:var(--s5);top:var(--s5);margin:0;padding:var(--s1) var(--s3);border-radius:999px;background:rgba(255,255,255,.92);color:var(--ink)}
   #s5 .s5-stage{margin:calc(var(--s5) * -1) var(--s6) 0;padding:var(--s7) var(--s6) var(--s8)}
+  #s5 .s5-gh b{font-size:var(--t-sm)}
 }
-/* desktop: one staircase across the panel. Upstream on the upper step (columns 1 to 4), Downstream one step lower (5 to 8) */
+/* desktop: one staircase across the panel. Upstream on the upper step (columns 1 to 4), a gutter column for the step down,
+   Downstream one step lower (columns 6 to 9) */
 @media (min-width:1024px){
   #s5 .s5-seats{grid-row:1}
   #s5 .s5-head{grid-row:1}
-  #s5 .s5-stage{margin-inline:var(--s7);display:grid;grid-template-columns:repeat(8,minmax(0,1fr));column-gap:var(--s4);
+  #s5 .s5-stage{margin-inline:var(--s7);display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) var(--s8) repeat(4,minmax(0,1fr));column-gap:var(--s4);
     grid-template-rows:auto auto;padding:var(--s7) var(--s7) var(--s8)}
   #s5 .s5-rail,#s5 .s5-grp{display:contents}
-  #s5 .s5-gh{grid-row:1;grid-column:1/5;align-self:end;padding:0 0 var(--s5)}
-  #s5 .s5-down .s5-gh{grid-column:5/9;padding:0 0 var(--s5)}
+  #s5 .s5-gh{grid-row:1;grid-column:1/5;align-self:start;padding:0 0 var(--s5)}   /* both heads top-aligned: the "Weeks" labels line up */
+  #s5 .s5-down .s5-gh{grid-column:6/10;padding:0 0 var(--s5)}
   #s5 .s5-wk{grid-row:2;grid-template-columns:none;grid-template-rows:auto 28px auto;row-gap:var(--s3);justify-items:start;align-items:start;align-content:start;padding:0}
   #s5 .s5-down .s5-wk{padding:var(--s8) 0 0}
   #s5 .s5-wk em{text-align:left;font-size:var(--t-h3)}
@@ -93,10 +96,10 @@ html.js #s5 .s5-mk{display:inline-flex}
   #s5 .s5-up .s5-wk:nth-child(3){grid-column:2}
   #s5 .s5-up .s5-wk:nth-child(4){grid-column:3}
   #s5 .s5-up .s5-wk:nth-child(5){grid-column:4}
-  #s5 .s5-down .s5-wk:nth-child(2){grid-column:5}
-  #s5 .s5-down .s5-wk:nth-child(3){grid-column:6}
-  #s5 .s5-down .s5-wk:nth-child(4){grid-column:7}
-  #s5 .s5-down .s5-wk:nth-child(5){grid-column:8}
-  #s5 .s5-mk{padding:var(--s2) var(--s3);font-size:var(--t-sm)}
+  #s5 .s5-down .s5-wk:nth-child(2){grid-column:6}
+  #s5 .s5-down .s5-wk:nth-child(3){grid-column:7}
+  #s5 .s5-down .s5-wk:nth-child(4){grid-column:8}
+  #s5 .s5-down .s5-wk:nth-child(5){grid-column:9}
+  #s5 .s5-mk{padding:var(--s2) var(--s3)}
   #s5 .s5-mk svg{display:block}
 }

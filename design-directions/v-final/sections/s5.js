@@ -23,7 +23,7 @@ var G = null;
 function layout() {
   var S = st.getBoundingClientRect(); if (!S.width) return false;
   var P = nds.map(function (n) { var r = n.getBoundingClientRect(); return { x: r.left + r.width / 2 - S.left, y: r.top + r.height / 2 - S.top }; });
-  var vert = Math.abs(P[1].x - P[0].x) < 4, d = 22, r = 14, segs = [];
+  var vert = Math.abs(P[1].x - P[0].x) < 4, d = 10, r = 14, segs = [];
   function f(p) { return p.x.toFixed(1) + ' ' + p.y.toFixed(1); }
   var s0 = vert ? { x: P[0].x, y: P[0].y - d } : { x: P[0].x - d, y: P[0].y }, e = vert ? { x: P[7].x, y: P[7].y + d } : { x: P[7].x + d, y: P[7].y };
   segs.push('M' + f(s0) + 'L' + f(P[0]));
@@ -33,7 +33,7 @@ function layout() {
     /* the step down from Upstream to Downstream, drawn with rounded corners */
     if (vert) { var ym = b.y - 22;
       segs.push('L' + f({ x: a.x, y: ym - r }) + 'Q' + f({ x: a.x, y: ym }) + ' ' + f({ x: a.x + r, y: ym }) + 'L' + f({ x: b.x - r, y: ym }) + 'Q' + f({ x: b.x, y: ym }) + ' ' + f({ x: b.x, y: ym + r }) + 'L' + f(b)); }
-    else { var xm = b.x - 28;
+    else { var xm = b.x - 14 - 16 - 32;   /* the middle of the 64 px gutter column (node centre - half node - column gap - half gutter) */
       segs.push('L' + f({ x: xm - r, y: a.y }) + 'Q' + f({ x: xm, y: a.y }) + ' ' + f({ x: xm, y: a.y + r }) + 'L' + f({ x: xm, y: b.y - r }) + 'Q' + f({ x: xm, y: b.y }) + ' ' + f({ x: xm + r, y: b.y }) + 'L' + f(b)); }
   }
   segs.push('L' + f(e));
@@ -52,11 +52,11 @@ function render(t) {
   if (!G && !layout()) return;
   var X = sm(k(t, X0, D));                       /* crossfade: installed frame out, frame 0 in */
   var s = 0;
-  if (t >= TT[9]) s = G.len; else if (t > TT[0]) { for (var j = 0; j < 9; j++) if (t < TT[j + 1]) break; s = G.W[j] + (G.W[j + 1] - G.W[j]) * sm(k(t, TT[j], TT[j + 1])); }
+  if (t >= TT[9]) s = G.len; else if (t > TT[0]) { for (var j = 0; j < 9; j++) if (t < TT[j + 1]) break; var q = k(t, TT[j], TT[j + 1]); q = j === 0 ? q * q * (3 - 2 * q) : q; s = G.W[j] + (G.W[j + 1] - G.W[j]) * q; }   /* passes through the stations without parking: the tick lands in its wake */
   var start = t >= X0;                           /* during the crossfade the marker waits at the start, fading in */
   var pt = r0.getPointAtLength(start ? 0 : Math.max(0, Math.min(G.len, s)));
-  mk.style.transform = 'translate(' + (pt.x - mk.offsetWidth / 2).toFixed(1) + 'px,' + (pt.y - mk.offsetHeight / 2).toFixed(1) + 'px)';
   var mo = start ? sm(k(t, D - 0.3, D)) : 1 - sm(k(t, TT[9] - 0.2, TT[9]));
+  mk.style.transform = 'translate(' + (pt.x - mk.offsetWidth / 2).toFixed(1) + 'px,' + (pt.y - mk.offsetHeight / 2).toFixed(1) + 'px)';
   mk.style.opacity = mo.toFixed(3); mk.style.visibility = mo < 0.01 ? 'hidden' : 'visible';
   /* the rail behind the marker fills teal and carries flowing light */
   var fill = start ? G.len : s;
@@ -70,7 +70,7 @@ function render(t) {
     w.style.setProperty('--k', kk.toFixed(3)); w.style.setProperty('--r', (!start && rr > 0 && rr < 1 ? Math.sin(Math.PI * rr) : 0).toFixed(3));
   });
   heads[0].style.setProperty('--k', (start ? 1 - X : sm(k(t, A(3) + 0.35, A(3) + 0.65))).toFixed(3));
-  heads[1].style.setProperty('--k', (start ? 1 - X : sm(k(t, A(7) + 0.3, A(7) + 0.6))).toFixed(3));
+  heads[1].style.setProperty('--k', (start ? 1 - X : sm(k(t, A(7) + 0.45, A(7) + 0.75))).toFixed(3));   /* after week 8's own tick */
 }
 
 /* clock: rAF only advances t; pixels come from render(t). It starts at FIN, so the first play crossfades into frame 0 */
