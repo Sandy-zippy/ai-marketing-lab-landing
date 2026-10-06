@@ -3,9 +3,11 @@
    real output lines run, three real drafts materialise (Magic UI animated-list: newest on top), "You approve" is pressed
    and each pill flips to Approved (border beam), then the card rides the upstream/downstream loop, re-written once per
    step. Desktop: terminal | drafts over the loop. Phone (JS): one fixed panel swapping terminal -> drafts -> loop.
-   No JS / reduced motion: the finished frame (everything stacked, drafts approved, loop teal). */
+   No JS / reduced motion: the finished frame (everything stacked, drafts approved, loop teal).
+   Type sweep 6 Oct: every size is a --t-* token; Space Mono only at 400/700 (a <b> inside mono is pinned to 700). */
 #s3{--s3-node:18px;--s3-card-w:304px}
 #s3 .s3-hd>*+*{margin-top:var(--s3)}
+#s3 .s3-sub{font-size:var(--t-lg)}
 #s3 .s3-fig{display:grid;gap:var(--s3)}
 #s3 .s3-cap{font-family:var(--mono);font-size:var(--t-label);line-height:1.5;letter-spacing:.04em;text-transform:uppercase;color:var(--quiet)}
 
@@ -17,14 +19,14 @@
   -webkit-mask:radial-gradient(75% 70% at 50% 50%,#000,transparent);mask:radial-gradient(75% 70% at 50% 50%,#000,transparent)}
 #s3 .s3-shd{position:relative;z-index:2;display:flex;justify-content:space-between;gap:var(--s3);margin-bottom:var(--s4);
   font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.3;letter-spacing:.12em;text-transform:uppercase;color:var(--on-petrol-q)}
-#s3 .s3-shd b{color:var(--teal-hi);text-align:right}
+#s3 .s3-shd b{font-weight:700;color:var(--teal-hi);text-align:right}
 #s3 .s3-scene{position:relative;display:grid;gap:var(--s4);transform-origin:50% 60%}
 
 /* terminal: the real recorded session */
 #s3 .s3-tw{background:#071718;border:1px solid rgba(160,230,225,.16);border-radius:var(--r-lg);overflow:hidden;font-family:var(--mono);
   font-size:var(--t-label);line-height:1.6;color:#C9DAD8;height:100%}
 #s3 .s3-tb{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap;padding:var(--s2) var(--s4);border-bottom:1px solid rgba(160,230,225,.12);color:var(--on-petrol-q)}
-#s3 .s3-tb b{color:var(--on-petrol)}
+#s3 .s3-tb b{font-weight:700;color:var(--on-petrol)}
 #s3 .s3-tb span{margin-left:auto}
 #s3 .s3-tx{padding:var(--s3) var(--s4) var(--s4)}
 #s3 .s3-tx>*+*{margin-top:var(--s2)}

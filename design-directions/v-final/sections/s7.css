@@ -3,8 +3,9 @@
    line into the 90-day dial and fills one of its five segments; at 5 of 5 the "90 days / Full refund" stamp drops and
    locks. Persistent actor: the dial + stamp. Default styles = the FINISHED frame (no JS, reduced motion); render(t)
    in s7.js drives per-row custom properties (--f fill, --fo fill opacity, --c check, --d done, --wo/--do the two
-   state words, --wy the "mapped" lift, --a active row). */
+   state words, --wy the "mapped" lift, --a active row). Type sweep 6 Oct: every size a --t-* token. */
 #s7{background:var(--canvas);border-top:0}
+#s7 .lede{font-size:var(--t-lg)}
 #s7 .s7-both{font-family:var(--mono);font-weight:700;font-size:var(--t-label);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);
   display:inline-flex;align-items:center;gap:var(--s2)}
 #s7 .s7-both::before{content:'';width:var(--s5);height:2px;background:var(--accent)}

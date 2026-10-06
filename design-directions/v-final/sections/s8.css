@@ -2,9 +2,10 @@
    list items already sorted into "This isn't for" (brick) and "This is for" (teal), the gate between them (its header
    asks "Offer people already pay for?"). One at a time each chip is pulled back through the gate: neutral under the
    scan beam, then the verdict stamps and it returns home. Persistent actor: the gate.
-   No JS: the two lists sit side by side, already sorted. JS adds .s8-live and places everything from render(t). */
+   No JS: the two lists sit side by side, already sorted. JS adds .s8-live and places everything from render(t).
+   Type sweep 6 Oct: every size a --t-* token (the lede included). */
 #s8{border-top:0;background:var(--canvas)}
-#s8 .lede{text-wrap:pretty}
+#s8 .lede{text-wrap:pretty;font-size:var(--t-lg)}
 #s8 .s8-stage{position:relative;border-radius:28px;overflow:hidden;color:var(--on-petrol);isolation:isolate;
   background:radial-gradient(120% 90% at 50% 40%,var(--petrol-2),var(--petrol) 72%);box-shadow:0 24px 48px -32px rgba(11,34,36,.5)}
 #s8 .s8-stage::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;

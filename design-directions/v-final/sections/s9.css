@@ -2,7 +2,8 @@
    s10 white). Desktop: the heading column holds still (sticky) in cols 1-4 and carries a large index numeral of the
    question you last opened; the questions run in cols 5-12. Questions Geist 600 with a Space Mono index; the plus
    folds into a minus; a teal rule marks the open row. Open/close animates grid-template-rows 0fr -> 1fr (JS adds
-   .s9-js; without JS the native <details> just opens). The one motion detail: the big numeral rolls to the question. */
+   .s9-js; without JS the native <details> just opens). The one motion detail: the big numeral rolls to the question.
+   Type sweep 6 Oct: every size a --t-* token; the aria-hidden numeral is exactly --t-h2 (no derived size). */
 #s9{border-top:0;background:var(--paper)}
 #s9 .s9-list{border-top:1px solid var(--paper-edge)}
 #s9 details{position:relative;border-bottom:1px solid var(--paper-edge)}
@@ -43,14 +44,14 @@
 #s9.s9-js details:not(.on)::before{opacity:0}
 #s9.s9-js details:not(.on) summary b::after{transform:rotate(90deg)}
 
-/* the big index numeral (desktop only) */
+/* the big index numeral (desktop only, aria-hidden): the h2 size exactly, in pale teal under "Questions" */
 #s9 .s9-big{display:none}
 @media (min-width:1024px){
   #s9 .grid{align-items:start}
   #s9 .s9-hd{grid-column:1/5;position:sticky;top:var(--s8)}
   #s9 .s9-list{grid-column:5/13}
   #s9 summary{min-height:64px;padding-block:var(--s5)}
-  #s9 .s9-big{display:block;margin-top:var(--s6);height:1em;overflow:hidden;font-family:var(--mono);font-weight:700;font-size:calc(var(--t-h2) * 2.6);line-height:1;letter-spacing:-.06em;color:var(--accent);opacity:.18}
+  #s9 .s9-big{display:block;margin-top:var(--s5);height:1em;overflow:hidden;font-family:var(--mono);font-weight:700;font-size:var(--t-h2);line-height:1;letter-spacing:-.04em;color:var(--accent);opacity:.35}
   #s9 .s9-big span{display:block}
   #s9.s9-js .s9-big span{transition:transform 420ms var(--ease),opacity 420ms var(--ease)}
   #s9 .s9-big span.out{transform:translateY(-40%);opacity:0;transition-duration:0ms}

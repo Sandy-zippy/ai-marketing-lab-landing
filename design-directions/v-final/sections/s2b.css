@@ -1,9 +1,11 @@
 /* S2b v6 (ART-DIRECTION 5 Oct): LIGHT composition on paper. Persistent actor = the deck: the same 13 card elements
    go stack (CSS 3D, tilted on the table) -> fan out in number order, each landing with its tier stamp -> settle into
    the readable spread (the real DOM grid) -> tiers light cumulatively (2, +4, all 13) -> gather back into the deck.
-   No JS / reduced motion: the spread, static. Colours: Free = ink card, Sprint = teal tint, Accelerator = white. */
+   No JS / reduced motion: the spread, static. Colours: Free = ink card, Sprint = teal tint, Accelerator = white.
+   Type sweep 6 Oct: the lede uses --t-lg like every section (the base .lede token renders a stray 20px at desktop). */
 #s2b{background:var(--paper);border-top:0}
 #s2b .s2b-hd>*+*{margin-top:var(--s3)}
+#s2b .lede{font-size:var(--t-lg)}
 #s2b .s2b-stage{position:relative;padding:var(--s5) var(--s4) calc(var(--s5) + 40px);border-radius:28px;background:var(--canvas);
   border:1px solid var(--paper-edge);box-shadow:0 40px 80px -48px rgba(42,42,42,.35)}
 #s2b .s2b-stage::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
