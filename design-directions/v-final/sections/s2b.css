@@ -21,11 +21,11 @@
 #s2b .s2b-key .s2b-t2 i{background:var(--canvas)}
 
 /* the table: dashed slots under the real grid of cards */
-#s2b .s2b-table{position:relative;perspective:1400px}
+#s2b .s2b-table{position:relative}
 #s2b .s2b-deck,#s2b .s2b-slots{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s2)}
 #s2b .s2b-slots{position:absolute;inset:0}
 #s2b .s2b-slots i{border:1px dashed var(--paper-edge);border-radius:var(--r)}
-#s2b .s2b-deck{position:relative;transform-style:preserve-3d}
+#s2b .s2b-deck{position:relative}   /* no preserve-3d: each card carries its own perspective and is layered by z-index, so cards can never cut through each other */
 #s2b .s2b-k{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;column-gap:var(--s3);align-items:center;
   min-height:60px;padding:var(--s2) var(--s3);border-radius:var(--r);border:1px solid var(--paper-edge);background:var(--canvas);color:var(--ink);
   box-shadow:0 1px 0 rgba(42,42,42,.06),0 10px 20px -14px rgba(42,42,42,.35);backface-visibility:hidden;transform-origin:50% 50%}
