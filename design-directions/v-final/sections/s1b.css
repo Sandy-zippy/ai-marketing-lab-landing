@@ -2,7 +2,7 @@
    on the right ONE stage drawn straight on the paper: a dotted Three.js globe (the persistent actor is the arc of light that
    leaves Vancouver) with Sandy's teaching photo as the place the story lands: a teal leader runs from the India pin into it.
    The three numbers always show their true values; the motion is the globe and the ledger's teal fill bars.
-   Phone/tablet: story, globe, the three numbers, then the photo.
+   Phone/tablet: story, globe (full content width on a phone), the three numbers, then the photo.
    Default (no JS, reduced motion, no WebGL): a finished still of the globe at the India landing. */
 #s1b{background:var(--paper);border-top:0}
 #s1b .grid{row-gap:var(--s6)}
@@ -49,8 +49,7 @@
 #s1b .s1b-note{display:block;margin-top:var(--s3);color:var(--quiet);letter-spacing:.08em}
 
 /* phone + tablet: the stage dissolves into the grid so the order is story, globe, the three numbers, then the photo, and
-   the globe and all three numbers share one screen. The globe sits inside the gutters (its overhang included); the
-   leader is desktop only (on a phone the photo is below the numbers). */
+   the globe and all three numbers share one screen. The leader is desktop only (on a phone the photo is below the numbers). */
 @media (max-width:1023px){
   #s1b .s1b-tx{order:1}
   #s1b .s1b-viz{display:contents}
@@ -60,11 +59,12 @@
   #s1b .s1b-led>div{grid-template-columns:1fr;row-gap:var(--s1);align-content:start}
   #s1b .s1b-ph{order:4;position:relative;grid-template-columns:56% minmax(0,1fr);column-gap:var(--s3);max-width:640px}
   #s1b .s1b-lead{display:none}
-  #s1b .s1b-globe .mo-pause{top:auto;bottom:0;right:-4%}
+  #s1b .s1b-globe .mo-pause{top:auto;bottom:0;right:0}
 }
-/* phone: a compact three-across ledger so $220,000 is on screen with the globe */
+/* phone: the globe takes the full content width (its soft overhang is clipped by the page edge, never a hard cut);
+   a compact three-across ledger keeps $220,000 on screen with it */
 @media (max-width:767px){
-  #s1b .s1b-globe{width:min(86%,300px)}
+  #s1b .s1b-globe{width:100%}
   #s1b .s1b-led{column-gap:var(--s3)}
   #s1b .s1b-led dt{font-size:var(--t-h3)}
   #s1b .s1b-led dd{font-size:var(--t-label);line-height:1.35}

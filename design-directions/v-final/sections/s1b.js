@@ -173,14 +173,16 @@ function render(t) {
   G.globe.updateMatrixWorld(true);
   if (still) t = 9.0;
   /* fades for the loop: North America's lights dim only while it faces away (t 9.7 to 10.1), India's from 10.3 */
-  var naO = still ? 1 : 1 - sm(k(t, 9.5, 9.85)), inO = still ? 1 : 1 - sm(k(t, 9.55, 9.9)), maO = still ? 1 : 1 - sm(k(t, 9.55, 9.9)), hi = 0;
+  /* the loop never clears the globe: North America keeps its lit clients and faint arcs (re-traced in teal each loop), while
+     India's arcs fade slowly as they turn away across the Pacific */
+  var inO = still ? 1 : 1 - sm(k(t, 9.8, 10.8)), maO = still ? 1 : 1 - sm(k(t, 9.6, 10.7)), hi = 0;
   /* Vancouver: the origin, always lit; a ring at the start of every loop and as the long arc leaves */
   setMk(0, 9, still ? 1 : 1 - sm(k(t, 9.55, 9.9)) * (1 - sm(k(t, 10.3, 10.55))), still ? 0 : (t < 1 ? k(t, .1, .95) : k(t, MA0 - .05, MA0 + .7)), true);
   /* North America */
   NA.forEach(function (p, j) {
-    var s0 = NA0 + j * NAS, pr = eo(k(t, s0, s0 + NAD)), lit = k(t, s0 + NAD * .8, s0 + NAD);
-    setArc(G.A.na[j], still ? 1 : pr, still ? 1 : sm(k(t, s0 + NAD, s0 + NAD + .5)), (still ? .45 : (.95 - .5 * sm(k(t, s0 + NAD, s0 + NAD + .5)))) * naO, hi++);
-    setMk(2 + j, 6, (still ? 1 : lit) * naO, still ? 0 : k(t, s0 + NAD * .9, s0 + NAD + .7), true);
+    var s0 = NA0 + j * NAS, before = !still && t < s0, pr = before ? 1 : eo(k(t, s0, s0 + NAD));
+    setArc(G.A.na[j], still ? 1 : pr, still || before ? 1 : sm(k(t, s0 + NAD, s0 + NAD + .5)), still || before ? .45 : (.95 - .5 * sm(k(t, s0 + NAD, s0 + NAD + .5))), hi++);
+    setMk(2 + j, 6, 1, still || before ? 0 : k(t, s0 + NAD * .9, s0 + NAD + .7), true);
   });
   /* the long arc: the camera follows its head over the Arctic */
   var mp = still ? 1 : sm(k(t, MA0, MA1));
