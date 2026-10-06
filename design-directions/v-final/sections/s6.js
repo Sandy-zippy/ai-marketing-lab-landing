@@ -44,8 +44,9 @@ function setN(r, which, x) { var el = r[which], t = fmt(el, x, r.txt[which === '
 var CW = 0;
 function layoutCar() {
   CW = car.clientWidth; if (!CW) return;
-  var tw = CW < 600 ? Math.min(260, CW * .64) : Math.min(300, (CW - 64) * .31);
-  tabsEl.style.setProperty('--tw', Math.round(tw) + 'px'); car._sp = CW < 600 ? tw + 12 : tw + 24; car._tw = tw;
+  /* the active tab is always wide enough for the client name on one line; on tablets the neighbours peek */
+  var tw = CW < 600 ? Math.min(260, CW * .64) : CW < 1000 ? Math.min(290, CW * .42) : Math.min(300, (CW - 64) * .31);
+  tabsEl.style.setProperty('--tw', Math.round(tw) + 'px'); car._sp = CW < 600 ? tw + 12 : CW < 1000 ? tw + 20 : tw + 24; car._tw = tw;
   /* each window's resting rect, measured without transforms */
   R.forEach(function (r) { var tr = r.win.style.transform; r.win.style.transform = 'none'; r.base = r.win.getBoundingClientRect(); r.win.style.transform = tr; });
   car._base = car.getBoundingClientRect();
@@ -72,30 +73,29 @@ function renderCar(t) {
     rows.forEach(function (r, j) { r.setAttribute('aria-hidden', j === c ? 'false' : 'true'); });
   }
   R.forEach(function (r, j) {
-    var cur = j === c, old = j === prev && u < .35;
-    vis(r.el, cur || old ? 1 : 0);
+    var cur = j === c, old = j === prev && u < .45;
+    vis(r.el, cur || old ? 1 : 0); r.el.style.zIndex = cur ? 2 : 1;   /* the incoming case draws over the outgoing one */
     if (!cur) {                                 /* the outgoing case steps back while the new one is already opening */
       if (!old) return;
-      var oo = 1 - sm(k(u, 0, .15));     /* fully out before the incoming window is visible */
-      vis(r.win, oo); r.win.style.transform = 'scale(' + (1.035 - .05 * sm(k(u, 0, .3))).toFixed(4) + ')';
-      vis(r.info, 1 - sm(k(u, 0, .07))); vis(r.cap, 1 - sm(k(u, 0, .15))); return;   /* the text hands over in ~0.1 s: a name and numbers are always on screen, never two names */
+      var oo = 1 - sm(k(u, .3, .42));    /* the outgoing screenshot stays until the incoming one is opaque and nearly full size */
+      vis(r.win, oo); r.win.style.transform = 'scale(' + (1.035 - .03 * sm(k(u, 0, .42))).toFixed(4) + ')';
+      vis(r.info, 1 - sm(k(u, .2, .27))); vis(r.cap, 1 - sm(k(u, 0, .15))); return;   /* the text hands over in ~0.1 s: a name and numbers are always on screen, never two names */
     }
     /* selection -> expansion: the window grows out of the active tab's thumbnail */
-    var e = eo(k(u, .15, .75)), push = 1 + .035 * k(u, .7, CASE);
+    var e = eo(k(u, .1, .5)), push = 1 + .035 * k(u, .7, CASE);
     var th = tabs[c].querySelector('img').getBoundingClientRect(), b = r.base, cb = car.getBoundingClientRect(), cb0 = car._base;
     var dy0 = cb.top - cb0.top, dx0 = cb.left - cb0.left;     /* page scrolled since layout */
     var s0 = Math.max(.05, th.width / b.width), tb = tabsEl.getBoundingClientRect().bottom + 10 + b.height * s0 / 2;   /* enters below the tab rail */
     var dx = (th.left + th.width / 2) - (b.left + dx0 + b.width / 2), dy = tb - (b.top + dy0 + b.height / 2);
     r.win.style.transform = 'translate(' + (dx * (1 - e)).toFixed(1) + 'px,' + (dy * (1 - e)).toFixed(1) + 'px) scale(' + ((s0 + (1 - s0) * e) * push).toFixed(4) + ')';
-    vis(r.win, sm(k(u, .15, .32)));
+    vis(r.win, sm(k(u, .1, .22)));
     r.win.style.setProperty('--a', (u * 75 % 360).toFixed(1) + 'deg'); r.win.style.setProperty('--bo', sm(k(u, .7, 1.1)).toFixed(3));
-    vis(r.info, sm(k(u, .05, .13))); r.info.style.transform = 'none';   /* dissolves into the outgoing block on the same baseline */
+    vis(r.info, sm(k(u, .25, .33)));   /* the text hands over as the incoming screenshot covers the old one */ r.info.style.transform = 'none';   /* dissolves into the outgoing block on the same baseline */
     vis(r.cap, sm(k(u, .6, .9)));
     /* the ratio: the paid slice lands, then what they made grows out of it. Number and bar share ONE eased value,
        and Made counts up from the paid amount (never from zero). */
     var pp = eo(k(u, .35, .65)), xm = k(u, .5, 3.8), em = 1 - (1 - xm) * (1 - xm), w = parseFloat(r.mb.style.getPropertyValue('--w')) || 0;
     setN(r, 'pd', 1); setN(r, 'md', 1);   /* the figures are always the copy's own; the motion is the bar and the window */
-    r.md.style.opacity = sm(k(u, .5, .75)).toFixed(3);   /* Made fades in on the same ramp in every case as it starts to count */
     r.mb.style.setProperty('--pp', pp.toFixed(3));
     r.mb.style.setProperty('--mm', (w * pp + (1 - w) * em).toFixed(4));
     r.mb.style.setProperty('--bf', sm(k(u, .35, .7)).toFixed(3));

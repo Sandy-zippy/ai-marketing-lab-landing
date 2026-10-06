@@ -1,8 +1,10 @@
 /* S6 Proof, v6: the page's one DARK composition. Full-bleed petrol ground, content on the .wrap.
-   1. The case carousel (business-motion-film: carousel emphasis + selection -> expansion + number ticker): a circular rail
-      of three tabs, one bright; the active tab's thumbnail expands into the real screenshot; Paid us and Made tick up and
-      the paid-vs-made bar draws its true ratio, shaped by each case's own fact (24 months, before vs after, 3 months).
+   1. The case carousel (business-motion-film: carousel emphasis + selection -> expansion): a circular rail of three tabs,
+      one bright; the active tab's thumbnail expands into the real screenshot over the outgoing one; Paid us and Made
+      always show the copy's own figures, and the paid-vs-made bar draws the true ratio, shaped by each case's own fact
+      (24 months, before vs after, 3 months).
    2. Sami's video on its own card. 3. "Our own offer" as wall -> one actor: 300 dots collapse to 50, then 10 glow.
+   Type: sizes only from tokens; Space Mono 700, Bricolage 700/800, Geist for UI text.
    Without JS the three cases stack as a static ledger; reduced motion shows finished frames. */
 #s6{border-top:0;color:var(--on-petrol);background:radial-gradient(120% 70% at 30% 0%,var(--petrol-2),var(--petrol) 70%)}
 #s6 h2{color:var(--on-petrol)}
@@ -19,7 +21,8 @@
   background:linear-gradient(var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px;
   -webkit-mask:radial-gradient(70% 65% at 50% 50%,#000,transparent);mask:radial-gradient(70% 65% at 50% 50%,#000,transparent)}
 
-/* tabs: a circular rail placed by JS; the active one bright, neighbours recede */
+/* tabs: a circular rail placed by JS; the active one bright, neighbours recede. The name stays on one line (JS sizes
+   the tab for it from tablet up; on a phone a long name may take two lines at the same token size). */
 #s6 .s6-tabs{position:relative;height:56px;margin-bottom:var(--s5);-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 #s6 .s6-tab{position:absolute;left:50%;top:0;width:var(--tw,240px);height:56px;display:flex;align-items:center;gap:var(--s3);padding:var(--s2) var(--s4) var(--s2) var(--s2);
   border-radius:14px;background:rgba(234,245,244,.04);border:1px solid var(--petrol-line);color:var(--on-petrol-q);text-align:left;overflow:hidden;
@@ -35,7 +38,7 @@
 #s6 .row{display:grid;gap:var(--s4);min-width:0;align-content:start}
 #s6 .art,#s6 .info,#s6 .txt{min-width:0}
 #s6 .art{margin:0;display:grid;gap:var(--s2)}
-#s6 .box{--bh:200px;height:var(--bh);display:flex;justify-content:center;align-items:flex-start}
+#s6 .box{--bh:200px;height:var(--bh);display:flex;justify-content:center;align-items:center}
 #s6 .win{position:relative;display:flex;flex-direction:column;max-width:100%;border-radius:12px;background:#0E2A2A;border:1px solid rgba(160,230,225,.22);
   box-shadow:0 30px 60px -30px rgba(0,0,0,.8);transform-origin:50% 50%;will-change:transform}
 #s6 .chrome{display:block;flex:none;height:18px;border-bottom:1px solid var(--petrol-line);border-radius:12px 12px 0 0;background-color:#123634;background-size:10px 10px;background-repeat:no-repeat;
@@ -143,8 +146,10 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
   #s6 .s6-car{padding:var(--s6) var(--s6) calc(var(--s8) + var(--s2))}
   #s6 .s6-tabs{height:60px;margin-bottom:var(--s6)}
   #s6 .s6-tab{height:60px}
-  #s6 .row{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--s6);align-items:start}
-  #s6 .info{padding-top:var(--s6);gap:var(--s5)}   /* one constant top for every case, so the money row never jumps */
+  #s6 .s6-tab span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* the text column is centred against the screenshot's frame */
+  #s6 .row{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--s6);align-items:center}
+  #s6 .info{gap:var(--s5)}
   #s6 .box{--bh:300px}
   #s6 .chrome{height:24px;background-position:14px 50%,28px 50%,42px 50%}
   #s6 .win img{max-height:calc(var(--bh) - 26px)}
@@ -155,11 +160,11 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
   #s6 .s6-low{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:var(--s5);align-items:stretch}
   #s6 .own{padding:var(--s5)}
   #s6 .field{flex:1;aspect-ratio:auto;min-height:220px}
+  #s6 .fr p{font-size:var(--t-body)}
   #s6 .wall{font-size:var(--t-body)}
 }
 @media (min-width:1024px){
   #s6 .box{--bh:400px}
-  #s6 .info{padding-top:calc(var(--s8) + var(--s4))}   /* centres the tallest case's text against the 400px window */
   #s6 .win img{max-height:calc(var(--bh) - 26px)}
   #s6 .s6-low{grid-template-columns:minmax(0,4fr) minmax(0,8fr);column-gap:var(--s6)}
   #s6 .vid-box{width:min(100%,300px)}
