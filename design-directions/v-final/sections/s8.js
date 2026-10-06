@@ -2,7 +2,7 @@
    The six real <li> are the chips. Deck order is chosen so each list fills from the top down into its DOM order:
    new arrivals land in slot 0 and push the earlier ones down (Magic UI animated-list, ported).
    In the gate: a beam sweeps the chip, a verdict stamps, the gate flashes; a pass leaves through the right wall,
-   a bounce recoils and leaves left. At the end the sorted chips fly back into the deck (no crossfade, no rewind).
+   a bounce recoils and leaves left. At the end each chip fades out of its list and fades back into the deck, back card first.
    wide (stage >= 880): "This isn't for" | gate over the deck | "This is for".
    mid (600-879): gate on top with the deck tucked behind it, the two lists side by side below.
    narrow: gate on top, deck tucked behind it, then "This is for" and "This isn't for" stacked. */
@@ -27,7 +27,7 @@ var C = [
   { el: noL[0],  ok: 0, T: fast(4.69) },
   { el: yesL[0], ok: 1, T: fast(5.31) }
 ];
-var HOLD_END = 7.65;   /* finished lists hold 6.05 -> 7.65, then the collect */
+var HOLD_END = 7.65;   /* finished lists hold 6.05 -> 7.65, then the reset: each chip fades out and reappears in the deck */
 function c0(j) { return HOLD_END + (5 - j) * 0.09; }
 var gate = scene.querySelector('.s8-gate'), scan = scene.querySelector('.s8-scan'), vd = scene.querySelector('.s8-vd');
 var tagNo = stage.querySelector('.s8-no .s8-tag'), tagYes = stage.querySelector('.s8-yes .s8-tag');
@@ -57,8 +57,8 @@ function layout() {
   if (mode === 'wide') {
     g.sY.no = g.sY.yes = g.gate.y + HD + 12;
     g.tags = { no: [xs.no, g.gate.y + 8], yes: [xs.yes, g.gate.y + 8] };
-    g.deck = function (d) { return g.gate.y + g.gate.h + 26 + d * 10; };
-    g.H = Math.max(g.sY.no + Math.max(colH(0), colH(1)), g.deck(3) + H0) + pad + 8;
+    g.deck = function (d) { return g.gate.y + g.gate.h + 26 + d * 11; };
+    g.H = Math.max(g.sY.no + Math.max(colH(0), colH(1)), g.deck(4) + H0) + pad + 36;   /* room for the pause control */
   } else {
     /* the deck is tucked behind the gate: the front card IS the card in the gate, the rest peek out below it */
     var cy = g.gate.y + HD + 12;
@@ -88,7 +88,7 @@ function slotY(j, t) {
 }
 function deckPose(j, d) {   /* x, y, scale, rotation, opacity, text opacity, z for a card at deck depth d */
   var g = G, tucked = g.mode !== 'wide';
-  return { x: g.xs.c, y: g.deck(d), s: 1 - 0.04 * d, r: (j % 2 ? 2 : -2) * cl(d), o: d > 3.3 ? 0 : 1 - Math.max(0, d - 2.3),
+  return { x: g.xs.c, y: g.deck(d), s: 1 - 0.035 * d, r: (j % 2 ? 2 : -2) * cl(d), o: d > 4.2 ? 0 : 1 - Math.max(0, d - 3.2),
            txt: cl(1 - d), z: tucked ? (d < 0.5 ? 6 : 2) : 5 - Math.round(d) };
 }
 function render(t) {
@@ -98,10 +98,10 @@ function render(t) {
   C.forEach(function (c, j) {
     var T = c.T, e = c.el, col = c.ok ? 'yes' : 'no', cls = '', zi = 6, txt = 1, cs = c0(j);
     /* deck depth: wide = cards that have left the deck; tucked = cards that have left the gate (the front card IS in the gate) */
-    var depth = j; for (var i = 0; i < j; i++) depth -= wide ? eo(k(t, C[i].T[0], C[i].T[1])) : eo(k(t, C[i].T[3], C[i].T[3] + Math.min(0.3, C[i + 1].T[0] - C[i].T[3])));
+    var depth = j; for (var i = 0; i < j; i++) depth -= wide ? eo(k(t, C[i].T[0], C[i].T[1])) : eo(k(t, C[i].T[3] + 0.4 * (C[i].T[4] - C[i].T[3]), C[i + 1].T[1] - 0.04));   /* tucked: the next card rises only once the outgoing one has faded */
     var gy = g.chipY(c), x, y, s = 1, o = 1, r = 0, P;
-    if (t < T[0] || t >= cs + 0.5) {                       /* in the deck */
-      P = deckPose(j, t < T[0] ? depth : j); x = P.x; y = P.y; s = P.s; r = P.r; o = P.o; txt = P.txt; zi = P.z; cls = P.txt < 0.5 ? 'bk' : '';
+    if (t < T[0] || t >= cs + 0.25) {                      /* in the deck (after the reset it fades back in, back cards first) */
+      P = deckPose(j, t < T[0] ? depth : j); x = P.x; y = P.y; s = P.s; r = P.r; o = P.o * (t >= cs ? sm(k(t, HOLD_END + 0.72, HOLD_END + 0.98)) : 1);   /* the whole deck returns at once, front card with its words */ txt = P.txt; zi = P.z; cls = P.txt < 0.5 ? 'bk' : '';
     } else if (t < T[1]) {                                  /* deck -> gate */
       var p = eo(k(t, T[0], T[1])); P = deckPose(j, depth); x = P.x; y = P.y + (gy - P.y) * p; s = P.s + (1 - P.s) * p; r = P.r * (1 - p);
     } else if (t < T[3]) {                                  /* in the gate: scan, then the verdict */
@@ -121,11 +121,8 @@ function render(t) {
       else if (wide) { var a2 = eo(f2); x = g.xs.c + (g.xs[col] - g.xs.c) * a2; y = gy + (tl - gy) * a2; }
       else if (f2 < 0.4) { var a3 = sm(f2 / 0.4); x = g.xs.c + (c.ok ? 48 : -48) * a3; y = gy; o = 1 - a3; }
       else { var b3 = eo((f2 - 0.4) / 0.6); x = g.xs[col]; y = tl; s = 0.96 + 0.04 * b3; o = b3; zi = 2; }
-    } else {                                                /* the collect: fly home to the deck; words off while crossing */
-      var cp = sm(k(t, cs, cs + 0.5)), hx = g.xs[col], hy = slotY(j, t); P = deckPose(j, j);
-      x = hx + (P.x - hx) * cp; y = hy + (P.y - hy) * cp; s = 1 + (P.s - 1) * cp; r = P.r * cp;
-      o = j > 3.3 ? 1 - cp : 1; txt = j === 0 ? 1 - sm(k(cp, 0.08, 0.25)) + sm(k(cp, 0.8, 0.97)) : 1 - sm(k(t, cs, cs + 0.15)); zi = 9 - j;
-      cls = cp < 0.5 ? (c.ok ? 'ok' : 'no') : (j ? 'bk' : '');
+    } else {                                                /* the reset: fade out in place (the deck refills behind) */
+      cls = c.ok ? 'ok' : 'no'; x = g.xs[col]; y = slotY(j, t); zi = 2; o = 1 - sm(k(t, cs, cs + 0.2));
     }
     e.className = cls;
     e.style.zIndex = zi;

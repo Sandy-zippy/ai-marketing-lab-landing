@@ -73,8 +73,9 @@
 /* the 45-min call: a glowing lens, small enough to clear the station label under it; named on wide screens */
 #s10 .s10-lens{position:absolute;left:0;top:0;z-index:5;opacity:0;width:calc(var(--sd) + 14px);height:calc(var(--sd) + 14px);border-radius:50%;border:3px solid var(--teal-hi);pointer-events:none;
   background:radial-gradient(circle,rgba(63,224,214,.22),rgba(63,224,214,.04) 65%,transparent 70%);box-shadow:0 0 0 6px rgba(63,224,214,.1),0 0 36px rgba(63,224,214,.65),inset 0 0 18px rgba(63,224,214,.35)}
-#s10 .s10-lens span{position:absolute;left:calc(100% + var(--s2));top:50%;transform:translateY(-50%);padding:var(--s1) var(--s2);border-radius:999px;white-space:nowrap;
-  font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.2;letter-spacing:.08em;text-transform:uppercase;background:var(--teal-hi);color:var(--petrol);display:none}
+/* its name tag rides at the lens's top right, clear of the stalled card (left) and the stations (below) */
+#s10 .s10-lens span{position:absolute;left:calc(100% - var(--s2));bottom:calc(100% - var(--s2));padding:var(--s1) var(--s2);border-radius:999px;white-space:nowrap;
+  font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.2;letter-spacing:.08em;text-transform:uppercase;background:var(--teal-hi);color:var(--petrol)}
 
 @media (min-width:768px){
   #s10 .s10-stage{padding:var(--s7) var(--s7) var(--s6)}
@@ -86,7 +87,6 @@
   #s10 .s10-tk{justify-self:end}
   #s10 .s10-tkb{grid-template-columns:auto;padding:var(--s6) var(--s6) var(--s6) var(--s7)}
   #s10 .s10-tkb .btn{width:100%}
-  #s10 .s10-lens span{display:block}
 }
 @media (max-width:640px){
   #s10 .s10-stage{--sd:38px}

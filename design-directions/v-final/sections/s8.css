@@ -48,6 +48,7 @@
 #s8 .s8-live li span{display:block}
 /* phones: chips one line where they can, so the whole filter fits about one screen */
 #s8 .s8-narrow li{font-size:var(--t-sm);padding-block:var(--s2)}
+#s8 .s8-narrow .s8-q{letter-spacing:.02em}   /* the whole question fits the gate down to 320px */
 
 /* the gate: a lit frame whose header carries the question; it flashes teal on a pass, brick on a bounce */
 #s8 .s8-gate{z-index:3;pointer-events:none;border-radius:calc(var(--r) + var(--s2));border:1.5px solid rgba(63,224,214,.45);background:#0D2B2A;

@@ -1,7 +1,7 @@
 /* S7: deterministic render(t), t in [0,6.2). Seek with window.__seek_s7(t). Reduced motion / no JS = the finished frame.
    Row 1 ticks at full pace, rows 2-5 cascade; each tick sends a dot along a solid line (Magic UI animated-beam,
-   ported) into the dial, and the dot's landing fills one of the five segments. At 5 of 5 the stamp drops onto the
-   dial and locks (shackle closes, one shockwave); then the 90-day clock runs round the ring. Loop: ghost crossfade. */
+   ported) into the dial, and the dot's landing fills one of the five segments. At 5 of 5 the stamp drops and locks (shackle
+   closes, one teal flash); the locked ring breathes. Loop: fade out, swap to frame 0 unseen, fade in. */
 var stage = document.getElementById('s7-stage'), scene = document.getElementById('s7-scene');
 if (!stage || !scene) return;
 var D = 6.2, RM = AIML.REDUCE, END = 4.4, NS = 'http://www.w3.org/2000/svg';
@@ -11,7 +11,7 @@ function eo(x) { return 1 - Math.pow(1 - x, 4); }
 function sm(x) { return x * x * x * (x * (6 * x - 15) + 10); }
 
 var rows = [].slice.call(scene.querySelectorAll('.s7-rows li')), seal = scene.querySelector('.s7-seal'), cnt = scene.querySelector('.s7-cnt');
-var dial = scene.querySelector('.s7-dial'), arcG = scene.querySelector('.s7-arc'), trk = scene.querySelector('.s7-trk'), run = scene.querySelector('.s7-run');
+var dial = scene.querySelector('.s7-dial'), arcG = scene.querySelector('.s7-arc'), trk = scene.querySelector('.s7-trk');
 var beam = scene.querySelector('.s7-beam'), bl = scene.querySelector('.s7-bl'), dot = scene.querySelector('.s7-dot');
 function seg(i) {   /* five segments, 4 degree gaps, clockwise from 12 o'clock (the svg is rotated -90deg) */
   var r = 86, a0 = (i * 72 + 2) * Math.PI / 180, a1 = ((i + 1) * 72 - 2) * Math.PI / 180;
@@ -26,7 +26,7 @@ function st(i) { return i === 0 ? 0.25 : 1.15 + (i - 1) * 0.4; }
 function pace(i) { return i === 0 ? 1 : 0.7; }
 function beamT(i) { var s = st(i), m = pace(i), b0 = s + 0.25 * m; return [b0, b0 + 0.45 * m]; }
 
-var G = null, ghost = null;
+var G = null;
 function layout() {
   if (!stage.clientWidth) return false;
   stage.classList.add('s7-live');
@@ -56,8 +56,13 @@ function layout() {
 
 function render(t) {
   t = ((t % D) + D) % D;
-  var X = sm(k(t, 5.6, 6.2)); if (ghost) ghost.style.opacity = X; scene.style.opacity = 1 - X;
-  if (t >= 5.6) t = 5.6;
+  /* seam: fade the panel contents out on the end state, swap to frame 0 while invisible, fade back in (no doubled text) */
+  var lay = 1;
+  if (t >= 5.1 && t < 5.45) { lay = 1 - sm(k(t, 5.1, 5.4)); t = 5.1; } else if (t >= 5.45) { lay = sm(k(t, 5.5, 5.85)); t = 0; }
+  /* only the progress fades (ticks, states, teal segments, count, stamp); the promise, labels, item names and the
+     "90 days" dial stay on screen, so the card is never empty */
+  rows.forEach(function (li) { li.querySelector('.s7-box').style.opacity = li.querySelector('.s7-st').style.opacity = lay; });
+  arcG.style.opacity = cnt.style.opacity = seal.style.opacity = lay;
   var done = 0, glow = 0, bOn = -1, bP = 0;
   rows.forEach(function (li, i) {
     var s = st(i), m = pace(i), B = beamT(i);
@@ -73,6 +78,7 @@ function render(t) {
   });
   cnt.textContent = done + ' of 5';
   glow = Math.max(glow, 12 * sm(k(t, 2.95, 3.1)) * (1 - sm(k(t, 3.2, 3.8))));
+  if (t >= 3.8) glow = Math.max(glow, 3 + 4 * (0.5 - 0.5 * Math.cos((t - 3.8) * 4.2)));   /* locked: the ring breathes */
   arcG.style.setProperty('--glow', glow.toFixed(1) + 'px');
   /* the beam: the line draws behind the travelling dot, then fades once the dot has landed */
   if (G && bOn >= 0) {
@@ -83,34 +89,20 @@ function render(t) {
     pt = bl.getPointAtLength(L * e); dot.setAttribute('cx', pt.x.toFixed(1)); dot.setAttribute('cy', pt.y.toFixed(1));
     dot.style.opacity = bP < 1 ? 1 : 0; beam.style.opacity = 1;
   } else beam.style.opacity = 0;
-  /* the lock: the shackle drops, the stamp lands (from 1.25x, tilting to -4deg) and sends one shockwave */
+  /* the lock: the shackle drops, the stamp lands (from 1.25x, tilting to -3deg) and flashes teal once */
   var locked = t >= 3.15;
   seal.classList.toggle('open', !locked);
   seal.style.setProperty('--sh', (-5 * (1 - sm(k(t, 3.15, 3.3)))).toFixed(2) + 'px');
   var land = eo(k(t, 3.15, 3.5));
-  seal.style.transform = locked ? 'rotate(' + (-4 * land).toFixed(2) + 'deg) scale(' + (1.25 - 0.25 * land).toFixed(4) + ')' : 'none';
-  seal.style.setProperty('--ro', (t >= 3.4 ? 0.8 * (1 - k(t, 3.4, 4.0)) : 0).toFixed(3));
-  seal.style.setProperty('--rs', (1 + 0.45 * eo(k(t, 3.4, 4.0))).toFixed(3));
-  /* the 90-day clock runs once the guarantee is locked */
-  var rp = k(t, 3.6, 5.5);
-  run.style.opacity = (sm(k(t, 3.6, 3.8)) * (1 - sm(k(t, 5.3, 5.5)))).toFixed(3);
-  run.style.strokeDashoffset = (-rp * 1.6).toFixed(4);
-  scene.style.transform = 'scale(' + (1 + 0.015 * sm(k(t, 3.5, 4.4)) * (1 - sm(k(t, 4.9, 5.5)))) + ')';
+  seal.style.transform = locked ? 'rotate(' + (-3 * land).toFixed(2) + 'deg) scale(' + (1.25 - 0.25 * land).toFixed(4) + ')' : 'none';
+  seal.style.setProperty('--fl', (locked ? 0.35 * (1 - k(t, 3.2, 3.8)) : 0).toFixed(3));
+  scene.style.transform = 'scale(' + (1 + 0.015 * sm(k(t, 3.5, 4.2)) * (1 - sm(k(t, 4.4, 5.1)))) + ')';
 }
-function snap() {
-  if (ghost) ghost.remove(); ghost = null;
-  render(0); scene.style.opacity = 1;
-  var gh = scene.cloneNode(true); gh.removeAttribute('id');
-  [].forEach.call(gh.querySelectorAll('[id],[role]'), function (e) { e.removeAttribute('id'); e.removeAttribute('role'); e.removeAttribute('aria-label'); });
-  gh.setAttribute('aria-hidden', 'true'); gh.style.cssText += ';position:absolute;left:0;top:0;width:100%;opacity:0;pointer-events:none';
-  stage.appendChild(gh); ghost = gh;
-}
-
 var t = 0, last = null, raf = 0, inView = false, paused = false, seeking = false;
 function tick(now) { raf = 0; if (last !== null) t += (now - last) / 1000; last = now; render(t); go(); }
 function go() { if (!raf && inView && !paused && !seeking && !RM && G) raf = requestAnimationFrame(tick); }
 function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; last = null; }
-function refresh() { scene.style.transform = 'none'; render(END); if (layout()) snap(); render(t); }
+function refresh() { scene.style.transform = 'none'; render(END); layout(); render(t); }
 window.__seek_s7 = function (s) { seeking = true; stop(); t = s; refresh(); render(s); };
 if (!RM) {
   refresh();

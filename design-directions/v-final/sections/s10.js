@@ -12,7 +12,7 @@ function eo(x) { return 1 - Math.pow(1 - x, 4); }
 function sm(x) { return x * x * x * (x * (6 * x - 15) + 10); }
 var Q = function (s) { return stage.querySelector(s); };
 var exl = Q('.s10-ex'), tk = Q('.s10-tk'), btn = Q('.s10-tk .btn'), card = Q('.s10-card'), csub = card.querySelector('small'), mk = Q('.s10-mk'), stamp = Q('.s10-stamp');
-var lens = Q('.s10-lens'), ring = Q('.s10-ring'), spark = Q('.s10-spark'), cn = Q('.s10-cn'), stns = Q('.s10-stns');
+var railSvg = Q('.s10-rail'), ltag = Q('.s10-lens span'), lens = Q('.s10-lens'), ring = Q('.s10-ring'), spark = Q('.s10-spark'), cn = Q('.s10-cn'), stns = Q('.s10-stns');
 var r1 = Q('.r1'), r2 = Q('.r2'), r0 = Q('.r0'), r3 = Q('.r3');
 var STN = ['Ad', 'Callback', 'Follow-up', 'Sales call', 'Client'];
 var SV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">';
@@ -37,9 +37,11 @@ function layout() {
   var sr = stage.getBoundingClientRect(), cr = scene.getBoundingClientRect(), tr = tk.getBoundingClientRect();
   var ox = cr.left - sr.left, oy = cr.top - sr.top, T = { x: tr.left - sr.left, y: tr.top - sr.top, w: tr.width, h: tr.height };
   /* where the lens lands on the line: the first point right of Follow-up that keeps it clear of the stalled card */
-  var cw = card.offsetWidth, lr = (sd + 14) / 2, cRight = Math.min(w, pts[2].x + cw / 2), xd = pts[4].x;
-  [pts[2].x + (pts[3].x - pts[2].x) / 2, pts[3].x, pts[3].x + (pts[4].x - pts[3].x) / 2].some(function (x) { if (x - lr > cRight + 8) { xd = x; return true; } });
-  G = { w: w, h: h, sd: sd, narrow: narrow, pts: pts, len: x4 - x0, ox: ox, oy: oy, xd: xd, tk: T };
+  /* the lens lands halfway between Follow-up and Sales call (no station) and slides onto Follow-up; while the card is
+     stalled it hangs to the left of its station so the lens's path stays clear of it */
+  var cw = card.offsetWidth, lr = (sd + 14) / 2, xd = pts[2].x + (pts[3].x - pts[2].x) / 2;
+  var cxCold = Math.max(cw / 2, Math.min(pts[2].x, xd - lr - 10 - cw / 2));
+  G = { w: w, h: h, sd: sd, narrow: narrow, pts: pts, len: x4 - x0, ox: ox, oy: oy, xd: xd, cxCold: cxCold, tk: T };
   ring.style.width = spark.style.width = (T.w + 16) + 'px'; ring.style.height = spark.style.height = (T.h + 16) + 'px';
   ring.style.left = spark.style.left = (T.x - 8) + 'px'; ring.style.top = spark.style.top = (T.y - 8) + 'px';
   /* the teal line from Client up into the ticket's lower edge */
@@ -56,7 +58,8 @@ function render(raw) {
   var t = raw, lay = 1;
   if (raw >= 6.6 && raw < 7.0) { t = 6.6; lay = 1 - sm(k(raw, 6.6, 6.95)); }
   else if (raw >= 7.0) { t = 0; lay = sm(k(raw, 7.05, 7.65)); }
-  scene.style.opacity = lay;
+  /* the label stays through the seam; everything else on the rail fades */
+  railSvg.style.opacity = stns.style.opacity = mk.style.opacity = lay;
   var g = G, sd = g.sd;
   var p = 2 + eo(k(t, 2.2, 2.8)) + eo(k(t, 3.0, 3.6));          /* the card: stalled at Follow-up, then Sales call, Client */
   var fixed = t >= 1.8;
@@ -74,29 +77,32 @@ function render(raw) {
   if (csub.textContent !== sub) csub.textContent = sub;
   var cp = at(p), cw = card.offsetWidth, ch = card.offsetHeight;
   var cx = Math.max(cw / 2, Math.min(g.w - cw / 2, cp.x)), cy = cp.y - sd / 2 - 18 - ch / 2;
+  cx += (g.cxCold - g.pts[2].x) * (1 - eo(k(t, 1.9, 2.5))) * (p < 2.001 || t < 2.5 ? 1 : 0);
   /* the dock: the signed card rises up the teal line into the ticket's lower edge */
   var dk = eo(k(t, 4.0, 4.7)), tkBottom = g.tk.y + g.tk.h - g.oy;
   var dy = tkBottom + ch * 0.3;
   place(card, cx, cy + (dy - cy) * dk, 0.5, 0.5, 1 - 0.4 * dk);
-  show(card, 1 - sm(k(t, 4.45, 4.75)));
+  show(card, (1 - sm(k(t, 4.45, 4.75))) * lay);
   exl.style.opacity = g.narrow ? 1 - 0.85 * sm(k(t, 3.95, 4.15)) * (1 - sm(k(t, 4.7, 4.9))) : 1;   /* phone: the rising card passes the label */
   cn.style.transform = 'scaleY(' + eo(k(t, 3.95, 4.65)).toFixed(3) + ')';
   show(cn, (t >= 3.95 ? 1 : 0) * lay);
   var hit = k(t, 4.62, 5.4);   /* the button answers the dock with one ring */
-  btn.style.boxShadow = hit > 0 && hit < 1 ? '0 0 0 ' + (14 * eo(hit)).toFixed(1) + 'px rgba(0,161,155,' + (0.45 * (1 - hit)).toFixed(3) + ')' : '';
+  var hit2 = k(t, 5.9, 6.6);   /* and a softer second ring before the loop resets */
+  btn.style.boxShadow = hit > 0 && hit < 1 ? '0 0 0 ' + (14 * eo(hit)).toFixed(1) + 'px rgba(0,161,155,' + (0.45 * (1 - hit)).toFixed(3) + ')'
+    : hit2 > 0 && hit2 < 1 ? '0 0 0 ' + (10 * eo(hit2)).toFixed(1) + 'px rgba(0,161,155,' + (0.28 * (1 - hit2)).toFixed(3) + ')' : '';
   /* the marker under Follow-up: Leak (brick) -> the fix (teal) */
   var mt = fixed ? 'Fix: chase 3x' : 'Leak'; if (mk.textContent !== mt) mk.textContent = mt; mk.classList.toggle('fix', fixed);
   var my = g.pts[2].y + sd / 2 + (g.narrow ? 34 : 36), mw = mk.offsetWidth;
   place(mk, Math.max(mw / 2, Math.min(g.w - mw / 2, g.pts[2].x)), my + (fixed ? 8 * (1 - eo(k(t, 1.8, 2.1))) : 0), 0.5, 0, fixed ? 1 + 0.06 * (1 - eo(k(t, 1.8, 2.1))) : 0);
   var so = sm(k(t, 3.6, 3.8)), sw = stamp.offsetWidth;
-  show(stamp, so); place(stamp, Math.min(g.w - sw / 2, g.pts[4].x), my + (matchMedia('(max-width:380px)').matches ? 32 : 0) + 8 * (1 - eo(k(t, 3.6, 3.9))), 0.5, 0);
+  show(stamp, so * lay); place(stamp, Math.min(g.w - sw / 2, g.pts[4].x), my + (matchMedia('(max-width:380px)').matches ? 32 : 0) + 8 * (1 - eo(k(t, 3.6, 3.9))), 0.5, 0);
   /* the ticket emits the call: a ring pulse, then the lens arcs out of the ticket onto the line and slides to the leak */
   var rp = k(t, 0.15, 0.85); ring.style.opacity = (t < 0.15 ? 0 : 0.9 * (1 - rp) * lay).toFixed(3); ring.style.transform = 'scale(' + (1 + 0.06 * eo(rp)) + ')';
   var lo = sm(k(t, 0.3, 0.5)) * (1 - sm(k(t, 2.15, 2.45))) * lay, ry = g.oy + g.pts[0].y;
   var bx = Math.max(g.tk.x + 40, Math.min(g.tk.x + g.tk.w - 40, g.ox + g.xd)), by = g.tk.y + g.tk.h - 10, ex = g.ox + g.xd, lx, ly, ls = 1;
   if (t < 0.95) { var a = k(t, 0.35, 0.95); lx = bx + (ex - bx) * sm(a); ly = by + (ry - by) * eo(a); ls = 0.6 + 0.4 * sm(k(t, 0.3, 0.6)); }
   else { var b2 = eo(k(t, 0.95, 1.45)); lx = ex + (g.ox + g.pts[2].x - ex) * b2; ly = ry; ls = 1 + 0.06 * Math.sin(Math.max(0, t - 1.45) * 14) * (1 - k(t, 1.45, 2.0)); }
-  place(lens, lx, ly, 0.5, 0.5, ls); show(lens, lo);
+  place(lens, lx, ly, 0.5, 0.5, ls); show(lens, lo); ltag.style.opacity = sm(k(t, 0.85, 1.0)) * (1 - sm(k(t, 1.65, 1.9)));   /* named once it has landed on the line */
   /* end frame alive: a spark circles the ticket while a light pulse runs the finished line */
   spark.style.opacity = (sm(k(t, 4.7, 5.0)) * lay).toFixed(3);
   spark.style.setProperty('--ba', ((t - 4.7) * 160).toFixed(1) + 'deg');

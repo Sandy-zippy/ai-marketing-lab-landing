@@ -11,7 +11,9 @@
 #s9 summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:var(--s6) minmax(0,1fr) auto;align-items:center;column-gap:var(--s4);
   min-height:56px;padding-block:var(--s4);-webkit-tap-highlight-color:transparent}
 #s9 summary::-webkit-details-marker{display:none}
-#s9 summary:focus-visible{outline-offset:-2px}
+/* focus: the ring goes round the whole row with room to spare, never over the index, the question or the icon */
+#s9 summary:focus-visible{outline:none}
+#s9 details:has(summary:focus-visible){outline:2px solid var(--accent);outline-offset:4px;border-radius:var(--r-sm)}
 #s9 summary i{font-style:normal;font-family:var(--mono);font-weight:700;font-size:var(--t-label);letter-spacing:.06em;color:var(--quiet);
   transition:color var(--d-micro) var(--ease)}
 #s9 summary span{font-family:var(--sans);font-weight:600;font-size:var(--t-h3);line-height:1.3;letter-spacing:-.015em;color:var(--ink)}
