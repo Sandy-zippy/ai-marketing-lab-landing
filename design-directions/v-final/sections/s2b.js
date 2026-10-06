@@ -3,7 +3,8 @@
    corner stays visible; phone: a vertical cascade), each stamped with its tier as it lands | 2.9-4.9 dealt one by one,
    in number order, into the readable spread (the real grid) | 5.0-6.9 tiers light cumulatively: Free (2), Sprint adds
    (6), Accelerator all 13, under a slow push | 6.9-7.4 lights ease off | 7.5-9.2 the cards gather back into the deck,
-   12 first, so 00 ends on top | 9.5 = 0: no crossfade. Reduced motion: the spread, static. */
+   12 first, so 00 ends on top | 9.5 = 0: no crossfade. Reduced motion: the spread, static.
+   The clock is offset by START (4.95 s) so the loop OPENS on the finished spread: seek t maps to story time t + 4.95. */
 var root = document.getElementById('s2b');
 if (!root) return;
 var RM = window.AIML ? AIML.REDUCE : matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -18,7 +19,7 @@ function ease(x) { return 1 - Math.pow(1 - x, 4); }
 function sm(x) { return x * x * x * (x * (6 * x - 15) + 10); }
 function mix(a, b, x) { var o = {}; for (var p in a) o[p] = a[p] + (b[p] - a[p]) * x; return o; }
 var dep = function (i) { return 0.25 + 0.15 * i; }, settle = function (i) { return 2.9 + 0.13 * i; }, gath = function (i) { return 7.4 + 0.1 * (12 - i); }, gdur = function (i) { return i < 2 ? 0.8 : 0.6; };
-var LIT = [5.0, 5.6, 6.2], LOFF = 6.9;
+var LIT = [5.0, 5.6, 6.2], LOFF = 6.9, START = 4.95;
 
 var G = null;
 function layout() {
@@ -52,7 +53,7 @@ var SP = { x: 0, y: 0, z: 0, rx: 0, rz: 0, s: 1 };
 
 function render(t) {
   if (!G) return;
-  t = ((t % D) + D) % D;
+  t = (((t + START) % D) + D) % D;   /* frame 0 = the finished spread (critic, 6 Oct): the loop starts where the tiers light */
   var lit = [0, 1, 2].map(function (n) { return sm(k(t, LIT[n], LIT[n] + 0.25)); });
   cards.forEach(function (c, i) {
     var p, a = dep(i), b = settle(i), g = gath(i), gd = gdur(i), lift = 0, zi;

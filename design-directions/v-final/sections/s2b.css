@@ -1,8 +1,10 @@
 /* S2b v6 (ART-DIRECTION 5 Oct): LIGHT composition on paper. Persistent actor = the deck: the same 13 card elements
    go stack (CSS 3D, tilted on the table) -> fan out in number order, each landing with its tier stamp -> settle into
    the readable spread (the real DOM grid) -> tiers light cumulatively (2, +4, all 13) -> gather back into the deck.
-   No JS / reduced motion: the spread, static. Colours: Free = ink card, Sprint = teal tint, Accelerator = white.
-   Type sweep 6 Oct: the lede uses --t-lg like every section (the base .lede token renders a stray 20px at desktop). */
+   The loop OPENS on the finished spread (s2b.js START). No JS / reduced motion: the spread, static.
+   Colours: Free = ink card, Sprint = teal tint, Accelerator = white.
+   Grid (6 Oct): exactly 13 places, no empty cells. Every card spans two half-columns, so the short last row is centred:
+   phone 2 per row (13th card centred), from 640px 5 per row (cards 11-13 centred). */
 #s2b{background:var(--paper);border-top:0}
 #s2b .s2b-hd>*+*{margin-top:var(--s3)}
 #s2b .lede{font-size:var(--t-lg)}
@@ -22,9 +24,11 @@
 #s2b .s2b-key .s2b-t1 i{background:#D7F1EF;border-color:rgba(0,161,155,.45)}
 #s2b .s2b-key .s2b-t2 i{background:var(--canvas)}
 
-/* the table: dashed slots under the real grid of cards */
+/* the table: dashed slots under the real grid of cards (13 of each) */
 #s2b .s2b-table{position:relative}
-#s2b .s2b-deck,#s2b .s2b-slots{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s2)}
+#s2b .s2b-deck,#s2b .s2b-slots{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s2)}
+#s2b .s2b-deck>*,#s2b .s2b-slots>*{grid-column:span 2}
+#s2b .s2b-deck>:nth-child(13),#s2b .s2b-slots>:nth-child(13){grid-column:2/span 2}
 #s2b .s2b-slots{position:absolute;inset:0}
 #s2b .s2b-slots i{border:1px dashed var(--paper-edge);border-radius:var(--r)}
 #s2b .s2b-deck{position:relative}   /* no preserve-3d: each card carries its own perspective and is layered by z-index, so cards can never cut through each other */
@@ -51,7 +55,9 @@
 }
 @media (min-width:640px){
   #s2b .s2b-stage{padding:var(--s6) var(--s6) calc(var(--s6) + 40px)}
-  #s2b .s2b-deck,#s2b .s2b-slots{grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s3)}
+  #s2b .s2b-deck,#s2b .s2b-slots{grid-template-columns:repeat(10,minmax(0,1fr));gap:var(--s3)}
+  #s2b .s2b-deck>:nth-child(13),#s2b .s2b-slots>:nth-child(13){grid-column:span 2}
+  #s2b .s2b-deck>:nth-child(11),#s2b .s2b-slots>:nth-child(11){grid-column:3/span 2}
   #s2b .s2b-k{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;align-items:start;row-gap:var(--s2);min-height:150px;padding:var(--s3)}
   #s2b .s2b-k b{grid-row:auto;font-size:var(--t-num)}
   #s2b .s2b-k em{grid-row:1}

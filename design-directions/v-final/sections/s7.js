@@ -35,9 +35,18 @@ function layout() {
   var below = (dr.bottom - sr.top) / sc < (rows[0].getBoundingClientRect().top - sr.top) / sc + 1;   /* phone: dial above the sheet */
   var g = { paths: [], L: [] };
   beam.setAttribute('viewBox', '0 0 ' + sw + ' ' + scene.offsetHeight);
+  var ledger = rows.length > 1 && Math.abs(rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top) < 2;   /* desktop: items in one row */
+  var shb = (scene.querySelector('.s7-rows').getBoundingClientRect().bottom - sr.top) / sc, rail = shb + 16, gx2 = (dr.left - sr.left) / sc - 24;
+  var f = function (v) { return v.toFixed(1); };
   rows.forEach(function (li) {
     var r = li.getBoundingClientRect(), y0 = (r.top + r.height / 2 - sr.top) / sc, d;
-    if (below) {
+    if (ledger) {
+      /* down out of the cell, along the rail under the ledger, up the gap beside the dial, into the ring's left side */
+      var x0 = (r.left + r.width / 2 - sr.left) / sc, yb = (r.bottom - sr.top) / sc - 2, rr = 10;
+      d = 'M' + f(x0) + ' ' + f(yb) + 'L' + f(x0) + ' ' + f(rail - rr) + 'Q' + f(x0) + ' ' + f(rail) + ' ' + f(x0 + rr) + ' ' + f(rail) +
+          'L' + f(gx2 - rr) + ' ' + f(rail) + 'Q' + f(gx2) + ' ' + f(rail) + ' ' + f(gx2) + ' ' + f(rail - rr) +
+          'L' + f(gx2) + ' ' + f(cy + rr) + 'Q' + f(gx2) + ' ' + f(cy) + ' ' + f(gx2 + rr) + ' ' + f(cy) + 'L' + f(cx - R) + ' ' + f(cy);
+    } else if (below) {
       /* out of the box's left side, up the panel's left gutter, into the dial's lower-left */
       var bx = (li.querySelector('.s7-box').getBoundingClientRect().left - sr.left) / sc - 4, gx = Math.max(6, bx - 12);
       var tx = cx - R * 0.707, ty = cy + R * 0.707;

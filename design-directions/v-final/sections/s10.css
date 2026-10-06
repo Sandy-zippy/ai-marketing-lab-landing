@@ -1,10 +1,11 @@
-/* S10 v2 final CTA: LIGHT. White section; one paper call ticket is the lead subject, on the LEFT at desktop (s7 puts
-   its panel on the right, so the two never mirror). Mechanism: materializing result + tear. While the ticket's counter
-   runs to 45:00, four tangled grey lines straighten into one teal route to a flag (a mess becoming a map: what a
-   mapping call does), then the ₹999 stub tears along the seam (a gap opens, it drops and tilts) and rests. Teal is
-   only the route and the flag. The button is static: readable and clickable in every frame.
+/* S10 v2 final CTA: LIGHT. PAPER section (page rhythm 6 Oct: s2b paper, s7 white, s8 paper, s9 white, s10 paper);
+   one WHITE call ticket is the lead subject, on the LEFT at desktop (s7 is a full-width ledger, so the two never
+   mirror). Mechanism: materializing result + tear. While the ticket's counter runs to 45:00, four tangled grey lines
+   straighten into one teal route to a flag (a mess becoming a map: what a mapping call does), then the ₹999 stub
+   tears along the seam (a gap opens, it drops and tilts) and rests. Teal is only the route and the flag. The button
+   is static: readable and clickable in every frame.
    Default (no JS / reduced motion) = the finished frame. Phone order: headline, note, ticket, button. */
-#s10{border-top:0;background:var(--canvas)}
+#s10{border-top:0;background:var(--paper)}
 #s10 .grid{row-gap:var(--s5)}
 #s10 .s10-h{max-width:12ch}
 #s10 .s10-note{font-size:var(--t-lg);color:var(--body)}
@@ -17,9 +18,9 @@
   #s10 .s10-cta{grid-column:8/13;grid-row:3;align-self:start;margin-top:var(--s3)}
 }
 
-/* the ticket: body + stub, both paper, notched corners, the perforation is the seam between them */
+/* the ticket: body + stub, both white on the paper ground, notched corners, the perforation is the seam between them */
 #s10 .s10-tk{position:relative;display:flex;align-items:stretch;filter:drop-shadow(0 2px 2px rgba(42,36,20,.1)) drop-shadow(0 24px 30px rgba(42,36,20,.16))}
-#s10 .s10-body,#s10 .s10-stub{--n:var(--s4);--h:3.5px;background:var(--paper);
+#s10 .s10-body,#s10 .s10-stub{--n:var(--s4);--h:3.5px;background:var(--canvas);
   -webkit-mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
     radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000),var(--seam);
           mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000),radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000),
