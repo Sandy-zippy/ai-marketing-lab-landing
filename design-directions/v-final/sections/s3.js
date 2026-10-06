@@ -113,12 +113,12 @@ function render(t) {
   t = ((t % D) + D) % D;
   var g = G, swap = g.swap, RS = t >= 13 ? sm(k(t, 13.0, 13.9)) : 0;   /* RS = the reset at the end of the loop */
 
-  /* phone: one panel at a time, a short slide, never two at once (loop -> terminal -> drafts -> loop) */
+  /* phone: one panel at a time with a short crossfade slide, so the stage is never empty at a hand-off (loop -> terminal -> drafts -> loop) */
   if (swap) {
-    var win = function (a, b) {   /* in over [a, a+.15], out over [b-.12, b] */
-      if (t < a || t > b) return [0, 0];
-      var i = sm(k(t, a, a + 0.15)), o = 1 - sm(k(t, b - 0.12, b));
-      return [Math.min(i, o), i < 1 ? (1 - i) * 24 : -(1 - o) * 24];
+    var win = function (a, b) {   /* crossfade: the next panel is half in by the time the old one is half out (in over a +-.1, out over b +-.1: a 0.2 s double exposure, never an empty stage) */
+      if (t < a - 0.1 || t > b + 0.1) return [0, 0];
+      var i = sm(k(t, a - 0.1, a + 0.1)), o = 1 - sm(k(t, b - 0.1, b + 0.1));
+      return [Math.min(i, o), i < 1 ? (1 - i) * 16 : -(1 - o) * 16];
     };
     var L = t < 1 ? win(-1, 0.55) : win(5.72, 15), Tn = win(0.55, 2.42), Dn = win(2.42, 5.72);
     [[paneL, L], [paneT, Tn], [paneD, Dn]].forEach(function (p) { show(p[0], p[1][0]); p[0].style.transform = 'translateX(' + p[1][1].toFixed(1) + 'px)'; });
