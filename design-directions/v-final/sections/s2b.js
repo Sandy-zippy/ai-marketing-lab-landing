@@ -2,8 +2,8 @@
    0-0.25 the deck, tilted on the table | 0.25-2.5 cards fan out in number order into a hand (desktop: every number
    corner stays visible; phone: a vertical cascade), each stamped with its tier as it lands | 2.9-4.9 dealt one by one,
    in number order, into the readable spread (the real grid) | 5.0-6.9 tiers light cumulatively: Free (2), Sprint adds
-   (6), Accelerator all 13, under a slow push | 6.9-7.4 lights ease off | 7.5-9.2 the cards gather back into the deck,
-   12 first, so 00 ends on top | 9.5 = 0: no crossfade. Reduced motion: the spread, static.
+   (6), Accelerator all 13, under a slow push | 6.9-7.4 lights ease off | 7.4-8.0 the cards gather back into a deck
+   that fills ~60% of the table, 12 first, so 00 ends on top (desktop: names hide in the fan) | 9.5 = 0: no crossfade. Reduced motion: the spread, static.
    The clock is offset by START (4.95 s) so the loop OPENS on the finished spread: seek t maps to story time t + 4.95. */
 var root = document.getElementById('s2b');
 if (!root) return;
@@ -12,13 +12,13 @@ var stage = root.querySelector('.s2b-stage'), table = root.querySelector('.s2b-t
 var cards = [].slice.call(root.querySelectorAll('.s2b-k')), keys = [].slice.call(root.querySelectorAll('.s2b-key li'));
 if (!stage || !table || !deck || cards.length !== 13) return;
 var D = 9.5, TIER = cards.map(function (c) { return c.classList.contains('s2b-t0') ? 0 : c.classList.contains('s2b-t1') ? 1 : 2; });
-var slots = root.querySelector('.s2b-slots'), stamps = cards.map(function (c) { return c.querySelector('em'); });
+var slots = root.querySelector('.s2b-slots'), stamps = cards.map(function (c) { return c.querySelector('em'); }), names = cards.map(function (c) { return c.querySelector('span'); });
 function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
 function k(t, a, b) { return cl((t - a) / (b - a)); }
 function ease(x) { return 1 - Math.pow(1 - x, 4); }
 function sm(x) { return x * x * x * (x * (6 * x - 15) + 10); }
 function mix(a, b, x) { var o = {}; for (var p in a) o[p] = a[p] + (b[p] - a[p]) * x; return o; }
-var dep = function (i) { return 0.25 + 0.15 * i; }, settle = function (i) { return 2.9 + 0.13 * i; }, gath = function (i) { return 7.4 + 0.1 * (12 - i); }, gdur = function (i) { return i < 2 ? 0.8 : 0.6; };
+var dep = function (i) { return 0.25 + 0.15 * i; }, settle = function (i) { return 2.9 + 0.13 * i; }, gath = function (i) { return 7.4 + 0.025 * (12 - i); }, gdur = function () { return 0.3; };   /* page critic 4: the collapse takes 0.6 s */
 var LIT = [5.0, 5.6, 6.2], LOFF = 6.9, START = 4.95;
 
 var G = null;
@@ -30,13 +30,15 @@ function layout() {
   var P = cards.map(function (c) { return { x: c.offsetLeft + c.offsetWidth / 2, y: c.offsetTop + c.offsetHeight / 2 }; });
   var cw = cards[0].offsetWidth, ch = cards[0].offsetHeight;
   var Dc = { x: W / 2, y: narrow ? ch * 2 + 16 : H / 2 - 10 };   /* phone: clear of the tier key above the table */
-  G = { P: P, Dc: Dc, narrow: narrow, W: W, H: H, cw: cw, ch: ch };
+  /* the gathered deck fills about 60% of the table (page critic 4: a card-sized stack left ~85% of the stage empty) */
+  var DS = Math.max(narrow ? 1.25 : 1.22, Math.min(0.6 * W / cw, 0.68 * H / (cw * 0.36 + ch * 0.7)));   /* tilted 42 deg, turned ~20 deg: its box stays clear of the key */
+  G = { P: P, Dc: Dc, narrow: narrow, W: W, H: H, cw: cw, ch: ch, DS: DS };
   return true;
 }
 function deckP(i, t) {
   var g = G, p = g.P[i], jit = ((i * 37) % 7 - 3) * 0.7;   /* a hand-squared deck: the edges show, deterministic */
   return { x: g.Dc.x - p.x, y: g.Dc.y - p.y, z: 64 + (12 - i) * 4,   /* lifted off the table: the tilted deck never cuts the flat cards */
-     rx: g.narrow ? 50 : 42, rz: (g.narrow ? -10 : -18) + jit + 3 * Math.sin(2 * Math.PI * t / D), s: g.narrow ? 1.25 : 1.22 };
+     rx: g.narrow ? 50 : 42, rz: (g.narrow ? -10 : -18) + jit + 3 * Math.sin(2 * Math.PI * t / D) + 2.4 * Math.sin(t * 2.8 + i * 0.55), s: g.DS };   /* the resting deck riffles: its edges fan and close, so it never sits still */
 }
 function fanP(i, t) {
   var g = G, p = g.P[i], br = 1 + 0.03 * sm(k(t, 2.45, 2.9));   /* the full hand breathes open before the deal */
@@ -73,6 +75,8 @@ function render(t) {
     /* the tier stamp lands with the card (desktop: in the fan; phone: in the spread) and lifts off as it is gathered */
     var at = G.narrow ? b + 0.3 : a + 0.35, so = sm(k(t, at, at + 0.15)) * (1 - sm(k(t, g, g + 0.2)));
     stamps[i].style.opacity = so.toFixed(3);
+    /* desktop: the name hides while the card sits in the overlapping fan (only the number corner shows there) */
+    names[i].style.opacity = G.narrow ? '' : (1 - sm(k(t, a, a + 0.12)) + sm(k(t, b + 0.15, b + 0.4))).toFixed(3);
     stamps[i].style.transform = 'scale(' + (1 + 0.35 * (1 - ease(k(t, at, at + 0.3)))).toFixed(3) + ')';
   });
   keys.forEach(function (key, n) {

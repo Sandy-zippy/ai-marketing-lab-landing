@@ -1,10 +1,10 @@
-/* S7: deterministic render(t), t in [0,5.9). Seek with window.__seek_s7(t). Reduced motion / no JS = the finished frame.
+/* S7: deterministic render(t), t in [0,5.0). Seek with window.__seek_s7(t). Reduced motion / no JS = the finished frame.
    Row 1 ticks at full pace, rows 2-5 cascade; each tick sends a dot along a solid line (Magic UI animated-beam,
    ported) into the dial, and the dot's landing fills one of the five segments. At 5 of 5 the stamp drops and locks (shackle
    closes, one teal flash); the locked ring breathes. Loop: element-wise crossfade to frame 0. */
 var stage = document.getElementById('s7-stage'), scene = document.getElementById('s7-scene');
 if (!stage || !scene) return;
-var D = 5.8, RM = AIML.REDUCE, END = 4.4, NS = 'http://www.w3.org/2000/svg';
+var D = 5.0, RM = AIML.REDUCE, END = 4.0, NS = 'http://www.w3.org/2000/svg';
 function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
 function k(t, a, b) { return cl((t - a) / (b - a)); }
 function eo(x) { return 1 - Math.pow(1 - x, 4); }
@@ -65,12 +65,12 @@ function layout() {
 
 function render(t) {
   t = ((t % D) + D) % D;
-  /* seam (5.1 -> 5.6): a true crossfade from the end state to frame 0, element by element. Nothing blanks: the
+  /* seam (4.3 -> 4.8; page critic 4: the locked end held ~1.5 s, now ~0.5 s): a true crossfade from the end state to frame 0, element by element. Nothing blanks: the
      ticks and teal segments fade while "mapped" fades back in under "done", the count and the stamp swap at the
      midpoint. Then frame 0 holds a beat before the first tick. */
-  var X = t >= 5.1 ? k(t, 5.1, 5.6) : 0, seam = t >= 5.1 && t < 5.6;
+  var X = t >= 4.3 ? k(t, 4.3, 4.8) : 0, seam = t >= 4.3 && t < 4.8;
   var OUT = 1 - sm(k(X, 0, 0.42)), IN = sm(k(X, 0.58, 1));   /* old state fully out before the new one comes in */
-  if (t >= 5.6) t = 0; else if (seam) t = 5.1;
+  if (t >= 4.8) t = 0; else if (seam) t = 4.3;
   arcG.style.opacity = 1 - sm(X);
   var done = 0, glow = 0, bOn = -1, bP = 0;
   rows.forEach(function (li, i) {
@@ -109,7 +109,7 @@ function render(t) {
   var land = eo(k(t, 3.15, 3.5));
   seal.style.transform = locked ? 'rotate(' + (-3 * land).toFixed(2) + 'deg) scale(' + (1.25 - 0.25 * land).toFixed(4) + ')' : 'none';
   seal.style.setProperty('--fl', (locked ? 0.35 * (1 - k(t, 3.2, 3.8)) : 0).toFixed(3));
-  scene.style.transform = 'scale(' + (1 + 0.015 * sm(k(t, 3.5, 4.2)) * (1 - sm(k(t, 4.4, 5.1)))) + ')';
+  scene.style.transform = 'scale(' + (1 + 0.015 * sm(k(t, 3.5, 4.0)) * (1 - X)) + ')';
 }
 var t = 0, last = null, raf = 0, inView = false, paused = false, seeking = false;
 function tick(now) { raf = 0; if (last !== null) t += (now - last) / 1000; last = now; render(t); go(); }
