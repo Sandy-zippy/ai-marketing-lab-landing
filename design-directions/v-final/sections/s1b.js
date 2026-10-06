@@ -8,7 +8,7 @@ if (!root) return;
 var viz = root.querySelector('.s1b-viz'), box = root.querySelector('.s1b-globe'), cv = document.getElementById('s1b-cv');
 var rows = [].slice.call(root.querySelectorAll('.s1b-led>div'));
 var tagV = document.getElementById('s1b-tv'), tagI = document.getElementById('s1b-ti');
-var lead = document.getElementById('s1b-lp'), ph = document.getElementById('s1b-ph'), phImg = ph.querySelector('img');
+var lead = document.getElementById('s1b-lp'), leadH = document.getElementById('s1b-lh'), ph = document.getElementById('s1b-ph'), phImg = ph.querySelector('img');
 var D = 11;
 
 function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
@@ -43,7 +43,7 @@ var VAN = [49.28, -123.12], HYD = [17.39, 78.49];
 var NA = [[51.05, -114.07], [47.61, -122.33], [53.55, -113.49], [37.77, -122.42], [34.05, -118.24], [49.9, -97.14], [39.74, -104.99], [33.45, -112.07],
   [43.65, -79.38], [32.78, -96.8], [41.88, -87.63], [45.5, -73.57], [33.75, -84.39], [40.71, -74.0], [25.76, -80.19], [44.65, -63.57]];
 var IN = [[19.08, 72.88], [28.61, 77.21], [12.97, 77.59], [18.52, 73.86], [13.08, 80.27], [22.57, 88.36], [23.02, 72.57]];
-var NA0 = 1.0, NAS = 0.15, NAD = 0.5, IN0 = 6.7, INS = 0.11, IND = 0.35, MA0 = 3.8, MA1 = 6.4;
+var NA0 = 1.0, NAS = 0.15, NAD = 0.5, IN0 = 6.7, INS = 0.11, IND = 0.35, MA0 = 4.3, MA1 = 6.5;
 function litN(t) {                          /* lit-dot progress over both regions: 0..1 */
   var n = 0;
   for (var j = 0; j < NA.length; j++) n += sm(k(t, NA0 + j * NAS + NAD * .8, NA0 + j * NAS + NAD));
@@ -52,14 +52,17 @@ function litN(t) {                          /* lit-dot progress over both region
 }
 
 var Z = 5.2;
-/* camera pose: [lat, lon, distance]. East only; t = 11 equals t = 0 (lon -108 + 360). */
+/* camera pose: [lat, lon, distance], cubic Hermite through keys with chosen velocities (no stops, no reversal).
+   Longitude only increases: t = 11 equals t = 0 (lon -108 + 360). The flight is framed from 50N over the Atlantic so the
+   polar arc reads as a curve with Vancouver (left) and India (right) both in view. */
+var KEYS = [ /* t, lat, lon, dist offset, lon velocity (deg/s) */
+  [0, 38, -108, 0, 4], [3.85, 40, -96, 0, 6], [5.0, 45, -6, 0, 14], [6.2, 40, 20, 0, 22],
+  [7.2, 23, 79, -.55, 4], [9.5, 22.5, 84, -.65, 3], [11, 38, 252, 0, 4]];
+function herm(a, b, va, vb, h, s) { var s2 = s * s, s3 = s2 * s; return (2 * s3 - 3 * s2 + 1) * a + (s3 - 2 * s2 + s) * h * va + (-2 * s3 + 3 * s2) * b + (s3 - s2) * h * vb; }
 function pose(t) {
-  if (t < 3.85) return [38 + 2 * t / 3.85, -108 + 10 * t / 3.85, Z];
-  if (t < 6.5) { var e = sm(k(t, 3.85, 6.5)); return [40 - 18 * e + 28 * Math.sin(Math.PI * e), -98 + 178 * e, Z]; }
-  var z = Z - .55 * sm(k(t, 6.1, 7.3)) - .1 * k(t, 7.3, 9.6);
-  if (t < 9.6) return [22 + .5 * k(t, 6.5, 9.6), 80 + 2 * k(t, 6.5, 9.6), z];
-  var e2 = sm(k(t, 9.6, 11));
-  return [22.5 + 15.5 * e2, 82 + 170 * e2, Z - .65 + .65 * sm(k(t, 9.5, 10.4))];
+  for (var i = 0; i < KEYS.length - 1 && t > KEYS[i + 1][0]; i++);
+  var A = KEYS[i], B = KEYS[i + 1], h = B[0] - A[0], s = cl((t - A[0]) / h);
+  return [herm(A[1], B[1], 0, 0, h, s), herm(A[2], B[2], A[4], B[4], h, s), Z + herm(A[3], B[3], 0, 0, h, s)];
 }
 
 /* ---------- ledger + overlays that do not need WebGL ---------- */
@@ -68,7 +71,7 @@ function ledger(t) {
   var f = [
     a === 0 ? sm(cl((t >= 10.2 ? t - 10.2 : t + 0.8) / 1.8)) : 1 - sm(k(t, 1.0, 1.3)),
     a === 1 ? litN(t) : t >= 7.8 && t < 8.1 ? 1 - sm(k(t, 7.8, 8.1)) : 0,
-    a === 2 ? sm(k(t, 7.8, 10.2)) : t >= 10.2 && t < 10.5 ? 1 - sm(k(t, 10.2, 10.5)) : 0
+    a === 2 ? sm(k(t, 7.8, 9.6)) * (1 - sm(k(t, 9.9, 10.2))) : 0
   ];
   rows.forEach(function (r, i) { r.classList.toggle('on', i === a); r.querySelector('.s1b-bar').style.setProperty('--f', f[i].toFixed(4)); });
   roll(0, 1);
@@ -83,10 +86,14 @@ var MASK = 'AAAAAAAIACEgJASMhJAVEpICAkLICQk6IQNgYAAMjJEDM3EADszYgZhxEvNm5tnce4tv
 var G = null, W = 0, C = 0, DPR = 1;
 
 function v3(T, ll, r) { var la = ll[0] * Math.PI / 180, lo = ll[1] * Math.PI / 180; return new T.Vector3(Math.cos(la) * Math.sin(lo), Math.sin(la), Math.cos(la) * Math.cos(lo)).multiplyScalar(r || 1); }
-function arcPts(T, a, b, n, al) {
+/* bend > 0 pushes the arc off its great circle (towards the Atlantic side for Vancouver -> India): a geodesic seen from any
+   one camera is either a straight needle or hugs the rim; the bent arc crosses the visible disc as a readable curve. */
+function arcPts(T, a, b, n, al, bend) {
   var A = v3(T, a), B = v3(T, b), om = Math.acos(Math.max(-1, Math.min(1, A.dot(B)))), so = Math.sin(om), alt = al || (.03 + .3 * om / Math.PI), out = [];
+  var N = bend ? B.clone().cross(A).normalize() : null;
   for (var i = 0; i <= n; i++) {
     var s = i / n, p = A.clone().multiplyScalar(Math.sin((1 - s) * om) / so).add(B.clone().multiplyScalar(Math.sin(s * om) / so));
+    if (N) p.normalize().add(N.clone().multiplyScalar(bend * Math.sin(Math.PI * s)));
     out.push(p.normalize().multiplyScalar(1.004 + alt * Math.sin(Math.PI * s)));
   }
   return out;
@@ -124,12 +131,12 @@ function build() {
   globe.add(new T.Points(lg, dotM));
   /* arcs: Vancouver -> each North American dot, Vancouver -> India (over the Arctic), India -> each Indian dot */
   var teal = new T.Color('#00A19B'), ink = new T.Color('#2A2A2A');
-  function arc(a, b, n, rad, alt) {
-    var pts = arcPts(T, a, b, n, alt), geo = new T.TubeGeometry(new T.CatmullRomCurve3(pts), n, rad, 6, false);
+  function arc(a, b, n, rad, alt, bend) {
+    var pts = arcPts(T, a, b, n, alt, bend), crv = new T.CatmullRomCurve3(pts), geo = new T.TubeGeometry(crv, n, rad, 6, false);
     var m = new T.Mesh(geo, new T.MeshBasicMaterial({ color: teal.clone(), transparent: true, opacity: 0, depthWrite: false }));
-    m.userData = { pts: pts, n: n }; globe.add(m); return m;
+    m.userData = { crv: crv, n: n }; globe.add(m); return m;
   }
-  var A = { na: NA.map(function (p) { return arc(VAN, p, 40, .0042); }), main: arc(VAN, HYD, 140, .0062, .13), inn: IN.map(function (p) { return arc(HYD, p, 24, .0036); }) };
+  var A = { na: NA.map(function (p) { return arc(VAN, p, 40, .0042); }), main: arc(VAN, HYD, 140, .0062, .1, 1.2), inn: IN.map(function (p) { return arc(HYD, p, 24, .0036); }) };
   /* markers: pins, client dots, travelling heads */
   var MK = [VAN, HYD].concat(NA, IN), nm = MK.length + NA.length + 1 + IN.length;
   var mg = new T.BufferGeometry(), pos = new Float32Array(nm * 3), aS = new Float32Array(nm), aA = new Float32Array(nm), aR = new Float32Array(nm), aG = new Float32Array(nm), aC = new Float32Array(nm * 3);
@@ -139,7 +146,7 @@ function build() {
   var mkM = new T.ShaderMaterial({ uniforms: { uK: { value: 1 } }, vertexShader: MK_V, fragmentShader: MK_F, transparent: true, depthWrite: false });
   var mk = new T.Points(mg, mkM); mk.frustumCulled = false; mk.renderOrder = 3; globe.add(mk);
   G = { T: T, r: r, scene: scene, cam: cam, globe: globe, dotM: dotM, A: A, mg: mg, mkM: mkM, pos: pos, aS: aS, aA: aA, aR: aR, aG: aG, aC: aC, nmk: MK.length, teal: teal, ink: ink,
-    van: v3(T, VAN, 1.006), hyd: v3(T, HYD, 1.006), hydT: v3(T, [15.5, 92.5], 1.006) };
+    van: v3(T, VAN, 1.006), hyd: v3(T, HYD, 1.006) };
   return true;
 }
 
@@ -158,7 +165,7 @@ function setArc(m, p, c, o, hi) {
   var n = m.userData.n, segs = Math.floor(p * n + 1e-6);
   m.geometry.setDrawRange(0, segs * 6 * 6);
   m.material.color.copy(G.teal).lerp(G.ink, c); m.material.opacity = o * (p > 0 ? 1 : 0);
-  var j = G.nmk + hi, P = m.userData.pts[Math.min(n, Math.round(p * n))], head = p > 0 && p < 1;
+  var j = G.nmk + hi, P = m.userData.crv.getPointAt(Math.min(1, segs / n)), head = p > 0 && p < 1;
   G.pos[j * 3] = P.x; G.pos[j * 3 + 1] = P.y; G.pos[j * 3 + 2] = P.z;
   G.aS[j] = 5; G.aA[j] = head ? o : 0; G.aR[j] = 0; G.aG[j] = 1; G.aC.set([0, .631, .608], j * 3);
 }
@@ -172,18 +179,19 @@ function proj(v) {
   return { x: (s.x + 1) / 2 * C - (C - W) / 2, y: (1 - s.y) / 2 * C - (C - W) / 2, f: n.dot(c) };
 }
 
-var STILL = -1;
+var STILL = -1, PINS = null;
+window.__s1b_pins = function () { return PINS; };
 function render(t) {
   t = ((t % D) + D) % D;
   ledger(STILL >= 0 ? 10.15 : t);
   if (!G || !W) return;
-  var still = STILL >= 0, P = still ? [50, -22, Z] : pose(t);
+  var still = STILL >= 0, P = still ? [44, -8, Z] : pose(t);
   G.globe.rotation.set(P[0] * Math.PI / 180, -P[1] * Math.PI / 180, 0);
   G.cam.position.set(0, 0, P[2]); G.cam.lookAt(0, 0, 0); G.cam.updateProjectionMatrix();
   G.globe.updateMatrixWorld(true);
   if (still) t = 9.0;
   /* fades for the loop: North America's lights dim only while it faces away (t 9.7 to 10.1), India's from 10.3 */
-  var naO = still ? 1 : 1 - sm(k(t, 9.7, 10.1)), inO = still ? 1 : 1 - sm(k(t, 10.3, 10.7)), hi = 0;
+  var naO = still ? 1 : 1 - sm(k(t, 9.5, 9.85)), inO = still ? 1 : 1 - sm(k(t, 9.9, 10.3)), maO = still ? 1 : 1 - sm(k(t, 9.55, 9.9)), hi = 0;
   /* Vancouver: the origin, always lit; a ring at the start of every loop and as the long arc leaves */
   setMk(0, 9, 1, still ? 0 : (t < 1 ? k(t, .1, .95) : k(t, MA0 - .05, MA0 + .7)), true);
   /* North America */
@@ -194,7 +202,7 @@ function render(t) {
   });
   /* the long arc: the camera follows its head over the Arctic */
   var mp = still ? 1 : sm(k(t, MA0, MA1));
-  setArc(G.A.main, mp, still ? .2 : sm(k(t, MA1, MA1 + 1.2)) * .7, inO, hi++);
+  setArc(G.A.main, mp, still ? .2 : sm(k(t, MA1, MA1 + 1.2)) * .7, maO, hi++);
   setMk(1, 9, still ? 1 : sm(k(t, MA1 - .1, MA1)) * inO, still ? 0 : k(t, MA1, MA1 + .8), true);
   IN.forEach(function (p, j) {
     var s0 = IN0 + j * INS, pr = eo(k(t, s0, s0 + IND)), lit = k(t, s0 + IND * .8, s0 + IND);
@@ -205,17 +213,18 @@ function render(t) {
   G.r.render(G.scene, G.cam);
 
   /* overlays: one tag at a time, the leader from India to the photo */
-  var pv = proj(G.van), pi = proj(G.hyd), pt = proj(G.hydT);
+  var pv = proj(G.van), pi = proj(G.hyd); PINS = [pv.x / W * 100, pv.y / W * 100, pi.x / W * 100, pi.y / W * 100];
   var tvO = still ? 1 : (t < 4.1 ? 1 - sm(k(t, 3.8, 4.1)) : sm(k(t, 10.6, 11))) * sm(k(pv.f, .1, .3));
-  show(tagV, tvO); tagV.style.transform = 'translate(' + Math.round(pv.x - tagV.offsetWidth - 12) + 'px,' + Math.round(pv.y - tagV.offsetHeight / 2) + 'px)';
-  var tiO = still ? 1 : sm(k(t, 6.45, 6.7)) * (1 - sm(k(t, 9.6, 9.85))) * sm(k(pi.f, .1, .3));
-  show(tagI, tiO); tagI.style.transform = 'translate(' + Math.round(pt.f > .2 ? Math.max(pi.x + 14, pt.x) : pi.x + 14) + 'px,' + Math.round((pt.f > .2 ? pt.y : pi.y) - tagI.offsetHeight / 2) + 'px)';
+  show(tagV, tvO); tagV.style.transform = 'translate(' + Math.round(Math.max(2 - box.offsetLeft, pv.x - tagV.offsetWidth - 12)) + 'px,' + Math.round(pv.y - tagV.offsetHeight / 2) + 'px)';
+  var tiO = still ? 1 : sm(k(t, 6.5, 6.75)) * (1 - sm(k(t, 9.6, 9.85))) * sm(k(pi.f, .1, .3));
+  show(tagI, tiO); tagI.style.transform = 'translate(' + Math.round(pi.x + 14) + 'px,' + Math.round(pi.y - tagI.offsetHeight / 2) + 'px)';
   var br = box.getBoundingClientRect(), ir = phImg.getBoundingClientRect();
   var ex = ir.right - br.left - 6, ey = ir.top - br.top + 6, mx = (pi.x + ex) / 2 + 30, my = Math.min(pi.y, ey) - 10;
   var d = 'M' + pi.x.toFixed(1) + ' ' + pi.y.toFixed(1) + 'Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + ex.toFixed(1) + ' ' + ey.toFixed(1);
   if (lead.getAttribute('d') !== d) lead.setAttribute('d', d);
   var L = lead.getTotalLength(), ld = still ? 1 : eo(k(t, 8.1, 8.6)), lo = still ? 1 : (t >= 8.1 ? 1 - sm(k(t, 9.6, 9.85)) : 0);
   lead.style.strokeDasharray = L + ' ' + L; lead.style.strokeDashoffset = L * (1 - ld); lead.style.opacity = lo;
+  var hp = lead.getPointAtLength(L * ld); leadH.setAttribute('cx', hp.x.toFixed(1)); leadH.setAttribute('cy', hp.y.toFixed(1)); leadH.style.opacity = ld > 0 && ld < 1 ? 1 : 0;
   ph.classList.toggle('hit', !still && t >= 8.45 && t < 9.7);
 }
 

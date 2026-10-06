@@ -66,6 +66,9 @@
 #s6 .mb .paid{position:absolute;left:0;top:-3px;bottom:-3px;z-index:2;width:max(6px,calc(100% * var(--w)));border-radius:3px;background:var(--on-petrol);
   box-shadow:0 0 0 2px var(--petrol);transform-origin:0 50%;transform:scaleX(var(--pp,1))}
 /* Medico: the made bar is 24 months (contracted in 2 years); a taller mark at month 12 */
+/* a band of light sweeps the made bar while the case is read (JS sets --sw; clipped by the made fill) */
+#s6 .mb .made::after{content:"";position:absolute;top:0;bottom:0;left:calc(var(--sw,-1) * 100%);width:18%;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent)}
 #s6 .mb-time .ticks{position:absolute;inset:0;border-radius:4px;pointer-events:none;
   background:linear-gradient(90deg,transparent calc(50% - 1px),var(--petrol) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px)),
     repeating-linear-gradient(90deg,transparent 0 calc(100% / 24 - 1px),rgba(11,34,36,.7) calc(100% / 24 - 1px) calc(100% / 24))}
@@ -113,6 +116,15 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
 
 /* shared pause control, kept clear of the content */
 #s6 .s6-car .mo-pause,#s6 .own .mo-pause{top:var(--s3);bottom:auto;right:var(--s3)}
+/* phone: the pause sits in the stage's bottom padding, clear of the peeking tab; captions reserve two lines so the
+   money block never jumps between cases; Sami's card is a row (video + caption) on the full width */
+@media (max-width:767px){
+  #s6 .s6-car{padding-bottom:calc(var(--s8) + var(--s2))}
+  #s6 .s6-car .mo-pause{top:auto;bottom:var(--s4)}
+  #s6 .cap{min-height:calc(2 * 1.4em)}
+  #s6 .s6-sami{grid-template-columns:minmax(0,11fr) minmax(0,9fr);align-items:end;column-gap:var(--s4)}
+  #s6 .vid-box{width:100%}
+}
 
 @media (min-width:768px){
   #s6 .s6-car{padding:var(--s6) var(--s6) var(--s7)}

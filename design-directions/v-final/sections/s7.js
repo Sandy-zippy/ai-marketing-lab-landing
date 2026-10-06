@@ -1,21 +1,19 @@
-/* S7: deterministic render(t), t in [0,7). Seek with window.__seek_s7(t). Reduced motion / no JS = the finished frame.
-   Row 1 ticks at full speed, rows 2-5 cascade; every tick sends a pulse along a beam (Magic UI animated-beam, ported)
-   into one segment of the 90-day dial. At 5 of 5 the seal locks (shackle drops, seal fills, a ring stamps out), then a
-   border beam circles it. The loop resets by a ghost crossfade; the seal fades out before the unlocked one fades in,
-   so no frame shows a lock opening. */
+/* S7: deterministic render(t), t in [0,6.2). Seek with window.__seek_s7(t). Reduced motion / no JS = the finished frame.
+   Row 1 ticks at full pace, rows 2-5 cascade; each tick sends a dot along a solid line (Magic UI animated-beam,
+   ported) into the dial, and the dot's landing fills one of the five segments. At 5 of 5 the stamp drops onto the
+   dial and locks (shackle closes, one shockwave); then the 90-day clock runs round the ring. Loop: ghost crossfade. */
 var stage = document.getElementById('s7-stage'), scene = document.getElementById('s7-scene');
 if (!stage || !scene) return;
-var D = 7, RM = AIML.REDUCE, END = 4.6, NS = 'http://www.w3.org/2000/svg';
+var D = 6.2, RM = AIML.REDUCE, END = 4.4, NS = 'http://www.w3.org/2000/svg';
 function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
 function k(t, a, b) { return cl((t - a) / (b - a)); }
 function eo(x) { return 1 - Math.pow(1 - x, 4); }
 function sm(x) { return x * x * x * (x * (6 * x - 15) + 10); }
 
 var rows = [].slice.call(scene.querySelectorAll('.s7-rows li')), seal = scene.querySelector('.s7-seal'), cnt = scene.querySelector('.s7-cnt');
-var dial = scene.querySelector('.s7-dial'), arcG = scene.querySelector('.s7-arc'), trk = scene.querySelector('.s7-trk');
-var beam = scene.querySelector('.s7-beam'), bp = scene.querySelector('.s7-bp'), bl = scene.querySelector('.s7-bl');
-/* five segments, 4 degree gaps, clockwise from 12 o'clock (the svg is rotated -90deg) */
-function seg(i) {
+var dial = scene.querySelector('.s7-dial'), arcG = scene.querySelector('.s7-arc'), trk = scene.querySelector('.s7-trk'), run = scene.querySelector('.s7-run');
+var beam = scene.querySelector('.s7-beam'), bl = scene.querySelector('.s7-bl'), dot = scene.querySelector('.s7-dot');
+function seg(i) {   /* five segments, 4 degree gaps, clockwise from 12 o'clock (the svg is rotated -90deg) */
   var r = 86, a0 = (i * 72 + 2) * Math.PI / 180, a1 = ((i + 1) * 72 - 2) * Math.PI / 180;
   return 'M' + (100 + r * Math.cos(a0)).toFixed(2) + ' ' + (100 + r * Math.sin(a0)).toFixed(2) + 'A' + r + ' ' + r + ' 0 0 1 ' + (100 + r * Math.cos(a1)).toFixed(2) + ' ' + (100 + r * Math.sin(a1)).toFixed(2);
 }
@@ -24,81 +22,95 @@ for (var i = 0; i < 5; i++) {
   var p0 = document.createElementNS(NS, 'path'); p0.setAttribute('d', seg(i)); trk.appendChild(p0);
   var p1 = document.createElementNS(NS, 'path'); p1.setAttribute('d', seg(i)); p1.setAttribute('pathLength', '1'); arcG.appendChild(p1); arcs.push(p1);
 }
-/* row i: start time and pace (row 1 full pace, rows 2-5 a faster cascade) */
-function st(i) { return i === 0 ? 0.4 : 1.35 + (i - 1) * 0.42; }
+function st(i) { return i === 0 ? 0.25 : 1.15 + (i - 1) * 0.4; }
 function pace(i) { return i === 0 ? 1 : 0.7; }
+function beamT(i) { var s = st(i), m = pace(i), b0 = s + 0.25 * m; return [b0, b0 + 0.45 * m]; }
 
-var G = null, ghost = null, gSeal = null;
+var G = null, ghost = null;
 function layout() {
   if (!stage.clientWidth) return false;
   stage.classList.add('s7-live');
-  var sr = scene.getBoundingClientRect(), dr = dial.getBoundingClientRect(), sc = sr.width / scene.offsetWidth || 1;
-  var g = { paths: [], L: [] }, x1 = (dr.left - sr.left) / sc - 2, y1 = (dr.top + dr.height / 2 - sr.top) / sc;
-  beam.setAttribute('viewBox', '0 0 ' + scene.offsetWidth + ' ' + scene.offsetHeight);
+  var sw = scene.offsetWidth, sr = scene.getBoundingClientRect(), sc = sr.width / sw || 1, dr = dial.getBoundingClientRect();
+  var cx = (dr.left + dr.width / 2 - sr.left) / sc, cy = (dr.top + dr.height / 2 - sr.top) / sc, R = dr.width / sc * 0.43 + 4;
+  var below = (dr.bottom - sr.top) / sc < (rows[0].getBoundingClientRect().top - sr.top) / sc + 1;   /* phone: dial above the sheet */
+  var g = { paths: [], L: [] };
+  beam.setAttribute('viewBox', '0 0 ' + sw + ' ' + scene.offsetHeight);
   rows.forEach(function (li) {
-    var d = li.querySelector('.s7-done').getBoundingClientRect(), x0 = (d.right - sr.left) / sc + 8, y0 = (d.top + d.height / 2 - sr.top) / sc, dx = Math.max(24, (x1 - x0) * 0.6);
-    g.paths.push('M' + x0.toFixed(1) + ' ' + y0.toFixed(1) + 'C' + (x0 + dx).toFixed(1) + ' ' + y0.toFixed(1) + ' ' + (x1 - dx).toFixed(1) + ' ' + y1.toFixed(1) + ' ' + x1.toFixed(1) + ' ' + y1.toFixed(1));
+    var r = li.getBoundingClientRect(), y0 = (r.top + r.height / 2 - sr.top) / sc, d;
+    if (below) {
+      /* out of the box's left side, up the panel's left gutter, into the dial's lower-left */
+      var bx = (li.querySelector('.s7-box').getBoundingClientRect().left - sr.left) / sc - 4, gx = Math.max(6, bx - 12);
+      var tx = cx - R * 0.707, ty = cy + R * 0.707;
+      d = 'M' + bx.toFixed(1) + ' ' + y0.toFixed(1) + 'Q' + gx.toFixed(1) + ' ' + y0.toFixed(1) + ' ' + gx.toFixed(1) + ' ' + (y0 - 14).toFixed(1) +
+          'L' + gx.toFixed(1) + ' ' + (ty + 24).toFixed(1) + 'Q' + gx.toFixed(1) + ' ' + ty.toFixed(1) + ' ' + tx.toFixed(1) + ' ' + ty.toFixed(1);
+    } else {
+      /* out of the state cell's right side, curving into the nearest point of the ring */
+      var s2 = li.querySelector('.s7-st').getBoundingClientRect(), x0 = (s2.right - sr.left) / sc + 10;
+      var a = Math.atan2(y0 - cy, x0 - cx), x1 = cx + R * Math.cos(a), y1 = cy + R * Math.sin(a), dx = Math.max(20, (x1 - x0) * 0.55);
+      d = 'M' + x0.toFixed(1) + ' ' + y0.toFixed(1) + 'C' + (x0 + dx).toFixed(1) + ' ' + y0.toFixed(1) + ' ' + (x1 - dx * 0.6).toFixed(1) + ' ' + y1.toFixed(1) + ' ' + x1.toFixed(1) + ' ' + y1.toFixed(1);
+    }
+    g.paths.push(d); bl.setAttribute('d', d); g.L.push(bl.getTotalLength());
   });
-  g.paths.forEach(function (d) { bl.setAttribute('d', d); g.L.push(bl.getTotalLength()); });
   G = g; return true;
 }
 
 function render(t) {
-  t = ((t % D) + D) % D; var raw = t;
-  var X = sm(k(t, 6.2, 7)); if (ghost) ghost.style.opacity = X; scene.style.opacity = 1 - X;
-  if (gSeal) gSeal.style.opacity = sm(k(t, 6.7, 7));
-  if (t >= 6.2) t = 6.2;
-  var done = 0, glow = 0, beamOn = -1, beamP = 0;
+  t = ((t % D) + D) % D;
+  var X = sm(k(t, 5.6, 6.2)); if (ghost) ghost.style.opacity = X; scene.style.opacity = 1 - X;
+  if (t >= 5.6) t = 5.6;
+  var done = 0, glow = 0, bOn = -1, bP = 0;
   rows.forEach(function (li, i) {
-    var s = st(i), m = pace(i);
+    var s = st(i), m = pace(i), B = beamT(i);
     li.style.setProperty('--f', eo(k(t, s, s + 0.2 * m)).toFixed(3));
-    li.style.setProperty('--s', eo(k(t, s + 0.05 * m, s + 0.3 * m)).toFixed(3));
     li.style.setProperty('--c', eo(k(t, s + 0.1 * m, s + 0.35 * m)).toFixed(3));
-    li.style.setProperty('--d', eo(k(t, s + 0.2 * m, s + 0.45 * m)).toFixed(3));
-    li.style.setProperty('--a', (sm(k(t, s - 0.05, s + 0.1)) * (1 - sm(k(t, s + 0.5 * m, s + 0.8 * m)))).toFixed(3));
-    var b0 = s + 0.3 * m, b1 = b0 + 0.4 * m, a = eo(k(t, b1 - 0.1 * m, b1 + 0.25 * m));
-    if (t >= b0 && t < b1 + 0.05) { beamOn = i; beamP = k(t, b0, b1); }
+    li.style.setProperty('--d', eo(k(t, s + 0.15 * m, s + 0.4 * m)).toFixed(3));
+    li.style.setProperty('--a', (sm(k(t, s - 0.05, s + 0.1)) * (1 - sm(k(t, B[1], B[1] + 0.3)))).toFixed(3));
+    if (t >= B[0] && t < B[1] + 0.12) { bOn = i; bP = k(t, B[0], B[1]); }
+    var a = eo(k(t, B[1] - 0.04, B[1] + 0.3 * m));
     arcs[i].style.strokeDashoffset = (1 - a).toFixed(4);
-    if (a > 0 && a < 1) glow = Math.max(glow, 6);
+    if (a > 0 && a < 1) glow = Math.max(glow, 7);
     if (a >= 0.5) done++;
   });
   cnt.textContent = done + ' of 5';
-  /* dial completes: one bright flash */
-  glow = Math.max(glow, 12 * sm(k(t, 3.0, 3.15)) * (1 - sm(k(t, 3.3, 3.9))));
+  glow = Math.max(glow, 12 * sm(k(t, 2.95, 3.1)) * (1 - sm(k(t, 3.2, 3.8))));
   arcG.style.setProperty('--glow', glow.toFixed(1) + 'px');
-  /* the beam: a faint guide plus a travelling pulse, only while a pulse is in flight */
-  if (G && beamOn >= 0) {
-    var L = G.L[beamOn], dl = Math.min(60, L * 0.35);
-    bp.setAttribute('d', G.paths[beamOn]); bl.setAttribute('d', G.paths[beamOn]);
-    bl.style.strokeDasharray = dl + ' ' + (L + dl); bl.style.strokeDashoffset = (dl - eo(beamP) * (L + dl)).toFixed(1);
-    beam.style.opacity = Math.min(1, beamP * 8, (1 - beamP) * 8 + 0.25);
+  /* the beam: the line draws behind the travelling dot, then fades once the dot has landed */
+  if (G && bOn >= 0) {
+    var L = G.L[bOn], e = eo(bP), pt;
+    bl.setAttribute('d', G.paths[bOn]);
+    bl.style.strokeDasharray = L + ' ' + L; bl.style.strokeDashoffset = (L * (1 - e)).toFixed(1);
+    bl.style.opacity = 1 - k(t, beamT(bOn)[1], beamT(bOn)[1] + 0.12);
+    pt = bl.getPointAtLength(L * e); dot.setAttribute('cx', pt.x.toFixed(1)); dot.setAttribute('cy', pt.y.toFixed(1));
+    dot.style.opacity = bP < 1 ? 1 : 0; beam.style.opacity = 1;
   } else beam.style.opacity = 0;
-  /* the lock */
-  var locked = t >= 3.45;
+  /* the lock: the shackle drops, the stamp lands (from 1.25x, tilting to -4deg) and sends one shockwave */
+  var locked = t >= 3.15;
   seal.classList.toggle('open', !locked);
-  seal.style.setProperty('--sh', (-4 * (1 - sm(k(t, 3.3, 3.45)))).toFixed(2) + 'px');
-  seal.style.transform = 'scale(' + (locked ? 1 + 0.07 * (1 - eo(k(t, 3.45, 3.8))) : 1) + ')';
-  seal.style.setProperty('--ro', (0.7 * (1 - k(t, 3.5, 4.2)) * (t >= 3.5 ? 1 : 0)).toFixed(3));
-  seal.style.setProperty('--rs', (1 + 0.4 * eo(k(t, 3.5, 4.2))).toFixed(3));
-  seal.style.setProperty('--bo', (sm(k(t, 3.95, 4.25)) * (1 - sm(k(t, 5.9, 6.2)))).toFixed(3));
-  seal.style.setProperty('--ba', ((t - 3.95) * 220).toFixed(1) + 'deg');
-  seal.style.opacity = 1 - sm(k(raw, 6.2, 6.45));
-  scene.style.transform = 'scale(' + (1 + 0.02 * sm(k(t, 3.9, 5.0)) * (1 - sm(k(t, 5.3, 6.1)))) + ')';   /* the push is back to 1 before the seam, so the crossfade never doubles text */
+  seal.style.setProperty('--sh', (-5 * (1 - sm(k(t, 3.15, 3.3)))).toFixed(2) + 'px');
+  var land = eo(k(t, 3.15, 3.5));
+  seal.style.transform = locked ? 'rotate(' + (-4 * land).toFixed(2) + 'deg) scale(' + (1.25 - 0.25 * land).toFixed(4) + ')' : 'none';
+  seal.style.setProperty('--ro', (t >= 3.4 ? 0.8 * (1 - k(t, 3.4, 4.0)) : 0).toFixed(3));
+  seal.style.setProperty('--rs', (1 + 0.45 * eo(k(t, 3.4, 4.0))).toFixed(3));
+  /* the 90-day clock runs once the guarantee is locked */
+  var rp = k(t, 3.6, 5.5);
+  run.style.opacity = (sm(k(t, 3.6, 3.8)) * (1 - sm(k(t, 5.3, 5.5)))).toFixed(3);
+  run.style.strokeDashoffset = (-rp * 1.6).toFixed(4);
+  scene.style.transform = 'scale(' + (1 + 0.015 * sm(k(t, 3.5, 4.4)) * (1 - sm(k(t, 4.9, 5.5)))) + ')';
 }
 function snap() {
-  if (ghost) ghost.remove(); ghost = gSeal = null;
+  if (ghost) ghost.remove(); ghost = null;
   render(0); scene.style.opacity = 1;
   var gh = scene.cloneNode(true); gh.removeAttribute('id');
   [].forEach.call(gh.querySelectorAll('[id],[role]'), function (e) { e.removeAttribute('id'); e.removeAttribute('role'); e.removeAttribute('aria-label'); });
   gh.setAttribute('aria-hidden', 'true'); gh.style.cssText += ';position:absolute;left:0;top:0;width:100%;opacity:0;pointer-events:none';
-  stage.appendChild(gh); ghost = gh; gSeal = gh.querySelector('.s7-seal');
+  stage.appendChild(gh); ghost = gh;
 }
 
 var t = 0, last = null, raf = 0, inView = false, paused = false, seeking = false;
 function tick(now) { raf = 0; if (last !== null) t += (now - last) / 1000; last = now; render(t); go(); }
 function go() { if (!raf && inView && !paused && !seeking && !RM && G) raf = requestAnimationFrame(tick); }
 function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; last = null; }
-function refresh() { if (RM) return; scene.style.transform = 'none'; render(END); var ok = layout(); if (ok) snap(); render(t); }
+function refresh() { scene.style.transform = 'none'; render(END); if (layout()) snap(); render(t); }
 window.__seek_s7 = function (s) { seeking = true; stop(); t = s; refresh(); render(s); };
 if (!RM) {
   refresh();

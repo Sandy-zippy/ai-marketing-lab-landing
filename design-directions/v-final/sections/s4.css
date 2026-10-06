@@ -90,7 +90,7 @@
 @media (min-width:768px){
   #s4 .s4-stage{padding-bottom:var(--s8)}
   #s4 .s4-scene{height:62cqw}
-  #s4 .s4-cam{--y0:24;--bw:11cqw;--bh:calc(var(--bw) * .66);left:52%;top:70%}
+  #s4 .s4-cam{--y0:24;--bw:11cqw;--bh:calc(var(--bw) * .66);left:52%;top:64%}
   #s4 .s4-fr b{left:var(--s3);top:var(--s2)}
   html.js #s4 .s4-out{display:block}
   #s4 .s4-flag{--ax:-1px;height:calc(var(--bw) * 1.2);padding:0 0 0 2px}

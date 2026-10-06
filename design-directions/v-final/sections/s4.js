@@ -107,20 +107,19 @@ function render(t) {
   pulse.style.opacity = pulseOn.toFixed(3);
 
   /* Fri 30: enquiries fly in from the left edge and drop into the Friday block: every enquiry gets caught */
-  var top = ctr(boxes[4].children[1]);
+  var top = ctr(boxes[4].children[1]), SH = st.querySelector('.s4-scene').offsetHeight;
   inq.forEach(function (r, j) {
     var s0 = FRI[0] + 0.05 + j * 0.11, q = k(t, s0, s0 + 0.75), e = sm(q);
-    var x0 = 6 + rnd(j) * 24, y0 = S.height * (0.28 + rnd(j + 5) * 0.3), cx = (x0 + top.x) / 2, cy = Math.min(y0, top.y) - 60 - rnd(j + 9) * 40;
+    var x0 = 6 + rnd(j) * 24, y0 = SH * (0.3 + rnd(j + 5) * 0.3), cx = (x0 + top.x) / 2, cy = Math.min(y0, top.y) - 60 - rnd(j + 9) * 40;
     var x = (1 - e) * (1 - e) * x0 + 2 * (1 - e) * e * cx + e * e * top.x, y = (1 - e) * (1 - e) * y0 + 2 * (1 - e) * e * cy + e * e * top.y;
     r.setAttribute('x', (x - 5).toFixed(1)); r.setAttribute('y', (y - 3.5).toFixed(1)); r.style.opacity = q > 0 && q < 1 ? (q > 0.85 ? (1 - q) / 0.15 : 1).toFixed(2) : 0;
   });
   /* Fri 6: a stream too dense to count leaves the block and runs to its outcome row ("your first 100 messages go out") */
   var src = ctr(boxes[9].children[2]), lp = leads[1], LL = side && t >= FRI[1] ? lp.getTotalLength() : 0;
-  var rr1 = rows[1].firstChild.getBoundingClientRect(), dx = rr1.left - S.left + 10, dy = rr1.top - S.top - 8;
   mail.forEach(function (r, j) {
     var s0 = FRI[1] + 0.1 + j * 0.035, q = k(t, s0, s0 + 0.9), e = eo(q), jx = (rnd(j + 3) - 0.5) * 14, jy = (rnd(j + 7) - 0.5) * 14, x, y;
     if (LL) { var pt = lp.getPointAtLength(LL * e * 0.94); x = pt.x + jx * (1 - e * 0.5); y = pt.y + jy * (1 - e * 0.5); }
-    else { var cx = src.x + 20, cy = (src.y + dy) / 2; x = (1 - e) * (1 - e) * src.x + 2 * (1 - e) * e * cx + e * e * (dx + jx); y = (1 - e) * (1 - e) * src.y + 2 * (1 - e) * e * cy + e * e * dy; }
+    else { /* stacked layout: the stream leaves out of the top of the stage */ var ex = src.x - 10 + rnd(j + 3) * 36, cx = src.x + 14, cy = src.y - 40; x = (1 - e) * (1 - e) * src.x + 2 * (1 - e) * e * cx + e * e * ex; y = (1 - e) * (1 - e) * src.y + 2 * (1 - e) * e * cy + e * e * -20; }
     r.setAttribute('x', (x - 5.5).toFixed(1)); r.setAttribute('y', (y - 4).toFixed(1)); r.style.opacity = q > 0 && q < 1 ? (q > 0.8 ? (1 - q) / 0.2 : 1).toFixed(2) : 0;
   });
 }

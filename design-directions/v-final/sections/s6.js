@@ -34,7 +34,7 @@ tabs.forEach(function (b, i) { b.setAttribute('aria-selected', 'false'); b.tabIn
 
 function fmt(el, x, orig) {
   if (x >= 1) return orig;
-  var v = +el.dataset.v * x, dec = el.dataset.dec && x > 0 ? 1 : 0;
+  var f = +(el.dataset.from || 0), v = f + (+el.dataset.v - f) * x, dec = el.dataset.dec ? 1 : 0;
   var s = el.dataset.sep ? Math.round(v).toLocaleString('en-US') : v.toFixed(dec);
   return (el.dataset.pre || '') + s + (el.dataset.suf || '');
 }
@@ -71,27 +71,32 @@ function renderCar(t) {
     rows.forEach(function (r, j) { r.setAttribute('aria-hidden', j === c ? 'false' : 'true'); });
   }
   R.forEach(function (r, j) {
-    var cur = j === c, o = cur ? sm(k(u, .25, .45)) : (j === prev && u < .3 ? 1 - sm(k(u, 0, .25)) : 0);
-    vis(r.el, o > 0 || cur ? 1 : 0);
-    if (!cur) { vis(r.win, o); vis(r.info, o); vis(r.cap, o); return; }
+    var cur = j === c, old = j === prev && u < .35;
+    vis(r.el, cur || old ? 1 : 0);
+    if (!cur) {                                 /* the outgoing case steps back while the new one is already opening */
+      if (!old) return;
+      var oo = 1 - sm(k(u, .05, .3));
+      vis(r.win, oo); r.win.style.transform = 'scale(' + (1.035 - .05 * sm(k(u, 0, .3))).toFixed(4) + ')';
+      vis(r.info, 1 - sm(k(u, 0, .2))); vis(r.cap, 1 - sm(k(u, 0, .2))); return;
+    }
     /* selection -> expansion: the window grows out of the active tab's thumbnail */
-    var e = eo(k(u, .25, .9)), push = 1 + .035 * k(u, .9, CASE);
+    var e = eo(k(u, .05, .7)), push = 1 + .04 * k(u, .7, CASE);
     var th = tabs[c].querySelector('img').getBoundingClientRect(), b = r.base, cb = car.getBoundingClientRect(), cb0 = car._base;
     var dy0 = cb.top - cb0.top, dx0 = cb.left - cb0.left;     /* page scrolled since layout */
     var s0 = Math.max(.05, th.width / b.width), dx = (th.left + th.width / 2) - (b.left + dx0 + b.width / 2), dy = (th.top + th.height / 2) - (b.top + dy0 + b.height / 2);
     r.win.style.transform = 'translate(' + (dx * (1 - e)).toFixed(1) + 'px,' + (dy * (1 - e)).toFixed(1) + 'px) scale(' + ((s0 + (1 - s0) * e) * push).toFixed(4) + ')';
-    vis(r.win, sm(k(u, .25, .4)));
-    r.win.style.setProperty('--a', (u * 75 % 360).toFixed(1) + 'deg'); r.win.style.setProperty('--bo', sm(k(u, .9, 1.3)).toFixed(3));
-    var io = sm(k(u, .5, .85));
-    vis(r.info, io); r.info.style.transform = 'translateY(' + (10 * (1 - eo(k(u, .5, .9)))).toFixed(1) + 'px)';
-    vis(r.cap, sm(k(u, .8, 1.1)));
-    /* number ticker + the ratio: what they paid lands first, what they made grows out of it */
-    setN(r, 'pd', eo(k(u, .8, 1.3)));
-    setN(r, 'md', eo(k(u, 1.25, 2.6)));
-    var w = parseFloat(r.mb.style.getPropertyValue('--w')) || 0;
-    r.mb.style.setProperty('--pp', eo(k(u, .8, 1.2)).toFixed(3));
-    r.mb.style.setProperty('--mm', (u < 1.2 ? 0 : w + (1 - w) * sm(k(u, 1.25, 2.6))).toFixed(4));
-    r.mb.style.setProperty('--bf', sm(k(u, .9, 1.25)).toFixed(3));
+    vis(r.win, sm(k(u, .05, .18)));
+    r.win.style.setProperty('--a', (u * 75 % 360).toFixed(1) + 'deg'); r.win.style.setProperty('--bo', sm(k(u, .7, 1.1)).toFixed(3));
+    vis(r.info, sm(k(u, .3, .6))); r.info.style.transform = 'translateY(' + (10 * (1 - eo(k(u, .3, .7)))).toFixed(1) + 'px)';
+    vis(r.cap, sm(k(u, .6, .9)));
+    /* the ratio: the paid slice lands, then what they made grows out of it. Number and bar share ONE eased value,
+       and Made counts up from the paid amount (never from zero). */
+    var pp = eo(k(u, .7, 1.0)), em = sm(k(u, 1.0, 2.4)), w = parseFloat(r.mb.style.getPropertyValue('--w')) || 0;
+    setN(r, 'pd', 1); setN(r, 'md', em);
+    r.mb.style.setProperty('--pp', pp.toFixed(3));
+    r.mb.style.setProperty('--mm', (w * pp + (1 - w) * em).toFixed(4));
+    r.mb.style.setProperty('--bf', sm(k(u, .7, 1.05)).toFixed(3));
+    r.mb.style.setProperty('--sw', (u > 2.4 ? ((u - 2.4) / 1.6 % 1) * 1.4 - .25 : -1).toFixed(3));   /* light sweeps the made bar while it is read */
   });
 }
 
@@ -109,13 +114,13 @@ function layoutOwn() {
 }
 function render2(t) {
   if (!FW) return;
-  t = Math.max(0, Math.min(D2, t + .35));          /* the wall holds 0.45 s, then moves */
+  t = Math.max(0, Math.min(D2, t + .2));           /* the wall holds 0.6 s, then moves */
   var a = t < 2.0 ? 0 : t < 3.4 ? 1 : 2;
   frs.forEach(function (p, i) { p.classList.toggle('on', i === a); });
   cx.setTransform(DPR, 0, 0, DPR, 0, 0); cx.clearRect(0, 0, FW, FH);
-  var cols = 25, rws = 12, mx = FW * .04, my = FH * .08, cw = (FW - 2 * mx) / cols, ch = (FH - 2 * my) / rws, cell = Math.min(cw, ch), r0 = cell * .2;
-  var bs = cell * 1.25, bx = FW / 2 - 4.5 * bs, by = FH * .36 - 2 * bs;     /* the block of 50: 10 x 5 */
-  var rs = Math.min(FW * .075, cell * 2.6), rx = FW / 2 - 5 * rs, ry = FH * .8;   /* the row of 10 (+) */
+  var cols = 25, rws = 12, mx = FW * .04, my = FH * .08, cw = (FW - 2 * mx) / cols, ch = (FH - 2 * my) / rws, cell = Math.min(cw, ch), r0 = cell * .22;
+  var bs = cell * 1.6, bx = FW / 2 - 4.5 * bs, by = FH * .4 - 2 * bs;     /* the block of 50: 10 x 5 */
+  var rs = Math.min(FW * .075, cell * 2.8), rx = FW / 2 - 5.5 * rs, ry = FH * .84;   /* the row of 10 (+) */
   for (var i = 0; i < 300; i++) {
     var c = i % cols, rr = Math.floor(i / cols), x0 = mx + (c + .5) * cw, y0 = my + (rr + .5) * ch, q = QUAL[i];
     var x = x0, y = y0, r = r0, al = .42, teal = 0, glow = 0;
@@ -198,7 +203,7 @@ if ('IntersectionObserver' in window) {
       io.disconnect(); layoutOwn(); ownStarted = true;
       if (REDUCE) render2(D2); else { last2 = 0; raf2 = requestAnimationFrame(tick2); }
     });
-  }, { threshold: .4 }).observe(own);
+  }, { threshold: .7 }).observe(own);
 } else { inView = true; ownStarted = true; acc2 = D2; relayout(); kick(); }
 addEventListener('resize', relayout);
 if (document.fonts) document.fonts.ready.then(relayout);

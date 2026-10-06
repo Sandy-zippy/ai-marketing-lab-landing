@@ -8,6 +8,9 @@ var lay = document.getElementById('s5b-bands'), pill = seg.querySelector('.s5b-p
 var rows = [].slice.call(sec.querySelectorAll('thead tr, tbody tr:not(.s5b-g)'));
 var pairs = rows.map(function (r) { return [r.querySelector('.s5b-spr'), r.querySelector('.s5b-acc')]; });
 var bands = pairs.map(function () { var b = document.createElement('i'); b.className = 's5b-band'; lay.appendChild(b); return b; });
+var card = document.createElement('i'); card.className = 's5b-card'; lay.insertBefore(card, lay.firstChild);   /* the elevated Accelerator column */
+var frame = document.createElement('i'); frame.className = 's5b-frame'; lay.appendChild(frame);               /* outline, only once settled */
+sec.classList.add('s5b-js');
 seg.hidden = false;
 
 function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
@@ -15,15 +18,26 @@ function k(t, a, b) { return cl((t - a) / (b - a)); }
 function sm(x) { return x * x * x * (x * (6 * x - 15) + 10); }
 function lerp(a, b, q) { return a + (b - a) * q; }
 
-/* draw: pill at pp (0 Sprint .. 1 Accelerator), each row band at its own position pr[i] */
+/* draw: pill at pp (0 Sprint .. 1 Accelerator); each row's tint at its own position pr[i], UNDER the text (a wave of fills,
+   no edges crossing words); when every row has arrived, one outline frames the whole column */
+function box(el, W) { var r = el.getBoundingClientRect(); return { x: r.left - W.left, y: r.top - W.top, w: r.width, h: r.height }; }
+function put(el, b) { el.style.transform = 'translate(' + b.x.toFixed(1) + 'px,' + b.y.toFixed(1) + 'px)'; el.style.width = b.w.toFixed(1) + 'px'; el.style.height = b.h.toFixed(1) + 'px'; }
+function union(col, W) { var a = box(pairs[0][col], W), z = box(pairs[pairs.length - 1][col], W); return { x: a.x, y: a.y, w: a.w, h: z.y + z.h - a.y }; }
 function draw(pp, pr) {
   var W = wrap.getBoundingClientRect(); if (!W.width) return;
+  var stacked = getComputedStyle(wrap.querySelector('table')).display === 'block';
+  sec.classList.toggle('s5b-stk', stacked);
   bands.forEach(function (b, i) {
-    var a = pairs[i][0].getBoundingClientRect(), c = pairs[i][1].getBoundingClientRect(), q = pr[i], pad = 3;
-    b.style.display = a.width < 4 || c.width < 4 ? 'none' : '';   /* phone: the column heads are visually hidden */
-    var x = lerp(a.left, c.left, q) - W.left + pad, y = lerp(a.top, c.top, q) - W.top + pad, w = lerp(a.width, c.width, q) - 2 * pad, h = lerp(a.height, c.height, q) - 2 * pad;
-    b.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)'; b.style.width = w.toFixed(1) + 'px'; b.style.height = h.toFixed(1) + 'px';
+    var a = box(pairs[i][0], W), c = box(pairs[i][1], W), q = pr[i];
+    b.style.display = (stacked && i === 0) || a.w < 4 || c.w < 4 ? 'none' : '';   /* stacked: the column heads are visually hidden */
+    put(b, { x: a.x + (c.x - a.x) * q, y: a.y + (c.y - a.y) * q, w: a.w + (c.w - a.w) * q, h: a.h + (c.h - a.h) * q });
   });
+  if (!stacked) {
+    put(card, union(1, W));
+    var mean = pr.reduce(function (s, v) { return s + v; }, 0) / pr.length, col = mean >= 0.5 ? 1 : 0;
+    var dev = Math.max.apply(null, pr.map(function (v) { return Math.abs(v - col); }));
+    put(frame, union(col, W)); frame.style.opacity = (1 - Math.min(1, dev * 5)).toFixed(3);
+  }
   var S = seg.getBoundingClientRect(), b0 = btns[0].getBoundingClientRect(), b1 = btns[1].getBoundingClientRect();
   pill.style.transform = 'translateX(' + (lerp(b0.left, b1.left, pp) - S.left - 1).toFixed(1) + 'px)'; pill.style.width = lerp(b0.width, b1.width, pp).toFixed(1) + 'px';
   btns[0].classList.toggle('on', pp < 0.5); btns[1].classList.toggle('on', pp >= 0.5);

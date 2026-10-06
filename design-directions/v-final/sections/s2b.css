@@ -37,7 +37,6 @@
 #s2b .s2b-k.s2b-t0 em{color:#B9C4C3}
 #s2b .s2b-k.s2b-t1{background:#E6F6F5;border-color:rgba(0,161,155,.45)}
 #s2b .s2b-k.s2b-t1 b,#s2b .s2b-k.s2b-t1 em{color:var(--accent-ink)}
-#s2b .s2b-k.lit{box-shadow:0 0 0 3px var(--accent),0 18px 30px -14px rgba(0,115,110,.55)}
 #s2b .s2b-key li.lit{background:var(--accent);border-color:var(--accent);color:#fff}
 #s2b .s2b-key li.lit span{color:#E6F6F5}
 #s2b .mo-pause{right:var(--s4);bottom:var(--s4)}

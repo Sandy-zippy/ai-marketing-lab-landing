@@ -37,7 +37,7 @@ var card = Q('.s3-card'), c1 = Q('.s3-c1 b'), cq = Q('.s3-cq'), cs = Q('.s3-cs')
 var sts = QA('.s3-st'), yes = Q('.s3-yes'), again = Q('.s3-again'), lead = Q('.s3-lead'), bc = Q('.s3-bc');
 var t0p = Q('.s3-t0'), t1p = Q('.s3-t1'), now_ = Q('.s3-now'), nowZ = Q('.s3-now span'), nowN = Q('.s3-now b');
 var lines = QA('.s3-ln'), em = Q('.s3-pr em'), drs = QA('.s3-dr'), btn = Q('.s3-ok'), ptr = Q('.s3-ptr');
-var dock = Q('.s3-dock'), dock2 = Q('.s3-dock2'), paneT = Q('.s3-pa-t'), paneD = Q('.s3-pa-d'), paneL = Q('.s3-pa-l'), zup = Q('.s3-zl-up'), zdn = Q('.s3-zl-down');
+var slots = QA('.s3-sl'), dock = Q('.s3-dock'), dock2 = Q('.s3-dock2'), paneT = Q('.s3-pa-t'), paneD = Q('.s3-pa-d'), paneL = Q('.s3-pa-l'), zup = Q('.s3-zl-up'), zdn = Q('.s3-zl-down');
 
 function rel(el) {
   var s = scene.getBoundingClientRect(), r = el.getBoundingClientRect();
@@ -60,6 +60,7 @@ function layout() {
   card.style.width = Math.min(narrow ? 280 : 304, dock.clientWidth - 16) + 'px';
   var dh = card.offsetHeight + 16;
   dock.style.height = dh + 'px'; dock2.style.height = dh + 'px';
+  if (narrow && !swap) { dock.style.height = '0px'; dock.style.marginBottom = '-8px'; paneL.style.height = '380px'; }   /* reduced motion on a phone: the finished frame never opens the dock */
   if (swap) { var H = Math.max(paneT.offsetHeight, paneD.offsetHeight, 340); scene.style.height = H + 'px'; paneL.style.height = H + 'px'; }
   else if (!narrow) scene.style.gridTemplateRows = paneT.offsetHeight + 'px auto';   /* the top row keeps its height while the dock opens and closes */
 
@@ -83,8 +84,7 @@ function layout() {
     place(st, X, up ? y0 : y1);
   });
   g.len.yes = a + 2 * q + T + S / 2;
-  if (narrow) place(again, x0 - 12, y1 - r - again.offsetHeight - 24);   /* phone: a pill on the left side, below the card */
-  else place(again, x0 - again.offsetWidth / 2, ym - again.offsetHeight / 2);
+  if (!narrow) place(again, x0 - again.offsetWidth / 2, ym - again.offsetHeight / 2);
   place(zup, 0, narrow ? 0 : 6); place(zdn, 0, lh - zdn.offsetHeight - (narrow ? 0 : 6));
   var base = g.len[2];
   STOPS.forEach(function (p) { var L = p.s === 'yes' ? g.len.yes : g.len[p.s]; if (L < base - 1 || p.wrap) L += tot; p.U = L; });
@@ -97,6 +97,7 @@ function layout() {
   var minC = narrow ? lw / 2 : x0 + again.offsetWidth / 2 + 16 + cw / 2, maxC = narrow ? lw / 2 : x1 - yes.offsetWidth / 2 - 16 - cw / 2;
   var cyRail = narrow ? ym + 26 : ym;   /* phone: the card sits a little low, the station name is printed above it */
   g.cyRail = cyRail;
+  if (narrow) place(again, x0 - 12, Math.min(y1 - r - again.offsetHeight, cyRail + ch * g.rs / 2 + 12));   /* phone: a pill on the left side, below the card */
   g.rail = function (px) { return { x: g.pl + Math.max(minC, Math.min(maxC, px)) - cw / 2, y: g.pt + cyRail - ch / 2 }; };
   g.slot = drs[1].offsetTop - drs[0].offsetTop;
   g.btn = rel(btn); g.tw = rel(Q('.s3-tw'));
@@ -162,9 +163,9 @@ function render(t) {
   else if (t < 1.1) { var e = ease(k(t, 0.5, 1.1)); pos = { x: lerp(railP.x, g.dock.x, e), y: lerp(railP.y, g.dock.y, e) - 30 * Math.sin(Math.PI * e) }; }
   else if (swap && t >= 2.3 && t < 2.6) { var e2 = ease(k(t, 2.3, 2.6)); pos = { x: lerp(g.dock.x, g.dock2.x, e2), y: lerp(g.dock.y, g.dock2.y, e2) }; }
   else if (t < 5.6) pos = dk;
-  else if (t < 6.3) {   /* lift off, arc out past the terminal's right edge, settle on the loop */
-    var e3 = sm(k(t, 5.6, 6.3)), cx = swap ? dk.x : g.tw.l + g.tw.w - g.cw * 0.4, cy = swap ? dk.y : g.tw.t + g.tw.h * 0.55;
-    pos = { x: (1 - e3) * (1 - e3) * dk.x + 2 * (1 - e3) * e3 * cx + e3 * e3 * railP.x, y: (1 - e3) * (1 - e3) * dk.y + 2 * (1 - e3) * e3 * cy + e3 * e3 * railP.y };
+  else if (t < 6.3) {   /* desktop: slide right along the dock row (over no text), then drop to the loop; phone: straight down */
+    var ex = swap ? dk.x : g.tw.l + g.tw.w - g.cw - 8, e3 = sm(k(t, 5.6, 5.85)), e4 = ease(k(t, 5.85, 6.3));
+    pos = t < 5.85 ? { x: lerp(dk.x, ex, e3), y: dk.y - 6 * Math.sin(Math.PI * e3) } : { x: lerp(ex, railP.x, e4), y: lerp(dk.y, railP.y, e4) };
   } else pos = railP;
   var onRail = t < 0.5 ? 1 : t < 1.1 ? 1 - ease(k(t, 0.5, 1.1)) : t < 5.6 ? 0 : sm(k(t, 5.6, 6.3));
   var flying = (t >= 0.5 && t < 1.1) || (t >= 5.6 && t < 6.3);
@@ -173,21 +174,22 @@ function render(t) {
   card.style.boxShadow = flying ? '0 26px 44px -16px rgba(0,0,0,.75),0 0 30px -6px rgba(63,224,214,.7)' : '';
 
   /* card text: name re-typed at every step it reaches on the ride; line 2 = the real skill line, then drafting -> approved */
-  var name = FILES[stp.s], nxv = (t >= T_RIDE && m > 0) ? k(t, stp.arr, stp.arr + (stp.key ? 0.25 : 0.12)) : 1;
+  var name = FILES[stp.s], nxv = (t >= T_RIDE && m > 0 && !stp.wrap) ? k(t, stp.arr, stp.arr + (stp.key ? 0.25 : 0.12)) : 1;
   var nm = typed(name, nxv); if (c1.textContent !== nm) c1.textContent = nm;
   if (cq.textContent !== QUOTE) cq.textContent = QUOTE;
-  var stO = t < 5.9 ? 0 : t < 13 ? sm(k(t, 5.9, 6.3)) : 1 - sm(k(t, 13.3, 13.6));
-  show(cq, 1 - stO); show(cs, stO);
+  /* one text layer at a time: the skill line goes, then the status comes (and the reverse at the reset) */
+  var qO = t < 13 ? 1 - sm(k(t, 5.9, 6.1)) : sm(k(t, 13.45, 13.6)), sO = t < 13 ? sm(k(t, 6.1, 6.3)) : 1 - sm(k(t, 13.3, 13.45));
+  show(cq, qO); show(cs, sO);
   var drafting = onRide && stp.key && t < stp.arr + 0.32;
   csI[0].style.display = drafting ? '' : 'none'; csI[1].style.display = drafting ? 'none' : '';
 
   /* phone: the station the card is on, printed large inside the loop */
   if (g.narrow) {
     nowN.textContent = NAMES[stp.s];
-    nowZ.textContent = (stp.s < 6 ? zup : zdn).textContent;
+    nowZ.textContent = (stp.s < 6 ? zup : zdn).textContent.split('(')[0].trim();   /* the zone word fits inside the loop at 320 */
     var nh = now_.offsetHeight;
     place(now_, 0, g.cyRail - g.ch * g.rs / 2 - 14 - nh);
-    show(now_, onRail * (onRide && m > 0 ? sm(k(t, stp.arr, stp.arr + 0.12)) : 1));
+    show(now_, sm(k(onRail, 0.9, 1)) * (onRide && m > 0 ? sm(k(t, stp.arr, stp.arr + 0.12)) : 1));   /* only once the card has landed */
   } else show(now_, 0);
 
   /* tether: from the card to the station it is on */
@@ -214,6 +216,13 @@ function render(t) {
     var x = k(t, 1.2 + 0.4 * i, 1.5 + 0.4 * i) * (1 - sm(k(t, 13.0, 13.4)));
     ln.style.clipPath = 'inset(0 ' + ((1 - x) * 100).toFixed(1) + '% 0 0)';
     ln.style.opacity = x > 0 ? 1 : 0;
+  });
+
+  /* the empty draft slots shimmer while outreach-drafts.md is being written */
+  var shim = k(t, 1.2, 2.8), sOn = Math.sin(Math.PI * shim);
+  slots.forEach(function (sl, n) {
+    var x = ((shim * 1.6 - n * 0.2) * 140 - 20).toFixed(1);
+    sl.style.background = sOn > 0.01 ? 'linear-gradient(100deg,transparent ' + (+x - 20) + '%,rgba(63,224,214,' + (0.1 * sOn).toFixed(3) + ') ' + x + '%,transparent ' + (+x + 20) + '%)' : '';
   });
 
   /* drafts: Magic UI animated-list, newest enters on top and pushes the rest down; filed away at the reset */
