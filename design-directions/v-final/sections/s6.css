@@ -32,7 +32,7 @@
 
 /* one case: the artefact (left) and its money (right) */
 #s6 .ledger{display:grid}
-#s6 .row{display:grid;gap:var(--s4);min-width:0}
+#s6 .row{display:grid;gap:var(--s4);min-width:0;align-content:start}
 #s6 .art,#s6 .info,#s6 .txt{min-width:0}
 #s6 .art{margin:0;display:grid;gap:var(--s2)}
 #s6 .box{--bh:200px;height:var(--bh);display:flex;justify-content:center;align-items:flex-start}
@@ -48,7 +48,7 @@
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
 #s6 .cap{font-size:var(--t-label);line-height:1.4;color:var(--on-petrol-q);text-align:center}
 
-#s6 .info{display:grid;gap:var(--s4);align-content:center}
+#s6 .info{display:grid;gap:var(--s4);align-content:start}
 #s6 .nm{font-size:var(--t-h3);line-height:1.2;color:var(--on-petrol)}
 #s6 .txt .k{display:inline;margin-right:var(--s2)}
 #s6 .v{display:inline;font-size:var(--t-sm);color:var(--on-petrol-q);line-height:1.45}
@@ -118,19 +118,29 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
 #s6 .s6-car .mo-pause,#s6 .own .mo-pause{top:var(--s3);bottom:auto;right:var(--s3)}
 /* phone: the pause sits in the stage's bottom padding, clear of the peeking tab; captions reserve two lines so the
    money block never jumps between cases; Sami's card is a row (video + caption) on the full width */
+#s6 .s6-car .mo-pause{top:auto;bottom:var(--s4)}
 @media (max-width:767px){
   #s6 .s6-car{padding-bottom:calc(var(--s8) + var(--s2))}
-  #s6 .s6-car .mo-pause{top:auto;bottom:var(--s4)}
   #s6 .cap{min-height:calc(2 * 1.4em)}
-  #s6 .s6-sami{grid-template-columns:minmax(0,11fr) minmax(0,9fr);align-items:end;column-gap:var(--s4)}
-  #s6 .vid-box{width:100%}
+  #s6 .vid-box{width:100%;aspect-ratio:4/5}   /* full width; 4:5 keeps his face and the play button on one screen */
+  /* every screenshot fills the same frame on a phone (top kept), so the portrait funnel is never a thumbnail */
+  #s6 .win{width:100%}
+  #s6 .win img{width:100%;height:calc(var(--bh) - 20px);max-height:none;object-fit:cover;object-position:top}
 }
 
+/* smallest phones: the funnel row keeps one line per label and a clear gap round each arrow */
+@media (max-width:360px){
+  #s6 .own{padding-inline:var(--s3)}
+  #s6 .fr{gap:var(--s2)}
+  #s6 .fr p{font-size:var(--t-label);white-space:nowrap}
+  #s6 .ar{--aw:var(--s3)}
+}
 @media (min-width:768px){
-  #s6 .s6-car{padding:var(--s6) var(--s6) var(--s7)}
+  #s6 .s6-car{padding:var(--s6) var(--s6) calc(var(--s8) + var(--s2))}
   #s6 .s6-tabs{height:60px;margin-bottom:var(--s6)}
   #s6 .s6-tab{height:60px}
-  #s6 .row{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--s6);align-items:center}
+  #s6 .row{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--s6);align-items:start}
+  #s6 .info{padding-top:var(--s7)}
   #s6 .box{--bh:300px}
   #s6 .chrome{height:24px;background-position:14px 50%,28px 50%,42px 50%}
   #s6 .win img{max-height:calc(var(--bh) - 26px)}
@@ -139,7 +149,7 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
   #s6 .v{display:block;font-size:var(--t-body)}
   #s6 .mb{height:22px}
   #s6 .own{padding:var(--s6)}
-  #s6 .field{aspect-ratio:2/1}
+  #s6 .field{aspect-ratio:2.3/1}
   #s6 .fr{justify-content:flex-start;gap:var(--s6)}
   #s6 .fr p{font-size:var(--t-body)}
   #s6 .ar{--aw:var(--s8)}

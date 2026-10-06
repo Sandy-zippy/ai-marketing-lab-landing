@@ -23,7 +23,7 @@ function vis(el, o) { el.style.opacity = o; el.style.visibility = o <= 0.001 ? '
 /* ================= 1. the case carousel: render(t), t in [0, 21); t = 0 is Medico, finished ================= */
 var car = document.getElementById('s6-stage'), tabsEl = car.querySelector('.s6-tabs');
 var tabs = [].slice.call(car.querySelectorAll('.s6-tab')), rows = [].slice.call(car.querySelectorAll('.row'));
-var CASE = 7, D = 3 * CASE, OFF = 3.0;
+var CASE = 4.8, D = 3 * CASE, OFF = 4.0;
 tabsEl.hidden = false;
 var R = rows.map(function (r) {
   var ns = [].slice.call(r.querySelectorAll('.n'));
@@ -34,7 +34,8 @@ tabs.forEach(function (b, i) { b.setAttribute('aria-selected', 'false'); b.tabIn
 
 function fmt(el, x, orig) {
   if (x >= 1) return orig;
-  var f = +(el.dataset.from || 0), v = f + (+el.dataset.v - f) * x, dec = el.dataset.dec ? 1 : 0;
+  var f = +(el.dataset.from || 0), v = Math.max(+(el.dataset.min || 0), f + (+el.dataset.v - f) * x), dec = el.dataset.dec ? 1 : 0;   /* Medico counts in M from 1 */
+  if (Math.abs(+el.dataset.v - v) < .05 * (dec ? 1 : 10)) return orig;   /* the last step lands on the copy's own value (no ~$6.0M) */
   var s = el.dataset.sep ? Math.round(v).toLocaleString('en-US') : v.toFixed(dec);
   return (el.dataset.pre || '') + s + (el.dataset.suf || '');
 }
@@ -75,28 +76,30 @@ function renderCar(t) {
     vis(r.el, cur || old ? 1 : 0);
     if (!cur) {                                 /* the outgoing case steps back while the new one is already opening */
       if (!old) return;
-      var oo = 1 - sm(k(u, .05, .3));
+      var oo = 1 - sm(k(u, 0, .15));     /* fully out before the incoming window is visible */
       vis(r.win, oo); r.win.style.transform = 'scale(' + (1.035 - .05 * sm(k(u, 0, .3))).toFixed(4) + ')';
-      vis(r.info, 1 - sm(k(u, 0, .2))); vis(r.cap, 1 - sm(k(u, 0, .2))); return;
+      vis(r.info, 1 - sm(k(u, 0, .15))); vis(r.cap, 1 - sm(k(u, 0, .15))); return;
     }
     /* selection -> expansion: the window grows out of the active tab's thumbnail */
-    var e = eo(k(u, .05, .7)), push = 1 + .04 * k(u, .7, CASE);
+    var e = eo(k(u, .15, .75)), push = 1 + .035 * k(u, .7, CASE);
     var th = tabs[c].querySelector('img').getBoundingClientRect(), b = r.base, cb = car.getBoundingClientRect(), cb0 = car._base;
     var dy0 = cb.top - cb0.top, dx0 = cb.left - cb0.left;     /* page scrolled since layout */
-    var s0 = Math.max(.05, th.width / b.width), dx = (th.left + th.width / 2) - (b.left + dx0 + b.width / 2), dy = (th.top + th.height / 2) - (b.top + dy0 + b.height / 2);
+    var s0 = Math.max(.05, th.width / b.width), tb = tabsEl.getBoundingClientRect().bottom + 10 + b.height * s0 / 2;   /* enters below the tab rail */
+    var dx = (th.left + th.width / 2) - (b.left + dx0 + b.width / 2), dy = tb - (b.top + dy0 + b.height / 2);
     r.win.style.transform = 'translate(' + (dx * (1 - e)).toFixed(1) + 'px,' + (dy * (1 - e)).toFixed(1) + 'px) scale(' + ((s0 + (1 - s0) * e) * push).toFixed(4) + ')';
-    vis(r.win, sm(k(u, .05, .18)));
+    vis(r.win, sm(k(u, .15, .32)));
     r.win.style.setProperty('--a', (u * 75 % 360).toFixed(1) + 'deg'); r.win.style.setProperty('--bo', sm(k(u, .7, 1.1)).toFixed(3));
-    vis(r.info, sm(k(u, .3, .6))); r.info.style.transform = 'translateY(' + (10 * (1 - eo(k(u, .3, .7)))).toFixed(1) + 'px)';
+    vis(r.info, sm(k(u, .18, .45))); r.info.style.transform = 'none';   /* dissolves into the outgoing block on the same baseline */
     vis(r.cap, sm(k(u, .6, .9)));
     /* the ratio: the paid slice lands, then what they made grows out of it. Number and bar share ONE eased value,
        and Made counts up from the paid amount (never from zero). */
-    var pp = eo(k(u, .7, 1.0)), em = sm(k(u, 1.0, 2.4)), w = parseFloat(r.mb.style.getPropertyValue('--w')) || 0;
+    var pp = eo(k(u, .35, .65)), xm = k(u, .5, 3.8), em = 1 - (1 - xm) * (1 - xm), w = parseFloat(r.mb.style.getPropertyValue('--w')) || 0;
     setN(r, 'pd', 1); setN(r, 'md', em);
+    r.md.style.opacity = sm(k(u, .5, .75)).toFixed(3);   /* Made fades in on the same ramp in every case as it starts to count */
     r.mb.style.setProperty('--pp', pp.toFixed(3));
     r.mb.style.setProperty('--mm', (w * pp + (1 - w) * em).toFixed(4));
-    r.mb.style.setProperty('--bf', sm(k(u, .7, 1.05)).toFixed(3));
-    r.mb.style.setProperty('--sw', (u > 2.4 ? ((u - 2.4) / 1.6 % 1) * 1.4 - .25 : -1).toFixed(3));   /* light sweeps the made bar while it is read */
+    r.mb.style.setProperty('--bf', sm(k(u, .35, .7)).toFixed(3));
+    r.mb.style.setProperty('--sw', (u > 3.6 ? ((u - 3.6) / 1.2 % 1) * 1.4 - .25 : -1).toFixed(3));   /* light sweeps the made bar while it is read */
   });
 }
 
@@ -119,7 +122,7 @@ function render2(t) {
   frs.forEach(function (p, i) { p.classList.toggle('on', i === a); });
   cx.setTransform(DPR, 0, 0, DPR, 0, 0); cx.clearRect(0, 0, FW, FH);
   var cols = 25, rws = 12, mx = FW * .04, my = FH * .08, cw = (FW - 2 * mx) / cols, ch = (FH - 2 * my) / rws, cell = Math.min(cw, ch), r0 = cell * .22;
-  var bs = cell * 1.6, bx = FW / 2 - 4.5 * bs, by = FH * .4 - 2 * bs;     /* the block of 50: 10 x 5 */
+  var bs = cell * 1.6, bx = FW / 2 - 4.5 * bs, by = FH * .36 - 2 * bs;     /* the block of 50: 10 x 5 */
   var rs = Math.min(FW * .075, cell * 2.8), rx = FW / 2 - 5.5 * rs, ry = FH * .84;   /* the row of 10 (+) */
   for (var i = 0; i < 300; i++) {
     var c = i % cols, rr = Math.floor(i / cols), x0 = mx + (c + .5) * cw, y0 = my + (rr + .5) * ch, q = QUAL[i];
@@ -131,9 +134,9 @@ function render2(t) {
     } else {
       var e1 = sm(k(t, 1.0 + q * .008, 1.9 + q * .008)), bxq = bx + (q % 10) * bs, byq = by + Math.floor(q / 10) * bs;
       x = x0 + (bxq - x0) * e1; y = y0 + (byq - y0) * e1; al = .42 + .43 * e1;
-      if (q >= 10) al *= 1 - .72 * sm(k(t, 2.4, 2.9));
+      if (q >= 10) al *= 1 - .72 * sm(k(t, 2.2, 2.7));
       else {
-        var e2 = sm(k(t, 2.5 + q * .035, 3.3 + q * .035)), xr = rx + (q + .5) * rs;
+        var e2 = sm(k(t, 2.3 + q * .035, 3.1 + q * .035)), xr = rx + (q + .5) * rs;
         x = x + (xr - x) * e2; y = y + (ry - y) * e2; r = r0 * (1 + 1.4 * e2); teal = e2; glow = e2; al = .85 + .15 * e2;
       }
     }
@@ -165,7 +168,7 @@ function tick(now) {
   raf = 0; if (seekT !== null || paused || hover || !inView) return;
   if (last) acc += Math.min(.1, (now - last) / 1000); last = now;
   if (manual >= 0) {                          /* a tapped tab plays its entrance, then holds */
-    var T = (acc + OFF) % D; if (T - manual * CASE >= 3.0) { acc = manual * CASE + 3.0 - OFF; renderCar(acc); return; }
+    var T = (acc + OFF) % D; if (T - manual * CASE >= 4.0) { acc = manual * CASE + 4.0 - OFF; renderCar(acc); return; }
   }
   renderCar(acc); raf = requestAnimationFrame(tick);
 }
@@ -177,7 +180,7 @@ function tick2(now) {
 }
 tabs.forEach(function (b, i) {
   b.addEventListener('click', function () {
-    manual = i; acc = ((i * CASE + (REDUCE ? 3.0 : .45) - OFF) % D + D) % D;
+    manual = i; acc = ((i * CASE + (REDUCE ? 4.0 : .45) - OFF) % D + D) % D;
     layoutCar(); renderCar(acc); kick();
   });
   b.addEventListener('keydown', function (e) {
@@ -187,9 +190,9 @@ tabs.forEach(function (b, i) {
 });
 car.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hover = true; });
 car.addEventListener('pointerleave', function () { if (hover) { hover = false; kick(); } });
-car.addEventListener('focusin', function () { hover = true; });
+car.addEventListener('focusin', function (e) { if (e.target.matches && e.target.matches(':focus-visible')) hover = true; });   // keyboard focus pauses; a mouse click on Play or a tab must not
 car.addEventListener('focusout', function () { hover = false; kick(); });
-if (window.AIML && AIML.pauseBtn && !REDUCE) AIML.pauseBtn(car, { pause: function () { paused = true; }, play: function () { paused = false; kick(); } });
+if (window.AIML && AIML.pauseBtn && !REDUCE) AIML.pauseBtn(car, { pause: function () { paused = true; }, play: function () { paused = false; hover = false; kick(); } });
 
 window.__seek_s6 = function (t) { seekT = t; layoutCar(); renderCar(t); };
 window.__seek_s6o = function (t) { seekT = t; layoutOwn(); render2(t); };
