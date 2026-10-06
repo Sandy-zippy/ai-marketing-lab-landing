@@ -56,6 +56,7 @@ function pose(t) {
 }
 
 /* ---------- ledger + overlays that do not need WebGL ---------- */
+var landed = false, boot = true;
 function ledger(t) {
   var a = (t >= 10.2 || t < 1.0) ? 0 : t < 7.8 ? 1 : 2;
   var f = [
@@ -66,6 +67,9 @@ function ledger(t) {
   rows.forEach(function (r, i) { r.classList.toggle('on', i === a); r.querySelector('.s1b-bar').style.setProperty('--f', f[i].toFixed(4)); });
   var gone = sm(k(t, 10.2, 10.5));             /* the loop: both numbers leave while the globe crosses the Pacific */
   count(0, 1, 1);
+  /* 6 Oct: the proof numbers count up ONCE, then stay. Blanking them every loop hid 100+ and $220,000 for ~7 s of every 11. */
+  if (!boot && t >= 8.7 && t < 10.2) landed = true;
+  if (landed) { count(1, 1, 1); count(2, 1, 1); return; }
   count(1, eo(k(t, 6.95, 7.75)), t < 6.95 ? 0 : sm(k(t, 6.95, 7.1)) * (1 - gone));
   count(2, eo(k(t, 7.85, 8.65)), t < 7.85 ? 0 : sm(k(t, 7.85, 8.0)) * (1 - gone));
 }
@@ -243,6 +247,7 @@ function ready() {
   kick();
 }
 ledger(10.15);                                 /* the finished numbers, until the globe runs */
+boot = false;
 if (REDUCE) return;
 var loading = false;
 function load() {
