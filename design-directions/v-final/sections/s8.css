@@ -1,11 +1,18 @@
 /* S8 who it's for: DARK petrol stage on a PAPER section (page rhythm 6 Oct: s2b paper, s7 white, s8 paper, s9 white,
-   s10 paper). Mechanism: a filter. Frame 0 is finished: the six real list items already sorted into "This isn't for"
-   (brick) and "This is for" (teal), the gate between them (its header asks "Offer people already pay for?"). One at a
-   time each chip is pulled back through the gate: neutral under the scan beam, then the verdict stamps and it returns
-   home. Persistent actor: the gate. No JS: the two lists sit side by side, already sorted. JS adds .s8-live and
-   places everything from render(t). Every font size is a --t-* token (the lede included). */
+   s10 paper). Mechanism: a filter. Frame 0 is a resolved verdict: the six real list items sorted into "This isn't for"
+   (brick) and "This is for" (teal), one of them sitting in the gate (its header asks "Offer people already pay for?")
+   with its verdict stamped. The gate is never empty: chips swap through it one at a time, neutral under the scan
+   beam, then the verdict stamps. Persistent actor: the gate. No JS: the two lists sit side by side, already sorted. JS adds .s8-live and
+   places everything from render(t). Every font size is a --t-* token (the lede included).
+   1200px+ (page critic 3: s8 repeated s7's headline-over-panel): a split, the stage on the left (cols 1-8), the
+   headline and lede on the right (cols 9-12). Phones and tablets stay stacked. */
 #s8{border-top:0;background:var(--paper)}
 #s8 .lede{text-wrap:pretty;font-size:var(--t-lg)}
+@media (min-width:1200px){
+  #s8 .grid{align-items:center}
+  #s8 .s8-stage{grid-column:1/9;grid-row:1}
+  #s8 .s8-hd{grid-column:9/13;grid-row:1}
+}
 #s8 .s8-stage{position:relative;border-radius:28px;overflow:hidden;color:var(--on-petrol);isolation:isolate;
   background:radial-gradient(120% 90% at 50% 40%,var(--petrol-2),var(--petrol) 72%);box-shadow:0 24px 48px -32px rgba(11,34,36,.5)}
 #s8 .s8-stage::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;

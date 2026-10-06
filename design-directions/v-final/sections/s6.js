@@ -48,9 +48,19 @@ function layoutCar() {
   var tw = CW < 600 ? Math.min(280, CW * .87) : CW < 1000 ? Math.min(290, CW * .42) : Math.min(300, (CW - 64) * .31);
   tabsEl.style.setProperty('--tw', Math.round(tw) + 'px'); car._sp = CW < 600 ? tw + 12 : CW < 1000 ? tw + 20 : tw + 24; car._tw = tw;
   /* each window's resting rect, measured without transforms */
+  /* every page reads by scrolling: the window shows at most 74% of the page's height at full width (never a crop of its
+     width), and the page travels its own full height during the case */
+  var wh = 0;
+  R.forEach(function (r) {
+    var im = r.win.querySelector('img'), vp = r.win.querySelector('.vp');
+    r.win.parentElement.style.height = ''; vp.style.height = ''; var mh = parseFloat(getComputedStyle(vp).maxHeight) || 1e9;
+    var h = Math.min(mh, Math.round(im.offsetHeight * .74)); vp.style.height = h + 'px';
+    r.win.style.setProperty('--sc', Math.max(0, im.offsetHeight - h) + 'px');
+    wh = Math.max(wh, r.win.offsetHeight);
+  });
+  /* the frame hugs the tallest window, so no empty floor sits between a window and its caption */
+  R.forEach(function (r) { r.win.parentElement.style.height = wh + 'px'; });
   R.forEach(function (r) { var tr = r.win.style.transform; r.win.style.transform = 'none'; r.base = r.win.getBoundingClientRect(); r.win.style.transform = tr; });
-  /* how far each page can scroll in its window at full width (0 when the whole page fits) */
-  R.forEach(function (r) { var im = r.win.querySelector('img'), vp = r.win.querySelector('.vp'); r.win.style.setProperty('--sc', Math.max(0, im.offsetHeight - vp.clientHeight) + 'px'); });
   car._base = car.getBoundingClientRect();
 }
 

@@ -1,9 +1,9 @@
 /* S6 Proof, v6: the page's one DARK composition. Full-bleed petrol ground, content on the .wrap.
    1. The case carousel (business-motion-film: carousel emphasis + selection -> expansion): a circular rail of three tabs,
       one bright; the active tab's thumbnail expands into the real screenshot over the outgoing one. Each screenshot fills
-      its window at full width, 1:1, and scrolls vertically like a person reading the page (only as far as the page goes);
-      Paid us and Made always show the copy's own figures, and the paid-vs-made bar draws the true ratio, shaped by each
-      case's own fact (24 months, before vs after, 3 months).
+      its window at full width, 1:1, and scrolls vertically like a person reading the page (the window shows at most 74%
+      of it, never a crop of its width); Paid us and Made always show the copy's own figures, and the paid-vs-made bar
+      draws the true ratio, shaped by each case's own fact (24 months, before vs after, 3 months).
    2. Sami's video on its own card. 3. "Our own offer" as wall -> one actor: 300 dots collapse to 50, then 10 glow and
       breathe; the next wall crossfades in (a 5.6 s loop with a pause control).
    Type: sizes only from tokens; Space Mono 700, Bricolage 700/800, Geist for UI text.
@@ -47,7 +47,7 @@
 #s6 .chrome{position:relative;z-index:1;display:block;flex:none;height:var(--ch);border-bottom:1px solid var(--petrol-line);background-color:#123634;background-size:10px 10px;background-repeat:no-repeat;
   background-image:radial-gradient(circle,rgba(234,245,244,.35) 3px,transparent 3.6px),radial-gradient(circle,rgba(234,245,244,.35) 3px,transparent 3.6px),radial-gradient(circle,rgba(234,245,244,.35) 3px,transparent 3.6px);
   background-position:10px 50%,24px 50%,38px 50%}
-/* the page in its window: full width at 1:1; a page taller than the window scrolls by --sc (JS) as --py runs 0..1 */
+/* the page in its window: full width at 1:1; JS sets the window's height and how far (--sc) the page scrolls as --py runs 0..1 */
 #s6 .vp{overflow:hidden;max-height:calc(var(--bh) - var(--ch) - 2px)}
 #s6 .win img{display:block;width:100%;height:auto;transform:translateY(calc(var(--py,0) * var(--sc,0px) * -1))}
 /* border beam (Magic UI, ported): a short arc of teal light running round the active window */
@@ -149,7 +149,7 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
   /* the text column is centred against the screenshot's frame */
   #s6 .row{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--s6);align-items:center}
   #s6 .info{gap:var(--s5)}
-  #s6 .box{--bh:300px;--ch:24px}
+  #s6 .box{--bh:270px;--ch:24px}
   #s6 .chrome{background-position:14px 50%,28px 50%,42px 50%}
   #s6 .txt .k{display:block;margin:var(--s2) 0 0}
   #s6 .v{display:block;font-size:var(--t-body)}
@@ -166,7 +166,7 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
   /* desktop: the pause sits beside the caption line, so the stage ends just under the caption */
   #s6 .s6-car{padding-bottom:var(--s6)}
   #s6 .s6-car .mo-pause{bottom:var(--s3)}
-  #s6 .box{--bh:400px}
+  #s6 .box{--bh:340px}
   #s6 .s6-low{grid-template-columns:minmax(0,4fr) minmax(0,8fr);column-gap:var(--s6)}
   #s6 .vid-box{width:min(100%,300px)}
   #s6 .own{padding:var(--s6)}

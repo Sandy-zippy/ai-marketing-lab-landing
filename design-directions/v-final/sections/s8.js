@@ -1,12 +1,13 @@
 /* S8: the filter. Deterministic: every state is render(t), t in [0,9). Seek with window.__seek_s8(t).
-   Frame 0 is the finished composition: both lists already sorted (the six real <li> are the chips) with the gate
-   between them. Then, one at a time, each chip is pulled back through the gate: it goes neutral under the scan beam,
-   the verdict stamps (tick or cross, the gate flashes teal or brick, a bounce recoils) and it returns to its slot.
-   The last frame equals frame 0, so the loop is seamless.
+   The gate is never empty (page critic 3): exactly one chip holds it at a time, 1.5 s each, six chips = 9 s.
+   Frame 0 is a resolved verdict: "B2B founders with an offer that sells" sits in the gate, passed (ring on its badge,
+   gate lit teal). Each handover is one 0.25 s swap, like a slot machine: the outgoing chip slides down out of the gate's
+   window (clipped by it, then back into its slot) while the next one (which left its slot just before) slides in
+   from above, a chip height behind it, so the two never overlap. It goes neutral under the scan beam, gets its verdict
+   (tick or cross, the gate flashes teal or brick, a bounce recoils) and holds it until the next swap.
    wide (stage >= 880): "This isn't for" | gate | "This is for".
    mid (600-879): gate on top, the two lists side by side below. narrow: gate on top, the lists stacked.
-   Every layout: a chip fades out of its slot, appears in the gate, and fades back into its slot (a travel path
-   would cross the gate's header or the neighbouring chip). */
+   Chips fade-jump between slot and gate (a travel path would cross the gate's header or the neighbouring chip). */
 var stage = document.getElementById('s8-stage'), scene = document.getElementById('s8-scene');
 if (!stage || !scene) return;
 var D = 9, RM = AIML.REDUCE, END = 0;
@@ -23,7 +24,8 @@ var C = [
   { el: yesL[1], ok: 1, slot: 1 }, { el: noL[1], ok: 0, slot: 1 },
   { el: yesL[2], ok: 1, slot: 2 }, { el: noL[2], ok: 0, slot: 2 }
 ];
-C.forEach(function (c, i) { var s = 0.3 + i * 1.42; c.T = [s, s + 0.35, s + 0.75, s + 1.0, s + 1.35]; });   /* leave, in gate, verdict, return, home */
+var P = 1.5;   /* each chip's turn in the gate */
+C.forEach(function (c, i) { c.S = (((i - 4) * P - 1.0) % D + D) % D; });   /* chip 4 is mid-verdict at t = 0 */
 var gate = scene.querySelector('.s8-gate'), scan = scene.querySelector('.s8-scan'), vd = scene.querySelector('.s8-vd');
 var tagNo = stage.querySelector('.s8-no .s8-tag'), tagYes = stage.querySelector('.s8-yes .s8-tag');
 var G = null;
@@ -81,38 +83,30 @@ function layout() {
 function render(t) {
   if (!G) return;
   t = ((t % D) + D) % D;
-  var g = G, wide = false, verdict = '', vOn = 0, vS = 1, vx = 0, vy = 0, scanX = -1, sy0 = 0;
+  var g = G, verdict = '', vOn = 0, vS = 1, vx = 0, vy = 0, scanX = -1, sy0 = 0;
+  var top = g.gate.y + 33, bot = g.gate.y + g.gate.h - 1, SW = g.H0 + 14;   /* the gate's window under its header; swap travel */
   C.forEach(function (c) {
-    var T = c.T, e = c.el, cls = c.ok ? 'ok' : 'no', zi = 2, x = c.hx, y = c.hy, o = 1, s = 1;
-    var gy = g.gate.y + 32 + 12 + (g.H0 - c.h) / 2, gx = g.xs.c, away = 0;
-    if (t >= T[0] && t < T[4]) {
-      zi = 6; away = 1;
-      if (t < T[1]) {                                       /* to the gate */
-        var a = k(t, T[0], T[1]);
-        if (wide) { var e1 = eo(a); x = c.hx + (gx - c.hx) * e1; y = c.hy + (gy - c.hy) * e1; }
-        else if (a < 0.45) { o = 1 - sm(a / 0.45); s = 1 - 0.04 * sm(a / 0.45); }
-        else { x = gx; y = gy; o = sm((a - 0.45) / 0.55); }
-      } else if (t < T[3]) {                                /* in the gate: neutral under the scan, then the verdict */
-        x = gx; y = gy;
-        if (t < T[2]) { cls = ''; scanX = gx + k(t, T[1] + 0.04, T[2] - 0.04) * g.cw; sy0 = gy + c.h / 2; }
-        else {
-          verdict = cls;
-          vOn = Math.min(1, k(t, T[2], T[2] + 0.06)) * (1 - sm(k(t, T[3] - 0.04, T[3] + 0.1)));
-          vS = 1 + 0.35 * (1 - eo(k(t, T[2], T[2] + 0.2)));
-          vx = gx + 28 - 20; vy = gy + c.h / 2 - 20;   /* centred on the chip's badge (left 16 + 12) */
-          if (!c.ok) x += 7 * Math.sin((t - T[2]) * 52) * (1 - k(t, T[2], T[3]));   /* recoil */
-        }
-      } else {                                              /* home again */
-        var b = k(t, T[3], T[4]);
-        if (wide) { var e2 = eo(b); x = gx + (c.hx - gx) * e2; y = gy + (c.hy - gy) * e2; }
-        else if (b < 0.45) { x = gx; y = gy; o = 1 - sm(b / 0.45); }
-        else { o = sm((b - 0.45) / 0.55); s = 0.96 + 0.04 * sm((b - 0.45) / 0.55); }
+    var u = ((t - c.S) % D + D) % D, e = c.el, cls = c.ok ? 'ok' : 'no', zi = 2, x = c.hx, y = c.hy, o = 1, po = 0, clip = 'none';
+    var gy = g.gate.y + 32 + 12 + (g.H0 - c.h) / 2, gx = g.xs.c;
+    if (u >= D - 0.2) { o = 1 - sm(k(u, D - 0.2, D - 0.05)); po = 0.9 * sm(k(u, D - 0.2, D - 0.05)); }   /* leaves its slot */
+    else if (u < 1.75) {                                                                                 /* holds the gate */
+      x = gx; y = gy; zi = 6; po = 0.9;
+      if (u < 0.75) {                                     /* slides down into the window as the outgoing chip slides out below */
+        cls = ''; y -= SW * (1 - sm(k(u, 0, 0.25)));
+        if (u >= 0.3) { scanX = gx + k(u, 0.34, 0.71) * g.cw; sy0 = gy + c.h / 2; }
+      } else {                                            /* the verdict, held until the next swap */
+        verdict = cls; y += SW * sm(k(u, 1.5, 1.75));
+        vOn = k(u, 0.75, 0.81) * (1 - k(u, 1.5, 1.58));
+        vS = 1 + 0.35 * (1 - eo(k(u, 0.75, 0.95)));
+        if (!c.ok) x += 7 * Math.sin((u - 0.75) * 52) * (1 - k(u, 0.75, 1.15));   /* recoil */
+        vx = gx + 28 - 20; vy = y + c.h / 2 - 20;   /* centred on the chip's badge (left 16 + 12) */
       }
-    }
-    e.className = cls; e.style.zIndex = zi; px(e, x, y, s, o);
-    /* the dashed slot shows while the chip is away (wide: once it has left the slot) */
-    var po = away ? Math.min(sm(k(t, T[0], T[0] + 0.15)), 1 - sm(k(t, T[4] - 0.15, T[4]))) * 0.9 : 0;
-    px(c.ph, c.hx, c.hy, 1, po);
+      /* ponytail: the chip is not a child of the gate, so the window is a clip-path in the chip's own box */
+      var ct = Math.max(0, top - y), cb = Math.max(0, y + c.h - bot);
+      if (ct > 0 || cb > 0) clip = 'inset(' + Math.min(ct, c.h).toFixed(1) + 'px -20px ' + Math.min(cb, c.h).toFixed(1) + 'px -20px)';
+    } else if (u < 1.97) { o = sm(k(u, 1.75, 1.95)); po = 0.9 * (1 - o); }                               /* back home */
+    e.className = cls; e.style.zIndex = zi; e.style.clipPath = clip; px(e, x, y, o < 1 ? 0.96 + 0.04 * o : 1, o);
+    px(c.ph, c.hx, c.hy, 1, po);   /* the dashed slot shows while its chip is away */
   });
   gate.className = 's8-gate' + (verdict === 'ok' ? ' pass' : verdict === 'no' ? ' fail' : '');
   scan.style.opacity = scanX >= 0 ? 1 : 0; if (scanX >= 0) px(scan, scanX - 2, sy0 - (g.H0 + 12) / 2);

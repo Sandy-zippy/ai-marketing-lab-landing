@@ -38,7 +38,7 @@ var Z = 5.2;
    polar arc reads as a curve with Vancouver (left) and India (right) both in view. */
 var KEYS = [ /* t, lat, lon, dist offset, lon velocity (deg/s) */
   [0, 38, -108, 0, 4], [3.85, 40, -96, 0, 6], [5.0, 45, -6, 0, 14], [6.2, 40, 20, 0, 22],
-  [7.2, 23, 79, -.55, 4], [9.5, 22.5, 84, -.65, 3], [11, 38, 252, 0, 4]];
+  [7.2, 23, 79, -.32, 4], [9.5, 22.5, 84, -.38, 3], [11, 38, 252, 0, 4]];
 function herm(a, b, va, vb, h, s) { var s2 = s * s, s3 = s2 * s; return (2 * s3 - 3 * s2 + 1) * a + (s3 - 2 * s2 + s) * h * va + (-2 * s3 + 3 * s2) * b + (s3 - s2) * h * vb; }
 function pose(t) {
   for (var i = 0; i < KEYS.length - 1 && t > KEYS[i + 1][0]; i++);

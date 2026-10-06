@@ -1,8 +1,9 @@
 /* S10 v2: deterministic render(t), t in [0,6.4). Seek with window.__seek_s10(t). Reduced motion = the finished frame.
    0.15-3.3 the counter runs to 45:00 while four tangled lines straighten (staggered) onto one route; the teal route
    draws over them and the flag plants. 3.65-4.35 the stub tears: a gap opens, it drops and tilts. 4.25-5.1 a light
-   runs the route; the button gets one ink halo. 5.6-6.25 the ticket body fades out and back in as one layer (all of
-   it resets while invisible) and the stub slides back onto the seam. */
+   runs the route; the button gets one ink halo. 5.6-6.4 seam (page critic 3: the old one-layer fade left a near-blank
+   frame): the finished route crossfades straight into the tangle, the counter and bar rewind to 00:00 and the stub
+   slides back onto the seam. The ticket is never blank. */
 var tk = document.getElementById('s10-tk'), root = document.getElementById('s10');
 if (!tk || !root) return;
 var D = 6.4, RM = AIML.REDUCE, END = 4.6;
@@ -12,7 +13,7 @@ function eo(x) { return 1 - Math.pow(1 - x, 4); }
 function sm(x) { return x * x * x * (x * (6 * x - 15) + 10); }
 var Q = function (s) { return tk.querySelector(s); };
 var clock = Q('.s10-clock'), bar = Q('.s10-bar'), tang = [].slice.call(Q('.s10-tangle').children), route = Q('.s10-route'), run = Q('.s10-run');
-var body = Q('.s10-lay'), penOn = Q('.s10-on'), flag = Q('.s10-flag'), stub = Q('.s10-stub'), btn = root.querySelector('.s10-cta .btn');
+var penOn = Q('.s10-on'), flag = Q('.s10-flag'), stub = Q('.s10-stub'), btn = root.querySelector('.s10-cta .btn');
 
 /* every line is "M p0 C p1 p2 p3 C p4 p5 p6 C p7 p8 p9": ten points, so each tangle can morph onto the route */
 var R = [30,180, 90,180, 110,130, 160,125, 210,120, 240,95, 280,80, 310,70, 330,62, 352,60];
@@ -32,25 +33,25 @@ function mmss(m) { var s = Math.round(m * 60), mm = Math.floor(s / 60), ss = s %
 
 function render(t) {
   t = ((t % D) + D) % D;
-  /* seam: the whole ticket body fades as ONE layer (5.6-5.85), counter, bar, route and tangle all reset while it is
-     invisible, then it fades back in (5.9-6.25). The stub never fades: it slides back onto the seam meanwhile. */
-  var lay = 1, u = t;
-  if (t >= 5.6 && t < 5.88) { lay = 1 - sm(k(t, 5.6, 5.85)); u = 5.6; } else if (t >= 5.88) { lay = sm(k(t, 5.9, 6.25)); u = 0; }
-  body.style.opacity = lay.toFixed(3);
+  /* seam 5.6-6.4: x runs 0 -> 1; route and teal pen fade out while the tangle fades in at its start shape */
+  var u = t, x = t >= 5.6 ? k(t, 5.6, 6.3) : -1;
+  if (x >= 0) u = 0;
   /* counter + progress (ink): close to even pace, so all 45 minutes read */
-  var lin = k(u, 0.15, 3.3), p = 0.5 * lin + 0.5 * sm(lin), txt = mmss(45 * p);
+  var lin = k(u, 0.15, 3.3), p = x >= 0 ? 1 - sm(x) : 0.5 * lin + 0.5 * sm(lin), txt = mmss(45 * p);
   if (clock.textContent !== txt) clock.textContent = txt;
   bar.style.setProperty('--p', p.toFixed(4));
   /* the tangle straightens onto the route, staggered; grey lines fade as they merge */
   tang.forEach(function (el, i) {
     var q = eo(k(u, 0.15 + i * 0.2, 2.5 + i * 0.2));
     el.setAttribute('d', d(mix(T[i], q)));
-    el.style.opacity = 1 - sm(k(u, 2.7 + i * 0.15, 3.3 + i * 0.1));
+    el.style.opacity = x >= 0 ? sm(k(x, 0, 0.6)) : 1 - sm(k(u, 2.7 + i * 0.15, 3.3 + i * 0.1));
   });
   /* the teal route draws over the merging lines, then the flag plants and flutters */
-  route.style.strokeDashoffset = (1 - eo(k(u, 2.3, 3.3))).toFixed(4);
-  var fp = eo(k(u, 3.2, 3.55));
-  penOn.style.opacity = fp.toFixed(3);
+  var fade = x >= 0 ? 1 - sm(k(x, 0.35, 1)) : 1;
+  route.style.strokeDashoffset = x >= 0 ? 0 : (1 - eo(k(u, 2.3, 3.3))).toFixed(4);
+  route.style.opacity = fade.toFixed(3);
+  var fp = x >= 0 ? 1 : eo(k(u, 3.2, 3.55));
+  penOn.style.opacity = (fp * fade).toFixed(3);
   var wave = u >= 3.55 ? Math.sin((u - 3.55) * 7) * 8 * (1 - k(u, 5.0, 5.6)) : 0;
   flag.setAttribute('transform', 'translate(352 60) scale(' + (1 + 0.18 * Math.sin(Math.PI * fp) * (fp < 1 ? 1 : 0)).toFixed(3) + ') skewY(' + wave.toFixed(2) + ')');
   /* the stub tears: a clear gap opens at the seam, it drops and tilts, its shadow deepens; it slides back at the seam */
