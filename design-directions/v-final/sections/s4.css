@@ -15,7 +15,7 @@
   -webkit-mask:radial-gradient(70% 70% at 36% 50%,#000,transparent);mask:radial-gradient(70% 70% at 36% 50%,#000,transparent)}
 #s4 .s4-tick{position:absolute;left:var(--s5);top:var(--s5);z-index:3;font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.3;
   letter-spacing:.12em;text-transform:uppercase;color:var(--on-petrol-q)}
-#s4 .s4-tick b{color:var(--teal-hi);font-variant-numeric:tabular-nums}
+#s4 .s4-tick b{font-weight:700;color:var(--teal-hi);font-variant-numeric:tabular-nums}
 
 /* ---------- the 3D scene: camera pitch 38 deg (35 to 55, never top-down), yaw from --y0 plus a slow orbit set by s4.js ---------- */
 #s4 .s4-scene{position:relative;height:96cqw;perspective:1700px;perspective-origin:50% 30%}
@@ -52,15 +52,17 @@
   transform:translate3d(var(--bx),calc(var(--by) - var(--lf)),var(--bz)) rotateY(calc(var(--y) * 1deg)) rotateX(calc(var(--p) * 1deg)) translate(var(--ax),var(--ay))}
 #s4 .s4-wk{--bx:calc(-2 * (var(--bw) + var(--g)) - var(--bw) / 2 - var(--s3));--by:calc(-1 * (var(--bh) / 2 + var(--f) * (var(--bh) + var(--g))));--bz:calc(var(--bd) / 2);--ax:-100%;
   display:block;text-align:right;font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.25;letter-spacing:.08em;text-transform:uppercase;color:var(--on-petrol)}
-#s4 .s4-wk b{color:var(--teal-hi)}
+#s4 .s4-wk b{font-weight:700;color:var(--teal-hi)}   /* pinned: UA b is 'bolder' (900, faux) inside 700 text */
 #s4 .s4-wk em{display:none;font-style:normal;color:var(--on-petrol-q)}
 @media (min-width:768px){#s4 .s4-wk em{display:block}}
 #s4 .s4-day{--bx:calc((var(--d) - 2) * (var(--bw) + var(--g)));--by:var(--s3);--bz:calc(var(--bd) / 2 + var(--s2));--ay:0%;
   font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--on-petrol-q)}
-/* 100 out: pinned to the Fri 6 block (floor 2), in front of its right edge; tablet and up (on phones the stream runs to its row) */
+/* 100 out: a 2D tag pinned by s4.js to the Fri 6 block (floor 2) at every width, kept 14 px inside the stage edge.
+   No JS: hidden (the Fri 6 outcome row says it). Phones get the compact size so it fits between two date numerals. */
 #s4 .s4-out{display:none;position:absolute;left:0;top:0;z-index:3;white-space:nowrap;
-  padding:var(--s1) var(--s2);border-radius:6px;background:var(--teal-hi);color:#032220;font-family:var(--mono);font-weight:700;
-  font-size:var(--t-sm);line-height:1.3;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 0 22px rgba(63,224,214,.55)}
+  padding:2px var(--s2);border-radius:6px;background:var(--teal-hi);color:#032220;font-family:var(--mono);font-weight:700;
+  font-size:var(--t-label);line-height:1.3;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 0 22px rgba(63,224,214,.55)}
+html.js #s4 .s4-out{display:block}
 /* the flag stands on the front right corner of the roof (nothing of the structure in front of it); the pennant is in flow so
    no part of the flag overflows its own layer. Phone: the pennant flies left over the roof. */
 #s4 .s4-flag{--bx:calc(2 * (var(--bw) + var(--g)) + var(--bw) / 2 - 1px);--by:calc(-3 * var(--bh) - 2 * var(--g));--bz:calc(var(--bd) / 2);
@@ -77,6 +79,7 @@
 @media (max-width:767px){
   #s4 .mo-pause{top:var(--s3);bottom:auto;left:var(--s3);right:auto}
   #s4 .s4-tick{left:calc(var(--s3) + 36px + var(--s3))}
+  #s4 .s4-out{padding:2px 4px;line-height:1;letter-spacing:.01em;border-radius:4px}
 }
 
 /* fx layer (leader lines, the 100-out stream, enquiries caught) */
@@ -91,13 +94,13 @@
 #s4 .s4-weeks p.now strong::after{content:"";display:inline-block;width:8px;height:8px;margin-left:var(--s2);border-radius:50%;background:var(--teal-hi);
   box-shadow:0 0 10px var(--teal-hi);vertical-align:1px}
 
-/* tablet: the same stack, a wider structure; the outcomes in three columns; 100 out beside its block; pennant flies right */
+/* tablet: the same stack, a wider structure; the outcomes in three columns; pennant flies right */
 @media (min-width:768px){
   #s4 .s4-stage{padding-bottom:var(--s8)}
   #s4 .s4-scene{height:62cqw}
   #s4 .s4-cam{--y0:24;--bw:11cqw;--bh:calc(var(--bw) * .66);left:52%;top:64%}
   #s4 .s4-fr b{left:var(--s3);top:var(--s2)}
-  html.js #s4 .s4-out{display:block}
+  #s4 .s4-out{padding:var(--s1) var(--s2);font-size:var(--t-sm)}
   #s4 .s4-flag{--ax:-1px;height:calc(var(--bw) * 1.2);padding:0 0 0 2px}
   #s4 .s4-pole{right:auto;left:0}
   #s4 .s4-pen{padding:var(--s2) var(--s4) var(--s2) var(--s3);transform-origin:left center;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 50%,100% 100%,0 100%)}

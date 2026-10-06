@@ -7,6 +7,7 @@ if (!st) return;
 var RM = window.AIML && AIML.REDUCE, D = 14.6, NS = 'http://www.w3.org/2000/svg';
 var cam = document.getElementById('s4-cam'), fx = document.getElementById('s4-fx'), nEl = document.getElementById('s4-n');
 var boxes = [].slice.call(cam.querySelectorAll('.s4-box'));
+var fri6n = boxes.filter(function (b) { return b.querySelector('.s4-fr b').textContent.trim() === '6'; })[0].querySelector('.s4-fr b');   /* the Fri 6 date numeral the phone tag sits under */
 var wks = [].slice.call(cam.querySelectorAll('.s4-wk')), ancs = [].slice.call(cam.querySelectorAll('.s4-anc'));
 var out = document.getElementById('s4-out'), flag = document.getElementById('s4-flag');
 var pole = flag.querySelector('.s4-pole'), pen = flag.querySelector('.s4-pen');
@@ -22,7 +23,7 @@ function eo(x) { return 1 - Math.pow(1 - x, 3); }
 function rnd(i) { var s = Math.sin(i * 12.9898) * 43758.5453; return s - Math.floor(s); }   /* seeded, deterministic */
 
 /* timeline */
-var W = [1.0, 4.4, 7.8], STEP = 0.34, FALL = 0.42;
+var W = [0.8, 4.4, 7.8], STEP = 0.34, FALL = 0.42;
 function land(i) { return W[(i / 5) | 0] + (i % 5) * STEP + FALL; }
 var FRI = [land(4), land(9), land(14)];
 
@@ -35,18 +36,33 @@ mail.forEach(function (r) { r.setAttribute('width', 11); r.setAttribute('height'
 inq.forEach(function (r) { r.setAttribute('width', 14); r.setAttribute('height', 10); r.setAttribute('rx', 2); r.setAttribute('fill', '#3FE0D6'); r.setAttribute('stroke', '#0B2224'); r.setAttribute('stroke-width', 1.2); });
 
 var S = null;   /* stage rect, refreshed per render */
+/* phones: the tag sits in the gap between the Fri 13 and Fri 6 date numerals (above Fri 6) so neither date is covered;
+   before floor 3 has landed it sits about 7 px above the Fri 6 date */
+var fri13n = boxes.filter(function (b) { return b.querySelector('.s4-fr b').textContent.trim() === '13'; })[0].querySelector('.s4-fr b');
+function num(n) { return boxes.filter(function (b) { return b.querySelector('.s4-fr b').textContent.trim() === n; })[0].querySelector('.s4-fr b'); }
+var n5 = num('5'), n30 = num('30');
+function phoneTagY() {
+  /* the gap between Fri 13's LANDED date and Fri 6's date; 13's landed spot = Fri 6's date one floor pitch up (pitch from Fri 30) */
+  var r6 = fri6n.getBoundingClientRect(), a = r6.top - S.top, h = out.offsetHeight, bx = fri13n.parentNode.parentNode;
+  var top = r6.bottom - S.top - (n30.getBoundingClientRect().top - r6.top);
+  if (+getComputedStyle(fri13n.parentNode).opacity > 0.3 && Math.abs(parseFloat(bx.style.getPropertyValue('--dy') || 0)) < 0.5) top = Math.max(top, fri13n.getBoundingClientRect().bottom - S.top);
+  return (top + a) / 2 - h / 2;
+}
 function ctr(el) { var r = el.getBoundingClientRect(); return { x: r.left + r.width / 2 - S.left, y: r.top + r.height / 2 - S.top, r: r }; }
 function show(el, o) { el.style.opacity = o; el.style.visibility = o <= 0.001 ? 'hidden' : 'visible'; }
 
 function render(t) {
-  t = ((t % D) + D) % D;
+  /* v6.2: frame 0 is the FINISHED structure (Demo day up, floors breathing, all lit); it holds about 2.5 s with the camera
+     moving, then crossfades into the dated blueprint and builds again (internal clock = viewer time + 12.6 s) */
+  t = (((t + 12.6) % D) + D) % D;
   if (!st.offsetWidth) return;
   S = st.getBoundingClientRect();
   var drain = sm(k(t, 0.5, 1.0)), fin = t < 1.0 ? 1 - drain : 0;          /* fin: the finished frame showing (seam) */
   var br = sm(k(t, 11.8, 12.5)) * (1 - sm(k(t, 12.9, 13.6)));             /* exploded-layer breath */
   var bh = boxes[0].firstChild.offsetHeight;
   var y0 = parseFloat(getComputedStyle(cam).getPropertyValue('--y0')) || 26;
-  var yaw = y0 + 3 * Math.sin(2 * Math.PI * t / D) - 10 * Math.pow(Math.sin(Math.PI * k(t, 11.8, 13.6)), 2);
+  var swing = getComputedStyle(rows[0].parentNode).position === 'absolute' ? 10 : 6;   /* stacked: a smaller swing keeps the structure clear of the stage edge */
+  var yaw = y0 + 3 * Math.sin(2 * Math.PI * t / D) - swing * Math.pow(Math.sin(Math.PI * k(t, 11.8, 13.6)), 2);
   cam.style.setProperty('--y', yaw.toFixed(3));
   var lift = getComputedStyle(rows[0].parentNode).position === 'absolute' ? 0.55 : 0.3;   /* stacked layouts keep the lifted flag inside the stage */
   var lf = [0, 1, 2].map(function (f) { return (br * f * lift * bh).toFixed(2) + 'px'; });
@@ -56,9 +72,9 @@ function render(t) {
   boxes.forEach(function (b, i) {
     var f = (i / 5) | 0, d = i % 5, L = land(i), fri = d === 4;
     var q = k(t, L - FALL, L), o, dy, hot;
-    if (t < 1.0) { o = 1 - drain; dy = 0; hot = fri ? 0.3 * (1 - drain) : 0; }
+    if (t < 1.0 && t < L - FALL) { o = 1 - drain; dy = 0; hot = fri ? 0.3 * (1 - drain) : 0; }
     else {
-      o = sm(k(t, L - FALL, L - FALL + 0.14)); dy = (1 - eo(q)) * 1.7 * bh;
+      o = sm(k(t, L - FALL, L - FALL + (i ? 0.14 : 0.08)));   /* block 1 fades in fast and starts while the finished frame is still draining: never an empty blueprint */ dy = (1 - eo(q)) * 1.7 * bh;
       var flash = t >= L ? 1 - sm(k(t, L, L + (fri ? 1.1 : 0.45))) : 0;
       var nowF = fri && t >= L && t < (f < 2 ? W[f + 1] : 11.8);   /* the newest Friday breathes while its outcome is read */
       hot = Math.max(flash, fri && t >= L ? 0.3 + (nowF ? 0.12 * (1 - Math.cos(2 * Math.PI * (t - L) / 0.9)) : 0) : 0);
@@ -78,8 +94,16 @@ function render(t) {
 
   /* 100 out tag on Fri 6, Demo day flag on Fri 13 */
   var oo = t < 1.0 ? 1 - drain : sm(k(t, FRI[1] + 0.05, FRI[1] + 0.25));
-  show(out, oo);
-  if (out.offsetParent !== null) { var an = ctr(ancs[1]); out.style.transform = 'translate(' + (an.x + 2).toFixed(1) + 'px,' + (an.y - out.offsetHeight * 0.85).toFixed(1) + 'px)'; }   /* 2D tag pinned to Fri 6 (floor 2) */
+  if (out.offsetParent !== null) {
+    var an = ctr(ancs[1]), ox = Math.min(an.x + 2, S.width - out.offsetWidth - 14), clamped = ox < an.x + 2;
+    if (clamped) {
+      ox = Math.min(Math.max(ox, n5.getBoundingClientRect().right - S.left + 5), S.width - out.offsetWidth - 12);   /* 4+ px clear of the Fri-5 date, 12 px inside the edge */
+    }
+    var oy = an.y - out.offsetHeight * 0.85;
+    if (clamped) { var r5 = n5.getBoundingClientRect(); oy = phoneTagY(); if (ox < r5.right - S.left + 4.5) oy = Math.min(oy, r5.top - S.top - 5 - out.offsetHeight); }   /* no room beside the Fri-5 date: sit 4+ px above it */
+    out.style.transform = 'translate(' + ox.toFixed(1) + 'px,' + oy.toFixed(1) + 'px)';
+  }
+  show(out, oo);   /* clamped (phones): sits just above the Fri 6 date numeral (lower half of block 13, whose date is at its top) so the date stays readable */   /* pinned to Fri 6, never closer than 14 px to the stage edge */   /* 2D tag pinned to Fri 6 (floor 2) */
   var fo = t < 1.0 ? 1 - drain : sm(k(t, 10.9, 11.0));
   show(flag, fo);
   var up = t < 1.0 ? 1 : sm(k(t, 10.9, 11.25)), un = t < 1.0 ? 1 : sm(k(t, 11.15, 11.55));
@@ -108,12 +132,13 @@ function render(t) {
   });
   pulse.style.opacity = pulseOn.toFixed(3);
 
-  /* Fri 30: enquiries fly in from the left edge and drop into the Friday block: every enquiry gets caught */
-  var top = ctr(boxes[4].children[1]), SH = st.querySelector('.s4-scene').offsetHeight;
+  /* Fri 30: enquiries come in along the Fri 30 line, from its outcome row into the Friday block ("every enquiry gets caught");
+     stacked layouts: from the stage's right edge at the block's height. Always inside the stage. */
+  var top = ctr(boxes[4].children[1]), l0 = leads[0], L0 = side && t >= FRI[0] ? l0.getTotalLength() : 0;
   inq.forEach(function (r, j) {
-    var s0 = FRI[0] + 0.05 + j * 0.11, q = k(t, s0, s0 + 0.75), e = sm(q);
-    var x0 = top.x - 40 - rnd(j) * 120, y0 = side ? 10 : 56,   /* inside the stage; stacked: below the session counter */ cx = (x0 + top.x) / 2 + 20, cy = top.y * 0.35;   /* drop in from above the structure, clear of the week tags */
-    var x = (1 - e) * (1 - e) * x0 + 2 * (1 - e) * e * cx + e * e * top.x, y = (1 - e) * (1 - e) * y0 + 2 * (1 - e) * e * cy + e * e * top.y;
+    var s0 = FRI[0] + 0.05 + j * 0.16, q = k(t, s0, s0 + 0.7), e = sm(q), x, y;
+    if (L0) { var pt = l0.getPointAtLength(L0 * (1 - e)); x = pt.x; y = pt.y; }
+    else { var x0 = S.width - 20; x = x0 + (top.x - x0) * e; y = top.y + 14 - 20 * Math.sin(Math.PI * e); }
     r.setAttribute('x', (x - 7).toFixed(1)); r.setAttribute('y', (y - 5).toFixed(1)); r.style.opacity = q > 0 && q < 1 ? Math.min(1, q / 0.12, q > 0.85 ? (1 - q) / 0.15 : 1).toFixed(2) : 0;
   });
   /* Fri 6: the messages go out as one spaced row of chips leaving the 100 OUT tag to the right ("your first 100 messages go
@@ -137,8 +162,9 @@ function loop() { if (seekT === null) render(now()); raf = running ? requestAnim
 function play() { if (running || RM || paused) return; running = true; T0 = performance.now() - tPaused * 1000; raf = requestAnimationFrame(loop); }
 function stop() { if (!running) return; tPaused = now(); running = false; cancelAnimationFrame(raf); }
 window.__seek_s4 = function (t) { seekT = t; stop(); render(t); };
-function redraw() { render(seekT !== null ? seekT : RM ? 0.2 : now()); }
-render(RM ? 0.2 : 0);
+var FIN = 1.6;   /* viewer time of the finished, settled structure (reduced motion) */
+function redraw() { render(seekT !== null ? seekT : RM ? FIN : now()); }
+render(RM ? FIN : 0);
 if ('ResizeObserver' in window) new ResizeObserver(redraw).observe(st); else addEventListener('resize', redraw);
 if (document.fonts) document.fonts.ready.then(redraw);
 if (RM) { addEventListener('load', redraw); if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) redraw(); }); }).observe(st); return; }   /* the still frame is drawn again once the stage is laid out */
