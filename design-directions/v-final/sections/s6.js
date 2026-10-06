@@ -45,7 +45,7 @@ var CW = 0;
 function layoutCar() {
   CW = car.clientWidth; if (!CW) return;
   /* the active tab is always wide enough for the client name on one line; on tablets the neighbours peek */
-  var tw = CW < 600 ? Math.min(260, CW * .64) : CW < 1000 ? Math.min(290, CW * .42) : Math.min(300, (CW - 64) * .31);
+  var tw = CW < 600 ? Math.min(280, CW * .87) : CW < 1000 ? Math.min(290, CW * .42) : Math.min(300, (CW - 64) * .31);
   tabsEl.style.setProperty('--tw', Math.round(tw) + 'px'); car._sp = CW < 600 ? tw + 12 : CW < 1000 ? tw + 20 : tw + 24; car._tw = tw;
   /* each window's resting rect, measured without transforms */
   R.forEach(function (r) { var tr = r.win.style.transform; r.win.style.transform = 'none'; r.base = r.win.getBoundingClientRect(); r.win.style.transform = tr; });
@@ -124,8 +124,10 @@ function layoutOwn() {
 var L2 = 5.6;
 function draw(t, A, bth) {
   var cols = 25, rws = 12, mx = FW * .04, my = FH * .08, cw = (FW - 2 * mx) / cols, ch = (FH - 2 * my) / rws, cell = Math.min(cw, ch), r0 = cell * .22;
-  var bs = cell * 1.6, bx = FW / 2 - 4.5 * bs, by = my + bs * .5;   /* the 50 settle at the top of the field, 10 x 5 */
-  var rs = Math.min(FW * .075, cell * 2.8), rx = FW / 2 - 5.5 * rs, ry = Math.min(FH * .84, by + 4 * bs + Math.max(cell * 3, FH * .16));   /* the 10 (+) just under them */
+  /* the 50 (10 x 5) sit centred in the field; as the ten leave for their row the block rises so block + row stay centred together */
+  var bs = cell * 1.6, bx = FW / 2 - 4.5 * bs, gap = Math.max(cell * 3, FH * .16), byA = (FH - 4 * bs) / 2, byG = (FH - 4 * bs - gap) / 2;
+  var by = byA + (byG - byA) * sm(k(t, 2.2, 2.9));
+  var rs = Math.min(FW * .075, cell * 2.8), rx = FW / 2 - 5.5 * rs, ry = byG + 4 * bs + gap;
   for (var i = 0; i < 300; i++) {
     var c = i % cols, rr = Math.floor(i / cols), x0 = mx + (c + .5) * cw, y0 = my + (rr + .5) * ch, q = QUAL[i];
     var x = x0, y = y0, r = r0, al = .42 * (.78 + .22 * Math.sin(Math.PI * 2 * (bth2 / 1.4 + hash(i + 3)))), teal = 0, glow = 0;   /* the wall twinkles: it is never a still frame */
