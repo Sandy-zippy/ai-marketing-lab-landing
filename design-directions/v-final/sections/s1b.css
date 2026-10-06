@@ -1,8 +1,9 @@
 /* S1B: who you'll be talking to. LIGHT composition: the only paper section ground. The story and the ledger on the left;
    on the right ONE stage drawn straight on the paper: a dotted Three.js globe (the persistent actor is the arc of light that
    leaves Vancouver) with Sandy's teaching photo as the place the story lands: a teal leader runs from the India pin into it.
-   Phone: story, globe, the photo under it, then the ledger.
-   Default (no JS, reduced motion, no WebGL): a finished still of the lit globe, every number final. */
+   The three numbers always show their true values; the motion is the globe and the ledger's teal fill bars.
+   Phone/tablet: story, globe, the three numbers, then the photo.
+   Default (no JS, reduced motion, no WebGL): a finished still of the globe at the India landing. */
 #s1b{background:var(--paper);border-top:0}
 #s1b .grid{row-gap:var(--s6)}
 #s1b .s1b-tx p:not(.label):not(.lede){color:var(--body);max-width:56ch;font-size:var(--t-body)}
@@ -17,9 +18,6 @@
 #s1b .s1b-led dd{font-size:var(--t-sm);line-height:1.45;color:var(--body)}
 #s1b .s1b-led>.on dt{color:var(--accent-ink)}
 #s1b .s1b-led>.on dd{color:var(--ink)}
-/* the count-up numeral (JS); the visually hidden copy is what assistive tech reads */
-#s1b .cnt{font-variant-numeric:tabular-nums}
-#s1b .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* the stage: drawn on the paper, no panel. Globe box top right, the photo bottom left, overlapping the globe's lower left. */
 #s1b .s1b-viz{--gw:84%;position:relative;width:100%;aspect-ratio:1/1.2}
@@ -37,7 +35,6 @@
 #s1b .s1b-tag{position:absolute;left:0;top:0;z-index:2;padding:var(--s1) var(--s2);border-radius:999px;background:var(--canvas);border:1px solid var(--paper-edge);
   font-family:var(--mono);font-weight:700;font-size:var(--t-label);line-height:1.3;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);white-space:nowrap;
   box-shadow:0 6px 16px -10px rgba(42,42,42,.5);opacity:0;visibility:hidden}
-/* finished still (no JS / reduced motion / no WebGL): the two tags sit where the still pose puts the pins */
 /* the still is the landing frame (India, the arc arriving from Vancouver over the horizon): only the India tag shows */
 #s1b .s1b-viz:not(.gl) #s1b-ti{opacity:1;visibility:visible;left:45.6%;top:55.4%;transform:translate(14px,-50%)}
 /* the pause control sits top right, clear of the caption */
