@@ -112,19 +112,13 @@ var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var T0=performance.now(), seekT=null, running=false;
   window.__seek_s1=function(t){seekT=t;layout();snap();render(t)};
-  function loop(now){ if(seekT===null) render((now-T0)/1000); requestAnimationFrame(loop) }
+  var pausedAt=null;   /* WCAG 2.2.2: the 12 s loop gets its own pause control (page critic 2, 6 Oct) */
+  function loop(now){ if(seekT===null && pausedAt===null) render((now-T0)/1000); requestAnimationFrame(loop) }
+  if(!RM && window.AIML && AIML.pauseBtn) AIML.pauseBtn(stage, { pause: function(){ pausedAt=performance.now(); }, play: function(){ if(pausedAt!==null){ T0+=performance.now()-pausedAt; pausedAt=null; } } });
   function start(){ layout(); snap(); if(running||RM){ render(RM?10.5:0); return; } running=true; T0=performance.now(); requestAnimationFrame(loop) }
   layout(); snap(); render(RM?10.5:0);
   addEventListener('resize',function(){layout();snap();render(seekT!==null?seekT:running?(performance.now()-T0)/1000:(RM?10.5:0))});
   if(document.fonts) document.fonts.ready.then(function(){layout();snap();render(seekT!==null?seekT:RM?10.5:0)});
   if('IntersectionObserver' in window) new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)start()})},{threshold:.3}).observe(stage); else start();
 
-  var bs=[].slice.call(document.querySelectorAll('#s1 .facts b'));
-  function fmt(b,v){var s=b.hasAttribute('data-plain')?String(v):v.toLocaleString('en-US');return (b.dataset.pre||'')+s+(b.dataset.suf||'')}
-  if(!RM && 'IntersectionObserver' in window){
-    bs.forEach(function(b){b.textContent=fmt(b,b.hasAttribute('data-plain')?1990:0)});
-    new IntersectionObserver(function(es,io){es.forEach(function(e){if(!e.isIntersecting)return;io.disconnect();
-      var t0=performance.now(),Dn=1600;(function tick(tt){var q=Math.min(1,(tt-t0)/Dn),e2=1-Math.pow(1-q,4);
-        bs.forEach(function(b){var to=+b.dataset.to,from=b.hasAttribute('data-plain')?1990:0;b.textContent=fmt(b,Math.round(from+(to-from)*e2))});
-        if(q<1)requestAnimationFrame(tick)})(t0)})},{threshold:.4}).observe(document.querySelector('#s1 .facts'));
-  }
+  /* facts show their final values only: a count-up paints figures the copy never states (6 Oct, same rule as s1b) */
