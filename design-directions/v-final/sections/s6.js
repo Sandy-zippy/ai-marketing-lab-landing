@@ -224,6 +224,7 @@ car.addEventListener('focusout', function () { hover = false; kick(); });
 if (window.AIML && AIML.pauseBtn && !REDUCE) AIML.pauseBtn(car, { pause: function () { paused = true; }, play: function () { paused = false; hover = false; kick(); } });
 
 window.__seek_s6 = function (t) { seekT = t; layoutCar(); renderCar(t); };
+window.__seek_s6.dur = D;   /* the carousel loop length (10.2 s), for capture scripts */
 window.__seek_s6o = function (t) { seekT = t; layoutOwn(); render2(t); };
 function relayout() { layoutCar(); renderCar(seekT !== null ? seekT : acc); layoutOwn(); if (REDUCE) render2(0, true); else render2(seekT !== null ? seekT : ownStarted ? acc2 : 0); }
 relayout();

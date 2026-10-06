@@ -24,8 +24,9 @@
   -webkit-mask:radial-gradient(70% 65% at 50% 50%,#000,transparent);mask:radial-gradient(70% 65% at 50% 50%,#000,transparent)}
 
 /* tabs: a circular rail placed by JS; the active one bright, neighbours recede. JS sizes the active tab so the client
-   name fits on one line at every width. */
-#s6 .s6-tabs{position:relative;height:56px;margin-bottom:var(--s5);-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+   name fits on one line at every width. The rail's edges fade out (--fe), so a neighbour sliding past reads as passing. */
+#s6 .s6-tabs{--fe:8%;position:relative;height:56px;margin-bottom:var(--s5);
+  -webkit-mask:linear-gradient(90deg,transparent,#000 var(--fe),#000 calc(100% - var(--fe)),transparent);mask:linear-gradient(90deg,transparent,#000 var(--fe),#000 calc(100% - var(--fe)),transparent)}
 #s6 .s6-tab{position:absolute;left:50%;top:0;width:var(--tw,240px);height:56px;display:flex;align-items:center;gap:var(--s3);padding:var(--s2) var(--s4) var(--s2) var(--s2);
   border-radius:14px;background:rgba(234,245,244,.04);border:1px solid var(--petrol-line);color:var(--on-petrol-q);text-align:left;overflow:hidden;
   transition:border-color var(--d-micro) var(--ease),color var(--d-micro) var(--ease),background-color var(--d-micro) var(--ease)}
@@ -129,9 +130,11 @@ html:not(.js) #s6 .row+.row{margin-top:var(--s7);padding-top:var(--s7);border-to
 #s6 .own .mo-pause{top:var(--s3);bottom:auto;right:var(--s3)}
 #s6 .s6-car .mo-pause{top:auto;bottom:var(--s4);right:var(--s3)}
 
-/* phone: captions reserve two lines so the money block never jumps between cases; Sami full width at 4:5 (head at the top) */
+/* phone: captions reserve two lines so the money block never jumps between cases; Sami full width at 4:5 (head at the top);
+   the tab rail fades over a wide band at each edge, so a neighbour sliding past dissolves instead of reading as cut text */
 @media (max-width:767px){
   #s6 .s6-car{padding-bottom:calc(var(--s8) + var(--s2))}
+  #s6 .s6-tabs{--fe:max(8%, calc(50% - var(--tw, 240px) / 2 - 4px))}   /* fade ends at the active tab's edge */
   #s6 .cap{min-height:calc(2 * 1.4em)}
   #s6 .vid-box{aspect-ratio:4/5}
   #s6 .box{--bh:210px}
