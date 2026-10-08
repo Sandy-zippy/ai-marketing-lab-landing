@@ -15,5 +15,18 @@
     if (who) window.posthog.identify(who[0], who[1]);
     q.splice(0).forEach(function (e) { window.posthog.capture(e[0], e[1] || {}); });
   }
-  if (document.readyState === 'complete') start(); else addEventListener('load', start);
+  /* Sandy's own devices: open any page with ?me=on once per device (?me=off undoes it). That visit tags the device
+     with 'internal_device_marked' so the dashboard drops its past events too; after that PostHog never loads there. */
+  var me = null; try {
+    var m = new URLSearchParams(location.search).get('me');
+    if (m === 'on') localStorage.setItem('aiml_me', '1'); if (m === 'off') { localStorage.removeItem('aiml_me'); localStorage.removeItem('aiml_me_marked'); }
+    if (m) { var u = new URL(location.href); u.searchParams.delete('me'); history.replaceState(null, '', u); badge(m === 'on' ? 'This device is now excluded from AIML analytics.' : 'This device is counted in AIML analytics again.'); }
+    me = localStorage.getItem('aiml_me') ? (localStorage.getItem('aiml_me_marked') ? 'quiet' : 'mark') : null;
+  } catch (e) {}
+  function badge(t) { addEventListener('DOMContentLoaded', function () { var b = document.createElement('div'); b.textContent = t;
+    b.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:420px;margin:auto;padding:10px 14px;border-radius:8px;background:#121212;color:#fff;font:14px/1.4 Inter,system-ui,sans-serif;text-align:center';
+    document.body.appendChild(b); setTimeout(function () { b.remove(); }, 5000); }); }
+  if (me === 'quiet') { window.ph = window.phIdentify = function () {}; return; }
+  function go() { start(); if (me === 'mark') { window.posthog.capture('internal_device_marked'); try { localStorage.setItem('aiml_me_marked', '1'); } catch (e) {} } }
+  if (document.readyState === 'complete') go(); else addEventListener('load', go);
 })();
