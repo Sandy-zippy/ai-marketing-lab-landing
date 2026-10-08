@@ -324,7 +324,8 @@ var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* Two pages, one funnel (Sandy, 2 Oct): 'home' = aimarketinglabs.in, the opt-in only; 'call' = /call, the training.
    The form on home sends the lead to /call; /call without an opt-in sends the visitor back to home. utm/fbclid ride along. */
 var PAGE = 'home';
-function toTraining() { location.href = '/call/' + location.search + location.hash; }
+/* `in=1` (no PII) carries the opt-in across too: Instagram's Android in-app browser can drop localStorage between pages, which looped people back to the form (Amith, 8 Oct). */
+function toTraining() { var q = new URLSearchParams(location.search); q.set('in', '1'); location.href = '/call/?' + q + location.hash; }
 
 function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 function lsPut(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -450,6 +451,8 @@ document.addEventListener('keydown', function (e) {
 (function () {
   var form = document.getElementById('qform'), err = document.getElementById('qerr');
   var lead = null; try { lead = JSON.parse(lsGet('aiml_lead') || 'null'); } catch (e) {}
+  if (PAGE === 'call' && !(lead && lead.ok) && new URLSearchParams(location.search).get('in') === '1') {   /* ponytail: a shared ?in=1 link skips the form; the training is free, so that is fine */
+    lead = { ok: true, ts: Date.now() }; lsPut('aiml_lead', JSON.stringify(lead)); }
   if (PAGE === 'call' && !(lead && lead.ok)) return location.replace('/' + location.search + location.hash);
   if (lead && lead.ok) return stateB();
   if (lead && lead.ok === false) return stateDQ();
