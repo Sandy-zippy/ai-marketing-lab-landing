@@ -43,6 +43,7 @@ body.booked #done{display:block}
 footer{margin-top:var(--s7);font-size:var(--fs-sm);color:var(--mid);display:flex;gap:var(--s4)}
 footer a{color:inherit;text-decoration:none}
 </style>
+<script defer src="/assets/posthog.js"></script>
 </head>
 <body>
 <main class="page">
@@ -80,7 +81,7 @@ var pid = new URLSearchParams(location.search).get('razorpay_payment_id') || '';
 var evKey = pid || ('web_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8));
 var pdata = { value: 999, currency: 'INR', content_name: 'AIML 45 min call' };
 ['utm_source', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id'].forEach(function (k) { if (attr[k]) pdata[k] = attr[k]; });
-if (pid) { try { if (!sessionStorage.getItem('aiml_paid')) { aimlTrack('Purchase', pdata, { eventID: 'purchase_' + evKey }); sessionStorage.setItem('aiml_paid', '1'); } }
+if (pid) { try { if (!sessionStorage.getItem('aiml_paid')) { aimlTrack('Purchase', pdata, { eventID: 'purchase_' + evKey }); if (window.ph) ph('Purchase', pdata); sessionStorage.setItem('aiml_paid', '1'); } }
 catch (e) { aimlTrack('Purchase', pdata, { eventID: 'purchase_' + evKey }); } }
 
 /* Cal.com embed loader, same pattern as vsl/watch.html. */
@@ -109,7 +110,7 @@ function onBooked() {
   if (scheduled) return; scheduled = true;
   document.body.classList.add('booked');
   window.scrollTo(0, 0);
-  aimlTrack('Schedule', pdata, { eventID: 'schedule_' + evKey });
+  aimlTrack('Schedule', pdata, { eventID: 'schedule_' + evKey }); if (window.ph) ph('Schedule', pdata);
 }
 Cal('on', { action: 'bookingSuccessful', callback: onBooked });
 Cal('on', { action: 'bookingSuccessfulV2', callback: onBooked });

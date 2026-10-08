@@ -219,6 +219,7 @@ footer nav a:hover{color:var(--ink)}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 </style>
+<script defer src="/assets/posthog.js"></script>
 </head>
 <body>
 <div class="wrap"><header class="top"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" /><span class="label">21 days, live</span></header></div>
@@ -309,7 +310,7 @@ window.aimlTrack = window.aimlTrack || function () {};
 var PAY_LINK = 'https://rzp.io/rzp/aimarketinglab-call';
 document.querySelectorAll('.js-pay').forEach(function (b) {
   b.href = PAY_LINK; b.rel = 'noopener';
-  b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); });
+  b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); if (window.ph) ph('InitiateCheckout', { value: 999 }); });
 });
 var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window);
 

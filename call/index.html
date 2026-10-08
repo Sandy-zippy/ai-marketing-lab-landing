@@ -242,6 +242,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 <!-- sections are hidden until the video reveals them, so their CSS never blocks first paint -->
 <link rel="stylesheet" href="css/sections.css" media="print" onload="this.media='all'" />
 <noscript><link rel="stylesheet" href="css/sections.css" /></noscript>
+<script defer src="/assets/posthog.js"></script>
 </head>
 <body>
 <div class="wrap"><header class="top"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" /></header></div>
@@ -880,7 +881,7 @@ function pixelReady(fn) {
    landed before the hero still painted (Lighthouse mobile LCP 4.6 s with the pixel, 2.4 s without, 2 Oct 2026). */
 addEventListener('load', function () { setTimeout(function () { if (window.requestIdleCallback) requestIdleCallback(loadPixel, { timeout: 2000 }); else loadPixel(); }, 2500); });
 ['pointerdown', 'keydown', 'touchstart'].forEach(function (t) { addEventListener(t, loadPixel, { once: true, passive: true }); });
-function custom(ev, p) { pixelReady(function () { if (window.fbq) fbq('trackCustom', ev, p || {}); }); }
+function custom(ev, p) { if (window.ph) ph(ev, p); pixelReady(function () { if (window.fbq) fbq('trackCustom', ev, p || {}); }); }
 
 /* Shared helpers for section partials (js/sections.js). */
 window.AIML = {
@@ -914,7 +915,7 @@ window.AIML = {
 /* Pay buttons: Razorpay chain unchanged. */
 document.querySelectorAll('.js-pay').forEach(function (b) {
   b.href = PAY_LINK; b.rel = 'noopener';
-  b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); });
+  b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); if (window.ph) ph('InitiateCheckout', { value: 999 }); });
 });
 
 /* Phone sticky bar: slides away while any other booking button is on screen (no two asks at once). */
@@ -1051,6 +1052,7 @@ document.addEventListener('keydown', function (e) {
         if ((window.fbq && window.fbq.callMethod) || Date.now() - t0 > 3000) return setTimeout(toTraining, 400);
         setTimeout(wait, 100); })(); }
     });
+    if (window.ph) { phIdentify(em, { name: fn }); ph('Lead', { q1: ans.q1, q2: ans.q2 }); }
     lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2, ok: true, fn: fn, ts: Date.now() }));
     if (PAGE === 'home') { var sb = form.querySelector('[type=submit]'); sb.disabled = true; sb.textContent = 'Opening the training...'; return; }
     closeModal(); stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
@@ -1098,7 +1100,7 @@ document.addEventListener('keydown', function (e) {
     if (!shown.soft && t >= REVEAL_SOFT) { reveal('soft'); custom('VSLSoftCTA'); }
     if (!shown.pitch && t >= PITCH) { reveal('pitch'); custom('VSLPitch'); lsPut('aiml_vsl_seen', '1'); }
     if (!nudged && t >= CTA_SPOKEN) { nudged = true; document.querySelectorAll('.js-nudge').forEach(function (b) { b.classList.remove('nudge'); void b.offsetWidth; b.classList.add('nudge'); }); }
-    if (!half && t / d >= 0.5) { half = true; aimlTrack('ViewContent', { content_name: 'AIML VSL 50%' }); }
+    if (!half && t / d >= 0.5) { half = true; aimlTrack('ViewContent', { content_name: 'AIML VSL 50%' }); if (window.ph) ph('VSL50'); }
   });
   v.addEventListener('ended', function () { lsPut(KT, '0'); lsPut('aiml_vsl_seen', '1'); reveal('soft'); reveal('pitch'); });
 })();
