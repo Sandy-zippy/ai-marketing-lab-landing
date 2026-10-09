@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>The week you stop pushing, leads stop. | AI Marketing Lab</title>
+<title>Your next client in 90 days | AI Marketing Lab</title>
 <meta name="description" content="For agency owners, high-ticket coaches and B2B founders with paying clients. Answer 2 questions, watch the video, then book a 45 minute call with Sandy." />
 <meta name="robots" content="noindex" />
 <link rel="canonical" href="https://aimarketinglabs.in/" />
@@ -240,170 +240,273 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 
 </style>
 <!-- sections are hidden until the video reveals them, so their CSS never blocks first paint -->
-<link rel="stylesheet" href="css/sections.css" media="print" onload="this.media='all'" />
-<noscript><link rel="stylesheet" href="css/sections.css" /></noscript>
-<script defer src="/assets/posthog.js"></script>
+<link rel="stylesheet" href="../call/css/sections.css" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="../call/css/sections.css" /></noscript>
+
+<link rel="preconnect" href="https://app.cal.com" crossorigin />
+<link rel="preconnect" href="https://cal.com" crossorigin />
+<link rel="preload" href="media/vsl-poster.jpg" as="image" />
+<style>
+/* v2.1 (Sandy, 9 Oct 2026): everything centred, the v1 motion sections carry the explaining, Sabri Suby's order.
+   Uses ONLY the live page's tokens above. */
+.cen{text-align:center}
+.c21 .s6-hd,.c21 .s9-hd,.c21 .s10-h,.c21 .s10-note,.c21 #s1 .s1-g>div:first-child,.c21 .s4-weeks{text-align:center}
+.c21 .sec h2,.c21 .sec .lede,.c21 .sec .label,.c21 .sec .note,.c21 .sec .lbl{margin-inline:auto;text-align:center}
+.c21 .sec .lbl{justify-content:center}
+.c21 .sec .stack>*{margin-inline:auto}
+.c21 .sec .grid>*{grid-column:1/-1!important;grid-row:auto!important}   /* every v1 section stacks: heading centred on top, its scene under it */
+.c21 .s5-ph,.c21 .s2b-stage,.c21 .s8-stage{justify-self:center;width:100%;max-width:1000px}
+.c21 .s4-head,.c21 .s4-lede,.c21 .s5-head,.c21 .s5b-hd,.c21 .s6-hd,.c21 .s8-hd,.c21 .s3-hd,.c21 .s2b-hd,.c21 .s7-copy,.c21 .s9-hd{justify-self:center;text-align:center;display:grid;justify-items:center}
+.c21 .s5-seats{justify-self:center;text-align:center;display:grid;justify-items:center}
+.c21 .s5b-seg{justify-self:center}
+.c21 .s5b-cta,.c21 .s7-cta,.c21 .s10-cta{display:flex;justify-content:center}
+.c21 #s1 .s1-g{grid-template-columns:1fr!important;justify-items:center}
+.c21 #s1 .s1-g>div:first-child{display:grid;justify-items:center;max-width:720px}
+.c21 #s1 .sub{margin-inline:auto}
+.c21 #s1 .facts{width:100%;text-align:center}
+.c21 #s1 .facts div{padding-inline:var(--s3)!important}
+.c21 #s1 .mq-k{text-align:center}
+.c21 #s1 .cta{justify-content:center}
+.c21 #s1 .stage{width:100%;max-width:900px}
+.c21 #s1 .cr s{color:var(--quiet)}
+.c21 #s1b .s1b-tx{justify-self:center;display:grid;justify-items:center;text-align:center;max-width:720px}
+.c21 .faq,.c21 .s9-list{text-align:left;max-width:820px;margin-inline:auto;width:100%}
+.c21 .wall{justify-content:center}
+
+/* hero: callout + proof chip, promise headline, open-loop sub, the VSL, the ask, proof under it */
+.hero21 .whead{gap:0}
+.chip21{display:inline-flex;align-items:center;gap:var(--s2);margin-top:var(--s3);padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.04em;color:var(--quiet)}
+.chip21 i{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero21 .whead h1{font-size:clamp(32px,calc(14px + 2.6vw),52px);max-width:26ch}
+.hero21 .whead h1 em{font-style:normal;color:var(--accent-ink)}
+.hero21 .whead .lede{max-width:68ch;text-wrap:balance}
+.hero21 .player{width:100%;max-width:960px;margin-inline:auto}
+@media (min-width:1024px){#watch.hero21 .player{max-width:clamp(560px,calc((100svh - 500px) * 16 / 9),960px)}}
+.hero21 .player .loop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.hero21 .play{padding-left:0;background:linear-gradient(180deg,rgba(18,18,18,.05),rgba(18,18,18,.45))}
+.hero21 .play b{background:rgba(0,0,0,.55);padding:8px 12px;border-radius:999px}
+.vend{position:absolute;inset:0;z-index:4;display:none;flex-direction:column;align-items:center;justify-content:center;gap:var(--s4);padding:var(--s5);background:rgba(11,34,36,.92);color:#fff;text-align:center}
+.vend.on{display:flex}
+.vend p{color:#EAF5F4;font-size:var(--t-lg)}
+.vend .btn{background:var(--accent);color:#032220}
+.cta21{display:grid;justify-items:center;gap:var(--s3);margin-top:var(--s6);text-align:center}
+.cta21 .btn{min-height:60px;padding:0 var(--s7);font-size:var(--fs-lg);white-space:nowrap}
+.btn svg{width:18px;height:18px;flex:none}
+.cta21 .under{font-size:var(--fs-sm);color:var(--body)}
+.cta21 .under s{color:var(--quiet)}
+.proof21{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2) var(--s5);margin-top:var(--s3);padding-top:var(--s4);border-top:1px solid var(--line);list-style:none;font-size:var(--fs-sm);color:var(--quiet);max-width:960px;width:100%}
+.proof21 b{font-family:var(--mono);color:var(--ink)}
+@media (max-width:480px){.cta21 .btn{width:100%;padding:0 var(--s4)}}
+
+.short{max-width:60ch;margin:var(--s6) auto 0;display:grid;gap:var(--s4);font-size:var(--fs-lg);color:var(--body)}
+.pull21{margin:var(--s6) auto 0;max-width:30ch;font-family:var(--head);font-weight:700;font-size:var(--t-h3);line-height:1.3;color:var(--ink);text-wrap:balance}
+.pull21 em{font-style:normal;color:var(--accent-ink)}
+
+/* why other fixes failed: four tiles, one line each */
+.fails21{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3);max-width:900px;margin:var(--s6) auto 0;list-style:none;text-align:left}
+@media (max-width:640px){.fails21{grid-template-columns:1fr}}
+.fails21 li{border:1px solid var(--line);border-radius:var(--r);padding:var(--s4) var(--s5);background:var(--canvas)}
+.fails21 span{display:block;font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.06em;text-transform:uppercase;color:var(--quiet)}
+.fails21 b{display:block;margin-top:var(--s1);font-family:var(--head);font-size:var(--t-h3);line-height:1.25;font-weight:700}
+.fails21 p{margin-top:var(--s1);font-size:var(--fs-sm);color:var(--body)}
+
+/* benefits: four tiles */
+.ben21{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s3);margin-top:var(--s6);list-style:none;text-align:left}
+@media (max-width:1023px){.ben21{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.ben21{grid-template-columns:1fr}}
+.ben21 li{border:1px solid var(--line);border-radius:var(--r);padding:var(--s5);background:var(--surface)}
+.ben21 i{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink)}
+.ben21 i svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ben21 b{display:block;margin-top:var(--s3);font-family:var(--head);font-size:var(--t-h3);line-height:1.2}
+.ben21 p{margin-top:var(--s2);font-size:var(--fs-sm);color:var(--body)}
+
+/* proof above every ask */
+.ask{max-width:720px;margin:var(--s7) auto 0;padding:var(--s6) var(--s5);border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);display:grid;justify-items:center;gap:var(--s3);text-align:center}
+.ask-q{font-family:var(--mono);font-size:var(--fs-label);letter-spacing:.06em;text-transform:uppercase;color:var(--quiet)}
+.ask-p{font-size:var(--fs-body);color:var(--ink)}
+.askwrap{padding-bottom:var(--sec-pad)}
+
+/* payment emails under the cases */
+.paycards{grid-column:1/-1;display:grid;justify-items:center;gap:var(--s4);margin-top:var(--s5)}
+.pc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s2);width:100%;max-width:1000px}
+@media (max-width:640px){.pc-grid{grid-template-columns:1fr}}
+.pc-grid img{width:100%;border:1px solid var(--line);border-radius:var(--r-sm);background:#fff}
+
+/* the ticket stub reads Free */
+.s10-free{font-family:var(--mono);font-size:clamp(28px,4vw,40px);letter-spacing:-.03em}
+
+/* claim: the steps, then the calendar */
+.steps21{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s3);max-width:1000px;margin:var(--s6) auto 0;list-style:none;counter-reset:st;text-align:left}
+@media (max-width:1023px){.steps21{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.steps21{grid-template-columns:1fr}}
+.steps21 li{counter-increment:st;border:1px solid var(--line);border-radius:var(--r);padding:var(--s5);background:var(--canvas)}
+.steps21 li::before{content:counter(st);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--ink);color:#fff;font-family:var(--mono);font-size:var(--fs-sm)}
+.steps21 b{display:block;margin-top:var(--s3);font-family:var(--head);font-size:var(--t-h3);line-height:1.2}
+.steps21 p{margin-top:var(--s1);font-size:var(--fs-sm);color:var(--body)}
+#claim{scroll-margin-top:var(--s3)}
+.calbox{max-width:1000px;margin:var(--s6) auto 0;min-height:640px;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--canvas)}
+.calbox .wait{padding:var(--s8) var(--s5);color:var(--quiet)}
+.calbox:has(iframe) .wait{display:none}
+
+/* P.S. */
+.ps21{background:var(--paper);border-top-color:var(--paper-edge)}
+.ps21 .sig{font-family:var(--head);font-weight:800;font-size:var(--t-h3)}
+.ps21 p{max-width:58ch;margin:var(--s4) auto 0;font-size:var(--fs-lg);color:var(--ink);text-wrap:balance}
+.ps21 .btn{margin-top:var(--s6)}
+
+/* phone bar */
+@media (max-width:767px){
+  .stick21{position:fixed;left:var(--s3);right:var(--s3);bottom:var(--s3);z-index:40;transition:transform var(--d-ui) var(--ease),opacity var(--d-ui) var(--ease)}
+  .stick21 .btn{width:100%;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}
+  .stick21.away{transform:translateY(140%);opacity:0;pointer-events:none}
+}
+@media (min-width:768px){.stick21{display:none}}
+footer .frow{justify-content:center;text-align:center}
+footer .legal{margin-inline:auto;text-align:center}
+
+
+/* globe: centred under the stacked text (Sandy 9 Oct: it sat off to one side) */
+.c21 #s5b .s5b-seg{justify-self:center!important;margin-inline:auto!important}
+
+/* globe section: the phone layout at every width, centred: text, globe, the three numbers in a row, the photo (Sandy 9 Oct) */
+.c21 #s1b .s1b-tx{order:1}
+.c21 #s1b .s1b-viz{display:contents}
+.c21 #s1b .s1b-globe,.c21 #s1b .s1b-ph{grid-column:1/-1;min-width:0}
+.c21 #s1b .s1b-globe{order:2;position:relative;right:auto;width:min(86%,560px);margin-inline:auto}
+.c21 #s1b .s1b-globe .mo-pause{top:auto;bottom:0;right:0}
+.c21 #s1b .s1b-led{order:3;justify-self:center;width:100%;max-width:820px;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s4);text-align:center}
+.c21 #s1b .s1b-led>div{grid-template-columns:1fr;row-gap:var(--s1);justify-items:center;align-content:start}
+.c21 #s1b .s1b-ph{order:4;position:relative;left:auto;right:auto;bottom:auto;justify-self:center;width:100%;max-width:640px;grid-template-columns:56% minmax(0,1fr);column-gap:var(--s3)}
+.c21 #s1b .s1b-ph{grid-template-columns:1fr;max-width:420px;justify-items:center;text-align:center;row-gap:var(--s2)}
+.c21 #s1b .s1b-ph figcaption{max-width:none}
+.c21 .s5-stage{justify-self:center;width:100%;max-width:1000px}
+.c21 #s9 .s9-big{display:none}
+.c21 #s9 .s9-hd{position:static;margin-bottom:var(--s5)}
+
+/* v2.1 scenes for the problem and why sections (Sandy 9 Oct: new motion, never the VSL clips). Petrol stage like the v1 scenes. */
+.vh21{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mo21{position:relative;max-width:960px;margin:var(--s6) auto 0;border-radius:28px;overflow:hidden;color:var(--on-petrol);text-align:left;font-family:var(--mono);
+  background:radial-gradient(120% 90% at 50% 40%,var(--petrol-2),var(--petrol) 72%);box-shadow:0 40px 80px -40px rgba(11,34,36,.55)}
+.mo21::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px;
+  -webkit-mask:radial-gradient(70% 70% at 50% 55%,#000,transparent);mask:radial-gradient(70% 70% at 50% 55%,#000,transparent)}
+.mo-st{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:var(--s2);min-height:24px;padding:var(--s5) 56px 0;font-size:var(--fs-sm);line-height:1.5;color:var(--on-petrol);text-align:center}
+.mo-st i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--teal-hi);box-shadow:0 0 0 4px rgba(63,224,214,.15)}
+.mo-st.warn i{background:var(--brick-hi);box-shadow:0 0 0 4px rgba(255,122,110,.15)}
+.mo21 .mo-pause{top:var(--s3);bottom:auto;right:var(--s3);z-index:3}
+.s3-v,.c3-v{position:relative}
+.s3-v{aspect-ratio:16/9}
+.c3-v{aspect-ratio:16/7}
+.st3 canvas{position:absolute;inset:0;width:100%;height:100%}
+.s3-tag,.c3-tag{position:absolute;left:0;top:0;z-index:1;white-space:nowrap;font-size:var(--fs-label);line-height:1.4;letter-spacing:.06em;text-transform:uppercase;color:var(--on-petrol-q)}
+.st3:not(.gl) .s3-tag,.st3:not(.gl) .c3-tag{visibility:hidden}
+.s3-tag{text-align:center;opacity:0}
+.s3-tag b{display:block;font-weight:400}
+.s3-tag em{font-style:normal;font-weight:700;font-size:var(--t-h3);letter-spacing:0;color:var(--on-petrol);transition:color var(--d-ui)}
+.s3-tag.hot em{color:var(--teal-hi)}
+.s3-tag.warn em{color:var(--brick-hi)}
+.c3-tag{display:grid;justify-items:center;gap:2px;transition:color var(--d-ui)}
+.c3-tag.on{color:var(--on-petrol)}
+.c3-tag em{font-style:normal;text-transform:none;letter-spacing:0;color:var(--brick-hi);opacity:0;transition:opacity var(--d-ui)}
+.c3-tag.brk em{opacity:1}
+.c3-vert .c3-tag{justify-items:start}
+
+.ch-k{color:var(--on-petrol-q)}
+.ch-f{font-weight:700;color:var(--on-petrol)}
+.ch-out{position:relative;z-index:2;padding:0 var(--s4) var(--s5);text-align:center;font-size:var(--fs-sm);color:var(--on-petrol-q)}
+.ch-out b{font-size:var(--t-h3);color:var(--on-petrol);transition:color var(--d-ui)}
+.ch-out.won b{color:var(--teal-hi)}
+.fails21 li{transition:border-color var(--d-ui),box-shadow var(--d-ui)}
+.fails21 li.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+@media (max-width:640px){
+  .mo21{border-radius:var(--r-lg)}
+  .mo-st{padding:var(--s4) 52px 0;min-height:calc(var(--s4) + 42px)}
+  .s3-v{aspect-ratio:1/1.08}
+  .c3-v{aspect-ratio:3/4}
+}
+
+</style>
+<script>/* /call needs the homepage opt-in (Sandy 2 Oct); ?in=1 carries it across Instagram's in-app browser (8 Oct) */
+(function () { var q = new URLSearchParams(location.search), L = null; try { L = JSON.parse(localStorage.getItem('aiml_lead') || 'null'); } catch (e) {}
+  if (!(L && L.ok) && (q.get('in') === '1' || q.get('utm_source') === 'email')) {   /* our own nurture emails go only to opted-in people, often on another device */ L = { ok: true, ts: Date.now() }; try { localStorage.setItem('aiml_lead', JSON.stringify(L)); } catch (e) {} }
+  if (!(L && L.ok)) location.replace('/' + location.search + location.hash); })();</script>
 </head>
-<body>
+<body class="c21">
 <div class="wrap"><header class="top"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" /></header></div>
 <main>
 
-<!-- SCREEN 1: qualify (state A), uAbility's opt-in shape: one centred column, one button, the form in a popup. Hidden once a qualified lead exists. -->
-<section class="scr" id="qualify" aria-labelledby="q-h1">
-  <div class="wrap one">
-    <p class="callout">For agency owners, <span class="nw">high-ticket</span> coaches and B2B founders</p>
-    <h1 id="q-h1">The week you stop pushing, the leads stop. Here's the system I built so they don't.</h1>
-    <p class="without"><span class="nw">$220,000</span> in six months in India. You install the same system. First client in 90 days, or every rupee back.</p>
-    <p class="instr">Free <span class="nw">8-minute</span> training.</p>
-    <button class="btn btn-big" type="button" id="qopen">Answer 2 questions</button>
-  </div>
-</section>
-
-<!-- the popup: 2 tap questions, then name, email, WhatsApp -->
-<div class="modal" id="qmodal" hidden>
-  <div class="modal-bg" id="qmodal-bg"></div>
-  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="qm-h" tabindex="-1">
-    <button class="modal-x" type="button" id="qclose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <h2 id="qm-h">2 questions, then the training.</h2>
-        <form class="qform" id="qform" novalidate>
-          <fieldset class="q" data-q="1">
-            <legend class="q-t">What do you run?</legend>
-            <div class="chips">
-              <button type="button" data-v="agency">Marketing agency</button>
-              <button type="button" data-v="coaching">High-ticket coaching</button>
-              <button type="button" data-v="b2b">B2B service business</button>
-              <button type="button" data-v="freelance" data-dq="1">I freelance</button>
-              <button type="button" data-v="planning" data-dq="1">Planning to start one</button>
-            </div>
-          </fieldset>
-          <fieldset class="q" data-q="2" disabled>
-            <legend class="q-t">Monthly revenue?</legend>
-            <div class="chips">
-              <button type="button" data-v="0" data-dq="1">Nothing yet</button>
-              <button type="button" data-v="lt1L">Under ₹1L</button>
-              <button type="button" data-v="1-3L">₹1L to ₹3L</button>
-              <button type="button" data-v="3-10L">₹3L to ₹10L</button>
-              <button type="button" data-v="10L+">₹10L+</button>
-            </div>
-          </fieldset>
-          <fieldset class="q" data-q="3" disabled>
-            <legend class="q-t">Where should I send it?</legend>
-            <label class="fld"><span class="label">First name</span><input name="fn" autocomplete="given-name" required /></label>
-            <label class="fld"><span class="label">Email</span><input name="em" type="email" autocomplete="email" inputmode="email" required /></label>
-            <label class="fld"><span class="label">WhatsApp</span><input name="ph" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+91" /></label>
-            <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
-            <p class="err" id="qerr" role="alert" hidden></p>
-            <button class="btn btn-full" type="submit">Watch now for free</button>
-            <p class="note fine">By submitting, you agree to receive email and WhatsApp messages from AI Marketing Lab, a ZippyScale brand, about this training and related programs. <a href="../privacy">Privacy</a></p>
-          </fieldset>
-        </form>
-        <div class="dq" id="dq" hidden tabindex="-1">
-          <h2>Not a fit yet.</h2>
-          <p class="lede">This needs a business with paying clients. I'd rather say so than take your ₹999.</p>
-          <p class="note">Free guides: <a href="https://instagram.com/sandymarketinglab" rel="noopener">@sandymarketinglab</a></p>
-        </div>
-  </div>
-</div>
-
-<!-- SCREEN 2: the video (state B): logo, one ICP line, the VSL, nothing else above the reveal -->
-<section class="scr" id="watch" data-reveal="watch" aria-labelledby="w-h1">
+<!-- Sabri 1-3 + above the fold: audience + proof, promise headline (person, result, time, mechanism, guarantee), open-loop sub, VSL, specific ask, proof under it -->
+<section class="scr hero21" id="watch" aria-labelledby="w-h1">
   <div class="wrap">
-    <div class="grid">
-      <div class="whead">
-        <p class="callout">For agency owners, <span class="nw">high-ticket</span> coaches and B2B founders</p>
-        <h1 id="w-h1">Busy delivering this month. Nothing booked for next month.</h1>
-        <p class="lede">8 minutes on why it happens, and the system I run so it doesn't.</p>
-      </div>
-      <div class="player" id="player">
-        <video id="vsl" playsinline preload="none" poster="assets/still.jpg" controlslist="nodownload noplaybackrate" disablepictureinpicture controls><source src="../call/vsl/aiml-vsl.mp4" type="video/mp4" /></video>
-        <button class="vtap" type="button" id="vtap" aria-label="Pause or play the video" hidden></button>
-        <button class="play" type="button" id="play" aria-label="Play the video with sound" hidden><i><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></i><b id="play-l">Watch with sound</b></button>
-        <div class="vprog" aria-hidden="true"><i id="vbar"></i></div>
-      </div>
+    <div class="whead">
+      <p class="callout">For agency owners, <span class="nw">high-ticket</span> coaches and B2B founders</p>
+      <p class="chip21"><i></i>100+ businesses since 2017 · Canada, the US, India</p>
+      <h1 id="w-h1">Your next client in 90 days, from a system <em>Claude Code drafts</em> and you approve. Or every rupee back.</h1>
+      <p class="lede">It's called Upstream Downstream. It's how we collected <b class="nw">$220,000</b> from clients in six months in India. In 8 minutes I'll show you the one link in the chain that breaks in almost every business.</p>
+    </div>
+    <div class="player" id="player">
+      <video class="loop" id="loop" muted loop playsinline autoplay preload="auto" poster="./media/vsl-poster.jpg" aria-hidden="true"><source src="./media/vsl-loop.mp4" type="video/mp4" /></video>
+      <video id="vsl" playsinline preload="none" controls controlslist="nodownload noplaybackrate" disablepictureinpicture hidden></video>
+      <button class="play" type="button" id="play" aria-label="Play the 8-minute video with sound"><i><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></i><b>Watch with sound · 8 min</b></button>
+      <div class="vend" id="vend" role="status"><p>Want this mapped to your business?</p><a class="btn js-claim" href="#claim">Claim my free 45-minute growth map</a></div>
+    </div>
+    <div class="cta21">
+      <a class="btn js-claim" href="#claim">Claim my free 45-minute growth map <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <p class="under"><s>₹999</s> <b>Free.</b> 45 minutes with me, Sandy. Not a sales team.</p>
+      <ul class="proof21">
+        <li><b>2017</b> agency started in Vancouver</li>
+        <li><b>100+</b> businesses in Canada, the US and India</li>
+        <li><b>$220,000</b> collected in 6 months in India</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<div data-reveal="soft">
-<section id="s1" class="sec" aria-labelledby="s1-h">
-<!-- v6 pilot port (approved 5 Oct). business-motion-film ledger: /Users/sandy/proj/work/lp-dir/pilot/LEDGER.md -->
+<!-- Sabri 4-5: the problem in their words; the chase-cycle scene from the VSL explains it -->
+<section id="problem" class="sec cen" aria-labelledby="p-h">
   <div class="wrap">
-    <div class="s1-g">
-      <div>
-        <span class="lbl">The &#8377;999 call</span>
-        <h2 id="s1-h">Let me map your <em>business.</em></h2>
-        <p class="sub">45 minutes with me on where your clients leak. You'll leave knowing where it breaks and what I'd fix first.</p>
-        <div class="facts">
-          <div><b data-to="2017" data-plain>2017</b><span>Agency started in Vancouver</span></div>
-          <div><b class="acc" data-to="100" data-suf="+">100+</b><span>Businesses helped in Canada, the US and India</span></div>
-          <div><b data-to="220000" data-pre="$">$220,000</b><span>Collected from clients in 6 months in India</span></div>
-        </div>
-        <div class="cta">
-          <a class="btn js-pay js-nudge" href="#">Book my ₹999 call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <p class="cr"><b>₹999</b>, credited if you join.</p>
-        </div>
-      </div>
-
-      <div class="stage" id="s1-stage" role="img" aria-label="Example: one lead moves through a business. It is called back and asks for details, then nobody follows up for six days, so it leaks. The 45-minute call scans the business, locks onto follow-up and names the first fix: chase three times. The same lead replays with the fix, replies and is signed.">
-        <div class="st-hd"><span>Example: one lead</span><b id="s1-hdR">45-min map</b></div>
-        <div class="scene" id="s1-scene">
-          <svg class="rail" id="s1-rail" aria-hidden="true"><path class="r0" id="s1-r0"/><path class="r1" id="s1-r1"/><path class="r2" id="s1-r2"/></svg>
-          <div id="s1-stns"></div>
-          
-          <div class="lens" id="s1-lens"><span id="s1-lensl">45-MIN CALL</span></div><div class="stem" id="s1-stem"></div>
-          <div class="note" id="s1-note">Fix: chase 3x</div>
-          <div class="ticks" id="s1-ticks"><i>1</i><i>2</i><i>3</i></div>
-          <div class="stamp" id="s1-stamp"></div>
-          <div class="card" id="s1-card"><span class="dot" id="s1-cdot"></span><b>New enquiry</b><small id="s1-csub">from your ad</small></div>
-        </div>
-        
+    <p class="label">Their month</p>
+    <h2 id="p-h">Busy this month. Nothing booked for next month?</h2>
+    <p class="vh21">One month your calendar is full, because you spent every evening sending DMs, following up and posting. A couple of clients sign and you get busy delivering. Four weeks later next month is empty, so you go back to chasing.</p>
+    <div class="sw21 mo21 st3" aria-hidden="true">
+      <p class="mo-st"><i></i><span>You: chasing. DMs, follow-ups, posts.</span></p>
+      <div class="s3-v"><canvas></canvas>
+        <p class="s3-tag">This month<b><em>0</em> booked</b></p>
+        <p class="s3-tag">Next month<b><em>0</em> booked</b></p>
+        <p class="s3-tag s3-pipe">Your pipeline</p>
       </div>
     </div>
-
-    <p class="mq-k">Built for</p>
-    <div class="mq-w"><div class="mq" aria-label="Clients: Medico Construction, Scale Your Results, Rumor Avenue, Agent Lions Den, Jas Oberoi, Riarh Group, Celestial Luxury Resorts, Walk Again Rehab, Swathi Veldandi Studio">
-      <div class="mq-t" aria-hidden="true" id="s1-mq"></div>
-    </div></div>
+    <p class="pull21">It isn't that you can't get clients. It's that every client depends on <em>you pushing.</em></p>
   </div>
 </section>
 
-</div>
-<div data-reveal="pitch">
-<section id="s1b" class="sec" aria-labelledby="s1b-h">
-  <div class="wrap"><div class="grid">
-    <div class="s1b-tx stack">
-      <p class="label">Who you'll be talking to</p>
-      <h2 id="s1b-h">I teach what I run</h2>
-      <p class="lede">I'm Sandy. Since 2017 I've run a marketing agency, ZippyScale, out of Vancouver. Our clients were in Canada and the US. This year I moved our operations to India.</p>
-      <p>We built every result by hand for clients first. Today the repeatable steps are skill files Claude Code runs. I still take every call myself.</p>
-    </div>
-
-    <dl class="s1b-led">
-      <div data-i="0"><i class="s1b-bar" aria-hidden="true"></i><dt class="num">2017</dt><dd>Agency started in Vancouver</dd></div>
-      <div data-i="1"><i class="s1b-bar" aria-hidden="true"></i><dt class="num">100+</dt><dd>Businesses helped in Canada, the US and India</dd></div>
-      <div data-i="2"><i class="s1b-bar" aria-hidden="true"></i><dt class="num">$220,000</dt><dd>Collected from clients in 6 months in India</dd></div>
-    </dl>
-
-    <div class="s1b-viz" id="s1b-stage" role="group" aria-label="A globe: an arc of light starts at Vancouver, lights client dots across Canada and the US, then crosses the Arctic to India, where client dots light and Sandy's teaching photo is linked to the India pin.">
-      <div class="s1b-globe" aria-hidden="true">
-        <img loading="lazy" class="s1b-still" src="assets/s1b-globe-still.webp" width="1000" height="1000" alt="" decoding="async" />
-        <canvas id="s1b-cv"></canvas>
-        <svg class="s1b-lead" id="s1b-lead"><path id="s1b-lp" /><circle id="s1b-lh" r="4" /></svg>
-        <span class="s1b-tag" id="s1b-tv">Vancouver</span>
-        <span class="s1b-tag" id="s1b-ti">India</span>
+<!-- Sabri 10a: why every other fix failed them; the chain scene from the VSL -->
+<section id="why" class="sec cen" aria-labelledby="y-h">
+  <div class="wrap">
+    <p class="label">Why it isn't your fault</p>
+    <h2 id="y-h">Getting a client is a chain. Most fixes touch one link.</h2>
+    <div class="ch21 mo21 st3" aria-hidden="true">
+      <p class="mo-st"><i></i><span><span class="ch-k">Fix 1 of 4:</span> <b class="ch-f">More content</b></span></p>
+      <div class="c3-v"><canvas></canvas>
+        <p class="c3-tag">Attention<em></em></p><p class="c3-tag">Page<em></em></p><p class="c3-tag">Reply<em></em></p>
+        <p class="c3-tag">Day 3, day 7<em></em></p><p class="c3-tag">Call<em></em></p><p class="c3-tag">Client<em></em></p>
       </div>
-      <figure class="s1b-ph" id="s1b-ph">
-        <img src="assets/s1b-teach-graded.webp" alt="Sandy at a whiteboard by a pool, teaching founders the 5 M's: money, market, model, manpower, metrics, split into sales and operations" width="1200" height="1200" loading="lazy" decoding="async" />
-        <figcaption>Teaching founders at Founder's House Bootcamp, India<span class="s1b-note" aria-hidden="true">Dots illustrative</span></figcaption>
-      </figure>
+      <p class="ch-out">Clients from this lead: <b>0</b></p>
     </div>
-  </div></div>
+    <ul class="fails21">
+      <li><span>More content</span><b>More posts, faster.</b><p>The pipeline looked the same. Content was never the problem.</p></li>
+      <li><span>An agency for the ads</span><b>One link fixed.</b><p>Nobody calls the lead back, so the lead you paid for goes quiet.</p></li>
+      <li><span>Doing it yourself</span><b>You can't run every link.</b><p>Nobody can chase and deliver in the same week.</p></li>
+      <li><span>A chat window</span><b>A prompt writes a caption.</b><p>It doesn't build the list or follow up on day 3 and day 7.</p></li>
+    </ul>
+  </div>
 </section>
 
+<!-- Sabri 6 + 10b/c: the named mechanism, shown running (v1 s3) -->
 <section id="s3" class="sec" aria-labelledby="s3-h">
   <div class="wrap"><div class="grid">
     <div class="s3-hd">
-      <h2 id="s3-h">Write each step <span class="accent">once</span>.</h2>
+      <h2 id="s3-h">Upstream Downstream: write each step <span class="accent">once</span>.</h2>
       <p class="lede s3-sub">Claude&nbsp;Code drafts it. You approve it.</p>
     </div>
     <figure class="s3-fig">
@@ -470,24 +573,71 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
   </div></div>
 </section>
 
+<!-- Sabri 8: benefits, not features -->
+<section id="changes" class="sec cen" aria-labelledby="c-h">
+  <div class="wrap">
+    <p class="label">When both halves are written down</p>
+    <h2 id="c-h">Next month stops depending on this month</h2>
+    <ul class="ben21">
+      <li><i><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 7"/></svg></i><b>Every enquiry caught</b><p>A reply, then day 3 and day 7, whether you're delivering or not.</p></li>
+      <li><i><svg viewBox="0 0 24 24"><path d="M4 4h16v12H5.2L4 17.2z"/></svg></i><b>Outreach every weekday</b><p>Drafted from each prospect's own site. You approve it.</p></li>
+      <li><i><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i><b>Leads called back</b><p>And reminded before the call, so they don't go quiet.</p></li>
+      <li><i><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></i><b>No more swings</b><p>The chase keeps going while you deliver.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Sabri 7: credentials (v1 s1b globe) -->
+<section id="s1b" class="sec" aria-labelledby="s1b-h">
+  <div class="wrap"><div class="grid">
+    <div class="s1b-tx stack">
+      <p class="label">Who you'll be talking to</p>
+      <h2 id="s1b-h">I teach what I run</h2>
+      <p class="lede">I'm Sandy. Since 2017 I've run a marketing agency, ZippyScale, out of Vancouver. Our clients were in Canada and the US. This year I moved our operations to India.</p>
+      <p>We built every result by hand for clients first. Today the repeatable steps are skill files Claude Code drafts from. I still take every call myself.</p>
+    </div>
+
+    <dl class="s1b-led">
+      <div data-i="0"><i class="s1b-bar" aria-hidden="true"></i><dt class="num">2017</dt><dd>Agency started in Vancouver</dd></div>
+      <div data-i="1"><i class="s1b-bar" aria-hidden="true"></i><dt class="num">100+</dt><dd>Businesses helped in Canada, the US and India</dd></div>
+      <div data-i="2"><i class="s1b-bar" aria-hidden="true"></i><dt class="num">$220,000</dt><dd>Collected from clients in 6 months in India</dd></div>
+    </dl>
+
+    <div class="s1b-viz" id="s1b-stage" role="group" aria-label="A globe: an arc of light starts at Vancouver, lights client dots across Canada and the US, then crosses the Arctic to India, where client dots light and Sandy's teaching photo is linked to the India pin.">
+      <div class="s1b-globe" aria-hidden="true">
+        <img loading="lazy" class="s1b-still" src="../call/assets/s1b-globe-still.webp" width="1000" height="1000" alt="" decoding="async" />
+        <canvas id="s1b-cv"></canvas>
+        <svg class="s1b-lead" id="s1b-lead"><path id="s1b-lp" /><circle id="s1b-lh" r="4" /></svg>
+        <span class="s1b-tag" id="s1b-tv">Vancouver</span>
+        <span class="s1b-tag" id="s1b-ti">India</span>
+      </div>
+      <figure class="s1b-ph" id="s1b-ph">
+        <img src="media/sandy-teach.webp" style="object-position:96% 40%" alt="Sandy at a glass board with founders, walking through the 5 M's: money, market, model, manpower, metrics" width="1200" height="1200" loading="lazy" decoding="async" />
+        <figcaption>The 5 M's: the first thing I map with every founder<span class="s1b-note" aria-hidden="true">Dots illustrative</span></figcaption>
+      </figure>
+    </div>
+  </div></div>
+</section>
+
+<!-- Sabri 9: proof (v1 s6 cases + payment emails), then the ask -->
 <section id="s6" class="sec" aria-labelledby="s6-h">
   <div class="wrap"><div class="grid">
     <div class="c-1-8 stack s6-hd">
       <h2 id="s6-h">What they made. What they paid us.</h2>
-      <p class="lede">We built these by hand for clients first. Today the repeatable steps are skill files Claude Code runs.</p>
+      <p class="lede">We built these by hand for clients first. Today the repeatable steps are skill files Claude Code drafts from.</p>
     </div>
 
     <div class="s6-car" id="s6-stage">
       <div class="s6-tabs" role="tablist" aria-label="Client cases" hidden>
-        <button type="button" role="tab" class="s6-tab" id="s6-t0" aria-controls="s6-c0" data-i="0"><img src="assets/s6-medico-lp.webp" alt="" width="1440" height="900" loading="lazy" /><span>Medico Construction</span><i aria-hidden="true"></i></button>
-        <button type="button" role="tab" class="s6-tab" id="s6-t1" aria-controls="s6-c1" data-i="1"><img src="assets/s6-sami-funnel.webp" alt="" width="900" height="1033" loading="lazy" /><span>Scale Your Results</span><i aria-hidden="true"></i></button>
-        <button type="button" role="tab" class="s6-tab" id="s6-t2" aria-controls="s6-c2" data-i="2"><img src="assets/s6-rumor-site.webp" alt="" width="1600" height="900" loading="lazy" /><span>Rumor Avenue</span><i aria-hidden="true"></i></button>
+        <button type="button" role="tab" class="s6-tab" id="s6-t0" aria-controls="s6-c0" data-i="0"><img src="../call/assets/s6-medico-lp.webp" alt="" width="1440" height="900" loading="lazy" /><span>Medico Construction</span><i aria-hidden="true"></i></button>
+        <button type="button" role="tab" class="s6-tab" id="s6-t1" aria-controls="s6-c1" data-i="1"><img src="../call/assets/s6-sami-funnel.webp" alt="" width="900" height="1033" loading="lazy" /><span>Scale Your Results</span><i aria-hidden="true"></i></button>
+        <button type="button" role="tab" class="s6-tab" id="s6-t2" aria-controls="s6-c2" data-i="2"><img src="../call/assets/s6-rumor-site.webp" alt="" width="1600" height="900" loading="lazy" /><span>Rumor Avenue</span><i aria-hidden="true"></i></button>
       </div>
 
       <div class="ledger">
         <article class="row" id="s6-c0" data-i="0" role="tabpanel" aria-labelledby="s6-t0">
           <figure class="art">
-            <div class="box"><div class="win"><i class="chrome" aria-hidden="true"></i><div class="vp"><img src="assets/s6-medico-lp.webp" width="1440" height="900" loading="lazy" alt="Medico Construction landing page: headline 'Build your medical clinic with a team that specializes in healthcare' beside a six-step clinic enquiry form"></div></div></div>
+            <div class="box"><div class="win"><i class="chrome" aria-hidden="true"></i><div class="vp"><img src="../call/assets/s6-medico-lp.webp" width="1440" height="900" loading="lazy" alt="Medico Construction landing page: headline 'Build your medical clinic with a team that specializes in healthcare' beside a six-step clinic enquiry form"></div></div></div>
             <figcaption class="cap">Medico Construction landing page, built by us</figcaption>
           </figure>
           <div class="info">
@@ -502,7 +652,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 
         <article class="row" id="s6-c1" data-i="1" role="tabpanel" aria-labelledby="s6-t1">
           <figure class="art">
-            <div class="box"><div class="win"><i class="chrome" aria-hidden="true"></i><div class="vp"><img src="assets/s6-sami-funnel.webp" width="900" height="1033" loading="lazy" alt="Scale Your Results funnel page: 'Get More Qualified Clients' headline, a Book a FREE Demo button and four agent testimonials"></div></div></div>
+            <div class="box"><div class="win"><i class="chrome" aria-hidden="true"></i><div class="vp"><img src="../call/assets/s6-sami-funnel.webp" width="900" height="1033" loading="lazy" alt="Scale Your Results funnel page: 'Get More Qualified Clients' headline, a Book a FREE Demo button and four agent testimonials"></div></div></div>
             <figcaption class="cap">Funnel, built by us.</figcaption>
           </figure>
           <div class="info">
@@ -517,13 +667,13 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 
         <article class="row" id="s6-c2" data-i="2" role="tabpanel" aria-labelledby="s6-t2">
           <figure class="art">
-            <div class="box"><div class="win"><i class="chrome" aria-hidden="true"></i><div class="vp"><img src="assets/s6-rumor-site.webp" width="1600" height="900" loading="lazy" alt="Rumor Avenue's website: the Rumor wordmark over a brick building facade with a 'One day...' billboard"></div></div></div>
+            <div class="box"><div class="win"><i class="chrome" aria-hidden="true"></i><div class="vp"><img src="../call/assets/s6-rumor-site.webp" width="1600" height="900" loading="lazy" alt="Rumor Avenue's website: the Rumor wordmark over a brick building facade with a 'One day...' billboard"></div></div></div>
             <figcaption class="cap">Rumor Avenue's website (theirs). We ran their outreach.</figcaption>
           </figure>
           <div class="info">
             <div class="txt"><h3 class="nm">Rumor Avenue</h3><p class="k">Built</p><p class="v">LinkedIn and email outreach</p></div>
             <div class="money">
-              <div class="tops"><div class="pd"><p class="k">Setup fee</p><p class="n" data-v="5000" data-pre="$" data-sep="1">$5,000</p></div><div class="md"><p class="k">Made</p><p class="n" data-v="100" data-from="5" data-pre="$" data-suf="k" data-end="+">$100k+</p></div></div>
+              <div class="tops"><div class="pd"><p class="k">Setup fee</p><p class="n" data-v="5000" data-pre="CA$" data-sep="1">CA$5,000</p></div><div class="md"><p class="k">Made</p><p class="n" data-v="100" data-from="5" data-pre="$" data-suf="k" data-end="+">$100k+</p></div></div>
               <div class="mb mb-mo" style="--w:.05" aria-hidden="true"><b class="paid"></b><b class="made"><i></i><i></i><i></i></b></div>
               <p class="c">in ~3 months</p>
             </div>
@@ -534,7 +684,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 
     <div class="s6-low">
       <figure class="s6-sami">
-        <div class="vid-box"><video controls playsinline preload="none" data-poster="media/sami-testimonial-poster.jpg" src="media/sami-testimonial.mp4" aria-label="Sami, Scale Your Results, on video"></video></div>
+        <div class="vid-box"><video controls playsinline preload="none" poster="../call/media/sami-testimonial-poster.jpg" src="../call/media/sami-testimonial.mp4" aria-label="Sami, Scale Your Results, on video"></video></div>
         <figcaption><span class="k">Scale Your Results</span>Video: Sami</figcaption>
       </figure>
 
@@ -552,9 +702,55 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
     <ul class="wall" aria-label="Also built for">
       <li class="k wall-l">Also built for</li><li>Agent Lions Den</li><li>Jas Oberoi</li><li>Riarh Group</li><li>Celestial Luxury Resorts</li><li>Walk Again Rehab</li><li>Swathi Veldandi Studio</li>
     </ul>
+    <div class="paycards"><p class="label">The payment emails, straight from our account</p><div class="pc-grid"><img src="../assets/proof/redacted/card-1.png" alt="Payment received email, payer name hidden" width="500" height="100" loading="lazy" /><img src="../assets/proof/redacted/card-4.png" alt="Payment received email, payer name hidden" width="500" height="100" loading="lazy" /><img src="../assets/proof/redacted/card-2.png" alt="Payment received email, payer name hidden" width="500" height="100" loading="lazy" /><img src="../assets/proof/redacted/card-3.png" alt="Payment received email, payer name hidden" width="500" height="100" loading="lazy" /><img src="../assets/proof/redacted/card-5.png" alt="Payment received email, payer name hidden" width="500" height="100" loading="lazy" /><img src="../assets/proof/redacted/card-6.png" alt="Payment received email, payer name hidden" width="500" height="100" loading="lazy" /></div></div>
   </div></div>
 </section>
+<div class="wrap askwrap"><div class="ask"><p class="ask-q">Medico · Scale Your Results · Rumor Avenue</p><p class="ask-p">Want this mapped to your business? 45 minutes with me, free.</p><a class="btn js-claim" href="#claim">Claim my free 45-minute growth map <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
 
+<!-- Sabri 11: the lead offer, a call worth having either way (v1 s1 map scene) -->
+<section id="s1" class="sec" aria-labelledby="s1-h">
+<!-- v6 pilot port (approved 5 Oct). business-motion-film ledger: /Users/sandy/proj/work/lp-dir/pilot/LEDGER.md -->
+  <div class="wrap">
+    <div class="s1-g">
+      <div>
+        <span class="lbl">The free call</span>
+        <h2 id="s1-h">Let me map your <em>business.</em></h2>
+        <p class="sub">45 minutes with me on where your clients leak. You'll leave knowing where it breaks and what I'd fix first.</p>
+        <div class="facts">
+          <div><b>1</b><span>Leak named: the link losing you the most clients</span></div>
+          <div><b>1st</b><span>Thing to build, in order</span></div>
+          <div><b class="acc">2</b><span>Skill packs, yours to keep</span></div>
+        </div>
+        <div class="cta">
+          <a class="btn js-claim" href="#claim">Claim my free 45-minute growth map <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <p class="cr"><s>₹999</s> <b>Free.</b> You keep the map whether you join or not.</p>
+        </div>
+      </div>
+
+      <div class="stage" id="s1-stage" role="img" aria-label="Example: one lead moves through a business. It is called back and asks for details, then nobody follows up for six days, so it leaks. The 45-minute call scans the business, locks onto follow-up and names the first fix: chase three times. The same lead replays with the fix, replies and is signed.">
+        <div class="st-hd"><span>Example: one lead</span><b id="s1-hdR">45-min map</b></div>
+        <div class="scene" id="s1-scene">
+          <svg class="rail" id="s1-rail" aria-hidden="true"><path class="r0" id="s1-r0"/><path class="r1" id="s1-r1"/><path class="r2" id="s1-r2"/></svg>
+          <div id="s1-stns"></div>
+          
+          <div class="lens" id="s1-lens"><span id="s1-lensl">45-MIN CALL</span></div><div class="stem" id="s1-stem"></div>
+          <div class="note" id="s1-note">Fix: chase 3x</div>
+          <div class="ticks" id="s1-ticks"><i>1</i><i>2</i><i>3</i></div>
+          <div class="stamp" id="s1-stamp"></div>
+          <div class="card" id="s1-card"><span class="dot" id="s1-cdot"></span><b>New enquiry</b><small id="s1-csub">from your ad</small></div>
+        </div>
+        
+      </div>
+    </div>
+
+    <p class="mq-k">Built for</p>
+    <div class="mq-w"><div class="mq" aria-label="Clients: Medico Construction, Scale Your Results, Rumor Avenue, Agent Lions Den, Jas Oberoi, Riarh Group, Celestial Luxury Resorts, Walk Again Rehab, Swathi Veldandi Studio">
+      <div class="mq-t" aria-hidden="true" id="s1-mq"></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- Sabri 10-15: the offer behind the call, bonuses, scarcity, guarantee (no prices on the page: Sandy 16 Sep) -->
 <section id="s4" class="sec" aria-labelledby="s4-h">
   <div class="wrap"><div class="grid s4-grid">
     <div class="s4-head c-1-7 stack">
@@ -604,7 +800,6 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
     </div>
   </div></div>
 </section>
-
 <section id="s5" class="sec" aria-labelledby="s5-h">
   <div class="wrap"><div class="grid s5-grid">
     <div class="c-1-7 stack s5-head">
@@ -621,7 +816,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
     </div>
 
     <figure class="s5-ph">
-      <img src="assets/s5-desk-colour.webp" alt="Sandy across the table from a client, explaining with both hands while the client listens" width="1920" height="1080" loading="lazy" decoding="async" />
+      <img src="../call/assets/s5-desk-colour.webp" alt="Sandy across the table from a client, explaining with both hands while the client listens" width="1920" height="1080" loading="lazy" decoding="async" />
       <figcaption>Sandy, one to one with a client</figcaption>
     </figure>
 
@@ -650,7 +845,6 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
 
   </div></div>
 </section>
-
 <section id="s5b" class="sec" aria-labelledby="s5b-h">
   <div class="wrap"><div class="grid s5b-grid">
     <div class="c-1-7 stack s5b-hd">
@@ -683,10 +877,9 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
       </table>
       <div class="s5b-bands" id="s5b-bands" aria-hidden="true"></div>
     </div>
-    <div class="s5b-cta"><a class="btn js-pay" href="#">Book my &#8377;999 call</a></div>
+    <div class="s5b-cta"><a class="btn js-claim" href="#claim">Claim my free 45-minute growth map</a></div>
   </div></div>
 </section>
-
 <section id="s2b" class="sec" aria-labelledby="s2b-h">
   <div class="wrap"><div class="grid">
     <div class="s2b-hd">
@@ -720,7 +913,6 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
     </div>
   </div></div>
 </section>
-
 <section id="s7" class="sec" aria-labelledby="s7-h">
   <div class="wrap"><div class="grid">
     <div class="stack s7-copy">
@@ -756,9 +948,10 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
         <svg class="s7-beam" aria-hidden="true"><path class="s7-bl"/><circle class="s7-dot" r="5"/></svg>
       </div>
     </div>
-    <div class="s7-cta"><a class="btn js-pay" href="#">Book my &#8377;999 call</a></div>
+    <div class="s7-cta"><a class="btn js-claim" href="#claim">Claim my free 45-minute growth map</a></div>
   </div></div>
 </section>
+<div class="wrap askwrap"><div class="ask"><p class="ask-q">2017 · 100+ businesses · $220,000 in 6 months</p><p class="ask-p">The call tells you which of the two fits, or that neither does yet.</p><a class="btn js-claim" href="#claim">Claim my free 45-minute growth map <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
 
 <section id="s8" class="sec" aria-labelledby="s8-h">
   <div class="wrap"><div class="grid">
@@ -794,31 +987,27 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
     </div>
   </div></div>
 </section>
-
 <section id="s9" class="sec" aria-labelledby="s9-h">
   <div class="wrap"><div class="grid">
-    <div class="s9-hd"><h2 id="s9-h">Questions</h2><p class="s9-big" aria-hidden="true"><span>01</span></p></div>
+    <div class="s9-hd"><h2 id="s9-h">What you're probably thinking</h2><p class="s9-big" aria-hidden="true"><span>01</span></p></div>
     <div class="faq s9-list">
-      <details open><summary><i aria-hidden="true">01</i><span>I'm not technical.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>You won't write code. The skill files are already written. I show the step, then you run it on yours.</p></div></div></details>
-      <details><summary><i aria-hidden="true">02</i><span>I need clients, not automation.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>That's why week two is all getting clients in. Your first 100 messages go out that Friday.</p></div></div></details>
-      <details><summary><i aria-hidden="true">03</i><span>I've bought courses and built nothing.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>That's why every session is live, on your own business.</p></div></div></details>
-      <details><summary><i aria-hidden="true">04</i><span>I don't have time.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>90 minutes, 15 evenings. Miss one and the recording's up next morning.</p></div></div></details>
-      <details><summary><i aria-hidden="true">05</i><span>My business is different.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>Less different than you think. A construction firm, a rehab clinic, a couture studio, coaches, realtors and design agencies all had to get clients in and look after them.</p></div></div></details>
-      <details><summary><i aria-hidden="true">06</i><span>Why isn't the price here?</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>The right option depends on what you've already built. I'll tell you on the call.</p></div></div></details>
-      <details><summary><i aria-hidden="true">07</i><span>Why ₹999 for the call?</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>I take every call myself. It's credited if you join, and refunded if you cancel before it.</p></div></div></details>
+      <details open><summary><i aria-hidden="true">01</i><span>I need clients, not automation.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>That's why week two is all getting clients in. Your first 100 messages go out that Friday.</p></div></div></details>
+      <details><summary><i aria-hidden="true">02</i><span>I've bought courses and built nothing.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>That's why every session is live, on your own business.</p></div></div></details>
+      <details><summary><i aria-hidden="true">03</i><span>I'm not technical.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>You won't write code. The skill files are already written. I show the step, then you run it on yours.</p></div></div></details>
+      <details><summary><i aria-hidden="true">04</i><span>Why is the call free?</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>Because you should see your own map before you decide anything. I still take every call myself, and if neither program fits, I'll tell you.</p></div></div></details>
+      <details><summary><i aria-hidden="true">05</i><span>Why isn't the price here?</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>The right option depends on what you've already built. I'll tell you on the call.</p></div></div></details>
+      <details><summary><i aria-hidden="true">06</i><span>My business is different.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>Less different than you think. A construction firm, a rehab clinic, a couture studio, coaches, realtors and design agencies all had to get clients in and look after them.</p></div></div></details>
+      <details><summary><i aria-hidden="true">07</i><span>I don't have time.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>90 minutes, 15 evenings. Miss one and the recording's up next morning.</p></div></div></details>
       <details><summary><i aria-hidden="true">08</i><span>Will I pay for tools?</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>Yes. Domains, inboxes and a sending tool. You pay them directly.</p></div></div></details>
     </div>
   </div></div>
 </section>
-
 <section id="s10" class="sec" aria-labelledby="s10-h">
   <div class="wrap"><div class="grid">
-    <!-- v2 (6 Oct): light ground, one paper call ticket. While its counter runs to 45:00, four tangled lines on the
-         ticket straighten into one route to a flag (a mess becoming a map); then the ₹999 stub tears off and rests.
-         render(t) in sections/s10.js. The button never moves or fades. -->
+    
     <h2 id="s10-h" class="s10-h">Map this to your business.</h2>
     <p class="note s10-note">45 minutes with me.</p>
-    <div class="s10-tk" id="s10-tk" role="img" aria-label="A call ticket: in 45 minutes a tangle of lines straightens into one route to a flag, your business mapped. The ₹999 stub tears off: credited if you join.">
+    <div class="s10-tk" id="s10-tk" role="img" aria-label="A call ticket: in 45 minutes a tangle of lines straightens into one route to a flag, your business mapped. The stub reads Free: the map is yours either way.">
       <div class="s10-body">
         <div class="s10-lay"><div class="s10-time" aria-hidden="true"><b class="s10-clock">45:00</b><i class="s10-bar"><i></i></i></div>
         <svg class="s10-map" viewBox="0 0 400 220" aria-hidden="true">
@@ -830,65 +1019,61 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
         </svg></div>
       </div>
       <div class="s10-stub">
-        <b class="s10-price"><svg class="s10-rs" viewBox="0 0 22 32" aria-hidden="true"><path d="M3 4.5H19M3 11.5H19M3 4.5H8.5a6.5 6.5 0 0 1 0 13H3L15 30" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linejoin="round"/></svg>999</b>
-        <span class="s10-cr">credited if you join</span>
+        <b class="s10-price s10-free">Free</b>
+        <span class="s10-cr">the map is yours either way</span>
       </div>
     </div>
-    <div class="s10-cta"><a class="btn js-pay" href="#">Book my &#8377;999 call</a></div>
+    <div class="s10-cta"><a class="btn js-claim" href="#claim">Claim my free 45-minute growth map</a></div>
   </div></div>
 </section>
 
-</div>
+<!-- Sabri 16: the ask, walked through step by step, then the calendar -->
+<section id="claim" class="sec cen" aria-labelledby="k-h">
+  <div class="wrap">
+    <p class="label">Here's exactly what happens</p>
+    <h2 id="k-h">Pick your time</h2>
+    <ol class="steps21">
+      <li><b>Pick a slot</b><p>Any 45 minutes on my calendar below.</p></li>
+      <li><b>Get the link</b><p>A confirmation email, and a reminder before we talk.</p></li>
+      <li><b>I look first</b><p>I study your business before the call.</p></li>
+      <li><b>Leave with the map</b><p>And two skill packs, whether you join or not.</p></li>
+    </ol>
+    <div class="calbox" id="calwrap"><p class="wait">Loading my calendar…</p></div>
+  </div>
+</section>
+
+<!-- Sabri 17: P.S., the TL;DR and the cost of doing nothing -->
+<section class="sec ps21 cen" aria-label="P.S.">
+  <div class="wrap">
+    <p class="sig">P.S.</p>
+    <p>If you only read this: one 45-minute call with me, free. You leave with a map of where your clients leak and what to build first, plus two skill packs, whether you join or not.</p>
+    <p>Skip it, and next month probably looks like this one. Busy delivering, nothing booked.</p>
+    <a class="btn js-claim" href="#claim">Claim my free 45-minute growth map <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
 </main>
+
 <footer><div class="wrap">
-  <div class="frow"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="125" height="18" /><nav><a href="../contact">Contact</a><a href="../privacy">Privacy</a><a href="../terms">Terms</a><a href="../refund">Refunds</a></nav></div>
-  <p class="legal">AI Marketing Lab is a brand of ZippyScale. Results vary and depend on the work you put in; <span data-reveal="pitch">the figures above are past client results, not a promise. </span>This site isn't part of Facebook or Meta Platforms, Inc., and isn't endorsed by Meta.</p>
+  <div class="frow"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="125" height="18" /><nav><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/refund">Refunds</a></nav></div>
+  <p class="legal">AI Marketing Lab is a brand of ZippyScale. Results vary and depend on the work you put in; the figures above are past client results, not a promise. This site isn't part of Facebook or Meta Platforms, Inc., and isn't endorsed by Meta.</p>
 </div></footer>
-<!-- phone only: the booking button under the thumb once booking opens (soft reveal); hides while another booking button is on screen -->
-<div class="stick" data-reveal="soft"><a class="btn js-pay" href="#">Book my &#8377;999 call</a><span>45 min with Sandy. Credited if you join.</span></div>
+<div class="stick21" id="stick"><a class="btn js-claim" href="#claim">Claim my free growth map</a></div>
+
 <script>
-/* AIML /call: one page, two states (FUNNEL-FLOW-SPEC-2026-10-01 §2).
-   A = qualify, B = watch. No PII in the URL; the lead lives in localStorage only. */
-window.aimlTrack = window.aimlTrack || function () {};
-var RELAY_URL = 'https://script.google.com/macros/s/AKfycbwO9zt_2BaYSeZCMaxsMSXs-_1q706mUN6icgtQ9ehVWrB1DmTbG0Sv3FgHjWrzQc3d/exec';
-var PAY_LINK = 'https://rzp.io/rzp/aimarketinglab-call';
-/* Reveal times in seconds. Set from the live VSL transcript (offers/accelerator/vsl/live-vsl-transcript-2026-10-01.json).
-   0 = show at once (the "show everything" kill switch). */
-var REVEAL_SOFT = 435, PITCH = 466, CTA_SPOKEN = 471;
+/* v2.1 review build. Trackers load only on the production host. */
+var LIVE = location.hostname === 'aimarketinglabs.in';
 var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
-/* Two pages, one funnel (Sandy, 2 Oct): 'home' = aimarketinglabs.in, the opt-in only; 'call' = /call, the training.
-   The form on home sends the lead to /call; /call without an opt-in sends the visitor back to home. utm/fbclid ride along. */
-var PAGE = 'call';
-/* `in=1` (no PII) carries the opt-in across too: Instagram's Android in-app browser can drop localStorage between pages, which looped people back to the form (Amith, 8 Oct). */
-function toTraining() { var q = new URLSearchParams(location.search); q.set('in', '1'); location.href = '/call/?' + q + location.hash; }
+function track(ev, p) { if (window.ph) ph(ev, p || {}); if (window.fbq) fbq('trackCustom', ev, p || {}); }
+if (LIVE) addEventListener('load', function () {
+  setTimeout(function () {
+    ['../assets/meta-pixel.js', '/assets/posthog.js'].forEach(function (src) { var s = document.createElement('script'); s.src = src; s.defer = true; document.head.appendChild(s); });
+    (function (c, l, a, r, i, t, y) { c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); }; t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i; y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y); })(window, document, 'clarity', 'script', 'xgp3y420au');
+  }, 2500);
+});
 
-function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
-function lsPut(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
-/* Meta pixel loads after the first paint: on idle after load (3 s cap) or on the first tap/key, whichever comes first.
-   Anything that needs it (custom events, the Lead, utm/fbc for the beacon) waits for it, capped at 1.5 s. */
-var pixelP = null;
-function loadPixel() {
-  if (!pixelP) pixelP = new Promise(function (res) {
-    var s = document.createElement('script'); s.src = '../assets/meta-pixel.js'; s.onload = s.onerror = function () { res(); };
-    document.head.appendChild(s);
-  });
-  return pixelP;
-}
-function pixelReady(fn) {
-  var done = false; function go() { if (!done) { done = true; fn(); } }
-  loadPixel().then(go); setTimeout(go, 1500);
-}
-/* 2.5 s after load, not the first idle slot: fbevents.js + its config are ~700 ms of main thread on a throttled phone and
-   landed before the hero still painted (Lighthouse mobile LCP 4.6 s with the pixel, 2.4 s without, 2 Oct 2026). */
-addEventListener('load', function () { setTimeout(function () { if (window.requestIdleCallback) requestIdleCallback(loadPixel, { timeout: 2000 }); else loadPixel(); }, 2500); });
-['pointerdown', 'keydown', 'touchstart'].forEach(function (t) { addEventListener(t, loadPixel, { once: true, passive: true }); });
-function custom(ev, p) { if (window.ph) ph(ev, p); pixelReady(function () { if (window.fbq) fbq('trackCustom', ev, p || {}); }); }
-
-/* Shared helpers for section partials (js/sections.js). */
+/* Shared helpers the v1 section scenes expect (same as /call). */
 window.AIML = {
   REDUCE: REDUCE,
-  /* fn(root) runs ONCE, when root has been revealed and its top is 15% into the viewport (a 30% threshold never fired on
-     sections taller than ~3 viewports, e.g. s6 at 2,031px desktop / 3,294px mobile: BUGS-2026-10-02 #3). */
   onView: function (root, fn) {
     if (!root) return;
     var done = false;
@@ -898,223 +1083,427 @@ window.AIML = {
       es.forEach(function (e) { if (e.isIntersecting && e.target.offsetParent !== null) { io.disconnect(); go(); } });
     }, { threshold: 0, rootMargin: '0px 0px -15% 0px' }).observe(root);
   },
-  /* Adds the shared pause button to a .viz. ctl = {pause(), play()}. */
   pauseBtn: function (viz, ctl) {
     var b = document.createElement('button'), on = true;
     var P = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
     var G = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>';
     b.type = 'button'; b.className = 'mo-pause'; b.innerHTML = P; b.setAttribute('aria-label', 'Pause animation');
-    b.addEventListener('click', function () {
-      on = !on; if (on) ctl.play(); else ctl.pause();
-      b.innerHTML = on ? P : G; b.setAttribute('aria-label', on ? 'Pause animation' : 'Play animation');
-    });
+    b.addEventListener('click', function () { on = !on; if (on) ctl.play(); else ctl.pause(); b.innerHTML = on ? P : G; b.setAttribute('aria-label', on ? 'Pause animation' : 'Play animation'); });
     viz.appendChild(b);
     return b;
   }
 };
 
-/* Pay buttons: Razorpay chain unchanged. */
-document.querySelectorAll('.js-pay').forEach(function (b) {
-  b.href = PAY_LINK; b.rel = 'noopener';
-  b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); if (window.ph) ph('InitiateCheckout', { value: 999 }); });
-});
-
-/* Phone sticky bar: slides away while any other booking button is on screen (no two asks at once). */
+/* VSL: the re-edited cut (no ₹999), 1080p only. */
 (function () {
-  var bar = document.querySelector('.stick'); if (!bar || !('IntersectionObserver' in window)) return;
-  var seen = new Set();
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); });
-    bar.classList.toggle('away', seen.size > 0);
-  });
-  document.querySelectorAll('.js-pay').forEach(function (b) { if (!bar.contains(b)) io.observe(b); });
-  var pl = document.getElementById('player'); if (pl) io.observe(pl);   /* 6 Oct: never cover the video (it covered "Watch with sound" at 320) */
-})();
-
-/* ---- state + reveals ---- */
-var shown = {};
-function reveal(stage) {
-  if (shown[stage]) return; shown[stage] = true;
-  document.querySelectorAll('[data-reveal="' + stage + '"]').forEach(function (el) {
-    el.classList.add('on');
-    el.querySelectorAll('video[data-poster]').forEach(function (v) { v.poster = v.dataset.poster; });
-  });
-  document.dispatchEvent(new CustomEvent('aiml:reveal', { detail: { stage: stage } }));
-}
-function stateB() {
-  if (PAGE === 'home') return toTraining();
-  document.body.dataset.state = 'b';
-  reveal('watch');
-  if (lsGet('aiml_vsl_seen') === '1') { reveal('soft'); reveal('pitch'); }
-  if (REVEAL_SOFT === 0) reveal('soft');
-  if (PITCH === 0) reveal('pitch');
-}
-function stateDQ() {
-  document.body.dataset.state = 'dq';
-  document.getElementById('qform').hidden = true;
-  var d = document.getElementById('dq'); d.hidden = false;
-  openModal(); d.focus();
-}
-
-/* ---- the popup: Get started opens it; Esc, the backdrop or the cross close it; Tab stays inside ---- */
-var modal = document.getElementById('qmodal'), modalBox = modal.querySelector('.modal-box'), opener = document.getElementById('qopen');
-function focusables() { return [].filter.call(modalBox.querySelectorAll('button:not([disabled]),input:not([disabled]),a[href],[tabindex="-1"]'), function (e) { return e.offsetParent !== null && !e.closest('.hp'); }); }
-function openModal() {
-  if (!modal.hidden) return;
-  modal.hidden = false; document.body.classList.add('modal-open');
-  var f = focusables().filter(function (e) { return e.tabIndex >= 0; }); (f[1] || f[0] || modalBox).focus({ preventScroll: true });   /* f[0] is the close cross */
-}
-function closeModal() {
-  if (modal.hidden) return;
-  modal.hidden = true; document.body.classList.remove('modal-open');
-  if (document.body.dataset.state === 'a') opener.focus();
-}
-opener.addEventListener('click', function () { custom('QualifyOpen'); openModal(); });
-document.getElementById('qclose').addEventListener('click', closeModal);
-document.getElementById('qmodal-bg').addEventListener('click', closeModal);
-document.addEventListener('keydown', function (e) {
-  if (modal.hidden) return;
-  if (e.key === 'Escape') { e.preventDefault(); return closeModal(); }
-  if (e.key !== 'Tab') return;
-  var f = focusables().filter(function (x) { return x.tabIndex >= 0; }); if (!f.length) return;
-  var first = f[0], last = f[f.length - 1];
-  if (e.shiftKey && (document.activeElement === first || !modalBox.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
-  else if (!e.shiftKey && (document.activeElement === last || !modalBox.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
-});
-
-/* ---- screen 1: qualify ---- */
-(function () {
-  var form = document.getElementById('qform'), err = document.getElementById('qerr');
-  var lead = null; try { lead = JSON.parse(lsGet('aiml_lead') || 'null'); } catch (e) {}
-  if (PAGE === 'call' && !(lead && lead.ok) && new URLSearchParams(location.search).get('in') === '1') {   /* ponytail: a shared ?in=1 link skips the form; the training is free, so that is fine */
-    lead = { ok: true, ts: Date.now() }; lsPut('aiml_lead', JSON.stringify(lead)); }
-  if (PAGE === 'call' && !(lead && lead.ok)) return location.replace('/' + location.search + location.hash);
-  if (lead && lead.ok) return stateB();
-  if (lead && lead.ok === false) return stateDQ();
-  document.body.dataset.state = 'a';
-  var ans = {}, dq = null;
-
-  form.querySelectorAll('.q[data-q="1"], .q[data-q="2"]').forEach(function (fs) {
-    var n = fs.dataset.q;
-    fs.querySelectorAll('.chips button').forEach(function (b) {
-      b.setAttribute('aria-pressed', 'false');
-      b.addEventListener('click', function () {
-        fs.querySelectorAll('.chips button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-        ans['q' + n] = b.dataset.v;
-        custom('QualifyStep', { step: Number(n), answer: b.dataset.v });
-        if (b.dataset.dq) { dq = 'q' + n + ':' + b.dataset.v; return finishDQ(); }
-        var next = form.querySelector('.q[data-q="' + (+n + 1) + '"]');
-        next.disabled = false;
-        var first = next.querySelector('button, input'); if (first) first.focus({ preventScroll: true });
-      });
-    });
-  });
-
-  function finishDQ() {
-    custom('Disqualified', { reason: dq });
-    pixelReady(function () { var row = base(); row.ok = false; row.reason = dq; send(row); });
-    lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2 || '', ok: false, ts: Date.now() }));
-    stateDQ();
-  }
-
-  function base() {
-    var a = (window.aimlAttr && aimlAttr()) || {};
-    return { q1: ans.q1 || '', q2: ans.q2 || '', utm_source: a.utm_source || '', utm_medium: a.utm_medium || '', utm_campaign: a.utm_campaign || '',
-      utm_content: a.utm_content || '', utm_term: a.utm_term || '', fbclid: a.fbclid || '', fbc: a.fbc || '', fbp: a.fbp || '',
-      page: location.origin + location.pathname, user_agent: navigator.userAgent };
-  }
-  function send(row) {
-    if (!RELAY_URL || !navigator.sendBeacon) return;
-    try { navigator.sendBeacon(RELAY_URL + '?src=lead', new Blob([JSON.stringify(row)], { type: 'text/plain' })); } catch (e) {}
-  }
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var f = form.elements, bad = null;
-    var fn = f.fn.value.trim(), em = f.em.value.trim().toLowerCase(), ph = f.ph.value.replace(/[^\d+]/g, '');
-    var phd = ph.replace(/\D/g, '').replace(/^0+/, ''); if (phd.length === 10) phd = '91' + phd;   /* India default, matches the relay's phone_() */
-    [f.fn, f.em, f.ph].forEach(function (i) { i.removeAttribute('aria-invalid'); i.removeAttribute('aria-describedby'); });
-    if (!fn) bad = [f.fn, 'Add your first name.'];
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) bad = [f.em, 'That email looks off.'];
-    else if (ph.replace(/\D/g, '').length < 10) bad = [f.ph, 'Add your WhatsApp number with the country code.'];
-    /* the message sits directly under the field it is about */
-    if (bad) { bad[0].setAttribute('aria-invalid', 'true'); bad[0].setAttribute('aria-describedby', 'qerr'); bad[0].parentNode.after(err); err.textContent = bad[1]; err.hidden = false; bad[0].focus(); return; }
-    err.hidden = true;
-    if (f.company.value) { closeModal(); return stateB(); }   /* honeypot: bots see the video, nothing is sent */
-    var id = 'lead_' + (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '_' + Math.random().toString(36).slice(2));
-    pixelReady(function () {                                   /* same event_id in the beacon (CAPI) and the pixel = Meta dedups */
-      var row = base(); row.ok = true; row.first_name = fn; row.email = em; row.whatsapp = ph; row.event_id = id;
-      send(row);
-      if (window.fbq && typeof META_PIXEL_ID !== 'undefined' && META_PIXEL_ID) {
-        fbq('init', META_PIXEL_ID, { em: em, fn: fn.toLowerCase(), ph: phd });   /* advanced matching, pixel hashes */
-        fbq('track', 'Lead', { content_name: 'AIML VSL optin' }, { eventID: id });
-      }
-      /* leave only after the Lead is on its way: the stub only queues it until fbevents.js has loaded (fbq.callMethod),
-         and a queue dies with the page. Wait for the real pixel, 3 s cap, then 400 ms for the request to go. */
-      if (PAGE === 'home') { var t0 = Date.now(); (function wait() {
-        if ((window.fbq && window.fbq.callMethod) || Date.now() - t0 > 3000) return setTimeout(toTraining, 400);
-        setTimeout(wait, 100); })(); }
-    });
-    if (window.ph) { phIdentify(em, { name: fn }); ph('Lead', { q1: ans.q1, q2: ans.q2 }); }
-    lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2, ok: true, fn: fn, ts: Date.now() }));
-    if (PAGE === 'home') { var sb = form.querySelector('[type=submit]'); sb.disabled = true; sb.textContent = 'Opening the training...'; return; }
-    closeModal(); stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
-  });
-})();
-
-/* ---- screen 2: smart player (from call/index.html): nothing loads until tap, no seek ahead, resume ---- */
-(function () {
-  var v = document.getElementById('vsl'), HLS = '../call/vsl/hls/master.m3u8', MP4 = '../call/vsl/aiml-vsl.mp4';
-  var play = document.getElementById('play'), playL = document.getElementById('play-l'), tap = document.getElementById('vtap');
-  var bar = document.getElementById('vbar');
-  if (!v) return;   /* home carries no player */
-  var KT = 'aiml_vsl_t', saved = parseFloat(lsGet(KT)) || 0, live = false, max = 0, half = false, nudged = false;
-  v.controls = false; play.hidden = false;
-  if (saved > 10) playL.textContent = 'Continue where you left off';
-
-  function load(cb) {
-    if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = HLS; return cb(); }
-    var s = document.createElement('script');
-    s.src = '../assets/vendor/hls.light.min.js';
-    s.onload = function () {
-      if (window.Hls && window.Hls.isSupported()) { var h = new window.Hls({ capLevelToPlayerSize: false, startLevel: 0, abrEwmaDefaultEstimate: 8000000 });   /* Sandy 5 Oct "it's not HD": start on the 1080p rung (index 0 in master.m3u8), never cap to the player's CSS size */ h.loadSource(HLS); h.attachMedia(v); }
-      else v.src = MP4;
-      cb();
-    };
-    s.onerror = function () { v.src = MP4; cb(); };
+  var v = document.getElementById('vsl'), loop = document.getElementById('loop'), btn = document.getElementById('play'), end = document.getElementById('vend');
+  var HD = 'vsl/hd.m3u8';
+  if (REDUCE) loop.pause();
+  function attach(cb) {
+    if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = HD; return cb(); }
+    var s = document.createElement('script'); s.src = '../assets/vendor/hls.light.min.js';
+    s.onload = function () { if (window.Hls && Hls.isSupported()) { var h = new Hls({ startLevel: 0, capLevelToPlayerSize: false }); h.loadSource(HD); h.attachMedia(v); } cb(); };
     document.head.appendChild(s);
   }
-  play.addEventListener('click', function () {
-    play.hidden = true; tap.hidden = false; live = true;
-    load(function () {
-      var start = saved > 10 ? saved : 0; max = start;
-      if (start) v.addEventListener('loadedmetadata', function () { v.currentTime = start; }, { once: true });
-      v.play().catch(function () {});
-    });
+  btn.addEventListener('click', function () {
+    btn.hidden = true; loop.pause(); loop.hidden = true; v.hidden = false;
+    attach(function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); });
+    track('VSLPlay');
   });
-  tap.addEventListener('click', function () { if (v.paused) v.play(); else v.pause(); });
-  v.addEventListener('seeking', function () { if (live && v.currentTime > max + 1) v.currentTime = max; });
+  var marks = {};
   v.addEventListener('timeupdate', function () {
-    var t = v.currentTime, d = v.duration || 0;
-    if (!d || !live) return;
-    bar.style.transform = 'scaleX(' + (1 - Math.pow(1 - t / d, 2.5)).toFixed(4) + ')';
-    if (!v.seeking && t > max) max = t;
-    if (Math.floor(t) % 2 === 0) lsPut(KT, String(Math.floor(t)));
-    if (!shown.soft && t >= REVEAL_SOFT) { reveal('soft'); custom('VSLSoftCTA'); }
-    if (!shown.pitch && t >= PITCH) { reveal('pitch'); custom('VSLPitch'); lsPut('aiml_vsl_seen', '1'); }
-    if (!nudged && t >= CTA_SPOKEN) { nudged = true; document.querySelectorAll('.js-nudge').forEach(function (b) { b.classList.remove('nudge'); void b.offsetWidth; b.classList.add('nudge'); }); }
-    if (!half && t / d >= 0.5) { half = true; aimlTrack('ViewContent', { content_name: 'AIML VSL 50%' }); if (window.ph) ph('VSL50'); }
+    var d = v.duration || 0, t = v.currentTime; if (!d) return;
+    [25, 50, 75].forEach(function (q) { if (!marks[q] && t >= d * q / 100) { marks[q] = 1; track('VSL' + q); if (q === 50 && window.aimlTrack) aimlTrack('ViewContent', { content_name: 'AIML VSL 50%' }); } });
   });
-  v.addEventListener('ended', function () { lsPut(KT, '0'); lsPut('aiml_vsl_seen', '1'); reveal('soft'); reveal('pitch'); });
+  v.addEventListener('ended', function () { end.classList.add('on'); track('VSLComplete'); });
 })();
 
-/* Clarity after idle, as on call/index.html. */
-addEventListener('load', function () { setTimeout(function () {
-  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xgp3y420au");
-}, 3000); });
+/* Booking: Cal.com inline, loaded as the visitor heads for it. UTMs ride along as booking metadata. */
+var calLoaded = false;
+var EVK = 'web_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+function loadCal() {
+  if (calLoaded) return; calLoaded = true;
+  (function (C, A, L) { var p = function (a, ar) { a.q.push(ar); }; var d = C.document; C.Cal = C.Cal || function () { var cal = C.Cal; var ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement('script')).src = A; cal.loaded = true; } if (ar[0] === L) { var api = function () { p(api, arguments); }; var namespace = ar[1]; api.q = api.q || []; if (typeof namespace === 'string') { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ['initNamespace', namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, 'https://app.cal.com/embed/embed.js', 'init');
+  Cal('init', 'v21', { origin: 'https://cal.com' });
+  var q = new URLSearchParams(location.search), cfg = { layout: 'month_view' };
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'].forEach(function (k) { if (q.get(k)) cfg['metadata[' + k + ']'] = q.get(k); });
+  cfg['metadata[page]'] = 'call'; cfg['metadata[event_key]'] = EVK;
+  try { var L = JSON.parse(localStorage.getItem('aiml_lead') || '{}') || {}; if (L.fn) cfg.name = L.fn; if (L.em) cfg.email = L.em; } catch (e) {}
+  Cal.ns.v21('inline', { elementOrSelector: '#calwrap', calLink: 'sandy-kadyan/ai-growth-audit', config: cfg });
+  Cal.ns.v21('on', { action: 'bookingSuccessful', callback: function () { track('FreeCallBooked'); if (window.fbq) fbq('track', 'Schedule', { content_name: 'AIML free 45 min call' }, { eventID: 'schedule_' + EVK }); setTimeout(function () { location.href = '/call/booked?b=1'; }, 700); } });
+}
+document.querySelectorAll('.js-claim').forEach(function (a) { a.addEventListener('click', function () { loadCal(); track('ClaimClick'); }); });
+/* the calendar iframe takes seconds to boot, so it starts as soon as the page has loaded (idle), not when the visitor reaches it */
+addEventListener('load', function () { setTimeout(function () { if (window.requestIdleCallback) requestIdleCallback(loadCal, { timeout: 1500 }); else loadCal(); }, 600); });
 
+/* Phone bar: away while the video, another ask or the calendar is on screen. */
+(function () {
+  var bar = document.getElementById('stick'); if (!('IntersectionObserver' in window)) return;
+  var seen = new Set();
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); }); bar.classList.toggle('away', seen.size > 0); });
+  document.querySelectorAll('.js-claim').forEach(function (b) { if (!bar.contains(b)) io.observe(b); });
+  io.observe(document.getElementById('player')); io.observe(document.getElementById('claim'));
+})();
+
+/* Problem + why scenes: real 3D on the petrol stage (v2.1/ART-DIRECTION-scenes.md). Prototypes: v2.1/proto/. */
+/* The swing, in 3D. render(t) is a pure function of t in [0, D). Time runs along x: two month slabs laid out like a
+   contribution graph (weeks left to right, weekdays front to back), a pipeline ribbon extruded behind them by a "now"
+   cursor. Chase: the ribbon rises, booked days rise out of the slab in teal. Deliver: the columns cool, the ribbon falls.
+   The camera trucks into next month: flat, 0 booked. Back to chasing: the ribbon climbs at the far edge, the camera pulls
+   back to show the whole swing. Usage: SW3(root, THREE, REDUCE) -> { play, pause, seek } */
+window.SW3 = function (root, T, REDUCE) {
+  var STILL = false, D = 12.6, P = 1.06, TS = .86, X0 = -3.45, X1 = 3.45, RZ = -3.5;
+  var cv = root.querySelector('canvas'), box = root.querySelector('.s3-v');
+  var stx = root.querySelector('.mo-st span'), st = root.querySelector('.mo-st');
+  var tg = [].slice.call(root.querySelectorAll('.s3-tag')), cnt = root.querySelectorAll('.s3-tag em');
+  var r; try { r = new T.WebGLRenderer({ canvas: cv, alpha: true, antialias: true }); } catch (e) { return null; }
+  if (!r.getContext()) return null;
+  r.setClearColor(0, 0);
+  var scene = new T.Scene(), cam = new T.PerspectiveCamera(32, 1, .1, 100);
+  scene.add(new T.HemisphereLight(0xcffcf8, 0x06191a, 1.1));
+  var sun = new T.DirectionalLight(0xffffff, 1.6); sun.position.set(-4, 9, 6); scene.add(sun);
+  var glow = new T.PointLight(0x3fe0d6, 0, 7, 1.6); scene.add(glow);
+
+  function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function k(t, a, b) { return cl((t - a) / (b - a)); }
+  function sm(x) { return x * x * (3 - 2 * x); }
+  function eo(x) { return 1 - Math.pow(1 - x, 4); }
+  function lerp(a, b, x) { return a + (b - a) * x; }
+
+  /* weeks u in [0,10] -> x (a 1.6 gap between the months) */
+  function ux(u) { return u <= 5 ? X0 - 2.5 * P + u * P : X1 - 2.5 * P + (u - 5) * P; }
+  function xu(x) { var a = X0 - 2.5 * P, b = X1 - 2.5 * P; return x <= a + 5 * P ? (x - a) / P : x < b ? 5 : 5 + (x - b) / P; }
+  /* the pipeline: rises while you chase, falls while you deliver, flat for a month, climbs when you chase again */
+  function H(u) {
+    if (u < 2.2) return lerp(.12, 2.4, sm(k(u, 0, 2.2)));
+    if (u < 3.1) return 2.4 - .15 * sm(k(u, 2.2, 3.1));
+    if (u < 4.6) return lerp(2.25, .06, sm(k(u, 3.1, 4.6)));
+    if (u < 9.1) return .06;
+    return lerp(.06, 1.9, sm(k(u, 9.1, 10)));
+  }
+  /* the cursor: weeks u as a function of t */
+  function U(t) {
+    if (t < .6) return 0;
+    if (t < 3.9) return 3.4 * k(t, .6, 3.9);
+    if (t < 5.6) return lerp(3.4, 5, k(t, 3.9, 5.6));
+    if (t < 8.8) return lerp(5, 9.1, sm(k(t, 5.6, 8.8)));
+    return lerp(9.1, 10, eo(k(t, 8.8, 10.4)));
+  }
+
+  var dark = new T.Color('#123b3a'), teal = new T.Color('#3FE0D6'), pale = new T.Color('#9fbfbb'), tmp = new T.Color();
+  /* slabs + tiles */
+  var tiles = [], slabs = [];
+  [X0, X1].forEach(function (xm, m) {
+    var g = new T.Mesh(new T.BoxGeometry(5 * P + .34, .16, 5 * P + .34), new T.MeshStandardMaterial({ color: 0x0c2b2b, roughness: .9 }));
+    g.position.set(xm, -.08, 0); scene.add(g); slabs.push(g);
+    var e = new T.LineSegments(new T.EdgesGeometry(g.geometry), new T.LineBasicMaterial({ color: 0x3fe0d6, transparent: true, opacity: .28 }));
+    g.add(e); g.userData.e = e;
+    for (var w = 0; w < 5; w++) for (var d = 0; d < 5; d++) {
+      var mat = new T.MeshStandardMaterial({ color: dark.clone(), roughness: .55, metalness: .05, emissive: new T.Color(0), emissiveIntensity: 1 });
+      var b = new T.Mesh(new T.BoxGeometry(TS, 1, TS), mat);
+      b.position.set(xm - 2 * P + w * P, 0, -2 * P + d * P); scene.add(b);
+      var ed = new T.LineSegments(new T.EdgesGeometry(b.geometry), new T.LineBasicMaterial({ color: 0x3fe0d6, transparent: true, opacity: .16 }));
+      b.add(ed);
+      tiles.push({ m: m, w: w, d: d, u: m * 5 + w + .5, b: b, ed: ed });
+    }
+  });
+  /* booked days: (week, weekday), the cursor books each as it passes */
+  var BOOK = [[0, 3], [1, 1], [1, 4], [2, 0], [2, 2], [2, 3], [3, 1], [3, 4]];
+  var bookAt = {}; BOOK.forEach(function (p, i) { bookAt[p[0] * 5 + p[1]] = i; });
+
+  /* the ribbon: an area wall behind the slabs, alpha fading to the floor, a bright crest */
+  var N = 240, XA = ux(0) - .3, XB = ux(10) + .3;
+  function strip(alphaTop, alphaBot, col) {
+    var pos = new Float32Array((N + 1) * 2 * 3), al = new Float32Array((N + 1) * 2), idx = [];
+    for (var i = 0; i <= N; i++) { al[i * 2] = alphaTop; al[i * 2 + 1] = alphaBot; if (i < N) { var a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); } }
+    var g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(pos, 3)); g.setAttribute('aA', new T.BufferAttribute(al, 1)); g.setIndex(idx);
+    var mat = new T.ShaderMaterial({ uniforms: { uC: { value: new T.Color(col) }, uO: { value: 1 } }, transparent: true, depthWrite: false, side: T.DoubleSide,
+      vertexShader: 'attribute float aA;varying float vA;void main(){vA=aA;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+      fragmentShader: 'uniform vec3 uC;uniform float uO;varying float vA;void main(){gl_FragColor=vec4(uC,vA*uO);}' });
+    var m = new T.Mesh(g, mat); m.frustumCulled = false; scene.add(m); return m;
+  }
+  var wall = strip(.34, 0, '#3FE0D6'), crest = strip(1, 1, '#3FE0D6');
+  /* the cursor: a light standing on the ribbon's leading edge */
+  var cur = new T.Mesh(new T.BoxGeometry(.035, 1, .035), new T.MeshBasicMaterial({ color: 0xeafffd, transparent: true, opacity: .9 }));
+  scene.add(cur);
+  var head = new T.Mesh(new T.SphereGeometry(.11, 20, 14), new T.MeshBasicMaterial({ color: 0xffffff }));
+  scene.add(head);
+  var halo = new T.Sprite(new T.SpriteMaterial({ map: (function () { var c = document.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d'), gr = x.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(63,224,214,.9)'); gr.addColorStop(1, 'rgba(63,224,214,0)'); x.fillStyle = gr; x.fillRect(0, 0, 64, 64); return new T.CanvasTexture(c); })(), transparent: true, depthWrite: false }));
+  halo.scale.set(1.1, 1.1, 1); scene.add(halo);
+
+  var W = 0, Hh = 0;
+  function layout() {
+    W = box.clientWidth; Hh = box.clientHeight; if (!W) return;
+    r.setPixelRatio(Math.min(2, window.devicePixelRatio || 1)); r.setSize(W, Hh, false);
+    cam.aspect = W / Hh; cam.updateProjectionMatrix();
+  }
+  function fitDist(width) { var hf = 2 * Math.atan(Math.tan(cam.fov * Math.PI / 360) * cam.aspect); return width / 2 / Math.tan(hf / 2); }
+
+  function say(s, warn) { if (stx.dataset.s !== s) { stx.dataset.s = s; stx.innerHTML = s.replace('follow-ups,', '<span style="white-space:nowrap">follow-ups,</span>'); } st.classList.toggle('warn', !!warn); }
+  function proj(x, y, z) { var v = new T.Vector3(x, y, z).project(cam); return [(v.x + 1) / 2 * W, (1 - v.y) / 2 * Hh]; }
+  function place(el, p, o) { el.style.transform = 'translate(' + Math.round(p[0]) + 'px,' + Math.round(p[1]) + 'px) translate(-50%,0)'; el.style.opacity = o; }
+
+  function render(t) {
+    t = ((t % D) + D) % D;
+    var u = U(t), xn = ux(u), out = sm(k(t, 11.6, 12.5));   /* out: the reset at the loop's end */
+    var cool = sm(k(t, 3.9, 4.9)), wide = sm(k(t, 8.8, 10.6)) * (1 - out);
+    var narrow = W / Hh < 1.1;
+    /* camera: trucks with the story, pulls back wide at the end */
+    var tx = t < 5.6 ? X0 + .5 * Math.max(0, xn - X0) * .3 : lerp(X0 + .4, X1, sm(k(t, 5.6, 8.4)));
+    tx = lerp(tx, 0, wide); tx = lerp(tx, X0, out);
+    var dist = lerp(fitDist(narrow ? 8.4 : 11.8), fitDist(narrow ? 14.5 : 16.2), wide);
+    var yaw = lerp(-24, -12, wide) * Math.PI / 180, pit = lerp(30, 34, wide) * Math.PI / 180;
+    var ty = narrow ? .9 : .7;
+    cam.position.set(tx + dist * Math.cos(pit) * Math.sin(yaw), ty + dist * Math.sin(pit), dist * Math.cos(pit) * Math.cos(yaw) + .3);
+    cam.lookAt(tx, ty, .5);
+
+    /* ribbon */
+    var wp = wall.geometry.attributes.position.array, cp = crest.geometry.attributes.position.array, hn = H(u);
+    for (var i = 0; i <= N; i++) {
+      var x = lerp(XA, XB, i / N), uu = xu(x), h = x <= xn ? H(Math.max(0, uu)) : null;
+      if (h === null) h = 0;
+      var top = x <= xn ? h : 0, j = i * 6;
+      wp[j] = x; wp[j + 1] = top; wp[j + 2] = RZ; wp[j + 3] = x; wp[j + 4] = 0; wp[j + 5] = RZ;
+      var c = x <= xn ? .045 : 0;
+      cp[j] = x; cp[j + 1] = top + c; cp[j + 2] = RZ + .001; cp[j + 3] = x; cp[j + 4] = top - c; cp[j + 5] = RZ + .001;
+    }
+    wall.geometry.attributes.position.needsUpdate = true; crest.geometry.attributes.position.needsUpdate = true;
+    wall.material.uniforms.uO.value = crest.material.uniforms.uO.value = 1 - out;
+    var live = t > .6 && out === 0;
+    cur.visible = head.visible = halo.visible = live;
+    cur.scale.y = hn + .5; cur.position.set(xn, (hn + .5) / 2, RZ); head.position.set(xn, hn, RZ + .02); halo.position.copy(head.position);
+    cur.material.opacity = head.material.opacity = 1 - out; halo.material.opacity = 1 - out;
+    glow.position.set(xn, hn + .6, RZ + 1.4); glow.intensity = live ? (1 - out) * 6 * cl(hn / 1.2 + .15) : 0;
+
+    /* tiles */
+    var nb = 0;
+    tiles.forEach(function (o) {
+      var id = o.w * 5 + o.d, bi = o.m === 0 ? bookAt[id] : undefined, h = .1, col = dark, em = 0, edo = .16;
+      if (bi !== undefined) {
+        var at = .6 + (o.u - .5 + o.d * .08) / 3.4 * 3.3, rise = eo(k(t, at, at + .5));
+        if (t >= at) nb++;
+        h = lerp(.1, 1.4, rise); h = lerp(h, .8, cool);
+        tmp.copy(dark).lerp(teal, rise).lerp(pale, cool); col = tmp.clone(); em = rise * (1 - cool) * .55; edo = .16 + .5 * rise;
+      } else if (o.m === 0 && o.w >= 3) {
+        /* delivery fills the rest of the month: you are busy, nobody is chasing */
+        var at2 = 4.0 + (o.w - 3) * .55 + o.d * .07, f = eo(k(t, at2, at2 + .45));
+        h = lerp(.1, .2, f); tmp.copy(dark).lerp(pale, f * .55); col = tmp.clone(); edo = .16 + .12 * f;
+      }
+      h = lerp(h, .1, out);
+      o.b.scale.y = h; o.b.position.y = h / 2;
+      o.b.material.color.copy(col).lerp(dark, out); o.b.material.emissive.copy(teal).multiplyScalar(em * (1 - out));
+      o.ed.material.opacity = lerp(edo, .16, out);
+    });
+    if (out > 0) nb = 0;
+    /* the next month slab outline warms to brick when it arrives empty */
+    var empty = sm(k(t, 7.6, 8.2)) * (1 - out);
+    slabs[1].userData.e.material.opacity = .28 + .3 * empty;
+
+    r.render(scene, cam);
+
+    /* overlays */
+    if (cnt[0].textContent !== String(nb)) cnt[0].textContent = nb;
+    tg[0].classList.toggle('hot', nb > 0 && cool < .5);
+    tg[1].classList.toggle('warn', empty > .5);
+    /* a tag only shows while its whole box is on the stage */
+    function inside(p, w) { return cl(Math.min(p[0] - w / 2 - 8, W - 8 - p[0] - w / 2, Hh - 52 - p[1]) / 24); }
+    var p0 = proj(X0, 0, 2.5 * P + .5), p1 = proj(X1, 0, 2.5 * P + .5);
+    place(tg[0], p0, inside(p0, tg[0].offsetWidth)); place(tg[1], p1, inside(p1, tg[1].offsetWidth));
+    var pl = proj(XA + .1, 1.25, RZ);
+    tg[2].style.transform = 'translate(' + Math.round(Math.max(12, pl[0])) + 'px,' + Math.round(pl[1]) + 'px) translate(0,-100%)';
+    tg[2].style.opacity = (1 - out) * cl((pl[0] - 8) / 24) * (1 - sm(k(t, 5.4, 6)) * (1 - wide));
+    if (STILL) say('Four weeks later: next month is empty.');
+    else if (t < 3.9) say('You: chasing. DMs, follow-ups, posts.');
+    else if (t < 6.4) say('Clients sign. You deliver, the part you’re good at.');
+    else if (t < 8.9) say('Four weeks later: next month is empty.');
+    else say('Back to chasing.');
+  }
+
+  layout();
+  if ('ResizeObserver' in window) new ResizeObserver(function () { layout(); render(acc); }).observe(box);
+  var acc = 0, last = 0, raf = 0, on = false;
+  function frame(now) { raf = 0; if (!on) return; if (last) acc += Math.min(.1, (now - last) / 1000); last = now; render(acc); raf = requestAnimationFrame(frame); }
+  var api = {
+    play: function () { if (on) return; on = true; last = 0; raf = requestAnimationFrame(frame); },
+    pause: function () { on = false; if (raf) cancelAnimationFrame(raf); raf = 0; },
+    seek: function (t) { acc = t; render(t); },
+    still: function () { STILL = true; acc = 10.9; render(10.9); }
+  };
+  if (REDUCE) api.still(); else render(0);
+  return api;
+};
+
+/* The chain, in 3D. render(t) is a pure function of t in [0, D). Six forged links, alternating planes like a real chain.
+   An open link has a visible gap where it should hold the next one. Each pass: the links that fix repairs forge shut, a
+   lead runs along the chain and falls through the first open link (the reason in brick under it). The fifth pass forges
+   every link, the lead reaches Client, the counter lands on 1. Usage: CH3(root, THREE, REDUCE, cards) -> { play, pause, seek } */
+window.CH3 = function (root, T, REDUCE, cards) {
+  var cv = root.querySelector('canvas'), box = root.querySelector('.c3-v');
+  var kx = root.querySelector('.ch-k'), fx = root.querySelector('.ch-f'), out = root.querySelector('.ch-out'), ob = out.querySelector('b');
+  var tags = [].slice.call(root.querySelectorAll('.c3-tag'));
+  var r; try { r = new T.WebGLRenderer({ canvas: cv, alpha: true, antialias: true }); } catch (e) { return null; }
+  if (!r.getContext()) return null;
+  r.setClearColor(0, 0);
+  var scene = new T.Scene(), cam = new T.PerspectiveCamera(30, 1, .1, 100);
+  scene.add(new T.HemisphereLight(0xd8fffb, 0x041314, 1.0));
+  var key = new T.DirectionalLight(0xffffff, 2.2); key.position.set(-3, 6, 7); scene.add(key);
+  var rim = new T.DirectionalLight(0x3fe0d6, 1.6); rim.position.set(4, -2, -5); scene.add(rim);
+  var glow = new T.PointLight(0x3fe0d6, 0, 4, 1.5); scene.add(glow);
+
+  function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function k(t, a, b) { return cl((t - a) / (b - a)); }
+  function sm(x) { return x * x * (3 - 2 * x); }
+  function eo(x) { return 1 - Math.pow(1 - x, 4); }
+  function lerp(a, b, x) { return a + (b - a) * x; }
+
+  var PASS = [
+    { k: 'Fix 1 of 4:', f: 'More content', fix: [0], brk: 1, why: 'nowhere to land' },
+    { k: 'Fix 2 of 4:', f: 'An agency for the ads', fix: [0, 1], brk: 2, why: 'nobody calls back' },
+    { k: 'Fix 3 of 4:', f: 'Doing it yourself', fix: [0, 1, 2], brk: 3, why: 'you’re delivering' },
+    { k: 'Fix 4 of 4:', f: 'A chat window', fix: [0], brk: 1, why: 'a caption, no list' },
+    { k: 'Upstream Downstream:', f: 'every link written down', fix: [0, 1, 2, 3, 4, 5], brk: -1 }
+  ];
+  var FG = .24, SEG = .3, FALL = .75;
+  /* timeline: each pass = intro .35, forge, travel, (fall + hold | win hold), reopen .35 */
+  var t0 = 0;
+  PASS.forEach(function (p) {
+    p.t0 = t0; p.fs = t0 + .35; p.fe = p.fs + p.fix.length * FG + .15;
+    p.n = p.brk < 0 ? 5.6 : p.brk + .45;            /* links travelled */
+    p.te = p.fe + p.n * SEG;
+    p.end = p.te + (p.brk < 0 ? 2.9 : FALL + .85) + .35;
+    t0 = p.end;
+  });
+  var D = t0;
+
+  /* links */
+  var PITCH = 1.5, R = .6, TUBE = .12, SX = 1.42, GAP = 1.15, Q = 18, geos = [];
+  function geo(c) { var q = Math.round(cl(c) * Q); if (!geos[q]) { var g = GAP * (1 - q / Q); geos[q] = new T.TorusGeometry(R, TUBE, 18, 72, Math.PI * 2 - g); geos[q].rotateZ(g / 2 + .95); } return geos[q]; }
+  var chain = new T.Group(); chain.rotation.order = 'ZYX'; scene.add(chain);
+  var teal = new T.Color('#33d6cb'), dull = new T.Color('#3a5f5d'), brick = new T.Color('#ff7a6e');
+  var links = [];
+  for (var i = 0; i < 6; i++) {
+    var m = new T.Mesh(geo(0), new T.MeshStandardMaterial({ color: dull.clone(), metalness: .35, roughness: .32, emissive: new T.Color(0) }));
+    m.scale.x = SX; m.position.x = (i - 2.5) * PITCH; if (i % 2) m.rotation.x = Math.PI / 2;
+    chain.add(m); links.push(m);
+  }
+  function A(j) { return (j - 2.5) * PITCH; }   /* axis position of link j */
+
+  /* the lead */
+  var lead = new T.Mesh(new T.SphereGeometry(.13, 24, 16), new T.MeshBasicMaterial({ color: 0xffffff, transparent: true }));
+  scene.add(lead);
+  var halo = new T.Sprite(new T.SpriteMaterial({ map: (function () { var c = document.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d'), gr = x.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(63,224,214,.95)'); gr.addColorStop(1, 'rgba(63,224,214,0)'); x.fillStyle = gr; x.fillRect(0, 0, 64, 64); return new T.CanvasTexture(c); })(), transparent: true, depthWrite: false, depthTest: false }));
+  scene.add(halo);
+
+  var W = 0, H = 0, vert = false;
+  function layout() {
+    W = box.clientWidth; H = box.clientHeight; if (!W) return;
+    r.setPixelRatio(Math.min(2, window.devicePixelRatio || 1)); r.setSize(W, H, false);
+    cam.aspect = W / H; cam.updateProjectionMatrix();
+    vert = W / H < .9;
+    chain.rotation.z = vert ? -Math.PI / 2 : 0; chain.rotation.x = vert ? .5 : .18;
+    chain.position.set(vert ? -.55 : 0, 0, 0);
+    root.classList.toggle('c3-vert', vert);
+  }
+  var v = new T.Vector3();
+  function world(a) { v.set(a, 0, 0); chain.updateMatrixWorld(true); return chain.localToWorld(v.clone()); }
+  function proj(p) { var q = p.clone().project(cam); return [(q.x + 1) / 2 * W, (1 - q.y) / 2 * H]; }
+
+  function render(t) {
+    t = ((t % D) + D) % D;
+    var n = 0; while (n < PASS.length - 1 && t >= PASS[n].end) n++;
+    var p = PASS[n], win = p.brk < 0, reopen = sm(k(t, p.end - .35, p.end));
+    /* link state: closed amount c, flash f */
+    var lit = [];
+    links.forEach(function (m, j) {
+      var fi = p.fix.indexOf(j), c = 0, f = 0;
+      if (fi > -1) { var a = p.fs + fi * FG; c = eo(k(t, a, a + .3)); f = k(t, a + .1, a + .3) * (1 - k(t, a + .3, a + .9)); }
+      c *= 1 - reopen;
+      m.geometry = geo(c);
+      var col = m.material.color.copy(dull).lerp(teal, c), em = m.material.emissive.setRGB(0, 0, 0);
+      em.copy(teal).multiplyScalar(.15 * c + .9 * f);
+      if (j === p.brk) { var b = sm(k(t, p.te, p.te + .25)) * (1 - reopen); col.lerp(brick, .55 * b); em.copy(brick).multiplyScalar(.35 * b); }
+      if (win && j === 5) { var wv = sm(k(t, p.te - .1, p.te + .4)) * (1 - reopen); em.copy(teal).multiplyScalar(.15 + .85 * wv); }
+      lit.push(c);
+    });
+
+    /* lead: travels the axis, falls through the open link or lands on Client */
+    var a0 = A(0) - .95, a1 = win ? A(5) : A(p.brk) + .5;
+    var tr = k(t, p.fe, p.te), a = lerp(a0, a1, sm(tr)), pos = world(a), op = sm(k(t, p.fe - .25, p.fe));
+    if (!win && t > p.te) {
+      var tf = t - p.te; pos.y -= 4.2 * tf * tf; pos.z += 1.1 * tf; pos.x += (vert ? 1.6 : .5) * tf;
+      op *= 1 - k(tf, .25, .6);
+    }
+    if (win) op *= 1 - k(t, p.te + 1.2, p.te + 1.6);
+    op *= 1 - reopen;
+    lead.position.copy(pos); halo.position.copy(pos);
+    lead.material.opacity = op; halo.material.opacity = op; halo.scale.setScalar(win && t > p.te ? .9 + 1.4 * sm(k(t, p.te, p.te + .5)) : .9);
+    glow.position.set(pos.x, pos.y + .3, pos.z + .9); glow.intensity = 5 * op;
+
+    /* camera: a slow dolly that leans toward the lead */
+    var lx = vert ? 0 : cl((a - a0) / (A(5) - a0)) - .5, drift = Math.sin(t * .35) * .5;
+    var fitW = vert ? 5.2 : 11, hf = 2 * Math.atan(Math.tan(cam.fov * Math.PI / 360) * cam.aspect), dist = fitW / 2 / Math.tan(hf / 2);
+    if (vert) dist = Math.max(dist, 9.6 / 2 / Math.tan(cam.fov * Math.PI / 360));
+    var yaw = (vert ? -8 : -5 + 6 * lx + drift * 3) * Math.PI / 180, pit = (vert ? 10 : 14) * Math.PI / 180, tx = vert ? .35 : lx * .25, ty = vert ? 0 : -.15;
+    cam.position.set(tx + dist * Math.cos(pit) * Math.sin(yaw), ty + dist * Math.sin(pit), dist * Math.cos(pit) * Math.cos(yaw));
+    cam.lookAt(tx, ty, 0);
+    r.render(scene, cam);
+
+    /* overlays */
+    var why = !win && t > p.te + .15 && reopen < .5;
+    tags.forEach(function (el, j) {
+      var w = world(A(j));
+      if (vert) { w.x += R + TUBE + .3; var s = proj(w); el.style.transform = 'translate(' + Math.round(s[0]) + 'px,' + Math.round(s[1]) + 'px) translate(0,-50%)'; }
+      else { w.y -= R + TUBE + .22; var s2 = proj(w); el.style.transform = 'translate(' + Math.round(s2[0]) + 'px,' + Math.round(s2[1]) + 'px) translate(-50%,0)'; }
+      el.classList.toggle('on', lit[j] > .5);
+      el.classList.toggle('brk', why && j === p.brk);
+      var e = el.querySelector('em'), txt = j === p.brk ? p.why : '';
+      if (e.textContent !== txt) e.textContent = txt;
+    });
+    if (kx.textContent !== p.k) { kx.textContent = p.k; fx.textContent = p.f; }
+    var won = win && t > p.te + .1 && reopen < .5;
+    ob.textContent = won ? '1' : '0'; out.classList.toggle('won', won);
+    if (cards) cards.forEach(function (li, j) { li.classList.toggle('on', j === n); });
+  }
+
+  layout();
+  if ('ResizeObserver' in window) new ResizeObserver(function () { layout(); render(acc); }).observe(box);
+  var acc = 0, last = 0, raf = 0, on = false;
+  function frame(now) { raf = 0; if (!on) return; if (last) acc += Math.min(.1, (now - last) / 1000); last = now; render(acc); raf = requestAnimationFrame(frame); }
+  var api = {
+    D: D,
+    play: function () { if (on) return; on = true; last = 0; raf = requestAnimationFrame(frame); },
+    pause: function () { on = false; if (raf) cancelAnimationFrame(raf); raf = 0; },
+    seek: function (t) { acc = t; render(t); },
+    still: function () { var p = PASS[4]; acc = p.te + .9; render(acc); }
+  };
+  if (REDUCE) api.still(); else render(0);
+  return api;
+};
+
+/* Boot: Three.js from the same cdnjs URL + SRI the globe uses, one copy (if sections.js already added it, wait for that tag).
+   ponytail: if sections.js starts its own load while ours is in flight, three warns about a second instance; harmless. */
+(function () {
+  var A = window.AIML, URL = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js', SRI = 'sha384-qOkzR5Ke/XkQxuGVJ9hpFEpDlcoLtWwVYhnJf06cLIZa2vaIptSqaubivErzmD5O', wait = [];
+  function three(cb) {
+    if (window.THREE) return cb(window.THREE);
+    wait.push(cb); if (wait.length > 1) return;
+    var s = document.querySelector('script[src="' + URL + '"]');
+    if (!s) { s = document.createElement('script'); s.src = URL; s.integrity = SRI; s.crossOrigin = 'anonymous'; s.referrerPolicy = 'no-referrer'; document.head.appendChild(s); }
+    s.addEventListener('load', function () { wait.splice(0).forEach(function (f) { f(window.THREE); }); });
+  }
+  function boot(root, make) {
+    if (!root || !('IntersectionObserver' in window)) return;
+    var sc = null, inView = false, user = true, started = false;
+    function sync() { if (!sc || A.REDUCE) return; if (inView && user && started) sc.play(); else sc.pause(); }
+    new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { io.disconnect(); three(function (T) { sc = make(T); if (!sc) return; root.classList.add('gl'); sync(); }); } }, { rootMargin: '600px 0px' }).observe(root);
+    new IntersectionObserver(function (es) { inView = es[0].isIntersecting; sync(); }).observe(root);
+    A.onView(root, function () { started = true; sync(); });
+    if (!A.REDUCE) A.pauseBtn(root, { pause: function () { user = false; sync(); }, play: function () { user = true; sync(); } });
+  }
+  boot(document.querySelector('.sw21'), function (T) { return window.SW3(document.querySelector('.sw21'), T, A.REDUCE); });
+  boot(document.querySelector('.ch21'), function (T) { return window.CH3(document.querySelector('.ch21'), T, A.REDUCE, [].slice.call(document.querySelectorAll('.fails21 li'))); });
+})();
 </script>
-<script>/* section scenes start only after reveal, so their script waits for load and never delays the first paint */
-addEventListener('load', function () { var s = document.createElement('script'); s.src = 'js/sections.js'; document.body.appendChild(s); });</script>
+<script>addEventListener('load', function () { var s = document.createElement('script'); s.src = '../call/js/sections.js'; document.body.appendChild(s); });</script>
 </body>
 </html>

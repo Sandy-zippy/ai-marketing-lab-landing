@@ -298,7 +298,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
         </form>
         <div class="dq" id="dq" hidden tabindex="-1">
           <h2>Not a fit yet.</h2>
-          <p class="lede">This needs a business with paying clients. I'd rather say so than take your ₹999.</p>
+          <p class="lede">This needs a business with paying clients. I'd rather say so now than take up your time.</p>
           <p class="note">Free guides: <a href="https://instagram.com/sandymarketinglab" rel="noopener">@sandymarketinglab</a></p>
         </div>
   </div>
@@ -310,13 +310,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(-
   <p class="legal">AI Marketing Lab is a brand of ZippyScale. Results vary and depend on the work you put in; <span data-reveal="pitch">the figures above are past client results, not a promise. </span>This site isn't part of Facebook or Meta Platforms, Inc., and isn't endorsed by Meta.</p>
 </div></footer>
 <!-- phone only: the booking button under the thumb once booking opens (soft reveal); hides while another booking button is on screen -->
-<div class="stick" data-reveal="soft"><a class="btn js-pay" href="#">Book my &#8377;999 call</a><span>45 min with Sandy. Credited if you join.</span></div>
+<div class="stick" data-reveal="soft"><a class="btn" href="/call/#claim">Claim my free 45-minute growth map</a><span>45 min with Sandy. Free.</span></div>
 <script>
 /* AIML /call: one page, two states (FUNNEL-FLOW-SPEC-2026-10-01 §2).
    A = qualify, B = watch. No PII in the URL; the lead lives in localStorage only. */
 window.aimlTrack = window.aimlTrack || function () {};
 var RELAY_URL = 'https://script.google.com/macros/s/AKfycbwO9zt_2BaYSeZCMaxsMSXs-_1q706mUN6icgtQ9ehVWrB1DmTbG0Sv3FgHjWrzQc3d/exec';
-var PAY_LINK = 'https://rzp.io/rzp/aimarketinglab-call';
 /* Reveal times in seconds. Set from the live VSL transcript (offers/accelerator/vsl/live-vsl-transcript-2026-10-01.json).
    0 = show at once (the "show everything" kill switch). */
 var REVEAL_SOFT = 435, PITCH = 466, CTA_SPOKEN = 471;
@@ -378,11 +377,6 @@ window.AIML = {
   }
 };
 
-/* Pay buttons: Razorpay chain unchanged. */
-document.querySelectorAll('.js-pay').forEach(function (b) {
-  b.href = PAY_LINK; b.rel = 'noopener';
-  b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); if (window.ph) ph('InitiateCheckout', { value: 999 }); });
-});
 
 /* Phone sticky bar: slides away while any other booking button is on screen (no two asks at once). */
 (function () {
@@ -521,7 +515,7 @@ document.addEventListener('keydown', function (e) {
         setTimeout(wait, 100); })(); }
     });
     if (window.ph) { phIdentify(em, { name: fn }); ph('Lead', { q1: ans.q1, q2: ans.q2 }); }
-    lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2, ok: true, fn: fn, ts: Date.now() }));
+    lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2, ok: true, fn: fn, em: em, ts: Date.now() }));   /* em prefills the /call calendar, so the booking matches this opt-in in the relay */
     if (PAGE === 'home') { var sb = form.querySelector('[type=submit]'); sb.disabled = true; sb.textContent = 'Opening the training...'; return; }
     closeModal(); stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
   });

@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>The week you stop pushing, leads stop. | AI Marketing Lab</title>
+<meta name="description" content="For agency owners, high-ticket coaches and B2B founders with paying clients. Answer 2 questions, watch the video, then book a 45 minute call with Sandy." />
+<meta name="robots" content="noindex" />
+<link rel="canonical" href="https://aimarketinglabs.in/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aimarketinglabs.in/" />
+<meta property="og:title" content="The week you stop pushing, leads stop." />
+<meta property="og:description" content="Watch how I write each step down once. Claude Code drafts it, you approve it." />
+<meta property="og:image" content="https://aimarketinglabs.in/assets/og/call-og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml" />
+<meta name="theme-color" content="#FFFFFF" />
+<link rel="preload" href="../assets/fonts/spacemono-700-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
+<script>document.documentElement.classList.add('js')</script>
+<style>
+/* AIML /call v-final: DESIGN TOKENS + shared base. Every section partial uses ONLY these.
+   Brand (company.yaml, Sandy 1 Oct 2026): white ground, ink #121212, quiet #7E7E7E, paper #FAF7EE,
+   lines #E3E3E3, Space Mono 700 headings + ICP callout, Inter body, teal #00A19B the only accent
+   (one accent word/numeral per surface), brick #B4241A urgency ONLY, at most once on the page.
+
+   GRID   one 12-col grid inside .wrap (max 1120px content + gutter). Every section's content
+          starts on the .wrap left edge. Use .grid + .c-* spans; never add horizontal margin/padding
+          to a section's first-level children.
+   SPACE  4px scale --s1..--s10. No loose px for gap/padding/margin.
+   TYPE   9 steps, >=1.25 between headline steps.
+   MOTION --d-micro 200ms (hover/press), --d-ui 300ms (state change), --d-scene <= 6s (one section
+          scene, plays ONCE when in view, then holds its last frame). Anything >5s gets a .mo-pause
+          button. prefers-reduced-motion: render the FINISHED frame, no motion. Ease out expo only. */
+
+@font-face{font-family:'Inter';src:url('../assets/fonts/inter-latin.woff2') format('woff2');font-weight:400 900;font-display:swap}
+@font-face{font-family:'Space Mono';src:url('../assets/fonts/spacemono-400-latin.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Space Mono';src:url('../assets/fonts/spacemono-700-latin.woff2') format('woff2');font-weight:700;font-display:swap}
+/* v6 art direction (Sandy 5 Oct: "headline and subheadline need different fonts", premium page): section headlines
+   Bricolage Grotesque 800, body/sub Geist, Space Mono kept for numerals + labels. Self-hosted, OFL. */
+@font-face{font-family:'Bricolage Grotesque';src:url('../assets/fonts/bricolage-latin.woff2') format('woff2');font-weight:200 800;font-stretch:75% 100%;font-display:swap}
+@font-face{font-family:'Geist';src:url('../assets/fonts/geist-latin.woff2') format('woff2');font-weight:100 900;font-display:swap}
+
+:root{
+  /* colour */
+  --canvas:#FFFFFF;--ink:#121212;--body:#3A3A3A;
+  --quiet:#6B6B6B; /* text-safe quiet: brand #7E7E7E is 3.9:1 on white, under AA for 12-14px labels (live call page uses #6B6B6B) */
+  --quiet-line:#7E7E7E;--low:#AAAAAA;
+  --line:#E3E3E3;--surface:#F8F8F8;--elevated:#F2F2F2;
+  --paper:#FAF7EE;--paper-edge:#E5DECA;--paper-ink:#2A2A2A;
+  --accent:#00A19B;--accent-ink:#00736E;--accent-soft:rgba(0,161,155,.10);
+  --urgent:#B4241A;
+  --sans:'Geist','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'Space Mono','Courier New',monospace;
+  --head:'Bricolage Grotesque','Inter',system-ui,sans-serif;
+  /* v6 stage palette: every section's motion graphic sits on a petrol stage; teal is the light that moves */
+  --petrol:#0B2224;--petrol-2:#10302F;--petrol-line:rgba(160,230,225,.12);--on-petrol:#EAF5F4;--on-petrol-q:#8FB3B0;
+  --teal-hi:#3FE0D6;--brick-hi:#FF7A6E;
+  /* v6 type scale (sections use ONLY these) */
+  --t-h2:clamp(36px,calc(18px + 3vw),62px);--t-num:clamp(28px,calc(14px + 2vw),48px);--t-h3:clamp(20px,calc(17px + .5vw),26px);
+  --t-lg:clamp(18px,calc(16.5px + .35vw),21px);--t-body:16px;--t-sm:14px;--t-label:12px;
+
+  /* type scale */
+  --fs-h1:clamp(30px,4.4vw,52px);   /* screen H1 */
+  --fs-h2:clamp(26px,3.4vw,44px);   /* section H (v2, 2 Oct: 38px read small on 1440) */
+  --fs-callout:clamp(15px,1.7vw,22px); /* ICP callout, ~0.45 of H1 */
+  --fs-h3:20px;--fs-lg:18px;--fs-body:16px;--fs-sm:14px;--fs-label:12px;
+  --fs-num:clamp(28px,3.6vw,44px);  /* proof numerals */
+  --lh-tight:1.12;--lh-head:1.2;--lh-body:1.6;
+
+  /* spacing, 4px base */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
+
+  /* grid */
+  --max:1120px;--gutter:16px;--col-gap:var(--s4);--sec-pad:var(--s8);
+
+  /* shape + motion */
+  --r-sm:8px;--r:14px;--r-lg:20px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --d-micro:200ms;--d-ui:300ms;--d-scene:6s;
+}
+@media (min-width:768px){:root{--gutter:40px;--col-gap:var(--s5);--sec-pad:var(--s9)}}
+@media (min-width:1024px){:root{--fs-body:17px;--fs-lg:20px;--sec-pad:calc(var(--s8) + var(--s4))}}   /* v2: bigger reading text, 80px section rhythm */
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--ink);background:var(--canvas);-webkit-font-smoothing:antialiased}
+main{overflow-x:clip}
+img,video,svg,canvas{display:block;max-width:100%}
+a{color:inherit}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+/* grid */
+.wrap{max-width:calc(var(--max) + 2 * var(--gutter));margin:0 auto;padding-inline:var(--gutter)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col-gap);row-gap:var(--s6)}
+.grid>*{grid-column:1/-1;min-width:0}
+@media (min-width:1024px){
+  .c-1-6{grid-column:1/7}.c-7-12{grid-column:7/13}
+  .c-1-5{grid-column:1/6}.c-6-12{grid-column:6/13}
+  .c-1-7{grid-column:1/8}.c-8-12{grid-column:8/13}
+  .c-1-8{grid-column:1/9}.c-9-12{grid-column:9/13}
+  .c-1-4{grid-column:1/5}.c-5-8{grid-column:5/9}
+}
+.sec{padding-block:var(--sec-pad);border-top:1px solid var(--line)}
+
+/* type */
+h1,h2,h3,.callout,.num{font-family:var(--mono);font-weight:700;letter-spacing:-.02em}
+.sec h2{font-family:var(--head);font-weight:800;font-size:var(--t-h2);line-height:1;letter-spacing:-.035em}   /* v6: section headlines in Bricolage; the hero h1 keeps Space Mono */
+.sec h3{font-family:var(--head);font-weight:700;letter-spacing:-.02em}
+h1{font-size:var(--fs-h1);line-height:var(--lh-tight);text-wrap:balance;max-width:20ch}
+h2{font-size:var(--fs-h2);line-height:var(--lh-head);text-wrap:balance;max-width:24ch}
+h3{font-size:var(--fs-h3);line-height:1.3}
+.callout{font-size:var(--fs-callout);line-height:1.35;max-width:46ch;color:var(--ink)}
+.callout em{font-style:normal;color:var(--accent-ink)}
+.label{font-family:var(--mono);font-size:var(--fs-label);font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet)}
+.lede{font-size:var(--fs-lg);color:var(--body);max-width:56ch}
+.note{font-size:var(--fs-sm);color:var(--quiet);max-width:52ch}
+.num{font-size:var(--fs-num);line-height:1}
+.accent{color:var(--accent-ink)}
+.stack>*+*{margin-top:var(--s4)}
+.stack-lg>*+*{margin-top:var(--s6)}
+
+/* button */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s3);min-height:52px;padding:0 var(--s6);
+  font-family:var(--sans);font-weight:600;font-size:16px;letter-spacing:0;text-transform:none;text-decoration:none;   /* v6: every button = the approved pilot's (Geist 600, sentence case) */
+  color:#fff;background:var(--ink);border-radius:999px;transition:background-color var(--d-micro) var(--ease),transform var(--d-micro) var(--ease)}
+.btn:hover{background:#000}
+.btn:active{transform:translateY(1px)}
+.btn .price{color:#7FE3DE}
+.btn.nudge{animation:nudge 900ms var(--ease) 1}
+@keyframes nudge{30%{box-shadow:0 0 0 10px var(--accent-soft)}100%{box-shadow:0 0 0 0 transparent}}
+
+/* motion visuals: shared frame + pause control */
+.viz{position:relative;width:100%;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden}
+.mo-pause{position:absolute;right:var(--s3);bottom:var(--s3);z-index:3;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.92);border:1px solid var(--line);color:var(--ink)}
+.mo-pause svg{width:14px;height:14px}
+
+/* reveal gating (JS only; no-JS readers see everything) */
+html.js [data-reveal]:not(.on){display:none}
+html.js [data-reveal].on{animation:in var(--d-ui) var(--ease) both}
+@keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important;scroll-behavior:auto!important}
+}
+
+/* Shell: header, screen 1 (qualify only), screen 2 (player), footer. Tokens only. */
+.top{padding-block:var(--s5);display:flex;justify-content:center}
+.top img{height:22px;width:auto}
+.scr{padding-block:var(--s6) var(--s8)}
+html.js body[data-state="b"] #qualify{display:none}
+
+/* screen 1: uAbility's opt-in shape. One centred column: callout, promise, without-line, instruction, one button. */
+/* State A fills the first screen: grey band (uAbility's), content centred, footer below the fold. */
+body[data-state="a"]{background:var(--surface)}
+body[data-state="a"] footer{background:var(--canvas);margin-top:0}
+body[data-state="a"] #qualify{min-height:calc(100svh - 70px);display:grid;align-content:center;padding-block:var(--s6) var(--s10)}
+.one{display:grid;justify-items:center;text-align:center}
+#qualify .callout{max-width:40ch;font-size:var(--fs-callout);line-height:1.35}
+@media (min-width:1024px){#qualify .callout{max-width:none}}
+.nw{white-space:nowrap}
+#qualify h1{margin-top:var(--s4);font-size:clamp(23px,calc(10px + 2.3vw),36px);line-height:1.2;max-width:var(--max);text-wrap:balance}
+#qualify h1 em{font-style:normal;color:var(--accent-ink)}
+.without{margin-top:var(--s6);font-size:clamp(17px,1.4vw,20px);font-weight:500;line-height:1.45;color:var(--ink);max-width:46ch;text-wrap:balance}
+.instr{margin-top:var(--s7);font-size:var(--fs-body);color:var(--body);text-wrap:balance}
+.btn-big{margin-top:var(--s4);min-height:64px;min-width:300px;padding:0 var(--s8);font-size:var(--fs-body)}
+@media (max-width:480px){.btn-big{width:100%;min-width:0}.instr{margin-top:var(--s6)}#qualify h1{text-wrap:pretty}}
+
+/* the popup */
+.modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:var(--s4)}
+.modal-bg{position:absolute;inset:0;background:rgba(18,18,18,.55)}
+.modal-box{position:relative;width:min(560px,100%);max-height:calc(100dvh - 2 * var(--s4));overflow:auto;background:var(--canvas);border-radius:var(--r-lg);padding:var(--s7) var(--s5) var(--s5);box-shadow:0 var(--s5) var(--s8) rgba(18,18,18,.25)}
+@media (min-width:600px){.modal-box{padding:var(--s7) var(--s6) var(--s6)}}
+.modal-box h2{font-size:var(--fs-h3);max-width:none;margin-bottom:var(--s5);padding-right:var(--s7)}
+.modal-x{position:absolute;right:var(--s2);top:var(--s2);width:44px;height:44px;display:grid;place-items:center;border-radius:50%;color:var(--quiet)}
+.modal-x:hover{color:var(--ink);background:var(--surface)}
+.modal-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+body.modal-open{overflow:hidden}
+.qform{display:grid;gap:var(--s5)}
+.q{border:0;display:grid;gap:var(--s3)}
+.q[disabled]{display:none}
+.q-t{padding:0;margin-bottom:var(--s3);font-family:var(--mono);font-weight:700;font-size:var(--fs-h3);line-height:1.3}
+.chips{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.chips button{min-height:44px;padding:0 var(--s4);border:1px solid var(--line);border-radius:999px;font-size:var(--fs-sm);background:var(--canvas);
+  transition:border-color var(--d-micro) var(--ease),background-color var(--d-micro) var(--ease)}
+.chips button:hover{border-color:var(--ink)}
+.chips button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.q[disabled] .chips button{cursor:default}
+.fld{display:grid;gap:var(--s1)}
+.fld input{min-height:48px;padding:0 var(--s4);border:1px solid var(--line);border-radius:var(--r-sm);font:inherit;font-size:var(--fs-body);background:var(--canvas);color:var(--ink)}
+.fld input:focus{outline:none;border-color:var(--ink)}
+.fld input[aria-invalid="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)} /* 2px ink stroke, no layout shift; red is urgency only */
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.err{font-size:var(--fs-sm);color:var(--ink)}
+.btn-full{width:100%}
+.dq{display:grid;gap:var(--s4);padding:var(--s6);background:var(--paper);border:1px solid var(--paper-edge);border-radius:var(--r-lg)}
+.dq h2{font-size:var(--fs-h3)}
+.dq .lede{font-size:var(--fs-body)}
+
+/* screen 2: one ICP line above the player, only where it fits on one line */
+/* screen 2 head (LP-COPY-v2 "Screen 2"): ICP callout, why to watch, then the player. Centred like screen 1. */
+.whead{display:grid;justify-items:center;text-align:center;margin-bottom:var(--s6)}
+.whead h1{margin-top:var(--s3);font-family:var(--head);font-weight:800;font-size:clamp(40px,calc(20px + 3.6vw),72px);line-height:1;letter-spacing:-.035em;max-width:30ch}   /* 6 Oct (Sandy): the video page heading outranks every section h2 (--t-h2 tops out at 62px) */
+.whead .lede{margin-top:var(--s4);color:var(--body);font-size:var(--t-lg)}
+#watch{padding-bottom:var(--s7)}
+@media (max-width:767px){.whead{margin-bottom:var(--s5)}#watch{padding-bottom:var(--s5)}}
+@media (min-width:1024px){.whead{margin-bottom:var(--s5)}.whead .callout{max-width:none}#watch .player{width:100%;max-width:clamp(560px,calc((100svh - 432px) * 16 / 9),960px);justify-self:center;margin-inline:auto}}   /* whole player above a 900px fold */
+
+/* player (same behaviour as call/index.html) */
+.player{position:relative;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;background:var(--ink)}
+.player video{width:100%;height:100%;object-fit:cover}
+.vtap{position:absolute;inset:0;z-index:1}
+.play{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s3);padding-left:46%;background:linear-gradient(90deg,transparent 30%,rgba(18,18,18,.35));color:#fff}   /* 6 Oct: the button sits on the poster's dark right half, never on Sandy's face */
+.play i{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:var(--accent)}
+.play i svg{width:28px;height:28px;margin-left:4px}
+.play b{font-family:var(--mono);font-size:var(--fs-sm);letter-spacing:.04em;text-transform:uppercase}
+.vprog{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.18);z-index:3}
+.vprog i{display:block;height:100%;background:var(--accent);transform-origin:left;transform:scaleX(0)}
+
+/* sticky booking bar, phones only */
+.stick{display:none}
+@media (max-width:767px){
+  html.js .stick.on{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--gutter) calc(var(--s3) + env(safe-area-inset-bottom));background:var(--canvas);border-top:1px solid var(--line);transition:transform var(--d-ui) var(--ease)}
+  .stick .btn{flex:none;min-height:48px;padding:0 var(--s4);font-size:var(--fs-sm)}
+  .stick span{font-size:var(--fs-label);line-height:1.35;color:var(--body)}
+  html.js .stick.on.away{transform:translateY(110%);animation:none}   /* 6 Oct: the reveal animation (fill both) pinned transform, so the bar never left */
+  body:has(.stick.on){padding-bottom:76px}
+}
+footer{border-top:1px solid var(--line);padding-block:var(--s7);margin-top:var(--s8)}
+.frow{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:center;justify-content:space-between}
+.frow nav{display:flex;flex-wrap:wrap;gap:var(--s4);font-size:var(--fs-sm);color:var(--quiet)}
+.frow nav a{text-decoration:none}
+.legal{margin-top:var(--s4);font-size:var(--fs-label);color:var(--quiet);max-width:80ch}
+.qform .fine{font-size:var(--fs-label)}
+.frow nav a{display:inline-block;padding-block:var(--s3)}
+
+</style>
+<!-- sections are hidden until the video reveals them, so their CSS never blocks first paint -->
+<link rel="stylesheet" href="css/sections.css" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="css/sections.css" /></noscript>
+<script defer src="/assets/posthog.js"></script>
+</head>
+<body>
+<div class="wrap"><header class="top"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" /></header></div>
+<main>
+
+<!-- SCREEN 1: qualify (state A), uAbility's opt-in shape: one centred column, one button, the form in a popup. Hidden once a qualified lead exists. -->
+<section class="scr" id="qualify" aria-labelledby="q-h1">
+  <div class="wrap one">
+    <p class="callout">For agency owners, <span class="nw">high-ticket</span> coaches and B2B founders</p>
+    <h1 id="q-h1">The week you stop pushing, the leads stop. Here's the system I built so they don't.</h1>
+    <p class="without"><span class="nw">$220,000</span> in six months in India. You install the same system. First client in 90 days, or every rupee back.</p>
+    <p class="instr">Free <span class="nw">8-minute</span> training.</p>
+    <button class="btn btn-big" type="button" id="qopen">Answer 2 questions</button>
+  </div>
+</section>
+
+<!-- the popup: 2 tap questions, then name, email, WhatsApp -->
+<div class="modal" id="qmodal" hidden>
+  <div class="modal-bg" id="qmodal-bg"></div>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="qm-h" tabindex="-1">
+    <button class="modal-x" type="button" id="qclose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <h2 id="qm-h">2 questions, then the training.</h2>
+        <form class="qform" id="qform" novalidate>
+          <fieldset class="q" data-q="1">
+            <legend class="q-t">What do you run?</legend>
+            <div class="chips">
+              <button type="button" data-v="agency">Marketing agency</button>
+              <button type="button" data-v="coaching">High-ticket coaching</button>
+              <button type="button" data-v="b2b">B2B service business</button>
+              <button type="button" data-v="freelance" data-dq="1">I freelance</button>
+              <button type="button" data-v="planning" data-dq="1">Planning to start one</button>
+            </div>
+          </fieldset>
+          <fieldset class="q" data-q="2" disabled>
+            <legend class="q-t">Monthly revenue?</legend>
+            <div class="chips">
+              <button type="button" data-v="0" data-dq="1">Nothing yet</button>
+              <button type="button" data-v="lt1L">Under ₹1L</button>
+              <button type="button" data-v="1-3L">₹1L to ₹3L</button>
+              <button type="button" data-v="3-10L">₹3L to ₹10L</button>
+              <button type="button" data-v="10L+">₹10L+</button>
+            </div>
+          </fieldset>
+          <fieldset class="q" data-q="3" disabled>
+            <legend class="q-t">Where should I send it?</legend>
+            <label class="fld"><span class="label">First name</span><input name="fn" autocomplete="given-name" required /></label>
+            <label class="fld"><span class="label">Email</span><input name="em" type="email" autocomplete="email" inputmode="email" required /></label>
+            <label class="fld"><span class="label">WhatsApp</span><input name="ph" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+91" /></label>
+            <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
+            <p class="err" id="qerr" role="alert" hidden></p>
+            <button class="btn btn-full" type="submit">Watch now for free</button>
+            <p class="note fine">By submitting, you agree to receive email and WhatsApp messages from AI Marketing Lab, a ZippyScale brand, about this training and related programs. <a href="../privacy">Privacy</a></p>
+          </fieldset>
+        </form>
+        <div class="dq" id="dq" hidden tabindex="-1">
+          <h2>Not a fit yet.</h2>
+          <p class="lede">This needs a business with paying clients. I'd rather say so than take your ₹999.</p>
+          <p class="note">Free guides: <a href="https://instagram.com/sandymarketinglab" rel="noopener">@sandymarketinglab</a></p>
+        </div>
+  </div>
+</div>
+
+<!-- SCREEN 2: the video (state B): logo, one ICP line, the VSL, nothing else above the reveal -->
+<section class="scr" id="watch" data-reveal="watch" aria-labelledby="w-h1">
+  <div class="wrap">
+    <div class="grid">
+      <div class="whead">
+        <p class="callout">For agency owners, <span class="nw">high-ticket</span> coaches and B2B founders</p>
+        <h1 id="w-h1">Busy delivering this month. Nothing booked for next month.</h1>
+        <p class="lede">8 minutes on why it happens, and the system I run so it doesn't.</p>
+      </div>
+      <div class="player" id="player">
+        <video id="vsl" playsinline preload="none" poster="assets/still.jpg" controlslist="nodownload noplaybackrate" disablepictureinpicture controls><source src="../call/vsl/aiml-vsl.mp4" type="video/mp4" /></video>
+        <button class="vtap" type="button" id="vtap" aria-label="Pause or play the video" hidden></button>
+        <button class="play" type="button" id="play" aria-label="Play the video with sound" hidden><i><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></i><b id="play-l">Watch with sound</b></button>
+        <div class="vprog" aria-hidden="true"><i id="vbar"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-reveal="soft">
+<section id="s1" class="sec" aria-labelledby="s1-h">
+<!-- v6 pilot port (approved 5 Oct). business-motion-film ledger: /Users/sandy/proj/work/lp-dir/pilot/LEDGER.md -->
+  <div class="wrap">
+    <div class="s1-g">
+      <div>
+        <span class="lbl">The &#8377;999 call</span>
+        <h2 id="s1-h">Let me map your <em>business.</em></h2>
+        <p class="sub">45 minutes with me on where your clients leak. You'll leave knowing where it breaks and what I'd fix first.</p>
+        <div class="facts">
+          <div><b data-to="2017" data-plain>2017</b><span>Agency started in Vancouver</span></div>
+          <div><b class="acc" data-to="100" data-suf="+">100+</b><span>Businesses helped in Canada, the US and India</span></div>
+          <div><b data-to="220000" data-pre="$">$220,000</b><span>Collected from clients in 6 months in India</span></div>
+        </div>
+        <div class="cta">
+          <a class="btn js-pay js-nudge" href="#">Book my ₹999 call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <p class="cr"><b>₹999</b>, credited if you join.</p>
+        </div>
+      </div>
+
+      <div class="stage" id="s1-stage" role="img" aria-label="Example: one lead moves through a business. It is called back and asks for details, then nobody follows up for six days, so it leaks. The 45-minute call scans the business, locks onto follow-up and names the first fix: chase three times. The same lead replays with the fix, replies and is signed.">
+        <div class="st-hd"><span>Example: one lead</span><b id="s1-hdR">45-min map</b></div>
+        <div class="scene" id="s1-scene">
+          <svg class="rail" id="s1-rail" aria-hidden="true"><path class="r0" id="s1-r0"/><path class="r1" id="s1-r1"/><path class="r2" id="s1-r2"/></svg>
+          <div id="s1-stns"></div>
+          
+          <div class="lens" id="s1-lens"><span id="s1-lensl">45-MIN CALL</span></div><div class="stem" id="s1-stem"></div>
+          <div class="note" id="s1-note">Fix: chase 3x</div>
+          <div class="ticks" id="s1-ticks"><i>1</i><i>2</i><i>3</i></div>
+          <div class="stamp" id="s1-stamp"></div>
+          <div class="card" id="s1-card"><span class="dot" id="s1-cdot"></span><b>New enquiry</b><small id="s1-csub">from your ad</small></div>
+        </div>
+        
+      </div>
+    </div>
+
+    <p class="mq-k">Built for</p>
+    <div class="mq-w"><div class="mq" aria-label="Clients: Medico Construction, Scale Your Results, Rumor Avenue, Agent Lions Den, Jas Oberoi, Riarh Group, Celestial Luxury Resorts, Walk Again Rehab, Swathi Veldandi Studio">
+      <div class="mq-t" aria-hidden="true" id="s1-mq"></div>
+    </div></div>
+  </div>
+</section>
+
+</div>
+<div data-reveal="pitch">
+<section id="s1b" class="sec" aria-labelledby="s1b-h">
+  <div class="wrap"><div class="grid">
+    <div class="s1b-tx stack">
+      <p class="label">Who you'll be talking to</p>
+      <h2 id="s1b-h">I teach what I run</h2>
+      <p class="lede">I'm Sandy. Since 2017 I've run a marketing agency, ZippyScale, out of Vancouver. Our clients were in Canada and the US. This year I moved our operations to India.</p>
+      <p>We built every result by hand for clients first. Today the repeatable steps are skill files Claude Code runs. I still take every call myself.</p>
+    </div>
+
+    <dl class="s1b-led">
+      <div data-i="0"><i class="s1b-bar" aria-hidden="true"></i><dt class="num">2017</dt><dd>Agency started in Vancouver</dd></div>
+      <div data-i="1"><i class="s1b-bar" aria-hidden="true"></i><dt class="num">100+</dt><dd>Businesses helped in Canada, the US and India</dd></div>
+      <div data-i="2"><i class="s1b-bar" aria-hidden="true"></i><dt class="num">$220,000</dt><dd>Collected from clients in 6 months in India</dd></div>
+    </dl>
+
+    <div class="s1b-viz" id="s1b-stage" role="group" aria-label="A globe: an arc of light starts at Vancouver, lights client dots across Canada and the US, then crosses the Arctic to India, where client dots light and Sandy's teaching photo is linked to the India pin.">
+      <div class="s1b-globe" aria-hidden="true">
+        <img loading="lazy" class="s1b-still" src="assets/s1b-globe-still.webp" width="1000" height="1000" alt="" decoding="async" />
+        <canvas id="s1b-cv"></canvas>
+        <svg class="s1b-lead" id="s1b-lead"><path id="s1b-lp" /><circle id="s1b-lh" r="4" /></svg>
+        <span class="s1b-tag" id="s1b-tv">Vancouver</span>
+        <span class="s1b-tag" id="s1b-ti">India</span>
+      </div>
+      <figure class="s1b-ph" id="s1b-ph">
+        <img src="assets/s1b-teach-graded.webp" alt="Sandy at a whiteboard by a pool, teaching founders the 5 M's: money, market, model, manpower, metrics, split into sales and operations" width="1200" height="1200" loading="lazy" decoding="async" />
+        <figcaption>Teaching founders at Founder's House Bootcamp, India<span class="s1b-note" aria-hidden="true">Dots illustrative</span></figcaption>
+      </figure>
+    </div>
+  </div></div>
+</section>
+
+<section id="s3" class="sec" aria-labelledby="s3-h">
+  <div class="wrap"><div class="grid">
+    <div class="s3-hd">
+      <h2 id="s3-h">Write each step <span class="accent">once</span>.</h2>
+      <p class="lede s3-sub">Claude&nbsp;Code drafts it. You approve it.</p>
+    </div>
+    <figure class="s3-fig">
+      <div class="s3-stage" role="img" aria-label="Example. Claude Code terminal. The prompt reads: Read /Users/sandy/HQ/.claude/skills/hot-outreach/SKILL.md and the reference files it points to for email and research. Then write give-first first messages for 3 prospects: a Toronto agency owner running Meta ads, a high-ticket coach in Vancouver, a B2B services firm in Calgary. Under 80 words each, open-loop question at the end. Save to outreach-drafts.md here. Don't load any other skill and don't send anything. Claude Code reads 3 files, then writes outreach-drafts.md, 78 lines, headed Hot outreach drafts: first messages (NOT SENT). Three drafts appear, not sent: your Meta ad hooks, your apply button, your quote form, Tuesday. You press You approve and each draft is approved. One track runs through every marketing step. Upstream, getting clients in: Offer, Content, Cold email, LinkedIn, Ads, Landing page. Then a Yes gate. Downstream, after the yes: Fast callback, Follow-up, Sales call, Delivery, Reporting, Repeat buying, which loops back as buys again. Claude Code carries a skill file along the track and ticks off each step.">
+        <p class="s3-shd" aria-hidden="true"><span>Example</span><b>one skill file, every step</b></p>
+        <div class="s3-scene" aria-hidden="true">
+          <div class="s3-pa s3-pa-t">
+            <div class="s3-tw">
+              <p class="s3-tb"><b>Claude Code</b> v2.1.284 <span>Opus 5.5 · Claude Max</span></p>
+              <div class="s3-tx">
+                <div class="s3-dock"></div>
+                <p class="s3-pr"><i>❯</i><span>Read <em>/Users/sandy/HQ/.claude/skills/hot-outreach/SKILL.md</em> and the reference files it points to for email and research. Then write give-first first messages for 3 prospects: a Toronto agency owner running Meta ads, a high-ticket coach in Vancouver, a B2B services firm in Calgary. Under 80 words each, open-loop question at the end. Save to outreach-drafts.md here. Don't load any other skill and don't send anything.</span></p>
+                <p class="s3-ln s3-dim">Read 3 files (ctrl+o to expand)</p>
+                <p class="s3-ln"><i>⏺&#xFE0E;</i> Write(outreach-drafts.md)</p>
+                <p class="s3-ln s3-in">⎿&nbsp; Wrote 78 lines to outreach-drafts.md</p>
+                <p class="s3-ln s3-dim s3-in2">1 # Hot outreach drafts: first messages (NOT SENT)</p>
+              </div>
+            </div>
+          </div>
+          <div class="s3-pa s3-pa-d">
+            <div class="s3-dock2"></div>
+            <p class="s3-dl">outreach-drafts.md</p>
+            <div class="s3-list">
+              <i class="s3-sl"></i><i class="s3-sl"></i><i class="s3-sl"></i>
+              <div class="s3-dr" data-i="2"><p class="s3-dk">B2B services firm, Calgary</p><p class="s3-sj"><span>your quote form, Tuesday</span><b class="s3-pill"><i>Not sent</i><i>Approved</i></b></p></div>
+              <div class="s3-dr" data-i="1"><p class="s3-dk">High-ticket coach, Vancouver</p><p class="s3-sj"><span>your apply button</span><b class="s3-pill"><i>Not sent</i><i>Approved</i></b></p></div>
+              <div class="s3-dr" data-i="0"><p class="s3-dk">Toronto agency owner</p><p class="s3-sj"><span>your Meta ad hooks</span><b class="s3-pill"><i>Not sent</i><i>Approved</i></b></p></div>
+            </div>
+            <span class="s3-ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>You approve</span>
+          </div>
+          <div class="s3-pa s3-pa-l">
+            <svg class="s3-trk" aria-hidden="true"><path class="s3-t0"/><path class="s3-t1"/></svg>
+            <p class="s3-zl s3-zl-up">Upstream (getting clients in)</p>
+            <p class="s3-zl s3-zl-down">Downstream (after the yes)</p>
+            <ol class="s3-sts">
+              <li class="s3-st"><i></i><span>Offer</span></li>
+              <li class="s3-st"><i></i><span>Content</span></li>
+              <li class="s3-st"><i></i><span>Cold email</span></li>
+              <li class="s3-st"><i></i><span>LinkedIn</span></li>
+              <li class="s3-st"><i></i><span>Ads</span></li>
+              <li class="s3-st"><i></i><span>Landing page</span></li>
+              <li class="s3-st"><i></i><span>Fast callback</span></li>
+              <li class="s3-st"><i></i><span>Follow-up</span></li>
+              <li class="s3-st"><i></i><span>Sales call</span></li>
+              <li class="s3-st"><i></i><span>Delivery</span></li>
+              <li class="s3-st"><i></i><span>Reporting</span></li>
+              <li class="s3-st"><i></i><span>Repeat buying</span></li>
+            </ol>
+            <b class="s3-yes">Yes</b>
+            <b class="s3-again">buys again</b>
+            <i class="s3-lead"></i><i class="s3-bc"></i>
+            <p class="s3-now" aria-hidden="true"><span></span><b></b></p>
+          </div>
+          <div class="s3-card">
+            <p class="s3-ch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg><b>SKILL.md</b><span>skill file</span></p>
+            <p class="s3-c1">name: <b>hot-outreach</b></p>
+            <p class="s3-c2"><span class="s3-cq">give the fix away free in message one</span><span class="s3-cs"><i>drafting</i><i>approved</i></span></p>
+          </div>
+          <svg class="s3-ptr" viewBox="0 0 20 24" aria-hidden="true"><path d="M2 2l15 11-6.5 1.2L14 21.5l-3 1.3-3.4-7.3L2 19.8z"/></svg>
+        </div>
+      </div>
+      <figcaption class="s3-cap">Real Claude Code session, recorded 29 Sep 2026: the hot-outreach skill file writing three first messages.</figcaption>
+    </figure>
+  </div></div>
+</section>
+
+<section id="s6" class="sec" aria-labelledby="s6-h">
+  <div class="wrap"><div class="grid">
+    <div class="c-1-8 stack s6-hd">
+      <h2 id="s6-h">What they made. What they paid us.</h2>
+      <p class="lede">We built these by hand for clients first. Today the repeatable steps are skill files Claude Code runs.</p>
+    </div>
+
+    <div class="s6-car" id="s6-stage">
+      <div class="s6-tabs" role="tablist" aria-label="Client cases" hidden>
+        <button type="button" role="tab" class="s6-tab" id="s6-t0" aria-controls="s6-c0" data-i="0"><img src="assets/s6-medico-lp.webp" alt="" width="1440" height="900" loading="lazy" /><span>Medico Construction</span><i aria-hidden="true"></i></button>
+        <button type="button" role="tab" class="s6-tab" id="s6-t1" aria-controls="s6-c1" data-i="1"><img src="assets/s6-sami-funnel.webp" alt="" width="900" height="1033" loading="lazy" /><span>Scale Your Results</span><i aria-hidden="true"></i></button>
+        <button type="button" role="tab" class="s6-tab" id="s6-t2" aria-controls="s6-c2" data-i="2"><img src="assets/s6-rumor-site.webp" alt="" width="1600" height="900" loading="lazy" /><span>Rumor Avenue</span><i aria-hidden="true"></i></button>
+      </div>
+
+      <div class="ledger">
+        <article class="row" id="s6-c0" data-i="0" role="tabpanel" aria-labelledby="s6-t0">
+          <figure class="art">
+            <div class="box"><div class="win"><i class="chrome" aria-hidden="true"></i><div class="vp"><img src="assets/s6-medico-lp.webp" width="1440" height="900" loading="lazy" alt="Medico Construction landing page: headline 'Build your medical clinic with a team that specializes in healthcare' beside a six-step clinic enquiry form"></div></div></div>
+            <figcaption class="cap">Medico Construction landing page, built by us</figcaption>
+          </figure>
+          <div class="info">
+            <div class="txt"><h3 class="nm">Medico Construction</h3><p class="k">Built</p><p class="v">ads, AI calls on every enquiry</p></div>
+            <div class="money">
+              <div class="tops"><div class="pd"><p class="k">Paid us</p><p class="n" data-v="100" data-pre="~$" data-suf="k">~$100k</p></div><div class="md"><p class="k">Made</p><p class="n" data-v="6" data-from="0.1" data-min="1" data-pre="~$" data-suf="M" data-dec="1">~$6M</p></div></div>
+              <div class="mb mb-time" style="--w:.0167" aria-hidden="true"><b class="paid"></b><b class="made"></b><span class="ticks"></span></div>
+              <p class="c">contracted in 2 years</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="row" id="s6-c1" data-i="1" role="tabpanel" aria-labelledby="s6-t1">
+          <figure class="art">
+            <div class="box"><div class="win"><i class="chrome" aria-hidden="true"></i><div class="vp"><img src="assets/s6-sami-funnel.webp" width="900" height="1033" loading="lazy" alt="Scale Your Results funnel page: 'Get More Qualified Clients' headline, a Book a FREE Demo button and four agent testimonials"></div></div></div>
+            <figcaption class="cap">Funnel, built by us.</figcaption>
+          </figure>
+          <div class="info">
+            <div class="txt"><h3 class="nm">Scale Your Results</h3><p class="k">Built</p><p class="v">ads, funnel, qualification</p></div>
+            <div class="money">
+              <div class="tops"><div class="pd"><p class="k">Paid us once</p><p class="n" data-v="12" data-pre="~$" data-suf="k">~$12k</p></div><div class="md"><p class="k">Made</p><p class="n" data-v="85" data-from="12" data-pre="~$" data-suf="k">~$85k</p></div></div>
+              <div class="mb mb-ba" style="--w:.141;--b:.353" aria-hidden="true"><b class="paid"></b><b class="made"></b><b class="before"><em>Before us</em></b></div>
+              <p class="c">~$85k from $30k of ads. Before us, $20k of ads made ~$30k.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="row" id="s6-c2" data-i="2" role="tabpanel" aria-labelledby="s6-t2">
+          <figure class="art">
+            <div class="box"><div class="win"><i class="chrome" aria-hidden="true"></i><div class="vp"><img src="assets/s6-rumor-site.webp" width="1600" height="900" loading="lazy" alt="Rumor Avenue's website: the Rumor wordmark over a brick building facade with a 'One day...' billboard"></div></div></div>
+            <figcaption class="cap">Rumor Avenue's website (theirs). We ran their outreach.</figcaption>
+          </figure>
+          <div class="info">
+            <div class="txt"><h3 class="nm">Rumor Avenue</h3><p class="k">Built</p><p class="v">LinkedIn and email outreach</p></div>
+            <div class="money">
+              <div class="tops"><div class="pd"><p class="k">Setup fee</p><p class="n" data-v="5000" data-pre="$" data-sep="1">$5,000</p></div><div class="md"><p class="k">Made</p><p class="n" data-v="100" data-from="5" data-pre="$" data-suf="k" data-end="+">$100k+</p></div></div>
+              <div class="mb mb-mo" style="--w:.05" aria-hidden="true"><b class="paid"></b><b class="made"><i></i><i></i><i></i></b></div>
+              <p class="c">in ~3 months</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="s6-low">
+      <figure class="s6-sami">
+        <div class="vid-box"><video controls playsinline preload="none" data-poster="media/sami-testimonial-poster.jpg" src="media/sami-testimonial.mp4" aria-label="Sami, Scale Your Results, on video"></video></div>
+        <figcaption><span class="k">Scale Your Results</span>Video: Sami</figcaption>
+      </figure>
+
+      <div class="own" id="s6-own">
+        <p class="k">Our own offer</p>
+        <div class="field" aria-hidden="true"><canvas id="s6-cv"></canvas></div>
+        <div class="fr">
+          <p data-i="0"><b>300</b> leads</p><i class="ar" aria-hidden="true"></i>
+          <p data-i="1"><b>50</b> qualified</p><i class="ar" aria-hidden="true"></i>
+          <p data-i="2"><b class="acc">10+</b> closed at ₹1.5L</p>
+        </div>
+      </div>
+    </div>
+
+    <ul class="wall" aria-label="Also built for">
+      <li class="k wall-l">Also built for</li><li>Agent Lions Den</li><li>Jas Oberoi</li><li>Riarh Group</li><li>Celestial Luxury Resorts</li><li>Walk Again Rehab</li><li>Swathi Veldandi Studio</li>
+    </ul>
+  </div></div>
+</section>
+
+<section id="s4" class="sec" aria-labelledby="s4-h">
+  <div class="wrap"><div class="grid s4-grid">
+    <div class="s4-head c-1-7 stack">
+      <p class="label">The 21 Day Sprint</p>
+      <h2 id="s4-h">Built live, on your business</h2>
+    </div>
+    <p class="lede s4-lede c-8-12"><span class="accent">15</span> live sessions, weekdays 7 to 8:30 pm IST. Mon&nbsp;26&nbsp;Oct to demo day, Fri&nbsp;13&nbsp;Nov.</p>
+
+    <!-- v6 stage: CSS 3D. 15 session blocks build three floors, Mon to Fri; each Friday lands its outcome; a Demo day flag tops it.
+         The static markup below IS the finished frame (no JS, reduced motion). s4.js only modulates it from render(t). -->
+    <div class="s4-stage" id="s4-stage">
+      <p class="s4-tick" aria-hidden="true">Session <b id="s4-n">15</b> / 15</p>
+      <div class="s4-scene" role="img" aria-label="Fifteen blocks, one per live session, Monday to Friday, each carrying its date, build a three floor structure. Week 1, 26 to 30 October, is the ground floor; week 2, 2 to 6 November, the middle floor, where on Friday 6 November a stream of messages leaves, tagged 100 out; week 3, 9 to 13 November, the top floor, with a Demo day flag over Friday 13 November.">
+        <div class="s4-cam" id="s4-cam" aria-hidden="true">
+          <i class="s4-plate"></i>
+          <i class="s4-box" style="--d:0;--f:0"><i class="s4-fr"><b>26</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box" style="--d:1;--f:0"><i class="s4-fr"><b>27</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box" style="--d:2;--f:0"><i class="s4-fr"><b>28</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box" style="--d:3;--f:0"><i class="s4-fr"><b>29</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box s4-fri" style="--d:4;--f:0"><i class="s4-fr"><b>30</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box" style="--d:0;--f:1"><i class="s4-fr"><b>2</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box" style="--d:1;--f:1"><i class="s4-fr"><b>3</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box" style="--d:2;--f:1"><i class="s4-fr"><b>4</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box" style="--d:3;--f:1"><i class="s4-fr"><b>5</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box s4-fri" style="--d:4;--f:1"><i class="s4-fr"><b>6</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box" style="--d:0;--f:2"><i class="s4-fr"><b>9</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box" style="--d:1;--f:2"><i class="s4-fr"><b>10</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box" style="--d:2;--f:2"><i class="s4-fr"><b>11</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box" style="--d:3;--f:2"><i class="s4-fr"><b>12</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <i class="s4-box s4-fri" style="--d:4;--f:2"><i class="s4-fr"><b>13</b></i><i class="s4-tp"></i><i class="s4-rt"></i></i>
+          <!-- billboards: labels that stand in the 3D scene but always face the camera -->
+          <span class="s4-bb s4-wk" style="--f:0">Week <b>1</b><em>Oct</em></span>
+          <span class="s4-bb s4-wk" style="--f:1">Week <b>2</b><em>Nov</em></span>
+          <span class="s4-bb s4-wk" style="--f:2">Week <b>3</b><em>Nov</em></span>
+          <span class="s4-bb s4-day" style="--d:0">Mon</span><span class="s4-bb s4-day" style="--d:1">Tue</span><span class="s4-bb s4-day" style="--d:2">Wed</span><span class="s4-bb s4-day" style="--d:3">Thu</span><span class="s4-bb s4-day" style="--d:4">Fri</span>
+          <span class="s4-bb s4-flag" id="s4-flag"><i class="s4-pole"></i><span class="s4-pen">Demo day</span></span>
+          <span class="s4-bb s4-anc" style="--f:0"></span><span class="s4-bb s4-anc" style="--f:1"></span><span class="s4-bb s4-anc" style="--f:2"></span>
+        </div>
+      </div>
+      <svg class="s4-fx" id="s4-fx" aria-hidden="true"></svg>
+      <span class="s4-out" id="s4-out" aria-hidden="true">100 out</span>
+      <div class="s4-weeks">
+        <p class="on"><strong>Fri 30 Oct:</strong> offer, lead magnet and page built. Every enquiry gets caught.</p>
+        <p class="on"><strong>Fri 6 Nov:</strong> your first 100 messages go out.</p>
+        <p class="on"><strong>Fri 13 Nov:</strong> follow-up and sales call set. You show what you've booked.</p>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<section id="s5" class="sec" aria-labelledby="s5-h">
+  <div class="wrap"><div class="grid s5-grid">
+    <div class="c-1-7 stack s5-head">
+      <p class="label">The Accelerator</p>
+      <h2 id="s5-h">Eight weeks, one to one with me</h2>
+      <p class="lede">Clients paid us about $12k to $100k for these systems. I&nbsp;install them in yours.</p>
+      <p class="note">Plus every skill file, all 15 Sprint sessions, a handover pack for every system</p>
+    </div>
+
+    <div class="c-8-12 s5-seats">
+      <p class="s5-n">10 seats</p>
+      <svg class="s5-slots" viewBox="0 0 378 42" aria-hidden="true"><rect x="1" y="1" width="30" height="40" rx="15"/><rect x="39" y="1" width="30" height="40" rx="15"/><rect x="77" y="1" width="30" height="40" rx="15"/><rect x="115" y="1" width="30" height="40" rx="15"/><rect x="153" y="1" width="30" height="40" rx="15"/><rect x="191" y="1" width="30" height="40" rx="15"/><rect x="229" y="1" width="30" height="40" rx="15"/><rect x="267" y="1" width="30" height="40" rx="15"/><rect x="305" y="1" width="30" height="40" rx="15"/><rect x="343" y="1" width="30" height="40" rx="15"/></svg>
+      <p class="s5-why">I'm on every one of those calls, and I can't do more than ten properly.</p>
+    </div>
+
+    <figure class="s5-ph">
+      <img src="assets/s5-desk-colour.webp" alt="Sandy across the table from a client, explaining with both hands while the client listens" width="1920" height="1080" loading="lazy" decoding="async" />
+      <figcaption>Sandy, one to one with a client</figcaption>
+    </figure>
+
+    <!-- v6 stage (LIGHT): persistent rails. Upstream (weeks 1 to 4) runs high and steps down to Downstream (weeks 5 to 8); the 1:1
+         call marker travels them and installs each week's system as it passes. The markup is the finished frame (no JS, reduced motion). -->
+    <div class="s5-stage" id="s5-stage">
+      <svg class="s5-rails" id="s5-rails" aria-hidden="true"><defs><mask id="s5-mask" maskUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><path class="rm"/></mask></defs><path class="r0"/><path class="r1"/><path class="r2" mask="url(#s5-mask)"/></svg>
+      <div class="s5-rail">
+        <ol class="s5-grp s5-up">
+          <li class="s5-gh">Weeks 1 to 4 <b><i class="s5-hk" aria-hidden="true"></i>Upstream installed: getting clients in</b></li>
+          <li class="s5-wk"><em>1</em><i class="s5-nd" aria-hidden="true"></i><span>Teardown, offer</span></li>
+          <li class="s5-wk"><em>2</em><i class="s5-nd" aria-hidden="true"></i><span>Page, lead magnet, booking flow</span></li>
+          <li class="s5-wk"><em>3</em><i class="s5-nd" aria-hidden="true"></i><span>Outreach live</span></li>
+          <li class="s5-wk"><em>4</em><i class="s5-nd" aria-hidden="true"></i><span>Content, ads</span></li>
+        </ol>
+        <ol class="s5-grp s5-down" start="5">
+          <li class="s5-gh">Weeks 5 to 8 <b><i class="s5-hk" aria-hidden="true"></i>Downstream installed: after the yes</b></li>
+          <li class="s5-wk"><em>5</em><i class="s5-nd" aria-hidden="true"></i><span>Callback, follow&#8209;up</span></li>
+          <li class="s5-wk"><em>6</em><i class="s5-nd" aria-hidden="true"></i><span>Sales call, scripts</span></li>
+          <li class="s5-wk"><em>7</em><i class="s5-nd" aria-hidden="true"></i><span>Delivery, onboarding</span></li>
+          <li class="s5-wk"><em>8</em><i class="s5-nd" aria-hidden="true"></i><span>Reporting, repeat buying, handover</span></li>
+        </ol>
+      </div>
+      <span class="s5-mk" id="s5-mk" aria-hidden="true"><svg viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="12" rx="2"/><path d="M1.5 6.5h13M5 1v3M11 1v3"/></svg>1:1</span>
+    </div>
+
+  </div></div>
+</section>
+
+<section id="s5b" class="sec" aria-labelledby="s5b-h">
+  <div class="wrap"><div class="grid s5b-grid">
+    <div class="c-1-7 stack s5b-hd">
+      <p class="label">Sprint or Accelerator</p>
+      <h2 id="s5b-h">Two ways to install it</h2>
+    </div>
+    <!-- v6: a segmented control (s5b.js shows it; no JS / reduced motion = the plain full table). It moves a teal highlight
+         across the rows, one row after another; it never hides an answer. -->
+    <div class="s5b-seg c-8-12" id="s5b-seg" role="radiogroup" aria-label="Highlight a programme in the table" aria-controls="s5b-table" hidden>
+      <i class="s5b-pill" aria-hidden="true"></i>
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-p="0">Sprint</button>
+      <button type="button" role="radio" aria-checked="true" tabindex="0" data-p="1">Accelerator</button>
+    </div>
+    <div class="s5b-t" id="s5b-t">
+      <table id="s5b-table" aria-label="The 21 Day Sprint compared with the Accelerator">
+        <thead>
+          <tr><td></td><th scope="col" class="s5b-spr"><span class="s5b-tag">Sprint</span></th><th scope="col" class="s5b-acc"><span class="s5b-tag">Accelerator</span></th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Who builds it</th><td class="s5b-spr">You build it, live, after I show each step</td><td class="s5b-acc">I build it with you, on every call</td></tr>
+          <tr><th scope="row">Format</th><td class="s5b-spr">Group, live</td><td class="s5b-acc">One to one with me</td></tr>
+          <tr><th scope="row">Length</th><td class="s5b-spr">21 days, Mon 26 Oct to Fri 13 Nov</td><td class="s5b-acc">8 weeks</td></tr>
+          <tr><th scope="row">Live sessions</th><td class="s5b-spr">15, weekdays 7 to 8:30 pm IST</td><td class="s5b-acc">Booked on your calendar</td></tr>
+          <tr><th scope="row">1:1 with me</th><td class="s5b-spr">None, it's a group</td><td class="s5b-acc">Every call, all 8 weeks</td></tr>
+          <tr><th scope="row">Skill files</th><td class="s5b-spr">6 packs</td><td class="s5b-acc">All 13 packs</td></tr>
+          <tr><th scope="row">Recordings</th><td class="s5b-spr">Up the next morning</td><td class="s5b-acc">All 15 Sprint sessions</td></tr>
+          <tr class="s5b-last"><th scope="row">Seats</th><td class="s5b-spr">Open</td><td class="s5b-acc">10</td></tr>
+          <tr class="s5b-g"><th scope="row">Guarantee</th><td colspan="2">Both: first client in 90 days, or every rupee back</td></tr>
+        </tbody>
+      </table>
+      <div class="s5b-bands" id="s5b-bands" aria-hidden="true"></div>
+    </div>
+    <div class="s5b-cta"><a class="btn js-pay" href="#">Book my &#8377;999 call</a></div>
+  </div></div>
+</section>
+
+<section id="s2b" class="sec" aria-labelledby="s2b-h">
+  <div class="wrap"><div class="grid">
+    <div class="s2b-hd">
+      <h2 id="s2b-h">Thirteen skill packs. Yours to keep.</h2>
+      <p class="lede">The same files we run on client work.</p>
+    </div>
+    <div class="s2b-stage">
+      <ul class="s2b-key">
+        <li class="s2b-t0"><i></i>Free with the call</li>
+        <li class="s2b-t1"><i></i>Sprint adds</li>
+        <li class="s2b-t2"><i></i>Accelerator <span>all 13</span></li>
+      </ul>
+      <div class="s2b-table">
+        <div class="s2b-slots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <ol class="s2b-deck">
+          <li class="s2b-k s2b-t0"><b>00</b><span>Setup</span><em>Free</em></li>
+          <li class="s2b-k s2b-t0"><b>01</b><span>Offer</span><em>Free</em></li>
+          <li class="s2b-k s2b-t1"><b>02</b><span>Outreach</span><em>Sprint</em></li>
+          <li class="s2b-k s2b-t1"><b>03</b><span>Copy</span><em>Sprint</em></li>
+          <li class="s2b-k s2b-t1"><b>04</b><span>Landing page</span><em>Sprint</em></li>
+          <li class="s2b-k s2b-t2"><b>05</b><span>Ad design</span><em>Accelerator</em></li>
+          <li class="s2b-k s2b-t2"><b>06</b><span>Paid ads</span><em>Accelerator</em></li>
+          <li class="s2b-k s2b-t2"><b>07</b><span>Content</span><em>Accelerator</em></li>
+          <li class="s2b-k s2b-t2"><b>08</b><span>Video</span><em>Accelerator</em></li>
+          <li class="s2b-k s2b-t2"><b>09</b><span>Your numbers</span><em>Accelerator</em></li>
+          <li class="s2b-k s2b-t1"><b>10</b><span>Follow-up</span><em>Sprint</em></li>
+          <li class="s2b-k s2b-t2"><b>11</b><span>Client delivery</span><em>Accelerator</em></li>
+          <li class="s2b-k s2b-t2"><b>12</b><span>AI search</span><em>Accelerator</em></li>
+        </ol>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<section id="s7" class="sec" aria-labelledby="s7-h">
+  <div class="wrap"><div class="grid">
+    <div class="stack s7-copy">
+      <h2 id="s7-h">First client, or every rupee back</h2>
+      <p class="lede">Execute the progress sheet we share.</p>
+      <p class="s7-both">Both programs</p>
+    </div>
+    <!-- the stage: a white sheet-and-dial panel on the paper ground. Each ticked item sends a pulse to the 90-day dial
+         (one segment per item); at 5 of 5 the "Full refund" seal locks. render(t) in sections/s7.js. -->
+    <div class="s7-stage" id="s7-stage">
+      <div class="s7-scene" id="s7-scene">
+        <p class="s7-promise">No closed client in 90 days? <strong class="accent">Full refund.</strong></p>
+        <p class="s7-ex" aria-hidden="true">Example: your progress sheet</p>
+        <div class="s7-sheet" role="img" aria-label="The shared progress sheet: Offer, Lead magnet, Page, Booking flow and 100 messages out, each ticked from mapped to done. Each tick sends a pulse that fills one fifth of a 90-day dial; when all five are done the full refund guarantee locks.">
+          <ol class="s7-rows">
+            <li><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Offer</span><span class="s7-st"><span class="s7-was">mapped</span><span class="s7-done">done</span></span></li>
+            <li><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Lead magnet</span><span class="s7-st"><span class="s7-was">mapped</span><span class="s7-done">done</span></span></li>
+            <li><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Page</span><span class="s7-st"><span class="s7-was">mapped</span><span class="s7-done">done</span></span></li>
+            <li><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">Booking flow</span><span class="s7-st"><span class="s7-was">mapped</span><span class="s7-done">done</span></span></li>
+            <li><span class="s7-box"><svg viewBox="0 0 22 22"><path pathLength="1" d="M5.5 11.4l3.6 3.6 7.4-8"/></svg></span><span class="s7-step">100 messages out</span><span class="s7-st"><span class="s7-was">mapped</span><span class="s7-done">done</span></span></li>
+          </ol>
+        </div>
+        <div class="s7-gauge" aria-hidden="true">
+          <div class="s7-dial">
+            <svg viewBox="0 0 200 200"><g class="s7-trk"></g><g class="s7-arc"></g></svg>
+            <div class="s7-read"><b>90</b><span>days</span><em class="s7-cnt">5 of 5</em></div>
+          </div>
+          <div class="s7-seal">
+            <svg class="s7-lock" viewBox="0 0 24 24"><path class="s7-shk" d="M8 11V7.5a4 4 0 0 1 8 0V11"/><rect x="5" y="11" width="14" height="10" rx="2.5"/></svg>
+            <span class="s7-sl"><em>90 days</em>Full refund</span>
+          </div>
+        </div>
+        <svg class="s7-beam" aria-hidden="true"><path class="s7-bl"/><circle class="s7-dot" r="5"/></svg>
+      </div>
+    </div>
+    <div class="s7-cta"><a class="btn js-pay" href="#">Book my &#8377;999 call</a></div>
+  </div></div>
+</section>
+
+<section id="s8" class="sec" aria-labelledby="s8-h">
+  <div class="wrap"><div class="grid">
+    <div class="c-1-8 stack s8-hd">
+      <h2 id="s8-h">Not for starting from zero</h2>
+      <p class="lede">You need a business that already exists and an offer people already pay for.</p>
+    </div>
+    <!-- the stage: the six profiles (the real list items) go through one gate; JS positions them, without JS the two lists sit side by side -->
+    <div class="s8-stage" id="s8-stage">
+      <div class="s8-scene" id="s8-scene">
+        <div class="s8-gate" aria-hidden="true"><p class="s8-q">Offer people already pay for?</p></div>
+        <i class="s8-scan" aria-hidden="true"></i>
+        <b class="s8-vd" aria-hidden="true"></b>
+        <div class="s8-cmp">
+          <div class="s8-col s8-no">
+            <p class="s8-tag">This isn't for</p>
+            <ul>
+              <li>No paying clients yet</li>
+              <li>Freelancers after a first project</li>
+              <li>Coaches who aren't coaching yet</li>
+            </ul>
+          </div>
+          <div class="s8-col s8-yes">
+            <p class="s8-tag">This is for</p>
+            <ul>
+              <li>Agency owners with paying clients</li>
+              <li>High-ticket coaches already coaching</li>
+              <li>B2B founders with an offer that sells</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<section id="s9" class="sec" aria-labelledby="s9-h">
+  <div class="wrap"><div class="grid">
+    <div class="s9-hd"><h2 id="s9-h">Questions</h2><p class="s9-big" aria-hidden="true"><span>01</span></p></div>
+    <div class="faq s9-list">
+      <details open><summary><i aria-hidden="true">01</i><span>I'm not technical.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>You won't write code. The skill files are already written. I show the step, then you run it on yours.</p></div></div></details>
+      <details><summary><i aria-hidden="true">02</i><span>I need clients, not automation.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>That's why week two is all getting clients in. Your first 100 messages go out that Friday.</p></div></div></details>
+      <details><summary><i aria-hidden="true">03</i><span>I've bought courses and built nothing.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>That's why every session is live, on your own business.</p></div></div></details>
+      <details><summary><i aria-hidden="true">04</i><span>I don't have time.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>90 minutes, 15 evenings. Miss one and the recording's up next morning.</p></div></div></details>
+      <details><summary><i aria-hidden="true">05</i><span>My business is different.</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>Less different than you think. A construction firm, a rehab clinic, a couture studio, coaches, realtors and design agencies all had to get clients in and look after them.</p></div></div></details>
+      <details><summary><i aria-hidden="true">06</i><span>Why isn't the price here?</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>The right option depends on what you've already built. I'll tell you on the call.</p></div></div></details>
+      <details><summary><i aria-hidden="true">07</i><span>Why ₹999 for the call?</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>I take every call myself. It's credited if you join, and refunded if you cancel before it.</p></div></div></details>
+      <details><summary><i aria-hidden="true">08</i><span>Will I pay for tools?</span><b aria-hidden="true"></b></summary><div class="s9-a"><div><p>Yes. Domains, inboxes and a sending tool. You pay them directly.</p></div></div></details>
+    </div>
+  </div></div>
+</section>
+
+<section id="s10" class="sec" aria-labelledby="s10-h">
+  <div class="wrap"><div class="grid">
+    <!-- v2 (6 Oct): light ground, one paper call ticket. While its counter runs to 45:00, four tangled lines on the
+         ticket straighten into one route to a flag (a mess becoming a map); then the ₹999 stub tears off and rests.
+         render(t) in sections/s10.js. The button never moves or fades. -->
+    <h2 id="s10-h" class="s10-h">Map this to your business.</h2>
+    <p class="note s10-note">45 minutes with me.</p>
+    <div class="s10-tk" id="s10-tk" role="img" aria-label="A call ticket: in 45 minutes a tangle of lines straightens into one route to a flag, your business mapped. The ₹999 stub tears off: credited if you join.">
+      <div class="s10-body">
+        <div class="s10-lay"><div class="s10-time" aria-hidden="true"><b class="s10-clock">45:00</b><i class="s10-bar"><i></i></i></div>
+        <svg class="s10-map" viewBox="0 0 400 220" aria-hidden="true">
+          <g class="s10-tangle"><path/><path/><path/><path/></g>
+          <path class="s10-route" pathLength="1" d="M30 180C90 180 110 130 160 125C210 120 240 95 280 80C310 70 330 62 352 60"/>
+          <path class="s10-run" pathLength="1" d="M30 180C90 180 110 130 160 125C210 120 240 95 280 80C310 70 330 62 352 60"/>
+          <circle class="s10-start" cx="30" cy="180" r="7"/>
+          <g class="s10-flag" transform="translate(352 60)"><path class="s10-pole" d="M0 0V-44"/><path class="s10-pen" d="M1 -44H30L22 -35L30 -26H1Z"/><path class="s10-pen s10-on" d="M1 -44H30L22 -35L30 -26H1Z"/></g>
+        </svg></div>
+      </div>
+      <div class="s10-stub">
+        <b class="s10-price"><svg class="s10-rs" viewBox="0 0 22 32" aria-hidden="true"><path d="M3 4.5H19M3 11.5H19M3 4.5H8.5a6.5 6.5 0 0 1 0 13H3L15 30" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linejoin="round"/></svg>999</b>
+        <span class="s10-cr">credited if you join</span>
+      </div>
+    </div>
+    <div class="s10-cta"><a class="btn js-pay" href="#">Book my &#8377;999 call</a></div>
+  </div></div>
+</section>
+
+</div>
+</main>
+<footer><div class="wrap">
+  <div class="frow"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="125" height="18" /><nav><a href="../contact">Contact</a><a href="../privacy">Privacy</a><a href="../terms">Terms</a><a href="../refund">Refunds</a></nav></div>
+  <p class="legal">AI Marketing Lab is a brand of ZippyScale. Results vary and depend on the work you put in; <span data-reveal="pitch">the figures above are past client results, not a promise. </span>This site isn't part of Facebook or Meta Platforms, Inc., and isn't endorsed by Meta.</p>
+</div></footer>
+<!-- phone only: the booking button under the thumb once booking opens (soft reveal); hides while another booking button is on screen -->
+<div class="stick" data-reveal="soft"><a class="btn js-pay" href="#">Book my &#8377;999 call</a><span>45 min with Sandy. Credited if you join.</span></div>
+<script>
+/* AIML /call: one page, two states (FUNNEL-FLOW-SPEC-2026-10-01 §2).
+   A = qualify, B = watch. No PII in the URL; the lead lives in localStorage only. */
+window.aimlTrack = window.aimlTrack || function () {};
+var RELAY_URL = 'https://script.google.com/macros/s/AKfycbwO9zt_2BaYSeZCMaxsMSXs-_1q706mUN6icgtQ9ehVWrB1DmTbG0Sv3FgHjWrzQc3d/exec';
+var PAY_LINK = 'https://rzp.io/rzp/aimarketinglab-call';
+/* Reveal times in seconds. Set from the live VSL transcript (offers/accelerator/vsl/live-vsl-transcript-2026-10-01.json).
+   0 = show at once (the "show everything" kill switch). */
+var REVEAL_SOFT = 435, PITCH = 466, CTA_SPOKEN = 471;
+var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* Two pages, one funnel (Sandy, 2 Oct): 'home' = aimarketinglabs.in, the opt-in only; 'call' = /call, the training.
+   The form on home sends the lead to /call; /call without an opt-in sends the visitor back to home. utm/fbclid ride along. */
+var PAGE = 'call';
+/* `in=1` (no PII) carries the opt-in across too: Instagram's Android in-app browser can drop localStorage between pages, which looped people back to the form (Amith, 8 Oct). */
+function toTraining() { var q = new URLSearchParams(location.search); q.set('in', '1'); location.href = '/call/?' + q + location.hash; }
+
+function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function lsPut(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+/* Meta pixel loads after the first paint: on idle after load (3 s cap) or on the first tap/key, whichever comes first.
+   Anything that needs it (custom events, the Lead, utm/fbc for the beacon) waits for it, capped at 1.5 s. */
+var pixelP = null;
+function loadPixel() {
+  if (!pixelP) pixelP = new Promise(function (res) {
+    var s = document.createElement('script'); s.src = '../assets/meta-pixel.js'; s.onload = s.onerror = function () { res(); };
+    document.head.appendChild(s);
+  });
+  return pixelP;
+}
+function pixelReady(fn) {
+  var done = false; function go() { if (!done) { done = true; fn(); } }
+  loadPixel().then(go); setTimeout(go, 1500);
+}
+/* 2.5 s after load, not the first idle slot: fbevents.js + its config are ~700 ms of main thread on a throttled phone and
+   landed before the hero still painted (Lighthouse mobile LCP 4.6 s with the pixel, 2.4 s without, 2 Oct 2026). */
+addEventListener('load', function () { setTimeout(function () { if (window.requestIdleCallback) requestIdleCallback(loadPixel, { timeout: 2000 }); else loadPixel(); }, 2500); });
+['pointerdown', 'keydown', 'touchstart'].forEach(function (t) { addEventListener(t, loadPixel, { once: true, passive: true }); });
+function custom(ev, p) { if (window.ph) ph(ev, p); pixelReady(function () { if (window.fbq) fbq('trackCustom', ev, p || {}); }); }
+
+/* Shared helpers for section partials (js/sections.js). */
+window.AIML = {
+  REDUCE: REDUCE,
+  /* fn(root) runs ONCE, when root has been revealed and its top is 15% into the viewport (a 30% threshold never fired on
+     sections taller than ~3 viewports, e.g. s6 at 2,031px desktop / 3,294px mobile: BUGS-2026-10-02 #3). */
+  onView: function (root, fn) {
+    if (!root) return;
+    var done = false;
+    function go() { if (!done) { done = true; fn(root); } }
+    if (!('IntersectionObserver' in window)) return go();
+    new IntersectionObserver(function (es, io) {
+      es.forEach(function (e) { if (e.isIntersecting && e.target.offsetParent !== null) { io.disconnect(); go(); } });
+    }, { threshold: 0, rootMargin: '0px 0px -15% 0px' }).observe(root);
+  },
+  /* Adds the shared pause button to a .viz. ctl = {pause(), play()}. */
+  pauseBtn: function (viz, ctl) {
+    var b = document.createElement('button'), on = true;
+    var P = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+    var G = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>';
+    b.type = 'button'; b.className = 'mo-pause'; b.innerHTML = P; b.setAttribute('aria-label', 'Pause animation');
+    b.addEventListener('click', function () {
+      on = !on; if (on) ctl.play(); else ctl.pause();
+      b.innerHTML = on ? P : G; b.setAttribute('aria-label', on ? 'Pause animation' : 'Play animation');
+    });
+    viz.appendChild(b);
+    return b;
+  }
+};
+
+/* Pay buttons: Razorpay chain unchanged. */
+document.querySelectorAll('.js-pay').forEach(function (b) {
+  b.href = PAY_LINK; b.rel = 'noopener';
+  b.addEventListener('click', function () { aimlTrack('InitiateCheckout', { value: 999, currency: 'INR' }); if (window.ph) ph('InitiateCheckout', { value: 999 }); });
+});
+
+/* Phone sticky bar: slides away while any other booking button is on screen (no two asks at once). */
+(function () {
+  var bar = document.querySelector('.stick'); if (!bar || !('IntersectionObserver' in window)) return;
+  var seen = new Set();
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); });
+    bar.classList.toggle('away', seen.size > 0);
+  });
+  document.querySelectorAll('.js-pay').forEach(function (b) { if (!bar.contains(b)) io.observe(b); });
+  var pl = document.getElementById('player'); if (pl) io.observe(pl);   /* 6 Oct: never cover the video (it covered "Watch with sound" at 320) */
+})();
+
+/* ---- state + reveals ---- */
+var shown = {};
+function reveal(stage) {
+  if (shown[stage]) return; shown[stage] = true;
+  document.querySelectorAll('[data-reveal="' + stage + '"]').forEach(function (el) {
+    el.classList.add('on');
+    el.querySelectorAll('video[data-poster]').forEach(function (v) { v.poster = v.dataset.poster; });
+  });
+  document.dispatchEvent(new CustomEvent('aiml:reveal', { detail: { stage: stage } }));
+}
+function stateB() {
+  if (PAGE === 'home') return toTraining();
+  document.body.dataset.state = 'b';
+  reveal('watch');
+  if (lsGet('aiml_vsl_seen') === '1') { reveal('soft'); reveal('pitch'); }
+  if (REVEAL_SOFT === 0) reveal('soft');
+  if (PITCH === 0) reveal('pitch');
+}
+function stateDQ() {
+  document.body.dataset.state = 'dq';
+  document.getElementById('qform').hidden = true;
+  var d = document.getElementById('dq'); d.hidden = false;
+  openModal(); d.focus();
+}
+
+/* ---- the popup: Get started opens it; Esc, the backdrop or the cross close it; Tab stays inside ---- */
+var modal = document.getElementById('qmodal'), modalBox = modal.querySelector('.modal-box'), opener = document.getElementById('qopen');
+function focusables() { return [].filter.call(modalBox.querySelectorAll('button:not([disabled]),input:not([disabled]),a[href],[tabindex="-1"]'), function (e) { return e.offsetParent !== null && !e.closest('.hp'); }); }
+function openModal() {
+  if (!modal.hidden) return;
+  modal.hidden = false; document.body.classList.add('modal-open');
+  var f = focusables().filter(function (e) { return e.tabIndex >= 0; }); (f[1] || f[0] || modalBox).focus({ preventScroll: true });   /* f[0] is the close cross */
+}
+function closeModal() {
+  if (modal.hidden) return;
+  modal.hidden = true; document.body.classList.remove('modal-open');
+  if (document.body.dataset.state === 'a') opener.focus();
+}
+opener.addEventListener('click', function () { custom('QualifyOpen'); openModal(); });
+document.getElementById('qclose').addEventListener('click', closeModal);
+document.getElementById('qmodal-bg').addEventListener('click', closeModal);
+document.addEventListener('keydown', function (e) {
+  if (modal.hidden) return;
+  if (e.key === 'Escape') { e.preventDefault(); return closeModal(); }
+  if (e.key !== 'Tab') return;
+  var f = focusables().filter(function (x) { return x.tabIndex >= 0; }); if (!f.length) return;
+  var first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && (document.activeElement === first || !modalBox.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && (document.activeElement === last || !modalBox.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+});
+
+/* ---- screen 1: qualify ---- */
+(function () {
+  var form = document.getElementById('qform'), err = document.getElementById('qerr');
+  var lead = null; try { lead = JSON.parse(lsGet('aiml_lead') || 'null'); } catch (e) {}
+  if (PAGE === 'call' && !(lead && lead.ok) && new URLSearchParams(location.search).get('in') === '1') {   /* ponytail: a shared ?in=1 link skips the form; the training is free, so that is fine */
+    lead = { ok: true, ts: Date.now() }; lsPut('aiml_lead', JSON.stringify(lead)); }
+  if (PAGE === 'call' && !(lead && lead.ok)) return location.replace('/' + location.search + location.hash);
+  if (lead && lead.ok) return stateB();
+  if (lead && lead.ok === false) return stateDQ();
+  document.body.dataset.state = 'a';
+  var ans = {}, dq = null;
+
+  form.querySelectorAll('.q[data-q="1"], .q[data-q="2"]').forEach(function (fs) {
+    var n = fs.dataset.q;
+    fs.querySelectorAll('.chips button').forEach(function (b) {
+      b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', function () {
+        fs.querySelectorAll('.chips button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        ans['q' + n] = b.dataset.v;
+        custom('QualifyStep', { step: Number(n), answer: b.dataset.v });
+        if (b.dataset.dq) { dq = 'q' + n + ':' + b.dataset.v; return finishDQ(); }
+        var next = form.querySelector('.q[data-q="' + (+n + 1) + '"]');
+        next.disabled = false;
+        var first = next.querySelector('button, input'); if (first) first.focus({ preventScroll: true });
+      });
+    });
+  });
+
+  function finishDQ() {
+    custom('Disqualified', { reason: dq });
+    pixelReady(function () { var row = base(); row.ok = false; row.reason = dq; send(row); });
+    lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2 || '', ok: false, ts: Date.now() }));
+    stateDQ();
+  }
+
+  function base() {
+    var a = (window.aimlAttr && aimlAttr()) || {};
+    return { q1: ans.q1 || '', q2: ans.q2 || '', utm_source: a.utm_source || '', utm_medium: a.utm_medium || '', utm_campaign: a.utm_campaign || '',
+      utm_content: a.utm_content || '', utm_term: a.utm_term || '', fbclid: a.fbclid || '', fbc: a.fbc || '', fbp: a.fbp || '',
+      page: location.origin + location.pathname, user_agent: navigator.userAgent };
+  }
+  function send(row) {
+    if (!RELAY_URL || !navigator.sendBeacon) return;
+    try { navigator.sendBeacon(RELAY_URL + '?src=lead', new Blob([JSON.stringify(row)], { type: 'text/plain' })); } catch (e) {}
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = form.elements, bad = null;
+    var fn = f.fn.value.trim(), em = f.em.value.trim().toLowerCase(), ph = f.ph.value.replace(/[^\d+]/g, '');
+    var phd = ph.replace(/\D/g, '').replace(/^0+/, ''); if (phd.length === 10) phd = '91' + phd;   /* India default, matches the relay's phone_() */
+    [f.fn, f.em, f.ph].forEach(function (i) { i.removeAttribute('aria-invalid'); i.removeAttribute('aria-describedby'); });
+    if (!fn) bad = [f.fn, 'Add your first name.'];
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) bad = [f.em, 'That email looks off.'];
+    else if (ph.replace(/\D/g, '').length < 10) bad = [f.ph, 'Add your WhatsApp number with the country code.'];
+    /* the message sits directly under the field it is about */
+    if (bad) { bad[0].setAttribute('aria-invalid', 'true'); bad[0].setAttribute('aria-describedby', 'qerr'); bad[0].parentNode.after(err); err.textContent = bad[1]; err.hidden = false; bad[0].focus(); return; }
+    err.hidden = true;
+    if (f.company.value) { closeModal(); return stateB(); }   /* honeypot: bots see the video, nothing is sent */
+    var id = 'lead_' + (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '_' + Math.random().toString(36).slice(2));
+    pixelReady(function () {                                   /* same event_id in the beacon (CAPI) and the pixel = Meta dedups */
+      var row = base(); row.ok = true; row.first_name = fn; row.email = em; row.whatsapp = ph; row.event_id = id;
+      send(row);
+      if (window.fbq && typeof META_PIXEL_ID !== 'undefined' && META_PIXEL_ID) {
+        fbq('init', META_PIXEL_ID, { em: em, fn: fn.toLowerCase(), ph: phd });   /* advanced matching, pixel hashes */
+        fbq('track', 'Lead', { content_name: 'AIML VSL optin' }, { eventID: id });
+      }
+      /* leave only after the Lead is on its way: the stub only queues it until fbevents.js has loaded (fbq.callMethod),
+         and a queue dies with the page. Wait for the real pixel, 3 s cap, then 400 ms for the request to go. */
+      if (PAGE === 'home') { var t0 = Date.now(); (function wait() {
+        if ((window.fbq && window.fbq.callMethod) || Date.now() - t0 > 3000) return setTimeout(toTraining, 400);
+        setTimeout(wait, 100); })(); }
+    });
+    if (window.ph) { phIdentify(em, { name: fn }); ph('Lead', { q1: ans.q1, q2: ans.q2 }); }
+    lsPut('aiml_lead', JSON.stringify({ q1: ans.q1, q2: ans.q2, ok: true, fn: fn, ts: Date.now() }));
+    if (PAGE === 'home') { var sb = form.querySelector('[type=submit]'); sb.disabled = true; sb.textContent = 'Opening the training...'; return; }
+    closeModal(); stateB(); document.getElementById('watch').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
+  });
+})();
+
+/* ---- screen 2: smart player (from call/index.html): nothing loads until tap, no seek ahead, resume ---- */
+(function () {
+  var v = document.getElementById('vsl'), HLS = '../call/vsl/hls/master.m3u8', MP4 = '../call/vsl/aiml-vsl.mp4';
+  var play = document.getElementById('play'), playL = document.getElementById('play-l'), tap = document.getElementById('vtap');
+  var bar = document.getElementById('vbar');
+  if (!v) return;   /* home carries no player */
+  var KT = 'aiml_vsl_t', saved = parseFloat(lsGet(KT)) || 0, live = false, max = 0, half = false, nudged = false;
+  v.controls = false; play.hidden = false;
+  if (saved > 10) playL.textContent = 'Continue where you left off';
+
+  function load(cb) {
+    if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = HLS; return cb(); }
+    var s = document.createElement('script');
+    s.src = '../assets/vendor/hls.light.min.js';
+    s.onload = function () {
+      if (window.Hls && window.Hls.isSupported()) { var h = new window.Hls({ capLevelToPlayerSize: false, startLevel: 0, abrEwmaDefaultEstimate: 8000000 });   /* Sandy 5 Oct "it's not HD": start on the 1080p rung (index 0 in master.m3u8), never cap to the player's CSS size */ h.loadSource(HLS); h.attachMedia(v); }
+      else v.src = MP4;
+      cb();
+    };
+    s.onerror = function () { v.src = MP4; cb(); };
+    document.head.appendChild(s);
+  }
+  play.addEventListener('click', function () {
+    play.hidden = true; tap.hidden = false; live = true;
+    load(function () {
+      var start = saved > 10 ? saved : 0; max = start;
+      if (start) v.addEventListener('loadedmetadata', function () { v.currentTime = start; }, { once: true });
+      v.play().catch(function () {});
+    });
+  });
+  tap.addEventListener('click', function () { if (v.paused) v.play(); else v.pause(); });
+  v.addEventListener('seeking', function () { if (live && v.currentTime > max + 1) v.currentTime = max; });
+  v.addEventListener('timeupdate', function () {
+    var t = v.currentTime, d = v.duration || 0;
+    if (!d || !live) return;
+    bar.style.transform = 'scaleX(' + (1 - Math.pow(1 - t / d, 2.5)).toFixed(4) + ')';
+    if (!v.seeking && t > max) max = t;
+    if (Math.floor(t) % 2 === 0) lsPut(KT, String(Math.floor(t)));
+    if (!shown.soft && t >= REVEAL_SOFT) { reveal('soft'); custom('VSLSoftCTA'); }
+    if (!shown.pitch && t >= PITCH) { reveal('pitch'); custom('VSLPitch'); lsPut('aiml_vsl_seen', '1'); }
+    if (!nudged && t >= CTA_SPOKEN) { nudged = true; document.querySelectorAll('.js-nudge').forEach(function (b) { b.classList.remove('nudge'); void b.offsetWidth; b.classList.add('nudge'); }); }
+    if (!half && t / d >= 0.5) { half = true; aimlTrack('ViewContent', { content_name: 'AIML VSL 50%' }); if (window.ph) ph('VSL50'); }
+  });
+  v.addEventListener('ended', function () { lsPut(KT, '0'); lsPut('aiml_vsl_seen', '1'); reveal('soft'); reveal('pitch'); });
+})();
+
+/* Clarity after idle, as on call/index.html. */
+addEventListener('load', function () { setTimeout(function () {
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xgp3y420au");
+}, 3000); });
+
+</script>
+<script>/* section scenes start only after reveal, so their script waits for load and never delays the first paint */
+addEventListener('load', function () { var s = document.createElement('script'); s.src = 'js/sections.js'; document.body.appendChild(s); });</script>
+</body>
+</html>

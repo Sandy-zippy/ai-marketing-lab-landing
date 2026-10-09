@@ -39,7 +39,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for f in index.html call/index.html; do if ! grep -q "PAY_LINK = 'https://rzp.io/" $f; then echo "BLOCKED: no Razorpay PAY_LINK in $f"; exit 1; fi; done
+          # Since 9 Oct 2026 the call is free (Sandy): /call books Cal.com inline, nothing on the funnel takes payment.
+          for f in index.html call/index.html call/booked.html; do if grep -qE "rzp\.io|PAY_LINK|Your ₹999|₹999 is in|Book my" $f; then echo "BLOCKED: paid-call wiring left in $f"; exit 1; fi; done
+          grep -q "sandy-kadyan/ai-growth-audit" call/index.html || { echo "BLOCKED: /call has no booking calendar"; exit 1; }
+          grep -q "location.replace('/'" call/index.html || { echo "BLOCKED: /call lost its opt-in gate"; exit 1; }
           if grep -q 'const META_PIXEL_ID = ""' assets/meta-pixel.js; then echo "BLOCKED: META_PIXEL_ID is empty in assets/meta-pixel.js"; exit 1; fi
           test -s call/vsl/aiml-vsl.mp4 || { echo "BLOCKED: call/vsl/aiml-vsl.mp4 missing"; exit 1; }
           test -s call/vsl/hls/master.m3u8 || { echo "BLOCKED: call/vsl/hls/master.m3u8 missing"; exit 1; }
@@ -106,6 +109,9 @@ jobs:
           # /call is built from design-directions/v-final (python3 build.py --root ../ --out ../../call/index.html).
           # Its page-local files live in that folder; copy each folder whole, they hold only what the page uses.
           cp -R design-directions/v-final/assets design-directions/v-final/css design-directions/v-final/js design-directions/v-final/media _site/call/
+          # Since 9 Oct 2026 call/index.html is built by v2.1/build.py (free call). Its own media + the HD playlist with the no-₹999 tail.
+          cp v2.1/media/vsl-loop.mp4 v2.1/media/vsl-poster.jpg v2.1/media/sandy-teach.webp _site/call/media/
+          cp v2.1/vsl/hd.m3u8 v2.1/vsl/v1080.m3u8 v2.1/vsl/tail_000.ts v2.1/vsl/tail_001.ts v2.1/vsl/tail_002.ts v2.1/vsl/tail_003.ts v2.1/vsl/tail_004.ts v2.1/vsl/tail_005.ts _site/call/vsl/
           # /v2: review build of the Sabri-structure page (Sandy, 9 Oct 2026). Free call, HD VSL. Not linked, noindex.
           mkdir -p _site/v2/media
           cp v2/index.html v2/hd.m3u8 _site/v2/

@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Proto C: kinetic type</title>
+<link rel="stylesheet" href="base.css">
+<style>
+/* Kinetic type + diagram: a seesaw. "You" can stand on CHASE or DELIVER, never both. Where you stand, that month fills. */
+.stage{aspect-ratio:16/9}
+svg{position:absolute;inset:0;width:100%;height:100%}
+.w{font:700 64px var(--mono);letter-spacing:-.02em}
+.l{font:400 14px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:#8FB3B0}
+.cap{position:absolute;left:0;right:0;top:20px;text-align:center;font-size:14px}
+</style></head><body>
+<h2>Busy this month. Nothing booked for next month?</h2>
+<div class="stage" id="sw"><p class="cap">You: chasing.</p>
+<svg viewBox="0 0 1600 900">
+ <g id="beam"><rect x="300" y="590" width="1000" height="14" rx="7" fill="#3FE0D6"/>
+  <text class="w" id="tc" x="420" y="560" text-anchor="middle" fill="#EAF5F4">CHASE</text>
+  <text class="w" id="td" x="1180" y="560" text-anchor="middle" fill="#3b5a58">DELIVER</text>
+  <circle id="you" cx="420" cy="572" r="18" fill="#fff"/></g>
+ <path d="M770 700L800 610L830 700Z" fill="#8FB3B0"/>
+ <text class="l" x="420" y="780" text-anchor="middle">This month: <tspan id="n0" fill="#EAF5F4" font-weight="700">0</tspan> booked</text>
+ <text class="l" x="1180" y="780" text-anchor="middle">Next month: <tspan id="n1" fill="#EAF5F4" font-weight="700">0</tspan> booked</text>
+ <path id="pl" d="M200 300C350 300 380 160 500 160S700 300 800 300H1250C1320 300 1360 200 1400 180" fill="none" stroke="#3FE0D6" stroke-width="4" stroke-dasharray="1500" stroke-dashoffset="1500"/>
+ <text class="l" x="200" y="280">Your pipeline</text>
+</svg></div>
+<script>
+var beam = document.getElementById('beam'), you = document.getElementById('you'), cap = document.querySelector('.cap'), n0 = document.getElementById('n0'), n1 = document.getElementById('n1'), pl = document.getElementById('pl'), tc = document.getElementById('tc'), td = document.getElementById('td');
+function w(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+function tilt(d) { beam.style.transition = 'transform 1s cubic-bezier(.16,1,.3,1)'; beam.style.transformOrigin = '800px 597px'; beam.style.transform = 'rotate(' + d + 'deg)'; }
+(async function run() { for (;;) {
+  n0.textContent = 0; n1.setAttribute('fill', '#EAF5F4'); you.setAttribute('cx', 420); tc.setAttribute('fill', '#EAF5F4'); td.setAttribute('fill', '#3b5a58');
+  pl.style.transition = 'none'; pl.style.strokeDashoffset = 1500; pl.getBoundingClientRect(); pl.style.transition = 'stroke-dashoffset 2.4s linear';
+  cap.textContent = 'You: chasing. DMs, follow-ups, posts.'; tilt(-8); pl.style.strokeDashoffset = 1000;
+  for (var i = 1; i <= 8; i++) { await w(240); n0.textContent = i; }
+  cap.textContent = 'Clients sign. You deliver.'; you.style.transition = 'cx 1s'; you.setAttribute('cx', 1180); tilt(8); tc.setAttribute('fill', '#3b5a58'); td.setAttribute('fill', '#EAF5F4'); pl.style.strokeDashoffset = 600;
+  await w(2000); cap.textContent = 'Four weeks later: next month is empty.'; n1.setAttribute('fill', '#FF7A6E'); pl.style.strokeDashoffset = 200; await w(2200);
+  cap.textContent = 'Back to chasing.'; you.setAttribute('cx', 420); tilt(-8); pl.style.strokeDashoffset = 0; await w(2200);
+} })();
+</script></body></html>

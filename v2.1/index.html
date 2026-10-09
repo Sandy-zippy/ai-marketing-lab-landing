@@ -385,68 +385,44 @@ footer .legal{margin-inline:auto;text-align:center}
 
 /* v2.1 scenes for the problem and why sections (Sandy 9 Oct: new motion, never the VSL clips). Petrol stage like the v1 scenes. */
 .vh21{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.mo21{position:relative;max-width:860px;margin:var(--s6) auto 0;padding:var(--s5) var(--s5) var(--s6);border-radius:var(--r-lg);background:var(--petrol);color:var(--on-petrol);text-align:left;font-family:var(--mono)}
-.mo-st{display:flex;align-items:center;justify-content:center;gap:var(--s2);min-height:24px;font-size:var(--fs-sm);color:var(--on-petrol);text-align:center}
+.mo21{position:relative;max-width:960px;margin:var(--s6) auto 0;border-radius:28px;overflow:hidden;color:var(--on-petrol);text-align:left;font-family:var(--mono);
+  background:radial-gradient(120% 90% at 50% 40%,var(--petrol-2),var(--petrol) 72%);box-shadow:0 40px 80px -40px rgba(11,34,36,.55)}
+.mo21::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,var(--petrol-line) 1px,transparent 1px) 0 0/32px 32px;
+  -webkit-mask:radial-gradient(70% 70% at 50% 55%,#000,transparent);mask:radial-gradient(70% 70% at 50% 55%,#000,transparent)}
+.mo-st{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:var(--s2);min-height:24px;padding:var(--s5) 56px 0;font-size:var(--fs-sm);line-height:1.5;color:var(--on-petrol);text-align:center}
 .mo-st i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--teal-hi);box-shadow:0 0 0 4px rgba(63,224,214,.15)}
 .mo-st.warn i{background:var(--brick-hi);box-shadow:0 0 0 4px rgba(255,122,110,.15)}
-.mo21 .mo-pause{top:var(--s3);bottom:auto;right:var(--s3)}
-
-.sw-ms{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5);margin-top:var(--s5)}
-.sw-m{padding:var(--s3);border:1px solid var(--petrol-line);border-radius:var(--r);transition:border-color var(--d-ui),box-shadow var(--d-ui)}
-.sw-h{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s2);font-size:var(--fs-label);text-transform:uppercase;letter-spacing:.06em;color:var(--on-petrol-q)}
-.sw-h b{font-weight:400;white-space:nowrap}
-.sw-h em{font-style:normal;font-weight:700;font-size:var(--t-h3);color:var(--on-petrol);letter-spacing:0}
-.sw-g{list-style:none;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:var(--s3)}
-.sw-g li{aspect-ratio:1;border-radius:4px;background:rgba(160,230,225,.06);transition:background 260ms var(--ease),transform 260ms var(--ease)}
-.sw-g li.x{visibility:hidden}
-.sw-g li.b{background:var(--teal-hi);transform:scale(1.08)}
-.sw-g li.d{background:var(--on-petrol-q);transform:none}
-.sw-next.empty{border-color:var(--brick-hi);box-shadow:0 0 0 4px rgba(255,122,110,.12)}
-.sw-next.empty .sw-h em{color:var(--brick-hi)}
-.sw-key{display:flex;justify-content:center;gap:var(--s5);margin-top:var(--s3);font-size:var(--fs-label);color:var(--on-petrol-q)}
-.sw-key span{display:flex;align-items:center;gap:6px}
-.sw-key i{width:10px;height:10px;border-radius:3px;background:var(--teal-hi)}
-.sw-key i.d{background:var(--on-petrol-q)}
-.sw-pipe{margin-top:var(--s5)}
-.sw-pipe p{font-size:var(--fs-label);text-transform:uppercase;letter-spacing:.06em;color:var(--on-petrol-q)}
-.sw-pipe svg{width:100%;height:72px;margin-top:var(--s2);overflow:visible}
-.sw-pipe path{fill:none;vector-effect:non-scaling-stroke}
-.sw-base{stroke:var(--petrol-line);stroke-width:1}
-.sw-line{stroke:var(--teal-hi);stroke-width:2.5;stroke-linejoin:round}
-.sw-rv{transition:width 1.6s linear}
+.mo21 .mo-pause{top:var(--s3);bottom:auto;right:var(--s3);z-index:3}
+.s3-v,.c3-v{position:relative}
+.s3-v{aspect-ratio:16/9}
+.c3-v{aspect-ratio:16/7}
+.st3 canvas{position:absolute;inset:0;width:100%;height:100%}
+.s3-tag,.c3-tag{position:absolute;left:0;top:0;z-index:1;white-space:nowrap;font-size:var(--fs-label);line-height:1.4;letter-spacing:.06em;text-transform:uppercase;color:var(--on-petrol-q)}
+.st3:not(.gl) .s3-tag,.st3:not(.gl) .c3-tag{visibility:hidden}
+.s3-tag{text-align:center;opacity:0}
+.s3-tag b{display:block;font-weight:400}
+.s3-tag em{font-style:normal;font-weight:700;font-size:var(--t-h3);letter-spacing:0;color:var(--on-petrol);transition:color var(--d-ui)}
+.s3-tag.hot em{color:var(--teal-hi)}
+.s3-tag.warn em{color:var(--brick-hi)}
+.c3-tag{display:grid;justify-items:center;gap:2px;transition:color var(--d-ui)}
+.c3-tag.on{color:var(--on-petrol)}
+.c3-tag em{font-style:normal;text-transform:none;letter-spacing:0;color:var(--brick-hi);opacity:0;transition:opacity var(--d-ui)}
+.c3-tag.brk em{opacity:1}
+.c3-vert .c3-tag{justify-items:start}
 
 .ch-k{color:var(--on-petrol-q)}
 .ch-f{font-weight:700;color:var(--on-petrol)}
-.ch-track{position:relative;margin-top:var(--s6)}
-.ch-ns{list-style:none;display:grid;grid-template-columns:repeat(6,1fr)}
-.ch-ns li{position:relative;display:grid;justify-items:center;gap:var(--s2);text-align:center;font-size:var(--fs-label);text-transform:uppercase;letter-spacing:.05em;color:var(--on-petrol-q)}
-.ch-ns li::before{content:"";position:absolute;top:10px;left:50%;width:100%;height:2px;background:var(--petrol-line);transition:background var(--d-ui)}
-.ch-ns li:last-child::before{display:none}
-.ch-ns i{position:relative;z-index:1;width:22px;height:22px;border-radius:50%;border:2px solid var(--on-petrol-q);background:var(--petrol);transition:border-color var(--d-ui),background var(--d-ui),box-shadow var(--d-ui)}
-.ch-ns em{min-height:2.6em;font-style:normal;text-transform:none;letter-spacing:0;color:var(--brick-hi);opacity:0;transition:opacity var(--d-ui)}
-.ch-ns li.fix{color:var(--on-petrol)}
-.ch-ns li.fix i{border-color:var(--teal-hi);background:var(--teal-hi);box-shadow:0 0 0 5px rgba(63,224,214,.15)}
-.ch-ns li.fix:has(+ li.fix)::before{background:var(--teal-hi)}
-.ch-ns li.brk i{border-color:var(--brick-hi);border-style:dashed;background:var(--petrol)}
-.ch-ns li.brk em{opacity:1}
-.ch-ns li.won i{box-shadow:0 0 0 9px rgba(63,224,214,.22)}
-.ch-dot{position:absolute;left:0;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fff;box-shadow:0 0 12px 2px rgba(255,255,255,.6);opacity:0;z-index:2}
-.ch-out{margin-top:var(--s4);text-align:center;font-size:var(--fs-sm);color:var(--on-petrol-q)}
+.ch-out{position:relative;z-index:2;padding:0 var(--s4) var(--s5);text-align:center;font-size:var(--fs-sm);color:var(--on-petrol-q)}
 .ch-out b{font-size:var(--t-h3);color:var(--on-petrol);transition:color var(--d-ui)}
 .ch-out.won b{color:var(--teal-hi)}
 .fails21 li{transition:border-color var(--d-ui),box-shadow var(--d-ui)}
 .fails21 li.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 @media (max-width:640px){
-  .mo21{padding:var(--s4) var(--s4) var(--s5)}
-  .mo-st{padding:0 40px;min-height:3em;line-height:1.5}
-  .sw-ms{gap:var(--s3)}
-  .sw-m{padding:var(--s2)}
-  .sw-h{flex-direction:column;align-items:center;gap:0}
-  .sw-g{gap:3px}
-  .ch-ns{grid-template-columns:1fr;row-gap:var(--s4);max-width:300px;margin-inline:auto}
-  .ch-ns li{grid-template-columns:22px auto 1fr;justify-items:start;align-items:center;column-gap:var(--s3);text-align:left}
-  .ch-ns li::before{top:50%;left:10px;width:2px;height:calc(100% + var(--s4))}
-  .ch-ns em{min-height:0;justify-self:end;text-align:right}
+  .mo21{border-radius:var(--r-lg)}
+  .mo-st{padding:var(--s4) 52px 0;min-height:calc(var(--s4) + 42px)}
+  .s3-v{aspect-ratio:1/1.08}
+  .c3-v{aspect-ratio:3/4}
 }
 
 </style>
@@ -488,14 +464,13 @@ footer .legal{margin-inline:auto;text-align:center}
     <p class="label">Their month</p>
     <h2 id="p-h">Busy this month. Nothing booked for next month?</h2>
     <p class="vh21">One month your calendar is full, because you spent every evening sending DMs, following up and posting. A couple of clients sign and you get busy delivering. Four weeks later next month is empty, so you go back to chasing.</p>
-    <div class="sw21 mo21" aria-hidden="true">
+    <div class="sw21 mo21 st3" aria-hidden="true">
       <p class="mo-st"><i></i><span>You: chasing. DMs, follow-ups, posts.</span></p>
-      <div class="sw-ms">
-        <div class="sw-m"><p class="sw-h"><span>This month</span><b><em>0</em> booked</b></p><ol class="sw-g"></ol></div>
-        <div class="sw-m sw-next"><p class="sw-h"><span>Next month</span><b><em>0</em> booked</b></p><ol class="sw-g"></ol></div>
+      <div class="s3-v"><canvas></canvas>
+        <p class="s3-tag">This month<b><em>0</em> booked</b></p>
+        <p class="s3-tag">Next month<b><em>0</em> booked</b></p>
+        <p class="s3-tag s3-pipe">Your pipeline</p>
       </div>
-      <p class="sw-key"><span><i class="b"></i>Call booked</span><span><i class="d"></i>Delivering</span></p>
-      <div class="sw-pipe"><p>Your pipeline</p><svg viewBox="0 0 600 80" preserveAspectRatio="none"><clipPath id="swclip"><rect class="sw-rv" x="-4" y="-10" height="100" width="0"/></clipPath><path class="sw-base" d="M0 76H600"/><path class="sw-line" clip-path="url(#swclip)" d="M0 76L150 12L210 18L300 76L360 76L510 12"/></svg></div>
     </div>
     <p class="pull21">It isn't that you can't get clients. It's that every client depends on <em>you pushing.</em></p>
   </div>
@@ -506,18 +481,11 @@ footer .legal{margin-inline:auto;text-align:center}
   <div class="wrap">
     <p class="label">Why it isn't your fault</p>
     <h2 id="y-h">Getting a client is a chain. Most fixes touch one link.</h2>
-    <div class="ch21 mo21" aria-hidden="true">
+    <div class="ch21 mo21 st3" aria-hidden="true">
       <p class="mo-st"><i></i><span><span class="ch-k">Fix 1 of 4:</span> <b class="ch-f">More content</b></span></p>
-      <div class="ch-track">
-        <ol class="ch-ns">
-          <li><i></i><span>Attention</span><em></em></li>
-          <li><i></i><span>Page</span><em></em></li>
-          <li><i></i><span>Reply</span><em></em></li>
-          <li><i></i><span>Day 3, day 7</span><em></em></li>
-          <li><i></i><span>Call</span><em></em></li>
-          <li><i></i><span>Client</span><em></em></li>
-        </ol>
-        <b class="ch-dot"></b>
+      <div class="c3-v"><canvas></canvas>
+        <p class="c3-tag">Attention<em></em></p><p class="c3-tag">Page<em></em></p><p class="c3-tag">Reply<em></em></p>
+        <p class="c3-tag">Day 3, day 7<em></em></p><p class="c3-tag">Call<em></em></p><p class="c3-tag">Client<em></em></p>
       </div>
       <p class="ch-out">Clients from this lead: <b>0</b></p>
     </div>
@@ -640,8 +608,8 @@ footer .legal{margin-inline:auto;text-align:center}
         <span class="s1b-tag" id="s1b-ti">India</span>
       </div>
       <figure class="s1b-ph" id="s1b-ph">
-        <img src="../call/assets/s1b-teach-graded.webp" alt="Sandy at a whiteboard by a pool, teaching founders the 5 M's: money, market, model, manpower, metrics, split into sales and operations" width="1200" height="1200" loading="lazy" decoding="async" />
-        <figcaption>Teaching founders at Founder's House Bootcamp, India<span class="s1b-note" aria-hidden="true">Dots illustrative</span></figcaption>
+        <img src="media/sandy-teach.webp" style="object-position:96% 40%" alt="Sandy at a glass board with founders, walking through the 5 M's: money, market, model, manpower, metrics" width="1200" height="1200" loading="lazy" decoding="async" />
+        <figcaption>The 5 M's: the first thing I map with every founder<span class="s1b-note" aria-hidden="true">Dots illustrative</span></figcaption>
       </figure>
     </div>
   </div></div>
@@ -1171,94 +1139,363 @@ addEventListener('load', function () { setTimeout(function () { if (window.reque
   io.observe(document.getElementById('player')); io.observe(document.getElementById('claim'));
 })();
 
-/* Problem + why scenes. One clock per scene: wait() only counts while playing, so the pause button freezes the timeline too. */
-(function () {
-  var A = window.AIML;
-  function clock() {
-    var c = { on: true, anims: [] };
-    c.wait = function (ms) { return new Promise(function (res) { var last = performance.now(); (function tick(t) { if (c.on) ms -= t - last; last = t; if (ms <= 0) res(); else requestAnimationFrame(tick); })(last); }); };
-    c.play = function () { c.on = true; c.anims.forEach(function (a) { a.play(); }); };
-    c.pause = function () { c.on = false; c.anims.forEach(function (a) { a.pause(); }); };
-    return c;
+/* Problem + why scenes: real 3D on the petrol stage (v2.1/ART-DIRECTION-scenes.md). Prototypes: v2.1/proto/. */
+/* The swing, in 3D. render(t) is a pure function of t in [0, D). Time runs along x: two month slabs laid out like a
+   contribution graph (weeks left to right, weekdays front to back), a pipeline ribbon extruded behind them by a "now"
+   cursor. Chase: the ribbon rises, booked days rise out of the slab in teal. Deliver: the columns cool, the ribbon falls.
+   The camera trucks into next month: flat, 0 booked. Back to chasing: the ribbon climbs at the far edge, the camera pulls
+   back to show the whole swing. Usage: SW3(root, THREE, REDUCE) -> { play, pause, seek } */
+window.SW3 = function (root, T, REDUCE) {
+  var STILL = false, D = 12.6, P = 1.06, TS = .86, X0 = -3.45, X1 = 3.45, RZ = -3.5;
+  var cv = root.querySelector('canvas'), box = root.querySelector('.s3-v');
+  var stx = root.querySelector('.mo-st span'), st = root.querySelector('.mo-st');
+  var tg = [].slice.call(root.querySelectorAll('.s3-tag')), cnt = root.querySelectorAll('.s3-tag em');
+  var r; try { r = new T.WebGLRenderer({ canvas: cv, alpha: true, antialias: true }); } catch (e) { return null; }
+  if (!r.getContext()) return null;
+  r.setClearColor(0, 0);
+  var scene = new T.Scene(), cam = new T.PerspectiveCamera(32, 1, .1, 100);
+  scene.add(new T.HemisphereLight(0xcffcf8, 0x06191a, 1.1));
+  var sun = new T.DirectionalLight(0xffffff, 1.6); sun.position.set(-4, 9, 6); scene.add(sun);
+  var glow = new T.PointLight(0x3fe0d6, 0, 7, 1.6); scene.add(glow);
+
+  function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function k(t, a, b) { return cl((t - a) / (b - a)); }
+  function sm(x) { return x * x * (3 - 2 * x); }
+  function eo(x) { return 1 - Math.pow(1 - x, 4); }
+  function lerp(a, b, x) { return a + (b - a) * x; }
+
+  /* weeks u in [0,10] -> x (a 1.6 gap between the months) */
+  function ux(u) { return u <= 5 ? X0 - 2.5 * P + u * P : X1 - 2.5 * P + (u - 5) * P; }
+  function xu(x) { var a = X0 - 2.5 * P, b = X1 - 2.5 * P; return x <= a + 5 * P ? (x - a) / P : x < b ? 5 : 5 + (x - b) / P; }
+  /* the pipeline: rises while you chase, falls while you deliver, flat for a month, climbs when you chase again */
+  function H(u) {
+    if (u < 2.2) return lerp(.12, 2.4, sm(k(u, 0, 2.2)));
+    if (u < 3.1) return 2.4 - .15 * sm(k(u, 2.2, 3.1));
+    if (u < 4.6) return lerp(2.25, .06, sm(k(u, 3.1, 4.6)));
+    if (u < 9.1) return .06;
+    return lerp(.06, 1.9, sm(k(u, 9.1, 10)));
+  }
+  /* the cursor: weeks u as a function of t */
+  function U(t) {
+    if (t < .6) return 0;
+    if (t < 3.9) return 3.4 * k(t, .6, 3.9);
+    if (t < 5.6) return lerp(3.4, 5, k(t, 3.9, 5.6));
+    if (t < 8.8) return lerp(5, 9.1, sm(k(t, 5.6, 8.8)));
+    return lerp(9.1, 10, eo(k(t, 8.8, 10.4)));
   }
 
-  /* The swing: this month fills while you chase, turns to delivery, next month stays at 0. */
-  var sw = document.querySelector('.sw21');
-  if (sw) {
-    var grids = sw.querySelectorAll('.sw-g'), counts = sw.querySelectorAll('.sw-h em'), next = sw.querySelector('.sw-next');
-    var st = sw.querySelector('.mo-st'), stx = st.querySelector('span'), line = sw.querySelector('.sw-rv');
-    var BOOK = [4, 6, 9, 11, 13, 16, 18, 22];   // weekday cells, offset 2 blanks
-    grids.forEach(function (g) { for (var i = 0; i < 35; i++) { var li = document.createElement('li'); if (i < 2 || i > 31) li.className = 'x'; g.appendChild(li); } });
-    var cells = grids[0].children;
-    var X = [0, 150, 210, 300, 360, 510];   // x of each point on the pipeline path; the clip rect grows to it
-    function draw(k) { line.style.width = (X[k] + 8) + 'px'; }
-    function say(t, warn) { stx.textContent = t; st.classList.toggle('warn', !!warn); }
-    function reset() { [].forEach.call(cells, function (c) { if (c.className !== 'x') c.className = ''; }); counts[0].textContent = '0'; next.classList.remove('empty');
-      line.style.transition = 'none'; line.style.width = '0px'; line.getBoundingClientRect(); line.style.transition = ''; }
-    function still() { BOOK.forEach(function (n) { cells[n].className = 'd'; }); counts[0].textContent = BOOK.length; next.classList.add('empty'); line.style.transition = 'none'; draw(4); say('Four weeks later: next month is empty.', 1); }
-    if (A.REDUCE) still();
-    else A.onView(sw, function () {
-      var c = clock(); A.pauseBtn(sw, c);
-      (async function run() {
-        for (;;) {
-          reset(); say('You: chasing. DMs, follow-ups, posts.'); await c.wait(500); draw(1);
-          for (var i = 0; i < BOOK.length; i++) { cells[BOOK[i]].className = 'b'; counts[0].textContent = i + 1; await c.wait(220); }
-          await c.wait(700);
-          say('Clients sign. You deliver, the part you’re good at.'); draw(3);
-          for (i = 0; i < BOOK.length; i++) { cells[BOOK[i]].className = 'd'; await c.wait(140); }
-          await c.wait(1300);
-          say('Four weeks later: next month is empty.', 1); next.classList.add('empty'); draw(4);
-          await c.wait(2400);
-          say('Back to chasing.'); draw(5);
-          await c.wait(2200);
-        }
-      })();
-    });
-  }
-
-  /* The chain: each fix repairs some links, the lead drops at the next broken one. Then every link written down. */
-  var ch = document.querySelector('.ch21');
-  if (ch) {
-    var ns = ch.querySelectorAll('.ch-ns li'), dot = ch.querySelector('.ch-dot'), trk = ch.querySelector('.ch-track');
-    var kx = ch.querySelector('.ch-k'), fx = ch.querySelector('.ch-f'), out = ch.querySelector('.ch-out'), ob = out.querySelector('b'), cards = document.querySelectorAll('.fails21 li');
-    var PASS = [
-      { k: 'Fix 1 of 4:', f: 'More content', fix: [0], brk: 1, why: 'nowhere to land' },
-      { k: 'Fix 2 of 4:', f: 'An agency for the ads', fix: [0, 1], brk: 2, why: 'nobody calls back' },
-      { k: 'Fix 3 of 4:', f: 'Doing it yourself', fix: [0, 1, 2], brk: 3, why: 'you’re delivering' },
-      { k: 'Fix 4 of 4:', f: 'A chat window', fix: [0], brk: 1, why: 'a caption, no list' },
-      { k: 'Upstream Downstream:', f: 'every link written down', fix: [0, 1, 2, 3, 4, 5], brk: -1 }
-    ];
-    function at(n) { var a = ns[n].querySelector('i').getBoundingClientRect(), b = trk.getBoundingClientRect(); return 'translate(' + (a.left - b.left + a.width / 2) + 'px,' + (a.top - b.top + a.height / 2) + 'px)'; }
-    function set(p, n) {
-      kx.textContent = p.k; fx.textContent = p.f; ob.textContent = '0'; out.classList.remove('won');
-      ns.forEach(function (li, j) { li.className = p.fix.indexOf(j) > -1 ? 'fix' : ''; li.querySelector('em').textContent = j === p.brk ? p.why : ''; });
-      cards.forEach(function (li, j) { li.classList.toggle('on', j === n); });
+  var dark = new T.Color('#123b3a'), teal = new T.Color('#3FE0D6'), pale = new T.Color('#9fbfbb'), tmp = new T.Color();
+  /* slabs + tiles */
+  var tiles = [], slabs = [];
+  [X0, X1].forEach(function (xm, m) {
+    var g = new T.Mesh(new T.BoxGeometry(5 * P + .34, .16, 5 * P + .34), new T.MeshStandardMaterial({ color: 0x0c2b2b, roughness: .9 }));
+    g.position.set(xm, -.08, 0); scene.add(g); slabs.push(g);
+    var e = new T.LineSegments(new T.EdgesGeometry(g.geometry), new T.LineBasicMaterial({ color: 0x3fe0d6, transparent: true, opacity: .28 }));
+    g.add(e); g.userData.e = e;
+    for (var w = 0; w < 5; w++) for (var d = 0; d < 5; d++) {
+      var mat = new T.MeshStandardMaterial({ color: dark.clone(), roughness: .55, metalness: .05, emissive: new T.Color(0), emissiveIntensity: 1 });
+      var b = new T.Mesh(new T.BoxGeometry(TS, 1, TS), mat);
+      b.position.set(xm - 2 * P + w * P, 0, -2 * P + d * P); scene.add(b);
+      var ed = new T.LineSegments(new T.EdgesGeometry(b.geometry), new T.LineBasicMaterial({ color: 0x3fe0d6, transparent: true, opacity: .16 }));
+      b.add(ed);
+      tiles.push({ m: m, w: w, d: d, u: m * 5 + w + .5, b: b, ed: ed });
     }
-    function still() { set(PASS[4], -1); ns[5].className = 'fix won'; ob.textContent = '1'; out.classList.add('won'); dot.style.opacity = 1; dot.style.transform = at(5); }
-    if (A.REDUCE) { still(); addEventListener('resize', still); }
-    else A.onView(ch, function () {
-      var c = clock(); A.pauseBtn(ch, c);
-      function mv(kf, ms) { var a = dot.animate(kf, { duration: ms, easing: 'cubic-bezier(.45,0,.2,1)', fill: 'forwards' }); c.anims.push(a); if (!c.on) a.pause(); return a.finished.then(function () { c.anims.splice(c.anims.indexOf(a), 1); }); }
-      (async function run() {
-        for (;;) for (var n = 0; n < PASS.length; n++) {
-          var p = PASS[n]; set(p, n);
-          await mv([{ transform: at(0), opacity: 0 }, { transform: at(0), opacity: 1 }], 300);
-          await c.wait(500);
-          var end = p.brk < 0 ? 5 : p.brk;
-          for (var k = 1; k <= end; k++) await mv([{ transform: at(k - 1), opacity: 1 }, { transform: at(k), opacity: 1 }], 520);
-          if (p.brk > -1) {
-            ns[p.brk].classList.add('brk');
-            await mv([{ transform: at(p.brk), opacity: 1 }, { transform: at(p.brk) + ' translateY(46px)', opacity: 0 }], 600);
-            await c.wait(1500);
-          } else {
-            ns[5].classList.add('won'); ob.textContent = '1'; out.classList.add('won');
-            await c.wait(3000);
-            await mv([{ transform: at(5), opacity: 1 }, { transform: at(5), opacity: 0 }], 300);
-          }
-        }
-      })();
-    });
+  });
+  /* booked days: (week, weekday), the cursor books each as it passes */
+  var BOOK = [[0, 3], [1, 1], [1, 4], [2, 0], [2, 2], [2, 3], [3, 1], [3, 4]];
+  var bookAt = {}; BOOK.forEach(function (p, i) { bookAt[p[0] * 5 + p[1]] = i; });
+
+  /* the ribbon: an area wall behind the slabs, alpha fading to the floor, a bright crest */
+  var N = 240, XA = ux(0) - .3, XB = ux(10) + .3;
+  function strip(alphaTop, alphaBot, col) {
+    var pos = new Float32Array((N + 1) * 2 * 3), al = new Float32Array((N + 1) * 2), idx = [];
+    for (var i = 0; i <= N; i++) { al[i * 2] = alphaTop; al[i * 2 + 1] = alphaBot; if (i < N) { var a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); } }
+    var g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(pos, 3)); g.setAttribute('aA', new T.BufferAttribute(al, 1)); g.setIndex(idx);
+    var mat = new T.ShaderMaterial({ uniforms: { uC: { value: new T.Color(col) }, uO: { value: 1 } }, transparent: true, depthWrite: false, side: T.DoubleSide,
+      vertexShader: 'attribute float aA;varying float vA;void main(){vA=aA;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+      fragmentShader: 'uniform vec3 uC;uniform float uO;varying float vA;void main(){gl_FragColor=vec4(uC,vA*uO);}' });
+    var m = new T.Mesh(g, mat); m.frustumCulled = false; scene.add(m); return m;
   }
+  var wall = strip(.34, 0, '#3FE0D6'), crest = strip(1, 1, '#3FE0D6');
+  /* the cursor: a light standing on the ribbon's leading edge */
+  var cur = new T.Mesh(new T.BoxGeometry(.035, 1, .035), new T.MeshBasicMaterial({ color: 0xeafffd, transparent: true, opacity: .9 }));
+  scene.add(cur);
+  var head = new T.Mesh(new T.SphereGeometry(.11, 20, 14), new T.MeshBasicMaterial({ color: 0xffffff }));
+  scene.add(head);
+  var halo = new T.Sprite(new T.SpriteMaterial({ map: (function () { var c = document.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d'), gr = x.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(63,224,214,.9)'); gr.addColorStop(1, 'rgba(63,224,214,0)'); x.fillStyle = gr; x.fillRect(0, 0, 64, 64); return new T.CanvasTexture(c); })(), transparent: true, depthWrite: false }));
+  halo.scale.set(1.1, 1.1, 1); scene.add(halo);
+
+  var W = 0, Hh = 0;
+  function layout() {
+    W = box.clientWidth; Hh = box.clientHeight; if (!W) return;
+    r.setPixelRatio(Math.min(2, window.devicePixelRatio || 1)); r.setSize(W, Hh, false);
+    cam.aspect = W / Hh; cam.updateProjectionMatrix();
+  }
+  function fitDist(width) { var hf = 2 * Math.atan(Math.tan(cam.fov * Math.PI / 360) * cam.aspect); return width / 2 / Math.tan(hf / 2); }
+
+  function say(s, warn) { if (stx.dataset.s !== s) { stx.dataset.s = s; stx.innerHTML = s.replace('follow-ups,', '<span style="white-space:nowrap">follow-ups,</span>'); } st.classList.toggle('warn', !!warn); }
+  function proj(x, y, z) { var v = new T.Vector3(x, y, z).project(cam); return [(v.x + 1) / 2 * W, (1 - v.y) / 2 * Hh]; }
+  function place(el, p, o) { el.style.transform = 'translate(' + Math.round(p[0]) + 'px,' + Math.round(p[1]) + 'px) translate(-50%,0)'; el.style.opacity = o; }
+
+  function render(t) {
+    t = ((t % D) + D) % D;
+    var u = U(t), xn = ux(u), out = sm(k(t, 11.6, 12.5));   /* out: the reset at the loop's end */
+    var cool = sm(k(t, 3.9, 4.9)), wide = sm(k(t, 8.8, 10.6)) * (1 - out);
+    var narrow = W / Hh < 1.1;
+    /* camera: trucks with the story, pulls back wide at the end */
+    var tx = t < 5.6 ? X0 + .5 * Math.max(0, xn - X0) * .3 : lerp(X0 + .4, X1, sm(k(t, 5.6, 8.4)));
+    tx = lerp(tx, 0, wide); tx = lerp(tx, X0, out);
+    var dist = lerp(fitDist(narrow ? 8.4 : 11.8), fitDist(narrow ? 14.5 : 16.2), wide);
+    var yaw = lerp(-24, -12, wide) * Math.PI / 180, pit = lerp(30, 34, wide) * Math.PI / 180;
+    var ty = narrow ? .9 : .7;
+    cam.position.set(tx + dist * Math.cos(pit) * Math.sin(yaw), ty + dist * Math.sin(pit), dist * Math.cos(pit) * Math.cos(yaw) + .3);
+    cam.lookAt(tx, ty, .5);
+
+    /* ribbon */
+    var wp = wall.geometry.attributes.position.array, cp = crest.geometry.attributes.position.array, hn = H(u);
+    for (var i = 0; i <= N; i++) {
+      var x = lerp(XA, XB, i / N), uu = xu(x), h = x <= xn ? H(Math.max(0, uu)) : null;
+      if (h === null) h = 0;
+      var top = x <= xn ? h : 0, j = i * 6;
+      wp[j] = x; wp[j + 1] = top; wp[j + 2] = RZ; wp[j + 3] = x; wp[j + 4] = 0; wp[j + 5] = RZ;
+      var c = x <= xn ? .045 : 0;
+      cp[j] = x; cp[j + 1] = top + c; cp[j + 2] = RZ + .001; cp[j + 3] = x; cp[j + 4] = top - c; cp[j + 5] = RZ + .001;
+    }
+    wall.geometry.attributes.position.needsUpdate = true; crest.geometry.attributes.position.needsUpdate = true;
+    wall.material.uniforms.uO.value = crest.material.uniforms.uO.value = 1 - out;
+    var live = t > .6 && out === 0;
+    cur.visible = head.visible = halo.visible = live;
+    cur.scale.y = hn + .5; cur.position.set(xn, (hn + .5) / 2, RZ); head.position.set(xn, hn, RZ + .02); halo.position.copy(head.position);
+    cur.material.opacity = head.material.opacity = 1 - out; halo.material.opacity = 1 - out;
+    glow.position.set(xn, hn + .6, RZ + 1.4); glow.intensity = live ? (1 - out) * 6 * cl(hn / 1.2 + .15) : 0;
+
+    /* tiles */
+    var nb = 0;
+    tiles.forEach(function (o) {
+      var id = o.w * 5 + o.d, bi = o.m === 0 ? bookAt[id] : undefined, h = .1, col = dark, em = 0, edo = .16;
+      if (bi !== undefined) {
+        var at = .6 + (o.u - .5 + o.d * .08) / 3.4 * 3.3, rise = eo(k(t, at, at + .5));
+        if (t >= at) nb++;
+        h = lerp(.1, 1.4, rise); h = lerp(h, .8, cool);
+        tmp.copy(dark).lerp(teal, rise).lerp(pale, cool); col = tmp.clone(); em = rise * (1 - cool) * .55; edo = .16 + .5 * rise;
+      } else if (o.m === 0 && o.w >= 3) {
+        /* delivery fills the rest of the month: you are busy, nobody is chasing */
+        var at2 = 4.0 + (o.w - 3) * .55 + o.d * .07, f = eo(k(t, at2, at2 + .45));
+        h = lerp(.1, .2, f); tmp.copy(dark).lerp(pale, f * .55); col = tmp.clone(); edo = .16 + .12 * f;
+      }
+      h = lerp(h, .1, out);
+      o.b.scale.y = h; o.b.position.y = h / 2;
+      o.b.material.color.copy(col).lerp(dark, out); o.b.material.emissive.copy(teal).multiplyScalar(em * (1 - out));
+      o.ed.material.opacity = lerp(edo, .16, out);
+    });
+    if (out > 0) nb = 0;
+    /* the next month slab outline warms to brick when it arrives empty */
+    var empty = sm(k(t, 7.6, 8.2)) * (1 - out);
+    slabs[1].userData.e.material.opacity = .28 + .3 * empty;
+
+    r.render(scene, cam);
+
+    /* overlays */
+    if (cnt[0].textContent !== String(nb)) cnt[0].textContent = nb;
+    tg[0].classList.toggle('hot', nb > 0 && cool < .5);
+    tg[1].classList.toggle('warn', empty > .5);
+    /* a tag only shows while its whole box is on the stage */
+    function inside(p, w) { return cl(Math.min(p[0] - w / 2 - 8, W - 8 - p[0] - w / 2, Hh - 52 - p[1]) / 24); }
+    var p0 = proj(X0, 0, 2.5 * P + .5), p1 = proj(X1, 0, 2.5 * P + .5);
+    place(tg[0], p0, inside(p0, tg[0].offsetWidth)); place(tg[1], p1, inside(p1, tg[1].offsetWidth));
+    var pl = proj(XA + .1, 1.25, RZ);
+    tg[2].style.transform = 'translate(' + Math.round(Math.max(12, pl[0])) + 'px,' + Math.round(pl[1]) + 'px) translate(0,-100%)';
+    tg[2].style.opacity = (1 - out) * cl((pl[0] - 8) / 24) * (1 - sm(k(t, 5.4, 6)) * (1 - wide));
+    if (STILL) say('Four weeks later: next month is empty.');
+    else if (t < 3.9) say('You: chasing. DMs, follow-ups, posts.');
+    else if (t < 6.4) say('Clients sign. You deliver, the part you’re good at.');
+    else if (t < 8.9) say('Four weeks later: next month is empty.');
+    else say('Back to chasing.');
+  }
+
+  layout();
+  if ('ResizeObserver' in window) new ResizeObserver(function () { layout(); render(acc); }).observe(box);
+  var acc = 0, last = 0, raf = 0, on = false;
+  function frame(now) { raf = 0; if (!on) return; if (last) acc += Math.min(.1, (now - last) / 1000); last = now; render(acc); raf = requestAnimationFrame(frame); }
+  var api = {
+    play: function () { if (on) return; on = true; last = 0; raf = requestAnimationFrame(frame); },
+    pause: function () { on = false; if (raf) cancelAnimationFrame(raf); raf = 0; },
+    seek: function (t) { acc = t; render(t); },
+    still: function () { STILL = true; acc = 10.9; render(10.9); }
+  };
+  if (REDUCE) api.still(); else render(0);
+  return api;
+};
+
+/* The chain, in 3D. render(t) is a pure function of t in [0, D). Six forged links, alternating planes like a real chain.
+   An open link has a visible gap where it should hold the next one. Each pass: the links that fix repairs forge shut, a
+   lead runs along the chain and falls through the first open link (the reason in brick under it). The fifth pass forges
+   every link, the lead reaches Client, the counter lands on 1. Usage: CH3(root, THREE, REDUCE, cards) -> { play, pause, seek } */
+window.CH3 = function (root, T, REDUCE, cards) {
+  var cv = root.querySelector('canvas'), box = root.querySelector('.c3-v');
+  var kx = root.querySelector('.ch-k'), fx = root.querySelector('.ch-f'), out = root.querySelector('.ch-out'), ob = out.querySelector('b');
+  var tags = [].slice.call(root.querySelectorAll('.c3-tag'));
+  var r; try { r = new T.WebGLRenderer({ canvas: cv, alpha: true, antialias: true }); } catch (e) { return null; }
+  if (!r.getContext()) return null;
+  r.setClearColor(0, 0);
+  var scene = new T.Scene(), cam = new T.PerspectiveCamera(30, 1, .1, 100);
+  scene.add(new T.HemisphereLight(0xd8fffb, 0x041314, 1.0));
+  var key = new T.DirectionalLight(0xffffff, 2.2); key.position.set(-3, 6, 7); scene.add(key);
+  var rim = new T.DirectionalLight(0x3fe0d6, 1.6); rim.position.set(4, -2, -5); scene.add(rim);
+  var glow = new T.PointLight(0x3fe0d6, 0, 4, 1.5); scene.add(glow);
+
+  function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function k(t, a, b) { return cl((t - a) / (b - a)); }
+  function sm(x) { return x * x * (3 - 2 * x); }
+  function eo(x) { return 1 - Math.pow(1 - x, 4); }
+  function lerp(a, b, x) { return a + (b - a) * x; }
+
+  var PASS = [
+    { k: 'Fix 1 of 4:', f: 'More content', fix: [0], brk: 1, why: 'nowhere to land' },
+    { k: 'Fix 2 of 4:', f: 'An agency for the ads', fix: [0, 1], brk: 2, why: 'nobody calls back' },
+    { k: 'Fix 3 of 4:', f: 'Doing it yourself', fix: [0, 1, 2], brk: 3, why: 'you’re delivering' },
+    { k: 'Fix 4 of 4:', f: 'A chat window', fix: [0], brk: 1, why: 'a caption, no list' },
+    { k: 'Upstream Downstream:', f: 'every link written down', fix: [0, 1, 2, 3, 4, 5], brk: -1 }
+  ];
+  var FG = .24, SEG = .3, FALL = .75;
+  /* timeline: each pass = intro .35, forge, travel, (fall + hold | win hold), reopen .35 */
+  var t0 = 0;
+  PASS.forEach(function (p) {
+    p.t0 = t0; p.fs = t0 + .35; p.fe = p.fs + p.fix.length * FG + .15;
+    p.n = p.brk < 0 ? 5.6 : p.brk + .45;            /* links travelled */
+    p.te = p.fe + p.n * SEG;
+    p.end = p.te + (p.brk < 0 ? 2.9 : FALL + .85) + .35;
+    t0 = p.end;
+  });
+  var D = t0;
+
+  /* links */
+  var PITCH = 1.5, R = .6, TUBE = .12, SX = 1.42, GAP = 1.15, Q = 18, geos = [];
+  function geo(c) { var q = Math.round(cl(c) * Q); if (!geos[q]) { var g = GAP * (1 - q / Q); geos[q] = new T.TorusGeometry(R, TUBE, 18, 72, Math.PI * 2 - g); geos[q].rotateZ(g / 2 + .95); } return geos[q]; }
+  var chain = new T.Group(); chain.rotation.order = 'ZYX'; scene.add(chain);
+  var teal = new T.Color('#33d6cb'), dull = new T.Color('#3a5f5d'), brick = new T.Color('#ff7a6e');
+  var links = [];
+  for (var i = 0; i < 6; i++) {
+    var m = new T.Mesh(geo(0), new T.MeshStandardMaterial({ color: dull.clone(), metalness: .35, roughness: .32, emissive: new T.Color(0) }));
+    m.scale.x = SX; m.position.x = (i - 2.5) * PITCH; if (i % 2) m.rotation.x = Math.PI / 2;
+    chain.add(m); links.push(m);
+  }
+  function A(j) { return (j - 2.5) * PITCH; }   /* axis position of link j */
+
+  /* the lead */
+  var lead = new T.Mesh(new T.SphereGeometry(.13, 24, 16), new T.MeshBasicMaterial({ color: 0xffffff, transparent: true }));
+  scene.add(lead);
+  var halo = new T.Sprite(new T.SpriteMaterial({ map: (function () { var c = document.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d'), gr = x.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(63,224,214,.95)'); gr.addColorStop(1, 'rgba(63,224,214,0)'); x.fillStyle = gr; x.fillRect(0, 0, 64, 64); return new T.CanvasTexture(c); })(), transparent: true, depthWrite: false, depthTest: false }));
+  scene.add(halo);
+
+  var W = 0, H = 0, vert = false;
+  function layout() {
+    W = box.clientWidth; H = box.clientHeight; if (!W) return;
+    r.setPixelRatio(Math.min(2, window.devicePixelRatio || 1)); r.setSize(W, H, false);
+    cam.aspect = W / H; cam.updateProjectionMatrix();
+    vert = W / H < .9;
+    chain.rotation.z = vert ? -Math.PI / 2 : 0; chain.rotation.x = vert ? .5 : .18;
+    chain.position.set(vert ? -.55 : 0, 0, 0);
+    root.classList.toggle('c3-vert', vert);
+  }
+  var v = new T.Vector3();
+  function world(a) { v.set(a, 0, 0); chain.updateMatrixWorld(true); return chain.localToWorld(v.clone()); }
+  function proj(p) { var q = p.clone().project(cam); return [(q.x + 1) / 2 * W, (1 - q.y) / 2 * H]; }
+
+  function render(t) {
+    t = ((t % D) + D) % D;
+    var n = 0; while (n < PASS.length - 1 && t >= PASS[n].end) n++;
+    var p = PASS[n], win = p.brk < 0, reopen = sm(k(t, p.end - .35, p.end));
+    /* link state: closed amount c, flash f */
+    var lit = [];
+    links.forEach(function (m, j) {
+      var fi = p.fix.indexOf(j), c = 0, f = 0;
+      if (fi > -1) { var a = p.fs + fi * FG; c = eo(k(t, a, a + .3)); f = k(t, a + .1, a + .3) * (1 - k(t, a + .3, a + .9)); }
+      c *= 1 - reopen;
+      m.geometry = geo(c);
+      var col = m.material.color.copy(dull).lerp(teal, c), em = m.material.emissive.setRGB(0, 0, 0);
+      em.copy(teal).multiplyScalar(.15 * c + .9 * f);
+      if (j === p.brk) { var b = sm(k(t, p.te, p.te + .25)) * (1 - reopen); col.lerp(brick, .55 * b); em.copy(brick).multiplyScalar(.35 * b); }
+      if (win && j === 5) { var wv = sm(k(t, p.te - .1, p.te + .4)) * (1 - reopen); em.copy(teal).multiplyScalar(.15 + .85 * wv); }
+      lit.push(c);
+    });
+
+    /* lead: travels the axis, falls through the open link or lands on Client */
+    var a0 = A(0) - .95, a1 = win ? A(5) : A(p.brk) + .5;
+    var tr = k(t, p.fe, p.te), a = lerp(a0, a1, sm(tr)), pos = world(a), op = sm(k(t, p.fe - .25, p.fe));
+    if (!win && t > p.te) {
+      var tf = t - p.te; pos.y -= 4.2 * tf * tf; pos.z += 1.1 * tf; pos.x += (vert ? 1.6 : .5) * tf;
+      op *= 1 - k(tf, .25, .6);
+    }
+    if (win) op *= 1 - k(t, p.te + 1.2, p.te + 1.6);
+    op *= 1 - reopen;
+    lead.position.copy(pos); halo.position.copy(pos);
+    lead.material.opacity = op; halo.material.opacity = op; halo.scale.setScalar(win && t > p.te ? .9 + 1.4 * sm(k(t, p.te, p.te + .5)) : .9);
+    glow.position.set(pos.x, pos.y + .3, pos.z + .9); glow.intensity = 5 * op;
+
+    /* camera: a slow dolly that leans toward the lead */
+    var lx = vert ? 0 : cl((a - a0) / (A(5) - a0)) - .5, drift = Math.sin(t * .35) * .5;
+    var fitW = vert ? 5.2 : 11, hf = 2 * Math.atan(Math.tan(cam.fov * Math.PI / 360) * cam.aspect), dist = fitW / 2 / Math.tan(hf / 2);
+    if (vert) dist = Math.max(dist, 9.6 / 2 / Math.tan(cam.fov * Math.PI / 360));
+    var yaw = (vert ? -8 : -5 + 6 * lx + drift * 3) * Math.PI / 180, pit = (vert ? 10 : 14) * Math.PI / 180, tx = vert ? .35 : lx * .25, ty = vert ? 0 : -.15;
+    cam.position.set(tx + dist * Math.cos(pit) * Math.sin(yaw), ty + dist * Math.sin(pit), dist * Math.cos(pit) * Math.cos(yaw));
+    cam.lookAt(tx, ty, 0);
+    r.render(scene, cam);
+
+    /* overlays */
+    var why = !win && t > p.te + .15 && reopen < .5;
+    tags.forEach(function (el, j) {
+      var w = world(A(j));
+      if (vert) { w.x += R + TUBE + .3; var s = proj(w); el.style.transform = 'translate(' + Math.round(s[0]) + 'px,' + Math.round(s[1]) + 'px) translate(0,-50%)'; }
+      else { w.y -= R + TUBE + .22; var s2 = proj(w); el.style.transform = 'translate(' + Math.round(s2[0]) + 'px,' + Math.round(s2[1]) + 'px) translate(-50%,0)'; }
+      el.classList.toggle('on', lit[j] > .5);
+      el.classList.toggle('brk', why && j === p.brk);
+      var e = el.querySelector('em'), txt = j === p.brk ? p.why : '';
+      if (e.textContent !== txt) e.textContent = txt;
+    });
+    if (kx.textContent !== p.k) { kx.textContent = p.k; fx.textContent = p.f; }
+    var won = win && t > p.te + .1 && reopen < .5;
+    ob.textContent = won ? '1' : '0'; out.classList.toggle('won', won);
+    if (cards) cards.forEach(function (li, j) { li.classList.toggle('on', j === n); });
+  }
+
+  layout();
+  if ('ResizeObserver' in window) new ResizeObserver(function () { layout(); render(acc); }).observe(box);
+  var acc = 0, last = 0, raf = 0, on = false;
+  function frame(now) { raf = 0; if (!on) return; if (last) acc += Math.min(.1, (now - last) / 1000); last = now; render(acc); raf = requestAnimationFrame(frame); }
+  var api = {
+    D: D,
+    play: function () { if (on) return; on = true; last = 0; raf = requestAnimationFrame(frame); },
+    pause: function () { on = false; if (raf) cancelAnimationFrame(raf); raf = 0; },
+    seek: function (t) { acc = t; render(t); },
+    still: function () { var p = PASS[4]; acc = p.te + .9; render(acc); }
+  };
+  if (REDUCE) api.still(); else render(0);
+  return api;
+};
+
+/* Boot: Three.js from the same cdnjs URL + SRI the globe uses, one copy (if sections.js already added it, wait for that tag).
+   ponytail: if sections.js starts its own load while ours is in flight, three warns about a second instance; harmless. */
+(function () {
+  var A = window.AIML, URL = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js', SRI = 'sha384-qOkzR5Ke/XkQxuGVJ9hpFEpDlcoLtWwVYhnJf06cLIZa2vaIptSqaubivErzmD5O', wait = [];
+  function three(cb) {
+    if (window.THREE) return cb(window.THREE);
+    wait.push(cb); if (wait.length > 1) return;
+    var s = document.querySelector('script[src="' + URL + '"]');
+    if (!s) { s = document.createElement('script'); s.src = URL; s.integrity = SRI; s.crossOrigin = 'anonymous'; s.referrerPolicy = 'no-referrer'; document.head.appendChild(s); }
+    s.addEventListener('load', function () { wait.splice(0).forEach(function (f) { f(window.THREE); }); });
+  }
+  function boot(root, make) {
+    if (!root || !('IntersectionObserver' in window)) return;
+    var sc = null, inView = false, user = true, started = false;
+    function sync() { if (!sc || A.REDUCE) return; if (inView && user && started) sc.play(); else sc.pause(); }
+    new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { io.disconnect(); three(function (T) { sc = make(T); if (!sc) return; root.classList.add('gl'); sync(); }); } }, { rootMargin: '600px 0px' }).observe(root);
+    new IntersectionObserver(function (es) { inView = es[0].isIntersecting; sync(); }).observe(root);
+    A.onView(root, function () { started = true; sync(); });
+    if (!A.REDUCE) A.pauseBtn(root, { pause: function () { user = false; sync(); }, play: function () { user = true; sync(); } });
+  }
+  boot(document.querySelector('.sw21'), function (T) { return window.SW3(document.querySelector('.sw21'), T, A.REDUCE); });
+  boot(document.querySelector('.ch21'), function (T) { return window.CH3(document.querySelector('.ch21'), T, A.REDUCE, [].slice.call(document.querySelectorAll('.fails21 li'))); });
 })();
 </script>
 <script>addEventListener('load', function () { var s = document.createElement('script'); s.src = '../call/js/sections.js'; document.body.appendChild(s); });</script>

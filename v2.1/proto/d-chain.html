@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Proto: 3D chain</title>
+<link rel="stylesheet" href="base.css">
+<style>
+.mo-st{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:var(--s2);padding:var(--s5) 56px 0;min-height:24px;font-size:var(--fs-sm);text-align:center}
+.mo-st i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--teal-hi);box-shadow:0 0 0 4px rgba(63,224,214,.15)}
+.ch-k{color:var(--on-petrol-q)}.ch-f{font-weight:700}
+.c3-v{position:relative;aspect-ratio:16/8}
+.c3-v canvas{position:absolute;inset:0;width:100%;height:100%}
+.c3-tag{position:absolute;left:0;top:0;display:grid;justify-items:center;gap:2px;white-space:nowrap;font-size:var(--fs-label);letter-spacing:.06em;text-transform:uppercase;color:var(--on-petrol-q);transition:color .3s}
+.c3-tag.on{color:var(--on-petrol)}
+.c3-tag em{font-style:normal;text-transform:none;letter-spacing:0;color:var(--brick-hi);opacity:0;transition:opacity .3s}
+.c3-tag.brk em{opacity:1}
+.c3-vert .c3-tag{justify-items:start}
+.ch-out{position:relative;padding:0 0 var(--s5);text-align:center;font-size:var(--fs-sm);color:var(--on-petrol-q)}
+.ch-out b{font-size:var(--t-h3);color:var(--on-petrol)}.ch-out.won b{color:var(--teal-hi)}
+@media (max-width:640px){.c3-v{aspect-ratio:3/4}.mo-st{min-height:3em}}
+</style></head><body>
+<h2>Getting a client is a chain. Most fixes touch one link.</h2>
+<div class="stage" id="ch">
+  <p class="mo-st"><i></i><span><span class="ch-k">Fix 1 of 4:</span> <b class="ch-f">More content</b></span></p>
+  <div class="c3-v"><canvas></canvas>
+    <p class="c3-tag">Attention<em></em></p><p class="c3-tag">Page<em></em></p><p class="c3-tag">Reply<em></em></p>
+    <p class="c3-tag">Day 3, day 7<em></em></p><p class="c3-tag">Call<em></em></p><p class="c3-tag">Client<em></em></p>
+  </div>
+  <p class="ch-out">Clients from this lead: <b>0</b></p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+<script src="chain.js"></script>
+<script>var c = CH3(document.getElementById('ch'), THREE, false, null); c.play();</script>
+</body></html>

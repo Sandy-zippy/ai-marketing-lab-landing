@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Proto A: 3D swing</title>
+<link rel="stylesheet" href="base.css">
+<style>
+.mo-st{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:var(--s2);padding:var(--s5) 56px 0;min-height:24px;font-size:var(--fs-sm);text-align:center}
+.mo-st i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--teal-hi);box-shadow:0 0 0 4px rgba(63,224,214,.15)}
+.mo-st.warn i{background:var(--brick-hi);box-shadow:0 0 0 4px rgba(255,122,110,.15)}
+.s3-v{position:relative;aspect-ratio:16/9}
+.s3-v canvas{position:absolute;inset:0;width:100%;height:100%}
+.s3-tag{position:absolute;left:0;top:0;white-space:nowrap;font-size:var(--fs-label);letter-spacing:.06em;text-transform:uppercase;color:var(--on-petrol-q);text-align:center;will-change:transform}
+.s3-tag b{display:block;font-weight:400}
+.s3-tag em{font-style:normal;font-weight:700;font-size:var(--t-h3);letter-spacing:0;color:var(--on-petrol);transition:color .3s}
+.s3-tag.hot em{color:var(--teal-hi)}
+.s3-tag.warn em{color:var(--brick-hi)}
+.s3-pipe{font-size:var(--fs-label)}
+@media (max-width:640px){.s3-v{aspect-ratio:1/1.08}.mo-st{min-height:3em;line-height:1.5}}
+</style></head><body>
+<h2>Busy this month. Nothing booked for next month?</h2>
+<div class="stage sw" id="sw">
+  <p class="mo-st"><i></i><span>You: chasing. DMs, follow-ups, posts.</span></p>
+  <div class="s3-v"><canvas></canvas>
+    <p class="s3-tag">This month<b><em>0</em> booked</b></p>
+    <p class="s3-tag">Next month<b><em>0</em> booked</b></p>
+    <p class="s3-tag s3-pipe">Your pipeline</p>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+<script src="swing.js"></script>
+<script>var s = SW3(document.getElementById('sw'), THREE, false); s.play();</script>
+</body></html>

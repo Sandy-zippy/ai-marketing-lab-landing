@@ -49,9 +49,9 @@ footer a{color:inherit;text-decoration:none}
 <main class="page">
   <img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" />
   <section id="pick">
-    <p class="label">Payment received</p>
-    <h1>Now pick your time.</h1>
-    <p class="lede">Your ₹999 is in. Choose a 45 minute slot below and the invite lands in your inbox.</p>
+    <p class="label">Your free call</p>
+    <h1>Pick your time.</h1>
+    <p class="lede">Choose a 45 minute slot below and the invite lands in your inbox.</p>
     <div id="calwrap"></div>
   </section>
 
@@ -61,10 +61,10 @@ footer a{color:inherit;text-decoration:none}
   <p class="lede">Your 45 minute call with me is booked. Here's what happens next.</p>
 
   <ol>
-    <li><div><b>Check your email</b><p>The calendar invite and your ₹999 receipt are in your inbox. Add the invite so the time's blocked.</p></div></li>
+    <li><div><b>Check your email</b><p>The calendar invite is in your inbox. Add it so the time's blocked.</p></div></li>
     <li><div><b>I look at your business first</b><p>Before we talk, I go through your business, so the 45 minutes go on your situation, not on introductions.</p></div></li>
     <li><div><b>We map both halves</b><p>Where your clients come from today, and where they leak out. You leave with that map whether you join or not.</p></div></li>
-    <li><div><b>Then I tell you which option fits</b><p>The Sprint, the Accelerator, or neither yet. If you join either, the ₹999 comes off the price.</p></div></li>
+    <li><div><b>Then I tell you which option fits</b><p>The Sprint, the Accelerator, or neither yet. The map and two skill packs are yours either way.</p></div></li>
   </ol>
 
   <p class="note">Haven't finished the video? <a href="./">Watch the rest before the call</a>.</p>
@@ -73,16 +73,15 @@ footer a{color:inherit;text-decoration:none}
   <footer><a href="../privacy">Privacy</a><a href="../terms">Terms</a><a href="../refund">Refunds</a></footer>
 </main>
 <script>
-/* Browser Purchase fires ONLY when Razorpay's redirect carries razorpay_payment_id, so a direct
-   visit to this public page never counts as a sale. event_id = purchase_<payment id> dedups with
-   the server-side CAPI Purchase (Apps Script relay, same key). Schedule fires on Cal.com confirm. */
+/* The call is free (Sandy, 9 Oct 2026): no payment, no Purchase event. /call books inline, fires Schedule there and
+   lands here with ?b=1, so this page opens on "booked". A direct visit gets the calendar as a fallback. */
 var attr = aimlAttr();
-var pid = new URLSearchParams(location.search).get('razorpay_payment_id') || '';
-var evKey = pid || ('web_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8));
-var pdata = { value: 999, currency: 'INR', content_name: 'AIML 45 min call' };
+var fromCall = new URLSearchParams(location.search).get('b') === '1';
+if (fromCall) document.body.classList.add('booked');
+var evKey = 'web_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+var pdata = { content_name: 'AIML free 45 min call' };
 ['utm_source', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id'].forEach(function (k) { if (attr[k]) pdata[k] = attr[k]; });
-if (pid) { try { if (!sessionStorage.getItem('aiml_paid')) { aimlTrack('Purchase', pdata, { eventID: 'purchase_' + evKey }); if (window.ph) ph('Purchase', pdata); sessionStorage.setItem('aiml_paid', '1'); } }
-catch (e) { aimlTrack('Purchase', pdata, { eventID: 'purchase_' + evKey }); } }
+var lead = {}; try { lead = JSON.parse(localStorage.getItem('aiml_lead') || '{}') || {}; } catch (e) {}
 
 /* Cal.com embed loader, same pattern as vsl/watch.html. */
 var CAL_ORIGIN = 'https://cal.com', CAL_LINK = 'sandy-kadyan/ai-growth-audit';
@@ -100,9 +99,11 @@ Cal('init', { origin: CAL_ORIGIN });
 /* Cal.com stores metadata[...] params on the booking, so every call records the ad that drove it. */
 var calConfig = {};
 ['utm_source', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id', 'fbclid', 'fbc', 'fbp'].forEach(function (k) { if (attr[k]) calConfig['metadata[' + k + ']'] = attr[k]; });
-if (pid) calConfig['metadata[razorpay_payment_id]'] = pid;
 calConfig['metadata[event_key]'] = evKey;
-Cal('inline', { elementOrSelector: '#calwrap', calLink: CAL_LINK, config: calConfig });
+calConfig['metadata[page]'] = 'call-booked';
+if (lead.fn) calConfig.name = lead.fn;
+if (lead.em) calConfig.email = lead.em;   /* same email as the opt-in, so the relay matches the booking to the lead */
+if (!fromCall) Cal('inline', { elementOrSelector: '#calwrap', calLink: CAL_LINK, config: calConfig });
 Cal('ui', { styles: { branding: { brandColor: '#00A19B' } }, hideEventTypeDetails: false, layout: 'month_view' });
 
 var scheduled = false;
