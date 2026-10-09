@@ -34,10 +34,15 @@
   <div class="wrap">
     <p class="label">Their month</p>
     <h2 id="p-h">Busy this month. Nothing booked for next month?</h2>
-    <div class="short">
-      <p>One month your calendar is full, because you spent every evening sending DMs, following up and posting.</p>
-      <p>A couple of clients sign. You get busy delivering, the part you're actually good at.</p>
-      <p>Four weeks later you look up and the pipeline's empty. So you go back to chasing.</p>
+    <p class="vh21">One month your calendar is full, because you spent every evening sending DMs, following up and posting. A couple of clients sign and you get busy delivering. Four weeks later next month is empty, so you go back to chasing.</p>
+    <div class="sw21 mo21" aria-hidden="true">
+      <p class="mo-st"><i></i><span>You: chasing. DMs, follow-ups, posts.</span></p>
+      <div class="sw-ms">
+        <div class="sw-m"><p class="sw-h"><span>This month</span><b><em>0</em> booked</b></p><ol class="sw-g"></ol></div>
+        <div class="sw-m sw-next"><p class="sw-h"><span>Next month</span><b><em>0</em> booked</b></p><ol class="sw-g"></ol></div>
+      </div>
+      <p class="sw-key"><span><i class="b"></i>Call booked</span><span><i class="d"></i>Delivering</span></p>
+      <div class="sw-pipe"><p>Your pipeline</p><svg viewBox="0 0 600 80" preserveAspectRatio="none"><clipPath id="swclip"><rect class="sw-rv" x="-4" y="-10" height="100" width="0"/></clipPath><path class="sw-base" d="M0 76H600"/><path class="sw-line" clip-path="url(#swclip)" d="M0 76L150 12L210 18L300 76L360 76L510 12"/></svg></div>
     </div>
     <p class="pull21">It isn't that you can't get clients. It's that every client depends on <em>you pushing.</em></p>
   </div>
@@ -48,6 +53,21 @@
   <div class="wrap">
     <p class="label">Why it isn't your fault</p>
     <h2 id="y-h">Getting a client is a chain. Most fixes touch one link.</h2>
+    <div class="ch21 mo21" aria-hidden="true">
+      <p class="mo-st"><i></i><span><span class="ch-k">Fix 1 of 4:</span> <b class="ch-f">More content</b></span></p>
+      <div class="ch-track">
+        <ol class="ch-ns">
+          <li><i></i><span>Attention</span><em></em></li>
+          <li><i></i><span>Page</span><em></em></li>
+          <li><i></i><span>Reply</span><em></em></li>
+          <li><i></i><span>Day 3, day 7</span><em></em></li>
+          <li><i></i><span>Call</span><em></em></li>
+          <li><i></i><span>Client</span><em></em></li>
+        </ol>
+        <b class="ch-dot"></b>
+      </div>
+      <p class="ch-out">Clients from this lead: <b>0</b></p>
+    </div>
     <ul class="fails21">
       <li><span>More content</span><b>More posts, faster.</b><p>The pipeline looked the same. Content was never the problem.</p></li>
       <li><span>An agency for the ads</span><b>One link fixed.</b><p>Nobody calls the lead back, so the lead you paid for goes quiet.</p></li>
@@ -210,6 +230,96 @@ addEventListener('load', function () { setTimeout(function () { if (window.reque
   var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); }); bar.classList.toggle('away', seen.size > 0); });
   document.querySelectorAll('.js-claim').forEach(function (b) { if (!bar.contains(b)) io.observe(b); });
   io.observe(document.getElementById('player')); io.observe(document.getElementById('claim'));
+})();
+
+/* Problem + why scenes. One clock per scene: wait() only counts while playing, so the pause button freezes the timeline too. */
+(function () {
+  var A = window.AIML;
+  function clock() {
+    var c = { on: true, anims: [] };
+    c.wait = function (ms) { return new Promise(function (res) { var last = performance.now(); (function tick(t) { if (c.on) ms -= t - last; last = t; if (ms <= 0) res(); else requestAnimationFrame(tick); })(last); }); };
+    c.play = function () { c.on = true; c.anims.forEach(function (a) { a.play(); }); };
+    c.pause = function () { c.on = false; c.anims.forEach(function (a) { a.pause(); }); };
+    return c;
+  }
+
+  /* The swing: this month fills while you chase, turns to delivery, next month stays at 0. */
+  var sw = document.querySelector('.sw21');
+  if (sw) {
+    var grids = sw.querySelectorAll('.sw-g'), counts = sw.querySelectorAll('.sw-h em'), next = sw.querySelector('.sw-next');
+    var st = sw.querySelector('.mo-st'), stx = st.querySelector('span'), line = sw.querySelector('.sw-rv');
+    var BOOK = [4, 6, 9, 11, 13, 16, 18, 22];   // weekday cells, offset 2 blanks
+    grids.forEach(function (g) { for (var i = 0; i < 35; i++) { var li = document.createElement('li'); if (i < 2 || i > 31) li.className = 'x'; g.appendChild(li); } });
+    var cells = grids[0].children;
+    var X = [0, 150, 210, 300, 360, 510];   // x of each point on the pipeline path; the clip rect grows to it
+    function draw(k) { line.style.width = (X[k] + 8) + 'px'; }
+    function say(t, warn) { stx.textContent = t; st.classList.toggle('warn', !!warn); }
+    function reset() { [].forEach.call(cells, function (c) { if (c.className !== 'x') c.className = ''; }); counts[0].textContent = '0'; next.classList.remove('empty');
+      line.style.transition = 'none'; line.style.width = '0px'; line.getBoundingClientRect(); line.style.transition = ''; }
+    function still() { BOOK.forEach(function (n) { cells[n].className = 'd'; }); counts[0].textContent = BOOK.length; next.classList.add('empty'); line.style.transition = 'none'; draw(4); say('Four weeks later: next month is empty.', 1); }
+    if (A.REDUCE) still();
+    else A.onView(sw, function () {
+      var c = clock(); A.pauseBtn(sw, c);
+      (async function run() {
+        for (;;) {
+          reset(); say('You: chasing. DMs, follow-ups, posts.'); await c.wait(500); draw(1);
+          for (var i = 0; i < BOOK.length; i++) { cells[BOOK[i]].className = 'b'; counts[0].textContent = i + 1; await c.wait(220); }
+          await c.wait(700);
+          say('Clients sign. You deliver, the part you’re good at.'); draw(3);
+          for (i = 0; i < BOOK.length; i++) { cells[BOOK[i]].className = 'd'; await c.wait(140); }
+          await c.wait(1300);
+          say('Four weeks later: next month is empty.', 1); next.classList.add('empty'); draw(4);
+          await c.wait(2400);
+          say('Back to chasing.'); draw(5);
+          await c.wait(2200);
+        }
+      })();
+    });
+  }
+
+  /* The chain: each fix repairs some links, the lead drops at the next broken one. Then every link written down. */
+  var ch = document.querySelector('.ch21');
+  if (ch) {
+    var ns = ch.querySelectorAll('.ch-ns li'), dot = ch.querySelector('.ch-dot'), trk = ch.querySelector('.ch-track');
+    var kx = ch.querySelector('.ch-k'), fx = ch.querySelector('.ch-f'), out = ch.querySelector('.ch-out'), ob = out.querySelector('b'), cards = document.querySelectorAll('.fails21 li');
+    var PASS = [
+      { k: 'Fix 1 of 4:', f: 'More content', fix: [0], brk: 1, why: 'nowhere to land' },
+      { k: 'Fix 2 of 4:', f: 'An agency for the ads', fix: [0, 1], brk: 2, why: 'nobody calls back' },
+      { k: 'Fix 3 of 4:', f: 'Doing it yourself', fix: [0, 1, 2], brk: 3, why: 'you’re delivering' },
+      { k: 'Fix 4 of 4:', f: 'A chat window', fix: [0], brk: 1, why: 'a caption, no list' },
+      { k: 'Upstream Downstream:', f: 'every link written down', fix: [0, 1, 2, 3, 4, 5], brk: -1 }
+    ];
+    function at(n) { var a = ns[n].querySelector('i').getBoundingClientRect(), b = trk.getBoundingClientRect(); return 'translate(' + (a.left - b.left + a.width / 2) + 'px,' + (a.top - b.top + a.height / 2) + 'px)'; }
+    function set(p, n) {
+      kx.textContent = p.k; fx.textContent = p.f; ob.textContent = '0'; out.classList.remove('won');
+      ns.forEach(function (li, j) { li.className = p.fix.indexOf(j) > -1 ? 'fix' : ''; li.querySelector('em').textContent = j === p.brk ? p.why : ''; });
+      cards.forEach(function (li, j) { li.classList.toggle('on', j === n); });
+    }
+    function still() { set(PASS[4], -1); ns[5].className = 'fix won'; ob.textContent = '1'; out.classList.add('won'); dot.style.opacity = 1; dot.style.transform = at(5); }
+    if (A.REDUCE) { still(); addEventListener('resize', still); }
+    else A.onView(ch, function () {
+      var c = clock(); A.pauseBtn(ch, c);
+      function mv(kf, ms) { var a = dot.animate(kf, { duration: ms, easing: 'cubic-bezier(.45,0,.2,1)', fill: 'forwards' }); c.anims.push(a); if (!c.on) a.pause(); return a.finished.then(function () { c.anims.splice(c.anims.indexOf(a), 1); }); }
+      (async function run() {
+        for (;;) for (var n = 0; n < PASS.length; n++) {
+          var p = PASS[n]; set(p, n);
+          await mv([{ transform: at(0), opacity: 0 }, { transform: at(0), opacity: 1 }], 300);
+          await c.wait(500);
+          var end = p.brk < 0 ? 5 : p.brk;
+          for (var k = 1; k <= end; k++) await mv([{ transform: at(k - 1), opacity: 1 }, { transform: at(k), opacity: 1 }], 520);
+          if (p.brk > -1) {
+            ns[p.brk].classList.add('brk');
+            await mv([{ transform: at(p.brk), opacity: 1 }, { transform: at(p.brk) + ' translateY(46px)', opacity: 0 }], 600);
+            await c.wait(1500);
+          } else {
+            ns[5].classList.add('won'); ob.textContent = '1'; out.classList.add('won');
+            await c.wait(3000);
+            await mv([{ transform: at(5), opacity: 1 }, { transform: at(5), opacity: 0 }], 300);
+          }
+        }
+      })();
+    });
+  }
 })();
 </script>
 <script>addEventListener('load', function () { var s = document.createElement('script'); s.src = '../call/js/sections.js'; document.body.appendChild(s); });</script>

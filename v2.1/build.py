@@ -54,7 +54,7 @@ s7 = sec('s7').replace('<a class="btn js-pay" href="#">Book my &#8377;999 call</
 s9 = sub(sec('s9'), '<h2 id="s9-h">Questions</h2>', '<h2 id="s9-h">What you\'re probably thinking</h2>')
 items = re.findall(r'<details.*?</details>', s9, flags=re.S)
 by = {re.search(r'<span>(.*?)</span>', d).group(1): d for d in items}
-by['Why is the call free?'] = re.sub(r'<span>Why ₹999 for the call\?</span>(.*?)<p>.*?</p>', r'<span>Why is the call free?</span>\1<p>Because you should see your own map before you decide anything. I still take every call myself, and if neither program fits, I\'ll tell you.</p>', by.pop('Why ₹999 for the call?'), flags=re.S)
+by['Why is the call free?'] = re.sub(r'<span>Why ₹999 for the call\?</span>(.*?)<p>.*?</p>', r"<span>Why is the call free?</span>\1<p>Because you should see your own map before you decide anything. I still take every call myself, and if neither program fits, I'll tell you.</p>", by.pop('Why ₹999 for the call?'), flags=re.S)
 order = ["I need clients, not automation.", "I've bought courses and built nothing.", "I'm not technical.", 'Why is the call free?',
          "Why isn't the price here?", 'My business is different.', "I don't have time.", 'Will I pay for tools?']
 faq = []
