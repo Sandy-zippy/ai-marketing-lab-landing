@@ -110,6 +110,12 @@ jobs:
           mkdir -p _site/v2/media
           cp v2/index.html v2/hd.m3u8 _site/v2/
           cp v2/media/vsl-loop.mp4 v2/media/vsl-poster.jpg _site/v2/media/
+          # /v2.1: the v1 motion sections in Sabri's order, centred, free call, VSL re-edited without the ₹999 line (Sandy, 9 Oct 2026).
+          # Its HD playlist reuses /call's first 115 1080p segments and adds 6 new tail segments.
+          mkdir -p _site/v2.1/media _site/v2.1/vsl
+          cp v2.1/index.html _site/v2.1/
+          cp v2.1/media/vsl-loop.mp4 v2.1/media/vsl-poster.jpg _site/v2.1/media/
+          cp v2.1/vsl/hd.m3u8 v2.1/vsl/v1080.m3u8 v2.1/vsl/tail_000.ts v2.1/vsl/tail_001.ts v2.1/vsl/tail_002.ts v2.1/vsl/tail_003.ts v2.1/vsl/tail_004.ts v2.1/vsl/tail_005.ts _site/v2.1/vsl/
           touch _site/.nojekyll
           node --check _site/assets/analytics.js
           node --check _site/assets/meta-pixel.js
