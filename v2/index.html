@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Your next client in 90 days | AI Marketing Lab</title>
+<meta name="description" content="Free 45-minute call with Sandy. You leave with a map of where your clients leak and what to build first, whether you join or not." />
+<!-- V2 review build (Sandy, 9 Oct 2026): Sabri Suby's lead-gen page structure, free call, VSL above the fold. Not linked anywhere, not indexed. -->
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml" />
+<link rel="preload" href="../assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="media/vsl-poster.jpg" as="image" />
+<style>
+@font-face{font-family:'Bricolage Grotesque';src:url('../assets/fonts/bricolage-latin.woff2') format('woff2');font-weight:200 800;font-stretch:75% 100%;font-display:swap}
+@font-face{font-family:'Geist';src:url('../assets/fonts/geist-latin.woff2') format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Space Mono';src:url('../assets/fonts/spacemono-700-latin.woff2') format('woff2');font-weight:700;font-display:swap}
+/* Brand (company.yaml, Sandy 12 Sep + 5 Oct): white ground, ink, teal the only accent, Bricolage headings, Geist body, Space Mono labels.
+   Sabri step 7: copy is the steak. Body 18px (never under 16), black on white, line-height 1.65, short paragraphs. */
+:root{--ink:#121212;--body:#262626;--quiet:#5E5E5E;--line:#E3E3E3;--soft:#F6F6F4;--paper:#FAF7EE;--paper-edge:#E5DECA;
+  --accent:#00A19B;--accent-ink:#00736E;--accent-soft:rgba(0,161,155,.09);--petrol:#0B2224;
+  --head:'Bricolage Grotesque','Inter',system-ui,sans-serif;--sans:'Geist','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--mono:'Space Mono','Courier New',monospace;
+  --t-body:18px;--t-sm:15px;--t-label:12px;--t-lg:21px;--t-h3:24px;--t-h2:clamp(30px,5.2vw,44px);--t-h1:clamp(32px,5.6vw,52px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--body);font:400 var(--t-body)/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+img,video{display:block;max-width:100%;height:auto}
+a{color:var(--accent-ink)}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+.wide{max-width:1040px}
+h1,h2,h3{font-family:var(--head);color:var(--ink);font-weight:800;letter-spacing:-.025em;margin:0}
+h1{font-size:var(--t-h1);line-height:1.04}
+h2{font-size:var(--t-h2);line-height:1.08;margin-bottom:22px}
+h3{font-size:var(--t-h3);line-height:1.2;font-weight:700;margin:34px 0 8px}
+p{margin:0 0 18px}
+b,strong{color:var(--ink);font-weight:600}
+.label{font:700 var(--t-label)/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 14px}
+.nw{white-space:nowrap}
+section{padding:72px 0;border-top:1px solid var(--line)}
+@media(max-width:640px){section{padding:56px 0}}
+
+/* top bar */
+.top{padding:18px 0}
+.top img{height:20px;width:auto}
+
+/* HERO: eyebrow (audience + proof), headline, subhead, VSL, CTA, proof under the CTA (Sabri steps 1-3 + above-the-fold) */
+.hero{border-top:0;padding:8px 0 56px}
+@media(min-width:900px){.hero .wrap{max-width:900px}.hero .sub{margin:14px 0 20px}}
+.eyebrow{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin:0 0 18px;font:600 var(--t-sm)/1.35 var(--sans);color:var(--ink)}
+.eyebrow .who{font-weight:700}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;font:700 12px/1 var(--mono);letter-spacing:.04em;color:var(--quiet);background:#fff}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1 em{font-style:normal;color:var(--accent-ink)}
+.sub{font-size:var(--t-lg);line-height:1.5;color:var(--body);margin:18px 0 26px}
+.player{position:relative;border-radius:16px;overflow:hidden;background:var(--petrol);aspect-ratio:16/9;box-shadow:0 30px 60px -30px rgba(11,34,36,.55)}
+.player video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.player .loop{pointer-events:none}
+.playbtn{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;border:0;background:linear-gradient(180deg,rgba(11,34,36,.05),rgba(11,34,36,.45));color:#fff;cursor:pointer;font:600 var(--t-body)/1 var(--sans)}
+.playbtn i{width:76px;height:76px;border-radius:50%;background:var(--accent);display:grid;place-items:center;box-shadow:0 0 0 10px rgba(0,161,155,.25);transition:transform .2s}
+.playbtn:hover i{transform:scale(1.06)}
+.playbtn svg{width:30px;height:30px;margin-left:4px}
+.playbtn b{color:#fff;background:rgba(0,0,0,.55);padding:8px 12px;border-radius:999px}
+.vend{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:rgba(11,34,36,.92);color:#fff;text-align:center;padding:20px}
+.vend.on{display:flex}
+.vend p{margin:0;color:#EAF5F4;font-size:var(--t-lg)}
+.cta-zone{margin-top:26px;text-align:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:16px 30px;border-radius:999px;background:var(--ink);color:#fff;text-decoration:none;font:600 var(--t-body)/1.2 var(--sans);transition:transform .2s,background .2s;cursor:pointer;border:0}
+.btn:hover{transform:translateY(-1px);background:#000}
+.btn svg{width:18px;height:18px}
+.btn-full{width:100%;max-width:520px}
+.under{margin:12px 0 0;font-size:var(--t-sm);color:var(--quiet);line-height:1.45}
+.under s{color:var(--quiet)}
+.under b{color:var(--ink)}
+.proofrow{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin:18px 0 0;padding:14px 0 0;border-top:1px solid var(--line);font-size:var(--t-sm);color:var(--quiet);list-style:none}
+.proofrow li b{font-family:var(--mono);color:var(--ink)}
+
+/* body blocks */
+.lede{font-size:var(--t-lg);color:var(--ink)}
+.pull{border-left:3px solid var(--accent);padding:4px 0 4px 18px;font-family:var(--head);font-weight:700;font-size:var(--t-h3);line-height:1.3;color:var(--ink);margin:28px 0}
+.fails{list-style:none;padding:0;margin:26px 0;display:grid;gap:14px}
+.fails li{padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.fails li b{display:block;font-family:var(--head);font-size:var(--t-lg);margin-bottom:4px}
+.fails li span{color:var(--quiet);font-size:var(--t-sm);font-family:var(--mono);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+
+/* the named mechanism */
+.mech{background:var(--paper);border-top-color:var(--paper-edge)}
+.halves{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0}
+@media(max-width:560px){.halves{grid-template-columns:1fr}}
+.half{background:#fff;border:1px solid var(--paper-edge);border-radius:16px;padding:20px}
+.half h3{margin:0 0 4px}
+.half .label{margin:0 0 12px}
+.half ol{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:8px}
+.half li{counter-increment:s;display:flex;gap:10px;align-items:baseline;font-size:var(--t-body);color:var(--ink)}
+.half li::before{content:counter(s,decimal-leading-zero);font:700 12px/1 var(--mono);color:var(--accent-ink)}
+.runs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0}
+@media(max-width:560px){.runs{grid-template-columns:1fr}}
+.runs div{background:#fff;border:1px solid var(--paper-edge);border-radius:14px;padding:16px}
+.runs b{display:block;font:700 28px/1 var(--mono);color:var(--accent-ink);margin-bottom:6px;letter-spacing:-.03em}
+.runs span{font-size:var(--t-sm);line-height:1.4;display:block}
+
+/* credentials */
+.me{display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start}
+@media(max-width:640px){.me{grid-template-columns:1fr}.me img{max-width:220px}}
+.me img{border-radius:16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin:26px 0 0;border-top:1px solid var(--line)}
+.stats div{padding:16px 12px 0 0}
+.stats div+div{padding-left:12px;border-left:1px solid var(--line)}
+.stats b{display:block;font:700 28px/1 var(--mono);letter-spacing:-.04em;color:var(--ink)}
+.stats b.acc{color:var(--accent-ink)}
+.stats span{display:block;margin-top:6px;font-size:var(--t-sm);line-height:1.35;color:var(--quiet)}
+
+/* benefits */
+.ticks{list-style:none;padding:0;margin:24px 0;display:grid;gap:14px}
+.ticks li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.ticks li::before{content:"";width:22px;height:22px;margin-top:3px;border-radius:50%;background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300736E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/14px no-repeat}
+
+/* proof */
+.cases{display:grid;gap:18px;margin:28px 0}
+.case{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+.case img{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top;border-bottom:1px solid var(--line)}
+.case .in{padding:20px}
+.case h3{margin:0 0 4px}
+.case .what{font-size:var(--t-sm);color:var(--quiet);margin:0 0 14px}
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.nums div{background:var(--soft);border-radius:12px;padding:12px 14px}
+.nums span{display:block;font:700 12px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--quiet)}
+.nums b{display:block;font:700 28px/1.1 var(--mono);letter-spacing:-.04em;color:var(--ink);margin-top:4px}
+.nums b.acc{color:var(--accent-ink)}
+.nums small{display:block;font-size:var(--t-label);color:var(--quiet);margin-top:2px}
+.case .note{margin:12px 0 0;font-size:var(--t-sm);color:var(--body)}
+.own{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 0}
+.own div{border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.own b{display:block;font:700 28px/1 var(--mono);color:var(--ink)}
+.own span{font-size:var(--t-sm);color:var(--quiet)}
+.testi{margin:26px 0 0;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:16/9}
+.testi video{width:100%;height:100%;object-fit:cover}
+.cap{font-size:var(--t-sm);color:var(--quiet);margin:10px 0 0}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 0}
+@media(max-width:560px){.cards{grid-template-columns:1fr}}
+.cards img{border:1px solid var(--line);border-radius:10px;width:100%;background:#fff}
+.also{margin:22px 0 0;font-size:var(--t-sm);color:var(--quiet)}
+.also b{color:var(--ink);font-weight:600}
+
+/* proof above every CTA (Sabri step 9) */
+.ask{margin:40px 0 0;padding:26px 22px;border:1px solid var(--line);border-radius:20px;background:var(--soft);text-align:center}
+.ask .q{font:700 var(--t-label)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--quiet);margin:0 0 6px}
+.ask .p{font-size:var(--t-sm);color:var(--ink);margin:0 0 16px;line-height:1.5}
+
+/* offer */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0}
+@media(max-width:640px){.two{grid-template-columns:1fr}}
+.prog{border:1px solid var(--line);border-radius:18px;padding:22px;background:#fff}
+.prog h3{margin:0 0 4px}
+.prog .when{font:700 var(--t-label)/1.4 var(--mono);color:var(--accent-ink);letter-spacing:.03em;margin:0 0 14px}
+.prog ul{margin:0;padding-left:18px;font-size:var(--t-body)}
+.prog li{margin:6px 0}
+.prog .seats{margin:16px 0 0;padding:10px 12px;border-radius:10px;background:var(--accent-soft);font-size:var(--t-sm);color:var(--ink)}
+.packs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:20px 0 0;padding:0;list-style:none}
+.packs li{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:var(--t-sm);color:var(--ink);display:flex;justify-content:space-between;gap:8px}
+.packs li span{font:700 var(--t-label)/1.6 var(--mono);text-transform:uppercase;color:var(--quiet)}
+.packs li.free{border-color:var(--accent);background:var(--accent-soft)}
+.packs li.free span{color:var(--accent-ink)}
+.guar{margin:30px 0 0;padding:24px;border-radius:18px;background:var(--petrol);color:#EAF5F4}
+.guar h3{color:#fff;margin:0 0 8px}
+.guar p{margin:0;color:#CFE3E1}
+
+/* the free call */
+.call{background:var(--soft)}
+.steps{list-style:none;counter-reset:st;padding:0;margin:26px 0;display:grid;gap:12px}
+.steps li{counter-increment:st;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.steps li::before{content:counter(st);width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font:700 var(--t-sm)/1 var(--mono)}
+.steps b{display:block}
+.price-was{display:inline-flex;gap:10px;align-items:baseline;margin:0 0 18px;font-size:var(--t-lg);color:var(--ink)}
+.price-was s{color:var(--quiet);font-family:var(--mono)}
+.price-was b{font:700 28px/1 var(--mono);color:var(--accent-ink)}
+
+/* fit */
+.fit{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0 0}
+@media(max-width:560px){.fit{grid-template-columns:1fr}}
+.fit div{border:1px solid var(--line);border-radius:14px;padding:18px}
+.fit ul{margin:8px 0 0;padding-left:18px;font-size:var(--t-body)}
+.fit .no{background:var(--soft)}
+
+/* FAQ */
+details{border-top:1px solid var(--line);padding:4px 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:16px 36px 16px 0;position:relative;font:700 var(--t-lg)/1.35 var(--head);color:var(--ink)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;top:12px;font:400 28px/1 var(--sans);color:var(--accent-ink)}
+details[open] summary::after{content:"\2212"}
+details p{margin:0 0 18px}
+
+/* booking */
+#claim{scroll-margin-top:12px}
+.calbox{margin:24px 0 0;min-height:620px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+.calbox .wait{padding:40px 20px;text-align:center;color:var(--quiet)}
+.calbox:has(iframe) .wait{display:none}
+
+/* P.S. (Sabri step 17) */
+.ps{background:var(--paper);border-top-color:var(--paper-edge)}
+.ps p{font-size:var(--t-lg);color:var(--ink)}
+.ps .sig{font-family:var(--head);font-weight:700;font-size:28px;margin:0 0 6px}
+
+footer{padding:36px 0 110px;border-top:1px solid var(--line);font-size:var(--t-label);color:var(--quiet)}
+footer nav{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 12px}
+footer a{color:var(--quiet)}
+
+/* phone: the ask under the thumb, hidden while another ask or the video is on screen */
+.stick{position:fixed;left:12px;right:12px;bottom:12px;z-index:20;display:none;transition:transform .3s,opacity .3s}
+@media(max-width:760px){.stick{display:block}}
+.stick .btn{width:100%;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}
+.stick.away{transform:translateY(140%);opacity:0;pointer-events:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}.player .loop{display:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><img src="../assets/brand/aiml-horizontal.svg" alt="AI Marketing Lab" width="153" height="22" /></div></header>
+<main>
+
+<!-- 1-3 + above the fold: eyebrow (who it's for + proof), big-promise headline, subhead that opens a loop, VSL, specific CTA, proof under it -->
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow"><span class="who">For agency owners, <span class="nw">high-ticket</span> coaches and B2B founders</span>
+      <span class="chip"><i></i>100+ businesses since 2017</span></p>
+    <h1>Your next client in 90 days, from a system <em>Claude Code drafts</em> and you approve. Or every rupee back.</h1>
+    <p class="sub">It's called Upstream Downstream. It's how we collected <b class="nw">$220,000</b> from clients in six months in India. In 8 minutes I'll show you the one link in the chain that breaks in almost every business, and why more content never fixes it.</p>
+
+    <div class="player" id="player">
+      <video class="loop" id="loop" muted loop playsinline autoplay preload="auto" poster="media/vsl-poster.jpg" aria-hidden="true"><source src="media/vsl-loop.mp4" type="video/mp4" /></video>
+      <video id="vsl" playsinline preload="none" controls controlslist="nodownload noplaybackrate" disablepictureinpicture hidden></video>
+      <button class="playbtn" type="button" id="play" aria-label="Play the 8-minute video with sound"><i><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></i><b>Watch with sound · 8 min</b></button>
+      <div class="vend" id="vend" role="status"><p>That's the system. Want it mapped to your business?</p><a class="btn js-claim" href="#claim">Claim my free 45-minute growth map</a></div>
+    </div>
+
+    <div class="cta-zone">
+      <a class="btn btn-full js-claim" href="#claim">Claim my free 45-minute growth map <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <p class="under"><s>₹999</s> <b>Free.</b> 45 minutes with me, Sandy. Not a sales team.</p>
+      <ul class="proofrow">
+        <li><b>2017</b> agency started in Vancouver</li>
+        <li><b>100+</b> businesses in Canada, the US and India</li>
+        <li><b>$220,000</b> collected in 6 months in India</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 4-5: intrigue + the problem, in their words (VSL 0:00, spoken) -->
+<section id="problem">
+  <div class="wrap">
+    <p class="label">Their month</p>
+    <h2>Full calendar this month. Nothing booked for next month?</h2>
+    <p class="lede">Think about your last three months. Not the good one. All three.</p>
+    <p>One month your calendar is full, and it's full because you spent every evening sending DMs, following up and posting. A couple of clients sign. You get busy delivering, which is the part you're actually good at.</p>
+    <p>About four weeks later you look up and there's nothing in the pipeline. So you go back to chasing.</p>
+    <p class="pull">It isn't that you can't get clients. You can. It's that every client depends on you pushing, and the week you stop pushing, it stops.</p>
+    <p>That cycle is the whole problem. Here's why the usual fixes didn't break it.</p>
+  </div>
+</section>
+
+<!-- 10a hero mechanism, part one: why every other fix failed them -->
+<section id="why">
+  <div class="wrap">
+    <p class="label">Why it isn't your fault</p>
+    <h2>Why more posts, another agency and AI tools didn't fix it</h2>
+    <p>Getting a client isn't one task. It's a chain. Someone finds the right people and writes to them, then follows up when they don't reply, which is most of the time. Someone makes the ads, builds the page, calls the lead back fast, reminds them before the call and follows up after it.</p>
+    <ul class="fails">
+      <li><span>More content</span><b>When AI arrived, everyone made more posts.</b>More captions and carousels, faster than before. The pipeline looked exactly the same, because more content was never the problem.</li>
+      <li><span>An agency for the ads</span><b>One link fixed. The chain still breaks.</b>The ads bring the lead in. If nobody calls it back fast and follows up, the lead you paid for goes quiet.</li>
+      <li><span>Doing it all yourself</span><b>You can't run every link while you deliver.</b>In most businesses the someone is you. Nobody can chase and deliver in the same week.</li>
+      <li><span>A chat window</span><b>A prompt writes a caption.</b>It doesn't build the list, write 200 different first messages and follow up on day 3 and day 7.</li>
+    </ul>
+    <p>So the chain breaks, usually at the follow-up, and the lead you already paid to find just goes quiet.</p>
+  </div>
+</section>
+
+<!-- 6 + 10b/c: the solution and the NAMED mechanism (Sandy 1 Oct: upstream/downstream is the named mechanism) -->
+<section id="mechanism" class="mech">
+  <div class="wrap">
+    <p class="label">What changed for me</p>
+    <h2>Upstream Downstream: the whole chain, written down once</h2>
+    <p>I stopped trying to run the chain faster and wrote it down instead. Every step I'd done by hand for eight years became a skill file: who to target, what to say, when to follow up, what a good ad looks like for a coach compared with an agency.</p>
+    <p><b>Claude Code drafts the work from those files. You approve what goes out.</b> Your judgement is exactly what goes into the file. What it removes is you being the bottleneck.</p>
+    <div class="halves">
+      <div class="half"><p class="label">Upstream</p><h3>Getting clients in</h3>
+        <ol><li>Offer</li><li>Content</li><li>Cold email</li><li>LinkedIn</li><li>Ads</li><li>Landing page</li></ol></div>
+      <div class="half"><p class="label">Downstream</p><h3>Everything after the yes</h3>
+        <ol><li>Fast callback</li><li>Follow-up</li><li>Sales call</li><li>Delivery</li><li>Reporting</li><li>Repeat buying</li></ol></div>
+    </div>
+    <p>When both halves run on files instead of on you, you stop swinging between chasing and delivering. That's the cycle broken.</p>
+    <div class="runs">
+      <div><b>200</b><span>first messages from one run, each written from the prospect's own website</span></div>
+      <div><b>Day 3, 7</b><span>follow-ups drafted for everyone who didn't reply</span></div>
+      <div><b>40</b><span>ad creatives from one run, for a single campaign</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7: credentials -->
+<section id="me">
+  <div class="wrap">
+    <p class="label">Who you'll be talking to</p>
+    <div class="me">
+      <img src="../call/assets/s1-sandy.jpg" alt="Sandy, founder of ZippyScale and AI Marketing Lab" width="400" height="500" loading="lazy" />
+      <div>
+        <h2>I teach what's running my business right now</h2>
+        <p>I'm Sandy. I've run ZippyScale, a marketing agency, since 2017 out of Vancouver. For eight years we did the ads, content, outreach and follow-up for coaches, agencies and service businesses in Canada and the US.</p>
+        <p>This year I moved the operation to India and put more than half of those workflows on Claude Code skill files. I still take every call myself.</p>
+      </div>
+    </div>
+    <div class="stats">
+      <div><b>2017</b><span>Agency started in Vancouver</span></div>
+      <div><b>100+</b><span>Businesses in Canada, the US and India</span></div>
+      <div><b class="acc">$220,000</b><span>Collected from clients in 6 months in India</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8: benefits, not features -->
+<section id="changes">
+  <div class="wrap">
+    <p class="label">When it's installed</p>
+    <h2>What changes when both halves are written down</h2>
+    <ul class="ticks">
+      <li><span><b>Every enquiry gets caught.</b> A reply, a day 3 and a day 7 follow-up, whether you're delivering that week or not.</span></li>
+      <li><span><b>Outreach goes out every weekday.</b> Drafted from each prospect's own website, approved by you, never sent on its own.</span></li>
+      <li><span><b>The lead you paid for gets called back.</b> And reminded before the call, so it doesn't go quiet.</span></li>
+      <li><span><b>Next month stops depending on this month.</b> The chase keeps running while you do the work you're good at.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 9: irrefutable proof (real client numbers, real payment emails, client on video) -->
+<section id="proof">
+  <div class="wrap">
+    <p class="label">Proof, not promises</p>
+    <h2>What clients made. What they paid us.</h2>
+    <p>We built these by hand for clients first. Today the repeatable steps are skill files Claude Code drafts from.</p>
+    <div class="cases">
+      <article class="case">
+        <img src="../call/assets/s6-medico-lp.webp" alt="Medico Construction landing page, built by us" width="1200" height="675" loading="lazy" />
+        <div class="in"><h3>Medico Construction</h3><p class="what">Medical construction. Built: ads, and AI calls to every enquiry.</p>
+          <div class="nums"><div><span>Paid us</span><b>~$100k</b><small>over 2 years</small></div><div><span>Made</span><b class="acc">~$6M</b><small>contracted in 2 years</small></div></div></div>
+      </article>
+      <article class="case">
+        <img src="../call/assets/s6-sami-funnel.webp" alt="Scale Your Results funnel, built by us" width="1200" height="675" loading="lazy" />
+        <div class="in"><h3>Scale Your Results</h3><p class="what">High-ticket coaching, Vancouver. Built: ads, funnel, qualification.</p>
+          <div class="nums"><div><span>Paid us once</span><b>~$12k</b></div><div><span>Made</span><b class="acc">~$85k</b><small>from $30k of ads</small></div></div>
+          <p class="note">Before us, $20k of ads made about $30k.</p></div>
+      </article>
+      <article class="case">
+        <img src="../call/assets/s6-rumor-site.webp" alt="Rumor Avenue's website (theirs). We ran their outreach." width="1200" height="675" loading="lazy" />
+        <div class="in"><h3>Rumor Avenue</h3><p class="what">Design agency selling $10k+ projects. Built: LinkedIn and email outreach.</p>
+          <div class="nums"><div><span>Setup fee</span><b>CA$5,000</b></div><div><span>Made</span><b class="acc">$100k+</b><small>in about 3 months</small></div></div></div>
+      </article>
+    </div>
+    <h3>Our own offer, on the same system</h3>
+    <div class="own"><div><b>300</b><span>leads</span></div><div><b>50</b><span>qualified</span></div><div><b>10+</b><span>closed at ₹1.5L</span></div></div>
+    <h3>Sami, Scale Your Results, on video</h3>
+    <div class="testi"><video controls playsinline preload="none" poster="../call/media/sami-testimonial-poster.jpg" src="../call/media/sami-testimonial.mp4" aria-label="Sami, Scale Your Results, on video"></video></div>
+    <h3>The payment emails</h3>
+    <p>Straight from our account. Payer names hidden.</p>
+    <div class="cards">
+      <img src="../assets/proof/redacted/card-1.png" alt="Payment received email" width="500" height="100" loading="lazy" />
+      <img src="../assets/proof/redacted/card-4.png" alt="Payment received email" width="500" height="100" loading="lazy" />
+      <img src="../assets/proof/redacted/card-2.png" alt="Payment received email" width="500" height="100" loading="lazy" />
+      <img src="../assets/proof/redacted/card-3.png" alt="Payment received email" width="500" height="100" loading="lazy" />
+      <img src="../assets/proof/redacted/card-5.png" alt="Payment received email" width="500" height="100" loading="lazy" />
+      <img src="../assets/proof/redacted/card-6.png" alt="Payment received email" width="500" height="100" loading="lazy" />
+    </div>
+    <p class="also">Also built for <b>Agent Lions Den</b>, <b>Jas Oberoi</b>, <b>Riarh Group</b>, <b>Celestial Luxury Resorts</b>, <b>Walk Again Rehab</b> and <b>Swathi Veldandi Studio</b>.</p>
+
+    <div class="ask">
+      <p class="q">Medico, Scale Your Results, Rumor Avenue</p>
+      <p class="p">Want this mapped to your business? 45 minutes with me, free.</p>
+      <a class="btn js-claim" href="#claim">Claim my free 45-minute growth map</a>
+    </div>
+  </div>
+</section>
+
+<!-- 11: the cold-traffic lead offer: a call that's worth it whether or not they buy -->
+<section id="the-call" class="call">
+  <div class="wrap">
+    <p class="label">The free call</p>
+    <h2>What you get in 45 minutes, even if you never join</h2>
+    <p class="price-was"><s>₹999</s> <b>Free</b></p>
+    <p>Before the call I look at your business. On the call we map both halves: where your clients come from today, where they leak out, and what you should build first.</p>
+    <p><b>You leave with that map whether you join or not.</b> Then I tell you which option fits, or that neither does yet.</p>
+    <ul class="ticks">
+      <li><span><b>Your leak, named.</b> The link in your chain that's losing the most clients.</span></li>
+      <li><span><b>What to build first.</b> One thing, in order, so you're not fixing everything at once.</span></li>
+      <li><span><b>Two skill packs, yours to keep.</b> Setup and Offer, the same files we run on client work.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 10-15: the offer behind the call (no prices on this page: Sandy 16 Sep), bonuses, scarcity, guarantee -->
+<section id="offer">
+  <div class="wrap">
+    <p class="label">After the call</p>
+    <h2>Two ways to install it, with me</h2>
+    <div class="two">
+      <div class="prog"><h3>The 21 Day Sprint</h3><p class="when">Mon 26 Oct to Fri 13 Nov</p>
+        <ul><li>15 live sessions, weekdays 7 to 8:30 pm IST</li><li>You build each piece on your own business, live, after I show it</li><li>Fri 30 Oct: offer, lead magnet and page built</li><li>Fri 6 Nov: your first 100 messages go out</li><li>Fri 13 Nov: demo day, you show what you've booked</li></ul>
+        <p class="seats">Recordings up the next morning if you miss one.</p></div>
+      <div class="prog"><h3>The Accelerator</h3><p class="when">8 weeks, one to one with me</p>
+        <ul><li>Weeks 1 to 4: upstream installed, getting clients in</li><li>Weeks 5 to 8: downstream installed, everything after the yes</li><li>I build it with you on every call</li><li>Plus all 15 Sprint sessions and every skill file</li></ul>
+        <p class="seats"><b>10 seats.</b> I'm on every one of those calls, and I can't do more than ten properly.</p></div>
+    </div>
+    <h3>Thirteen skill packs. Yours to keep.</h3>
+    <p>The same files we run on client work. Two come free with the call.</p>
+    <ul class="packs">
+      <li class="free">Setup <span>Free</span></li><li class="free">Offer <span>Free</span></li>
+      <li>Outreach <span>Sprint</span></li><li>Copy <span>Sprint</span></li><li>Landing page <span>Sprint</span></li><li>Follow-up <span>Sprint</span></li>
+      <li>Ad design <span>Accel.</span></li><li>Paid ads <span>Accel.</span></li><li>Content <span>Accel.</span></li><li>Video <span>Accel.</span></li>
+      <li>Your numbers <span>Accel.</span></li><li>Client delivery <span>Accel.</span></li><li>AI search <span>Accel.</span></li>
+    </ul>
+    <div class="guar"><h3>First client in 90 days, or every rupee back</h3>
+      <p>Both programs. Execute the progress sheet we share. No closed client in 90 days? Full refund.</p></div>
+
+    <div class="ask">
+      <p class="q">2017 · 100+ businesses · $220,000 in 6 months</p>
+      <p class="p">The call tells you which of the two fits, or that neither does yet.</p>
+      <a class="btn js-claim" href="#claim">Claim my free 45-minute growth map</a>
+    </div>
+  </div>
+</section>
+
+<!-- fit -->
+<section id="fit">
+  <div class="wrap">
+    <p class="label">Not for starting from zero</p>
+    <h2>You need an offer people already pay for</h2>
+    <p>We build the system on top of a business that exists. We don't build the business from zero.</p>
+    <div class="fit">
+      <div><b>This is for</b><ul><li>Agency owners with paying clients</li><li>High-ticket coaches already coaching</li><li>B2B founders with an offer that sells</li></ul></div>
+      <div class="no"><b>This isn't for</b><ul><li>No paying clients yet</li><li>Freelancers after a first project</li><li>Coaches who aren't coaching yet</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13: FAQ, biggest objection first -->
+<section id="faq">
+  <div class="wrap">
+    <p class="label">What you're probably thinking</p>
+    <h2>Questions, answered straight</h2>
+    <details><summary>I need clients, not automation.</summary><p>You're right. That's why week two of the Sprint is nothing but getting clients in, and your first 100 messages go out that Friday.</p></details>
+    <details><summary>I've bought courses and built nothing.</summary><p>That's why every session is live, on your own business. You don't watch a module, you build the piece while I'm there.</p></details>
+    <details><summary>I'm not technical.</summary><p>You won't write code. The skill files are already written. I show the step, then you run it on yours, and if you get stuck you ask me live.</p></details>
+    <details><summary>Why is the call free?</summary><p>Because you should see your own map before you decide anything. I still take every call myself, and if neither program fits, I'll tell you.</p></details>
+    <details><summary>Why isn't the price here?</summary><p>The right option depends on what you've already built. I'll tell you on the call, and I'd rather do that than sell you the wrong thing on a page.</p></details>
+    <details><summary>My business is different.</summary><p>Less different than you think. A construction firm, a rehab clinic, a couture studio, coaches, realtors and design agencies all had to get clients in and look after them once they were in.</p></details>
+    <details><summary>I don't have time.</summary><p>90 minutes, 15 evenings. Miss one and the recording's up the next morning.</p></details>
+    <details><summary>Will I pay for tools?</summary><p>Yes. Domains, inboxes and a sending tool. You pay them directly.</p></details>
+  </div>
+</section>
+
+<!-- 16: the CTA, walked through step by step, then the calendar -->
+<section id="claim">
+  <div class="wrap">
+    <p class="label">Here's exactly what happens</p>
+    <h2>Claim your free 45-minute growth map</h2>
+    <ol class="steps">
+      <li><span><b>Pick a time below.</b> Any 45-minute slot on my calendar that suits you.</span></li>
+      <li><span><b>Get your confirmation.</b> An email with the meeting link, and a reminder before we talk.</span></li>
+      <li><span><b>I look at your business first.</b> So the 45 minutes go on your map, not on introductions.</span></li>
+      <li><span><b>Leave with your map and two skill packs.</b> Whether you join or not.</span></li>
+    </ol>
+    <div class="calbox" id="calwrap"><p class="wait">Loading my calendar…</p></div>
+  </div>
+</section>
+
+<!-- 17: P.S., the TL;DR plus the cost of doing nothing -->
+<section class="ps">
+  <div class="wrap">
+    <p class="sig">Sandy</p>
+    <p><b>P.S.</b> If you only read this part: it's one 45-minute call with me, and it's free. You leave with a map of where your clients leak and what to build first, plus two skill packs, whether you join or not.</p>
+    <p>If you skip it, next month probably looks like this one. Busy delivering, nothing booked.</p>
+    <a class="btn js-claim" href="#claim">Claim my free 45-minute growth map</a>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <nav><a href="../contact">Contact</a><a href="../privacy">Privacy</a><a href="../terms">Terms</a><a href="../refund">Refunds</a></nav>
+  <p>AI Marketing Lab is a brand of ZippyScale. Results vary and depend on the work you put in; the figures above are past client results, not a promise. This site isn't part of Facebook or Meta Platforms, Inc., and isn't endorsed by Meta.</p>
+</div></footer>
+<div class="stick" id="stick"><a class="btn js-claim" href="#claim">Claim my free growth map</a></div>
+
+<script>
+/* V2 review build. Trackers load only on the production host, so a local review never pollutes the data. */
+var LIVE = location.hostname === 'aimarketinglabs.in';
+function track(ev, p) { if (window.ph) ph(ev, p || {}); if (window.fbq) fbq('trackCustom', ev, p || {}); }
+if (LIVE) addEventListener('load', function () {
+  setTimeout(function () {
+    ['../assets/meta-pixel.js', '/assets/posthog.js'].forEach(function (src) { var s = document.createElement('script'); s.src = src; s.defer = true; document.head.appendChild(s); });
+    (function (c, l, a, r, i, t, y) { c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); }; t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i; y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y); })(window, document, 'clarity', 'script', 'xgp3y420au');
+  }, 2500);
+});
+
+/* VSL: HD only. The 1080p rung of the live stream (1920x1080, ~4.5 Mbps), no lower rungs, so it never drops to SD. */
+(function () {
+  var v = document.getElementById('vsl'), loop = document.getElementById('loop'), btn = document.getElementById('play'), end = document.getElementById('vend');
+  var HD = 'hd.m3u8', MP4 = '../call/vsl/aiml-vsl.mp4';
+  /* The recorded VSL still says the call costs ₹999 (about 7:40) and its end card shows ₹999 (from 8:03). On this page the call is free:
+     skip 460.2 to 468.7 s ("The call is ₹999 ... I take every call myself") and stop at 483.6 s, before the end card. Re-edit later on the Mini. */
+  var SKIP_FROM = 460.2, SKIP_TO = 468.7, STOP_AT = 483.6;
+  function attach(cb) {
+    if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = HD; return cb(); }
+    var s = document.createElement('script'); s.src = '../assets/vendor/hls.light.min.js';
+    s.onload = function () {
+      if (window.Hls && Hls.isSupported()) { var h = new Hls({ startLevel: 0, capLevelToPlayerSize: false }); h.loadSource(HD); h.attachMedia(v); }
+      else v.src = MP4;
+      cb();
+    };
+    s.onerror = function () { v.src = MP4; cb(); };
+    document.head.appendChild(s);
+  }
+  btn.addEventListener('click', function () {
+    btn.hidden = true; loop.pause(); loop.hidden = true; v.hidden = false;
+    attach(function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); });
+    track('VSLPlay');
+  });
+  var marks = {};
+  v.addEventListener('timeupdate', function () {
+    var t = v.currentTime;
+    if (t >= SKIP_FROM && t < SKIP_TO) v.currentTime = SKIP_TO;
+    if (t >= STOP_AT) { v.pause(); end.classList.add('on'); if (!marks.end) { marks.end = 1; track('VSLComplete'); } }
+    [25, 50, 75].forEach(function (q) { if (!marks[q] && t >= STOP_AT * q / 100) { marks[q] = 1; track('VSL' + q); } });
+  });
+})();
+
+/* Booking: Cal.com inline, loaded when the visitor heads for it (keeps first paint fast). UTMs ride along as booking metadata. */
+var calLoaded = false;
+function loadCal() {
+  if (calLoaded) return; calLoaded = true;
+  (function (C, A, L) { var p = function (a, ar) { a.q.push(ar); }; var d = C.document; C.Cal = C.Cal || function () { var cal = C.Cal; var ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement('script')).src = A; cal.loaded = true; } if (ar[0] === L) { var api = function () { p(api, arguments); }; var namespace = ar[1]; api.q = api.q || []; if (typeof namespace === 'string') { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ['initNamespace', namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, 'https://app.cal.com/embed/embed.js', 'init');
+  Cal('init', 'v2', { origin: 'https://cal.com' });
+  var q = new URLSearchParams(location.search), cfg = { layout: 'month_view' };
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'].forEach(function (k) { if (q.get(k)) cfg['metadata[' + k + ']'] = q.get(k); });
+  cfg['metadata[page]'] = 'v2';
+  Cal.ns.v2('inline', { elementOrSelector: '#calwrap', calLink: 'sandy-kadyan/ai-growth-audit', config: cfg });
+  Cal.ns.v2('on', { action: 'bookingSuccessful', callback: function () { track('FreeCallBooked'); if (window.fbq) fbq('track', 'Schedule'); } });
+}
+document.querySelectorAll('.js-claim').forEach(function (a) { a.addEventListener('click', function () { loadCal(); track('ClaimClick'); }); });
+if ('IntersectionObserver' in window) new IntersectionObserver(function (es, io) { if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); loadCal(); } }, { rootMargin: '900px 0px' }).observe(document.getElementById('calwrap'));
+else loadCal();
+
+/* Phone bar: away while the video, another ask or the calendar is on screen. */
+(function () {
+  var bar = document.getElementById('stick'); if (!('IntersectionObserver' in window)) return;
+  var seen = new Set();
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); }); bar.classList.toggle('away', seen.size > 0); });
+  document.querySelectorAll('.js-claim').forEach(function (b) { if (!bar.contains(b)) io.observe(b); });
+  io.observe(document.getElementById('player')); io.observe(document.getElementById('claim'));
+})();
+</script>
+</body>
+</html>
