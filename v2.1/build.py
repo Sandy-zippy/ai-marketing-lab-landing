@@ -20,6 +20,7 @@ head = head.replace('<script defer src="/assets/posthog.js"></script>', '')
 head = head.replace('href="css/sections.css"', 'href="../call/css/sections.css"')
 head = head.replace("url('assets/", "url('../call/assets/").replace('url(assets/', 'url(../call/assets/')
 CSS = (ROOT / 'v2.1/v21.css').read_text()
+head += '<link rel="preconnect" href="https://app.cal.com" crossorigin />\n<link rel="preconnect" href="https://cal.com" crossorigin />\n'
 head += '<link rel="preload" href="media/vsl-poster.jpg" as="image" />\n<style>\n' + CSS + '\n</style>\n'
 
 CLAIM = 'Claim my free 45-minute growth map'

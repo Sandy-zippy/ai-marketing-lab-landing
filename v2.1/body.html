@@ -34,9 +34,10 @@
   <div class="wrap">
     <p class="label">Their month</p>
     <h2 id="p-h">Busy this month. Nothing booked for next month?</h2>
-    <div class="loopbox"><video muted loop playsinline autoplay preload="none" poster="../assets/loops/pain.jpg" aria-label="The chase cycle: chasing, calendar full, busy delivering, pipeline empty, and round again"><source src="../assets/loops/pain.webm" type="video/webm" /><source src="../assets/loops/pain.mp4" type="video/mp4" /></video></div>
     <div class="short">
-      <p>You spend every evening sending DMs and following up. A couple of clients sign. You get busy delivering. Four weeks later the pipeline's empty, so you go back to chasing.</p>
+      <p>One month your calendar is full, because you spent every evening sending DMs, following up and posting.</p>
+      <p>A couple of clients sign. You get busy delivering, the part you're actually good at.</p>
+      <p>Four weeks later you look up and the pipeline's empty. So you go back to chasing.</p>
     </div>
     <p class="pull21">It isn't that you can't get clients. It's that every client depends on <em>you pushing.</em></p>
   </div>
@@ -47,7 +48,6 @@
   <div class="wrap">
     <p class="label">Why it isn't your fault</p>
     <h2 id="y-h">Getting a client is a chain. Most fixes touch one link.</h2>
-    <div class="loopbox"><video muted loop playsinline autoplay preload="none" poster="../assets/loops/system.jpg" aria-label="The chain: find the right people, write to them, follow up, sales call, after the yes"><source src="../assets/loops/system.webm" type="video/webm" /><source src="../assets/loops/system.mp4" type="video/mp4" /></video></div>
     <ul class="fails21">
       <li><span>More content</span><b>More posts, faster.</b><p>The pipeline looked the same. Content was never the problem.</p></li>
       <li><span>An agency for the ads</span><b>One link fixed.</b><p>Nobody calls the lead back, so the lead you paid for goes quiet.</p></li>
@@ -163,19 +163,11 @@ window.AIML = {
   }
 };
 
-/* Loops play only while on screen (and never under reduced motion). */
-(function () {
-  var vids = [].slice.call(document.querySelectorAll('.loopbox video'));
-  if (REDUCE || !('IntersectionObserver' in window)) return;
-  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.preload = 'auto'; var p = e.target.play(); if (p && p.catch) p.catch(function () {}); } else e.target.pause(); }); }, { rootMargin: '200px 0px' });
-  vids.forEach(function (v) { io.observe(v); });
-  if (REDUCE) document.getElementById('loop').pause();
-})();
-
 /* VSL: the re-edited cut (no ₹999), 1080p only. */
 (function () {
   var v = document.getElementById('vsl'), loop = document.getElementById('loop'), btn = document.getElementById('play'), end = document.getElementById('vend');
   var HD = 'vsl/hd.m3u8';
+  if (REDUCE) loop.pause();
   function attach(cb) {
     if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = HD; return cb(); }
     var s = document.createElement('script'); s.src = '../assets/vendor/hls.light.min.js';
@@ -208,8 +200,8 @@ function loadCal() {
   Cal.ns.v21('on', { action: 'bookingSuccessful', callback: function () { track('FreeCallBooked'); if (window.fbq) fbq('track', 'Schedule'); } });
 }
 document.querySelectorAll('.js-claim').forEach(function (a) { a.addEventListener('click', function () { loadCal(); track('ClaimClick'); }); });
-if ('IntersectionObserver' in window) new IntersectionObserver(function (es, io) { if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); loadCal(); } }, { rootMargin: '900px 0px' }).observe(document.getElementById('calwrap'));
-else loadCal();
+/* the calendar iframe takes seconds to boot, so it starts as soon as the page has loaded (idle), not when the visitor reaches it */
+addEventListener('load', function () { setTimeout(function () { if (window.requestIdleCallback) requestIdleCallback(loadCal, { timeout: 1500 }); else loadCal(); }, 600); });
 
 /* Phone bar: away while the video, another ask or the calendar is on screen. */
 (function () {
