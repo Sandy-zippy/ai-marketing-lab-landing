@@ -83,6 +83,12 @@ for k, v in {'{{S1}}': s1, '{{S1B}}': s1b, '{{S3}}': s3, '{{S6}}': s6, '{{S4}}':
 html = head + '</head>\n' + body
 # page-local assets of the v1 sections live under /call
 html = re.sub(r'(src|data-poster|poster)="(assets|media)/', r'\1="../call/\2/', html)
+# Sandy 9 Oct: professional face-locked ChatGPT portrait (brand/face-lock/teach-candid-9oct.png) replaces the casual poolside still,
+# so the caption no longer names that event.
+html = sub(html, 'src="../call/assets/s1b-teach-graded.webp"', 'src="media/sandy-teach.webp" style="object-position:96% 40%"')
+html = sub(html, 'alt="Sandy at a whiteboard by a pool, teaching founders the 5 M\'s: money, market, model, manpower, metrics, split into sales and operations"',
+           'alt="Sandy at a glass board with founders, walking through the 5 M\'s: money, market, model, manpower, metrics"')
+html = sub(html, "Teaching founders at Founder's House Bootcamp, India", "The 5 M's: the first thing I map with every founder")
 html = html.replace('data-poster="../call/media/sami-testimonial-poster.jpg"', 'poster="../call/media/sami-testimonial-poster.jpg"')
 html = html.replace('href="../privacy"', 'href="/privacy"').replace('href="../contact"', 'href="/contact"').replace('href="../terms"', 'href="/terms"').replace('href="../refund"', 'href="/refund"')
 assert 'js-pay' not in html and 'Book my' not in html
